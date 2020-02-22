@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Form } from "react-bootstrap";
 import Table from "./Table";
-import { GruppContext, ValuesContext } from "../page/canvas";
+import { GruppContext, ValuesContext } from "./Book";
 import FormInput from "./FormInput";
 
 import "../styles/styles.css";
@@ -60,7 +60,7 @@ export default (props) => {
     const setStateWithData = data => {
       setId(data.id);
       if (data.data && data.data.trim() !== "") {
-        var inputData = JSON.parse(data.data.replace(/'/g, '"'));
+        let inputData = JSON.parse(data.data.replace(/'/g, '"'));
         props.json.map(value => {
           if (value.type === "file") {
             return null;

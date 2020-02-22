@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ValuesContext } from "../page/canvas";
+import { ValuesContext } from "./Book";
 import Math from "./Math";
 import VariableLabel from "./VariableLabel";
 

@@ -7,7 +7,7 @@ import itemJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import Book from "../components/Book";
 
-function ItemPage(pageInfo) {
+export default (pageInfo) => {
   let { _id } = pageInfo.match.params;
   const [counter, setCounter] = useState(1);
   const [reRender, setReRender] = useState(false);
@@ -138,4 +138,3 @@ function ItemPage(pageInfo) {
   );
 }
 
-export default ItemPage;

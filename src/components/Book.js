@@ -43,8 +43,8 @@ export default props => {
       query: query[props.json.query],
       variables: { id: props.getQueryBy }
     });
-    var array = objectPath.get(oldData, props.json.queryPath);
-    var index = array.findIndex(
+    let array = objectPath.get(oldData, props.json.queryPath);
+    let index = array.findIndex(
       x => x.id === data[props.json.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
@@ -52,7 +52,7 @@ export default props => {
       `${props.json.queryPath}.${index}`,
       data[props.json.queryPath.split(/[.]+/).pop()].new
     );
-    var saveData = props.json.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = props.json.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: query[props.json.query],
       variables: { id: props.getQueryBy },
@@ -65,17 +65,17 @@ export default props => {
       query: query[props.json.query],
       variables: { id: props.getQueryBy }
     });
-    var secondQueryPath = "";
-    var newData = data[props.firstQueryPath.split(/[.]+/).pop()];
+    let secondQueryPath = "";
+    let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
     if (props.secondQueryPath.trim()) {
       newData = data[props.secondQueryPath.split(/[.]+/).pop()];
       secondQueryPath = `.${props.arrayIndex}.${props.secondQueryPath}`;
     }
-    var array = objectPath.get(
+    let array = objectPath.get(
       oldData,
       [props.firstQueryPath] + secondQueryPath
     );
-    var index = 0;
+    let index = 0;
     if (props.secondQueryPath.trim()) {
       index = array.findIndex(x => x.id === newData.new.id);
     } else {
@@ -86,7 +86,7 @@ export default props => {
       `${props.firstQueryPath}${secondQueryPath}.${index}`,
       newData.new
     );
-    var saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
 
     cache.writeQuery({
       query: query[props.json.query],
@@ -104,7 +104,7 @@ export default props => {
       props.json.queryPath,
       data[props.json.queryPath.split(/[.]+/).pop()].new
     );
-    var saveData = props.json.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = props.json.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: query[props.json.query],
       variables: { id: props.getQueryBy },
@@ -122,7 +122,7 @@ export default props => {
       `${props.firstQueryPath}.${props.arrayIndex}.${props.secondQueryPath}`,
       data[props.secondQueryPath.split(/[.]+/).pop()].new
     );
-    var saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: props.json.query,
       variables: { id: props.getQueryBy },
@@ -154,15 +154,15 @@ export default props => {
   );
 
   if (Object.keys(values).length === 0) {
-    var count = {};
-    props.json.schema.forEach(function(v, index) {
+    let count = {};
+    props.json.schema.forEach((v, index) => {
       count[index + 1] = {};
     });
     return setValues({ ...count });
   }
 
   const getData = (info, isItData = false) => {
-    var data;
+    let data;
     if (!props.data) {
       return null;
     } else if (info.firstQueryPath) {
@@ -331,10 +331,10 @@ export default props => {
       );
     }
   };
-  var stopLoop = false;
-  var grupp = 0;
+  let stopLoop = false;
+  let grupp = 0;
   const canvas = props.json.schema.map((value, firstIndex) => {
-    var sheet;
+    let sheet;
     if (value.showForm && !grupp) {
       grupp = firstIndex + 1;
     }
@@ -352,7 +352,7 @@ export default props => {
       }
       sheet = value.sheet.map((info, index) => {
         let showEidtButton = !props.notEidtButton && !index ? true : false;
-        var object = view(
+        let object = view(
           info,
           index,
           firstIndex + 1,

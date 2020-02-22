@@ -4,7 +4,7 @@ import query from "../request/leadEngineer/Query";
 import leadEngineerJson from "../forms/LeadEngineer.json";
 import Book from "../components/Book";
 
-function LeadEngineerPage(pageInfo) {
+export default (pageInfo) => {
   const { categoryId, itemId, different } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   // const { loading1, error1, data: getGategory } = useQuery(query["GET_GEOMETRY"], {
@@ -34,5 +34,3 @@ function LeadEngineerPage(pageInfo) {
     </>
   );
 }
-
-export default LeadEngineerPage;

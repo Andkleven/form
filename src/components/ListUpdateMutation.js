@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import MutationGeneral from "./MutationGeneral";
-import { GruppContext, ValuesContext } from "../page/canvas";
+import { GruppContext, ValuesContext } from "./Book";
 import { sumFieldInObject, getLastObjectValue } from "./Function";
 
 export default props => {
@@ -74,10 +74,10 @@ export default props => {
     }
   }, [props.data, addForm, valuesContext.values]);
 
-  var emptyFroms;
+  let emptyFroms;
   if (addForm) {
     emptyFroms = [];
-    for (var i = 0; i < addForm; i++) {
+    for (let i = 0; i < addForm; i++) {
       emptyFroms.push(
         <MutationGeneral
           {...props}

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import StaticInput from "./StaticInput";
 import Input from "./Input";
-import { ValuesContext } from "../page/canvas";
+import { ValuesContext } from "./Book";
 
 export default props => {
   const valuesContext = useContext(ValuesContext);
@@ -46,7 +46,7 @@ export default props => {
           let decimal = step
             ? props.json.find(x => x.name === name).decimal
             : 0;
-          var numberValue = value;
+          let numberValue = value;
           if (
             numberValue.split(".")[1] &&
             decimal < numberValue.split(".")[1].length
@@ -64,7 +64,7 @@ export default props => {
     }
   };
   useEffect(() => {
-    var saveInfo = {};
+    let saveInfo = {};
     saveInfo["step"] = props.onePage ? undefined : props.listIndex;
     saveInfo["foreignKey"] = props.foreignKey;
     saveInfo["id"] = props.id;

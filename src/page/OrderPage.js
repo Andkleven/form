@@ -6,7 +6,7 @@ import history from "../history";
 import orderJson from "../forms/Order.json";
 import Book from "../components/Book";
 
-function OrderPage() {
+export default () => {
   const [updateOrder, setUpdateOrder] = useState(0);
   const [createOrder, setCreateOrder] = useState(false);
   const { loading, error, data } = useQuery(query["GET_ORDER"]);
@@ -51,5 +51,3 @@ function OrderPage() {
     </>
   );
 }
-
-export default OrderPage;

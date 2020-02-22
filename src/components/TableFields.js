@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import Math from "./Math";
 import VariableLabel from "./VariableLabel";
-import { ValuesContext } from "../page/canvas";
+import { ValuesContext } from "./Book";
 
 export default props => {
   const valuesContext = useContext(ValuesContext);

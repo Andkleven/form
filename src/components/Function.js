@@ -1,5 +1,5 @@
 export const sumFieldInObject = (object, key) => {
-  var total = 0;
+  let total = 0;
   Object.values(object).forEach(value => {
     total += Number(value[key]);
   });

@@ -3,7 +3,7 @@ import { Form, InputGroup } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 import FilesUpload from "./FilesUpload";
 import VariableLabel from "./VariableLabel";
-import { ValuesContext } from "../page/canvas";
+import { ValuesContext } from "./Book";
 
 // import Datetime from "react-datetime";
 // import "react-datetime/css/react-datetime.css";

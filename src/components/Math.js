@@ -1,6 +1,6 @@
 import GetValue from "./GetValueFromValues";
 
-function whatTooReturn(value, decimal) {
+const whatTooReturn = (value, decimal) => {
   if (isNaN(value)) {
     return 0;
   } else {
@@ -8,7 +8,7 @@ function whatTooReturn(value, decimal) {
   }
 }
 
-function mathCumulativeThickness(values, listIndex, decimal) {
+const mathCumulativeThickness = (values, listIndex, decimal) => {
   let previousCumulativeThickness = 0;
   if (listIndex) {
     previousCumulativeThickness = Number(
@@ -33,7 +33,7 @@ function mathCumulativeThickness(values, listIndex, decimal) {
   return whatTooReturn(cumulativeThickness, decimal);
 }
 
-function mathProposedThickness(values, listIndex, decimal) {
+const mathProposedThickness = (values, listIndex, decimal) => {
   let partOfNumber = 0;
   let shrink = Number(GetValue(values, "coatingLayer", listIndex, "shrink"));
   let actualThickness = Number(
@@ -45,7 +45,7 @@ function mathProposedThickness(values, listIndex, decimal) {
   return whatTooReturn(actualThickness + partOfNumber, decimal);
 }
 
-function mathToleranceMinPercent(values, listIndex, decimal) {
+const mathToleranceMinPercent = (values, listIndex, decimal) => {
   let toleranceMin = Number(
     GetValue(values, "leadEngineer", listIndex, "toleranceMin")
   );
@@ -58,7 +58,7 @@ function mathToleranceMinPercent(values, listIndex, decimal) {
   );
 }
 
-function mathToleranceMaxPercent(values, listIndex, decimal) {
+const mathToleranceMaxPercent = (values, listIndex, decimal) => {
   let toleranceMax = Number(
     GetValue(values, "leadEngineer", listIndex, "toleranceMax")
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import Math from "./Math";
-import { ValuesContext } from "../page/canvas";
+import { ValuesContext } from "./Book";
 import TabelFields from "./TableFields";
 
 import "../styles/styles.css";

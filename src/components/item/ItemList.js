@@ -4,7 +4,7 @@ import Item from "./Item";
 
 const OrderList = props => {
   const itemm = props.items.map(item => {
-    var data = {};
+    let data = {};
     if (item.data.trim() !== "") {
       data = JSON.parse(item.data.replace(/'/g, '"'));
     }
