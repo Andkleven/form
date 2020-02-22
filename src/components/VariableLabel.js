@@ -1,14 +1,14 @@
-import getValue from "./GetValueFromValues";
+import GetValue from "./GetValueFromValues";
 
-function VariableLabel(
+export default (
   label,
   values,
   indexVariableLabel,
   listIndex,
   queryNameVariableLabel,
   fieldNameVariableLabel
-) {
-  let variableLabel = getValue(
+) => {
+  let variableLabel = GetValue(
     values,
     queryNameVariableLabel,
     indexVariableLabel ? listIndex + indexVariableLabel : listIndex,
@@ -25,5 +25,3 @@ function VariableLabel(
   }
   return newLabel;
 }
-
-export default VariableLabel;

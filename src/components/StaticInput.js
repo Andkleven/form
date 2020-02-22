@@ -5,7 +5,7 @@ import VariableLabel from "./VariableLabel";
 
 import "../styles/styles.css";
 
-const StaticInput = props => {
+export default props => {
   const valuesContext = useContext(ValuesContext);
   const [value, setValue] = useState("");
   const [label, setLabel] = useState("");
@@ -56,4 +56,3 @@ const StaticInput = props => {
   );
 };
 
-export default StaticInput;

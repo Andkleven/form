@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorMessage = props => {
+export default ErrorMessage = props => {
   return (
     <>
       <div style={{ fontSize: 12, color: "red" }}>{props.error["min"]}</div>
@@ -14,4 +14,3 @@ const ErrorMessage = props => {
   );
 };
 
-export default ErrorMessage;

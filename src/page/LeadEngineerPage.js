@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import leadEngineerJson from "../forms/LeadEngineer.json";
-import Canvas from "./canvas";
+import Book from "../components/Book";
 
 function LeadEngineerPage(pageInfo) {
   const { categoryId, itemId, different } = pageInfo.match.params;
@@ -20,7 +20,7 @@ function LeadEngineerPage(pageInfo) {
   return (
     <>
       {
-        <Canvas
+        <Book
           componentsId={"leadEngineerPage"}
           json={leadEngineerJson}
           reRender={() => setReRender(!reRender)}

@@ -4,7 +4,7 @@ import OrderList from "../components/order/OrderList";
 import query from "../request/leadEngineer/Query";
 import history from "../history";
 import orderJson from "../forms/Order.json";
-import Canvas from "./canvas";
+import Book from "../components/Book";
 
 function OrderPage() {
   const [updateOrder, setUpdateOrder] = useState(0);
@@ -35,7 +35,7 @@ function OrderPage() {
         }}
       />
       {(updateOrder || createOrder) && (
-        <Canvas
+        <Book
           componentsId={"orderPage"}
           buttonToEveryForm={true}
           notEidtButton={true}

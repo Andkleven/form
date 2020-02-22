@@ -5,7 +5,7 @@ import history from "../history";
 import query from "../request/leadEngineer/Query";
 import itemJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
-import Canvas from "./canvas";
+import Book from "../components/Book";
 
 function ItemPage(pageInfo) {
   let { _id } = pageInfo.match.params;
@@ -74,7 +74,7 @@ function ItemPage(pageInfo) {
   if (errorMutation) return <p>Error :(</p>;
   return (
     <div>
-      <Canvas
+      <Book
         componentsId={"itemPage" + counter.toString()}
         // buttonToEveryForm={true}
         // notEidtButton={true}

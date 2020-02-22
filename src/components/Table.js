@@ -5,7 +5,7 @@ import TabelFields from "./TableFields";
 
 import "../styles/styles.css";
 
-const Table = props => {
+export default props => {
   const valuesContext = useContext(ValuesContext);
 
   useEffect(() => {
@@ -49,4 +49,3 @@ const Table = props => {
   return <>{tabel}</>;
 };
 
-export default Table;

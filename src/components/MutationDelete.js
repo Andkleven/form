@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 
-function MutationDelete(props) {
+export default (props) => {
   const handleDelete = e => {
     e.preventDefault();
     deleteMutation({
@@ -30,4 +30,3 @@ function MutationDelete(props) {
   );
 }
 
-export default MutationDelete;

@@ -31,7 +31,7 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
-const FilesUpload = props => {
+export default FilesUpload = props => {
   const filesContext = useContext(FilesContext);
   let fileString = props.file ? "file" : props.multipleFiles ? "files" : "file";
   const deleteFile = useCallback(filePath => {
@@ -99,4 +99,3 @@ const FilesUpload = props => {
   );
 };
 
-export default FilesUpload;

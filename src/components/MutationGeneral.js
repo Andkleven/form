@@ -6,7 +6,7 @@ import FormInput from "./FormInput";
 
 import "../styles/styles.css";
 
-function MutationGeneral(props) {
+export default (props) => {
   const gruppContext = useContext(GruppContext);
   const valuesContext = useContext(ValuesContext);
   const [state, setState] = useState({});
@@ -167,4 +167,3 @@ function MutationGeneral(props) {
   }
 }
 
-export default MutationGeneral;
