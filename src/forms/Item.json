@@ -1,0 +1,96 @@
+{
+  "queryPath": "createProject",
+  "mutation": "ORDER",
+  "query": "GET_ORDER_GEOMETRY",
+  "schema": [
+    {
+      "showForm": false,
+      "lookUpBy": "CPS",
+      "queryPath": "createProject.0.category",
+      "findByIndex": true,
+      "sheet": [
+        {
+          "title": "Category",
+          "name": "category",
+          "queryPath": "createProject.0.category",
+          "findByIndex": true,
+          "delete": false,
+          "oneFields": true,
+          "fields": [
+            {
+              "name": "geometry",
+              "label": "Geometry",
+              "select": "select",
+              "subtext": "Subtext",
+              "options": ["", "Mould", "Coated Item"]
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "ifsActivityCodes",
+              "label": "IFS Activity Codes",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "unit": "Unit",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "CPS",
+              "label": "CPS",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            }
+          ]
+        },
+        {
+          "title": "Add File",
+          "firstQueryPath": "createProject.0.category",
+          "secondQueryPath": "uploadFile",
+          "name": "uploadFile",
+          "delete": true,
+          "oneFields": true,
+          "getForeignKey": true,
+          "fields": [
+            {
+              "name": "itemId",
+              "type": "file",
+              "label": "Image",
+              "multipleFiles": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "showForm": true,
+      "firstQueryPath": "createProject.0.category",
+      "secondQueryPath": "item",
+      "sheet": [
+        {
+          "title": "Add item",
+          "name": "item",
+          "delete": false,
+          "firstQueryPath": "createProject.0.category",
+          "secondQueryPath": "item",
+          "createWithOldValue": true,
+          "createWithValueLast": true,
+          "oneFields": true,
+          "getForeignKey": true,
+          "fields": [
+            {
+              "name": "itemId",
+              "label": "Item ID",
+              "subtext": "Subtext"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

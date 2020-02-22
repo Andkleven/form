@@ -1,0 +1,460 @@
+{
+  "queryPath": "leadEngineer",
+  "mutation": "LEADENGINEER",
+  "query": "GET_LEAD_ENGINEER",
+  "schema": [
+    {
+      "showForm": false,
+      "lookUpBy": "primer1",
+      "queryPath": "leadEngineer",
+      "sheet": [
+        {
+          "title": "Steel Preparation",
+          "queryPath": "leadEngineer",
+          "name": "leadEngineer",
+          "oneFields": true,
+          "fields": [
+            {
+              "name": "steel",
+              "label": "Steel",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Subtext",
+              "select": "select",
+              "options": ["", "Carbon", "Duplex"]
+            },
+            {
+              "name": "blastMedia",
+              "label": "Blast Media",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "unit": "Unit",
+              "subtext": "Subtext",
+              "select": "select",
+              "options": ["", "Garnet", "Grit", "Aluminum Oxide"]
+            },
+            {
+              "name": "relativeHumidityt",
+              "label": "Relative Humidity",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 85,
+              "type": "Number"
+            },
+            {
+              "name": "airTemperature",
+              "label": "Air Temperature",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 15,
+              "type": "Number"
+            },
+            {
+              "name": "steelTemperature",
+              "label": "Steel Temperature",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 15,
+              "type": "Number"
+            },
+            {
+              "name": "temperatureOverDewPoint",
+              "label": "Temperature over Dew Point",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 15,
+              "type": "Number"
+            },
+            {
+              "name": "airTemperature",
+              "label": "Air Temperature",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 3,
+              "type": "Number"
+            },
+            {
+              "name": "blastMediaConductivity",
+              "label": "Blast Media Conductivity",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number"
+            },
+            {
+              "name": "surfaceProfileMin",
+              "label": "Surface Profile (Roughness)",
+              "placeholder": "Min",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 50,
+              "type": "Number"
+            },
+            {
+              "name": "surfaceProfileMax",
+              "label": "Surface Profile (Roughness)",
+              "placeholder": "Max",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 100,
+              "type": "Number"
+            },
+            {
+              "name": "solubleSaltLevel",
+              "label": "Soluble Salt Level",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "default": 20,
+              "type": "Number"
+            },
+            {
+              "name": "inspectionOfSteelSurface",
+              "label": "Inspection of Steel Surface",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "checkbox"
+            },
+            {
+              "name": "compressedAirCheck",
+              "label": "Compressed Air Check",
+              "placeholder": "Min",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "checkbox"
+            },
+            {
+              "name": "surfaceCleanliness",
+              "label": "Surface Cleanliness",
+              "placeholder": "Max",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "checkbox"
+            },
+            {
+              "name": "uvTest",
+              "label": "UV Test",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "title": "Custom Test",
+          "queryPath": "leadEngineer.0.customSteelPreparation",
+          "name": "customSteelPreparation",
+          "oneFields": false,
+          "delete": true,
+          "addButton": "Add Custom Test",
+          "startWithOne": false,
+          "fields": [
+            {
+              "name": "nameOfTest",
+              "label": "Name of Test",
+              "placeholder": "Min",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "criteria",
+              "label": "Criteria",
+              "placeholder": "Max",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "standard",
+              "label": "Standard",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            }
+          ]
+        },
+        {
+          "title": "Priming",
+          "queryPath": "leadEngineer",
+          "name": "leadEngineer",
+          "oneFields": true,
+          "fields": [
+            {
+              "name": "primer1",
+              "label": "Primer 1",
+              "placeholder": "Min",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "select": "select",
+              "options": [
+                "None",
+                "Chemosil 211",
+                "Chemosil 231",
+                "Chemosil 360",
+                "Chemosil 411"
+              ]
+            },
+            {
+              "name": "primer2",
+              "label": "Primer 2",
+              "placeholder": "Max",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "select": "select",
+              "options": [
+                "None",
+                "Chemosil 211",
+                "Chemosil 231",
+                "Chemosil 360",
+                "Chemosil 411"
+              ]
+            },
+            {
+              "name": "rubberCementBeforeCoating",
+              "label": "Rubber Cement Before Coating",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "select": "select",
+              "options": ["None", "75051", "Soap"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lookUpBy": "numberOfLayers",
+      "queryPath": "leadEngineer.0.vulcanizationStep",
+      "sheet": [
+        {
+          "title": "Coating and Vulcanzation",
+          "query": "GET_LEAD_ENGINEER",
+          "queryPath": "leadEngineer",
+          "name": "leadEngineer",
+          "mutation": "LEADENGINEER",
+          "oneFields": true,
+          "fields": [
+            {
+              "name": "targetDescriptionValue",
+              "label": "TDV (Target Description Value)",
+              "placeholder": "Min",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "select": "select",
+              "options": ["", "OD", "ID"]
+            },
+            {
+              "name": "actualSteelTDV",
+              "label": "Actual Steel {TDV}",
+              "queryNameVariableLabel": "leadEngineer",
+              "fieldNameVariableLabel": "targetDescriptionValue",
+              "indexVariableLabel": 0,
+              "placeholder": "Max",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "number"
+            },
+            {
+              "name": "orderedTotalRubberThickness",
+              "label": "Ordered Total Rubber Thickness",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "number"
+            },
+            {
+              "name": "toleranceMin",
+              "label": "Tolerance Min",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "prepend": "Min",
+              "type": "number"
+            },
+            {
+              "name": "toleranceMinPercent",
+              "label": "Tolerance Min in Percent",
+              "math": "mathToleranceMinPercent",
+              "neverForm": true,
+              "type": "Number"
+            },
+            {
+              "name": "toleranceMax",
+              "label": "Tolerance Max",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "prepend": "Max",
+              "type": "number"
+            },
+            {
+              "name": "toleranceMaxPercent",
+              "label": "Tolerance Max in Percent",
+              "math": "mathToleranceMaxPercent",
+              "neverForm": true,
+              "type": "Number"
+            },
+            {
+              "name": "measurementPoints",
+              "label": "Measurement Points",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "maxInput": 22,
+              "max": 22,
+              "addTocontext": true
+            }
+          ]
+        },
+        {
+          "title": "Measurement Point Actual",
+          "queryPath": "leadEngineer.0.measurementPointActualTvd",
+          "name": "measurementPointActualTvd",
+          "oneFields": false,
+          "notAddButton": true,
+          "startWithOne": false,
+          "updateQueryWithQueryName": "leadEngineer",
+          "updateQueryWithFieldName": "measurementPoints",
+          "fields": [
+            {
+              "name": "measurementPointActual",
+              "label": "Measurement Point Actual",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "title": "Rubber Cement",
+          "queryPath": "leadEngineer.0.rubberCement",
+          "name": "rubberCement",
+          "oneFields": false,
+          "delete": true,
+          "addButton": "Add Rubber Cement",
+          "startWithOne": false,
+          "fields": [
+            {
+              "name": "rubberCement",
+              "label": "Rubber Cement",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "vulcanizationStep",
+          "queryPath": "leadEngineer.0.vulcanizationStep",
+          "oneFields": false,
+          "startWithOne": true,
+          "delete": true,
+          "title": "Vulcanization Steps",
+          "fields": [
+            {
+              "name": "vulcanizationOption",
+              "label": "Vulcanization Option",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "select": "select",
+              "options": [
+                "",
+                "Air Autoclave",
+                "Heating Blankets",
+                "Heating Cables",
+                "Hot Air",
+                "Steam Autoclave"
+              ]
+            },
+            {
+              "name": "programNumber",
+              "label": "Program Number",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number"
+            },
+            {
+              "name": "numberOfLayers",
+              "label": "Number of Layers",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lookUpBy": "actualThickness",
+      "queryPath": "leadEngineer.0.coatingLayer",
+      "sheet": [
+        {
+          "title": "Coating Layer",
+          "queryPath": "leadEngineer.0.coatingLayer",
+          "name": "coatingLayer",
+          "oneFields": false,
+          "notAddButton": true,
+          "sumAllPage": true,
+          "useLastPage": true,
+          "updateQueryWithCount": -1,
+          "updateQueryWithQueryName": "vulcanizationStep",
+          "updateQueryWithFieldName": "numberOfLayers",
+          "fields": [
+            {
+              "name": "layer",
+              "label": "Layer",
+              "neverForm": true,
+              "setValueByIndex": true,
+              "type": "Number"
+            },
+            {
+              "name": "compoundNumber",
+              "label": "Compound Number",
+              "select": "select",
+              "options": ["Compound Number", 73165]
+            },
+            {
+              "name": "actualThickness",
+              "label": "Actual Thickness",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number",
+              "decimal": 2,
+              "required": true
+            },
+            {
+              "name": "shrink",
+              "label": "Shrink",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number",
+              "max": 15,
+              "min": 2,
+              "required": true
+            },
+            {
+              "name": "proposedThickness",
+              "label": "Proposed Thickness",
+              "math": "mathProposedThickness",
+              "neverForm": true,
+              "decimal": 1,
+              "type": "Number"
+            },
+            {
+              "name": "layersUnique",
+              "label": "Layers Unique",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "checkbox"
+            },
+            {
+              "name": "cumulativeThickness",
+              "label": "Cumulative Thickness",
+              "math": "mathCumulativeThickness",
+              "neverForm": true,
+              "decimal": 1,
+              "type": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

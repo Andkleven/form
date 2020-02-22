@@ -1,0 +1,105 @@
+{
+  "queryPath": "createProject",
+  "mutation": "ORDER",
+  "query": "GET_ORDER",
+  "schema": [
+    {
+      "showForm": true,
+      "sheet": [
+        {
+          "queryPath": "createProject",
+          "title": "Order",
+          "findByIndex": true,
+          "name": "createProject",
+          "delete": false,
+          "oneFields": true,
+          "notUpdate": true,
+          "fields": [
+            {
+              "name": "projectName",
+              "label": "Text 1",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "projectNumber",
+              "label": "Text 2",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "unit": "Unit",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "client",
+              "label": "Text 3",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "itpDocumentNumber",
+              "label": "Text 4",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "projectManager",
+              "label": "Text 5",
+              "select": "select",
+              "subtext": "Subtext",
+              "options": ["Option 1", "Option 2", "Option 3"]
+            },
+            {
+              "name": "supervisor",
+              "label": "Text 6",
+              "select": "select",
+              "subtext": "Subtext",
+              "options": ["Option 1", "Option 2", "Option 3"]
+            },
+            {
+              "name": "leadEngineer",
+              "label": "Text 7",
+              "select": "select",
+              "subtext": "Subtext",
+              "options": ["Option 1", "Option 2", "Option 3"]
+            },
+            {
+              "name": "supervisingEngineer",
+              "label": "Text 8",
+              "select": "select",
+              "subtext": "Subtext",
+              "options": ["Option 1", "Option 2", "Option 3"]
+            },
+            {
+              "name": "qualityControl",
+              "label": "Text 9",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value"
+            },
+            {
+              "name": "numberOfCategorys",
+              "label": "Text 10",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number",
+              "required": true
+            },
+            {
+              "name": "totalNumberOfItems",
+              "label": "Text 11",
+              "placeholder": "Placeholder",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "Number",
+              "required": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
