@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import ReadField from "./ReadField";
 import ReadOnlyField from "./ReadOnlyField";
-import WritePage from "./WritePage";
+import WriteField from "./WriteField";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import Line from "./Line";
 
@@ -67,7 +67,7 @@ export default props => {
       );
     } else if (props.writeChapter || index === editField) {
       return (
-        <WritePage
+        <WriteField
           {...value}
           {...props}
           key={`${props.index}-${index}`}
