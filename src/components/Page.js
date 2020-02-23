@@ -1,12 +1,13 @@
 import React, { useEffect, useContext, useState } from "react";
 import SetFieldGroupData from "./SetFieldGroupData";
-import { ChapterContext, DocumentDateContext } from "./DocumentAndSubmit";
+import { ChapterContext, DocumentDateContext, ValidationContext } from "./DocumentAndSubmit";
 import { sumFieldInObject, getLastObjectValue } from "./Function";
 import Title from "./Title";
 
 export default props => {
   const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
+  const validationContext = useContext(ValidationContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
   const [addForm, setAddForm] = useState(0);
 
@@ -89,13 +90,13 @@ export default props => {
           {...props}
           writeChapter={writeChapter}
           fields={props.fields}
-          key={`${(props.data && props.data.length ? props.data.length : 0) +
-            i}-SetFieldGroupData`}
+          key={`${props.indexId}-${(props.data && props.data.length ? props.data.length : 0) +
+            i}`}
           data={false}
           listIndex={
             (props.data && props.data.length ? props.data.length : 0) + i
           }
-          index={`${props.index}-${(props.data && props.data.length
+          indexId={`${props.indexId}-${(props.data && props.data.length
             ? props.data.length
             : 0) + i}`}
         />
@@ -127,7 +128,7 @@ export default props => {
           <button
             onClick={() => {
               chapterContext.setEditChapter(props.thisChapter);
-              props.setvalidationPassed({});
+              validationContext.setvalidationPassed({});
             }}
             key={chapterContext.lastChapter}
           >
@@ -154,12 +155,12 @@ export default props => {
               <SetFieldGroupData
                 {...props}
                 writeChapter={writeChapter}
-                key={`${index}-SetFieldGroupData`}
+                key={`${props.indexId}-${index}`}
                 data={itemData}
                 fields={props.fields}
                 step={index}
                 listIndex={index}
-                index={`${props.index}-${index}`}
+                indexId={`${props.indexId}-${index}`}
               />
             );
           }
@@ -173,7 +174,7 @@ export default props => {
           fields={props.fields}
           step={0}
           listIndex={0}
-          index={`${props.index}-${0}`}
+          indexId={`${props.indexId}-${index}`}
         />
       )}
       {emptyFroms ? emptyFroms : null}

@@ -54,7 +54,9 @@ export default props => {
 
   return props.fields.map((value, index) => {
     if (value.line) {
-      return <Line />;
+      return <Line 
+      key={`${props.indexId}-${index}`}
+      />;
     } else if (value.readOnly) {
       return (
         <ReadOnlyField
@@ -63,6 +65,7 @@ export default props => {
           name={props.name}
           fieldName={value.name}
           key={`${props.index}-${index}`}
+          indexId={`${props.indexId}-${index}`}
         />
       );
     } else if (props.writeChapter || index === editField) {
@@ -70,10 +73,10 @@ export default props => {
         <WriteField
           {...value}
           {...props}
-          key={`${props.index}-${index}`}
+          key={`${props.indexId}-${index}`}
           value={props.state[value.name] ? props.state[value.name] : ""}
           file={value.type === "file" ? props.file : null}
-          indexId={`${props.index}-${index}`}
+          indexId={`${props.indexId}-${index}`}
           name={props.name}
           fieldName={value.name}
         />
@@ -87,7 +90,8 @@ export default props => {
           index={index}
           name={props.name}
           fieldName={value.name}
-          key={`${props.index}-${index}`}
+          key={`${props.indexId}-${index}`}
+          indexId={`${props.indexId}-${index}`}
         />
       );
     }

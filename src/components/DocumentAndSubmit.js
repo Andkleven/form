@@ -11,6 +11,7 @@ import Title from "./Title";
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
 export const DocumentDateContext = createContext();
+export const ValidationContext = createContext();
 
 export default props => {
   useEffect(() => {
@@ -295,8 +296,8 @@ export default props => {
         thisChapter={thisChapter}
         stopLoop={stopLoop}
         showEidtButton={showEidtButton}
+        indexId={`${thisChapter}-${index}`}
         index={index}
-        setvalidationPassed={setvalidationPassed}
         isSubmited={isSubmited}
         addForm={addForm}
       />
@@ -353,6 +354,9 @@ export default props => {
   });
   return (
     <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
+      <ValidationContext.Provider
+        value={{ setvalidationPassed }}
+      >
       <ChapterContext.Provider
         value={{ lastChapter, editChapter, setEditChapter }}
       >
@@ -372,6 +376,7 @@ export default props => {
           </Container>
         </FilesContext.Provider>
       </ChapterContext.Provider>
+      </ValidationContext.Provider>
     </DocumentDateContext.Provider>
   );
 };

@@ -3,7 +3,7 @@ import { Form, InputGroup } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 import FilesUpload from "./FilesUpload";
 import VariableLabel from "./VariableLabel";
-import { DocumentDateContext } from "./DocumentAndSubmit";
+import { DocumentDateContext, ValidationContext } from "./DocumentAndSubmit";
 
 // import Datetime from "react-datetime";
 // import "react-datetime/css/react-datetime.css";
@@ -15,6 +15,7 @@ import Datetime from "./inputs/Datetime";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
+  const validationContext = useContext(ValidationContext);
   const [showMinMax, setShowMinMax] = useState(false);
   const [label, setLabel] = useState("");
   const [error, setError] = useState({
@@ -118,7 +119,7 @@ export default props => {
         }));
       }
     }
-    props.setvalidationPassed(prevState => ({
+    validationContext.setvalidationPassed(prevState => ({
       ...prevState,
       [props.indexId]: passedValidation
     }));

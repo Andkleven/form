@@ -103,25 +103,18 @@ export default props => {
           />
         ) : null}
         {props.fields && (
-          <Form key={`${props.queryPath}-form-${props.index}`}>
-            {props.writeChapter ? (
+          <Form key={`${props.indexId}-${index}`}>
+            {
               <FieldGroup
                 {...props}
+                indexId={`${props.indexId}-${index}`}
                 key={props.index}
                 state={state}
                 setState={setState}
                 id={id}
                 file={props.data && props.data.file}
               />
-            ) : (
-              <Table
-                {...props}
-                state={state}
-                setState={setState}
-                key={props.index}
-                file={props.data && props.data.file}
-              />
-            )}
+           }
           </Form>
         )}
       </>
