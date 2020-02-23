@@ -55,7 +55,7 @@ export default () => {
     <>
       <OuterLogin>
         <link
-          rel="stylesheet"
+          rel="stylepages"
           href="https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css"
           media="all"
         />

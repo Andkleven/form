@@ -1,16 +1,16 @@
 import React, { Fragment, useState, createContext, useEffect } from "react";
-import MutationGeneral from "../components/MutationGeneral";
-import ListUpdateMutation from "../components/ListUpdateMutation";
+import SetFieldGroupData from "./SetFieldGroupData";
+import RepeatFiledGroup from "./RepeatFiledGroup";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import { Card, Container } from "react-bootstrap";
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 
-export const GruppContext = createContext();
+export const ChapterContext = createContext();
 export const FilesContext = createContext();
-export const ValuesContext = createContext();
+export const DocumentDateContext = createContext();
 
 export default props => {
   useEffect(() => {
@@ -27,15 +27,15 @@ export default props => {
     }
   }, [props.componentsId, props.json, props.data]);
 
-  const [gruppState, setGruppState] = useState(0);
-  const [values, setValues] = useState({});
+  const [chapter, setChapter] = useState(0);
+  const [documentDate, setDocumentDate] = useState({});
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [addForm, setAddForm] = useState(false);
 
   useEffect(() => {
-    setValues({});
+    setDocumentDate({});
   }, [props.componentsId]);
 
   const update = (cache, { data }) => {
@@ -129,13 +129,7 @@ export default props => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-  // props.data[Object.keys(props.data)[0]].id
-  //       ? props.firstQueryPath
-  //         ? updateWithVariable
-  //         : update
-  //       : props.firstQueryPath
-  //       ? createWithVariable
-  //       : create
+
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[props.json.mutation],
     {
@@ -153,12 +147,12 @@ export default props => {
     }
   );
 
-  if (Object.keys(values).length === 0) {
-    let count = {};
-    props.json.schema.forEach((v, index) => {
-      count[index + 1] = {};
+  if (Object.keys(documentDate).length === 0) {
+    let chapters = {};
+    props.json.chapters.forEach((v, index) => {
+      chapters[index + 1] = {};
     });
-    return setValues({ ...count });
+    return setDocumentDate({ ...chapters });
   }
 
   const getData = (info, isItData = false) => {
@@ -243,12 +237,12 @@ export default props => {
       return props.foreignKey;
     }
   };
-  const isSubmitButton = count => {
-    if (gruppState) {
-      if (count === gruppState) {
+  const isSubmitButton = thisChapter => {
+    if (chapter) {
+      if (thisChapter === chapter) {
         return (
           <>
-            <SubmitButton onClick={submitHandler.bind(this, count)} />
+            <SubmitButton onClick={submitHandler.bind(this, thisChapter)} />
             {isSubmited && (
               <div style={{ fontSize: 12, color: "red" }}>
                 See Error Message
@@ -257,10 +251,10 @@ export default props => {
           </>
         );
       }
-    } else if (count === grupp) {
+    } else if (thisChapter === lastChapter) {
       return (
         <>
-          <SubmitButton onClick={submitHandler.bind(this, count)} />
+          <SubmitButton onClick={submitHandler.bind(this, thisChapter)} />
           {isSubmited && (
             <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
           )}
@@ -269,7 +263,7 @@ export default props => {
     }
     return null;
   };
-  const submitHandler = count => {
+  const submitHandler = thisChapter => {
     let submit = true;
     Object.keys(validationPassed).forEach(key => {
       if (!validationPassed[key]) {
@@ -277,29 +271,29 @@ export default props => {
       }
     });
     if (submit) {
-      handleSubmit(values[count]);
+      handleSubmit(documentDate[thisChapter]);
       setIsSubmited(false);
       setAddForm(!addForm);
-      setGruppState(0);
+      setChapter(0);
       setvalidationPassed({});
     } else {
       setIsSubmited(true);
     }
   };
 
-  const view = (info, index, count, stopLoop, showEidtButton) => {
-    if (info.oneFields) {
+  const view = (info, index, thisChapter, stopLoop, showEidtButton) => {
+    if (info.repeat) {
       return (
-        <MutationGeneral
+        <SetFieldGroupData
           {...info}
           {...props}
-          key={`${index}-MutationGeneral`}
+          key={`${index}-SetFieldGroupData`}
           data={getData(info)}
           mutation={mutations[info.mutation]}
           query={query[info.query]}
           json={info.fields}
           foreignKey={testForForeignKey(info)}
-          count={count}
+          thisChapter={thisChapter}
           stopLoop={stopLoop}
           showEidtButton={showEidtButton}
           index={index}
@@ -311,16 +305,16 @@ export default props => {
       );
     } else {
       return (
-        <ListUpdateMutation
+        <RepeatFiledGroup
           {...info}
           {...props}
-          key={`${index}-ListUpdateMutation`}
+          key={`${index}-RepeatFiledGroup`}
           data={getData(info)}
           mutation={mutations[info.mutation]}
           queryPath={info.queryPath}
           query={query[info.query]}
           foreignKey={testForForeignKey(info)}
-          count={count}
+          thisChapter={thisChapter}
           stopLoop={stopLoop}
           showEidtButton={showEidtButton}
           index={index}
@@ -332,14 +326,14 @@ export default props => {
     }
   };
   let stopLoop = false;
-  let grupp = 0;
-  const canvas = props.json.schema.map((value, firstIndex) => {
-    let sheet;
-    if (value.showForm && !grupp) {
-      grupp = firstIndex + 1;
+  let lastChapter = 0;
+  const canvas = props.json.chapters.map((value, firstIndex) => {
+    let pages;
+    if (value.showForm && !lastChapter) {
+      lastChapter = firstIndex + 1;
     }
     if (stopLoop) {
-      sheet = null;
+      pages = null;
     } else {
       if (
         !getData(value, true) ||
@@ -348,9 +342,9 @@ export default props => {
           value.lookUpBy
         ]
       ) {
-        grupp = firstIndex + 1;
+        lastChapter = firstIndex + 1;
       }
-      sheet = value.sheet.map((info, index) => {
+      pages = value.pages.map((info, index) => {
         let showEidtButton = !props.notEidtButton && !index ? true : false;
         let object = view(
           info,
@@ -362,7 +356,7 @@ export default props => {
         return (
           <Fragment key={`${index}-cancas`}>
             {object}
-            {index === value.sheet.length - 1 && isSubmitButton(firstIndex + 1)}
+            {index === value.pages.length - 1 && isSubmitButton(firstIndex + 1)}
           </Fragment>
         );
       });
@@ -376,11 +370,11 @@ export default props => {
         stopLoop = true;
       }
     }
-    return sheet;
+    return pages;
   });
   return (
-    <ValuesContext.Provider value={{ values, setValues }}>
-      <GruppContext.Provider value={{ grupp, gruppState, setGruppState }}>
+    <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
+      <ChapterContext.Provider value={{ lastChapter, chapter, setChapter }}>
         <FilesContext.Provider value={{ files, setFiles }}>
           <Container className="mt-0 mt-sm-3 p-0">
             <Card
@@ -395,8 +389,8 @@ export default props => {
             </Card>
           </Container>
         </FilesContext.Provider>
-      </GruppContext.Provider>
-    </ValuesContext.Provider>
+      </ChapterContext.Provider>
+    </DocumentDateContext.Provider>
   );
 }
 

@@ -2,20 +2,20 @@
   "queryPath": "createProject",
   "mutation": "ORDER",
   "query": "GET_ORDER_GEOMETRY",
-  "schema": [
+  "chapters": [
     {
       "showForm": false,
       "lookUpBy": "CPS",
       "queryPath": "createProject.0.category",
       "findByIndex": true,
-      "sheet": [
+      "pages": [
         {
           "title": "Category",
           "name": "category",
           "queryPath": "createProject.0.category",
           "findByIndex": true,
           "delete": false,
-          "oneFields": true,
+          "repeat": true,
           "fields": [
             {
               "name": "geometry",
@@ -54,7 +54,7 @@
           "secondQueryPath": "uploadFile",
           "name": "uploadFile",
           "delete": true,
-          "oneFields": true,
+          "repeat": true,
           "getForeignKey": true,
           "fields": [
             {
@@ -71,7 +71,7 @@
       "showForm": true,
       "firstQueryPath": "createProject.0.category",
       "secondQueryPath": "item",
-      "sheet": [
+      "pages": [
         {
           "title": "Add item",
           "name": "item",
@@ -80,7 +80,7 @@
           "secondQueryPath": "item",
           "createWithOldValue": true,
           "createWithValueLast": true,
-          "oneFields": true,
+          "repeat": true,
           "getForeignKey": true,
           "fields": [
             {

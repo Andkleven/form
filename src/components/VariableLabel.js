@@ -1,4 +1,4 @@
-import GetValue from "./GetValueFromValues";
+import GetValue from "./GetValue";
 
 export default (
   label,

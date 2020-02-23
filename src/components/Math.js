@@ -1,4 +1,4 @@
-import GetValue from "./GetValueFromValues";
+import GetValue from "./GetValue";
 
 const whatTooReturn = (value, decimal) => {
   if (isNaN(value)) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import leadEngineerJson from "../forms/LeadEngineer.json";
-import Book from "../components/Book";
+import Document from "../components/Document";
 
 export default (pageInfo) => {
   const { categoryId, itemId, different } = pageInfo.match.params;
@@ -20,7 +20,7 @@ export default (pageInfo) => {
   return (
     <>
       {
-        <Book
+        <Document
           componentsId={"leadEngineerPage"}
           json={leadEngineerJson}
           reRender={() => setReRender(!reRender)}

@@ -4,7 +4,7 @@ import OrderList from "../components/order/OrderList";
 import query from "../request/leadEngineer/Query";
 import history from "../history";
 import orderJson from "../forms/Order.json";
-import Book from "../components/Book";
+import Document from "../components/Document";
 
 export default () => {
   const [updateOrder, setUpdateOrder] = useState(0);
@@ -35,7 +35,7 @@ export default () => {
         }}
       />
       {(updateOrder || createOrder) && (
-        <Book
+        <Document
           componentsId={"orderPage"}
           buttonToEveryForm={true}
           notEidtButton={true}

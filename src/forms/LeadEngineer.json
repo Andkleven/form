@@ -2,17 +2,17 @@
   "queryPath": "leadEngineer",
   "mutation": "LEADENGINEER",
   "query": "GET_LEAD_ENGINEER",
-  "schema": [
+  "chapters": [
     {
       "showForm": false,
       "lookUpBy": "primer1",
       "queryPath": "leadEngineer",
-      "sheet": [
+      "pages": [
         {
           "title": "Steel Preparation",
           "queryPath": "leadEngineer",
           "name": "leadEngineer",
-          "oneFields": true,
+          "repeat": true,
           "fields": [
             {
               "name": "steel",
@@ -148,7 +148,7 @@
           "title": "Custom Test",
           "queryPath": "leadEngineer.0.customSteelPreparation",
           "name": "customSteelPreparation",
-          "oneFields": false,
+          "repeat": false,
           "delete": true,
           "addButton": "Add Custom Test",
           "startWithOne": false,
@@ -179,7 +179,7 @@
           "title": "Priming",
           "queryPath": "leadEngineer",
           "name": "leadEngineer",
-          "oneFields": true,
+          "repeat": true,
           "fields": [
             {
               "name": "primer1",
@@ -226,14 +226,14 @@
     {
       "lookUpBy": "numberOfLayers",
       "queryPath": "leadEngineer.0.vulcanizationStep",
-      "sheet": [
+      "pages": [
         {
           "title": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineer",
           "name": "leadEngineer",
           "mutation": "LEADENGINEER",
-          "oneFields": true,
+          "repeat": true,
           "fields": [
             {
               "name": "targetDescriptionValue",
@@ -274,7 +274,7 @@
               "name": "toleranceMinPercent",
               "label": "Tolerance Min in Percent",
               "math": "mathToleranceMinPercent",
-              "neverForm": true,
+              "readOnly": true,
               "type": "Number"
             },
             {
@@ -289,7 +289,7 @@
               "name": "toleranceMaxPercent",
               "label": "Tolerance Max in Percent",
               "math": "mathToleranceMaxPercent",
-              "neverForm": true,
+              "readOnly": true,
               "type": "Number"
             },
             {
@@ -307,7 +307,7 @@
           "title": "Measurement Point Actual",
           "queryPath": "leadEngineer.0.measurementPointActualTvd",
           "name": "measurementPointActualTvd",
-          "oneFields": false,
+          "repeat": false,
           "notAddButton": true,
           "startWithOne": false,
           "updateQueryWithQueryName": "leadEngineer",
@@ -326,7 +326,7 @@
           "title": "Rubber Cement",
           "queryPath": "leadEngineer.0.rubberCement",
           "name": "rubberCement",
-          "oneFields": false,
+          "repeat": false,
           "delete": true,
           "addButton": "Add Rubber Cement",
           "startWithOne": false,
@@ -343,7 +343,7 @@
         {
           "name": "vulcanizationStep",
           "queryPath": "leadEngineer.0.vulcanizationStep",
-          "oneFields": false,
+          "repeat": false,
           "startWithOne": true,
           "delete": true,
           "title": "Vulcanization Steps",
@@ -384,12 +384,12 @@
     {
       "lookUpBy": "actualThickness",
       "queryPath": "leadEngineer.0.coatingLayer",
-      "sheet": [
+      "pages": [
         {
           "title": "Coating Layer",
           "queryPath": "leadEngineer.0.coatingLayer",
           "name": "coatingLayer",
-          "oneFields": false,
+          "repeat": false,
           "notAddButton": true,
           "sumAllPage": true,
           "useLastPage": true,
@@ -400,7 +400,7 @@
             {
               "name": "layer",
               "label": "Layer",
-              "neverForm": true,
+              "readOnly": true,
               "setValueByIndex": true,
               "type": "Number"
             },
@@ -433,7 +433,7 @@
               "name": "proposedThickness",
               "label": "Proposed Thickness",
               "math": "mathProposedThickness",
-              "neverForm": true,
+              "readOnly": true,
               "decimal": 1,
               "type": "Number"
             },
@@ -448,7 +448,7 @@
               "name": "cumulativeThickness",
               "label": "Cumulative Thickness",
               "math": "mathCumulativeThickness",
-              "neverForm": true,
+              "readOnly": true,
               "decimal": 1,
               "type": "Number"
             }

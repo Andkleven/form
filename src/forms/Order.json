@@ -2,17 +2,17 @@
   "queryPath": "createProject",
   "mutation": "ORDER",
   "query": "GET_ORDER",
-  "schema": [
+  "chapters": [
     {
       "showForm": true,
-      "sheet": [
+      "pages": [
         {
           "queryPath": "createProject",
           "title": "Order",
           "findByIndex": true,
           "name": "createProject",
           "delete": false,
-          "oneFields": true,
+          "repeat": true,
           "notUpdate": true,
           "fields": [
             {

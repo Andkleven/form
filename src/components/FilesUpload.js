@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 
-import { FilesContext } from "./Book";
+import { FilesContext } from "./Document";
 
 const baseStyle = {
   flex: 1,
