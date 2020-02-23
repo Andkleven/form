@@ -9,10 +9,9 @@
       "queryPath": "leadEngineer",
       "pages": [
         {
-          "title": "Steel Preparation",
+          "pageTitle": "Steel Preparation",
           "queryPath": "leadEngineer",
           "name": "leadEngineer",
-          "repeat": true,
           "fields": [
             {
               "name": "steel",
@@ -145,10 +144,10 @@
           ]
         },
         {
-          "title": "Custom Test",
+          "pageTitle": "Custom Test",
           "queryPath": "leadEngineer.0.customSteelPreparation",
           "name": "customSteelPreparation",
-          "repeat": false,
+          "repeat": true,
           "delete": true,
           "addButton": "Add Custom Test",
           "startWithOne": false,
@@ -176,10 +175,9 @@
           ]
         },
         {
-          "title": "Priming",
+          "pageTitle": "Priming",
           "queryPath": "leadEngineer",
           "name": "leadEngineer",
-          "repeat": true,
           "fields": [
             {
               "name": "primer1",
@@ -228,12 +226,11 @@
       "queryPath": "leadEngineer.0.vulcanizationStep",
       "pages": [
         {
-          "title": "Coating and Vulcanzation",
+          "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineer",
           "name": "leadEngineer",
           "mutation": "LEADENGINEER",
-          "repeat": true,
           "fields": [
             {
               "name": "targetDescriptionValue",
@@ -304,10 +301,10 @@
           ]
         },
         {
-          "title": "Measurement Point Actual",
+          "pageTitle": "Measurement Point Actual",
           "queryPath": "leadEngineer.0.measurementPointActualTvd",
           "name": "measurementPointActualTvd",
-          "repeat": false,
+          "repeat": true,
           "notAddButton": true,
           "startWithOne": false,
           "updateQueryWithQueryName": "leadEngineer",
@@ -323,10 +320,10 @@
           ]
         },
         {
-          "title": "Rubber Cement",
+          "pageTitle": "Rubber Cement",
           "queryPath": "leadEngineer.0.rubberCement",
           "name": "rubberCement",
-          "repeat": false,
+          "repeat": true,
           "delete": true,
           "addButton": "Add Rubber Cement",
           "startWithOne": false,
@@ -343,10 +340,10 @@
         {
           "name": "vulcanizationStep",
           "queryPath": "leadEngineer.0.vulcanizationStep",
-          "repeat": false,
+          "repeat": true,
           "startWithOne": true,
           "delete": true,
-          "title": "Vulcanization Steps",
+          "pageTitle": "Vulcanization Steps",
           "fields": [
             {
               "name": "vulcanizationOption",
@@ -386,10 +383,10 @@
       "queryPath": "leadEngineer.0.coatingLayer",
       "pages": [
         {
-          "title": "Coating Layer",
+          "pageTitle": "Coating Layer",
           "queryPath": "leadEngineer.0.coatingLayer",
           "name": "coatingLayer",
-          "repeat": false,
+          "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
           "useLastPage": true,

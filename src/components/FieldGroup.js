@@ -1,15 +1,20 @@
-import React, { useEffect, useContext } from "react";
-import ReadField from "./ReadOnlyField";
+import React, { useEffect, useContext, useState } from "react";
+import ReadField from "./ReadField";
+import ReadOnlyField from "./ReadOnlyField";
 import WritePage from "./WritePage";
-import { DocumentDateContext } from "./Document";
+import { DocumentDateContext } from "./DocumentAndSubmit";
+import Line from "./Line";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
+  const [editField, setEditField] = useState(undefined);
   useEffect(() => {
     if (
-      documentDateContext.documentDate[props.thisChapter][props.name] !== undefined &&
-      documentDateContext.documentDate[props.thisChapter][props.name][props.listIndex] !==
-        undefined
+      documentDateContext.documentDate[props.thisChapter][props.name] !==
+        undefined &&
+      documentDateContext.documentDate[props.thisChapter][props.name][
+        props.listIndex
+      ] !== undefined
     ) {
       documentDateContext.setDocumentDate(prevState => ({
         ...prevState,
@@ -27,45 +32,9 @@ export default props => {
     }
   }, [props.state]);
 
-  const onChange = e => {
-    let { name, value, type, step, min, max } = e.target;
-    min = Number(min);
-    max = Number(max);
-    if (
-      (!max && !min) ||
-      (max && Number(value) < max) ||
-      (min && min < Number(value))
-    ) {
-      if (["checkbox", "radio", "switch"].includes(type)) {
-        props.setState(prevState => ({
-          ...prevState,
-          [name]: !props.state[name]
-        }));
-      } else {
-        if (type === "number") {
-          let decimal = step
-            ? props.json.find(x => x.name === name).decimal
-            : 0;
-          let numberValue = value;
-          if (
-            numberValue.split(".")[1] &&
-            decimal < numberValue.split(".")[1].length
-          ) {
-            numberValue = props.state[name];
-          }
-          props.setState(prevState => ({
-            ...prevState,
-            [name]: numberValue
-          }));
-        } else {
-          props.setState(prevState => ({ ...prevState, [name]: value }));
-        }
-      }
-    }
-  };
   useEffect(() => {
     let saveInfo = {};
-    saveInfo["step"] = props.onePage ? undefined : props.listIndex;
+    saveInfo["step"] = props.repeat ? props.listIndex : undefined;
     saveInfo["foreignKey"] = props.foreignKey;
     saveInfo["id"] = props.id;
     documentDateContext.setDocumentDate(prevState => ({
@@ -82,13 +51,13 @@ export default props => {
       }
     }));
   }, [props.listIndex, props.foreignKey, props.id]);
-  // console.log(documentDateContext.documentDate);
-  // console.log(props.state);
 
-  return props.json.map((value, index) => {
-    if (value.readOnly) {
+  return props.fields.map((value, index) => {
+    if (value.line) {
+      return <Line />;
+    } else if (value.readOnly) {
       return (
-        <ReadField
+        <ReadOnlyField
           {...value}
           {...props}
           name={props.name}
@@ -96,7 +65,7 @@ export default props => {
           key={`${props.index}-${index}`}
         />
       );
-    } else {
+    } else if (props.writeChapter || index === editField) {
       return (
         <WritePage
           {...value}
@@ -104,10 +73,21 @@ export default props => {
           key={`${props.index}-${index}`}
           value={props.state[value.name] ? props.state[value.name] : ""}
           file={value.type === "file" ? props.file : null}
-          index={`${props.index}-${index}`}
+          indexId={`${props.index}-${index}`}
           name={props.name}
           fieldName={value.name}
-          onChange={onChange}
+        />
+      );
+    } else {
+      return (
+        <ReadField
+          {...value}
+          {...props}
+          setEditField={setEditField}
+          index={index}
+          name={props.name}
+          fieldName={value.name}
+          key={`${props.index}-${index}`}
         />
       );
     }

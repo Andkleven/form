@@ -4,12 +4,12 @@ import OrderList from "../components/order/OrderList";
 import query from "../request/leadEngineer/Query";
 import history from "../history";
 import orderJson from "../forms/Order.json";
-import Document from "../components/Document";
+import DocumentAndSubmit from "../components/DocumentAndSubmit";
 
 export default () => {
   const [updateOrder, setUpdateOrder] = useState(0);
   const [createOrder, setCreateOrder] = useState(false);
-  const { loading, error, data } = useQuery(query["GET_ORDER"]);
+  const { loading, error, data } = useQuery(query[orderJson.query]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   const newForm = () => {
@@ -35,12 +35,12 @@ export default () => {
         }}
       />
       {(updateOrder || createOrder) && (
-        <Document
+        <DocumentAndSubmit
           componentsId={"orderPage"}
           buttonToEveryForm={true}
           notEidtButton={true}
           allWaysShow={true}
-          json={orderJson}
+          document={orderJson}
           data={createOrder ? null : data}
           arrayIndex={data.createProject.findIndex(
             index => index.id === updateOrder
@@ -50,4 +50,4 @@ export default () => {
       )}
     </>
   );
-}
+};

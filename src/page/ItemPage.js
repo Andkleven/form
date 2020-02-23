@@ -5,9 +5,9 @@ import history from "../history";
 import query from "../request/leadEngineer/Query";
 import itemJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
-import Document from "../components/Document";
+import DocumentAndSubmit from "../components/DocumentAndSubmit";
 
-export default (pageInfo) => {
+export default pageInfo => {
   let { _id } = pageInfo.match.params;
   const [counter, setCounter] = useState(1);
   const [reRender, setReRender] = useState(false);
@@ -16,7 +16,7 @@ export default (pageInfo) => {
   const setstate = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query["GET_ORDER_GEOMETRY"], {
+  const { loading, error, data } = useQuery(query[itemJson.query], {
     variables: { id: _id }
   });
   useEffect(() => {
@@ -74,12 +74,12 @@ export default (pageInfo) => {
   if (errorMutation) return <p>Error :(</p>;
   return (
     <div>
-      <Document
+      <DocumentAndSubmit
         componentsId={"itemPage" + counter.toString()}
         // buttonToEveryForm={true}
         // notEidtButton={true}
         // allWaysShow={true}
-        json={itemJson}
+        document={itemJson}
         reRender={() => setReRender(!reRender)}
         data={data}
         arrayIndex={counter - 1}
@@ -136,5 +136,4 @@ export default (pageInfo) => {
       {errorMutation && <p>Error :( Please try again</p>}
     </div>
   );
-}
-
+};

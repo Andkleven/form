@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 
-import { FilesContext } from "./Document";
+import { FilesContext } from "./DocumentAndSubmit";
 
 const baseStyle = {
   flex: 1,
@@ -31,7 +31,7 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
-export default FilesUpload = props => {
+export default (FilesUpload = props => {
   const filesContext = useContext(FilesContext);
   let fileString = props.file ? "file" : props.multipleFiles ? "files" : "file";
   const deleteFile = useCallback(filePath => {
@@ -97,5 +97,4 @@ export default FilesUpload = props => {
       </div>
     </>
   );
-};
-
+});

@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from "react";
 import Math from "./Math";
 import VariableLabel from "./VariableLabel";
-import { DocumentDateContext } from "./Document";
-import ReadField from "./ReadField"
+import { DocumentDateContext } from "./DocumentAndSubmit";
+import ReadField from "./ReadField";
 
 import "../styles/styles.css";
 
@@ -11,9 +11,11 @@ export default props => {
 
   useEffect(() => {
     if (
-      documentDateContext.documentDate[props.thisChapter][props.name] !== undefined &&
-      documentDateContext.documentDate[props.thisChapter][props.name][props.listIndex] !==
-        undefined
+      documentDateContext.documentDate[props.thisChapter][props.name] !==
+        undefined &&
+      documentDateContext.documentDate[props.thisChapter][props.name][
+        props.listIndex
+      ] !== undefined
     ) {
       documentDateContext.setDocumentDate(prevState => ({
         ...prevState,
@@ -37,28 +39,32 @@ export default props => {
     props.listIndex
   ]);
 
-  const tabel = props.json.map((value, index) => {
+  const tabel = props.fields.map((value, index) => {
     return (
       <ReadField
-        label={value.queryNameVariableLabel && value.fieldNameVariableLabel
-          ? VariableLabel(
-              value.label,
-              documentDateContext.documentDate,
-              value.indexVariableLabel,
-              props.listIndex,
-              value.queryNameVariableLabel,
-              value.fieldNameVariableLabel
-            )
-          : value.label}
-        value={value.setValueByIndex
-          ? props.listIndex + 1
-          : value.math
-          ? Math[value.math](
-              documentDateContext.documentDate,
-              props.listIndex,
-              value.decimal ? value.decimal : 0
-            )
-          : props.state[value.name]}
+        label={
+          value.queryNameVariableLabel && value.fieldNameVariableLabel
+            ? VariableLabel(
+                value.label,
+                documentDateContext.documentDate,
+                value.indexVariableLabel,
+                props.listIndex,
+                value.queryNameVariableLabel,
+                value.fieldNameVariableLabel
+              )
+            : value.label
+        }
+        value={
+          value.setValueByIndex
+            ? props.listIndex + 1
+            : value.math
+            ? Math[value.math](
+                documentDateContext.documentDate,
+                props.listIndex,
+                value.decimal ? value.decimal : 0
+              )
+            : props.state[value.name]
+        }
         key={`${props.index}-${index}`}
         index={index}
       />
@@ -66,4 +72,3 @@ export default props => {
   });
   return <>{tabel}</>;
 };
-

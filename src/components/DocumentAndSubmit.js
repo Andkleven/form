@@ -1,12 +1,12 @@
 import React, { Fragment, useState, createContext, useEffect } from "react";
-import SetFieldGroupData from "./SetFieldGroupData";
-import RepeatFiledGroup from "./RepeatFiledGroup";
+import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import { Card, Container } from "react-bootstrap";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
+import Title from "./Title";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
@@ -19,15 +19,15 @@ export default props => {
         "Du har ikke gitt komponent Canvas en 'componentsId'. Tips: Sett componentsId lik navnet på komponenten som kjører Canvas komponeten."
       );
     }
-    if (props.json === undefined && props.json === null) {
-      console.error("Du må gi en 'json' til komponent Canvas");
+    if (props.document === undefined && props.document === null) {
+      console.error("Du må gi en 'document' til komponent Canvas");
     }
     if (props.data === undefined && props.data === null) {
       console.error("Du må gi en 'data' til komponent Canvas");
     }
-  }, [props.componentsId, props.json, props.data]);
+  }, [props.componentsId, props.document, props.data]);
 
-  const [chapter, setChapter] = useState(0);
+  const [editChapter, setEditChapter] = useState(0);
   const [documentDate, setDocumentDate] = useState({});
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
@@ -40,21 +40,21 @@ export default props => {
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy }
     });
-    let array = objectPath.get(oldData, props.json.queryPath);
+    let array = objectPath.get(oldData, props.document.queryPath);
     let index = array.findIndex(
-      x => x.id === data[props.json.queryPath.split(/[.]+/).pop()].new.id
+      x => x.id === data[props.document.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
-      `${props.json.queryPath}.${index}`,
-      data[props.json.queryPath.split(/[.]+/).pop()].new
+      `${props.document.queryPath}.${index}`,
+      data[props.document.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = props.json.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
@@ -62,7 +62,7 @@ export default props => {
 
   const updateWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy }
     });
     let secondQueryPath = "";
@@ -89,24 +89,24 @@ export default props => {
     let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
 
     cache.writeQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy }
     });
     objectPath.push(
       oldData,
-      props.json.queryPath,
-      data[props.json.queryPath.split(/[.]+/).pop()].new
+      props.document.queryPath,
+      data[props.document.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = props.json.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
@@ -114,7 +114,7 @@ export default props => {
 
   const createWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.json.query],
+      query: query[props.document.query],
       variables: { id: props.getQueryBy }
     });
     objectPath.push(
@@ -124,14 +124,14 @@ export default props => {
     );
     let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: props.json.query,
+      query: props.document.query,
       variables: { id: props.getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
 
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
-    mutations[props.json.mutation],
+    mutations[props.document.mutation],
     {
       update:
         !props.data ||
@@ -149,7 +149,7 @@ export default props => {
 
   if (Object.keys(documentDate).length === 0) {
     let chapters = {};
-    props.json.chapters.forEach((v, index) => {
+    props.document.chapters.forEach((v, index) => {
       chapters[index + 1] = {};
     });
     return setDocumentDate({ ...chapters });
@@ -170,7 +170,7 @@ export default props => {
     } else if (props.data) {
       data = objectPath.get(props.data, info.queryPath);
     } else {
-      console.error("ERROR, Look Up canvas.js message:", 1234567);
+      console.error("ERROR, Look Up document.js message:", 1234567);
     }
     if (isItData) {
       return data[info.findByIndex ? props.arrayIndex : data.length - 1];
@@ -238,8 +238,8 @@ export default props => {
     }
   };
   const isSubmitButton = thisChapter => {
-    if (chapter) {
-      if (thisChapter === chapter) {
+    if (editChapter) {
+      if (thisChapter === editChapter) {
         return (
           <>
             <SubmitButton onClick={submitHandler.bind(this, thisChapter)} />
@@ -274,7 +274,7 @@ export default props => {
       handleSubmit(documentDate[thisChapter]);
       setIsSubmited(false);
       setAddForm(!addForm);
-      setChapter(0);
+      setEditChapter(0);
       setvalidationPassed({});
     } else {
       setIsSubmited(true);
@@ -282,99 +282,80 @@ export default props => {
   };
 
   const view = (info, index, thisChapter, stopLoop, showEidtButton) => {
-    if (info.repeat) {
-      return (
-        <SetFieldGroupData
-          {...info}
-          {...props}
-          key={`${index}-SetFieldGroupData`}
-          data={getData(info)}
-          mutation={mutations[info.mutation]}
-          query={query[info.query]}
-          json={info.fields}
-          foreignKey={testForForeignKey(info)}
-          thisChapter={thisChapter}
-          stopLoop={stopLoop}
-          showEidtButton={showEidtButton}
-          index={index}
-          setvalidationPassed={setvalidationPassed}
-          isSubmited={isSubmited}
-          listIndex={0}
-          onePage={true}
-        />
-      );
-    } else {
-      return (
-        <RepeatFiledGroup
-          {...info}
-          {...props}
-          key={`${index}-RepeatFiledGroup`}
-          data={getData(info)}
-          mutation={mutations[info.mutation]}
-          queryPath={info.queryPath}
-          query={query[info.query]}
-          foreignKey={testForForeignKey(info)}
-          thisChapter={thisChapter}
-          stopLoop={stopLoop}
-          showEidtButton={showEidtButton}
-          index={index}
-          setvalidationPassed={setvalidationPassed}
-          isSubmited={isSubmited}
-          addForm={addForm}
-        />
-      );
-    }
+    return (
+      <Page
+        {...info}
+        {...props}
+        key={`${index}-Page`}
+        data={getData(info)}
+        mutation={mutations[info.mutation]}
+        queryPath={info.queryPath}
+        query={query[info.query]}
+        foreignKey={testForForeignKey(info)}
+        thisChapter={thisChapter}
+        stopLoop={stopLoop}
+        showEidtButton={showEidtButton}
+        index={index}
+        setvalidationPassed={setvalidationPassed}
+        isSubmited={isSubmited}
+        addForm={addForm}
+      />
+    );
   };
   let stopLoop = false;
   let lastChapter = 0;
-  const canvas = props.json.chapters.map((value, firstIndex) => {
-    let pages;
-    if (value.showForm && !lastChapter) {
+  const document = props.document.chapters.map((pageInfo, firstIndex) => {
+    let chapter;
+    if (pageInfo.showForm && !lastChapter) {
       lastChapter = firstIndex + 1;
     }
     if (stopLoop) {
-      pages = null;
+      chapter = null;
     } else {
       if (
-        !getData(value, true) ||
-        getData(value, true).data.trim() === "" ||
-        !JSON.parse(getData(value, true).data.replace(/'/g, '"'))[
-          value.lookUpBy
+        !getData(pageInfo, true) ||
+        getData(pageInfo, true).data.trim() === "" ||
+        !JSON.parse(getData(pageInfo, true).data.replace(/'/g, '"'))[
+          pageInfo.lookUpBy
         ]
       ) {
         lastChapter = firstIndex + 1;
       }
-      pages = value.pages.map((info, index) => {
+      chapter = pageInfo.pages.map((info, index) => {
         let showEidtButton = !props.notEidtButton && !index ? true : false;
-        let object = view(
-          info,
-          index,
-          firstIndex + 1,
-          stopLoop,
-          showEidtButton
-        );
+        let page = view(info, index, firstIndex + 1, stopLoop, showEidtButton);
         return (
-          <Fragment key={`${index}-cancas`}>
-            {object}
-            {index === value.pages.length - 1 && isSubmitButton(firstIndex + 1)}
+          <Fragment key={`${index}-${firstIndex}-cancas`}>
+            {page}
+            {index === pageInfo.pages.length - 1 &&
+              isSubmitButton(firstIndex + 1)}
           </Fragment>
         );
       });
       if (
-        !getData(value, true) ||
-        getData(value, true).data.trim() === "" ||
-        !JSON.parse(getData(value, true).data.replace(/'/g, '"'))[
-          value.lookUpBy
+        !getData(pageInfo, true) ||
+        getData(pageInfo, true).data.trim() === "" ||
+        !JSON.parse(getData(pageInfo, true).data.replace(/'/g, '"'))[
+          pageInfo.lookUpBy
         ]
       ) {
         stopLoop = true;
       }
     }
-    return pages;
+    return (
+      <>
+        {chapter ? (
+          <Title key={firstIndex} title={pageInfo.pages.chapterTitle} />
+        ) : null}
+        <Fragment key={`${firstIndex}-cancas`}>{chapter}</Fragment>
+      </>
+    );
   });
   return (
     <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
-      <ChapterContext.Provider value={{ lastChapter, chapter, setChapter }}>
+      <ChapterContext.Provider
+        value={{ lastChapter, editChapter, setEditChapter }}
+      >
         <FilesContext.Provider value={{ files, setFiles }}>
           <Container className="mt-0 mt-sm-3 p-0">
             <Card
@@ -382,7 +363,8 @@ export default props => {
               style={{ minHeight: "80vh", height: "100%" }}
             >
               <Card.Body>
-                {canvas}
+                <Title title={props.document.documentTitle} />
+                {document}
                 {loadingMutation && <p>Loading...</p>}
                 {errorMutation && <p>Error :( Please try again</p>}
               </Card.Body>
@@ -392,5 +374,4 @@ export default props => {
       </ChapterContext.Provider>
     </DocumentDateContext.Provider>
   );
-}
-
+};

@@ -1,44 +1,50 @@
 import React, { useEffect, useContext, useState } from "react";
 import SetFieldGroupData from "./SetFieldGroupData";
-import { ChapterContext, DocumentDateContext } from "./Document";
+import { ChapterContext, DocumentDateContext } from "./DocumentAndSubmit";
 import { sumFieldInObject, getLastObjectValue } from "./Function";
+import Title from "./Title";
 
 export default props => {
   const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
-  const [form, setForm] = useState(false);
+  const [writeChapter, setWriteChapter] = useState(undefined);
   const [addForm, setAddForm] = useState(0);
 
   useEffect(() => {
     setAddForm(0);
   }, [props.addForm]);
-  // same as mutationgeneral
   useEffect(() => {
     if (props.allWaysShow) {
-      setForm(true);
-    } else if (chapterContext.chapter) {
-      if (props.thisChapter === chapterContext.chapter) {
-        setForm(true);
+      setWriteChapter(true);
+    } else if (chapterContext.editChapter) {
+      if (props.thisChapter === chapterContext.editChapter) {
+        setWriteChapter(true);
       } else {
-        setForm(false);
+        setWriteChapter(false);
       }
     } else if (props.thisChapter === chapterContext.lastChapter) {
-      setForm(true);
+      setWriteChapter(true);
     } else {
-      setForm(false);
+      setWriteChapter(false);
     }
   }, [props, chapterContext]);
 
   useEffect(() => {
     if (
       props.startWithOne &&
-      form &&
+      writeChapter &&
       !addForm &&
       (!props.data || props.data.length === 0)
     ) {
       setAddForm(1);
     }
-  }, [props.startWithOne, form, props.data]);
+  }, [
+    props.startWithOne,
+    writeChapter,
+    props.data,
+    chapterContext.editChapter,
+    chapterContext.lastChapter
+  ]);
 
   useEffect(() => {
     if (
@@ -75,16 +81,16 @@ export default props => {
   }, [props.data, addForm, documentDateContext.documentDate]);
 
   let emptyFroms;
-  if (addForm) {
+  if (addForm && props.repeat) {
     emptyFroms = [];
     for (let i = 0; i < addForm; i++) {
       emptyFroms.push(
         <SetFieldGroupData
           {...props}
-          json={props.fields}
+          writeChapter={writeChapter}
+          fields={props.fields}
           key={`${(props.data && props.data.length ? props.data.length : 0) +
             i}-SetFieldGroupData`}
-          title=""
           data={false}
           listIndex={
             (props.data && props.data.length ? props.data.length : 0) + i
@@ -92,7 +98,6 @@ export default props => {
           index={`${props.index}-${(props.data && props.data.length
             ? props.data.length
             : 0) + i}`}
-          showEidtButton={false}
         />
       );
     }
@@ -114,14 +119,14 @@ export default props => {
   );
   return (
     <>
-      {props.showEidtButton && !props.stopLoop && !form ? (
+      {props.showEidtButton && !props.stopLoop && !writeChapter ? (
         <>
           <br />
           <br />
           <br />
           <button
             onClick={() => {
-              chapterContext.setChapter(props.thisChapter);
+              chapterContext.setEditChapter(props.thisChapter);
               props.setvalidationPassed({});
             }}
             key={chapterContext.lastChapter}
@@ -130,41 +135,53 @@ export default props => {
           </button>
         </>
       ) : null}
-      {props.title && (form || (!form && props.data && props.data.length)) ? (
-        <>
-          <br />
-          <br />
-          <h1 className="text-center">{props.title}</h1>
-          <hr className="w-100 mt-0 mb-1 p-0" />
-        </>
+      {!props.stopLoop ? (
+        <Title
+          key={`${props.thisChapter}-${props.index}-jja`}
+          title={props.pageTitle}
+        />
       ) : null}
 
-      {props.data
-        ? props.data.map((itemData, index) => {
-            if (props.data.length + addForm - 1 < index) {
-              documentDateContext.documentDate[props.thisChapter][props.name].splice(index, 1);
-              return null;
-            } else {
-              return (
-                <SetFieldGroupData
-                  {...props}
-                  key={`${index}-SetFieldGroupData`}
-                  title=""
-                  data={itemData}
-                  json={props.fields}
-                  step={index}
-                  listIndex={index}
-                  index={`${props.index}-${index}`}
-                  showEidtButton={false}
-                />
-              );
-            }
-          })
-        : null}
+      {!props.onePage && props.data && Array.isArray(props.data) ? (
+        props.data.map((itemData, index) => {
+          if (props.data.length + addForm - 1 < index) {
+            delete documentDateContext.documentDate[props.thisChapter][
+              props.name
+            ][index];
+            return null;
+          } else {
+            return (
+              <SetFieldGroupData
+                {...props}
+                writeChapter={writeChapter}
+                key={`${index}-SetFieldGroupData`}
+                data={itemData}
+                fields={props.fields}
+                step={index}
+                listIndex={index}
+                index={`${props.index}-${index}`}
+              />
+            );
+          }
+        })
+      ) : (
+        <SetFieldGroupData
+          {...props}
+          writeChapter={writeChapter}
+          key={`${0}-SetFieldGroupData`}
+          data={props.data}
+          fields={props.fields}
+          step={0}
+          listIndex={0}
+          index={`${props.index}-${0}`}
+        />
+      )}
       {emptyFroms ? emptyFroms : null}
-      {chapterContext.chapter
-        ? props.thisChapter === chapterContext.chapter && button
-        : props.thisChapter === chapterContext.lastChapter && button}
+      {props.repeat
+        ? chapterContext.editChapter
+          ? props.thisChapter === chapterContext.editChapter && button
+          : props.thisChapter === chapterContext.lastChapter && button
+        : null}
     </>
   );
 };

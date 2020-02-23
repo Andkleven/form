@@ -3,7 +3,7 @@ import { Form, InputGroup } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 import FilesUpload from "./FilesUpload";
 import VariableLabel from "./VariableLabel";
-import { DocumentDateContext } from "./Document";
+import { DocumentDateContext } from "./DocumentAndSubmit";
 
 // import Datetime from "react-datetime";
 // import "react-datetime/css/react-datetime.css";
@@ -15,12 +15,50 @@ import Datetime from "./inputs/Datetime";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
+  const [showMinMax, setShowMinMax] = useState(false);
   const [label, setLabel] = useState("");
   const [error, setError] = useState({
     min: "",
     max: "",
     required: ""
   });
+  const onChange = e => {
+    setShowMinMax(true);
+    let { name, value, type, step, min, max } = e.target;
+    min = Number(min);
+    max = Number(max);
+    if (
+      (!max && !min) ||
+      (max && Number(value) < max) ||
+      (min && min < Number(value))
+    ) {
+      if (["checkbox", "radio", "switch"].includes(type)) {
+        props.setState(prevState => ({
+          ...prevState,
+          [name]: !props.state[name]
+        }));
+      } else {
+        if (type === "number") {
+          let decimal = step
+            ? props.fields.find(x => x.name === name).decimal
+            : 0;
+          let numberValue = value;
+          if (
+            numberValue.split(".")[1] &&
+            decimal < numberValue.split(".")[1].length
+          ) {
+            numberValue = props.state[name];
+          }
+          props.setState(prevState => ({
+            ...prevState,
+            [name]: numberValue
+          }));
+        } else {
+          props.setState(prevState => ({ ...prevState, [name]: value }));
+        }
+      }
+    }
+  };
   useEffect(() => {
     setLabel(
       props.queryNameVariableLabel && props.fieldNameVariableLabel
@@ -82,7 +120,7 @@ export default props => {
     }
     props.setvalidationPassed(prevState => ({
       ...prevState,
-      [props.index]: passedValidation
+      [props.indexId]: passedValidation
     }));
   }, [props.value]);
 
@@ -95,12 +133,16 @@ export default props => {
             type={props.type}
             name={props.fieldName}
             value={props.value}
-            onChange={props.onChange}
-            id={`custom-${props.type}-${props.fieldName}-${props.index}`}
+            onChange={onChange}
+            id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
             label={label}
           />
           <Form.Text className="text-muted">{props.subtext}</Form.Text>
-          <ErrorMessage error={error} isSubmited={props.isSubmited} />
+          <ErrorMessage
+            showMinMax={showMinMax}
+            error={error}
+            isSubmited={props.isSubmited}
+          />
         </Form.Group>
       </>
     );
@@ -112,7 +154,7 @@ export default props => {
     return (
       <FilesUpload
         {...props}
-        key={`custom-${props.type}-${props.fieldName}-${props.index}`}
+        key={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
         name={props.fieldName}
       />
     );
@@ -131,9 +173,9 @@ export default props => {
             <Form.Control
               required={false}
               value={props.value}
-              id={`custom-${props.type}-${props.fieldName}-${props.index}`}
+              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
               name={props.fieldName}
-              onChange={props.onChange}
+              onChange={onChange}
               as={props.select}
               type={props.type}
               min={props.minInput ? props.minInput : undefined}
@@ -142,8 +184,8 @@ export default props => {
               placeholder={props.placeholder}
             >
               {props.options
-                ? props.options.map((option, index) => {
-                    return <option key={index}>{option}</option>;
+                ? props.options.map((option, indexId) => {
+                    return <option key={indexId}>{option}</option>;
                   })
                 : null}
             </Form.Control>
@@ -158,7 +200,11 @@ export default props => {
           <Form.Control.Feedback type="invalid">
             {props.feedback}
           </Form.Control.Feedback>
-          <ErrorMessage error={error} isSubmited={props.isSubmited} />
+          <ErrorMessage
+            showMinMax={showMinMax}
+            error={error}
+            isSubmited={props.isSubmited}
+          />
         </Form.Group>
       </>
     );

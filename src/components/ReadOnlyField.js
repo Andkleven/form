@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DocumentDateContext } from "./Document";
+import { DocumentDateContext } from "./DocumentAndSubmit";
 import Math from "./Math";
 import VariableLabel from "./VariableLabel";
-import ReadField from "./ReadField"
+import ReadField from "./ReadField";
 
 import "../styles/styles.css";
 
@@ -42,12 +42,5 @@ export default props => {
     }
   }, [documentDateContext.documentDate]);
 
-  return (
-    <ReadField
-    key={props.index}
-    value={value}
-    label={label}
-    />
-  );
+  return <ReadField key={props.index} value={value} label={label} />;
 };
-

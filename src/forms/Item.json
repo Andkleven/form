@@ -4,18 +4,17 @@
   "query": "GET_ORDER_GEOMETRY",
   "chapters": [
     {
-      "showForm": false,
       "lookUpBy": "CPS",
       "queryPath": "createProject.0.category",
       "findByIndex": true,
       "pages": [
         {
-          "title": "Category",
+          "pageTitle": "Category",
           "name": "category",
           "queryPath": "createProject.0.category",
           "findByIndex": true,
           "delete": false,
-          "repeat": true,
+          "onePage": true,
           "fields": [
             {
               "name": "geometry",
@@ -49,12 +48,12 @@
           ]
         },
         {
-          "title": "Add File",
+          "pageTitle": "Add File",
           "firstQueryPath": "createProject.0.category",
           "secondQueryPath": "uploadFile",
           "name": "uploadFile",
           "delete": true,
-          "repeat": true,
+          "onePage": true,
           "getForeignKey": true,
           "fields": [
             {
@@ -80,7 +79,7 @@
           "secondQueryPath": "item",
           "createWithOldValue": true,
           "createWithValueLast": true,
-          "repeat": true,
+          "onePage": true,
           "getForeignKey": true,
           "fields": [
             {

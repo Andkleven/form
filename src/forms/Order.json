@@ -8,11 +8,10 @@
       "pages": [
         {
           "queryPath": "createProject",
-          "title": "Order",
+          "pageTitle": "Order",
           "findByIndex": true,
           "name": "createProject",
           "delete": false,
-          "repeat": true,
           "notUpdate": true,
           "fields": [
             {

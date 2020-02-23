@@ -1,16 +1,19 @@
 import React from "react";
 
-export default ErrorMessage = props => {
+const style = { fontSize: 12, color: "red" };
+
+export default props => {
   return (
     <>
-      <div style={{ fontSize: 12, color: "red" }}>{props.error["min"]}</div>
-      <div style={{ fontSize: 12, color: "red" }}>{props.error["max"]}</div>
+      {(props.showMinMax || props.isSubmited) && (
+        <div style={style}>{props.error["min"]}</div>
+      )}
+      {(props.showMinMax || props.isSubmited) && (
+        <div style={style}>{props.error["max"]}</div>
+      )}
       {props.isSubmited && !props.error["min"] && !props.error["max"] ? (
-        <div style={{ fontSize: 12, color: "red" }}>
-          {props.error["required"]}
-        </div>
+        <div style={style}>{props.error["required"]}</div>
       ) : null}
     </>
   );
 };
-
