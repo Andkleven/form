@@ -38,7 +38,7 @@ export default () => {
         <DocumentAndSubmit
           componentsId={"orderPage"}
           buttonToEveryForm={true}
-          notEidtButton={true}
+          notEditButton={true}
           allWaysShow={true}
           document={orderJson}
           data={createOrder ? null : data}

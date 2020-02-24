@@ -289,7 +289,7 @@ export default props => {
     }
   };
   console.log(documentDate);
-  const view = (info, index, thisChapter, stopLoop, showEidtButton) => {
+  const view = (info, index, thisChapter, stopLoop, showEditButton) => {
     return (
       <Page
         {...info}
@@ -300,7 +300,7 @@ export default props => {
         foreignKey={testForForeignKey(info)}
         thisChapter={thisChapter}
         stopLoop={stopLoop}
-        showEidtButton={showEidtButton}
+        showEditButton={showEditButton}
         indexId={`${thisChapter}-${index}`}
         index={index}
         addForm={addForm}
@@ -338,8 +338,8 @@ export default props => {
       }
       // Map through pages in this chaper
       chapter = pageInfo.pages.map((info, index) => {
-        let showEidtButton = !props.notEidtButton && !index ? true : false;
-        let page = view(info, index, firstIndex + 1, stopLoop, showEidtButton);
+        let showEditButton = !props.notEditButton && !index ? true : false;
+        let page = view(info, index, firstIndex + 1, stopLoop, showEditButton);
         return (
           <Fragment key={`${index}-${firstIndex}-cancas`}>
             {page}

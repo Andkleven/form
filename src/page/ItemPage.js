@@ -77,7 +77,7 @@ export default pageInfo => {
       <DocumentAndSubmit
         componentsId={"itemPage" + counter.toString()}
         // buttonToEveryForm={true}
-        // notEidtButton={true}
+        // notEditButton={true}
         // allWaysShow={true}
         document={itemJson}
         reRender={() => setReRender(!reRender)}

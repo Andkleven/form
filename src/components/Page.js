@@ -138,7 +138,7 @@ export default props => {
 
   return (
     <>
-      {props.showEidtButton && !props.stopLoop && !writeChapter ? (
+      {props.showEditButton && !props.stopLoop && !writeChapter ? (
         <>
           <br />
           <br />
