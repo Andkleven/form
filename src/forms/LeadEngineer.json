@@ -305,8 +305,8 @@
           "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
-          "repaetGroupWithPageName": "leadEngineer",
-          "repaetGroupWithFieldName": "measurementPoints",
+          "repeatGroupWithPageName": "leadEngineer",
+          "repeatGroupWithFieldName": "measurementPoints",
           "fields": [
             {
               "fieldName": "measurementPointActual",
@@ -388,9 +388,9 @@
           "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
-          "repaetGroupWithChapter": -1,
-          "repaetGroupWithPageName": "vulcanizationStep",
-          "repaetGroupWithFieldName": "numberOfLayers",
+          "repeatGroupWithChapter": -1,
+          "repeatGroupWithPageName": "vulcanizationStep",
+          "repeatGroupWithFieldName": "numberOfLayers",
           "fields": [
             {
               "fieldName": "layer",

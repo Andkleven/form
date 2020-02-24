@@ -4,7 +4,7 @@ export default (
   label,
   value = undefined,
   indexVariableLabel = undefined,
-  listIndex = undefined,
+  repeatStep = undefined,
   queryNameVariableLabel = undefined,
   fieldNameVariableLabel = undefined,
   index = undefined
@@ -17,7 +17,7 @@ export default (
     variableLabel = GetValue(
       value,
       queryNameVariableLabel,
-      indexVariableLabel ? listIndex + indexVariableLabel : listIndex,
+      indexVariableLabel ? repeatStep + indexVariableLabel : repeatStep,
       fieldNameVariableLabel
     );
   } else {

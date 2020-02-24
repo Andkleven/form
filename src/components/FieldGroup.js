@@ -16,7 +16,7 @@ export default props => {
       documentDateContext.documentDate[props.thisChapter][props.pageName] !==
         undefined &&
       documentDateContext.documentDate[props.thisChapter][props.pageName][
-        props.listIndex
+        props.repeatStep
       ] !== undefined
     ) {
       documentDateContext.setDocumentDate(prevState => ({
@@ -25,8 +25,8 @@ export default props => {
           ...prevState[props.thisChapter],
           [props.pageName]: {
             ...prevState[props.thisChapter][props.pageName],
-            [props.listIndex]: {
-              ...prevState[props.thisChapter][props.pageName][props.listIndex],
+            [props.repeatStep]: {
+              ...prevState[props.thisChapter][props.pageName][props.repeatStep],
               ...props.state
             }
           }
@@ -38,7 +38,7 @@ export default props => {
   // set information about saveing to documentDate
   useEffect(() => {
     let saveInfo = {};
-    saveInfo["step"] = props.repeat ? props.listIndex : undefined;
+    saveInfo["step"] = props.repeat ? props.repeatStep : undefined;
     saveInfo["foreignKey"] = props.foreignKey;
     saveInfo["id"] = props.id;
     documentDateContext.setDocumentDate(prevState => ({
@@ -47,14 +47,14 @@ export default props => {
         ...prevState[props.thisChapter],
         [props.pageName]: {
           ...prevState[props.thisChapter][props.pageName],
-          [props.listIndex]: {
-            ...prevState[props.thisChapter][props.pageName][props.listIndex],
+          [props.repeatStep]: {
+            ...prevState[props.thisChapter][props.pageName][props.repeatStep],
             saveInfo
           }
         }
       }
     }));
-  }, [props.listIndex, props.foreignKey, props.id]);
+  }, [props.repeatStep, props.foreignKey, props.id]);
 
   return props.fields.map((value, index) => {
     if (value.line) {
@@ -105,10 +105,10 @@ export default props => {
                   value.label,
                   documentDateContext.documentDate,
                   value.indexVariableLabel,
-                  props.listIndex,
+                  props.repeatStep,
                   value.queryNameVariableLabel,
                   value.fieldNameVariableLabel,
-                  value.indexVariableLabel ? props.listIndex : undefined
+                  value.indexVariableLabel ? props.repeatStep : undefined
                 )
               : value.label
           }

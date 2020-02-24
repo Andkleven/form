@@ -63,33 +63,33 @@ export default props => {
   // If number of repeat group decides by a anthor field, it's sets repeatGroup
   useEffect(() => {
     if (
-      props.repaetGroupWithFieldName &&
-      props.repaetGroupWithPageName &&
+      props.repeatGroupWithFieldName &&
+      props.repeatGroupWithPageName &&
       documentDateContext.documentDate[
         props.thisChapter +
-          (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
-      ][props.repaetGroupWithPageName] !== undefined &&
+          (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
+      ][props.repeatGroupWithPageName] !== undefined &&
       documentDateContext.documentDate[
         props.thisChapter +
-          (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
-      ][props.repaetGroupWithPageName][0] !== undefined
+          (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
+      ][props.repeatGroupWithPageName][0] !== undefined
     ) {
       let newValue;
       let object =
         documentDateContext.documentDate[
           props.thisChapter +
-            (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
-        ][props.repaetGroupWithPageName];
+            (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
+        ][props.repeatGroupWithPageName];
       if (props.sumAllPage) {
-        newValue = sumFieldInObject(object, props.repaetGroupWithFieldName);
+        newValue = sumFieldInObject(object, props.repeatGroupWithFieldName);
       } else if (props.useLastPage) {
-        newValue = getLastObjectValue(object, props.repaetGroupWithFieldName);
+        newValue = getLastObjectValue(object, props.repeatGroupWithFieldName);
       } else {
         newValue =
           documentDateContext.documentDate[
             props.thisChapter +
-              (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
-          ][props.repaetGroupWithPageName][0][props.repaetGroupWithFieldName];
+              (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
+          ][props.repeatGroupWithPageName][0][props.repeatGroupWithFieldName];
       }
       setRepeatGroup(newValue - props.data.length);
     }
@@ -109,7 +109,7 @@ export default props => {
             ? props.data.length
             : 0) + i}`}
           data={false}
-          listIndex={
+          repeatStep={
             (props.data && props.data.length ? props.data.length : 0) + i
           }
           indexId={`${props.indexId}-${(props.data && props.data.length
@@ -178,7 +178,7 @@ export default props => {
                 data={itemData}
                 fields={props.fields}
                 step={index}
-                listIndex={index}
+                repeatStep={index}
                 indexId={`${props.indexId}-${index}`}
               />
             );
@@ -192,7 +192,7 @@ export default props => {
           data={props.data}
           fields={props.fields}
           step={0}
-          listIndex={0}
+          repeatStep={0}
           indexId={`${props.indexId}-0`}
         />
       )}

@@ -16,20 +16,20 @@ export default props => {
   if (
     !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
     !documentDateContext.documentDate[props.thisChapter][props.pageName][
-      props.listIndex
+      props.repeatStep
     ]
   ) {
     let updateValues = {};
     if (!documentDateContext.documentDate[props.thisChapter][props.pageName]) {
-      updateValues = { [props.listIndex]: {} };
+      updateValues = { [props.repeatStep]: {} };
     } else if (
       !documentDateContext.documentDate[props.thisChapter][props.pageName][
-        props.listIndex
+        props.repeatStep
       ]
     ) {
       updateValues = {
         ...documentDateContext.documentDate[props.thisChapter][props.pageName],
-        [props.listIndex]: {}
+        [props.repeatStep]: {}
       };
     }
     documentDateContext.setDocumentDate(prevState => ({
@@ -110,7 +110,7 @@ export default props => {
                     undefined,
                     undefined,
                     undefined,
-                    props.listIndex + 1
+                    props.repeatStep + 1
                   )
                 : props.fieldGroupRepeatTitle
             }

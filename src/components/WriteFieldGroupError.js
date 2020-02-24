@@ -29,10 +29,10 @@ export default props => {
             props.label,
             documentDateContext.documentDate,
             props.indexVariableLabel,
-            props.listIndex,
+            props.repeatStep,
             props.queryNameVariableLabel,
             props.fieldNameVariableLabel,
-            props.indexVariableLabel ? props.listIndex : undefined
+            props.indexVariableLabel ? props.repeatStep : undefined
           )
         : props.label
     );

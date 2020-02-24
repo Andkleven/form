@@ -13,11 +13,11 @@ export default props => {
   // Test if value shall update when documentDate update
   useEffect(() => {
     let temporaryValue = props.setValueByIndex
-      ? props.listIndex + 1
+      ? props.repeatStep + 1
       : props.math
       ? Math[props.math](
           documentDateContext.documentDate,
-          props.listIndex,
+          props.repeatStep,
           props.decimal ? props.decimal : 0
         )
       : props.state[props.fieldName];
