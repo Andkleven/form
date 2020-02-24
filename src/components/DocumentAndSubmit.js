@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  createContext,
-  useEffect,
-  useCallback
-} from "react";
+import React, { Fragment, useState, createContext, useEffect } from "react";
 import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
@@ -36,12 +30,13 @@ export default props => {
 
   const [editChapter, setEditChapter] = useState(0);
   const [editField, setEditField] = useState(0);
-  const [documentDate, setDocumentDate] = useState({});
+  const [documentDate, setDocumentDate] = useState({}); // Store data for all document
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [addForm, setAddForm] = useState(false);
 
+  // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useEffect(() => {
     setDocumentDate({});
   }, [props.componentsId]);
@@ -154,7 +149,7 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-
+  // Save number of chaper to documentDate
   if (Object.keys(documentDate).length === 0) {
     let chapters = {};
     props.document.chapters.forEach((v, index) => {
@@ -163,6 +158,7 @@ export default props => {
     return setDocumentDate({ ...chapters });
   }
 
+  // Get data to Group or test if group have data in database
   const getData = (info, isItData = false) => {
     let data;
     if (!props.data) {
@@ -230,6 +226,7 @@ export default props => {
     setFiles([]);
   };
 
+  // Find or test if Group have a ForeignKey
   const testForForeignKey = info => {
     if (info.getForeignKey) {
       let foreignKey = objectPath.get(
@@ -245,6 +242,8 @@ export default props => {
       return props.foreignKey;
     }
   };
+
+  // Adds the submit button on the right place
   const isSubmitButton = thisChapter => {
     if (editChapter) {
       if (thisChapter === editChapter) {
@@ -318,25 +317,30 @@ export default props => {
       />
     );
   };
-  let stopLoop = false;
-  let lastChapter = 0;
+
+  let stopLoop = false; // True when we are at the first chaper now one have wirte on
+  let lastChapter = 0; // Default chapter in wirte
+  // Map through chaper in document
   const document = props.document.chapters.map((pageInfo, firstIndex) => {
-    let chapter;
+    let chapter; // new chapter to add to document
     if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
       lastChapter = firstIndex + 1;
     }
     if (stopLoop) {
       chapter = null;
     } else {
+      let getDataFromGroupWithLookUpBy = getData(pageInfo, true);
+      // if now data in lookUpBy this is last chapter
       if (
-        !getData(pageInfo, true) ||
-        getData(pageInfo, true).data.trim() === "" ||
-        !JSON.parse(getData(pageInfo, true).data.replace(/'/g, '"'))[
+        !getDataFromGroupWithLookUpBy ||
+        getDataFromGroupWithLookUpBy.data.trim() === "" ||
+        !JSON.parse(getDataFromGroupWithLookUpBy.data.replace(/'/g, '"'))[
           pageInfo.lookUpBy
         ]
       ) {
         lastChapter = firstIndex + 1;
       }
+      // Map through pages in this chaper
       chapter = pageInfo.pages.map((info, index) => {
         let showEidtButton = !props.notEidtButton && !index ? true : false;
         let page = view(info, index, firstIndex + 1, stopLoop, showEidtButton);
@@ -348,16 +352,18 @@ export default props => {
           </Fragment>
         );
       });
+      // if now data in lookUpBy stop loop
       if (
-        !getData(pageInfo, true) ||
-        getData(pageInfo, true).data.trim() === "" ||
-        !JSON.parse(getData(pageInfo, true).data.replace(/'/g, '"'))[
+        !getDataFromGroupWithLookUpBy ||
+        getDataFromGroupWithLookUpBy.data.trim() === "" ||
+        !JSON.parse(getDataFromGroupWithLookUpBy.data.replace(/'/g, '"'))[
           pageInfo.lookUpBy
         ]
       ) {
         stopLoop = true;
       }
     }
+    // return chapter
     return (
       <>
         {chapter ? (

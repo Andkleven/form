@@ -13,11 +13,14 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
-  const [addForm, setAddForm] = useState(0);
+  const [repeatGroup, setRepeatGroup] = useState(0); // if repeat set number of repeat her
 
+  // Set repeatGroup to zero on submit
   useEffect(() => {
-    setAddForm(0);
-  }, [props.addForm]);
+    setRepeatGroup(0);
+  }, [props.repeatGroup]);
+
+  // set repeatGroup
   useEffect(() => {
     if (props.allWaysShow) {
       setWriteChapter(true);
@@ -32,16 +35,22 @@ export default props => {
     } else {
       setWriteChapter(false);
     }
-  }, [props, chapterContext]);
+  }, [
+    props.allWaysShow,
+    chapterContext.editChapter,
+    props.thisChapter,
+    chapterContext.lastChapter
+  ]);
 
+  // If repeat group start with one group set repeatGroup to 1
   useEffect(() => {
     if (
       props.repeatStartWithOneGroup &&
       writeChapter &&
-      !addForm &&
+      !repeatGroup &&
       (!props.data || props.data.length === 0)
     ) {
-      setAddForm(1);
+      setRepeatGroup(1);
     }
   }, [
     props.repeatStartWithOneGroup,
@@ -51,6 +60,7 @@ export default props => {
     chapterContext.lastChapter
   ]);
 
+  // If number of repeat group decides by a anthor field, it's sets repeatGroup
   useEffect(() => {
     if (
       props.repaetGroupWithFieldName &&
@@ -81,15 +91,16 @@ export default props => {
               (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
           ][props.repaetGroupWithPageName][0][props.repaetGroupWithFieldName];
       }
-      setAddForm(newValue - props.data.length);
+      setRepeatGroup(newValue - props.data.length);
     }
-  }, [props.data, addForm, documentDateContext.documentDate]);
+  }, [props.data, repeatGroup, documentDateContext.documentDate]);
 
-  let emptyFroms;
-  if (addForm && props.repeat) {
-    emptyFroms = [];
-    for (let i = 0; i < addForm; i++) {
-      emptyFroms.push(
+  // sets field group without data
+  let emptyGroup;
+  if (repeatGroup && props.repeat) {
+    emptyGroup = [];
+    for (let i = 0; i < repeatGroup; i++) {
+      emptyGroup.push(
         <SetFieldGroupData
           {...props}
           writeChapter={writeChapter}
@@ -108,21 +119,23 @@ export default props => {
       );
     }
   } else {
-    emptyFroms = null;
+    emptyGroup = null;
   }
+  // Test if you need add button or delete button
   const button = (
     <>
       {!props.notAddButton ? (
-        <button onClick={() => setAddForm(addForm + 1)}>
+        <button onClick={() => setRepeatGroup(repeatGroup + 1)}>
           {props.addButton ? props.addButton : "Add"}
         </button>
       ) : null}
       {props.delete}
-      {props.delete && (addForm || (props.data && props.data.length)) ? (
-        <button onClick={() => setAddForm(addForm - 1)}>Delete</button>
+      {props.delete && (repeatGroup || (props.data && props.data.length)) ? (
+        <button onClick={() => setRepeatGroup(repeatGroup - 1)}>Delete</button>
       ) : null}
     </>
   );
+
   return (
     <>
       {props.showEidtButton && !props.stopLoop && !writeChapter ? (
@@ -141,6 +154,7 @@ export default props => {
           </button>
         </>
       ) : null}
+
       {!props.stopLoop ? (
         <Title
           key={`${props.thisChapter}-${props.index}-jja`}
@@ -150,7 +164,7 @@ export default props => {
 
       {!props.onePage && props.data && Array.isArray(props.data) ? (
         props.data.map((itemData, index) => {
-          if (props.data.length + addForm - 1 < index) {
+          if (props.data.length + repeatGroup - 1 < index) {
             delete documentDateContext.documentDate[props.thisChapter][
               props.pageName
             ][index];
@@ -182,7 +196,7 @@ export default props => {
           indexId={`${props.indexId}-0`}
         />
       )}
-      {emptyFroms ? emptyFroms : null}
+      {emptyGroup ? emptyGroup : null}
       {props.repeat ? writeChapter && button : null}
     </>
   );

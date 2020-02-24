@@ -9,8 +9,10 @@ import "../styles/styles.css";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  const [state, setState] = useState({});
-  const [id, setId] = useState(0);
+  const [state, setState] = useState({}); // Data for this group
+  const [id, setId] = useState(0); // Id for this group
+
+  // set page name and which group number you are on to documentDate
   if (
     !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
     !documentDateContext.documentDate[props.thisChapter][props.pageName][
@@ -40,7 +42,7 @@ export default props => {
       }
     }));
   }
-
+  // sets default data or data from database to every field in group and store it in state
   useEffect(() => {
     if (props.fields) {
       props.fields.map(value => {
@@ -92,6 +94,7 @@ export default props => {
       setId(0);
     }
   }, [props.data, props.writeChapter]);
+
   if (props.writeChapter !== undefined) {
     return (
       <>

@@ -15,7 +15,8 @@ import Datetime from "./inputs/Datetime";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
-  const [showMinMax, setShowMinMax] = useState(false);
+  const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
+
   const onChange = e => {
     setShowMinMax(true);
     let { name, value, type, step, min, max } = e.target;

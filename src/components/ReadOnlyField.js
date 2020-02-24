@@ -8,8 +8,9 @@ import "../styles/styles.css";
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [value, setValue] = useState("");
-  const [showMinMax, setShowMinMax] = useState(false);
+  const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
+  // Test if value shall update when documentDate update
   useEffect(() => {
     let temporaryValue = props.setValueByIndex
       ? props.listIndex + 1
@@ -31,6 +32,7 @@ export default props => {
       }));
     }
   }, [documentDateContext.documentDate]);
+
   return (
     <>
       <ReadField

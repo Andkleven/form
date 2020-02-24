@@ -7,6 +7,7 @@ import "../styles/styles.css";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
+  // make it write field
   const handelClick = () => {
     if (!props.readOnly) {
       fieldsContext.setEditField(props.indexId);

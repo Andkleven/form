@@ -10,6 +10,7 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
 
+  // set state to documentDate
   useEffect(() => {
     if (
       documentDateContext.documentDate[props.thisChapter][props.pageName] !==
@@ -34,6 +35,7 @@ export default props => {
     }
   }, [props.state]);
 
+  // set information about saveing to documentDate
   useEffect(() => {
     let saveInfo = {};
     saveInfo["step"] = props.repeat ? props.listIndex : undefined;
@@ -53,6 +55,7 @@ export default props => {
       }
     }));
   }, [props.listIndex, props.foreignKey, props.id]);
+
   return props.fields.map((value, index) => {
     if (value.line) {
       return <Line key={`${props.indexId}-${index}`} />;
@@ -80,7 +83,9 @@ export default props => {
             value.unit,
             value.required
           )}
-          value={props.state[value.fieldName] ? props.state[value.fieldName] : ""}
+          value={
+            props.state[value.fieldName] ? props.state[value.fieldName] : ""
+          }
           file={value.type === "file" ? props.file : null}
           indexId={`${props.indexId}-${index}`}
           index={index}

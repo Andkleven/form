@@ -20,6 +20,7 @@ export default props => {
   const fieldsContext = useContext(FieldsContext);
   const [label, setLabel] = useState("");
   const [error, setError] = useState(initialState);
+
   useEffect(() => {
     setLabel(
       (props.queryNameVariableLabel && props.fieldNameVariableLabel) ||
@@ -37,6 +38,7 @@ export default props => {
     );
   }, [documentDateContext.documentDate]);
 
+  // set error message if outside criteria
   useEffect(() => {
     if (
       fieldsContext.editField ||
