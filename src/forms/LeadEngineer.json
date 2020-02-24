@@ -272,7 +272,8 @@
               "label": "Tolerance Min in Percent",
               "math": "mathToleranceMinPercent",
               "readOnly": true,
-              "type": "Number"
+              "type": "Number",
+              "min": 2
             },
             {
               "name": "toleranceMax",
@@ -287,7 +288,8 @@
               "label": "Tolerance Max in Percent",
               "math": "mathToleranceMaxPercent",
               "readOnly": true,
-              "type": "Number"
+              "type": "Number",
+              "max": 6
             },
             {
               "name": "measurementPoints",
@@ -295,8 +297,7 @@
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "maxInput": 22,
-              "max": 22,
-              "addTocontext": true
+              "max": 22
             }
           ]
         },
@@ -332,7 +333,7 @@
               "name": "rubberCement",
               "label": "Rubber Cement",
               "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
+              "notLabel": true,
               "type": "number"
             }
           ]
@@ -343,7 +344,9 @@
           "repeat": true,
           "startWithOne": true,
           "delete": true,
+          "indexVariableFieldGroupRepeatTitle": true,
           "pageTitle": "Vulcanization Steps",
+          "fieldGroupRepeatTitle": "Step {}",
           "fields": [
             {
               "name": "vulcanizationOption",
@@ -389,7 +392,6 @@
           "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
-          "useLastPage": true,
           "updateQueryWithCount": -1,
           "updateQueryWithQueryName": "vulcanizationStep",
           "updateQueryWithFieldName": "numberOfLayers",
@@ -399,8 +401,10 @@
               "label": "Layer",
               "readOnly": true,
               "setValueByIndex": true,
-              "type": "Number"
+              "type": "Number",
+              "textCenter": true
             },
+            { "line": true },
             {
               "name": "compoundNumber",
               "label": "Compound Number",
@@ -411,8 +415,10 @@
               "name": "actualThickness",
               "label": "Actual Thickness",
               "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
               "type": "Number",
+              "min": 2,
+              "max": 4,
+              "unit": "mm",
               "decimal": 2,
               "required": true
             },
@@ -430,6 +436,9 @@
               "name": "proposedThickness",
               "label": "Proposed Thickness",
               "math": "mathProposedThickness",
+              "min": 2,
+              "max": 4,
+              "unit": "mm",
               "readOnly": true,
               "decimal": 1,
               "type": "Number"
@@ -448,7 +457,8 @@
               "readOnly": true,
               "decimal": 1,
               "type": "Number"
-            }
+            },
+            { "line": true }
           ]
         }
       ]

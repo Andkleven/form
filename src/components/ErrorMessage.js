@@ -1,8 +1,13 @@
-import React from "react";
-
-const style = { fontSize: 12, color: "red" };
+import React, { useState, useEffect } from "react";
 
 export default props => {
+  const [style, setStyle] = useState({ fontSize: 12, color: "red" });
+  useEffect(() => {
+    setStyle(prevState => ({
+      ...prevState,
+      color: props.showMinMax ? "orange" : props.isSubmited ? "red" : ""
+    }));
+  }, [props.showMinMax, props.isSubmited]);
   return (
     <>
       {(props.showMinMax || props.isSubmited) && (

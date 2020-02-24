@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 import FilesUpload from "./FilesUpload";
-import VariableLabel from "./VariableLabel";
-import { DocumentDateContext, ValidationContext } from "./DocumentAndSubmit";
+import { FieldsContext } from "./DocumentAndSubmit";
+import SubmitButton from "./SubmitButton";
 
 // import Datetime from "react-datetime";
 // import "react-datetime/css/react-datetime.css";
@@ -14,15 +14,8 @@ import Date from "./inputs/Date";
 import Datetime from "./inputs/Datetime";
 
 export default props => {
-  const documentDateContext = useContext(DocumentDateContext);
-  const validationContext = useContext(ValidationContext);
+  const fieldsContext = useContext(FieldsContext);
   const [showMinMax, setShowMinMax] = useState(false);
-  const [label, setLabel] = useState("");
-  const [error, setError] = useState({
-    min: "",
-    max: "",
-    required: ""
-  });
   const onChange = e => {
     setShowMinMax(true);
     let { name, value, type, step, min, max } = e.target;
@@ -60,70 +53,6 @@ export default props => {
       }
     }
   };
-  useEffect(() => {
-    setLabel(
-      props.queryNameVariableLabel && props.fieldNameVariableLabel
-        ? VariableLabel(
-            props.label,
-            documentDateContext.documentDate,
-            props.indexVariableLabel,
-            props.listIndex,
-            props.queryNameVariableLabel,
-            props.fieldNameVariableLabel
-          )
-        : props.label
-    );
-  }, [documentDateContext.documentDate]);
-
-  useEffect(() => {
-    let passedValidation = true;
-    if (props.required) {
-      let testValue = JSON.stringify(props.value);
-      if (!testValue.trim() || !props.value) {
-        setError(prevState => ({
-          ...prevState,
-          required: "You forgot this field"
-        }));
-        passedValidation = false;
-      } else {
-        setError(prevState => ({
-          ...prevState,
-          required: ""
-        }));
-      }
-    }
-    let min = props.min ? props.min : 0;
-    if (props.value < min) {
-      setError(prevState => ({
-        ...prevState,
-        min: `Too small, ${label} have to be bigger than ${min}`
-      }));
-      passedValidation = false;
-    } else {
-      setError(prevState => ({
-        ...prevState,
-        min: ""
-      }));
-    }
-    if (props.max) {
-      if (props.value > props.max) {
-        setError(prevState => ({
-          ...prevState,
-          max: `Too big, ${label} have to be smaller than ${props.max}`
-        }));
-        passedValidation = false;
-      } else {
-        setError(prevState => ({
-          ...prevState,
-          max: ""
-        }));
-      }
-    }
-    validationContext.setvalidationPassed(prevState => ({
-      ...prevState,
-      [props.indexId]: passedValidation
-    }));
-  }, [props.value]);
 
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return (
@@ -136,14 +65,24 @@ export default props => {
             value={props.value}
             onChange={onChange}
             id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-            label={label}
+            label={props.label}
           />
-          <Form.Text className="text-muted">{props.subtext}</Form.Text>
+          {props.subtext ? (
+            <Form.Text className="text-muted">{props.subtext}</Form.Text>
+          ) : null}
           <ErrorMessage
             showMinMax={showMinMax}
-            error={error}
+            error={props.error}
             isSubmited={props.isSubmited}
           />
+          {props.submitButton ? (
+            <SubmitButton
+              onClick={() => props.submitHandler(props.thisChapter)}
+            />
+          ) : null}
+          {fieldsContext.isSubmited && props.submitButton ? (
+            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
+          ) : null}
         </Form.Group>
       </>
     );
@@ -163,7 +102,7 @@ export default props => {
     return (
       <>
         <Form.Group>
-          <Form.Label>{label}</Form.Label>
+          {props.notLabel ? null : <Form.Label>{props.label}</Form.Label>}
           <InputGroup>
             {props.prepend && (
               <InputGroup.Prepend>
@@ -197,15 +136,25 @@ export default props => {
               </InputGroup.Append>
             )}
           </InputGroup>
-          <Form.Text className="text-muted">{props.subtext}</Form.Text>
+          {props.subtext ? (
+            <Form.Text className="text-muted">{props.subtext}</Form.Text>
+          ) : null}
           <Form.Control.Feedback type="invalid">
             {props.feedback}
           </Form.Control.Feedback>
           <ErrorMessage
             showMinMax={showMinMax}
-            error={error}
+            error={props.error}
             isSubmited={props.isSubmited}
           />
+          {props.submitButton ? (
+            <SubmitButton
+              onClick={() => props.submitHandler(props.thisChapter)}
+            />
+          ) : null}
+          {fieldsContext.isSubmited && props.submitButton ? (
+            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
+          ) : null}
         </Form.Group>
       </>
     );

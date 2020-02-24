@@ -1,14 +1,15 @@
 import GetValue from "./GetValue";
+import { allFalse } from "./Function";
 
-const whatTooReturn = (value, decimal) => {
-  if (isNaN(value)) {
-    return 0;
+function whatTooReturn(value, decimal, array = [true]) {
+  if (array.every(allFalse)) {
+    return null;
   } else {
     return value.toFixed(decimal);
   }
 }
 
-const mathCumulativeThickness = (values, listIndex, decimal) => {
+function mathCumulativeThickness(values, listIndex, decimal) {
   let previousCumulativeThickness = 0;
   if (listIndex) {
     previousCumulativeThickness = Number(
@@ -30,10 +31,14 @@ const mathCumulativeThickness = (values, listIndex, decimal) => {
   } else {
     cumulativeThickness = previousCumulativeThickness + proposedThickness;
   }
-  return whatTooReturn(cumulativeThickness, decimal);
+  return whatTooReturn(cumulativeThickness, decimal, [
+    previousCumulativeThickness,
+    proposedThickness,
+    layersUnique
+  ]);
 }
 
-const mathProposedThickness = (values, listIndex, decimal) => {
+function mathProposedThickness(values, listIndex, decimal) {
   let partOfNumber = 0;
   let shrink = Number(GetValue(values, "coatingLayer", listIndex, "shrink"));
   let actualThickness = Number(
@@ -42,10 +47,14 @@ const mathProposedThickness = (values, listIndex, decimal) => {
   if (shrink) {
     partOfNumber = (shrink * actualThickness) / 100;
   }
-  return whatTooReturn(actualThickness + partOfNumber, decimal);
+
+  return whatTooReturn(actualThickness + partOfNumber, decimal, [
+    shrink,
+    actualThickness
+  ]);
 }
 
-const mathToleranceMinPercent = (values, listIndex, decimal) => {
+function mathToleranceMinPercent(values, listIndex, decimal) {
   let toleranceMin = Number(
     GetValue(values, "leadEngineer", listIndex, "toleranceMin")
   );
@@ -54,11 +63,12 @@ const mathToleranceMinPercent = (values, listIndex, decimal) => {
   );
   return whatTooReturn(
     (toleranceMin * 100) / orderedTotalRubberThickness,
-    decimal
+    decimal,
+    [toleranceMin, orderedTotalRubberThickness]
   );
 }
 
-const mathToleranceMaxPercent = (values, listIndex, decimal) => {
+function mathToleranceMaxPercent(values, listIndex, decimal) {
   let toleranceMax = Number(
     GetValue(values, "leadEngineer", listIndex, "toleranceMax")
   );
@@ -67,14 +77,16 @@ const mathToleranceMaxPercent = (values, listIndex, decimal) => {
   );
   return whatTooReturn(
     (toleranceMax * 100) / orderedTotalRubberThickness,
-    decimal
+    decimal,
+    [toleranceMax, orderedTotalRubberThickness]
   );
 }
 
-export default Maht = {
+const Math = {
   mathCumulativeThickness,
   mathProposedThickness,
   mathToleranceMinPercent,
   mathToleranceMaxPercent
 };
 
+export default Math;

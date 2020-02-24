@@ -1,13 +1,17 @@
 import React, { useEffect, useContext, useState } from "react";
 import SetFieldGroupData from "./SetFieldGroupData";
-import { ChapterContext, DocumentDateContext, ValidationContext } from "./DocumentAndSubmit";
+import {
+  ChapterContext,
+  DocumentDateContext,
+  FieldsContext
+} from "./DocumentAndSubmit";
 import { sumFieldInObject, getLastObjectValue } from "./Function";
 import Title from "./Title";
 
 export default props => {
   const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
-  const validationContext = useContext(ValidationContext);
+  const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
   const [addForm, setAddForm] = useState(0);
 
@@ -90,8 +94,9 @@ export default props => {
           {...props}
           writeChapter={writeChapter}
           fields={props.fields}
-          key={`${props.indexId}-${(props.data && props.data.length ? props.data.length : 0) +
-            i}`}
+          key={`${props.indexId}-${(props.data && props.data.length
+            ? props.data.length
+            : 0) + i}`}
           data={false}
           listIndex={
             (props.data && props.data.length ? props.data.length : 0) + i
@@ -128,7 +133,7 @@ export default props => {
           <button
             onClick={() => {
               chapterContext.setEditChapter(props.thisChapter);
-              validationContext.setvalidationPassed({});
+              fieldsContext.setvalidationPassed({});
             }}
             key={chapterContext.lastChapter}
           >
@@ -174,15 +179,11 @@ export default props => {
           fields={props.fields}
           step={0}
           listIndex={0}
-          indexId={`${props.indexId}-${index}`}
+          indexId={`${props.indexId}-0`}
         />
       )}
       {emptyFroms ? emptyFroms : null}
-      {props.repeat
-        ? chapterContext.editChapter
-          ? props.thisChapter === chapterContext.editChapter && button
-          : props.thisChapter === chapterContext.lastChapter && button
-        : null}
+      {props.repeat ? writeChapter && button : null}
     </>
   );
 };

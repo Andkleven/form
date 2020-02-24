@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import Math from "./Math";
-import VariableLabel from "./VariableLabel";
 import ReadField from "./ReadField";
 
 import "../styles/styles.css";
@@ -9,7 +8,7 @@ import "../styles/styles.css";
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [value, setValue] = useState("");
-  const [label, setLabel] = useState("");
+  const [showMinMax, setShowMinMax] = useState(false);
 
   useEffect(() => {
     let temporaryValue = props.setValueByIndex
@@ -21,18 +20,9 @@ export default props => {
           props.decimal ? props.decimal : 0
         )
       : props.state[props.fieldName];
-    setLabel(
-      props.queryNameVariableLabel && props.fieldNameVariableLabel
-        ? VariableLabel(
-            props.label,
-            documentDateContext.documentDate,
-            props.indexVariableLabel,
-            props.listIndex,
-            props.queryNameVariableLabel,
-            props.fieldNameVariableLabel
-          )
-        : props.label
-    );
+    if (temporaryValue !== null && !showMinMax) {
+      setShowMinMax(true);
+    }
     if (temporaryValue !== props.state[props.fieldName]) {
       setValue(temporaryValue);
       props.setState(prevState => ({
@@ -41,6 +31,14 @@ export default props => {
       }));
     }
   }, [documentDateContext.documentDate]);
-
-  return <ReadField key={props.index} value={value} label={label} />;
+  return (
+    <>
+      <ReadField
+        {...props}
+        key={props.indexId}
+        value={value}
+        showMinMax={showMinMax}
+      />
+    </>
+  );
 };

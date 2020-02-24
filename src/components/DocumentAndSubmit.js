@@ -1,4 +1,10 @@
-import React, { Fragment, useState, createContext, useEffect } from "react";
+import React, {
+  Fragment,
+  useState,
+  createContext,
+  useEffect,
+  useCallback
+} from "react";
 import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
@@ -11,7 +17,7 @@ import Title from "./Title";
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
 export const DocumentDateContext = createContext();
-export const ValidationContext = createContext();
+export const FieldsContext = createContext();
 
 export default props => {
   useEffect(() => {
@@ -29,6 +35,7 @@ export default props => {
   }, [props.componentsId, props.document, props.data]);
 
   const [editChapter, setEditChapter] = useState(0);
+  const [editField, setEditField] = useState(0);
   const [documentDate, setDocumentDate] = useState({});
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
@@ -201,7 +208,7 @@ export default props => {
     });
   };
 
-  const handleSubmit = data => {
+  const submitData = data => {
     // let files;
     // if (data["files"]) {
     //   files = data["files"];
@@ -243,7 +250,10 @@ export default props => {
       if (thisChapter === editChapter) {
         return (
           <>
-            <SubmitButton onClick={submitHandler.bind(this, thisChapter)} />
+            <SubmitButton
+              key={thisChapter}
+              onClick={submitHandler.bind(this, thisChapter)}
+            />
             {isSubmited && (
               <div style={{ fontSize: 12, color: "red" }}>
                 See Error Message
@@ -255,7 +265,10 @@ export default props => {
     } else if (thisChapter === lastChapter) {
       return (
         <>
-          <SubmitButton onClick={submitHandler.bind(this, thisChapter)} />
+          <SubmitButton
+            key={thisChapter}
+            onClick={submitHandler.bind(this, thisChapter)}
+          />
           {isSubmited && (
             <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
           )}
@@ -265,6 +278,7 @@ export default props => {
     return null;
   };
   const submitHandler = thisChapter => {
+    console.log("submitData");
     let submit = true;
     Object.keys(validationPassed).forEach(key => {
       if (!validationPassed[key]) {
@@ -272,7 +286,8 @@ export default props => {
       }
     });
     if (submit) {
-      handleSubmit(documentDate[thisChapter]);
+      submitData(documentDate[thisChapter]);
+      setEditField(null);
       setIsSubmited(false);
       setAddForm(!addForm);
       setEditChapter(0);
@@ -281,13 +296,13 @@ export default props => {
       setIsSubmited(true);
     }
   };
-
   const view = (info, index, thisChapter, stopLoop, showEidtButton) => {
     return (
       <Page
         {...info}
         {...props}
         key={`${index}-Page`}
+        submitHandler={submitHandler}
         data={getData(info)}
         mutation={mutations[info.mutation]}
         queryPath={info.queryPath}
@@ -354,29 +369,34 @@ export default props => {
   });
   return (
     <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
-      <ValidationContext.Provider
-        value={{ setvalidationPassed }}
+      <FieldsContext.Provider
+        value={{
+          setvalidationPassed,
+          editField,
+          setEditField,
+          isSubmited
+        }}
       >
-      <ChapterContext.Provider
-        value={{ lastChapter, editChapter, setEditChapter }}
-      >
-        <FilesContext.Provider value={{ files, setFiles }}>
-          <Container className="mt-0 mt-sm-3 p-0">
-            <Card
-              className="shadow-sm"
-              style={{ minHeight: "80vh", height: "100%" }}
-            >
-              <Card.Body>
-                <Title title={props.document.documentTitle} />
-                {document}
-                {loadingMutation && <p>Loading...</p>}
-                {errorMutation && <p>Error :( Please try again</p>}
-              </Card.Body>
-            </Card>
-          </Container>
-        </FilesContext.Provider>
-      </ChapterContext.Provider>
-      </ValidationContext.Provider>
+        <ChapterContext.Provider
+          value={{ lastChapter, editChapter, setEditChapter }}
+        >
+          <FilesContext.Provider value={{ files, setFiles }}>
+            <Container className="mt-0 mt-sm-3 p-0">
+              <Card
+                className="shadow-sm"
+                style={{ minHeight: "80vh", height: "100%" }}
+              >
+                <Card.Body key={2}>
+                  <Title title={props.document.documentTitle} />
+                  {document}
+                  {loadingMutation && <p>Loading...</p>}
+                  {errorMutation && <p>Error :( Please try again</p>}
+                </Card.Body>
+              </Card>
+            </Container>
+          </FilesContext.Provider>
+        </ChapterContext.Provider>
+      </FieldsContext.Provider>
     </DocumentDateContext.Provider>
   );
 };

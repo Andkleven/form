@@ -1,14 +1,13 @@
-export default (values, queryName, indexNumber, fieldName) => {
+export default (value, queryName, indexNumber, fieldName) => {
   let test;
-  Object.keys(values).forEach(key => {
+  Object.keys(value).forEach(key => {
     if (
-      values[key][queryName] &&
-      values[key][queryName][indexNumber] !== undefined &&
-      values[key][queryName][indexNumber][fieldName] !== undefined
+      value[key][queryName] &&
+      value[key][queryName][indexNumber] !== undefined &&
+      value[key][queryName][indexNumber][fieldName] !== undefined
     ) {
-      test = values[key][queryName][indexNumber][fieldName];
+      test = value[key][queryName][indexNumber][fieldName];
     }
   });
   return test;
-}
-
+};

@@ -7,7 +7,6 @@ export default props => {
       {props.title ? (
         <>
           <br />
-          <br />
           <h1 className="text-center">{props.title}</h1>
           <Line />
         </>

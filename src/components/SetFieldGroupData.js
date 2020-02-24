@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Form } from "react-bootstrap";
-import Table from "./Table";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
+import VariableLabel from "./VariableLabel";
 
 import "../styles/styles.css";
 
@@ -44,7 +44,7 @@ export default props => {
   useEffect(() => {
     if (props.fields) {
       props.fields.map(value => {
-        if (value.type === "file") {
+        if (value.type === "file" || value.line) {
           return null;
         }
         return setState(prevState => ({
@@ -65,7 +65,7 @@ export default props => {
       if (data.data && data.data.trim() !== "") {
         let inputData = JSON.parse(data.data.replace(/'/g, '"'));
         props.fields.map(value => {
-          if (value.type === "file") {
+          if (value.type === "file" || value.line) {
             return null;
           }
           return setState(prevState => ({
@@ -92,29 +92,39 @@ export default props => {
       setId(0);
     }
   }, [props.data, props.writeChapter]);
-
   if (props.writeChapter !== undefined) {
     return (
       <>
         {!props.stopLoop ? (
           <Title
             key={`${props.thisChapter}-${props.index}-jja`}
-            title={props.fieldGroupRepeatTitle}
+            title={
+              props.indexVariableFieldGroupRepeatTitle
+                ? VariableLabel(
+                    props.fieldGroupRepeatTitle,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    props.listIndex + 1
+                  )
+                : props.fieldGroupRepeatTitle
+            }
           />
         ) : null}
         {props.fields && (
-          <Form key={`${props.indexId}-${index}`}>
+          <Form key={props.indexId}>
             {
               <FieldGroup
                 {...props}
-                indexId={`${props.indexId}-${index}`}
                 key={props.index}
                 state={state}
                 setState={setState}
                 id={id}
                 file={props.data && props.data.file}
               />
-           }
+            }
           </Form>
         )}
       </>

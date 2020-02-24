@@ -1,13 +1,15 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import ReadField from "./ReadField";
-import ReadOnlyField from "./ReadOnlyField";
-import WriteField from "./WriteField";
-import { DocumentDateContext } from "./DocumentAndSubmit";
+import WriteFieldGroupError from "./WriteFieldGroupError";
+import { DocumentDateContext, FieldsContext } from "./DocumentAndSubmit";
 import Line from "./Line";
+import { getSubtext } from "./Function";
+import VariableLabel from "./VariableLabel";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  const [editField, setEditField] = useState(undefined);
+  const fieldsContext = useContext(FieldsContext);
+
   useEffect(() => {
     if (
       documentDateContext.documentDate[props.thisChapter][props.name] !==
@@ -51,32 +53,37 @@ export default props => {
       }
     }));
   }, [props.listIndex, props.foreignKey, props.id]);
-
   return props.fields.map((value, index) => {
     if (value.line) {
-      return <Line 
-      key={`${props.indexId}-${index}`}
-      />;
-    } else if (value.readOnly) {
+      return <Line key={`${props.indexId}-${index}`} />;
+    } else if (
+      value.readOnly ||
+      props.writeChapter ||
+      `${props.indexId}-${index}` === fieldsContext.editField
+    ) {
       return (
-        <ReadOnlyField
-          {...value}
-          {...props}
-          name={props.name}
-          fieldName={value.name}
-          key={`${props.index}-${index}`}
-          indexId={`${props.indexId}-${index}`}
-        />
-      );
-    } else if (props.writeChapter || index === editField) {
-      return (
-        <WriteField
+        <WriteFieldGroupError
           {...value}
           {...props}
           key={`${props.indexId}-${index}`}
+          submitButton={
+            `${props.indexId}-${index}` === fieldsContext.editField
+              ? true
+              : false
+          }
+          subtext={getSubtext(
+            value.subtext,
+            value.max,
+            value.min,
+            value.maxInput,
+            value.minInput,
+            value.unit,
+            value.required
+          )}
           value={props.state[value.name] ? props.state[value.name] : ""}
           file={value.type === "file" ? props.file : null}
           indexId={`${props.indexId}-${index}`}
+          index={index}
           name={props.name}
           fieldName={value.name}
         />
@@ -84,14 +91,24 @@ export default props => {
     } else {
       return (
         <ReadField
-          {...value}
-          {...props}
-          setEditField={setEditField}
-          index={index}
-          name={props.name}
-          fieldName={value.name}
           key={`${props.indexId}-${index}`}
           indexId={`${props.indexId}-${index}`}
+          index={index}
+          value={props.state[value.name]}
+          label={
+            (value.queryNameVariableLabel && value.fieldNameVariableLabel) ||
+            value.indexVariableLabel
+              ? VariableLabel(
+                  value.label,
+                  documentDateContext.documentDate,
+                  value.indexVariableLabel,
+                  props.listIndex,
+                  value.queryNameVariableLabel,
+                  value.fieldNameVariableLabel,
+                  value.indexVariableLabel ? props.listIndex : undefined
+                )
+              : value.label
+          }
         />
       );
     }
