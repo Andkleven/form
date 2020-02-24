@@ -2,11 +2,9 @@ import React, { useState, useContext } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 import FilesUpload from "./FilesUpload";
-import { FieldsContext } from "./DocumentAndSubmit";
+import { FieldsContext, DocumentDateContext } from "./DocumentAndSubmit";
 import SubmitButton from "./SubmitButton";
-
-// import Datetime from "react-datetime";
-// import "react-datetime/css/react-datetime.css";
+import { allTrue } from "./Function";
 
 import "../styles/styles.css";
 
@@ -15,6 +13,7 @@ import Datetime from "./inputs/Datetime";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
+  const documentDateContext = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
   const onChange = e => {
@@ -54,7 +53,64 @@ export default props => {
       }
     }
   };
+  const prepareDataForSubmit = (variables, key, dictionary) => {
+    Object.keys(dictionary).forEach(value => {
+      let saveInfo = dictionary[value]["saveInfo"];
+      delete dictionary[value]["saveInfo"];
+      if (key === "uploadFile") {
+        variables[key].push({
+          ...saveInfo,
+          data: JSON.stringify(dictionary[value])
+        });
+      } else {
+        variables[key].push({
+          ...saveInfo,
+          data: JSON.stringify(dictionary[value])
+        });
+      }
+    });
+  };
 
+  const submitData = data => {
+    // let files;
+    // if (data["files"]) {
+    //   files = data["files"];
+    //   delete data["files"];
+    // }
+    let variables = {};
+    Object.keys(data).forEach(key => {
+      variables[key] = [];
+      prepareDataForSubmit(variables, key, data[key]);
+    });
+    props.mutation({
+      variables: {
+        ...variables,
+        categoryId: props.categoryId,
+        itemId: props.itemId
+      }
+    });
+  };
+
+  const submitHandler = (event, thisChapter) => {
+    event.persist();
+    event.preventDefault();
+
+    if (Object.values(fieldsContext.validationPassed).every(allTrue)) {
+      submitData(documentDateContext.documentDate[thisChapter]);
+      fieldsContext.setIsSubmited(false);
+      fieldsContext.setvalidationPassed({});
+      fieldsContext.setEditField("");
+    } else {
+      fieldsContext.setIsSubmited(true);
+    }
+  };
+
+  const handelBack = event => {
+    event.persist();
+    event.preventDefault();
+    fieldsContext.setEditField("");
+    fieldsContext.setvalidationPassed({});
+  };
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return (
       <>
@@ -71,18 +127,19 @@ export default props => {
           {props.subtext ? (
             <Form.Text className="text-muted">{props.subtext}</Form.Text>
           ) : null}
-          <ErrorMessage
-            showMinMax={showMinMax}
-            error={props.error}
-            isSubmited={props.isSubmited}
-          />
+          <ErrorMessage showMinMax={showMinMax} error={props.error} />
           {props.submitButton ? (
-            <SubmitButton
-              onClick={() => props.submitHandler(props.thisChapter)}
-            />
-          ) : null}
-          {fieldsContext.isSubmited && props.submitButton ? (
-            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
+            <>
+              <SubmitButton
+                onClick={event => submitHandler(event, props.thisChapter)}
+              />
+              {fieldsContext.isSubmited && props.submitButton ? (
+                <div style={{ fontSize: 12, color: "red" }}>
+                  See Error Message
+                </div>
+              ) : null}
+              <button onClick={event => handelBack(event)}>Back</button>
+            </>
           ) : null}
         </Form.Group>
       </>
@@ -143,18 +200,19 @@ export default props => {
           <Form.Control.Feedback type="invalid">
             {props.feedback}
           </Form.Control.Feedback>
-          <ErrorMessage
-            showMinMax={showMinMax}
-            error={props.error}
-            isSubmited={props.isSubmited}
-          />
+          <ErrorMessage showMinMax={showMinMax} error={props.error} />
           {props.submitButton ? (
-            <SubmitButton
-              onClick={() => props.submitHandler(props.thisChapter)}
-            />
-          ) : null}
-          {fieldsContext.isSubmited && props.submitButton ? (
-            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
+            <>
+              <SubmitButton
+                onClick={event => submitHandler(event, props.thisChapter)}
+              />
+              {fieldsContext.isSubmited && props.submitButton ? (
+                <div style={{ fontSize: 12, color: "red" }}>
+                  See Error Message
+                </div>
+              ) : null}
+              <button onClick={event => handelBack(event)}>Back</button>
+            </>
           ) : null}
         </Form.Group>
       </>

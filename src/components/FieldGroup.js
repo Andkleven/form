@@ -1,7 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import ReadField from "./ReadField";
 import WriteFieldGroupError from "./WriteFieldGroupError";
-import { DocumentDateContext, FieldsContext } from "./DocumentAndSubmit";
+import {
+  DocumentDateContext,
+  FieldsContext,
+  ChapterContext
+} from "./DocumentAndSubmit";
 import Line from "./Line";
 import { getSubtext } from "./Function";
 import VariableLabel from "./VariableLabel";
@@ -9,6 +13,7 @@ import VariableLabel from "./VariableLabel";
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
+  const chapterContext = useContext(ChapterContext);
 
   // set state to documentDate
   useEffect(() => {
@@ -54,7 +59,14 @@ export default props => {
         }
       }
     }));
-  }, [props.repeatStep, props.foreignKey, props.id]);
+  }, [
+    props.repeat,
+    props.repeatStep,
+    props.foreignKey,
+    props.id,
+    fieldsContext.editField,
+    chapterContext.editChapter
+  ]);
 
   return props.fields.map((value, index) => {
     if (value.line) {

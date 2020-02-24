@@ -7,7 +7,6 @@ import "../styles/styles.css";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  const [value, setValue] = useState("");
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
   // Test if value shall update when documentDate update
@@ -25,7 +24,6 @@ export default props => {
       setShowMinMax(true);
     }
     if (temporaryValue !== props.state[props.fieldName]) {
-      setValue(temporaryValue);
       props.setState(prevState => ({
         ...prevState,
         [props.fieldName]: temporaryValue
@@ -38,7 +36,7 @@ export default props => {
       <ReadField
         {...props}
         key={props.indexId}
-        value={value}
+        value={props.state[props.fieldName]}
         showMinMax={showMinMax}
       />
     </>

@@ -12,6 +12,8 @@ export const getLastObjectValue = (object, key) => {
 
 export const allFalse = element => !element;
 
+export const allTrue = element => element;
+
 export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
 export const getSubtext = (

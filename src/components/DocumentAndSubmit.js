@@ -7,6 +7,7 @@ import { Card, Container } from "react-bootstrap";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
+import { allTrue } from "./Function";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
@@ -29,7 +30,7 @@ export default props => {
   }, [props.componentsId, props.document, props.data]);
 
   const [editChapter, setEditChapter] = useState(0);
-  const [editField, setEditField] = useState(0);
+  const [editField, setEditField] = useState("");
   const [documentDate, setDocumentDate] = useState({}); // Store data for all document
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
@@ -185,47 +186,6 @@ export default props => {
     }
   };
 
-  const prepareDataForSubmit = (variables, key, dictionary) => {
-    Object.keys(dictionary).forEach(value => {
-      let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
-      if (key === "uploadFile") {
-        variables[key].push({
-          ...saveInfo,
-          data: JSON.stringify(dictionary[value]),
-          files
-        });
-      } else {
-        variables[key].push({
-          ...saveInfo,
-          data: JSON.stringify(dictionary[value])
-        });
-      }
-    });
-  };
-
-  const submitData = data => {
-    // let files;
-    // if (data["files"]) {
-    //   files = data["files"];
-    //   delete data["files"];
-    // }
-    let variables = {};
-    Object.keys(data).forEach(key => {
-      variables[key] = [];
-      prepareDataForSubmit(variables, key, data[key]);
-    });
-    mutation({
-      variables: {
-        ...variables,
-        categoryId:
-          Number(props.different) === 0 ? Number(props.categoryId) : 0,
-        itemId: Number(props.different) ? Number(props.itemId) : 0
-      }
-    });
-    setFiles([]);
-  };
-
   // Find or test if Group have a ForeignKey
   const testForForeignKey = info => {
     if (info.getForeignKey) {
@@ -276,17 +236,50 @@ export default props => {
     }
     return null;
   };
-  const submitHandler = thisChapter => {
-    console.log("submitData");
-    let submit = true;
-    Object.keys(validationPassed).forEach(key => {
-      if (!validationPassed[key]) {
-        submit = false;
+
+  const prepareDataForSubmit = (variables, key, dictionary) => {
+    Object.keys(dictionary).forEach(value => {
+      let saveInfo = dictionary[value]["saveInfo"];
+      delete dictionary[value]["saveInfo"];
+      if (key === "uploadFile") {
+        variables[key].push({
+          ...saveInfo,
+          data: JSON.stringify(dictionary[value]),
+          files
+        });
+      } else {
+        variables[key].push({
+          ...saveInfo,
+          data: JSON.stringify(dictionary[value])
+        });
       }
     });
-    if (submit) {
+  };
+
+  const submitData = data => {
+    // let files;
+    // if (data["files"]) {
+    //   files = data["files"];
+    //   delete data["files"];
+    // }
+    let variables = {};
+    Object.keys(data).forEach(key => {
+      variables[key] = [];
+      prepareDataForSubmit(variables, key, data[key]);
+    });
+    mutation({
+      variables: {
+        ...variables,
+        categoryId:
+          Number(props.different) === 0 ? Number(props.categoryId) : 0,
+        itemId: Number(props.different) ? Number(props.itemId) : 0
+      }
+    });
+    setFiles([]);
+  };
+  const submitHandler = thisChapter => {
+    if (Object.values(validationPassed).every(allTrue)) {
       submitData(documentDate[thisChapter]);
-      setEditField(null);
       setIsSubmited(false);
       setAddForm(!addForm);
       setEditChapter(0);
@@ -295,6 +288,7 @@ export default props => {
       setIsSubmited(true);
     }
   };
+  console.log(documentDate);
   const view = (info, index, thisChapter, stopLoop, showEidtButton) => {
     return (
       <Page
@@ -303,17 +297,19 @@ export default props => {
         key={`${index}-Page`}
         submitHandler={submitHandler}
         data={getData(info)}
-        mutation={mutations[info.mutation]}
-        queryPath={info.queryPath}
-        query={query[info.query]}
         foreignKey={testForForeignKey(info)}
         thisChapter={thisChapter}
         stopLoop={stopLoop}
         showEidtButton={showEidtButton}
         indexId={`${thisChapter}-${index}`}
         index={index}
-        isSubmited={isSubmited}
         addForm={addForm}
+        submitData={submitData}
+        categoryId={
+          Number(props.different) === 0 ? Number(props.categoryId) : 0
+        }
+        itemId={Number(props.different) ? Number(props.itemId) : 0}
+        mutation={mutation}
       />
     );
   };
@@ -348,6 +344,7 @@ export default props => {
           <Fragment key={`${index}-${firstIndex}-cancas`}>
             {page}
             {index === pageInfo.pages.length - 1 &&
+              !editField &&
               isSubmitButton(firstIndex + 1)}
           </Fragment>
         );
@@ -377,10 +374,12 @@ export default props => {
     <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
       <FieldsContext.Provider
         value={{
+          validationPassed,
           setvalidationPassed,
           editField,
           setEditField,
-          isSubmited
+          isSubmited,
+          setIsSubmited
         }}
       >
         <ChapterContext.Provider

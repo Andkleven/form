@@ -41,7 +41,7 @@ export default props => {
   // set error message if outside criteria
   useEffect(() => {
     if (
-      fieldsContext.editField ||
+      Number(fieldsContext.editField.split("-")[0]) === props.thisChapter ||
       (!fieldsContext.editField && props.writeChapter)
     ) {
       let passedValidation = true;

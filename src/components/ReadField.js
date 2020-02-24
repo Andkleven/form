@@ -10,6 +10,7 @@ export default props => {
   // make it write field
   const handelClick = () => {
     if (!props.readOnly) {
+      fieldsContext.setIsSubmited(false);
       fieldsContext.setEditField(props.indexId);
       fieldsContext.setvalidationPassed({});
     }
@@ -31,11 +32,9 @@ export default props => {
       {props.subtext ? (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       ) : null}
-      <ErrorMessage
-        showMinMax={props.showMinMax}
-        error={props.error}
-        isSubmited={props.isSubmited}
-      />
+      {props.error ? (
+        <ErrorMessage showMinMax={props.showMinMax} error={props.error} />
+      ) : null}
     </Form.Group>
   );
 };
