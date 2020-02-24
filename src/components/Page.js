@@ -36,7 +36,7 @@ export default props => {
 
   useEffect(() => {
     if (
-      props.startWithOne &&
+      props.repeatStartWithOneGroup &&
       writeChapter &&
       !addForm &&
       (!props.data || props.data.length === 0)
@@ -44,7 +44,7 @@ export default props => {
       setAddForm(1);
     }
   }, [
-    props.startWithOne,
+    props.repeatStartWithOneGroup,
     writeChapter,
     props.data,
     chapterContext.editChapter,
@@ -53,33 +53,33 @@ export default props => {
 
   useEffect(() => {
     if (
-      props.updateQueryWithFieldName &&
-      props.updateQueryWithQueryName &&
+      props.repaetGroupWithFieldName &&
+      props.repaetGroupWithPageName &&
       documentDateContext.documentDate[
         props.thisChapter +
-          (props.updateQueryWithCount ? props.updateQueryWithCount : 0)
-      ][props.updateQueryWithQueryName] !== undefined &&
+          (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
+      ][props.repaetGroupWithPageName] !== undefined &&
       documentDateContext.documentDate[
         props.thisChapter +
-          (props.updateQueryWithCount ? props.updateQueryWithCount : 0)
-      ][props.updateQueryWithQueryName][0] !== undefined
+          (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
+      ][props.repaetGroupWithPageName][0] !== undefined
     ) {
       let newValue;
       let object =
         documentDateContext.documentDate[
           props.thisChapter +
-            (props.updateQueryWithCount ? props.updateQueryWithCount : 0)
-        ][props.updateQueryWithQueryName];
+            (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
+        ][props.repaetGroupWithPageName];
       if (props.sumAllPage) {
-        newValue = sumFieldInObject(object, props.updateQueryWithFieldName);
+        newValue = sumFieldInObject(object, props.repaetGroupWithFieldName);
       } else if (props.useLastPage) {
-        newValue = getLastObjectValue(object, props.updateQueryWithFieldName);
+        newValue = getLastObjectValue(object, props.repaetGroupWithFieldName);
       } else {
         newValue =
           documentDateContext.documentDate[
             props.thisChapter +
-              (props.updateQueryWithCount ? props.updateQueryWithCount : 0)
-          ][props.updateQueryWithQueryName][0][props.updateQueryWithFieldName];
+              (props.repaetGroupWithChapter ? props.repaetGroupWithChapter : 0)
+          ][props.repaetGroupWithPageName][0][props.repaetGroupWithFieldName];
       }
       setAddForm(newValue - props.data.length);
     }
@@ -152,7 +152,7 @@ export default props => {
         props.data.map((itemData, index) => {
           if (props.data.length + addForm - 1 < index) {
             delete documentDateContext.documentDate[props.thisChapter][
-              props.name
+              props.pageName
             ][index];
             return null;
           } else {

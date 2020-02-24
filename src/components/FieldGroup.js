@@ -12,9 +12,9 @@ export default props => {
 
   useEffect(() => {
     if (
-      documentDateContext.documentDate[props.thisChapter][props.name] !==
+      documentDateContext.documentDate[props.thisChapter][props.pageName] !==
         undefined &&
-      documentDateContext.documentDate[props.thisChapter][props.name][
+      documentDateContext.documentDate[props.thisChapter][props.pageName][
         props.listIndex
       ] !== undefined
     ) {
@@ -22,10 +22,10 @@ export default props => {
         ...prevState,
         [props.thisChapter]: {
           ...prevState[props.thisChapter],
-          [props.name]: {
-            ...prevState[props.thisChapter][props.name],
+          [props.pageName]: {
+            ...prevState[props.thisChapter][props.pageName],
             [props.listIndex]: {
-              ...prevState[props.thisChapter][props.name][props.listIndex],
+              ...prevState[props.thisChapter][props.pageName][props.listIndex],
               ...props.state
             }
           }
@@ -43,10 +43,10 @@ export default props => {
       ...prevState,
       [props.thisChapter]: {
         ...prevState[props.thisChapter],
-        [props.name]: {
-          ...prevState[props.thisChapter][props.name],
+        [props.pageName]: {
+          ...prevState[props.thisChapter][props.pageName],
           [props.listIndex]: {
-            ...prevState[props.thisChapter][props.name][props.listIndex],
+            ...prevState[props.thisChapter][props.pageName][props.listIndex],
             saveInfo
           }
         }
@@ -80,12 +80,10 @@ export default props => {
             value.unit,
             value.required
           )}
-          value={props.state[value.name] ? props.state[value.name] : ""}
+          value={props.state[value.fieldName] ? props.state[value.fieldName] : ""}
           file={value.type === "file" ? props.file : null}
           indexId={`${props.indexId}-${index}`}
           index={index}
-          name={props.name}
-          fieldName={value.name}
         />
       );
     } else {
@@ -94,7 +92,7 @@ export default props => {
           key={`${props.indexId}-${index}`}
           indexId={`${props.indexId}-${index}`}
           index={index}
-          value={props.state[value.name]}
+          value={props.state[value.fieldName]}
           label={
             (value.queryNameVariableLabel && value.fieldNameVariableLabel) ||
             value.indexVariableLabel

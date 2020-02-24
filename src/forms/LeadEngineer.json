@@ -4,17 +4,16 @@
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
-      "showForm": false,
       "lookUpBy": "primer1",
       "queryPath": "leadEngineer",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
           "queryPath": "leadEngineer",
-          "name": "leadEngineer",
+          "pageName": "leadEngineer",
           "fields": [
             {
-              "name": "steel",
+              "fieldName": "steel",
               "label": "Steel",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -23,7 +22,7 @@
               "options": ["", "Carbon", "Duplex"]
             },
             {
-              "name": "blastMedia",
+              "fieldName": "blastMedia",
               "label": "Blast Media",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -33,7 +32,7 @@
               "options": ["", "Garnet", "Grit", "Aluminum Oxide"]
             },
             {
-              "name": "relativeHumidityt",
+              "fieldName": "relativeHumidityt",
               "label": "Relative Humidity",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -42,7 +41,7 @@
               "type": "Number"
             },
             {
-              "name": "airTemperature",
+              "fieldName": "airTemperature",
               "label": "Air Temperature",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -51,7 +50,7 @@
               "type": "Number"
             },
             {
-              "name": "steelTemperature",
+              "fieldName": "steelTemperature",
               "label": "Steel Temperature",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -60,7 +59,7 @@
               "type": "Number"
             },
             {
-              "name": "temperatureOverDewPoint",
+              "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -69,7 +68,7 @@
               "type": "Number"
             },
             {
-              "name": "airTemperature",
+              "fieldName": "airTemperature",
               "label": "Air Temperature",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -78,7 +77,7 @@
               "type": "Number"
             },
             {
-              "name": "blastMediaConductivity",
+              "fieldName": "blastMediaConductivity",
               "label": "Blast Media Conductivity",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -86,7 +85,7 @@
               "type": "Number"
             },
             {
-              "name": "surfaceProfileMin",
+              "fieldName": "surfaceProfileMin",
               "label": "Surface Profile (Roughness)",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
@@ -95,7 +94,7 @@
               "type": "Number"
             },
             {
-              "name": "surfaceProfileMax",
+              "fieldName": "surfaceProfileMax",
               "label": "Surface Profile (Roughness)",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
@@ -104,7 +103,7 @@
               "type": "Number"
             },
             {
-              "name": "solubleSaltLevel",
+              "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -112,14 +111,14 @@
               "type": "Number"
             },
             {
-              "name": "inspectionOfSteelSurface",
+              "fieldName": "inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "checkbox"
             },
             {
-              "name": "compressedAirCheck",
+              "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
@@ -127,7 +126,7 @@
               "type": "checkbox"
             },
             {
-              "name": "surfaceCleanliness",
+              "fieldName": "surfaceCleanliness",
               "label": "Surface Cleanliness",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
@@ -135,7 +134,7 @@
               "type": "checkbox"
             },
             {
-              "name": "uvTest",
+              "fieldName": "uvTest",
               "label": "UV Test",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -146,28 +145,27 @@
         {
           "pageTitle": "Custom Test",
           "queryPath": "leadEngineer.0.customSteelPreparation",
-          "name": "customSteelPreparation",
+          "pageName": "customSteelPreparation",
           "repeat": true,
           "delete": true,
           "addButton": "Add Custom Test",
-          "startWithOne": false,
           "fields": [
             {
-              "name": "nameOfTest",
+              "fieldName": "nameOfTest",
               "label": "Name of Test",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "criteria",
+              "fieldName": "criteria",
               "label": "Criteria",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "standard",
+              "fieldName": "standard",
               "label": "Standard",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
@@ -177,10 +175,10 @@
         {
           "pageTitle": "Priming",
           "queryPath": "leadEngineer",
-          "name": "leadEngineer",
+          "pageName": "leadEngineer",
           "fields": [
             {
-              "name": "primer1",
+              "fieldName": "primer1",
               "label": "Primer 1",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
@@ -195,7 +193,7 @@
               ]
             },
             {
-              "name": "primer2",
+              "fieldName": "primer2",
               "label": "Primer 2",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
@@ -210,7 +208,7 @@
               ]
             },
             {
-              "name": "rubberCementBeforeCoating",
+              "fieldName": "rubberCementBeforeCoating",
               "label": "Rubber Cement Before Coating",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -229,11 +227,11 @@
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineer",
-          "name": "leadEngineer",
+          "pageName": "leadEngineer",
           "mutation": "LEADENGINEER",
           "fields": [
             {
-              "name": "targetDescriptionValue",
+              "fieldName": "targetDescriptionValue",
               "label": "TDV (Target Description Value)",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
@@ -242,7 +240,7 @@
               "options": ["", "OD", "ID"]
             },
             {
-              "name": "actualSteelTDV",
+              "fieldName": "actualSteelTDV",
               "label": "Actual Steel {TDV}",
               "queryNameVariableLabel": "leadEngineer",
               "fieldNameVariableLabel": "targetDescriptionValue",
@@ -253,14 +251,14 @@
               "type": "number"
             },
             {
-              "name": "orderedTotalRubberThickness",
+              "fieldName": "orderedTotalRubberThickness",
               "label": "Ordered Total Rubber Thickness",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "number"
             },
             {
-              "name": "toleranceMin",
+              "fieldName": "toleranceMin",
               "label": "Tolerance Min",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -268,7 +266,7 @@
               "type": "number"
             },
             {
-              "name": "toleranceMinPercent",
+              "fieldName": "toleranceMinPercent",
               "label": "Tolerance Min in Percent",
               "math": "mathToleranceMinPercent",
               "readOnly": true,
@@ -276,7 +274,7 @@
               "min": 2
             },
             {
-              "name": "toleranceMax",
+              "fieldName": "toleranceMax",
               "label": "Tolerance Max",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -284,7 +282,7 @@
               "type": "number"
             },
             {
-              "name": "toleranceMaxPercent",
+              "fieldName": "toleranceMaxPercent",
               "label": "Tolerance Max in Percent",
               "math": "mathToleranceMaxPercent",
               "readOnly": true,
@@ -292,7 +290,7 @@
               "max": 6
             },
             {
-              "name": "measurementPoints",
+              "fieldName": "measurementPoints",
               "label": "Measurement Points",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -304,15 +302,14 @@
         {
           "pageTitle": "Measurement Point Actual",
           "queryPath": "leadEngineer.0.measurementPointActualTvd",
-          "name": "measurementPointActualTvd",
+          "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
-          "startWithOne": false,
-          "updateQueryWithQueryName": "leadEngineer",
-          "updateQueryWithFieldName": "measurementPoints",
+          "repaetGroupWithPageName": "leadEngineer",
+          "repaetGroupWithFieldName": "measurementPoints",
           "fields": [
             {
-              "name": "measurementPointActual",
+              "fieldName": "measurementPointActual",
               "label": "Measurement Point Actual",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -323,14 +320,13 @@
         {
           "pageTitle": "Rubber Cement",
           "queryPath": "leadEngineer.0.rubberCement",
-          "name": "rubberCement",
+          "pageName": "rubberCement",
           "repeat": true,
           "delete": true,
           "addButton": "Add Rubber Cement",
-          "startWithOne": false,
           "fields": [
             {
-              "name": "rubberCement",
+              "fieldName": "rubberCement",
               "label": "Rubber Cement",
               "feedback": "Enter valid number.",
               "notLabel": true,
@@ -339,17 +335,17 @@
           ]
         },
         {
-          "name": "vulcanizationStep",
+          "pageName": "vulcanizationStep",
           "queryPath": "leadEngineer.0.vulcanizationStep",
           "repeat": true,
-          "startWithOne": true,
+          "repeatStartWithOneGroup": true,
           "delete": true,
-          "indexVariableFieldGroupRepeatTitle": true,
           "pageTitle": "Vulcanization Steps",
+          "indexVariableFieldGroupRepeatTitle": true,
           "fieldGroupRepeatTitle": "Step {}",
           "fields": [
             {
-              "name": "vulcanizationOption",
+              "fieldName": "vulcanizationOption",
               "label": "Vulcanization Option",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -364,14 +360,14 @@
               ]
             },
             {
-              "name": "programNumber",
+              "fieldName": "programNumber",
               "label": "Program Number",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "Number"
             },
             {
-              "name": "numberOfLayers",
+              "fieldName": "numberOfLayers",
               "label": "Number of Layers",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -388,16 +384,16 @@
         {
           "pageTitle": "Coating Layer",
           "queryPath": "leadEngineer.0.coatingLayer",
-          "name": "coatingLayer",
+          "pageName": "coatingLayer",
           "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
-          "updateQueryWithCount": -1,
-          "updateQueryWithQueryName": "vulcanizationStep",
-          "updateQueryWithFieldName": "numberOfLayers",
+          "repaetGroupWithChapter": -1,
+          "repaetGroupWithPageName": "vulcanizationStep",
+          "repaetGroupWithFieldName": "numberOfLayers",
           "fields": [
             {
-              "name": "layer",
+              "fieldName": "layer",
               "label": "Layer",
               "readOnly": true,
               "setValueByIndex": true,
@@ -406,13 +402,13 @@
             },
             { "line": true },
             {
-              "name": "compoundNumber",
+              "fieldName": "compoundNumber",
               "label": "Compound Number",
               "select": "select",
               "options": ["Compound Number", 73165]
             },
             {
-              "name": "actualThickness",
+              "fieldName": "actualThickness",
               "label": "Actual Thickness",
               "feedback": "Enter valid number.",
               "type": "Number",
@@ -423,7 +419,7 @@
               "required": true
             },
             {
-              "name": "shrink",
+              "fieldName": "shrink",
               "label": "Shrink",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -433,7 +429,7 @@
               "required": true
             },
             {
-              "name": "proposedThickness",
+              "fieldName": "proposedThickness",
               "label": "Proposed Thickness",
               "math": "mathProposedThickness",
               "min": 2,
@@ -444,14 +440,14 @@
               "type": "Number"
             },
             {
-              "name": "layersUnique",
+              "fieldName": "layersUnique",
               "label": "Layers Unique",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "checkbox"
             },
             {
-              "name": "cumulativeThickness",
+              "fieldName": "cumulativeThickness",
               "label": "Cumulative Thickness",
               "math": "mathCumulativeThickness",
               "readOnly": true,

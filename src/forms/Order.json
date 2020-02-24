@@ -4,25 +4,23 @@
   "query": "GET_ORDER",
   "chapters": [
     {
-      "showForm": true,
+      "chapterAlwaysInWrite": true,
       "pages": [
         {
           "queryPath": "createProject",
           "pageTitle": "Order",
           "findByIndex": true,
-          "name": "createProject",
-          "delete": false,
-          "notUpdate": true,
+          "pageName": "createProject",
           "fields": [
             {
-              "name": "projectName",
+              "fieldName": "projectName",
               "label": "Text 1",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "projectNumber",
+              "fieldName": "projectNumber",
               "label": "Text 2",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -30,56 +28,56 @@
               "subtext": "Accepts any value"
             },
             {
-              "name": "client",
+              "fieldName": "client",
               "label": "Text 3",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "itpDocumentNumber",
+              "fieldName": "itpDocumentNumber",
               "label": "Text 4",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "projectManager",
+              "fieldName": "projectManager",
               "label": "Text 5",
               "select": "select",
               "subtext": "Subtext",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
-              "name": "supervisor",
+              "fieldName": "supervisor",
               "label": "Text 6",
               "select": "select",
               "subtext": "Subtext",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
-              "name": "leadEngineer",
+              "fieldName": "leadEngineer",
               "label": "Text 7",
               "select": "select",
               "subtext": "Subtext",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
-              "name": "supervisingEngineer",
+              "fieldName": "supervisingEngineer",
               "label": "Text 8",
               "select": "select",
               "subtext": "Subtext",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
-              "name": "qualityControl",
+              "fieldName": "qualityControl",
               "label": "Text 9",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "numberOfCategorys",
+              "fieldName": "numberOfCategorys",
               "label": "Text 10",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -88,7 +86,7 @@
               "required": true
             },
             {
-              "name": "totalNumberOfItems",
+              "fieldName": "totalNumberOfItems",
               "label": "Text 11",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",

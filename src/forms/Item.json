@@ -10,28 +10,28 @@
       "pages": [
         {
           "pageTitle": "Category",
-          "name": "category",
+          "pageName": "category",
           "queryPath": "createProject.0.category",
           "findByIndex": true,
           "delete": false,
           "onePage": true,
           "fields": [
             {
-              "name": "geometry",
+              "fieldName": "geometry",
               "label": "Geometry",
               "select": "select",
               "subtext": "Subtext",
               "options": ["", "Mould", "Coated Item"]
             },
             {
-              "name": "description",
+              "fieldName": "description",
               "label": "Description",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value"
             },
             {
-              "name": "ifsActivityCodes",
+              "fieldName": "ifsActivityCodes",
               "label": "IFS Activity Codes",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -39,7 +39,7 @@
               "subtext": "Accepts any value"
             },
             {
-              "name": "CPS",
+              "fieldName": "CPS",
               "label": "CPS",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -51,13 +51,12 @@
           "pageTitle": "Add File",
           "firstQueryPath": "createProject.0.category",
           "secondQueryPath": "uploadFile",
-          "name": "uploadFile",
-          "delete": true,
+          "pageName": "uploadFile",
           "onePage": true,
           "getForeignKey": true,
           "fields": [
             {
-              "name": "itemId",
+              "fieldName": "itemId",
               "type": "file",
               "label": "Image",
               "multipleFiles": true
@@ -67,14 +66,13 @@
       ]
     },
     {
-      "showForm": true,
+      "chapterAlwaysInWrite": true,
       "firstQueryPath": "createProject.0.category",
       "secondQueryPath": "item",
       "pages": [
         {
           "title": "Add item",
-          "name": "item",
-          "delete": false,
+          "pageName": "item",
           "firstQueryPath": "createProject.0.category",
           "secondQueryPath": "item",
           "createWithOldValue": true,
@@ -83,7 +81,7 @@
           "getForeignKey": true,
           "fields": [
             {
-              "name": "itemId",
+              "fieldName": "itemId",
               "label": "Item ID",
               "subtext": "Subtext"
             }

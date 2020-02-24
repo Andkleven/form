@@ -12,21 +12,21 @@ export default props => {
   const [state, setState] = useState({});
   const [id, setId] = useState(0);
   if (
-    !documentDateContext.documentDate[props.thisChapter][props.name] ||
-    !documentDateContext.documentDate[props.thisChapter][props.name][
+    !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
+    !documentDateContext.documentDate[props.thisChapter][props.pageName][
       props.listIndex
     ]
   ) {
     let updateValues = {};
-    if (!documentDateContext.documentDate[props.thisChapter][props.name]) {
+    if (!documentDateContext.documentDate[props.thisChapter][props.pageName]) {
       updateValues = { [props.listIndex]: {} };
     } else if (
-      !documentDateContext.documentDate[props.thisChapter][props.name][
+      !documentDateContext.documentDate[props.thisChapter][props.pageName][
         props.listIndex
       ]
     ) {
       updateValues = {
-        ...documentDateContext.documentDate[props.thisChapter][props.name],
+        ...documentDateContext.documentDate[props.thisChapter][props.pageName],
         [props.listIndex]: {}
       };
     }
@@ -34,7 +34,7 @@ export default props => {
       ...prevState,
       [props.thisChapter]: {
         ...prevState[props.thisChapter],
-        [props.name]: {
+        [props.pageName]: {
           ...updateValues
         }
       }
@@ -49,7 +49,7 @@ export default props => {
         }
         return setState(prevState => ({
           ...prevState,
-          [value.name]:
+          [value.fieldName]:
             value.default !== undefined
               ? value.default
               : ["checkbox", "radio", "switch"].includes(value.type)
@@ -70,7 +70,7 @@ export default props => {
           }
           return setState(prevState => ({
             ...prevState,
-            [value.name]: inputData[value.name]
+            [value.fieldName]: inputData[value.fieldName]
           }));
         });
       }

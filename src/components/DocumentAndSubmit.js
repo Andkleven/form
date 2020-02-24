@@ -322,7 +322,7 @@ export default props => {
   let lastChapter = 0;
   const document = props.document.chapters.map((pageInfo, firstIndex) => {
     let chapter;
-    if (pageInfo.showForm && !lastChapter) {
+    if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
       lastChapter = firstIndex + 1;
     }
     if (stopLoop) {
