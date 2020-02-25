@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
-import leadEngineerJson from "../forms/LeadEngineer.json";
+import json from "../forms/BatchingPriming.json";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
 import { Card, Container } from "react-bootstrap";
+import Batching from "./Batching";
 
 export default pageInfo => {
-  const { categoryId, itemId, different } = pageInfo.match.params;
+  const { id } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
+  const [batchingData, setBatchingData] = useState({});
+  const [batchingList, setBatchingList] = useState([]);
   // const { loading1, error1, data: getGategory } = useQuery(query["GET_GEOMETRY"], {
   //   variables: { id: categoryId }
   // });
-  const { loading, error, data } = useQuery(query[leadEngineerJson.query], {
-    variables: { id: itemId }
+  const { loading, error, data } = useQuery(query[json.ducument.query], {
+    variables: { id }
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  // if (loading1) return <p>Loading...</p>;
-  // if (error1) return <p>Error :(</p>;
   return (
     <>
       {
@@ -27,15 +28,20 @@ export default pageInfo => {
             style={{ minHeight: "80vh", height: "100%" }}
           >
             <Card.Body>
+              <Batching
+                data={data}
+                json={json.batching}
+                submit={reRender}
+                setBatchingData={setBatchingData}
+                batchingData={batchingData}
+                setBatchingList={setBatchingList}
+              />
               <DocumentAndSubmit
                 componentsId={"leadEngineerPage"}
-                document={leadEngineerJson}
+                document={json.ducument}
                 reRender={() => setReRender(!reRender)}
                 data={data}
-                getQueryBy={itemId}
-                categoryId={categoryId}
-                itemId={itemId}
-                different={different}
+                batchingList={batchingList}
               />
             </Card.Body>
           </Card>

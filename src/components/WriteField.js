@@ -34,7 +34,7 @@ export default props => {
       } else {
         if (type === "number") {
           let decimal = step
-            ? props.fields.find(x => x.name === name).decimal
+            ? props.fields.find(x => x.fieldName === name).decimal
             : 0;
           let numberValue = value;
           if (

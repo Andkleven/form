@@ -71,6 +71,15 @@ export default props => {
   return props.fields.map((value, index) => {
     if (value.line) {
       return <Line key={`${props.indexId}-${index}`} />;
+    } else if (value.routValue) {
+      return (
+        <ReadField
+          {...props}
+          {...value}
+          key={`${props.indexId}-${index}`}
+          value={props.batchingData[props.routValue]}
+        />
+      );
     } else if (
       value.readOnly ||
       props.writeChapter ||

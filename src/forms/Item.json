@@ -13,8 +13,6 @@
           "pageName": "category",
           "queryPath": "createProject.0.category",
           "findByIndex": true,
-          "delete": false,
-          "onePage": true,
           "fields": [
             {
               "fieldName": "geometry",
@@ -52,7 +50,6 @@
           "firstQueryPath": "createProject.0.category",
           "secondQueryPath": "uploadFile",
           "pageName": "uploadFile",
-          "onePage": true,
           "getForeignKey": true,
           "fields": [
             {
@@ -77,7 +74,6 @@
           "secondQueryPath": "item",
           "createWithOldValue": true,
           "createWithValueLast": true,
-          "onePage": true,
           "getForeignKey": true,
           "fields": [
             {

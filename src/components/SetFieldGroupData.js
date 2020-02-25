@@ -46,7 +46,7 @@ export default props => {
   useEffect(() => {
     if (props.fields) {
       props.fields.map(value => {
-        if (value.type === "file" || value.line) {
+        if (value.type === "file" || value.line || value.routValue) {
           return null;
         }
         return setState(prevState => ({
@@ -67,7 +67,7 @@ export default props => {
       if (data.data && data.data.trim() !== "") {
         let inputData = JSON.parse(data.data.replace(/'/g, '"'));
         props.fields.map(value => {
-          if (value.type === "file" || value.line) {
+          if (value.type === "file" || value.line || value.routValue) {
             return null;
           }
           return setState(prevState => ({

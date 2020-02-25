@@ -32,13 +32,11 @@ export default props => {
   }, [documentDateContext.documentDate]);
 
   return (
-    <>
-      <ReadField
-        {...props}
-        key={props.indexId}
-        value={props.state[props.fieldName]}
-        showMinMax={showMinMax}
-      />
-    </>
+    <ReadField
+      {...props}
+      key={props.indexId}
+      value={props.state[props.fieldName]}
+      showMinMax={showMinMax}
+    />
   );
 };

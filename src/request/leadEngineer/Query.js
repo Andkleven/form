@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const ALL = gql`
   query($id: Int!) {
-    createProject(id: id) {
+    createProject(id: $id) {
       id
       data
       leadEngineerDone
@@ -127,11 +127,77 @@ const GET_LEAD_ENGINEER = gql`
   }
 `;
 
+const GET_OPERATOR = gql`
+  query($id: Int!) {
+    category(id: $id) {
+      id
+      data
+      item {
+        id
+        data
+        leadEngineer {
+          id
+          data
+          measurementPointActualTvd {
+            id
+            data
+          }
+          customSteelPreparation {
+            id
+            data
+          }
+          rubberCement {
+            id
+            data
+          }
+          customFinalInspection {
+            id
+            data
+          }
+          vulcanizationStep {
+            id
+            data
+          }
+          coatingLayer {
+            id
+            data
+          }
+        }
+        operator {
+          id
+          data
+          customMediaBlasting {
+            id
+            data
+          }
+          coating {
+            id
+            data
+            mixDate {
+              id
+              data
+            }
+            measurementPoint {
+              id
+              data
+            }
+          }
+          vulcanization {
+            id
+            data
+          }
+        }
+      }
+    }
+  }
+`;
+
 const query = {
   ALL,
   GET_ORDER_GEOMETRY,
   GET_LEAD_ENGINEER,
   GET_GEOMETRY,
-  GET_ORDER
+  GET_ORDER,
+  GET_OPERATOR
 };
 export default query;

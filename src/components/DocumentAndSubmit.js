@@ -3,7 +3,6 @@ import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
-import { Card, Container } from "react-bootstrap";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
@@ -271,8 +270,9 @@ export default props => {
       variables: {
         ...variables,
         categoryId:
-          Number(props.different) === 0 ? Number(props.categoryId) : 0,
-        itemId: Number(props.different) ? Number(props.itemId) : 0
+          Number(props.different) === 0 ? Number(props.categoryId) : undefined,
+        itemId: Number(props.different) ? Number(props.itemId) : undefined,
+        itemIdList: props.batchingList ? props.batchingList : undefined
       }
     });
     setFiles([]);
@@ -386,19 +386,10 @@ export default props => {
           value={{ lastChapter, editChapter, setEditChapter }}
         >
           <FilesContext.Provider value={{ files, setFiles }}>
-            <Container className="mt-0 mt-sm-3 p-0">
-              <Card
-                className="shadow-sm"
-                style={{ minHeight: "80vh", height: "100%" }}
-              >
-                <Card.Body key={2}>
-                  <Title title={props.document.documentTitle} />
-                  {document}
-                  {loadingMutation && <p>Loading...</p>}
-                  {errorMutation && <p>Error :( Please try again</p>}
-                </Card.Body>
-              </Card>
-            </Container>
+            <Title title={props.document.documentTitle} />
+            {document}
+            {loadingMutation && <p>Loading...</p>}
+            {errorMutation && <p>Error :( Please try again</p>}
           </FilesContext.Provider>
         </ChapterContext.Provider>
       </FieldsContext.Provider>

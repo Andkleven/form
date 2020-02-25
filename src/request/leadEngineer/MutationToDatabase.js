@@ -121,10 +121,58 @@ const LEADENGINEER = gql`
   }
 `;
 
+const OPERATOR = gql`
+  mutation leadEngineer(
+    $operator: [UnderCategoriesOfLeadEngineerInupt]
+    $customMediaBlasting: [UnderCategoriesOfLeadEngineerInupt]
+    $coating: [UnderCategoriesOfLeadEngineerInupt]
+    $mixDate: [UnderCategoriesOfLeadEngineerInupt]
+    $measurementPoint: [UnderCategoriesOfLeadEngineerInupt]
+    $vulcanization: [UnderCategoriesOfLeadEngineerInupt]
+    $itemIdList: [ListId]
+  ) {
+    leadEngineer(
+      operator: $leadEngineer
+      customMediaBlasting: $measurementPointActualTvd
+      coating: $customSteelPreparation
+      mixDate: $rubberCement
+      measurementPoint: $vulcanizationStep
+      vulcanization: $coatingLayer
+      itemIdList: $itemIdList
+    ) {
+      new {
+        id
+        data
+        customMediaBlasting {
+          id
+          data
+        }
+        coating {
+          id
+          data
+          mixDate {
+            id
+            data
+          }
+          measurementPoint {
+            id
+            data
+          }
+        }
+        vulcanization {
+          id
+          data
+        }
+      }
+    }
+  }
+`;
+
 const mutations = {
   ORDER,
   DELETEITEM,
   ITEM,
-  LEADENGINEER
+  LEADENGINEER,
+  OPERATOR
 };
 export default mutations;

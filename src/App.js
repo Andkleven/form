@@ -23,7 +23,7 @@ const backgroundStyle = {
 
 class App extends Component {
   render() {
-    const authToken = localStorage.getItem(AUTH_TOKEN);
+    // const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
       <>
         <div style={backgroundStyle} className="">
@@ -32,7 +32,7 @@ class App extends Component {
             {/* <main className="main-content"> */}
             <Switch>
               <Route exact path="/login" component={Login} />
-              {!authToken && <Redirect to="/login" exact />}
+              {/* {!authToken && <Redirect to="/login" exact />} */}
               <Route exact path="/" component={Home} />
               <Route exact path="/order" component={OrderPage} />
               <Route path="/order/item/:_id" component={Item} />

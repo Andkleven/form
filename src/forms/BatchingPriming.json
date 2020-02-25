@@ -1,0 +1,49 @@
+{
+  "batching": {
+    "queryPath": "category.item",
+    "getField": "id",
+    "showField": "id",
+    "dataPath": "category.item.leadEngineer",
+    "dataField": ["primer1"]
+  },
+  "ducument": {
+    "queryPath": "category.item.operator",
+    "mutation": "OPERATOR",
+    "query": "GET_OPERATOR",
+    "chapters": [
+      {
+        "chapterAlwaysInWrite": true,
+        "pages": [
+          {
+            "pageTitle": "Priming",
+            "pageName": "operator",
+            "queryPath": "category.item.operator",
+            "fields": [
+              {
+                "routValue": "primer1",
+                "label": "Geometry"
+              },
+              { "line": true },
+              {
+                "fieldName": "description",
+                "label": "Description",
+                "placeholder": "Placeholder"
+              },
+              {
+                "fieldName": "ifsActivityCodes",
+                "label": "IFS Activity Codes",
+                "placeholder": "Placeholder",
+                "unit": "Unit"
+              },
+              {
+                "fieldName": "CPS",
+                "label": "CPS",
+                "placeholder": "Placeholder"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
