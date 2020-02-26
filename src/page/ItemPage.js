@@ -6,7 +6,7 @@ import query from "../request/leadEngineer/Query";
 import itemJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
-import { Card, Container } from "react-bootstrap";
+import Paper from "components/Paper";
 
 export default pageInfo => {
   let { _id } = pageInfo.match.params;
@@ -74,72 +74,67 @@ export default pageInfo => {
   if (loadingMutation) return <p>Loading...</p>;
   if (errorMutation) return <p>Error :(</p>;
   return (
-    <Container className="mt-0 mt-sm-3 p-0">
-      <Card className="shadow-sm" style={{ minHeight: "80vh", height: "100%" }}>
-        <Card.Body>
-          <DocumentAndSubmit
-            componentsId={"itemPage" + counter.toString()}
-            // buttonToEveryForm={true}
-            // notEditButton={true}
-            // allWaysShow={true}
-            document={itemJson}
-            reRender={() => setReRender(!reRender)}
-            data={data}
-            arrayIndex={counter - 1}
-            getQueryBy={_id}
-            foreignKey={_id}
-          />
-          {geometryData ? (
-            <>
-              <button
-                onClick={() =>
-                  history.push(
-                    `/order/lead-engineer/${geometryData.id}/${
-                      geometryData.item.find(item => item.different === false)
-                        .id
-                    }/0`
-                  )
-                }
-              >
-                Create all item
-              </button>
-              <ItemList
-                items={geometryData.item}
-                submitItem={item => {
-                  if (!item.different) {
-                    mutationDiffreant({
-                      variables: {
-                        id: item.id,
-                        different: true
-                      }
-                    });
+    <Paper>
+      <DocumentAndSubmit
+        componentsId={"itemPage" + counter.toString()}
+        // buttonToEveryForm={true}
+        // notEditButton={true}
+        // allWaysShow={true}
+        document={itemJson}
+        reRender={() => setReRender(!reRender)}
+        data={data}
+        arrayIndex={counter - 1}
+        getQueryBy={_id}
+        foreignKey={_id}
+      />
+      {geometryData ? (
+        <>
+          <button
+            onClick={() =>
+              history.push(
+                `/order/lead-engineer/${geometryData.id}/${
+                  geometryData.item.find(item => item.different === false).id
+                }/0`
+              )
+            }
+          >
+            Create all item
+          </button>
+          <ItemList
+            items={geometryData.item}
+            submitItem={item => {
+              if (!item.different) {
+                mutationDiffreant({
+                  variables: {
+                    id: item.id,
+                    different: true
                   }
-                  history.push(
-                    `/order/lead-engineer/${geometryData.id}/${item.id}/1`
-                  );
-                }}
-                submitDelete={id => {
-                  deleteItem({ variables: { id: id } });
-                }}
-              />
-            </>
-          ) : null}
+                });
+              }
+              history.push(
+                `/order/lead-engineer/${geometryData.id}/${item.id}/1`
+              );
+            }}
+            submitDelete={id => {
+              deleteItem({ variables: { id: id } });
+            }}
+          />
+        </>
+      ) : null}
 
-          <h4>
-            Geometry {counter}/{createProjectData.numberOfCategorys}
-          </h4>
-          {counter !== 1 && (
-            <button onClick={() => setstate(counter - 1)}>Back</button>
-          )}
-          {counter < createProjectData.numberOfCategorys ? (
-            <button onClick={() => setstate(counter + 1)}>Next</button>
-          ) : (
-            <button>Submit</button>
-          )}
-          {loadingMutation && <p>Loading...</p>}
-          {errorMutation && <p>Error :( Please try again</p>}
-        </Card.Body>
-      </Card>
-    </Container>
+      <h4>
+        Geometry {counter}/{createProjectData.numberOfCategorys}
+      </h4>
+      {counter !== 1 && (
+        <button onClick={() => setstate(counter - 1)}>Back</button>
+      )}
+      {counter < createProjectData.numberOfCategorys ? (
+        <button onClick={() => setstate(counter + 1)}>Next</button>
+      ) : (
+        <button>Submit</button>
+      )}
+      {loadingMutation && <p>Loading...</p>}
+      {errorMutation && <p>Error :( Please try again</p>}
+    </Paper>
   );
 };

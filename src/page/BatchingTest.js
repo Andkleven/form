@@ -3,8 +3,8 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import json from "../forms/BatchingPriming.json";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
-import { Card, Container } from "react-bootstrap";
 import Batching from "./Batching";
+import Paper from "components/Paper";
 
 export default pageInfo => {
   const { id } = pageInfo.match.params;
@@ -22,30 +22,23 @@ export default pageInfo => {
   return (
     <>
       {
-        <Container className="mt-0 mt-sm-3 p-0">
-          <Card
-            className="shadow-sm"
-            style={{ minHeight: "80vh", height: "100%" }}
-          >
-            <Card.Body>
-              <Batching
-                data={data}
-                json={json.batching}
-                submit={reRender}
-                setBatchingData={setBatchingData}
-                batchingData={batchingData}
-                setBatchingList={setBatchingList}
-              />
-              <DocumentAndSubmit
-                componentsId={"leadEngineerPage"}
-                document={json.ducument}
-                reRender={() => setReRender(!reRender)}
-                data={data}
-                batchingList={batchingList}
-              />
-            </Card.Body>
-          </Card>
-        </Container>
+        <Paper>
+          <Batching
+            data={data}
+            json={json.batching}
+            submit={reRender}
+            setBatchingData={setBatchingData}
+            batchingData={batchingData}
+            setBatchingList={setBatchingList}
+          />
+          <DocumentAndSubmit
+            componentsId={"leadEngineerPage"}
+            document={json.ducument}
+            reRender={() => setReRender(!reRender)}
+            data={data}
+            batchingList={batchingList}
+          />
+        </Paper>
       }
     </>
   );
