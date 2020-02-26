@@ -1,7 +1,6 @@
 {
   "batching": {
     "queryPath": "category.item",
-    "getField": "id",
     "showField": "id",
     "dataPath": "category.item.leadEngineer",
     "dataField": ["primer1"]
