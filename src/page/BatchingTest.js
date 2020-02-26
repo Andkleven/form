@@ -4,16 +4,13 @@ import query from "../request/leadEngineer/Query";
 import json from "../forms/BatchingPriming.json";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
 import { Card, Container } from "react-bootstrap";
-import Batching from "./Batching";
+import Batching from "../components/Batching";
 
 export default pageInfo => {
   const { id } = pageInfo.match.params;
-  const [reRender, setReRender] = useState(false);
-  const [batchingData, setBatchingData] = useState({});
-  const [batchingList, setBatchingList] = useState([]);
-  // const { loading1, error1, data: getGategory } = useQuery(query["GET_GEOMETRY"], {
-  //   variables: { id: categoryId }
-  // });
+  const [batchingData, setBatchingData] = useState(false);
+  const [batchingListIds, setBatchingListIds] = useState([]);
+
   const { loading, error, data } = useQuery(query[json.ducument.query], {
     variables: { id }
   });
@@ -31,17 +28,21 @@ export default pageInfo => {
               <Batching
                 data={data}
                 json={json.batching}
-                submit={reRender}
                 setBatchingData={setBatchingData}
+                batchingListIds={batchingListIds}
                 batchingData={batchingData}
-                setBatchingList={setBatchingList}
+                setBatchingListIds={setBatchingListIds}
               />
               <DocumentAndSubmit
                 componentsId={"leadEngineerPage"}
                 document={json.ducument}
-                reRender={() => setReRender(!reRender)}
+                reRender={() => {
+                  setBatchingData(false);
+                  setBatchingListIds([]);
+                }}
                 data={data}
-                batchingList={batchingList}
+                batchingData={batchingData}
+                batchingListIds={batchingListIds}
               />
             </Card.Body>
           </Card>

@@ -272,7 +272,7 @@ export default props => {
         categoryId:
           Number(props.different) === 0 ? Number(props.categoryId) : undefined,
         itemId: Number(props.different) ? Number(props.itemId) : undefined,
-        itemIdList: props.batchingList ? props.batchingList : undefined
+        itemIdList: props.batchingListIds ? props.batchingListIds : undefined
       }
     });
     setFiles([]);
