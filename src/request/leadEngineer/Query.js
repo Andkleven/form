@@ -192,12 +192,31 @@ const GET_OPERATOR = gql`
   }
 `;
 
+const OPERATOR_PROJECTS = gql`
+  query($leadEngineerDone: Boolean, $operatorDone: Boolean) {
+    createProject(
+      leadEngineerDone: $leadEngineerDone
+      operatorDone: $operatorDone
+    ) {
+      data
+      category {
+        data
+        item {
+          id
+          data
+        }
+      }
+    }
+  }
+`;
+
 const query = {
   ALL,
   GET_ORDER_GEOMETRY,
   GET_LEAD_ENGINEER,
   GET_GEOMETRY,
   GET_ORDER,
-  GET_OPERATOR
+  GET_OPERATOR,
+  OPERATOR_PROJECTS
 };
 export default query;

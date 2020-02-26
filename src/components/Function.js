@@ -40,3 +40,7 @@ export const getSubtext = (
 
   return minString + unitString + maxString + unitString + requiredString;
 };
+
+export const stringToDictionary = data => {
+  return JSON.parse(data.replace(/'/g, '"'));
+};

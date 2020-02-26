@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import leadEngineerJson from "../forms/LeadEngineer.json";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
-import { Card, Container } from "react-bootstrap";
+import Paper from "components/Paper";
 
 export default pageInfo => {
   const { categoryId, itemId, different } = pageInfo.match.params;
@@ -21,25 +21,18 @@ export default pageInfo => {
   return (
     <>
       {
-        <Container className="mt-0 mt-sm-3 p-0">
-          <Card
-            className="shadow-sm"
-            style={{ minHeight: "80vh", height: "100%" }}
-          >
-            <Card.Body>
-              <DocumentAndSubmit
-                componentsId={"leadEngineerPage"}
-                document={leadEngineerJson}
-                reRender={() => setReRender(!reRender)}
-                data={data}
-                getQueryBy={itemId}
-                categoryId={categoryId}
-                itemId={itemId}
-                different={different}
-              />
-            </Card.Body>
-          </Card>
-        </Container>
+        <Paper>
+          <DocumentAndSubmit
+            componentsId={"leadEngineerPage"}
+            document={leadEngineerJson}
+            reRender={() => setReRender(!reRender)}
+            data={data}
+            getQueryBy={itemId}
+            categoryId={categoryId}
+            itemId={itemId}
+            different={different}
+          />
+        </Paper>
       }
     </>
   );

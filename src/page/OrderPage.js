@@ -5,7 +5,7 @@ import query from "../request/leadEngineer/Query";
 import history from "../history";
 import orderJson from "../forms/Order.json";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
-import { Card, Container } from "react-bootstrap";
+import Paper from "components/Paper";
 
 export default () => {
   const [updateOrder, setUpdateOrder] = useState(0);
@@ -36,27 +36,20 @@ export default () => {
         }}
       />
       {(updateOrder || createOrder) && (
-        <Container className="mt-0 mt-sm-3 p-0">
-          <Card
-            className="shadow-sm"
-            style={{ minHeight: "80vh", height: "100%" }}
-          >
-            <Card.Body>
-              <DocumentAndSubmit
-                componentsId={"orderPage"}
-                buttonToEveryForm={true}
-                notEditButton={true}
-                allWaysShow={true}
-                document={orderJson}
-                data={createOrder ? null : data}
-                arrayIndex={data.createProject.findIndex(
-                  index => index.id === updateOrder
-                )}
-                reRender={pushHome}
-              />
-            </Card.Body>
-          </Card>
-        </Container>
+        <Paper>
+          <DocumentAndSubmit
+            componentsId={"orderPage"}
+            buttonToEveryForm={true}
+            notEditButton={true}
+            allWaysShow={true}
+            document={orderJson}
+            data={createOrder ? null : data}
+            arrayIndex={data.createProject.findIndex(
+              index => index.id === updateOrder
+            )}
+            reRender={pushHome}
+          />
+        </Paper>
       )}
     </>
   );
