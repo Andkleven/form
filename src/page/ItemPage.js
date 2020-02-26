@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import ItemList from "../components/item/ItemList";
 import history from "../history";
 import query from "../request/leadEngineer/Query";
 import itemJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
-import DocumentAndSubmit from "../components/DocumentAndSubmit";
+import ItemList from "components/item/ItemList";
+import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 
 export default pageInfo => {

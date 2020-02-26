@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const MinusSquareO = props => (
   <svg {...props} viewBox="64 -65 897 897">
@@ -9,7 +9,7 @@ const MinusSquareO = props => (
       />
     </g>
   </svg>
-)
+);
 
 const PlusSquareO = props => (
   <svg {...props} viewBox="64 -65 897 897">
@@ -20,7 +20,7 @@ const PlusSquareO = props => (
       />
     </g>
   </svg>
-)
+);
 
 const CloseSquareO = props => (
   <svg {...props} viewBox="64 -65 897 897">
@@ -31,6 +31,10 @@ const CloseSquareO = props => (
       />
     </g>
   </svg>
-)
+);
 
-export { PlusSquareO, MinusSquareO, CloseSquareO }
+const Folder = props => <i {...props} className="fas fa-folder" />;
+
+const OpenFolder = props => <i {...props} className="fas fa-folder-open" />;
+
+export { PlusSquareO, MinusSquareO, CloseSquareO, Folder, OpenFolder };

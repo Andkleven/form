@@ -1,5 +1,5 @@
 import React from "react";
 
-const Home = () => <div> Jeg ser ikke teksten </div>;
+const Home = () => <div />;
 
 export default Home;

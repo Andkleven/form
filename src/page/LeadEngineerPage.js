@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import leadEngineerJson from "../forms/LeadEngineer.json";
-import DocumentAndSubmit from "../components/DocumentAndSubmit";
+import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 
 export default pageInfo => {
