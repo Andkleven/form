@@ -1,7 +1,7 @@
 import React from "react";
-import Paper from "components/Paper";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
+import Paper from "components/Paper";
 import Tree from "components/tree/Tree";
 import { stringToDictionary } from "components/Functions";
 
@@ -14,7 +14,7 @@ export default () => {
   return (
     <>
       <Paper>
-        <div className="mt-2" style={{ fontWeight: 600 }}>
+        <div className="" style={{ fontWeight: 600 }}>
           Projects
         </div>
         {data.createProject.map((project, index) => (
@@ -24,9 +24,6 @@ export default () => {
               stringToDictionary(project.data).projectName}`}
             defaultOpen
           >
-            <div className="mt-2" style={{ fontWeight: 600 }}>
-              Descriptions
-            </div>
             {project.category &&
               project.category.map((category, index) => (
                 <Tree
@@ -36,7 +33,7 @@ export default () => {
                 >
                   {category.item &&
                     category.item.map((item, index) => (
-                      <Tree key={index} name={item.id} />
+                      <Tree link key={index} name={item.id} />
                     ))}
                 </Tree>
               ))}

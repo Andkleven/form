@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import json from "../forms/BatchingPriming.json";
-import DocumentAndSubmit from "../components/DocumentAndSubmit";
+import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
-import Batching from "../components/Batching";
+import Batching from "components/Batching";
 
 export default pageInfo => {
   const { id } = pageInfo.match.params;
