@@ -1,5 +1,5 @@
 import GetValue from "./GetValue";
-import { allFalse } from "./Function";
+import { allFalse } from "./Functions";
 
 function whatTooReturn(value, decimal, array = [true]) {
   if (array.every(allFalse)) {

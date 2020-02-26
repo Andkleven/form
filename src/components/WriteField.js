@@ -4,7 +4,7 @@ import ErrorMessage from "./ErrorMessage";
 import FilesUpload from "./FilesUpload";
 import { FieldsContext, DocumentDateContext } from "./DocumentAndSubmit";
 import SubmitButton from "./SubmitButton";
-import { allTrue } from "./Function";
+import { allTrue } from "./Functions";
 
 import "../styles/styles.css";
 

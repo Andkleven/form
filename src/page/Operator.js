@@ -3,7 +3,7 @@ import Paper from "components/Paper";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import Tree from "components/tree/Tree";
-import { stringToDictionary } from "components/Function";
+import { stringToDictionary } from "components/Functions";
 
 export default () => {
   const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {

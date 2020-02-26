@@ -6,7 +6,7 @@ import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
-import { allTrue } from "./Function";
+import { allTrue } from "./Functions";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();

@@ -5,7 +5,7 @@ import {
   DocumentDateContext,
   FieldsContext
 } from "./DocumentAndSubmit";
-import { sumFieldInObject, getLastObjectValue } from "./Function";
+import { sumFieldInObject, getLastObjectValue } from "./Functions";
 import Title from "./Title";
 
 export default props => {

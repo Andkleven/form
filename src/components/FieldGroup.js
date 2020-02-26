@@ -7,7 +7,7 @@ import {
   ChapterContext
 } from "./DocumentAndSubmit";
 import Line from "./Line";
-import { getSubtext } from "./Function";
+import { getSubtext } from "./Functions";
 import VariableLabel from "./VariableLabel";
 
 export default props => {
