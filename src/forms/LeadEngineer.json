@@ -1,16 +1,16 @@
 {
-  "queryPath": "leadEngineer",
+  "queryPath": "leadEngineers",
   "mutation": "LEADENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
       "lookUpBy": "primer1",
-      "queryPath": "leadEngineer",
+      "queryPath": "leadEngineers",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
-          "queryPath": "leadEngineer",
-          "pageName": "leadEngineer",
+          "queryPath": "leadEngineers",
+          "pageName": "leadEngineers",
           "fields": [
             {
               "fieldName": "steel",
@@ -144,8 +144,8 @@
         },
         {
           "pageTitle": "Custom Test",
-          "queryPath": "leadEngineer.0.customSteelPreparation",
-          "pageName": "customSteelPreparation",
+          "queryPath": "leadEngineers.0.customSteelPreparations",
+          "pageName": "customSteelPreparations",
           "repeat": true,
           "delete": true,
           "addButton": "Add Custom Test",
@@ -174,8 +174,8 @@
         },
         {
           "pageTitle": "Priming",
-          "queryPath": "leadEngineer",
-          "pageName": "leadEngineer",
+          "queryPath": "leadEngineers",
+          "pageName": "leadEngineers",
           "fields": [
             {
               "fieldName": "primer1",
@@ -208,7 +208,7 @@
               ]
             },
             {
-              "fieldName": "rubberCementBeforeCoating",
+              "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Cement Before Coating",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -221,13 +221,13 @@
     },
     {
       "lookUpBy": "numberOfLayers",
-      "queryPath": "leadEngineer.0.vulcanizationStep",
+      "queryPath": "leadEngineers.0.vulcanizationOperatorsSteps",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
-          "queryPath": "leadEngineer",
-          "pageName": "leadEngineer",
+          "queryPath": "leadEngineers",
+          "pageName": "leadEngineers",
           "mutation": "LEADENGINEER",
           "fields": [
             {
@@ -242,7 +242,7 @@
             {
               "fieldName": "actualSteelTDV",
               "label": "Actual Steel {TDV}",
-              "queryNameVariableLabel": "leadEngineer",
+              "queryNameVariableLabel": "leadEngineers",
               "fieldNameVariableLabel": "targetDescriptionValue",
               "indexVariableLabel": 0,
               "placeholder": "Max",
@@ -290,7 +290,7 @@
               "max": 6
             },
             {
-              "fieldName": "measurementPoints",
+              "fieldName": "measurementPointOperatorss",
               "label": "Measurement Points",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -301,15 +301,15 @@
         },
         {
           "pageTitle": "Measurement Point Actual",
-          "queryPath": "leadEngineer.0.measurementPointActualTvd",
-          "pageName": "measurementPointActualTvd",
+          "queryPath": "leadEngineers.0.measurementPointOperatorsActualTvds",
+          "pageName": "measurementPointOperatorsActualTvds",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithPageName": "leadEngineer",
-          "repeatGroupWithFieldName": "measurementPoints",
+          "repeatGroupWithPageName": "leadEngineers",
+          "repeatGroupWithFieldName": "measurementPointOperatorss",
           "fields": [
             {
-              "fieldName": "measurementPointActual",
+              "fieldName": "measurementPointOperatorsActual",
               "label": "Measurement Point Actual",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -319,14 +319,14 @@
         },
         {
           "pageTitle": "Rubber Cement",
-          "queryPath": "leadEngineer.0.rubberCement",
-          "pageName": "rubberCement",
+          "queryPath": "leadEngineers.0.rubberCements",
+          "pageName": "rubberCements",
           "repeat": true,
           "delete": true,
           "addButton": "Add Rubber Cement",
           "fields": [
             {
-              "fieldName": "rubberCement",
+              "fieldName": "rubberCements",
               "label": "Rubber Cement",
               "feedback": "Enter valid number.",
               "notLabel": true,
@@ -335,8 +335,8 @@
           ]
         },
         {
-          "pageName": "vulcanizationStep",
-          "queryPath": "leadEngineer.0.vulcanizationStep",
+          "pageName": "vulcanizationOperatorsSteps",
+          "queryPath": "leadEngineers.0.vulcanizationOperatorsSteps",
           "repeat": true,
           "repeatStartWithOneGroup": true,
           "delete": true,
@@ -345,7 +345,7 @@
           "fieldGroupRepeatTitle": "Step {}",
           "fields": [
             {
-              "fieldName": "vulcanizationOption",
+              "fieldName": "vulcanizationOperatorsOption",
               "label": "Vulcanization Option",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -379,17 +379,17 @@
     },
     {
       "lookUpBy": "actualThickness",
-      "queryPath": "leadEngineer.0.coatingLayer",
+      "queryPath": "leadEngineers.0.coatingLayers",
       "pages": [
         {
           "pageTitle": "Coating Layer",
-          "queryPath": "leadEngineer.0.coatingLayer",
-          "pageName": "coatingLayer",
+          "queryPath": "leadEngineers.0.coatingLayers",
+          "pageName": "coatingLayers",
           "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
           "repeatGroupWithChapter": -1,
-          "repeatGroupWithPageName": "vulcanizationStep",
+          "repeatGroupWithPageName": "vulcanizationOperatorsSteps",
           "repeatGroupWithFieldName": "numberOfLayers",
           "fields": [
             {

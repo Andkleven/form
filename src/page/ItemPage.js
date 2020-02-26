@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "../history";
-import query from "../request/leadEngineer/Query";
-import itemJson from "../forms/Item.json";
-import mutations from "../request/leadEngineer/MutationToDatabase";
-import ItemList from "components/item/ItemList";
+import query from "../request/leadEngineers/Query";
+import itemsJson from "../forms/Item.json";
+import mutations from "../request/leadEngineers/MutationToDatabase";
+import ItemList from "components/items/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 
@@ -13,25 +13,25 @@ export default pageInfo => {
   const [counter, setCounter] = useState(1);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
-  const [createProjectData, setCreateProjectData] = useState(0);
+  const [projectsData, setProjectData] = useState(0);
   const setstate = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[itemJson.query], {
+  const { loading, error, data } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
   useEffect(() => {
     if (!error && !loading) {
       if (
-        data.createProject[0].category[counter - 1] &&
-        data.createProject[0].category[counter - 1].item
+        data.projects[0].descriptions[counter - 1] &&
+        data.projects[0].descriptions[counter - 1].items
       ) {
-        setGeometryData(data.createProject[0].category[counter - 1]);
+        setGeometryData(data.projects[0].descriptions[counter - 1]);
       } else {
         setGeometryData(0);
       }
-      setCreateProjectData(
-        JSON.parse(data.createProject[0].data.replace(/'/g, '"'))
+      setProjectData(
+        JSON.parse(data.projects[0].data.replace(/'/g, '"'))
       );
     }
   }, [data, error, loading, counter, reRender]);
@@ -39,7 +39,7 @@ export default pageInfo => {
     cache,
     {
       data: {
-        itemDelete: { deletet }
+        itemsDelete: { deletet }
       }
     }
   ) => {
@@ -47,16 +47,16 @@ export default pageInfo => {
       query: query["GET_ORDER_GEOMETRY"],
       variables: { id: _id }
     });
-    oldData.createProject[0].category[
+    oldData.projects[0].descriptions[
       counter - 1
-    ].item = oldData.createProject[0].category[counter - 1].item.filter(
-      item => item.id != deletet
+    ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
+      items => items.id != deletet
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
       variables: { id: _id },
       data: {
-        createProject: oldData.createProject
+        projects: oldData.projects
       }
     });
   };
@@ -76,11 +76,11 @@ export default pageInfo => {
   return (
     <Paper>
       <DocumentAndSubmit
-        componentsId={"itemPage" + counter.toString()}
+        componentsId={"itemsPage" + counter.toString()}
         // buttonToEveryForm={true}
         // notEditButton={true}
         // allWaysShow={true}
-        document={itemJson}
+        document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={data}
         arrayIndex={counter - 1}
@@ -93,26 +93,26 @@ export default pageInfo => {
             onClick={() =>
               history.push(
                 `/order/lead-engineer/${geometryData.id}/${
-                  geometryData.item.find(item => item.different === false).id
+                  geometryData.items.find(items => items.different === false).id
                 }/0`
               )
             }
           >
-            Create all item
+            Create all items
           </button>
           <ItemList
-            items={geometryData.item}
-            submitItem={item => {
-              if (!item.different) {
+            itemss={geometryData.items}
+            submitItem={items => {
+              if (!items.different) {
                 mutationDiffreant({
                   variables: {
-                    id: item.id,
+                    id: items.id,
                     different: true
                   }
                 });
               }
               history.push(
-                `/order/lead-engineer/${geometryData.id}/${item.id}/1`
+                `/order/lead-engineer/${geometryData.id}/${items.id}/1`
               );
             }}
             submitDelete={id => {
@@ -123,12 +123,12 @@ export default pageInfo => {
       ) : null}
 
       <h4>
-        Geometry {counter}/{createProjectData.numberOfCategorys}
+        Geometry {counter}/{projectsData.numberOfDescriptionss}
       </h4>
       {counter !== 1 && (
         <button onClick={() => setstate(counter - 1)}>Back</button>
       )}
-      {counter < createProjectData.numberOfCategorys ? (
+      {counter < projectsData.numberOfDescriptionss ? (
         <button onClick={() => setstate(counter + 1)}>Next</button>
       ) : (
         <button>Submit</button>

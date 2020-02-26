@@ -1,17 +1,17 @@
 {
-  "queryPath": "createProject",
+  "queryPath": "projects",
   "mutation": "ORDER",
   "query": "GET_ORDER_GEOMETRY",
   "chapters": [
     {
       "lookUpBy": "CPS",
-      "queryPath": "createProject.0.category",
+      "queryPath": "projects.0.descriptions",
       "findByIndex": true,
       "pages": [
         {
-          "pageTitle": "Category",
-          "pageName": "category",
-          "queryPath": "createProject.0.category",
+          "pageTitle": "Descriptions",
+          "pageName": "descriptions",
+          "queryPath": "projects.0.descriptions",
           "findByIndex": true,
           "fields": [
             {
@@ -47,13 +47,13 @@
         },
         {
           "pageTitle": "Add File",
-          "firstQueryPath": "createProject.0.category",
+          "firstQueryPath": "projects.0.descriptions",
           "secondQueryPath": "uploadFile",
           "pageName": "uploadFile",
           "getForeignKey": true,
           "fields": [
             {
-              "fieldName": "itemId",
+              "fieldName": "itemsId",
               "type": "file",
               "label": "Image",
               "multipleFiles": true
@@ -64,20 +64,20 @@
     },
     {
       "chapterAlwaysInWrite": true,
-      "firstQueryPath": "createProject.0.category",
-      "secondQueryPath": "item",
+      "firstQueryPath": "projects.0.descriptions",
+      "secondQueryPath": "items",
       "pages": [
         {
-          "title": "Add item",
-          "pageName": "item",
-          "firstQueryPath": "createProject.0.category",
-          "secondQueryPath": "item",
+          "title": "Add items",
+          "pageName": "items",
+          "firstQueryPath": "projects.0.descriptions",
+          "secondQueryPath": "items",
           "createWithOldValue": true,
           "createWithValueLast": true,
           "getForeignKey": true,
           "fields": [
             {
-              "fieldName": "itemId",
+              "fieldName": "itemsId",
               "label": "Item ID",
               "subtext": "Subtext"
             }

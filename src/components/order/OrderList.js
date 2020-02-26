@@ -12,8 +12,8 @@ const OrderList = props => {
       <OrderItem
         key={JSON.stringify(index) + "OrderItem" + JSON.stringify(order.id)}
         orderId={order.id}
-        projectName={data.projectName ? data.projectName : ""}
-        projectNumber={data.projectNumber ? data.projectNumber : ""}
+        projectsName={data.projectsName ? data.projectsName : ""}
+        projectsNumber={data.projectsNumber ? data.projectsNumber : ""}
         onDetail={props.onViewDetail}
       />
     );

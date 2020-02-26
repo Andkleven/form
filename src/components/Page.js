@@ -163,7 +163,7 @@ export default props => {
       ) : null}
 
       {!props.onePage && props.data && Array.isArray(props.data) ? (
-        props.data.map((itemData, index) => {
+        props.data.map((itemsData, index) => {
           if (props.data.length + repeatGroup - 1 < index) {
             delete documentDateContext.documentDate[props.thisChapter][
               props.pageName
@@ -175,7 +175,7 @@ export default props => {
                 {...props}
                 writeChapter={writeChapter}
                 key={`${props.indexId}-${index}`}
-                data={itemData}
+                data={itemsData}
                 fields={props.fields}
                 step={index}
                 repeatStep={index}

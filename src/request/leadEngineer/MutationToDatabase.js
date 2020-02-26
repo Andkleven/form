@@ -1,22 +1,22 @@
 import gql from "graphql-tag";
 
 const ORDER = gql`
-  mutation createProject(
-    $createProject: [CreateProjectInupt]
-    $category: [CategoryInupt]
-    $item: [ItemInput]
+  mutation projects(
+    $projects: [ProjectInupt]
+    $descriptions: [DescriptionsInupt]
+    $items: [ItemInput]
     $uploadFile: [UploadFileInupt]
   ) {
-    createProject(
-      createProject: $createProject
-      category: $category
-      item: $item
+    projects(
+      projects: $projects
+      descriptions: $descriptions
+      items: $items
       uploadFile: $uploadFile
     ) {
       new {
         id
         data
-        category {
+        descriptions {
           id
           data
           uploadFile {
@@ -24,7 +24,7 @@ const ORDER = gql`
             data
             file
           }
-          item {
+          items {
             id
             data
             different
@@ -39,18 +39,18 @@ const ORDER = gql`
   }
 `;
 const ITEM = gql`
-  mutation item(
+  mutation items(
     $id: Int
     $foreignKey: Int
     $data: String
     $different: Boolean
   ) {
-    item(id: $id, foreignKey: $foreignKey, data: $data, different: $different) {
+    items(id: $id, foreignKey: $foreignKey, data: $data, different: $different) {
       new {
         id
         data
         different
-        leadEngineer {
+        leadEngineers {
           id
         }
       }
@@ -59,60 +59,60 @@ const ITEM = gql`
 `;
 
 const DELETEITEM = gql`
-  mutation itemDelete($id: Int) {
-    itemDelete(id: $id) {
+  mutation itemsDelete($id: Int) {
+    itemsDelete(id: $id) {
       deletet
     }
   }
 `;
 
 const LEADENGINEER = gql`
-  mutation leadEngineer(
-    $leadEngineer: [UnderCategoriesOfLeadEngineerInupt]
-    $measurementPointActualTvd: [UnderCategoriesOfLeadEngineerInupt]
-    $customSteelPreparation: [UnderCategoriesOfLeadEngineerInupt]
-    $rubberCement: [UnderCategoriesOfLeadEngineerInupt]
-    $vulcanizationStep: [UnderCategoriesOfLeadEngineerInupt]
-    $coatingLayer: [UnderCategoriesOfLeadEngineerInupt]
-    $customFinalInspection: [UnderCategoriesOfLeadEngineerInupt]
-    $categoryId: Int
-    $itemId: Int
+  mutation leadEngineers(
+    $leadEngineers: [UnderCategoriesOfLeadEngineerInupt]
+    $measurementPointOperatorsActualTvds: [UnderCategoriesOfLeadEngineerInupt]
+    $customSteelPreparations: [UnderCategoriesOfLeadEngineerInupt]
+    $rubberCements: [UnderCategoriesOfLeadEngineerInupt]
+    $vulcanizationOperatorsSteps: [UnderCategoriesOfLeadEngineerInupt]
+    $coatingLayers: [UnderCategoriesOfLeadEngineerInupt]
+    $customFinalInspections: [UnderCategoriesOfLeadEngineerInupt]
+    $descriptionsId: Int
+    $itemsId: Int
   ) {
-    leadEngineer(
-      leadEngineer: $leadEngineer
-      measurementPointActualTvd: $measurementPointActualTvd
-      customSteelPreparation: $customSteelPreparation
-      rubberCement: $rubberCement
-      vulcanizationStep: $vulcanizationStep
-      coatingLayer: $coatingLayer
-      customFinalInspection: $customFinalInspection
-      categoryId: $categoryId
-      itemId: $itemId
+    leadEngineers(
+      leadEngineers: $leadEngineers
+      measurementPointOperatorsActualTvds: $measurementPointOperatorsActualTvds
+      customSteelPreparations: $customSteelPreparations
+      rubberCements: $rubberCements
+      vulcanizationOperatorsSteps: $vulcanizationOperatorsSteps
+      coatingLayers: $coatingLayers
+      customFinalInspections: $customFinalInspections
+      descriptionsId: $descriptionsId
+      itemsId: $itemsId
     ) {
       new {
         id
         data
-        measurementPointActualTvd {
+        measurementPointOperatorsActualTvds {
           id
           data
         }
-        customSteelPreparation {
+        customSteelPreparations {
           id
           data
         }
-        rubberCement {
+        rubberCements {
           id
           data
         }
-        vulcanizationStep {
+        vulcanizationOperatorsSteps {
           id
           data
         }
-        coatingLayer {
+        coatingLayers {
           id
           data
         }
-        customFinalInspection {
+        customFinalInspections {
           id
           data
         }
@@ -122,44 +122,44 @@ const LEADENGINEER = gql`
 `;
 
 const OPERATOR = gql`
-  mutation leadEngineer(
-    $operator: [UnderCategoriesOfLeadEngineerInupt]
-    $customMediaBlasting: [UnderCategoriesOfLeadEngineerInupt]
+  mutation leadEngineers(
+    $operators: [UnderCategoriesOfLeadEngineerInupt]
+    $customMediaBlastings: [UnderCategoriesOfLeadEngineerInupt]
     $coating: [UnderCategoriesOfLeadEngineerInupt]
-    $mixDate: [UnderCategoriesOfLeadEngineerInupt]
-    $measurementPoint: [UnderCategoriesOfLeadEngineerInupt]
-    $vulcanization: [UnderCategoriesOfLeadEngineerInupt]
-    $itemIdList: [ListId]
+    $mixDates: [UnderCategoriesOfLeadEngineerInupt]
+    $measurementPointOperators: [UnderCategoriesOfLeadEngineerInupt]
+    $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInupt]
+    $itemsIdList: [ListId]
   ) {
-    leadEngineer(
-      operator: $leadEngineer
-      customMediaBlasting: $measurementPointActualTvd
-      coating: $customSteelPreparation
-      mixDate: $rubberCement
-      measurementPoint: $vulcanizationStep
-      vulcanization: $coatingLayer
-      itemIdList: $itemIdList
+    leadEngineers(
+      operators: $leadEngineers
+      customMediaBlastings: $measurementPointOperatorsActualTvds
+      coating: $customSteelPreparations
+      mixDates: $rubberCements
+      measurementPointOperators: $vulcanizationOperatorsSteps
+      vulcanizationOperators: $coatingLayers
+      itemsIdList: $itemsIdList
     ) {
       new {
         id
         data
-        customMediaBlasting {
+        customMediaBlastings {
           id
           data
         }
         coating {
           id
           data
-          mixDate {
+          mixDates {
             id
             data
           }
-          measurementPoint {
+          measurementPointOperators {
             id
             data
           }
         }
-        vulcanization {
+        vulcanizationOperators {
           id
           data
         }

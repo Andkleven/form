@@ -1,10 +1,10 @@
 import React from "react";
 
 const OrderItem = props => (
-  <li key={props.orderId} className="events__list-item">
+  <li key={props.orderId} className="events__list-items">
     <div>
-      <h1>{props.projectName}</h1>
-      <h2>{props.projectNumber}</h2>
+      <h1>{props.projectsName}</h1>
+      <h2>{props.projectsNumber}</h2>
       <h2>{props.asd}</h2>
     </div>
     <div>

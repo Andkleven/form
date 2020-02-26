@@ -13,15 +13,15 @@ function mathCumulativeThickness(values, repeatStep, decimal) {
   let previousCumulativeThickness = 0;
   if (repeatStep) {
     previousCumulativeThickness = Number(
-      GetValue(values, "coatingLayer", repeatStep - 1, "cumulativeThickness")
+      GetValue(values, "coatingLayers", repeatStep - 1, "cumulativeThickness")
     );
   }
   let proposedThickness = Number(
-    GetValue(values, "coatingLayer", repeatStep, "proposedThickness")
+    GetValue(values, "coatingLayers", repeatStep, "proposedThickness")
   );
   let layersUnique = GetValue(
     values,
-    "coatingLayer",
+    "coatingLayers",
     repeatStep,
     "layersUnique"
   );
@@ -40,9 +40,9 @@ function mathCumulativeThickness(values, repeatStep, decimal) {
 
 function mathProposedThickness(values, repeatStep, decimal) {
   let partOfNumber = 0;
-  let shrink = Number(GetValue(values, "coatingLayer", repeatStep, "shrink"));
+  let shrink = Number(GetValue(values, "coatingLayers", repeatStep, "shrink"));
   let actualThickness = Number(
-    GetValue(values, "coatingLayer", repeatStep, "actualThickness")
+    GetValue(values, "coatingLayers", repeatStep, "actualThickness")
   );
   if (shrink) {
     partOfNumber = (shrink * actualThickness) / 100;
@@ -56,10 +56,10 @@ function mathProposedThickness(values, repeatStep, decimal) {
 
 function mathToleranceMinPercent(values, repeatStep, decimal) {
   let toleranceMin = Number(
-    GetValue(values, "leadEngineer", repeatStep, "toleranceMin")
+    GetValue(values, "leadEngineers", repeatStep, "toleranceMin")
   );
   let orderedTotalRubberThickness = Number(
-    GetValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThickness")
+    GetValue(values, "leadEngineers", repeatStep, "orderedTotalRubberThickness")
   );
   return whatTooReturn(
     (toleranceMin * 100) / orderedTotalRubberThickness,
@@ -70,10 +70,10 @@ function mathToleranceMinPercent(values, repeatStep, decimal) {
 
 function mathToleranceMaxPercent(values, repeatStep, decimal) {
   let toleranceMax = Number(
-    GetValue(values, "leadEngineer", repeatStep, "toleranceMax")
+    GetValue(values, "leadEngineers", repeatStep, "toleranceMax")
   );
   let orderedTotalRubberThickness = Number(
-    GetValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThickness")
+    GetValue(values, "leadEngineers", repeatStep, "orderedTotalRubberThickness")
   );
   return whatTooReturn(
     (toleranceMax * 100) / orderedTotalRubberThickness,

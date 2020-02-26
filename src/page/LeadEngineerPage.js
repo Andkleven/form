@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "../request/leadEngineer/Query";
-import leadEngineerJson from "../forms/LeadEngineer.json";
+import query from "../request/leadEngineers/Query";
+import leadEngineersJson from "../forms/LeadEngineer.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 
 export default pageInfo => {
-  const { categoryId, itemId, different } = pageInfo.match.params;
+  const { descriptionsId, itemsId, different } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   // const { loading1, error1, data: getGategory } = useQuery(query["GET_GEOMETRY"], {
-  //   variables: { id: categoryId }
+  //   variables: { id: descriptionsId }
   // });
-  const { loading, error, data } = useQuery(query[leadEngineerJson.query], {
-    variables: { id: itemId }
+  const { loading, error, data } = useQuery(query[leadEngineersJson.query], {
+    variables: { id: itemsId }
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -23,13 +23,13 @@ export default pageInfo => {
       {
         <Paper>
           <DocumentAndSubmit
-            componentsId={"leadEngineerPage"}
-            document={leadEngineerJson}
+            componentsId={"leadEngineersPage"}
+            document={leadEngineersJson}
             reRender={() => setReRender(!reRender)}
             data={data}
-            getQueryBy={itemId}
-            categoryId={categoryId}
-            itemId={itemId}
+            getQueryBy={itemsId}
+            descriptionsId={descriptionsId}
+            itemsId={itemsId}
             different={different}
           />
         </Paper>

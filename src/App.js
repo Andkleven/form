@@ -35,11 +35,11 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               {/* {!authToken && <Redirect to="/login" exact />} */}
               <Route exact path="/" component={Home} />
-              <Route exact path="/operator" component={Operator} />
+              <Route exact path="/operators" component={Operator} />
               <Route exact path="/order" component={OrderPage} />
-              <Route path="/order/item/:_id" component={Item} />
+              <Route path="/order/items/:_id" component={Item} />
               <Route
-                path="/order/lead-engineer/:categoryId/:itemId/:different"
+                path="/order/lead-engineer/:descriptionsId/:itemsId/:different"
                 component={LeadEngineerPage}
               />
             </Switch>

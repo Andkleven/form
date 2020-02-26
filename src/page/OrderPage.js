@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import OrderList from "../components/order/OrderList";
-import query from "../request/leadEngineer/Query";
+import query from "../request/leadEngineers/Query";
 import history from "../history";
 import orderJson from "../forms/Order.json";
 import DocumentAndSubmit from "../components/DocumentAndSubmit";
@@ -22,15 +22,15 @@ export default () => {
     setUpdateOrder(id);
   };
   const pushHome = data => {
-    const { id } = data.createProject.new;
-    history.push(`/order/item/${id}`);
+    const { id } = data.projects.new;
+    history.push(`/order/items/${id}`);
   };
 
   return (
     <>
       <button onClick={() => newForm()}>Create Project</button>
       <OrderList
-        orders={data.createProject}
+        orders={data.projects}
         onViewDetail={id => {
           updateForm(id);
         }}
@@ -44,7 +44,7 @@ export default () => {
             allWaysShow={true}
             document={orderJson}
             data={createOrder ? null : data}
-            arrayIndex={data.createProject.findIndex(
+            arrayIndex={data.projects.findIndex(
               index => index.id === updateOrder
             )}
             reRender={pushHome}

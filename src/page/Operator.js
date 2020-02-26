@@ -1,13 +1,13 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "../request/leadEngineer/Query";
+import query from "../request/leadEngineers/Query";
 import Paper from "components/Paper";
 import Tree from "components/tree/Tree";
 import { stringToDictionary } from "components/Functions";
 
 export default () => {
   const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
-    variables: { leadEngineerDone: true, operatorDone: false }
+    variables: { leadEngineersDone: true, operatorDone: false }
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -17,23 +17,23 @@ export default () => {
         <div className="" style={{ fontWeight: 600 }}>
           Projects
         </div>
-        {data.createProject.map((project, index) => (
+        {data.projects.map((projects, index) => (
           <Tree
             key={index}
-            name={`${project.data &&
-              stringToDictionary(project.data).projectName}`}
+            name={`${projects.data &&
+              stringToDictionary(projects.data).projectsName}`}
             defaultOpen
           >
-            {project.category &&
-              project.category.map((category, index) => (
+            {projects.descriptions &&
+              projects.descriptions.map((descriptions, index) => (
                 <Tree
                   key={index}
-                  name={`${category.data &&
-                    stringToDictionary(category.data).geometry}`}
+                  name={`${descriptions.data &&
+                    stringToDictionary(descriptions.data).geometry}`}
                 >
-                  {category.item &&
-                    category.item.map((item, index) => (
-                      <Tree link key={index} name={item.id} />
+                  {descriptions.items &&
+                    descriptions.items.map((items, index) => (
+                      <Tree link key={index} name={items.id} />
                     ))}
                 </Tree>
               ))}

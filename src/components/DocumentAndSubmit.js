@@ -1,7 +1,7 @@
 import React, { Fragment, useState, createContext, useEffect } from "react";
 import Page from "./Page";
-import query from "../request/leadEngineer/Query";
-import mutations from "../request/leadEngineer/MutationToDatabase";
+import query from "../request/leadEngineers/Query";
+import mutations from "../request/leadEngineers/MutationToDatabase";
 import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
@@ -269,10 +269,10 @@ export default props => {
     mutation({
       variables: {
         ...variables,
-        categoryId:
-          Number(props.different) === 0 ? Number(props.categoryId) : undefined,
-        itemId: Number(props.different) ? Number(props.itemId) : undefined,
-        itemIdList: props.batchingListIds ? props.batchingListIds : undefined
+        descriptionsId:
+          Number(props.different) === 0 ? Number(props.descriptionsId) : undefined,
+        itemsId: Number(props.different) ? Number(props.itemsId) : undefined,
+        itemsIdList: props.batchingListIds ? props.batchingListIds : undefined
       }
     });
     setFiles([]);
@@ -305,10 +305,10 @@ export default props => {
         index={index}
         addForm={addForm}
         submitData={submitData}
-        categoryId={
-          Number(props.different) === 0 ? Number(props.categoryId) : 0
+        descriptionsId={
+          Number(props.different) === 0 ? Number(props.descriptionsId) : 0
         }
-        itemId={Number(props.different) ? Number(props.itemId) : 0}
+        itemsId={Number(props.different) ? Number(props.itemsId) : 0}
         mutation={mutation}
       />
     );

@@ -2,17 +2,17 @@ import gql from "graphql-tag";
 
 const ALL = gql`
   query($id: Int!) {
-    createProject(id: $id) {
+    projects(id: $id) {
       id
       data
-      leadEngineerDone
+      leadEngineersDone
       operatorDone
       qualityControlDone
       operatorStarted
-      category {
+      descriptions {
         id
         data
-        item {
+        items {
           id
           data
           different
@@ -20,30 +20,30 @@ const ALL = gql`
           repair
           operatorDone
           qualityControlDone
-          leadEngineer {
+          leadEngineers {
             id
             data
-            measurementPointActualTvd {
+            measurementPointOperatorsActualTvds {
               id
               data
             }
-            customSteelPreparation {
+            customSteelPreparations {
               id
               data
             }
-            rubberCement {
+            rubberCements {
               id
               data
             }
-            customFinalInspection {
+            customFinalInspections {
               id
               data
             }
-            vulcanizationStep {
+            vulcanizationOperatorsSteps {
               id
               data
             }
-            coatingLayer {
+            coatingLayers {
               id
               data
             }
@@ -56,7 +56,7 @@ const ALL = gql`
 
 const GET_ORDER = gql`
   {
-    createProject(qualityControlDone: false) {
+    projects(qualityControlDone: false) {
       id
       data
     }
@@ -65,7 +65,7 @@ const GET_ORDER = gql`
 
 const GET_GEOMETRY = gql`
   query($id: Int!) {
-    category(id: $id) {
+    descriptions(id: $id) {
       data
     }
   }
@@ -73,13 +73,13 @@ const GET_GEOMETRY = gql`
 
 const GET_ORDER_GEOMETRY = gql`
   query($id: Int!) {
-    createProject(id: $id) {
+    projects(id: $id) {
       id
       data
-      category {
+      descriptions {
         id
         data
-        item {
+        items {
           id
           data
           different
@@ -96,30 +96,30 @@ const GET_ORDER_GEOMETRY = gql`
 
 const GET_LEAD_ENGINEER = gql`
   query getLeadEngineer($id: Int!) {
-    leadEngineer(item: $id) {
+    leadEngineers(items: $id) {
       id
       data
-      customSteelPreparation {
+      customSteelPreparations {
         id
         data
       }
-      measurementPointActualTvd {
+      measurementPointOperatorsActualTvds {
         id
         data
       }
-      vulcanizationStep {
+      vulcanizationOperatorsSteps {
         id
         data
       }
-      coatingLayer {
+      coatingLayers {
         id
         data
       }
-      rubberCement {
+      rubberCements {
         id
         data
       }
-      customFinalInspection {
+      customFinalInspections {
         id
         data
       }
@@ -129,60 +129,60 @@ const GET_LEAD_ENGINEER = gql`
 
 const GET_OPERATOR = gql`
   query($id: Int!) {
-    category(id: $id) {
+    descriptions(id: $id) {
       id
       data
-      item {
+      items {
         id
         data
-        leadEngineer {
+        leadEngineers {
           id
           data
-          measurementPointActualTvd {
+          measurementPointOperatorsActualTvds {
             id
             data
           }
-          customSteelPreparation {
+          customSteelPreparations {
             id
             data
           }
-          rubberCement {
+          rubberCements {
             id
             data
           }
-          customFinalInspection {
+          customFinalInspections {
             id
             data
           }
-          vulcanizationStep {
+          vulcanizationOperatorsSteps {
             id
             data
           }
-          coatingLayer {
+          coatingLayers {
             id
             data
           }
         }
-        operator {
+        operators {
           id
           data
-          customMediaBlasting {
+          customMediaBlastings {
             id
             data
           }
-          coating {
+          coatingOperators {
             id
             data
-            mixDate {
+            mixDates {
               id
               data
             }
-            measurementPoint {
+            measurementPointOperators {
               id
               data
             }
           }
-          vulcanization {
+          vulcanizationOperators {
             id
             data
           }
@@ -193,15 +193,15 @@ const GET_OPERATOR = gql`
 `;
 
 const OPERATOR_PROJECTS = gql`
-  query($leadEngineerDone: Boolean, $operatorDone: Boolean) {
-    createProject(
-      leadEngineerDone: $leadEngineerDone
+  query($leadEngineersDone: Boolean, $operatorDone: Boolean) {
+    projects(
+      leadEngineersDone: $leadEngineersDone
       operatorDone: $operatorDone
     ) {
       data
-      category {
+      descriptions {
         data
-        item {
+        items {
           id
           data
         }
