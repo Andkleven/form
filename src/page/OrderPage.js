@@ -22,35 +22,38 @@ export default () => {
     setUpdateOrder(id);
   };
   const pushHome = data => {
-    const { id } = data.createProject.new;
+    const { id } = data.projects.new;
     history.push(`/order/item/${id}`);
   };
 
   return (
-    <>
-      <Paper>
-        <button onClick={() => newForm()}>Create Project</button>
+    <Paper>
+      <button onClick={() => newForm()}>Create Project</button>
+      {data.projects ? (
         <OrderList
-          orders={data.createProject}
+          orders={data.projects}
           onViewDetail={id => {
             updateForm(id);
           }}
         />
+        ) : null}
         {(updateOrder || createOrder) && (
-          <DocumentAndSubmit
-            componentsId={"orderPage"}
-            buttonToEveryForm={true}
-            notEditButton={true}
-            allWaysShow={true}
-            document={orderJson}
-            data={createOrder ? null : data}
-            arrayIndex={data.createProject.findIndex(
-              index => index.id === updateOrder
-            )}
-            reRender={pushHome}
-          />
-        )}
+          <Paper>
+            <DocumentAndSubmit
+              componentsId={"orderPage"}
+              buttonToEveryForm={true}
+              notEditButton={true}
+              allWaysShow={true}
+              document={orderJson}
+              data={createOrder ? null : data}
+              arrayIndex={
+                data.projects
+                  ? data.projects.findIndex(index => index.id === updateOrder)
+                  : 0
+              }
+              reRender={pushHome}
+            />
+          )}
       </Paper>
-    </>
-  );
-};
+    );
+  };

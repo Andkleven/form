@@ -40,7 +40,6 @@ export default props => {
   useEffect(() => {
     setDocumentDate({});
   }, [props.componentsId]);
-
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -239,7 +238,6 @@ export default props => {
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,
@@ -269,10 +267,12 @@ export default props => {
     mutation({
       variables: {
         ...variables,
-        categoryId:
-          Number(props.different) === 0 ? Number(props.categoryId) : undefined,
-        itemId: Number(props.different) ? Number(props.itemId) : undefined,
-        itemIdList: props.batchingListIds ? props.batchingListIds : undefined
+        descriptionId:
+          Number(props.different) === 0
+            ? Number(props.descriptionId)
+            : undefined,
+        itemsId: Number(props.different) ? Number(props.itemId) : undefined,
+        itemsIdList: props.batchingListIds ? props.batchingListIds : undefined
       }
     });
     setFiles([]);
@@ -288,7 +288,6 @@ export default props => {
       setIsSubmited(true);
     }
   };
-  console.log(documentDate);
   const view = (info, index, thisChapter, stopLoop, showEditButton) => {
     return (
       <Page
@@ -305,10 +304,10 @@ export default props => {
         index={index}
         addForm={addForm}
         submitData={submitData}
-        categoryId={
-          Number(props.different) === 0 ? Number(props.categoryId) : 0
+        descriptionsId={
+          Number(props.different) === 0 ? Number(props.descriptionsId) : 0
         }
-        itemId={Number(props.different) ? Number(props.itemId) : 0}
+        itemsId={Number(props.different) ? Number(props.itemsId) : 0}
         mutation={mutation}
       />
     );

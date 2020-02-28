@@ -1,5 +1,5 @@
 {
-  "queryPath": "createProject",
+  "queryPath": "projects",
   "mutation": "ORDER",
   "query": "GET_ORDER",
   "chapters": [
@@ -7,10 +7,10 @@
       "chapterAlwaysInWrite": true,
       "pages": [
         {
-          "queryPath": "createProject",
+          "queryPath": "projects",
           "pageTitle": "Order",
           "findByIndex": true,
-          "pageName": "createProject",
+          "pageName": "project",
           "fields": [
             {
               "fieldName": "projectName",
@@ -77,7 +77,7 @@
               "subtext": "Accepts any value"
             },
             {
-              "fieldName": "numberOfCategorys",
+              "fieldName": "numberOfDescriptions",
               "label": "Text 10",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",

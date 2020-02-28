@@ -1,12 +1,12 @@
 import React from "react";
-
+import { stringToDictionary } from "components/Functions";
 import Item from "./Item";
 
 const OrderList = props => {
-  const itemm = props.items.map(item => {
+  const items = props.items.map(item => {
     let data = {};
     if (item.data.trim() !== "") {
-      data = JSON.parse(item.data.replace(/'/g, '"'));
+      data = stringToDictionary(item.data);
     }
     return (
       <Item
@@ -18,7 +18,7 @@ const OrderList = props => {
       />
     );
   });
-  return <ul className="events__list">{itemm}</ul>;
+  return <ul className="events__list">{items}</ul>;
 };
 
 export default OrderList;

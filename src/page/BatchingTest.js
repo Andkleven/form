@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "../request/leadEngineer/Query";
+import query from "../request/leadEngineers/Query";
 import json from "../forms/BatchingPriming.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
@@ -29,7 +29,7 @@ export default pageInfo => {
             setBatchingList={setBatchingList}
           />
           <DocumentAndSubmit
-            componentsId={"leadEngineerPage"}
+            componentsId={"leadEngineersPage"}
             document={json.ducument}
             reRender={() => setReRender(!reRender)}
             data={data}

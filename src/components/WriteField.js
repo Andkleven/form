@@ -56,7 +56,6 @@ export default props => {
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,
@@ -85,8 +84,8 @@ export default props => {
     props.mutation({
       variables: {
         ...variables,
-        categoryId: props.categoryId,
-        itemId: props.itemId
+        descriptionsId: props.descriptionsId,
+        itemsId: props.itemsId
       }
     });
   };

@@ -1,15 +1,15 @@
 {
-  "queryPath": "leadEngineer",
+  "queryPath": "leadEngineers",
   "mutation": "LEADENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
       "lookUpBy": "primer1",
-      "queryPath": "leadEngineer",
+      "queryPath": "leadEngineers",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
-          "queryPath": "leadEngineer",
+          "queryPath": "leadEngineers",
           "pageName": "leadEngineer",
           "fields": [
             {
@@ -144,7 +144,7 @@
         },
         {
           "pageTitle": "Custom Test",
-          "queryPath": "leadEngineer.0.customSteelPreparation",
+          "queryPath": "leadEngineers.0.customSteelPreparations",
           "pageName": "customSteelPreparation",
           "repeat": true,
           "delete": true,
@@ -174,7 +174,7 @@
         },
         {
           "pageTitle": "Priming",
-          "queryPath": "leadEngineer",
+          "queryPath": "leadEngineers",
           "pageName": "leadEngineer",
           "fields": [
             {
@@ -208,7 +208,7 @@
               ]
             },
             {
-              "fieldName": "rubberCementBeforeCoating",
+              "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Cement Before Coating",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -221,12 +221,12 @@
     },
     {
       "lookUpBy": "numberOfLayers",
-      "queryPath": "leadEngineer.0.vulcanizationStep",
+      "queryPath": "leadEngineers.0.vulcanizationSteps",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
-          "queryPath": "leadEngineer",
+          "queryPath": "leadEngineers",
           "pageName": "leadEngineer",
           "mutation": "LEADENGINEER",
           "fields": [
@@ -251,8 +251,8 @@
               "type": "number"
             },
             {
-              "fieldName": "orderedTotalRubberThickness",
-              "label": "Ordered Total Rubber Thickness",
+              "fieldName": "orderedTotalRubberThicknes",
+              "label": "Ordered Total Rubber Thicknes",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "number"
@@ -290,7 +290,7 @@
               "max": 6
             },
             {
-              "fieldName": "measurementPoints",
+              "fieldName": "measurementPoint",
               "label": "Measurement Points",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -301,12 +301,12 @@
         },
         {
           "pageTitle": "Measurement Point Actual",
-          "queryPath": "leadEngineer.0.measurementPointActualTvd",
+          "queryPath": "leadEngineers.0.measurementPointActualTvds",
           "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithPageName": "leadEngineer",
-          "repeatGroupWithFieldName": "measurementPoints",
+          "repeatGroupWithFieldName": "measurementPoint",
           "fields": [
             {
               "fieldName": "measurementPointActual",
@@ -319,7 +319,7 @@
         },
         {
           "pageTitle": "Rubber Cement",
-          "queryPath": "leadEngineer.0.rubberCement",
+          "queryPath": "leadEngineers.0.rubberCements",
           "pageName": "rubberCement",
           "repeat": true,
           "delete": true,
@@ -336,7 +336,7 @@
         },
         {
           "pageName": "vulcanizationStep",
-          "queryPath": "leadEngineer.0.vulcanizationStep",
+          "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
           "repeatStartWithOneGroup": true,
           "delete": true,
@@ -378,12 +378,12 @@
       ]
     },
     {
-      "lookUpBy": "actualThickness",
-      "queryPath": "leadEngineer.0.coatingLayer",
+      "lookUpBy": "actualThicknes",
+      "queryPath": "leadEngineers.0.coatingLayers",
       "pages": [
         {
           "pageTitle": "Coating Layer",
-          "queryPath": "leadEngineer.0.coatingLayer",
+          "queryPath": "leadEngineers.0.coatingLayers",
           "pageName": "coatingLayer",
           "repeat": true,
           "notAddButton": true,
@@ -408,8 +408,8 @@
               "options": ["Compound Number", 73165]
             },
             {
-              "fieldName": "actualThickness",
-              "label": "Actual Thickness",
+              "fieldName": "actualThicknes",
+              "label": "Actual Thicknes",
               "feedback": "Enter valid number.",
               "type": "Number",
               "min": 2,
@@ -429,9 +429,9 @@
               "required": true
             },
             {
-              "fieldName": "proposedThickness",
-              "label": "Proposed Thickness",
-              "math": "mathProposedThickness",
+              "fieldName": "proposedThicknes",
+              "label": "Proposed Thicknes",
+              "math": "mathProposedThicknes",
               "min": 2,
               "max": 4,
               "unit": "mm",
@@ -447,9 +447,9 @@
               "type": "checkbox"
             },
             {
-              "fieldName": "cumulativeThickness",
-              "label": "Cumulative Thickness",
-              "math": "mathCumulativeThickness",
+              "fieldName": "cumulativeThicknes",
+              "label": "Cumulative Thicknes",
+              "math": "mathCumulativeThicknes",
               "readOnly": true,
               "decimal": 1,
               "type": "Number"

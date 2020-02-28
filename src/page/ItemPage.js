@@ -2,39 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "../history";
 import query from "../request/leadEngineer/Query";
-import itemJson from "../forms/Item.json";
+import objectPath from "object-path";
+import itemsJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
+import { Button } from "react-bootstrap";
 
 export default pageInfo => {
   let { _id } = pageInfo.match.params;
   const [counter, setCounter] = useState(1);
+  const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
-  const [createProjectData, setCreateProjectData] = useState(0);
+  const [projectsData, setProjectData] = useState(0);
   const setstate = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[itemJson.query], {
+  const { loading, error, data } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
+
   useEffect(() => {
     if (!error && !loading) {
       if (
-        data.createProject[0].category[counter - 1] &&
-        data.createProject[0].category[counter - 1].item
+        data.projects[0].descriptions[counter - 1] &&
+        data.projects[0].descriptions[counter - 1].items
       ) {
-        setGeometryData(data.createProject[0].category[counter - 1]);
+        setGeometryData(data.projects[0].descriptions[counter - 1]);
       } else {
         setGeometryData(0);
       }
-      setCreateProjectData(
-        JSON.parse(data.createProject[0].data.replace(/'/g, '"'))
-      );
+      setProjectData(JSON.parse(data.projects[0].data.replace(/'/g, '"')));
+      let countNumberOfItems = 0;
+      data.projects[0].descriptions.forEach(description => {
+        // console.log(items, "item");
+        countNumberOfItems += description.items.length;
+        // console.log(countNumberOfItems, "count");
+      });
+      setNumberOfItems(countNumberOfItems);
     }
   }, [data, error, loading, counter, reRender]);
+
   const deleteFromCache = (
     cache,
     {
@@ -47,19 +57,44 @@ export default pageInfo => {
       query: query["GET_ORDER_GEOMETRY"],
       variables: { id: _id }
     });
-    oldData.createProject[0].category[
+    oldData.projects[0].descriptions[
       counter - 1
-    ].item = oldData.createProject[0].category[counter - 1].item.filter(
+    ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
       item => item.id != deletet
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
       variables: { id: _id },
       data: {
-        createProject: oldData.createProject
+        projects: oldData.projects
       }
     });
   };
+  const update = (cache, { data }) => {
+    const oldData = cache.readQuery({
+      query: query[itemsJson.query],
+      variables: { id: _id }
+    });
+    let array = objectPath.get(oldData, itemsJson.queryPath);
+    let index = array.findIndex(
+      x => x.id === data[itemsJson.queryPath.split(/[.]+/).pop()].new.id
+    );
+    objectPath.set(
+      oldData,
+      `${itemsJson.queryPath}.${index}`,
+      data[itemsJson.queryPath.split(/[.]+/).pop()].new
+    );
+    let saveData = itemsJson.queryPath.split(/[.]+/).splice(0, 1)[0];
+    cache.writeQuery({
+      query: query[itemsJson.query],
+      variables: { id: itemsJson.getQueryBy },
+      data: { [saveData]: oldData[saveData] }
+    });
+  };
+  const [
+    LeadEngineerDoneMutation,
+    { loading: loadingLeadEngineerDone, error: errorLeadEngineerDone }
+  ] = useMutation(mutations["LEADENGINEERDONE"], { update });
 
   const [deleteItem] = useMutation(mutations["DELETEITEM"], {
     update: deleteFromCache
@@ -71,37 +106,37 @@ export default pageInfo => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  if (loadingMutation) return <p>Loading...</p>;
-  if (errorMutation) return <p>Error :(</p>;
   return (
     <Paper>
       <DocumentAndSubmit
-        componentsId={"itemPage" + counter.toString()}
+        componentsId={"itemsPage" + counter.toString()}
         // buttonToEveryForm={true}
         // notEditButton={true}
         // allWaysShow={true}
-        document={itemJson}
+        document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={data}
         arrayIndex={counter - 1}
         getQueryBy={_id}
         foreignKey={_id}
       />
-      {geometryData ? (
+      {geometryData && geometryData.items && geometryData.items.length ? (
         <>
-          <button
+          <br />
+          <br />
+          <Button
             onClick={() =>
               history.push(
                 `/order/lead-engineer/${geometryData.id}/${
-                  geometryData.item.find(item => item.different === false).id
+                  geometryData.items.find(item => item.different === false).id
                 }/0`
               )
             }
           >
-            Create all item
-          </button>
+            Create all items
+          </Button>
           <ItemList
-            items={geometryData.item}
+            items={geometryData.items}
             submitItem={item => {
               if (!item.different) {
                 mutationDiffreant({
@@ -112,7 +147,7 @@ export default pageInfo => {
                 });
               }
               history.push(
-                `/order/lead-engineer/${geometryData.id}/${item.id}/1`
+                `/order/lead-engineer/${geometryData.id}/${items.id}/1`
               );
             }}
             submitDelete={id => {
@@ -123,18 +158,35 @@ export default pageInfo => {
       ) : null}
 
       <h4>
-        Geometry {counter}/{createProjectData.numberOfCategorys}
+        Geometry {counter}/{projectsData.numberOfDescriptions}
       </h4>
       {counter !== 1 && (
-        <button onClick={() => setstate(counter - 1)}>Back</button>
+        <Button onClick={() => setstate(counter - 1)}>Back</Button>
       )}
-      {counter < createProjectData.numberOfCategorys ? (
-        <button onClick={() => setstate(counter + 1)}>Next</button>
+      {counter < projectsData.numberOfDescriptions ? (
+        <Button onClick={() => setstate(counter + 1)}>Next</Button>
       ) : (
-        <button>Submit</button>
+        numberOfItems == projectsData.totalNumberOfItems &&
+        (data.projects[0].leadEngineerDone ? (
+          <h3>In Production</h3>
+        ) : (
+          <Button
+            onClick={() =>
+              LeadEngineerDoneMutation({
+                variables: {
+                  project: [{ id: _id, leadEngineerDone: true }]
+                }
+              })
+            }
+          >
+            Send to Production
+          </Button>
+        ))
       )}
       {loadingMutation && <p>Loading...</p>}
       {errorMutation && <p>Error :( Please try again</p>}
+      {loadingLeadEngineerDone && <p>Loading...</p>}
+      {errorLeadEngineerDone && <p>Error :( Please try again</p>}
     </Paper>
   );
 };

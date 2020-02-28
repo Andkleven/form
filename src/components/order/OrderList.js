@@ -1,12 +1,12 @@
 import React from "react";
-
+import { stringToDictionary } from "components/Functions";
 import OrderItem from "./OrderItem";
 
 const OrderList = props => {
   const orders = props.orders.map((order, index) => {
     let data = {};
     if (order.data.trim() !== "") {
-      data = JSON.parse(order.data.replace(/'/g, '"'));
+      data = stringToDictionary(order.data);
     }
     return (
       <OrderItem

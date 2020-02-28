@@ -1,12 +1,12 @@
 {
   "batching": {
-    "queryPath": "category.item",
+    "queryPath": "descriptions.items",
     "showField": "id",
-    "dataPath": "category.item.leadEngineer",
+    "dataPath": "descriptions.items.leadEngineers",
     "dataField": ["primer1"]
   },
   "ducument": {
-    "queryPath": "category.item.operator",
+    "queryPath": "descriptions.items.operators",
     "mutation": "OPERATOR",
     "query": "GET_OPERATOR",
     "chapters": [
@@ -16,7 +16,7 @@
           {
             "pageTitle": "Priming",
             "pageName": "operator",
-            "queryPath": "category.item.operator",
+            "queryPath": "descriptions.items.operators",
             "fields": [
               {
                 "routValue": "primer1",
