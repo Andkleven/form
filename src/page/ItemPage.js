@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "../history";
 import query from "../request/leadEngineer/Query";
+import objectPath from "object-path";
 import itemsJson from "../forms/Item.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
+import { Button } from "react-bootstrap";
 
 export default pageInfo => {
   let { _id } = pageInfo.match.params;
   const [counter, setCounter] = useState(1);
+  const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
@@ -20,6 +23,7 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
+
   useEffect(() => {
     if (!error && !loading) {
       if (
@@ -31,8 +35,16 @@ export default pageInfo => {
         setGeometryData(0);
       }
       setProjectData(JSON.parse(data.projects[0].data.replace(/'/g, '"')));
+      let countNumberOfItems = 0;
+      data.projects[0].descriptions.forEach(description => {
+        // console.log(items, "item");
+        countNumberOfItems += description.items.length;
+        // console.log(countNumberOfItems, "count");
+      });
+      setNumberOfItems(countNumberOfItems);
     }
   }, [data, error, loading, counter, reRender]);
+
   const deleteFromCache = (
     cache,
     {
@@ -58,6 +70,31 @@ export default pageInfo => {
       }
     });
   };
+  const update = (cache, { data }) => {
+    const oldData = cache.readQuery({
+      query: query[itemsJson.query],
+      variables: { id: _id }
+    });
+    let array = objectPath.get(oldData, itemsJson.queryPath);
+    let index = array.findIndex(
+      x => x.id === data[itemsJson.queryPath.split(/[.]+/).pop()].new.id
+    );
+    objectPath.set(
+      oldData,
+      `${itemsJson.queryPath}.${index}`,
+      data[itemsJson.queryPath.split(/[.]+/).pop()].new
+    );
+    let saveData = itemsJson.queryPath.split(/[.]+/).splice(0, 1)[0];
+    cache.writeQuery({
+      query: query[itemsJson.query],
+      variables: { id: itemsJson.getQueryBy },
+      data: { [saveData]: oldData[saveData] }
+    });
+  };
+  const [
+    LeadEngineerDoneMutation,
+    { loading: loadingLeadEngineerDone, error: errorLeadEngineerDone }
+  ] = useMutation(mutations["LEADENGINEERDONE"], { update });
 
   const [deleteItem] = useMutation(mutations["DELETEITEM"], {
     update: deleteFromCache
@@ -69,8 +106,6 @@ export default pageInfo => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  if (loadingMutation) return <p>Loading...</p>;
-  if (errorMutation) return <p>Error :(</p>;
   return (
     <Paper>
       <DocumentAndSubmit
@@ -89,7 +124,7 @@ export default pageInfo => {
         <>
           <br />
           <br />
-          <button
+          <Button
             onClick={() =>
               history.push(
                 `/order/lead-engineer/${geometryData.id}/${
@@ -99,7 +134,7 @@ export default pageInfo => {
             }
           >
             Create all items
-          </button>
+          </Button>
           <ItemList
             items={geometryData.items}
             submitItem={item => {
@@ -126,15 +161,32 @@ export default pageInfo => {
         Geometry {counter}/{projectsData.numberOfDescriptions}
       </h4>
       {counter !== 1 && (
-        <button onClick={() => setstate(counter - 1)}>Back</button>
+        <Button onClick={() => setstate(counter - 1)}>Back</Button>
       )}
       {counter < projectsData.numberOfDescriptions ? (
-        <button onClick={() => setstate(counter + 1)}>Next</button>
+        <Button onClick={() => setstate(counter + 1)}>Next</Button>
       ) : (
-        <button>Submit</button>
+        numberOfItems == projectsData.totalNumberOfItems &&
+        (data.projects[0].leadEngineerDone ? (
+          <h3>In Production</h3>
+        ) : (
+          <Button
+            onClick={() =>
+              LeadEngineerDoneMutation({
+                variables: {
+                  project: [{ id: _id, leadEngineerDone: true }]
+                }
+              })
+            }
+          >
+            Send to Production
+          </Button>
+        ))
       )}
       {loadingMutation && <p>Loading...</p>}
       {errorMutation && <p>Error :( Please try again</p>}
+      {loadingLeadEngineerDone && <p>Loading...</p>}
+      {errorLeadEngineerDone && <p>Error :( Please try again</p>}
     </Paper>
   );
 };

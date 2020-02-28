@@ -13,15 +13,15 @@ function mathCumulativeThicknes(values, repeatStep, decimal) {
   let previousCumulativeThicknes = 0;
   if (repeatStep) {
     previousCumulativeThicknes = Number(
-      GetValue(values, "coatingLayers", repeatStep - 1, "cumulativeThicknes")
+      GetValue(values, "coatingLayer", repeatStep - 1, "cumulativeThicknes")
     );
   }
   let proposedThicknes = Number(
-    GetValue(values, "coatingLayers", repeatStep, "proposedThicknes")
+    GetValue(values, "coatingLayer", repeatStep, "proposedThicknes")
   );
   let layersUnique = GetValue(
     values,
-    "coatingLayers",
+    "coatingLayer",
     repeatStep,
     "layersUnique"
   );
@@ -40,9 +40,9 @@ function mathCumulativeThicknes(values, repeatStep, decimal) {
 
 function mathProposedThicknes(values, repeatStep, decimal) {
   let partOfNumber = 0;
-  let shrink = Number(GetValue(values, "coatingLayers", repeatStep, "shrink"));
+  let shrink = Number(GetValue(values, "coatingLayer", repeatStep, "shrink"));
   let actualThicknes = Number(
-    GetValue(values, "coatingLayers", repeatStep, "actualThicknes")
+    GetValue(values, "coatingLayer", repeatStep, "actualThicknes")
   );
   if (shrink) {
     partOfNumber = (shrink * actualThicknes) / 100;

@@ -40,7 +40,6 @@ export default props => {
   useEffect(() => {
     setDocumentDate({});
   }, [props.componentsId]);
-  console.log(documentDate);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -237,11 +236,8 @@ export default props => {
   };
 
   const prepareDataForSubmit = (variables, key, dictionary) => {
-    console.log(documentDate);
-
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,
@@ -282,7 +278,6 @@ export default props => {
     setFiles([]);
   };
   const submitHandler = thisChapter => {
-    console.log(documentDate, 2);
     if (Object.values(validationPassed).every(allTrue)) {
       submitData(documentDate[thisChapter]);
       setIsSubmited(false);

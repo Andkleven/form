@@ -76,6 +76,7 @@ const GET_ORDER_GEOMETRY = gql`
     projects(id: $id) {
       id
       data
+      leadEngineerDone
       descriptions {
         id
         data

@@ -19,7 +19,6 @@ export default props => {
           props.decimal ? props.decimal : 0
         )
       : props.state[props.fieldName];
-    // console.log(temporaryValue, props.state[props.fieldName]);
     if (temporaryValue !== null && !showMinMax) {
       setShowMinMax(true);
     }

@@ -6,7 +6,6 @@ const OrderList = props => {
   const items = props.items.map(item => {
     let data = {};
     if (item.data.trim() !== "") {
-      console.log(typeof item.data);
       data = stringToDictionary(item.data);
     }
     return (

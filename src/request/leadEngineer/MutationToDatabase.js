@@ -173,11 +173,22 @@ const OPERATOR = gql`
   }
 `;
 
+const LEADENGINEERDONE = gql`
+  mutation projects($project: [ProjectInupt]) {
+    projects(project: $project) {
+      new {
+        leadEngineerDone
+      }
+    }
+  }
+`;
+
 const mutations = {
   ORDER,
   DELETEITEM,
   ITEM,
   LEADENGINEER,
-  OPERATOR
+  OPERATOR,
+  LEADENGINEERDONE
 };
 export default mutations;

@@ -56,7 +56,6 @@ export default props => {
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,

@@ -1,5 +1,5 @@
 import React from "react";
-import stringToDictionary from "components/Functions";
+import { stringToDictionary } from "components/Functions";
 import OrderItem from "./OrderItem";
 
 const OrderList = props => {
@@ -12,8 +12,8 @@ const OrderList = props => {
       <OrderItem
         key={JSON.stringify(index) + "OrderItem" + JSON.stringify(order.id)}
         orderId={order.id}
-        projectsName={data.projectsName ? data.projectsName : ""}
-        projectsNumber={data.projectsNumber ? data.projectsNumber : ""}
+        projectName={data.projectName ? data.projectName : ""}
+        projectNumber={data.projectNumber ? data.projectNumber : ""}
         onDetail={props.onViewDetail}
       />
     );

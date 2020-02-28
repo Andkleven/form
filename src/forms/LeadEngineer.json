@@ -145,7 +145,7 @@
         {
           "pageTitle": "Custom Test",
           "queryPath": "leadEngineers.0.customSteelPreparations",
-          "pageName": "customSteelPreparations",
+          "pageName": "customSteelPreparation",
           "repeat": true,
           "delete": true,
           "addButton": "Add Custom Test",
@@ -302,7 +302,7 @@
         {
           "pageTitle": "Measurement Point Actual",
           "queryPath": "leadEngineers.0.measurementPointActualTvds",
-          "pageName": "measurementPointActualTvds",
+          "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithPageName": "leadEngineer",
@@ -320,7 +320,7 @@
         {
           "pageTitle": "Rubber Cement",
           "queryPath": "leadEngineers.0.rubberCements",
-          "pageName": "rubberCements",
+          "pageName": "rubberCement",
           "repeat": true,
           "delete": true,
           "addButton": "Add Rubber Cement",
@@ -335,7 +335,7 @@
           ]
         },
         {
-          "pageName": "vulcanizationSteps",
+          "pageName": "vulcanizationStep",
           "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
           "repeatStartWithOneGroup": true,
@@ -384,12 +384,12 @@
         {
           "pageTitle": "Coating Layer",
           "queryPath": "leadEngineers.0.coatingLayers",
-          "pageName": "coatingLayers",
+          "pageName": "coatingLayer",
           "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
           "repeatGroupWithChapter": -1,
-          "repeatGroupWithPageName": "vulcanizationSteps",
+          "repeatGroupWithPageName": "vulcanizationStep",
           "repeatGroupWithFieldName": "numberOfLayers",
           "fields": [
             {
