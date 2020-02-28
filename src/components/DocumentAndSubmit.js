@@ -361,12 +361,12 @@ export default props => {
     }
     // return chapter
     return (
-      <>
+      <Fragment key={`${firstIndex}-cancas`}>
         {chapter ? (
           <Title key={firstIndex} title={pageInfo.pages.chapterTitle} />
         ) : null}
-        <Fragment key={`${firstIndex}-cancas`}>{chapter}</Fragment>
-      </>
+        {chapter}
+      </Fragment>
     );
   });
   return (

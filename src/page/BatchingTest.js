@@ -8,6 +8,7 @@ import Batching from "components/Batching";
 
 export default pageInfo => {
   const { id } = pageInfo.match.params;
+  const [reRender, setReRender] = useState(false);
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
 
@@ -23,17 +24,17 @@ export default pageInfo => {
           <Batching
             data={data}
             json={json.batching}
-            submit={reRender}
             setBatchingData={setBatchingData}
             batchingData={batchingData}
-            setBatchingList={setBatchingList}
+            setBatchingListIds={setBatchingListIds}
           />
           <DocumentAndSubmit
             componentsId={"leadEngineersPage"}
             document={json.ducument}
             reRender={() => setReRender(!reRender)}
             data={data}
-            batchingList={batchingList}
+            speckData={batchingData}
+            batchingListIds={batchingListIds}
           />
         </Paper>
       }
