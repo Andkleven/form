@@ -77,7 +77,7 @@ export default props => {
           {...props}
           {...value}
           key={`${props.indexId}-${index}`}
-          value={props.batchingData[props.routValue]}
+          value={props.speckData[props.routValue]}
         />
       );
     } else if (
