@@ -28,15 +28,15 @@ export default () => {
 
   return (
     <>
-      <button onClick={() => newForm()}>Create Project</button>
-      <OrderList
-        orders={data.createProject}
-        onViewDetail={id => {
-          updateForm(id);
-        }}
-      />
-      {(updateOrder || createOrder) && (
-        <Paper>
+      <Paper>
+        <button onClick={() => newForm()}>Create Project</button>
+        <OrderList
+          orders={data.createProject}
+          onViewDetail={id => {
+            updateForm(id);
+          }}
+        />
+        {(updateOrder || createOrder) && (
           <DocumentAndSubmit
             componentsId={"orderPage"}
             buttonToEveryForm={true}
@@ -49,8 +49,8 @@ export default () => {
             )}
             reRender={pushHome}
           />
-        </Paper>
-      )}
+        )}
+      </Paper>
     </>
   );
 };
