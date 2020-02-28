@@ -71,13 +71,13 @@ export default props => {
   return props.fields.map((value, index) => {
     if (value.line) {
       return <Line key={`${props.indexId}-${index}`} />;
-    } else if (value.routValue) {
+    } else if (value.routToSpeckValue) {
       return (
         <ReadField
           {...props}
           {...value}
           key={`${props.indexId}-${index}`}
-          value={props.speckData[props.routValue]}
+          value={props.speckData[props.routToSpeckValue]}
         />
       );
     } else if (

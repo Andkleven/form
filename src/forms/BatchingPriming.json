@@ -19,7 +19,7 @@
             "queryPath": "descriptions.items.operators",
             "fields": [
               {
-                "routValue": "primer1",
+                "routToSpeckValue": "primer1",
                 "label": "Geometry"
               },
               { "line": true },
