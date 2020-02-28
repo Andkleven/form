@@ -3,7 +3,7 @@ import { AUTH_TOKEN } from "../constants";
 import { useMutation } from "@apollo/react-hooks";
 import history from "../history";
 import gql from "graphql-tag";
-import { getAllPosts } from "@apollo/react-hooks";
+// import { getAllPosts } from "@apollo/react-hooks";
 
 import { Form, Button, Image } from "react-bootstrap";
 import styled from "styled-components";

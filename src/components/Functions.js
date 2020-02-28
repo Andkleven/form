@@ -42,5 +42,27 @@ export const getSubtext = (
 };
 
 export const stringToDictionary = data => {
-  return JSON.parse(data.replace(/'/g, '"'));
+  if (typeof data === "string") {
+    return JSON.parse(data.replace(/'/g, '"'));
+  }
+};
+
+export const expandJson = json => {
+  if (json.data) {
+    json.data.createProject.map((project, index) => {
+      project.data = stringToDictionary(project.data);
+      project.category &&
+        project.category.map((category, index) => {
+          category.data = stringToDictionary(category.data);
+          category.item &&
+            category.item.map((item, index) => {
+              item.data = stringToDictionary(item.data);
+              return true;
+            });
+          return true;
+        });
+      return true;
+    });
+  }
+  return json;
 };

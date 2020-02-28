@@ -27,7 +27,7 @@ export default () => {
   };
 
   return (
-    <>
+    <Paper>
       <button onClick={() => newForm()}>Create Project</button>
       {data.projects ? (
         <OrderList
@@ -36,25 +36,24 @@ export default () => {
             updateForm(id);
           }}
         />
-      ) : null}
-      {(updateOrder || createOrder) && (
-        <Paper>
-          <DocumentAndSubmit
-            componentsId={"orderPage"}
-            buttonToEveryForm={true}
-            notEditButton={true}
-            allWaysShow={true}
-            document={orderJson}
-            data={createOrder ? null : data}
-            arrayIndex={
-              data.projects
-                ? data.projects.findIndex(index => index.id === updateOrder)
-                : 0
-            }
-            reRender={pushHome}
-          />
-        </Paper>
-      )}
-    </>
-  );
-};
+        ) : null}
+        {(updateOrder || createOrder) && (
+          <Paper>
+            <DocumentAndSubmit
+              componentsId={"orderPage"}
+              buttonToEveryForm={true}
+              notEditButton={true}
+              allWaysShow={true}
+              document={orderJson}
+              data={createOrder ? null : data}
+              arrayIndex={
+                data.projects
+                  ? data.projects.findIndex(index => index.id === updateOrder)
+                  : 0
+              }
+              reRender={pushHome}
+            />
+          )}
+      </Paper>
+    );
+  };

@@ -3,73 +3,88 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import Paper from "components/Paper";
 import Tree from "components/tree/Tree";
-import { stringToDictionary } from "components/Functions";
+import FilterTree from "components/tree/FilterTree";
+import { expandJson } from "components/Functions";
 
 export default () => {
-  const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
-    variables: { leadEngineersDone: true, operatorDone: false }
-  });
+  const { loading, error, data } = expandJson(
+    useQuery(query["OPERATOR_PROJECTS"], {
+      variables: { leadEngineerDone: true, operatorDone: false }
+    })
+  );
+  // console.log(data);
+
+  // const raw = {
+  //   item1: { key: "sdfd", value: "sdfd" },
+  //   item2: { key: "sdfd", value: "sdfd" },
+  //   item3: { key: "sdfd", value: "sdfd" }
+  // };
+
+  // const allowed = ["item1", "item3"];
+
+  // const filtered = Object.keys(raw)
+  //   .filter(key => allowed.includes(key))
+  //   .reduce((obj, key) => {
+  //     obj[key] = raw[key];
+  //     return obj;
+  //   }, {});
+
+  // console.log(raw);
+  // console.log(filtered);
+
+  //_________________________________________
+
+  // const fruits = ["apple", "banana", "grapes", "mango", "orange"];
+
+  // /**
+  //  * Filter array items based on search criteria (query)
+  //  */
+  // const filterItems = (arr, query) => {
+  //   return arr.filter(
+  //     element => element.toLowerCase().indexOf(query.toLowerCase()) !== -1
+  //   );
+  // };
+
+  // console.log(filterItems(fruits, "ap")); // ['apple', 'grapes']
+  // console.log(filterItems(fruits, "an")); // ['banana', 'mango', 'orange']
+
+  //_________________________________________
+
+  const search = (data, searchTerm) => {
+    if (data && searchTerm) {
+      // const foundEntry = Object.entries(data).filter();
+      const result = data;
+      return result;
+    }
+  };
+  let results = search(data, "fgggggdgggg");
+  console.log(data);
+  console.log(results);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
     <>
-      <Paper>
-        <div className="" style={{ fontWeight: 600 }}>
-          Projects
-        </div>
-        {data.projects &&
-          data.projects.map((project, index) => (
-            <Tree
-              key={index}
-              name={`${project.data &&
-                stringToDictionary(project.data).projectsName}`}
-              defaultOpen
-            >
-              {project.descriptions &&
-                project.descriptions.map((description, index) => (
-                  <Tree
-                    key={index}
-                    name={`${description.data &&
-                      stringToDictionary(description.data).geometry}`}
-                  >
-                    {description.items &&
-                      description.items.map((item, index) => (
-                        <Tree link key={index} name={item.id} />
+      <Paper darkMode>
+        {/* <Paper> */}
+        <FilterTree />
+        <h6 className="mb-0">Projects</h6>
+        {results ? (
+          results.createProject.map((project, index) => (
+            <Tree defaultOpen key={index} name={project.data.projectName}>
+              {project.category &&
+                project.category.map((category, index) => (
+                  <Tree defaultOpen key={index} name={category.data.geometry}>
+                    {category.item &&
+                      category.item.map((item, index) => (
+                        <Tree defaultOpen link key={index} name={item.id} />
                       ))}
                   </Tree>
                 ))}
             </Tree>
-          ))}
-        {/* <Tree name="main" defaultOpen>
-          <Tree name="hello" />
-          <Tree name="subtree with children">
-            <Tree name="hello" />
-            <Tree name="sub-subtree with children">
-              <Tree name="child 1" style={{ color: "#37ceff" }} />
-              <Tree name="child 2" style={{ color: "#37ceff" }} />
-              <Tree name="child 3" style={{ color: "#37ceff" }} />
-              <Tree name="custom content">
-                <div
-                  className="position-relative w-100"
-                  style={{
-                    height: 200,
-                    padding: 10
-                  }}
-                >
-                  <div
-                    className="shadow-sm border rounded h-100 w-100"
-                    style={{
-                      background: "white"
-                    }}
-                  />
-                </div>
-              </Tree>
-            </Tree>
-            <Tree name="hello" />
-          </Tree>
-          <Tree name="world" />
-          <Tree name={<span>🙀 something something</span>} />
-        </Tree> */}
+          ))
+        ) : (
+          <div className="pt-1">No projects available.</div>
+        )}
       </Paper>
     </>
   );

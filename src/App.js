@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import "./styles/styles.css";
@@ -10,6 +10,7 @@ import OrderPage from "./page/OrderPage";
 import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
 import Operator from "./page/Operator";
+import Div100vh from "react-div-100vh";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
 
@@ -19,35 +20,31 @@ const backgroundStyle = {
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat !important",
   backgroundAttachment: "fixed",
-  height: "100vh"
+  height: "100%"
 };
 
-class App extends Component {
-  render() {
-    // const authToken = localStorage.getItem(AUTH_TOKEN);
-    return (
-      <>
-        <div style={backgroundStyle} className="">
-          <Router history={history}>
-            <Header />
-            {/* <main className="main-content"> */}
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              {/* {!authToken && <Redirect to="/login" exact />} */}
-              <Route exact path="/" component={Home} />
-              <Route exact path="/operators" component={Operator} />
-              <Route exact path="/order" component={OrderPage} />
-              <Route path="/order/item/:_id" component={Item} />
-              <Route
-                path="/order/lead-engineer/:descriptionId/:itemId/:different"
-                component={LeadEngineerPage}
-              />
-            </Switch>
-            {/* </main> */}
-          </Router>
-        </div>
-      </>
-    );
-  }
-}
-export default App;
+export default () => (
+  <>
+    <Div100vh className="bg-secondary">
+      <div style={backgroundStyle}>
+        <Router history={history}>
+          <Header />
+          {/* <main className="main-content"> */}
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            {/* {!authToken && <Redirect to="/login" exact />} */}
+            <Route exact path="/" component={Home} />
+            <Route exact path="/operator" component={Operator} />
+            <Route exact path="/order" component={OrderPage} />
+            <Route path="/order/item/:_id" component={Item} />
+            <Route
+              path="/order/lead-engineer/:categoryId/:itemId/:different"
+              component={LeadEngineerPage}
+            />
+          </Switch>
+          {/* </main> */}
+        </Router>
+      </div>
+    </Div100vh>
+  </>
+);
