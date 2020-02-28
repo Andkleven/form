@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import { useSpring, a } from "react-spring";
 import { useMeasure, usePrevious } from "./helpers";
-import { Frame, Title, Content, toggle } from "./styles";
+import { Frame, Title, Content } from "./styles";
 import * as Icons from "./icons";
 import { Button } from "react-bootstrap";
 
@@ -20,40 +20,35 @@ export default memo(
     });
     const Icon = Icons[`${children ? (isOpen ? "Open" : "") : "Open"}Folder`];
     return (
-      <Frame>
-        {link ? (
-          <Button
-            variant="light"
-            size="sm"
-            className="w-100 border"
-            href={`${link}`}
-          >
-            {name}
-          </Button>
-        ) : (
-          <>
-            <div onClick={() => setOpen(!isOpen)}>
-              <Icon
-                style={{
-                  ...toggle,
-                  opacity: children ? 1 : 1,
-                  position: "relative",
-                  top: "0.1em"
-                }}
-              />
-              <Title style={style}>{name}</Title>
-            </div>
-            <Content
-              style={{
-                opacity,
-                height: isOpen && previous === isOpen ? "auto" : height
-              }}
+      <>
+        <Frame>
+          {link ? (
+            <Button
+              variant="light"
+              size="sm"
+              className="w-100 border"
+              href={`${link}`}
             >
-              <a.div style={{ transform }} {...bind} children={children} />
-            </Content>
-          </>
-        )}
-      </Frame>
+              {name}
+            </Button>
+          ) : (
+            <>
+              <div onClick={() => setOpen(!isOpen)}>
+                <Icon />
+                <Title style={style}>{name}</Title>
+              </div>
+              <Content
+                style={{
+                  opacity,
+                  height: isOpen && previous === isOpen ? "auto" : height
+                }}
+              >
+                <a.div style={{ transform }} {...bind} children={children} />
+              </Content>
+            </>
+          )}
+        </Frame>
+      </>
     );
   }
 );

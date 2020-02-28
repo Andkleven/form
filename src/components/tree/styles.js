@@ -8,8 +8,8 @@ const Frame = styled("div")`
   white-space: nowrap;
   overflow-x: hidden;
   vertical-align: middle;
-  color: black;
-  fill: darkgray;
+  /* color: black; */
+  /* fill: lightgray; */
 `;
 
 const Title = styled("span")`
@@ -20,7 +20,7 @@ const Content = styled(animated.div)`
   will-change: transform, opacity, height;
   margin-left: 6px;
   padding: 0px 0px 0px 14px;
-  border-left: 1px dashed rgba(0, 0, 0, 0.4);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
 `;
 

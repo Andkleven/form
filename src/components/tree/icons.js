@@ -33,8 +33,19 @@ const CloseSquareO = props => (
   </svg>
 );
 
-const Folder = props => <i {...props} className="fas fa-folder" />;
+const iconStyle = {
+  color: "#f1b25b",
+  position: "relative",
+  top: "0.1em",
+  width: "1.5em"
+};
 
-const OpenFolder = props => <i {...props} className="fas fa-folder-open" />;
+const Folder = props => (
+  <i {...props} className="fas fa-folder" style={iconStyle} />
+);
+
+const OpenFolder = props => (
+  <i {...props} className="fas fa-folder-open" style={iconStyle} />
+);
 
 export { PlusSquareO, MinusSquareO, CloseSquareO, Folder, OpenFolder };

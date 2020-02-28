@@ -1,21 +1,23 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 const OrderItem = props => (
-  <li key={props.orderId} className="events__list-items">
+  <div key={props.orderId} className="events__list-item">
     <div>
-      <h1>{props.projectName}</h1>
-      <h2>{props.projectNumber}</h2>
-      <h2>{props.asd}</h2>
+      <div>{props.projectName}</div>
+      <div>{props.projectNumber}</div>
+      <div>{props.asd}</div>
     </div>
     <div>
-      <button
-        className="btn"
+      <Button
+        variant="light"
+        className="border"
         onClick={props.onDetail.bind(this, props.orderId)}
       >
         Update
-      </button>
+      </Button>
     </div>
-  </li>
+  </div>
 );
 
 export default OrderItem;
