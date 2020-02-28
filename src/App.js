@@ -37,9 +37,9 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/operators" component={Operator} />
               <Route exact path="/order" component={OrderPage} />
-              <Route path="/order/items/:_id" component={Item} />
+              <Route path="/order/item/:_id" component={Item} />
               <Route
-                path="/order/lead-engineer/:descriptionsId/:itemsId/:different"
+                path="/order/lead-engineer/:descriptionId/:itemId/:different"
                 component={LeadEngineerPage}
               />
             </Switch>

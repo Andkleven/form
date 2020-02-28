@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "../history";
-import query from "../request/leadEngineers/Query";
+import query from "../request/leadEngineer/Query";
 import itemsJson from "../forms/Item.json";
-import mutations from "../request/leadEngineers/MutationToDatabase";
-import ItemList from "components/items/ItemList";
+import mutations from "../request/leadEngineer/MutationToDatabase";
+import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 
@@ -30,16 +30,14 @@ export default pageInfo => {
       } else {
         setGeometryData(0);
       }
-      setProjectData(
-        JSON.parse(data.projects[0].data.replace(/'/g, '"'))
-      );
+      setProjectData(JSON.parse(data.projects[0].data.replace(/'/g, '"')));
     }
   }, [data, error, loading, counter, reRender]);
   const deleteFromCache = (
     cache,
     {
       data: {
-        itemsDelete: { deletet }
+        itemDelete: { deletet }
       }
     }
   ) => {
@@ -50,7 +48,7 @@ export default pageInfo => {
     oldData.projects[0].descriptions[
       counter - 1
     ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
-      items => items.id != deletet
+      item => item.id != deletet
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
@@ -87,13 +85,15 @@ export default pageInfo => {
         getQueryBy={_id}
         foreignKey={_id}
       />
-      {geometryData ? (
+      {geometryData && geometryData.items && geometryData.items.length ? (
         <>
+          <br />
+          <br />
           <button
             onClick={() =>
               history.push(
                 `/order/lead-engineer/${geometryData.id}/${
-                  geometryData.items.find(items => items.different === false).id
+                  geometryData.items.find(item => item.different === false).id
                 }/0`
               )
             }
@@ -101,12 +101,12 @@ export default pageInfo => {
             Create all items
           </button>
           <ItemList
-            itemss={geometryData.items}
-            submitItem={items => {
-              if (!items.different) {
+            items={geometryData.items}
+            submitItem={item => {
+              if (!item.different) {
                 mutationDiffreant({
                   variables: {
-                    id: items.id,
+                    id: item.id,
                     different: true
                   }
                 });
@@ -123,12 +123,12 @@ export default pageInfo => {
       ) : null}
 
       <h4>
-        Geometry {counter}/{projectsData.numberOfDescriptionss}
+        Geometry {counter}/{projectsData.numberOfDescriptions}
       </h4>
       {counter !== 1 && (
         <button onClick={() => setstate(counter - 1)}>Back</button>
       )}
-      {counter < projectsData.numberOfDescriptionss ? (
+      {counter < projectsData.numberOfDescriptions ? (
         <button onClick={() => setstate(counter + 1)}>Next</button>
       ) : (
         <button>Submit</button>

@@ -23,7 +23,7 @@ const ALL = gql`
           leadEngineers {
             id
             data
-            measurementPointOperatorsActualTvds {
+            measurementPointActualTvds {
               id
               data
             }
@@ -39,7 +39,7 @@ const ALL = gql`
               id
               data
             }
-            vulcanizationOperatorsSteps {
+            vulcanizationSteps {
               id
               data
             }
@@ -84,7 +84,7 @@ const GET_ORDER_GEOMETRY = gql`
           data
           different
         }
-        uploadFile {
+        uploadFiles {
           id
           file
           data
@@ -96,18 +96,18 @@ const GET_ORDER_GEOMETRY = gql`
 
 const GET_LEAD_ENGINEER = gql`
   query getLeadEngineer($id: Int!) {
-    leadEngineers(items: $id) {
+    leadEngineers(item: $id) {
       id
       data
       customSteelPreparations {
         id
         data
       }
-      measurementPointOperatorsActualTvds {
+      measurementPointActualTvds {
         id
         data
       }
-      vulcanizationOperatorsSteps {
+      vulcanizationSteps {
         id
         data
       }
@@ -138,7 +138,7 @@ const GET_OPERATOR = gql`
         leadEngineers {
           id
           data
-          measurementPointOperatorsActualTvds {
+          measurementPointActualTvds {
             id
             data
           }
@@ -154,7 +154,7 @@ const GET_OPERATOR = gql`
             id
             data
           }
-          vulcanizationOperatorsSteps {
+          vulcanizationSteps {
             id
             data
           }

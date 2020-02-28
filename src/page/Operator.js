@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "../request/leadEngineers/Query";
+import query from "../request/leadEngineer/Query";
 import Paper from "components/Paper";
 import Tree from "components/tree/Tree";
 import { stringToDictionary } from "components/Functions";
@@ -17,28 +17,29 @@ export default () => {
         <div className="" style={{ fontWeight: 600 }}>
           Projects
         </div>
-        {data.projects.map((projects, index) => (
-          <Tree
-            key={index}
-            name={`${projects.data &&
-              stringToDictionary(projects.data).projectsName}`}
-            defaultOpen
-          >
-            {projects.descriptions &&
-              projects.descriptions.map((descriptions, index) => (
-                <Tree
-                  key={index}
-                  name={`${descriptions.data &&
-                    stringToDictionary(descriptions.data).geometry}`}
-                >
-                  {descriptions.items &&
-                    descriptions.items.map((items, index) => (
-                      <Tree link key={index} name={items.id} />
-                    ))}
-                </Tree>
-              ))}
-          </Tree>
-        ))}
+        {data.projects &&
+          data.projects.map((project, index) => (
+            <Tree
+              key={index}
+              name={`${project.data &&
+                stringToDictionary(project.data).projectsName}`}
+              defaultOpen
+            >
+              {project.descriptions &&
+                project.descriptions.map((description, index) => (
+                  <Tree
+                    key={index}
+                    name={`${description.data &&
+                      stringToDictionary(description.data).geometry}`}
+                  >
+                    {description.items &&
+                      description.items.map((item, index) => (
+                        <Tree link key={index} name={item.id} />
+                      ))}
+                  </Tree>
+                ))}
+            </Tree>
+          ))}
         {/* <Tree name="main" defaultOpen>
           <Tree name="hello" />
           <Tree name="subtree with children">

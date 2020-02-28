@@ -8,7 +8,6 @@ import "../styles/styles.css";
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
-
   // Test if value shall update when documentDate update
   useEffect(() => {
     let temporaryValue = props.setValueByIndex
@@ -20,6 +19,7 @@ export default props => {
           props.decimal ? props.decimal : 0
         )
       : props.state[props.fieldName];
+    // console.log(temporaryValue, props.state[props.fieldName]);
     if (temporaryValue !== null && !showMinMax) {
       setShowMinMax(true);
     }

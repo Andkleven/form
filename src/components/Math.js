@@ -1,23 +1,23 @@
 import GetValue from "./GetValue";
-import { allFalse } from "./Functions";
+import { allZeroOrNaN } from "./Functions";
 
 function whatTooReturn(value, decimal, array = [true]) {
-  if (array.every(allFalse)) {
+  if (array.every(allZeroOrNaN)) {
     return null;
   } else {
     return value.toFixed(decimal);
   }
 }
 
-function mathCumulativeThickness(values, repeatStep, decimal) {
-  let previousCumulativeThickness = 0;
+function mathCumulativeThicknes(values, repeatStep, decimal) {
+  let previousCumulativeThicknes = 0;
   if (repeatStep) {
-    previousCumulativeThickness = Number(
-      GetValue(values, "coatingLayers", repeatStep - 1, "cumulativeThickness")
+    previousCumulativeThicknes = Number(
+      GetValue(values, "coatingLayers", repeatStep - 1, "cumulativeThicknes")
     );
   }
-  let proposedThickness = Number(
-    GetValue(values, "coatingLayers", repeatStep, "proposedThickness")
+  let proposedThicknes = Number(
+    GetValue(values, "coatingLayers", repeatStep, "proposedThicknes")
   );
   let layersUnique = GetValue(
     values,
@@ -25,66 +25,66 @@ function mathCumulativeThickness(values, repeatStep, decimal) {
     repeatStep,
     "layersUnique"
   );
-  let cumulativeThickness = 0;
+  let cumulativeThicknes = 0;
   if (layersUnique) {
-    cumulativeThickness = previousCumulativeThickness;
+    cumulativeThicknes = previousCumulativeThicknes;
   } else {
-    cumulativeThickness = previousCumulativeThickness + proposedThickness;
+    cumulativeThicknes = previousCumulativeThicknes + proposedThicknes;
   }
-  return whatTooReturn(cumulativeThickness, decimal, [
-    previousCumulativeThickness,
-    proposedThickness,
+  return whatTooReturn(cumulativeThicknes, decimal, [
+    previousCumulativeThicknes,
+    proposedThicknes,
     layersUnique
   ]);
 }
 
-function mathProposedThickness(values, repeatStep, decimal) {
+function mathProposedThicknes(values, repeatStep, decimal) {
   let partOfNumber = 0;
   let shrink = Number(GetValue(values, "coatingLayers", repeatStep, "shrink"));
-  let actualThickness = Number(
-    GetValue(values, "coatingLayers", repeatStep, "actualThickness")
+  let actualThicknes = Number(
+    GetValue(values, "coatingLayers", repeatStep, "actualThicknes")
   );
   if (shrink) {
-    partOfNumber = (shrink * actualThickness) / 100;
+    partOfNumber = (shrink * actualThicknes) / 100;
   }
 
-  return whatTooReturn(actualThickness + partOfNumber, decimal, [
+  return whatTooReturn(actualThicknes + partOfNumber, decimal, [
     shrink,
-    actualThickness
+    actualThicknes
   ]);
 }
 
 function mathToleranceMinPercent(values, repeatStep, decimal) {
   let toleranceMin = Number(
-    GetValue(values, "leadEngineers", repeatStep, "toleranceMin")
+    GetValue(values, "leadEngineer", repeatStep, "toleranceMin")
   );
-  let orderedTotalRubberThickness = Number(
-    GetValue(values, "leadEngineers", repeatStep, "orderedTotalRubberThickness")
+  let orderedTotalRubberThicknes = Number(
+    GetValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
   );
   return whatTooReturn(
-    (toleranceMin * 100) / orderedTotalRubberThickness,
+    (toleranceMin * 100) / orderedTotalRubberThicknes,
     decimal,
-    [toleranceMin, orderedTotalRubberThickness]
+    [toleranceMin, orderedTotalRubberThicknes]
   );
 }
 
 function mathToleranceMaxPercent(values, repeatStep, decimal) {
   let toleranceMax = Number(
-    GetValue(values, "leadEngineers", repeatStep, "toleranceMax")
+    GetValue(values, "leadEngineer", repeatStep, "toleranceMax")
   );
-  let orderedTotalRubberThickness = Number(
-    GetValue(values, "leadEngineers", repeatStep, "orderedTotalRubberThickness")
+  let orderedTotalRubberThicknes = Number(
+    GetValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
   );
   return whatTooReturn(
-    (toleranceMax * 100) / orderedTotalRubberThickness,
+    (toleranceMax * 100) / orderedTotalRubberThicknes,
     decimal,
-    [toleranceMax, orderedTotalRubberThickness]
+    [toleranceMax, orderedTotalRubberThicknes]
   );
 }
 
 const Math = {
-  mathCumulativeThickness,
-  mathProposedThickness,
+  mathCumulativeThicknes,
+  mathProposedThicknes,
   mathToleranceMinPercent,
   mathToleranceMaxPercent
 };

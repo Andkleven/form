@@ -1,24 +1,25 @@
 import React from "react";
-
+import { stringToDictionary } from "components/Functions";
 import Item from "./Item";
 
 const OrderList = props => {
-  const itemsm = props.itemss.map(items => {
+  const items = props.items.map(item => {
     let data = {};
-    if (items.data.trim() !== "") {
-      data = JSON.parse(items.data.replace(/'/g, '"'));
+    if (item.data.trim() !== "") {
+      console.log(typeof item.data);
+      data = stringToDictionary(item.data);
     }
     return (
       <Item
-        key={items.id}
-        items={items}
+        key={item.id}
+        item={item}
         data={data}
         submitItem={props.submitItem}
         submitDelete={props.submitDelete}
       />
     );
   });
-  return <ul className="events__list">{itemsm}</ul>;
+  return <ul className="events__list">{items}</ul>;
 };
 
 export default OrderList;

@@ -15,7 +15,7 @@
         "pages": [
           {
             "pageTitle": "Priming",
-            "pageName": "operators",
+            "pageName": "operator",
             "queryPath": "descriptions.items.operators",
             "fields": [
               {

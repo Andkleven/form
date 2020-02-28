@@ -1,7 +1,7 @@
 import React, { Fragment, useState, createContext, useEffect } from "react";
 import Page from "./Page";
-import query from "../request/leadEngineers/Query";
-import mutations from "../request/leadEngineers/MutationToDatabase";
+import query from "../request/leadEngineer/Query";
+import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
@@ -40,7 +40,7 @@ export default props => {
   useEffect(() => {
     setDocumentDate({});
   }, [props.componentsId]);
-
+  console.log(documentDate);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -237,6 +237,8 @@ export default props => {
   };
 
   const prepareDataForSubmit = (variables, key, dictionary) => {
+    console.log(documentDate);
+
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
       delete dictionary[value]["saveInfo"];
@@ -269,15 +271,18 @@ export default props => {
     mutation({
       variables: {
         ...variables,
-        descriptionsId:
-          Number(props.different) === 0 ? Number(props.descriptionsId) : undefined,
-        itemsId: Number(props.different) ? Number(props.itemsId) : undefined,
+        descriptionId:
+          Number(props.different) === 0
+            ? Number(props.descriptionId)
+            : undefined,
+        itemsId: Number(props.different) ? Number(props.itemId) : undefined,
         itemsIdList: props.batchingListIds ? props.batchingListIds : undefined
       }
     });
     setFiles([]);
   };
   const submitHandler = thisChapter => {
+    console.log(documentDate, 2);
     if (Object.values(validationPassed).every(allTrue)) {
       submitData(documentDate[thisChapter]);
       setIsSubmited(false);
@@ -288,7 +293,6 @@ export default props => {
       setIsSubmited(true);
     }
   };
-  console.log(documentDate);
   const view = (info, index, thisChapter, stopLoop, showEditButton) => {
     return (
       <Page

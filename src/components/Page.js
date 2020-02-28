@@ -162,28 +162,30 @@ export default props => {
         />
       ) : null}
 
-      {!props.onePage && props.data && Array.isArray(props.data) ? (
-        props.data.map((itemsData, index) => {
-          if (props.data.length + repeatGroup - 1 < index) {
-            delete documentDateContext.documentDate[props.thisChapter][
-              props.pageName
-            ][index];
-            return null;
-          } else {
-            return (
-              <SetFieldGroupData
-                {...props}
-                writeChapter={writeChapter}
-                key={`${props.indexId}-${index}`}
-                data={itemsData}
-                fields={props.fields}
-                step={index}
-                repeatStep={index}
-                indexId={`${props.indexId}-${index}`}
-              />
-            );
-          }
-        })
+      {props.repeat ? (
+        props.data && Array.isArray(props.data) ? (
+          props.data.map((itemsData, index) => {
+            if (props.data.length + repeatGroup - 1 < index) {
+              delete documentDateContext.documentDate[props.thisChapter][
+                props.pageName
+              ][index];
+              return null;
+            } else {
+              return (
+                <SetFieldGroupData
+                  {...props}
+                  writeChapter={writeChapter}
+                  key={`${props.indexId}-${index}`}
+                  data={itemsData}
+                  fields={props.fields}
+                  step={index}
+                  repeatStep={index}
+                  indexId={`${props.indexId}-${index}`}
+                />
+              );
+            }
+          })
+        ) : null
       ) : (
         <SetFieldGroupData
           {...props}

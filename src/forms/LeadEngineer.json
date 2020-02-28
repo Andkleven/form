@@ -10,7 +10,7 @@
         {
           "pageTitle": "Steel Preparation",
           "queryPath": "leadEngineers",
-          "pageName": "leadEngineers",
+          "pageName": "leadEngineer",
           "fields": [
             {
               "fieldName": "steel",
@@ -175,7 +175,7 @@
         {
           "pageTitle": "Priming",
           "queryPath": "leadEngineers",
-          "pageName": "leadEngineers",
+          "pageName": "leadEngineer",
           "fields": [
             {
               "fieldName": "primer1",
@@ -221,13 +221,13 @@
     },
     {
       "lookUpBy": "numberOfLayers",
-      "queryPath": "leadEngineers.0.vulcanizationOperatorsSteps",
+      "queryPath": "leadEngineers.0.vulcanizationSteps",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineers",
-          "pageName": "leadEngineers",
+          "pageName": "leadEngineer",
           "mutation": "LEADENGINEER",
           "fields": [
             {
@@ -242,7 +242,7 @@
             {
               "fieldName": "actualSteelTDV",
               "label": "Actual Steel {TDV}",
-              "queryNameVariableLabel": "leadEngineers",
+              "queryNameVariableLabel": "leadEngineer",
               "fieldNameVariableLabel": "targetDescriptionValue",
               "indexVariableLabel": 0,
               "placeholder": "Max",
@@ -251,8 +251,8 @@
               "type": "number"
             },
             {
-              "fieldName": "orderedTotalRubberThickness",
-              "label": "Ordered Total Rubber Thickness",
+              "fieldName": "orderedTotalRubberThicknes",
+              "label": "Ordered Total Rubber Thicknes",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "number"
@@ -290,7 +290,7 @@
               "max": 6
             },
             {
-              "fieldName": "measurementPointOperatorss",
+              "fieldName": "measurementPoint",
               "label": "Measurement Points",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -301,15 +301,15 @@
         },
         {
           "pageTitle": "Measurement Point Actual",
-          "queryPath": "leadEngineers.0.measurementPointOperatorsActualTvds",
-          "pageName": "measurementPointOperatorsActualTvds",
+          "queryPath": "leadEngineers.0.measurementPointActualTvds",
+          "pageName": "measurementPointActualTvds",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithPageName": "leadEngineers",
-          "repeatGroupWithFieldName": "measurementPointOperatorss",
+          "repeatGroupWithPageName": "leadEngineer",
+          "repeatGroupWithFieldName": "measurementPoint",
           "fields": [
             {
-              "fieldName": "measurementPointOperatorsActual",
+              "fieldName": "measurementPointActual",
               "label": "Measurement Point Actual",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -326,7 +326,7 @@
           "addButton": "Add Rubber Cement",
           "fields": [
             {
-              "fieldName": "rubberCements",
+              "fieldName": "rubberCement",
               "label": "Rubber Cement",
               "feedback": "Enter valid number.",
               "notLabel": true,
@@ -335,8 +335,8 @@
           ]
         },
         {
-          "pageName": "vulcanizationOperatorsSteps",
-          "queryPath": "leadEngineers.0.vulcanizationOperatorsSteps",
+          "pageName": "vulcanizationSteps",
+          "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
           "repeatStartWithOneGroup": true,
           "delete": true,
@@ -345,7 +345,7 @@
           "fieldGroupRepeatTitle": "Step {}",
           "fields": [
             {
-              "fieldName": "vulcanizationOperatorsOption",
+              "fieldName": "vulcanizationOption",
               "label": "Vulcanization Option",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -378,7 +378,7 @@
       ]
     },
     {
-      "lookUpBy": "actualThickness",
+      "lookUpBy": "actualThicknes",
       "queryPath": "leadEngineers.0.coatingLayers",
       "pages": [
         {
@@ -389,7 +389,7 @@
           "notAddButton": true,
           "sumAllPage": true,
           "repeatGroupWithChapter": -1,
-          "repeatGroupWithPageName": "vulcanizationOperatorsSteps",
+          "repeatGroupWithPageName": "vulcanizationSteps",
           "repeatGroupWithFieldName": "numberOfLayers",
           "fields": [
             {
@@ -408,8 +408,8 @@
               "options": ["Compound Number", 73165]
             },
             {
-              "fieldName": "actualThickness",
-              "label": "Actual Thickness",
+              "fieldName": "actualThicknes",
+              "label": "Actual Thicknes",
               "feedback": "Enter valid number.",
               "type": "Number",
               "min": 2,
@@ -429,9 +429,9 @@
               "required": true
             },
             {
-              "fieldName": "proposedThickness",
-              "label": "Proposed Thickness",
-              "math": "mathProposedThickness",
+              "fieldName": "proposedThicknes",
+              "label": "Proposed Thicknes",
+              "math": "mathProposedThicknes",
               "min": 2,
               "max": 4,
               "unit": "mm",
@@ -447,9 +447,9 @@
               "type": "checkbox"
             },
             {
-              "fieldName": "cumulativeThickness",
-              "label": "Cumulative Thickness",
-              "math": "mathCumulativeThickness",
+              "fieldName": "cumulativeThicknes",
+              "label": "Cumulative Thicknes",
+              "math": "mathCumulativeThicknes",
               "readOnly": true,
               "decimal": 1,
               "type": "Number"

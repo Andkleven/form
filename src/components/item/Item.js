@@ -4,17 +4,17 @@ const OrderItem = props => (
   <li key={props.id}>
     <div>
       <h1>
-        {props.items.id}
-        {props.data.itemsId}
+        {props.item.id}
+        {props.data.itemId}
       </h1>
     </div>
     <div>
-      <button className="btn" onClick={props.submitItem.bind(this, props.items)}>
+      <button className="btn" onClick={props.submitItem.bind(this, props.item)}>
         Item
       </button>
       <button
         className="btn"
-        onClick={props.submitDelete.bind(this, props.items.id)}
+        onClick={props.submitDelete.bind(this, props.item.id)}
       >
         Delete
       </button>

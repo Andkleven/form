@@ -9,8 +9,8 @@
       "findByIndex": true,
       "pages": [
         {
-          "pageTitle": "Descriptions",
-          "pageName": "descriptions",
+          "pageTitle": "Description",
+          "pageName": "description",
           "queryPath": "projects.0.descriptions",
           "findByIndex": true,
           "fields": [
@@ -68,8 +68,8 @@
       "secondQueryPath": "items",
       "pages": [
         {
-          "title": "Add items",
-          "pageName": "items",
+          "pageTitle": "Add item",
+          "pageName": "item",
           "firstQueryPath": "projects.0.descriptions",
           "secondQueryPath": "items",
           "createWithOldValue": true,
@@ -77,7 +77,7 @@
           "getForeignKey": true,
           "fields": [
             {
-              "fieldName": "itemsId",
+              "fieldName": "itemId",
               "label": "Item ID",
               "subtext": "Subtext"
             }

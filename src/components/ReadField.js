@@ -29,7 +29,7 @@ export default props => {
         {props.value === false && "✖"}
         {props.value === true && "✅"}
       </small>
-      {props.subtext ? (
+      {props.subtext && props.writeChapter ? (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       ) : null}
       {props.error ? (
