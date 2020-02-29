@@ -5,7 +5,7 @@ const ALL = gql`
     projects(id: $id) {
       id
       data
-      leadEngineersDone
+      leadEngineerDone
       operatorDone
       qualityControlDone
       operatorStarted
@@ -194,11 +194,8 @@ const GET_OPERATOR = gql`
 `;
 
 const OPERATOR_PROJECTS = gql`
-  query($leadEngineersDone: Boolean, $operatorDone: Boolean) {
-    projects(
-      leadEngineersDone: $leadEngineersDone
-      operatorDone: $operatorDone
-    ) {
+  query($leadEngineerDone: Boolean, $operatorDone: Boolean) {
+    projects(leadEngineerDone: $leadEngineerDone, operatorDone: $operatorDone) {
       data
       descriptions {
         data
