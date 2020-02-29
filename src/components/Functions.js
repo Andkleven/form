@@ -16,6 +16,9 @@ export const allTrue = element => element;
 
 export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
+export const emptyObject = objectToCheck =>
+  Object.entries(objectToCheck).length === 0;
+
 export const getSubtext = (
   subtext,
   max,

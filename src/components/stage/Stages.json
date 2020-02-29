@@ -1,0 +1,139 @@
+{
+  "all": [
+    "steel_preparation_1",
+    "steel_preparation_2",
+    "priming_1",
+    "priming_2",
+    "actual_steel_measurement",
+    "rubberCement",
+    "coating_step_1",
+    "vulcanization_stage_1",
+    "measurement_stage_1",
+    "coating_stage_2",
+    "vulcanization_stage_2",
+    "measurement_stage_2",
+    "coating_stage_3",
+    "vulcanization_stage_3",
+    "touch_up"
+  ],
+  "coatedItem": [
+    { "steel_preparation_1": {} },
+    { "steel_preparation_2": {} },
+    {
+      "priming_1": {
+        "queryPath": "leadEngineers",
+        "fieldPath": "primer1"
+      }
+    },
+    {
+      "priming_2": {
+        "queryPath": "leadEngineers",
+        "fieldPath": "primer2"
+      }
+    },
+    { "actual_steel_measurement": {} },
+    {
+      "rubberCement": {
+        "queryPath": "leadEngineers",
+        "fieldPath": "rubberCementsBeforeCoating"
+      }
+    },
+    { "coating_step_1": {} },
+    { "vulcanization_stage_1": {} },
+    {
+      "measurement_stage_1": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+        "fieldPath": ""
+      }
+    },
+    {
+      "coating_stage_2": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+        "fieldPath": ""
+      }
+    },
+    {
+      "vulcanization_stage_2": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+        "fieldPath": ""
+      }
+    },
+    {
+      "measurement_stage_2": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+        "fieldPath": ""
+      }
+    },
+    {
+      "coating_stage_3": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+        "fieldPath": ""
+      }
+    },
+    {
+      "vulcanization_stage_3": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+        "fieldPath": ""
+      }
+    },
+    {
+      "touch_up": {}
+    }
+  ],
+  "mould": [
+    { "steel_preparation_1": {} },
+    {
+      "priming_1": {
+        "queryPath": "leadEngineers",
+        "fieldPath": "primer1"
+      }
+    },
+    {
+      "priming_2": {
+        "queryPath": "leadEngineers",
+        "fieldPath": "primer2"
+      }
+    },
+    { "coating_step_1": {} },
+    { "vulcanization_stage_1": {} },
+    {
+      "measurement_stage_1": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+        "fieldPath": ""
+      }
+    },
+    {
+      "coating_stage_2": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+        "fieldPath": ""
+      }
+    },
+    {
+      "vulcanization_stage_2": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+        "fieldPath": ""
+      }
+    },
+    {
+      "measurement_stage_2": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+        "fieldPath": ""
+      }
+    },
+    {
+      "coating_stage_3": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+        "fieldPath": ""
+      }
+    },
+    {
+      "vulcanization_stage_3": {
+        "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+        "fieldPath": ""
+      }
+    },
+    {
+      "touch_up": {}
+    }
+  ]
+}
