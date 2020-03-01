@@ -69,13 +69,17 @@ export default () => {
         <FilterTree />
         <h6 className="mb-0">Projects</h6>
         {results ? (
-          results.createProject.map((project, index) => (
+          results.projects.map((project, index) => (
             <Tree defaultOpen key={index} name={project.data.projectName}>
-              {project.category &&
-                project.category.map((category, index) => (
-                  <Tree defaultOpen key={index} name={category.data.geometry}>
-                    {category.item &&
-                      category.item.map((item, index) => (
+              {project.descriptions &&
+                project.descriptions.map((description, index) => (
+                  <Tree
+                    defaultOpen
+                    key={index}
+                    name={description.data.geometry}
+                  >
+                    {description.items &&
+                      description.items.map((item, index) => (
                         <Tree defaultOpen link key={index} name={item.id} />
                       ))}
                   </Tree>

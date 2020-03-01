@@ -52,20 +52,21 @@ export const stringToDictionary = data => {
 
 export const expandJson = json => {
   if (json.data) {
-    json.data.createProject.map((project, index) => {
-      project.data = stringToDictionary(project.data);
-      project.category &&
-        project.category.map((category, index) => {
-          category.data = stringToDictionary(category.data);
-          category.item &&
-            category.item.map((item, index) => {
-              item.data = stringToDictionary(item.data);
-              return true;
-            });
-          return true;
-        });
-      return true;
-    });
+    json.data.projects &&
+      json.data.projects.map(project => {
+        project.data = stringToDictionary(project.data);
+        project.descriptions &&
+          project.descriptions.map(description => {
+            description.data = stringToDictionary(description.data);
+            description.items &&
+              description.items.map(item => {
+                item.data = stringToDictionary(item.data);
+                return true;
+              });
+            return true;
+          });
+        return true;
+      });
   }
   return json;
 };
