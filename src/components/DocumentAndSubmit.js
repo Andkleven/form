@@ -34,7 +34,7 @@ export default props => {
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
-  const [addForm, setAddForm] = useState(false);
+  const [repeatGroup, setRepeatGroup] = useState(false);
 
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useEffect(() => {
@@ -281,7 +281,7 @@ export default props => {
     if (Object.values(validationPassed).every(allTrue)) {
       submitData(documentDate[thisChapter]);
       setIsSubmited(false);
-      setAddForm(!addForm);
+      setRepeatGroup(!repeatGroup);
       setEditChapter(0);
       setvalidationPassed({});
     } else {
@@ -302,7 +302,7 @@ export default props => {
         showEditButton={showEditButton}
         indexId={`${thisChapter}-${index}`}
         index={index}
-        addForm={addForm}
+        repeatGroup={repeatGroup}
         submitData={submitData}
         descriptionsId={
           Number(props.different) === 0 ? Number(props.descriptionsId) : 0
