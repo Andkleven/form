@@ -26,7 +26,7 @@ const OuterLogin = styled.div`
   -ms-flex-align: center;
   -ms-flex-pack: center;
   -webkit-box-align: center;
-  align-itemss: center;
+  align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
 `;
