@@ -271,7 +271,7 @@ export default props => {
           Number(props.different) === 0
             ? Number(props.descriptionId)
             : undefined,
-        itemsId: Number(props.different) ? Number(props.itemId) : undefined,
+        itemId: Number(props.different) ? Number(props.itemId) : undefined,
         itemsIdList: props.batchingListIds ? props.batchingListIds : undefined
       }
     });
