@@ -141,13 +141,12 @@ export default pageInfo => {
               if (!item.different) {
                 mutationDiffreant({
                   variables: {
-                    id: item.id,
-                    different: true
+                    item: [{ id: item.id, different: true }]
                   }
                 });
               }
               history.push(
-                `/order/lead-engineer/${geometryData.id}/${items.id}/1`
+                `/order/lead-engineer/${geometryData.id}/${item.id}/1`
               );
             }}
             submitDelete={id => {
