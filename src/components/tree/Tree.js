@@ -4,9 +4,10 @@ import { useMeasure, usePrevious } from "./helpers";
 import { Frame, Title, Content } from "./styles";
 import * as Icons from "./icons";
 import { Button } from "react-bootstrap";
+import Input from "components/Input";
 
 export default memo(
-  ({ id, children, name, style, link, defaultOpen = false }) => {
+  ({ id, children, name, style, link, check, defaultOpen = false }) => {
     const [isOpen, setOpen] = useState(defaultOpen);
     const previous = usePrevious(isOpen);
     const [bind, { height: viewHeight }] = useMeasure();
@@ -31,6 +32,10 @@ export default memo(
             >
               {name}
             </Button>
+          ) : check ? (
+            <div className="ml-1">
+              <Input className="" tight type="checkbox" label={name} />
+            </div>
           ) : (
             <>
               <div onClick={() => setOpen(!isOpen)}>

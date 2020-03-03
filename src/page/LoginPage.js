@@ -36,9 +36,9 @@ export default () => {
   async function pushHome(data) {
     token = await data.tokenAuth;
     localStorage.setItem(AUTH_TOKEN, token);
-    console.log("Starting push to home...");
+    // console.log("Starting push to home...");
     history.push(`/`);
-    console.log("Push done.");
+    // console.log("Push done.");
   }
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

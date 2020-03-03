@@ -9,7 +9,7 @@ import Login from "./page/LoginPage";
 import OrderPage from "./page/OrderPage";
 import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
-import Operator from "./page/Operator";
+import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
 import BatchingTest from "./page/BatchingTest";
 
@@ -30,12 +30,11 @@ export default () => (
       <div style={backgroundStyle}>
         <Router history={history}>
           <Header />
-          {/* <main className="main-content"> */}
           <Switch>
             <Route exact path="/login" component={Login} />
             {/* {!authToken && <Redirect to="/login" exact />} */}
             <Route exact path="/" component={Home} />
-            <Route exact path="/operator" component={Operator} />
+            <Route exact path="/operator" component={OperatorPage} />
             <Route exact path="/order" component={OrderPage} />
             <Route path="/order/item/:_id" component={Item} />
             <Route
@@ -47,7 +46,6 @@ export default () => (
               component={BatchingTest}
             />
           </Switch>
-          {/* </main> */}
         </Router>
       </div>
     </Div100vh>
