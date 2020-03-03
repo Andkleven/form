@@ -1,26 +1,27 @@
 {
   "batching": {
-    "queryPath": "descriptions.items",
-    "showField": "id",
-    "dataPath": "descriptions.items.leadEngineers",
+    "itemPath": "descriptions.0.items",
+    "showField": "itemId",
+    "dataPath": "leadEngineers",
     "dataField": ["primer1"]
   },
   "ducument": {
-    "queryPath": "descriptions.items.operators",
-    "mutation": "OPERATOR",
+    "queryPath": "operators",
+    "mutation": "OPERATORBATCHING",
     "query": "GET_OPERATOR",
     "chapters": [
       {
         "chapterAlwaysInWrite": true,
         "pages": [
           {
-            "pageTitle": "Priming",
+            "pageTitle": "Priming 1",
             "pageName": "operator",
-            "queryPath": "descriptions.items.operators",
+            "queryPath": "operators",
             "fields": [
               {
-                "routToSpeckValue": "primer1",
-                "label": "Geometry"
+                "routToSpeckValue": "leadEngineers.0",
+                "fieldSpeckValue": "primer1",
+                "label": "Primer"
               },
               { "line": true },
               {

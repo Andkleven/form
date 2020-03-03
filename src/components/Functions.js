@@ -1,3 +1,5 @@
+import objectPath from "object-path";
+
 export const sumFieldInObject = (object, key) => {
   let total = 0;
   Object.values(object).forEach(value => {
@@ -39,9 +41,12 @@ export const getSubtext = (
 
   let unitString = unit ? `${unit} ` : " ";
 
-  let requiredString = required ? "Required" : "";
+  minString = minString ? minString + unitString : null;
+  maxString = maxString ? maxString + unitString : null;
 
-  return minString + unitString + maxString + unitString + requiredString;
+  let requiredString = required ? "Required" : null;
+
+  return minString + maxString + requiredString;
 };
 
 export const stringToDictionary = data => {
@@ -70,6 +75,24 @@ export const expandJson = json => {
   }
   return json;
 };
+
+
+export const getDataFromQuery = (data, path, field) => {
+  if (!data) {
+    return null;
+  }
+  let stringFields = objectPath.get(data, path);
+  if (!stringFields) {
+    return null;
+  }
+  let fields = stringToDictionary(stringFields.data);
+  if (!fields) {
+    return null;
+  }
+  return fields[field];
+};
+
+export const removeSpace = string => string.replace(/\s/g, "");
 
 export const searchProjects = (data, term) => {
   let results = [];
@@ -136,3 +159,4 @@ export const searchProjects = (data, term) => {
   }
   return results;
 };
+

@@ -1,68 +1,69 @@
-import React from "react";
+import React, { useMemo } from "react";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
-
-const stage = "priming";
+import { stringToDictionary } from "components/Functions";
 
 export default props => {
-  const add = (items, data) => {
-    let batchingData;
-    props.json.dataField.forEach(field => {
-      batchingData[field] = data[field];
-    });
-
-    props.setBatchingListIds(prevState => [...prevState, items.id]);
-    if (batchingData) {
+  const add = (item, batchingData) => {
+    props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
+    if (!props.batchingData) {
       props.setBatchingData({ ...batchingData });
     }
   };
-  const remove = items => {
+  const remove = item => {
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
     }
-    props.setBatchingListIds(
-      props.batchingListIds.filter(id => id !== items.id)
-    );
+    props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
   };
-  const handelClick = (e, items, data) => {
-    if (e.target.value) {
-      add(items, data);
+  const handelClick = (e, item, batchingData) => {
+    if (e.target.checked) {
+      add(item, batchingData);
     } else {
-      remove(items);
+      remove(item);
     }
   };
-
   return (
     <>
-      {objectPath.get(props.data, props.json.dataPath).map((items, index) => {
-        let batchingData;
-        let data = JSON.parse(items.data.replace(/'/g, '"'));
-        props.json.dataField.forEach(field => {
-          batchingData[field] = data[field];
-        });
-        if (
-          items.stage === stage ||
-          JSON.stringify(data) === JSON.stringify(props.batchingData)
-        ) {
-          //  fade out check box
-          return (
-            <Form.Check
-              key={index}
-              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-              label={JSON.parse(items.replace(/'/g, '"'))[props.json.showField]}
-            />
-          );
-        } else {
-          return (
-            <Form.Check
-              key={index}
-              onChange={e => handelClick(e, items, data)}
-              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-              label={JSON.parse(items.replace(/'/g, '"'))[props.json.showField]}
-            />
-          );
-        }
-      })}
+      {useMemo(
+        () =>
+          props.data &&
+          objectPath.get(props.data, props.json.itemPath).map((item, index) => {
+            let batchingData = {};
+            props.json.dataField.forEach(field => {
+              batchingData[field] = stringToDictionary(
+                objectPath.get(item, props.json.dataPath)[0].data
+              )[field];
+            });
+            if (
+              item.stage === props.stage &&
+              (!props.batchingData ||
+                JSON.stringify(batchingData) ===
+                  JSON.stringify(props.batchingData))
+            ) {
+              return (
+                <Form.Check
+                  key={index}
+                  className="text-success"
+                  onChange={e => handelClick(e, item, batchingData)}
+                  id={`custom-${props.type}-${props.fieldName}-${
+                    props.indexId
+                  }`}
+                  checked={props.batchingListIds.find(id => id == item.id)}
+                  label={stringToDictionary(item.data)[props.json.showField]}
+                />
+              );
+            } else {
+              //  fade out check box
+              return (
+                <div key={index} className="text-danger">
+                  {stringToDictionary(item.data)[props.json.showField]}
+                </div>
+              );
+            }
+          }),
+        [props.batchingData, props.batchingListIds]
+      )}
     </>
   );
 };

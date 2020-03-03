@@ -102,7 +102,7 @@ export default pageInfo => {
   const [
     mutationDiffreant,
     { loading: loadingMutation, error: errorMutation }
-  ] = useMutation(mutations["ITEM"]);
+  ] = useMutation(mutations["ORDER"]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
@@ -135,6 +135,7 @@ export default pageInfo => {
           >
             Create all items
           </Button>
+          <h3> Number of items: {geometryData.items.length}</h3>
           <ItemList
             items={geometryData.items}
             submitItem={item => {

@@ -1,34 +1,32 @@
-import "FindNextStage" from "components/stage/FindNextStage.json";
-import "StagesJson" from "components/stage/Stages.json";
-import {stringToDictionary, emptyObject} from"components/Functions";
+import StagesJson from "components/stage/Stages.json";
+import { stringToDictionary } from "components/Functions";
 import objectPath from "object-path";
 
 const findNextStage = (speckData, geometry, nextStage) => {
-  let stageCriteria = StagesJson[geometry][nextStage]
-  if (emptyObject(stageCriteria)) {
-    return true
-  }
-  let query = objectPath.get(speckData, stageCriteria.queryPath, null)
+  let stageCriteria = StagesJson[geometry][nextStage];
+
+  let query = objectPath.get(speckData, stageCriteria.queryPath, null);
   if (query === null) {
-    return false
+    return false;
   } else if (!stageCriteria.fieldPath.trim()) {
-    return true
+    return true;
   }
-  let field = stringToDictionary(query)[stageCriteria.fieldPath]
+  console.log(query);
+  let field = stringToDictionary(query.data)[stageCriteria.fieldPath];
   if (field !== undefined) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 
 export default (speckData, stage, geometry) => {
-  let index = StagesJson.all.indexOf(stage)
+  let index = StagesJson.all.indexOf(stage);
   let nextStage;
-  for (index < StagesJson.all.length; index++;) {
-    nextStage = StagesJson.all[index]
-    if (findNextStage(speckData, geometry, nextStage)) { 
-      return nextStage 
+  for (index < StagesJson.all.length; index++; ) {
+    nextStage = StagesJson.all[index];
+    if (findNextStage(speckData, geometry, nextStage)) {
+      return nextStage;
     }
   }
-  return null
+  return null;
 };
