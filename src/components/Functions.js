@@ -56,22 +56,34 @@ export const stringToDictionary = data => {
 };
 
 export const expandJson = json => {
+  // Turns data strings into data dictionaries where applicable
   if (json) {
-    json.projects &&
-      json.projects.map(project => {
-        project.data = stringToDictionary(project.data);
-        project.descriptions &&
-          project.descriptions.map(description => {
-            description.data = stringToDictionary(description.data);
-            description.items &&
-              description.items.map(item => {
-                item.data = stringToDictionary(item.data);
-                return true;
-              });
-            return true;
-          });
-        return true;
-      });
+    const jsonIsExpandable = json => {
+      // A bit shady test for if the JSON is expandable
+      let expandable = true;
+      if (json.projects[0].data === undefined) {
+        expandable = false;
+      }
+      return expandable;
+    };
+
+    if (jsonIsExpandable(json)) {
+      json.projects &&
+        json.projects.map(project => {
+          project.data = stringToDictionary(project.data);
+          project.descriptions &&
+            project.descriptions.map(description => {
+              description.data = stringToDictionary(description.data);
+              description.items &&
+                description.items.map(item => {
+                  item.data = stringToDictionary(item.data);
+                  return true;
+                });
+              return true;
+            });
+          return true;
+        });
+    }
   }
   return json;
 };
@@ -93,8 +105,7 @@ export const getDataFromQuery = (data, path, field) => {
 
 export const removeSpace = string => string.replace(/\s/g, "");
 
-export const searchProjects = (data, term) => {
-  term = term.toLowerCase();
+export const searchProjects = (data, terms) => {
   let results = [];
   if (data) {
     const findAllProjects = data => {
@@ -108,7 +119,9 @@ export const searchProjects = (data, term) => {
 
     const hasChildren = element => {
       const isNonEmptyObject =
-        element.constructor === Object && Object.entries(element).length > 0;
+        element &&
+        element.constructor === Object &&
+        Object.entries(element).length > 0;
       const isNonEmptyArray =
         Array.isArray(element) &&
         element.length > 0 &&
@@ -148,17 +161,41 @@ export const searchProjects = (data, term) => {
       return match;
     };
 
-    const getMatchingProjects = (projects, term) => {
-      if (projects) {
-        projects.forEach(project => {
-          if (elementOrChildrenMatches(project, term)) {
-            results.push(project);
-          }
-        });
-      }
+    const projectNotInResults = (project, results) => {
+      return !results.includes(project);
     };
 
-    getMatchingProjects(projects, term);
+    const resultsIntersection = resultsArray => {
+      let intersectingResults = resultsArray.shift();
+      resultsArray.forEach(results => {
+        intersectingResults = intersectingResults.filter(x =>
+          results.includes(x)
+        );
+      });
+      return intersectingResults;
+    };
+
+    const getMatchingProjects = (projects, terms) => {
+      let resultsArray = [];
+      terms.forEach(term => {
+        term = term.toLowerCase();
+        let termResults = [];
+        if (projects && Array.isArray(projects)) {
+          projects.forEach(project => {
+            if (
+              elementOrChildrenMatches(project, term) &&
+              projectNotInResults(project, results)
+            ) {
+              termResults.push(project);
+            }
+          });
+        }
+        resultsArray.push(termResults);
+      });
+      results = resultsIntersection(resultsArray);
+    };
+
+    getMatchingProjects(projects, terms);
   }
   return results;
 };

@@ -1,11 +1,22 @@
 import React from "react";
 import { Navbar, Dropdown } from "react-bootstrap";
 import emblem from "../images/trelleborg_emblem.png";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { withRouter } from "react-router";
 // import { AUTH_TOKEN } from "../constants";
 
 // const authToken = localStorage.getItem(AUTH_TOKEN);
+
+const NavLink = props => (
+  <Dropdown.Item className="p-0">
+    <Link to={props.link} className="text-decoration-none">
+      <div className="w-100 px-3 py-1 text-dark">
+        <i style={{ width: "1.5em" }} className={`fas fa-${props.icon}`} />
+        {props.title}
+      </div>
+    </Link>
+  </Dropdown.Item>
+);
 
 export default () => (
   <Navbar
@@ -22,14 +33,9 @@ export default () => (
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="/">
-            <i style={{ width: "1.5em" }} className="fas fa-home" />
-            Home
-          </Dropdown.Item>
-          <Dropdown.Item href="/order">
-            <i style={{ width: "1.5em" }} className="fas fa-list" />
-            Orders
-          </Dropdown.Item>
+          <NavLink title="Home" link="/" icon="home" />
+          <NavLink title="Orders" link="/orders" icon="list" />
+          <NavLink title="Operator" link="/operator" icon="user-hard-hat" />
         </Dropdown.Menu>
       </Dropdown>
     </div>
@@ -59,13 +65,7 @@ export default () => (
         </Dropdown.Toggle>
 
         <Dropdown.Menu alignRight>
-          <Dropdown.Item
-            href="/login"
-            // onClick={localStorage.removeItem(AUTH_TOKEN)}
-          >
-            <i style={{ width: "1.5em" }} className="fa fa-user" />
-            Logout
-          </Dropdown.Item>
+          <NavLink title="Logout" link="/login" icon="user" />
         </Dropdown.Menu>
       </Dropdown>
     </div>

@@ -35,7 +35,7 @@ export default () => (
             {/* {!authToken && <Redirect to="/login" exact />} */}
             <Route exact path="/" component={Home} />
             <Route exact path="/operator" component={OperatorPage} />
-            <Route exact path="/order" component={OrderPage} />
+            <Route exact path="/orders" component={OrderPage} />
             <Route path="/order/item/:_id" component={Item} />
             <Route
               path="/order/lead-engineer/:descriptionId/:itemId/:different"

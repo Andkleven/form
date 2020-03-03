@@ -7,7 +7,12 @@ import stagesJson from "components/stages/Stages.json";
 const stages = stagesJson.all;
 
 export default props => {
-  const [results, setResults] = useState(searchProjects(props.data, ""));
+  const [stageTerm, setStageTerm] = useState("");
+  const [searchTerms, setSearchTerms] = useState("");
+
+  const sumTerms = [stageTerm, searchTerms];
+  const results = searchProjects(props.data, sumTerms);
+
   return (
     <>
       <h6 className="pb-1">Filter</h6>
@@ -20,7 +25,7 @@ export default props => {
           tight
           onChange={e => {
             if (e) {
-              setResults(searchProjects(props.data, e.value));
+              setStageTerm(e.value);
             }
           }}
         />
@@ -28,7 +33,8 @@ export default props => {
           placeholder="Search..."
           tight
           onChange={e => {
-            setResults(searchProjects(props.data, e.target.value));
+            // Split may not make list of single word
+            setSearchTerms(e.target.value);
           }}
           unit={
             <i
@@ -41,19 +47,26 @@ export default props => {
       {props.children}
       <h6 className="mb-0">Projects</h6>
       {results && results.length > 0 ? (
-        results.map((project, index) => (
-          <Tree defaultOpen key={index} name={project.data.projectName}>
-            {project.descriptions &&
-              project.descriptions.map((description, index) => (
-                <Tree defaultOpen key={index} name={description.data.geometry}>
-                  {description.items &&
-                    description.items.map((item, index) => (
-                      <Tree defaultOpen check key={index} name={item.id} />
-                    ))}
-                </Tree>
-              ))}
-          </Tree>
-        ))
+        results.map(
+          (project, index) =>
+            project.data && ( // Adresses crash on revisit,
+              <Tree defaultOpen key={index} name={project.data.projectName}>
+                {project.descriptions &&
+                  project.descriptions.map((description, index) => (
+                    <Tree
+                      defaultOpen
+                      key={index}
+                      name={description.data.geometry}
+                    >
+                      {description.items &&
+                        description.items.map((item, index) => (
+                          <Tree defaultOpen check key={index} name={item.id} />
+                        ))}
+                    </Tree>
+                  ))}
+              </Tree>
+            ) // Adresses crash on revisit,
+        )
       ) : (
         <div className="pt-1">No projects available.</div>
       )}
