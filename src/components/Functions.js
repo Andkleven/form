@@ -1,11 +1,46 @@
 import objectPath from "object-path";
 
+export const stringToDictionary = data => {
+  if (typeof data === "string") {
+    return JSON.parse(data.replace(/'/g, '"'));
+  }
+};
+
+export const getDataFromQuery = (data, path, field) => {
+  if (!data) {
+    return null;
+  }
+  let stringFields = objectPath.get(data, path);
+  if (!stringFields) {
+    return null;
+  }
+  let fields = stringToDictionary(stringFields.data);
+  if (!fields) {
+    return null;
+  }
+  return fields[field];
+};
+
 export const sumFieldInObject = (object, key) => {
   let total = 0;
   Object.values(object).forEach(value => {
     total += Number(value[key]);
   });
   return total;
+};
+
+export const getValue = (value, queryName, indexNumber, fieldName) => {
+  let test;
+  Object.keys(value).forEach(key => {
+    if (
+      value[key][queryName] &&
+      value[key][queryName][indexNumber] !== undefined &&
+      value[key][queryName][indexNumber][fieldName] !== undefined
+    ) {
+      test = value[key][queryName][indexNumber][fieldName];
+    }
+  });
+  return test;
 };
 
 export const getLastObjectValue = (object, key) => {
@@ -18,11 +53,77 @@ export const allTrue = element => element;
 
 export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
+export const removeSpace = string => string.replace(/\s/g, "");
+
 export const emptyObject = objectToCheck =>
   Object.entries(objectToCheck).length === 0;
 
+export const removeEmptyValueFromObject = object => {
+  Object.keys(object).forEach(key => {
+    if ([null, undefined, ""].includes(object[key])) {
+      delete object[key];
+    }
+  });
+};
+
+export const variableString = (variable, string) => {
+  let newString;
+  if ([undefined, null, ""].includes(variable)) {
+    newString = string.replace("{", "");
+    newString = newString.replace("}", "");
+  } else {
+    let firstName = string.split("{")[0];
+    let lastName = string.split("}")[string.split("}").length - 1];
+
+    newString = firstName + variable + lastName;
+  }
+  return newString;
+};
+
+export const variableLabel = (
+  label,
+  value = undefined,
+  indexVariableLabel = undefined,
+  repeatStep = undefined,
+  queryNameVariableLabel = undefined,
+  fieldNameVariableLabel = undefined,
+  index = undefined
+) => {
+  if (!label) {
+    return "";
+  }
+  let variableLabel = undefined;
+  if (index === undefined) {
+    variableLabel = getValue(
+      value,
+      queryNameVariableLabel,
+      indexVariableLabel ? repeatStep + indexVariableLabel : repeatStep,
+      fieldNameVariableLabel
+    );
+  } else {
+    variableLabel = index;
+  }
+  return variableString(variableLabel, label);
+};
+
+export const variableSubtext = (
+  subtext,
+  data,
+  routToSpeckSubtext,
+  fieldSpeckSubtext
+) => {
+  let variable;
+  if (routToSpeckSubtext && fieldSpeckSubtext) {
+    variable = getDataFromQuery(data, routToSpeckSubtext, fieldSpeckSubtext);
+  }
+  return variableString(variable, subtext);
+};
+
 export const getSubtext = (
   subtext,
+  data,
+  routToSpeckSubtext,
+  fieldSpeckSubtext,
   max,
   min,
   maxInput,
@@ -31,28 +132,27 @@ export const getSubtext = (
   required
 ) => {
   if (subtext) {
-    return subtext;
+    return variableSubtext(
+      subtext,
+      data,
+      routToSpeckSubtext,
+      fieldSpeckSubtext
+    );
   }
-  let minLocal = min ? min : minInput ? minInput : null;
-  let maxLocal = max ? max : maxInput ? maxInput : null;
+  let minLocal = min ? min : minInput ? minInput : "";
+  let maxLocal = max ? max : maxInput ? maxInput : "";
 
-  let minString = minLocal === null ? "" : `Min: ${minLocal}`;
-  let maxString = maxLocal === null ? "" : `Max: ${maxLocal}`;
+  let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
+  let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
 
   let unitString = unit ? `${unit} ` : " ";
 
-  minString = minString ? minString + unitString : null;
-  maxString = maxString ? maxString + unitString : null;
+  minString = minString ? minString + unitString : "";
+  maxString = maxString ? maxString + unitString : "";
 
-  let requiredString = required ? "Required" : null;
+  let requiredString = required ? "Required" : "";
 
   return minString + maxString + requiredString;
-};
-
-export const stringToDictionary = data => {
-  if (typeof data === "string") {
-    return JSON.parse(data.replace(/'/g, '"'));
-  }
 };
 
 export const expandJson = json => {
@@ -75,23 +175,6 @@ export const expandJson = json => {
   }
   return json;
 };
-
-export const getDataFromQuery = (data, path, field) => {
-  if (!data) {
-    return null;
-  }
-  let stringFields = objectPath.get(data, path);
-  if (!stringFields) {
-    return null;
-  }
-  let fields = stringToDictionary(stringFields.data);
-  if (!fields) {
-    return null;
-  }
-  return fields[field];
-};
-
-export const removeSpace = string => string.replace(/\s/g, "");
 
 export const searchProjects = (data, term) => {
   term = term.toLowerCase();
@@ -161,4 +244,37 @@ export const searchProjects = (data, term) => {
     getMatchingProjects(projects, term);
   }
   return results;
+};
+
+export const validaFieldWithValue = (validation, data) => {
+  Object.keys(validation).forEach(key => {
+    let paths = key.split("-");
+    if (data[paths[0]][paths[1]][paths[2]].trim() && !validation[key]) {
+      return false;
+    }
+  });
+};
+
+export const calculateMaxMin = (
+  min,
+  routToSpeckMin,
+  fieldSpeckMin,
+  max,
+  routToSpeckMax,
+  fieldSpeckMax,
+  data
+) => {
+  let newMin;
+  let newMax;
+  if (routToSpeckMin && fieldSpeckMin) {
+    newMin = getDataFromQuery(data, routToSpeckMin, fieldSpeckMin);
+  } else {
+    newMin = min;
+  }
+  if (routToSpeckMax && fieldSpeckMax) {
+    newMax = getDataFromQuery(data, routToSpeckMax, fieldSpeckMax);
+  } else {
+    newMax = max;
+  }
+  return { min: newMin, max: newMax };
 };

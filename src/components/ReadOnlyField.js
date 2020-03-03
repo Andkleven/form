@@ -34,6 +34,7 @@ export default props => {
     <ReadField
       {...props}
       key={props.indexId}
+      submit={true}
       value={props.state[props.fieldName]}
       showMinMax={showMinMax}
     />

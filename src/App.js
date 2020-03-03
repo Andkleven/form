@@ -11,7 +11,7 @@ import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
 import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
-import BatchingTest from "./page/BatchingTest";
+import PartialBatching from "./page/PartialBatching";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
 
@@ -43,7 +43,7 @@ export default () => (
             />
             <Route
               path="/operator/:stage/:descriptionId"
-              component={BatchingTest}
+              component={PartialBatching}
             />
           </Switch>
         </Router>

@@ -19,7 +19,7 @@ export default props => {
     <Form.Group
       className={props.textCenter ? "text-center" : ""}
       onClick={() => {
-        handelClick();
+        props.submit ? handelClick() : null;
       }}
     >
       <small>
