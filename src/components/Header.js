@@ -12,7 +12,7 @@ export default () => (
     // sticky="top"
     bg="dark"
     variant="dark"
-    className="text-light mx-0 px-2 shadow-sm position-absolute w-100"
+    className="text-light mx-0 px-2 position-absolute w-100"
   >
     {/* Left */}
     <div className="w-100 mx-0 px-0 d-flex justify-content-start">
