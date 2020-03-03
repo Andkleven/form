@@ -5,6 +5,7 @@ import FilesUpload from "./FilesUpload";
 import { FieldsContext, DocumentDateContext } from "./DocumentAndSubmit";
 import SubmitButton from "./SubmitButton";
 import { allTrue } from "./Functions";
+import Input from "components/Input";
 
 import "../styles/styles.css";
 
@@ -111,91 +112,27 @@ export default props => {
     fieldsContext.setEditField("");
     fieldsContext.setvalidationPassed({});
   };
-  if (["checkbox", "radio", "switch"].includes(props.type)) {
-    return (
-      <>
-        <Form.Group>
-          <Form.Check
-            custom
-            type={props.type}
-            name={props.fieldName}
-            value={props.value}
-            onChange={onChange}
-            id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-            label={props.label}
-          />
-        </Form.Group>
-      </>
-    );
-  } else if (props.type === "dateCustom") {
-    return <Date {...props} />;
-  } else if (props.type === "datetimeCustom") {
-    return <Datetime {...props} />;
-  } else if (props.type === "file") {
-    return (
-      <FilesUpload
+  return (
+    <>
+      <Input
         {...props}
-        key={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-        name={props.fieldName}
+        onChange={onChange}
+        min={props.minInput ? props.minInput : undefined}
+        max={props.maxInput ? props.maxInput : undefined}
+        step={props.decimal ? "0.1" : "1"}
       />
-    );
-  } else {
-    return (
-      <>
-        <Form.Group>
-          {props.notLabel ? null : <Form.Label>{props.label}</Form.Label>}
-          <InputGroup>
-            {props.prepend && (
-              <InputGroup.Prepend>
-                <InputGroup.Text>{props.prepend}</InputGroup.Text>
-              </InputGroup.Prepend>
-            )}
-
-            <Form.Control
-              required={false}
-              value={props.value}
-              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-              name={props.fieldName}
-              onChange={onChange}
-              as={props.select}
-              type={props.type}
-              min={props.minInput ? props.minInput : undefined}
-              max={props.maxInput ? props.maxInput : undefined}
-              step={props.decimal ? "0.1" : "1"}
-              placeholder={props.placeholder}
-            >
-              {props.options
-                ? props.options.map((option, indexId) => {
-                    return <option key={indexId}>{option}</option>;
-                  })
-                : null}
-            </Form.Control>
-
-            {props.unit && (
-              <InputGroup.Append>
-                <InputGroup.Text className="">{props.unit}</InputGroup.Text>
-              </InputGroup.Append>
-            )}
-          </InputGroup>
-        </Form.Group>
-        {props.subtext ? (
-          <Form.Text className="text-muted">{props.subtext}</Form.Text>
-        ) : null}
-        <ErrorMessage showMinMax={showMinMax} error={props.error} />
-        {props.submitButton ? (
-          <>
-            <SubmitButton
-              onClick={event => submitHandler(event, props.thisChapter)}
-            />
-            {fieldsContext.isSubmited && props.submitButton ? (
-              <div style={{ fontSize: 12, color: "red" }}>
-                See Error Message
-              </div>
-            ) : null}
-            <button onClick={event => handelBack(event)}>Back</button>
-          </>
-        ) : null}
-      </>
-    );
-  }
+      <ErrorMessage showMinMax={showMinMax} error={props.error} />
+      {props.submitButton ? (
+        <>
+          <SubmitButton
+            onClick={event => submitHandler(event, props.thisChapter)}
+          />
+          {fieldsContext.isSubmited && props.submitButton ? (
+            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
+          ) : null}
+          <button onClick={event => handelBack(event)}>Back</button>
+        </>
+      ) : null}
+    </>
+  );
 };
