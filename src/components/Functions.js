@@ -156,9 +156,9 @@ export const getSubtext = (
 };
 
 export const expandJson = json => {
-  if (json.data) {
-    json.data.projects &&
-      json.data.projects.map(project => {
+  if (json) {
+    json.projects &&
+      json.projects.map(project => {
         project.data = stringToDictionary(project.data);
         project.descriptions &&
           project.descriptions.map(description => {
@@ -177,6 +177,7 @@ export const expandJson = json => {
 };
 
 export const searchProjects = (data, term) => {
+  term = term.toLowerCase();
   let results = [];
   if (data) {
     const findAllProjects = data => {
@@ -209,14 +210,17 @@ export const searchProjects = (data, term) => {
           // May not be necessary
           return;
         } else {
-          if (typeof element === "string" && element.includes(term)) {
+          if (
+            typeof element === "string" &&
+            element.toLowerCase().includes(term)
+          ) {
             match = true;
             return;
           } else if (hasChildren(element)) {
             element = Object.entries(element);
             element.forEach(child => {
               const childElement = child[1];
-              return recurse(childElement, term);
+              recurse(childElement, term);
             });
           }
         }

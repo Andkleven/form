@@ -1,4 +1,4 @@
-import StagesJson from "components/stage/Stages.json";
+import StagesJson from "./Stages.json";
 import { stringToDictionary } from "components/Functions";
 import objectPath from "object-path";
 

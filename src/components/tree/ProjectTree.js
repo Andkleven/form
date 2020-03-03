@@ -2,14 +2,28 @@ import React, { useState } from "react";
 import Tree from "components/tree/Tree";
 import Input from "components/Input";
 import { searchProjects } from "components/Functions";
+import stagesJson from "components/stages/Stages.json";
+
+const stages = stagesJson.all;
 
 export default props => {
   const [results, setResults] = useState(searchProjects(props.data, ""));
-
   return (
     <>
       <h6 className="pb-1">Filter</h6>
       <div className="mb-3">
+        <Input
+          placeholder="Stage"
+          type="select"
+          options={stages}
+          select="select"
+          tight
+          onChange={e => {
+            if (e) {
+              setResults(searchProjects(props.data, e.value));
+            }
+          }}
+        />
         <Input
           placeholder="Search..."
           tight
