@@ -54,6 +54,7 @@ export default props => {
       }
     }
   };
+
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
@@ -112,6 +113,7 @@ export default props => {
     fieldsContext.setEditField("");
     fieldsContext.setvalidationPassed({});
   };
+
   return (
     <>
       <Input
