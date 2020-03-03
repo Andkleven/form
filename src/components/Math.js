@@ -1,5 +1,4 @@
-import GetValue from "./GetValue";
-import { allZeroOrNaN } from "./Functions";
+import { allZeroOrNaN, getValue } from "./Functions";
 
 function whatTooReturn(value, decimal, array = [true]) {
   if (array.every(allZeroOrNaN)) {
@@ -13,13 +12,13 @@ function mathCumulativeThicknes(values, repeatStep, decimal) {
   let previousCumulativeThicknes = 0;
   if (repeatStep) {
     previousCumulativeThicknes = Number(
-      GetValue(values, "coatingLayer", repeatStep - 1, "cumulativeThicknes")
+      getValue(values, "coatingLayer", repeatStep - 1, "cumulativeThicknes")
     );
   }
   let proposedThicknes = Number(
-    GetValue(values, "coatingLayer", repeatStep, "proposedThicknes")
+    getValue(values, "coatingLayer", repeatStep, "proposedThicknes")
   );
-  let layersUnique = GetValue(
+  let layersUnique = getValue(
     values,
     "coatingLayer",
     repeatStep,
@@ -40,9 +39,9 @@ function mathCumulativeThicknes(values, repeatStep, decimal) {
 
 function mathProposedThicknes(values, repeatStep, decimal) {
   let partOfNumber = 0;
-  let shrink = Number(GetValue(values, "coatingLayer", repeatStep, "shrink"));
+  let shrink = Number(getValue(values, "coatingLayer", repeatStep, "shrink"));
   let actualThicknes = Number(
-    GetValue(values, "coatingLayer", repeatStep, "actualThicknes")
+    getValue(values, "coatingLayer", repeatStep, "actualThicknes")
   );
   if (shrink) {
     partOfNumber = (shrink * actualThicknes) / 100;
@@ -56,10 +55,10 @@ function mathProposedThicknes(values, repeatStep, decimal) {
 
 function mathToleranceMinPercent(values, repeatStep, decimal) {
   let toleranceMin = Number(
-    GetValue(values, "leadEngineer", repeatStep, "toleranceMin")
+    getValue(values, "leadEngineer", repeatStep, "toleranceMin")
   );
   let orderedTotalRubberThicknes = Number(
-    GetValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
+    getValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
   );
   return whatTooReturn(
     (toleranceMin * 100) / orderedTotalRubberThicknes,
@@ -70,10 +69,10 @@ function mathToleranceMinPercent(values, repeatStep, decimal) {
 
 function mathToleranceMaxPercent(values, repeatStep, decimal) {
   let toleranceMax = Number(
-    GetValue(values, "leadEngineer", repeatStep, "toleranceMax")
+    getValue(values, "leadEngineer", repeatStep, "toleranceMax")
   );
   let orderedTotalRubberThicknes = Number(
-    GetValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
+    getValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
   );
   return whatTooReturn(
     (toleranceMax * 100) / orderedTotalRubberThicknes,

@@ -14,13 +14,7 @@ function NativeInput(props) {
               <InputGroup.Text>{props.prepend}</InputGroup.Text>
             </InputGroup.Prepend>
           ) : null}
-          <Form.Control
-            as={props.select}
-            type={props.type}
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.onChange}
-          >
+          <Form.Control {...props} as={props.select}>
             {props.options &&
               props.options.map((option, index) => {
                 return <option key={index}>{option}</option>;

@@ -6,8 +6,12 @@ import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
-import { allTrue } from "./Functions";
-import FindNextStage from "components/stages/FindNextStage";
+import {
+  allTrue,
+  removeEmptyValueFromObject,
+  validaFieldWithValue
+} from "./Functions";
+import FindNextStage from "components/stage/FindNextStage";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
@@ -241,6 +245,10 @@ export default props => {
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
+      delete dictionary[value]["saveInfo"];
+      if (props.partialBatching) {
+        removeEmptyValueFromObject(dictionary[value]);
+      }
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,
@@ -284,7 +292,11 @@ export default props => {
     setFiles([]);
   };
   const submitHandler = thisChapter => {
-    if (Object.values(validationPassed).every(allTrue)) {
+    if (
+      (props.partialBatching &&
+        validaFieldWithValue(validationPassed, documentDate[thisChapter])) ||
+      Object.values(validationPassed).every(allTrue)
+    ) {
       submitData(documentDate[thisChapter]);
       setIsSubmited(false);
       setRepeatGroup(!repeatGroup);

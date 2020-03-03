@@ -25,6 +25,7 @@ export default props => {
       <div className="d-flex text-dark">
         {props.custom ? (
           <Creatable
+            {...props}
             className="w-100"
             options={options}
             theme={theme => ({
@@ -39,11 +40,10 @@ export default props => {
             })}
             isClearable={true}
             placeholder={props.placeholder || "Select or type..."}
-            value={props.value}
-            onChange={props.onChange}
           />
         ) : (
           <Select
+            {...props}
             className="w-100"
             options={options}
             theme={theme => ({
@@ -59,8 +59,6 @@ export default props => {
             isClearable={true}
             isSearchable={true}
             placeholder={props.placeholder || "Select..."}
-            value={props.value}
-            onChange={props.onChange}
           />
         )}
         <Duplicate {...props} />
