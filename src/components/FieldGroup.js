@@ -76,6 +76,15 @@ export default props => {
         <ReadField
           {...props}
           {...value}
+          subtext={getSubtext(
+            value.subtext,
+            value.max,
+            value.min,
+            value.maxInput,
+            value.minInput,
+            value.unit,
+            value.required
+          )}
           key={`${props.indexId}-${index}`}
           value={props.speckData[props.routToSpeckValue]}
         />
@@ -119,6 +128,15 @@ export default props => {
           indexId={`${props.indexId}-${index}`}
           index={index}
           value={props.state[value.fieldName]}
+          subtext={getSubtext(
+            value.subtext,
+            value.max,
+            value.min,
+            value.maxInput,
+            value.minInput,
+            value.unit,
+            value.required
+          )}
           label={
             (value.queryNameVariableLabel && value.fieldNameVariableLabel) ||
             value.indexVariableLabel
