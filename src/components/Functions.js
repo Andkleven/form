@@ -70,3 +70,69 @@ export const expandJson = json => {
   }
   return json;
 };
+
+export const searchProjects = (data, term) => {
+  let results = [];
+  if (data) {
+    const findAllProjects = data => {
+      if (data.projects) {
+        const projects = data.projects;
+        return projects;
+      }
+    };
+
+    const projects = findAllProjects(data);
+
+    const hasChildren = element => {
+      const isNonEmptyObject =
+        element.constructor === Object && Object.entries(element).length > 0;
+      const isNonEmptyArray =
+        Array.isArray(element) &&
+        element.length > 0 &&
+        typeof element !== "string";
+      if (isNonEmptyObject || isNonEmptyArray) {
+        return true;
+      }
+      return false;
+    };
+
+    const elementOrChildrenMatches = (element, term) => {
+      let match = false;
+
+      const recurse = (element, term) => {
+        if (match === true) {
+          // May not be necessary
+          return;
+        } else {
+          if (typeof element === "string" && element.includes(term)) {
+            match = true;
+            return;
+          } else if (hasChildren(element)) {
+            element = Object.entries(element);
+            element.forEach(child => {
+              const childElement = child[1];
+              return recurse(childElement, term);
+            });
+          }
+        }
+      };
+
+      recurse(element, term);
+
+      return match;
+    };
+
+    const getMatchingProjects = (projects, term) => {
+      if (projects) {
+        projects.forEach(project => {
+          if (elementOrChildrenMatches(project, term)) {
+            results.push(project);
+          }
+        });
+      }
+    };
+
+    getMatchingProjects(projects, term);
+  }
+  return results;
+};

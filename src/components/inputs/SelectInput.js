@@ -32,6 +32,8 @@ export default props => {
             })}
             isClearable={true}
             placeholder={props.placeholder || "Select or type..."}
+            value={props.value}
+            onChange={props.onChange}
           />
         ) : (
           <Select
@@ -50,6 +52,8 @@ export default props => {
             isClearable={true}
             isSearchable={false}
             placeholder={props.placeholder || "Select..."}
+            value={props.value}
+            onChange={props.onChange}
           />
         )}
         <Duplicate {...props} />

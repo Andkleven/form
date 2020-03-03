@@ -18,6 +18,8 @@ function NativeInput(props) {
             as={props.select}
             type={props.type}
             placeholder={props.placeholder}
+            value={props.value}
+            onChange={props.onChange}
           >
             {props.options &&
               props.options.map((option, index) => {
