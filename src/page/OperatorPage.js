@@ -3,24 +3,51 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import Paper from "components/Paper";
 import ProjectTree from "components/tree/ProjectTree";
-import { expandJson, searchProjects } from "components/Functions";
+import { expandJson } from "components/Functions";
+import BounceLoader from "react-spinners/BounceLoader";
 
 export default () => {
-  const { loading, error, data } = expandJson(
-    useQuery(query["OPERATOR_PROJECTS"], {
-      variables: { leadEngineerDone: true, operatorDone: false }
-    })
-  );
+  const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
+    variables: { leadEngineerDone: true, operatorDone: false }
+  });
 
-  const results = searchProjects(data, "e");
+  let json;
+  if (data) {
+    json = expandJson(data);
+  }
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  console.log(json);
+
+  const Content = () => {
+    if (loading) {
+      return (
+        <div className="text-center">
+          <p>Loading...</p>
+          <div className="d-flex justify-content-center w-100">
+            <BounceLoader color={`#dddddd`} size="2em" />
+          </div>
+        </div>
+      );
+    } else if (error) {
+      return (
+        <div className="d-flex justify-content-center w-100">
+          <div
+            className="text-center border rounded p-3 bg-danger"
+            style={{ maxWidth: 500 }}
+          >
+            <h6>Error!</h6>
+            <div className="text-center">{error}</div>
+          </div>
+        </div>
+      );
+    } else {
+      return <ProjectTree data={json} />;
+    }
+  };
+
   return (
-    <>
-      <Paper darkMode>
-        <ProjectTree data={data} />
-      </Paper>
-    </>
+    <Paper darkMode>
+      <Content />
+    </Paper>
   );
 };

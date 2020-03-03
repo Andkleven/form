@@ -29,6 +29,7 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
     "react-select": "3.0.8",
+    "react-spinners": "0.8.0",
     "react-spring": "8.0.27",
     "resize-observer-polyfill": "1.5.1",
     "styled-components": "5.0.1"

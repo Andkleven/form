@@ -56,9 +56,9 @@ export const stringToDictionary = data => {
 };
 
 export const expandJson = json => {
-  if (json.data) {
-    json.data.projects &&
-      json.data.projects.map(project => {
+  if (json) {
+    json.projects &&
+      json.projects.map(project => {
         project.data = stringToDictionary(project.data);
         project.descriptions &&
           project.descriptions.map(description => {
@@ -134,7 +134,7 @@ export const searchProjects = (data, term) => {
             element = Object.entries(element);
             element.forEach(child => {
               const childElement = child[1];
-              return recurse(childElement, term);
+              recurse(childElement, term);
             });
           }
         }

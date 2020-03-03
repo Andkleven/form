@@ -201,6 +201,7 @@ const OPERATOR_PROJECTS = gql`
       descriptions {
         data
         items {
+          stage
           id
           data
         }
