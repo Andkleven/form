@@ -84,8 +84,8 @@ export default props => {
     props.mutation({
       variables: {
         ...variables,
-        descriptionsId: props.descriptionsId,
-        itemsId: props.itemsId
+        descriptionId: props.descriptionId,
+        itemId: props.itemId
       }
     });
   };

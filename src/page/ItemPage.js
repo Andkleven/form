@@ -102,7 +102,7 @@ export default pageInfo => {
   const [
     mutationDiffreant,
     { loading: loadingMutation, error: errorMutation }
-  ] = useMutation(mutations["ITEM"]);
+  ] = useMutation(mutations["ORDER"]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
@@ -135,19 +135,19 @@ export default pageInfo => {
           >
             Create all items
           </Button>
+          <h3> Number of items: {geometryData.items.length}</h3>
           <ItemList
             items={geometryData.items}
             submitItem={item => {
               if (!item.different) {
                 mutationDiffreant({
                   variables: {
-                    id: item.id,
-                    different: true
+                    item: [{ id: item.id, different: true }]
                   }
                 });
               }
               history.push(
-                `/order/lead-engineer/${geometryData.id}/${items.id}/1`
+                `/order/lead-engineer/${geometryData.id}/${item.id}/1`
               );
             }}
             submitDelete={id => {

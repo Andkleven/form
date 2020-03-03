@@ -7,7 +7,7 @@ import {
   ChapterContext
 } from "./DocumentAndSubmit";
 import Line from "./Line";
-import { getSubtext } from "./Functions";
+import { getSubtext, getDataFromQuery } from "./Functions";
 import VariableLabel from "./VariableLabel";
 
 export default props => {
@@ -67,11 +67,10 @@ export default props => {
     fieldsContext.editField,
     chapterContext.editChapter
   ]);
-
   return props.fields.map((value, index) => {
     if (value.line) {
       return <Line key={`${props.indexId}-${index}`} />;
-    } else if (value.routToSpeckValue) {
+    } else if (value.routToSpeckValue && value.fieldSpeckValue) {
       return (
         <ReadField
           {...props}
@@ -86,7 +85,11 @@ export default props => {
             value.required
           )}
           key={`${props.indexId}-${index}`}
-          value={props.speckData[props.routToSpeckValue]}
+          value={getDataFromQuery(
+            props.speckData,
+            value.routToSpeckValue,
+            value.fieldSpeckValue
+          )}
         />
       );
     } else if (

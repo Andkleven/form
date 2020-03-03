@@ -38,30 +38,6 @@ const ORDER = gql`
     }
   }
 `;
-const ITEM = gql`
-  mutation items(
-    $id: Int
-    $foreignKey: Int
-    $data: String
-    $different: Boolean
-  ) {
-    items(
-      id: $id
-      foreignKey: $foreignKey
-      data: $data
-      different: $different
-    ) {
-      new {
-        id
-        data
-        different
-        leadEngineers {
-          id
-        }
-      }
-    }
-  }
-`;
 
 const DELETEITEM = gql`
   mutation itemDelete($id: Int) {
@@ -126,7 +102,7 @@ const LEADENGINEER = gql`
   }
 `;
 
-const OPERATOR = gql`
+const OPERATORBATCHING = gql`
   mutation operators(
     $operator: [UnderCategoriesOfLeadEngineerInupt]
     $customMediaBlasting: [UnderCategoriesOfLeadEngineerInupt]
@@ -134,7 +110,8 @@ const OPERATOR = gql`
     $mixDate: [UnderCategoriesOfLeadEngineerInupt]
     $measurementPointOperator: [UnderCategoriesOfLeadEngineerInupt]
     $vulcanizationOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $itemsIdList: [ListId]
+    $itemIdList: [Int]
+    $stage: String
   ) {
     operators(
       operator: $operator
@@ -143,7 +120,66 @@ const OPERATOR = gql`
       mixDate: $mixDate
       measurementPointOperator: $measurementPointOperator
       vulcanizationOperator: $vulcanizationOperator
-      itemsIdList: $itemsIdList
+      itemIdList: $itemIdList
+      stage: $stage
+    ) {
+      batching {
+        id
+        data
+        items {
+          id
+          data
+          stage
+          operators {
+            id
+            data
+            customMediaBlastings {
+              id
+              data
+            }
+            coatingOperators {
+              id
+              data
+              mixDates {
+                id
+                data
+              }
+              measurementPointOperators {
+                id
+                data
+              }
+            }
+            vulcanizationOperators {
+              id
+              data
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const OPERATOR = gql`
+  mutation operators(
+    $operator: [UnderCategoriesOfLeadEngineerInupt]
+    $customMediaBlasting: [UnderCategoriesOfLeadEngineerInupt]
+    $coatingOperator: [UnderCategoriesOfLeadEngineerInupt]
+    $mixDate: [UnderCategoriesOfLeadEngineerInupt]
+    $measurementPointOperator: [UnderCategoriesOfLeadEngineerInupt]
+    $vulcanizationOperator: [UnderCategoriesOfLeadEngineerInupt]
+    $itemIdList: [Int]
+    $stage: String
+  ) {
+    operators(
+      operator: $operator
+      customMediaBlasting: $customMediaBlasting
+      coatingOperator: $coatingOperator
+      mixDate: $mixDate
+      measurementPointOperator: $measurementPointOperator
+      vulcanizationOperator: $vulcanizationOperator
+      itemIdList: $itemIdList
+      stage: $stage
     ) {
       new {
         id
@@ -186,8 +222,8 @@ const LEADENGINEERDONE = gql`
 const mutations = {
   ORDER,
   DELETEITEM,
-  ITEM,
   LEADENGINEER,
+  OPERATORBATCHING,
   OPERATOR,
   LEADENGINEERDONE
 };

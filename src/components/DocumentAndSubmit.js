@@ -7,6 +7,7 @@ import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
 import { allTrue } from "./Functions";
+import FindNextStage from "components/stage/FindNextStage";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
@@ -34,12 +35,13 @@ export default props => {
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
-  const [addForm, setAddForm] = useState(false);
+  const [repeatGroup, setRepeatGroup] = useState(false);
 
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useEffect(() => {
     setDocumentDate({});
   }, [props.componentsId]);
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -135,16 +137,17 @@ export default props => {
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[props.document.mutation],
     {
-      update:
-        !props.data ||
-        !props.data[Object.keys(props.data)[0]] ||
-        !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-          ? updateWithVariable
-          : update,
+      update: props.updateCache
+        ? props.updateCache
+        : !props.data ||
+          !props.data[Object.keys(props.data)[0]] ||
+          !props.data[Object.keys(props.data)[0]].length
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
       onCompleted: props.reRender
     }
   );
@@ -271,8 +274,11 @@ export default props => {
           Number(props.different) === 0
             ? Number(props.descriptionId)
             : undefined,
-        itemsId: Number(props.different) ? Number(props.itemId) : undefined,
-        itemsIdList: props.batchingListIds ? props.batchingListIds : undefined
+        itemId: Number(props.different) ? Number(props.itemId) : undefined,
+        itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
+        stage: props.submitNextStage
+          ? FindNextStage(props.data, props.stage, props.geometry)
+          : null
       }
     });
     setFiles([]);
@@ -281,7 +287,7 @@ export default props => {
     if (Object.values(validationPassed).every(allTrue)) {
       submitData(documentDate[thisChapter]);
       setIsSubmited(false);
-      setAddForm(!addForm);
+      setRepeatGroup(!repeatGroup);
       setEditChapter(0);
       setvalidationPassed({});
     } else {
@@ -302,7 +308,7 @@ export default props => {
         showEditButton={showEditButton}
         indexId={`${thisChapter}-${index}`}
         index={index}
-        addForm={addForm}
+        repeatGroup={repeatGroup}
         submitData={submitData}
         descriptionsId={
           Number(props.different) === 0 ? Number(props.descriptionsId) : 0

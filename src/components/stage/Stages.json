@@ -1,0 +1,111 @@
+{
+  "all": [
+    "steelPreparation1",
+    "steelPreparation2",
+    "priming1",
+    "priming2",
+    "actualSteelMeasurement",
+    "rubberCement",
+    "coatingStep1",
+    "vulcanizationStage1",
+    "measurementStage1",
+    "coatingStage2",
+    "vulcanizationStage2",
+    "measurementStage2",
+    "coatingStage3",
+    "vulcanizationStage3",
+    "touchUp"
+  ],
+  "coateditem": {
+    "steelPreparation1": {},
+    "steelPreparation2": {},
+    "priming1": {
+      "queryPath": "leadEngineers.0",
+      "fieldPath": "primer1"
+    },
+
+    "priming2": {
+      "queryPath": "leadEngineers.0",
+      "fieldPath": "primer2"
+    },
+    "actualSteelMeasurement": {},
+
+    "rubberCement": {
+      "queryPath": "leadEngineers.0",
+      "fieldPath": "rubberCementsBeforeCoating"
+    },
+    "coatingStep1": {},
+    "vulcanizationStage1": {},
+
+    "measurementStage1": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+      "fieldPath": ""
+    },
+
+    "coatingStage2": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+      "fieldPath": ""
+    },
+
+    "vulcanizationStage2": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+      "fieldPath": ""
+    },
+
+    "measurementStage2": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+      "fieldPath": ""
+    },
+
+    "coatingStage3": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+      "fieldPath": ""
+    },
+
+    "vulcanizationStage3": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+      "fieldPath": ""
+    },
+    "touchUp": {}
+  },
+  "mould": {
+    "steelPreparation1": {},
+
+    "priming1": {
+      "queryPath": "leadEngineers.0",
+      "fieldPath": "primer1"
+    },
+    "priming2": {
+      "queryPath": "leadEngineers.0",
+      "fieldPath": "primer2"
+    },
+    "coatingStep1": {},
+    "vulcanizationStage1": {},
+    "measurementStage1": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+      "fieldPath": ""
+    },
+    "coatingStage2": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+      "fieldPath": ""
+    },
+    "vulcanizationStage2": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
+      "fieldPath": ""
+    },
+    "measurementStage2": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+      "fieldPath": ""
+    },
+    "coatingStage3": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+      "fieldPath": ""
+    },
+    "vulcanizationStage3": {
+      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
+      "fieldPath": ""
+    },
+
+    "touchUp": {}
+  }
+}
