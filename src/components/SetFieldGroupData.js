@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import VariableLabel from "./VariableLabel";
+import variableLabel from "components/Functions";
 
 import "../styles/styles.css";
 
@@ -103,7 +103,7 @@ export default props => {
             key={`${props.thisChapter}-${props.index}-jja`}
             title={
               props.indexVariableFieldGroupRepeatTitle
-                ? VariableLabel(
+                ? variableLabel(
                     props.fieldGroupRepeatTitle,
                     undefined,
                     undefined,

@@ -56,6 +56,7 @@ export default props => {
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
+      delete dictionary[value]["saveInfo"];
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,
@@ -123,23 +124,6 @@ export default props => {
             id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
             label={props.label}
           />
-          {props.subtext ? (
-            <Form.Text className="text-muted">{props.subtext}</Form.Text>
-          ) : null}
-          <ErrorMessage showMinMax={showMinMax} error={props.error} />
-          {props.submitButton ? (
-            <>
-              <SubmitButton
-                onClick={event => submitHandler(event, props.thisChapter)}
-              />
-              {fieldsContext.isSubmited && props.submitButton ? (
-                <div style={{ fontSize: 12, color: "red" }}>
-                  See Error Message
-                </div>
-              ) : null}
-              <button onClick={event => handelBack(event)}>Back</button>
-            </>
-          ) : null}
         </Form.Group>
       </>
     );
@@ -193,27 +177,24 @@ export default props => {
               </InputGroup.Append>
             )}
           </InputGroup>
-          {props.subtext ? (
-            <Form.Text className="text-muted">{props.subtext}</Form.Text>
-          ) : null}
-          <Form.Control.Feedback type="invalid">
-            {props.feedback}
-          </Form.Control.Feedback>
-          <ErrorMessage showMinMax={showMinMax} error={props.error} />
-          {props.submitButton ? (
-            <>
-              <SubmitButton
-                onClick={event => submitHandler(event, props.thisChapter)}
-              />
-              {fieldsContext.isSubmited && props.submitButton ? (
-                <div style={{ fontSize: 12, color: "red" }}>
-                  See Error Message
-                </div>
-              ) : null}
-              <button onClick={event => handelBack(event)}>Back</button>
-            </>
-          ) : null}
         </Form.Group>
+        {props.subtext ? (
+          <Form.Text className="text-muted">{props.subtext}</Form.Text>
+        ) : null}
+        <ErrorMessage showMinMax={showMinMax} error={props.error} />
+        {props.submitButton ? (
+          <>
+            <SubmitButton
+              onClick={event => submitHandler(event, props.thisChapter)}
+            />
+            {fieldsContext.isSubmited && props.submitButton ? (
+              <div style={{ fontSize: 12, color: "red" }}>
+                See Error Message
+              </div>
+            ) : null}
+            <button onClick={event => handelBack(event)}>Back</button>
+          </>
+        ) : null}
       </>
     );
   }

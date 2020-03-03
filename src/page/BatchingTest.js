@@ -46,7 +46,7 @@ export default pageInfo => {
         <Paper>
           <Batching
             data={data}
-            json={json.batching}
+            json={json}
             setBatchingData={setBatchingData}
             batchingData={batchingData}
             batchingListIds={batchingListIds}
