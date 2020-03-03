@@ -76,7 +76,6 @@ export const expandJson = json => {
   return json;
 };
 
-
 export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
@@ -95,6 +94,7 @@ export const getDataFromQuery = (data, path, field) => {
 export const removeSpace = string => string.replace(/\s/g, "");
 
 export const searchProjects = (data, term) => {
+  term = term.toLowerCase();
   let results = [];
   if (data) {
     const findAllProjects = data => {
@@ -127,7 +127,10 @@ export const searchProjects = (data, term) => {
           // May not be necessary
           return;
         } else {
-          if (typeof element === "string" && element.includes(term)) {
+          if (
+            typeof element === "string" &&
+            element.toLowerCase().includes(term)
+          ) {
             match = true;
             return;
           } else if (hasChildren(element)) {
@@ -159,4 +162,3 @@ export const searchProjects = (data, term) => {
   }
   return results;
 };
-

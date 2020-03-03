@@ -7,7 +7,7 @@ import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
 import { allTrue } from "./Functions";
-import FindNextStage from "components/stage/FindNextStage";
+import FindNextStage from "components/stages/FindNextStage";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();

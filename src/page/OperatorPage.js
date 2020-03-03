@@ -5,6 +5,7 @@ import Paper from "components/Paper";
 import ProjectTree from "components/tree/ProjectTree";
 import { expandJson } from "components/Functions";
 import BounceLoader from "react-spinners/BounceLoader";
+// import "components/stage";
 
 export default () => {
   const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
@@ -15,8 +16,6 @@ export default () => {
   if (data) {
     json = expandJson(data);
   }
-
-  console.log(json);
 
   const Content = () => {
     if (loading) {
@@ -30,18 +29,37 @@ export default () => {
       );
     } else if (error) {
       return (
-        <div className="d-flex justify-content-center w-100">
-          <div
-            className="text-center border rounded p-3 bg-danger"
-            style={{ maxWidth: 500 }}
-          >
-            <h6>Error!</h6>
-            <div className="text-center">{error}</div>
+        <>
+          <div className="d-flex justify-content-center w-100">
+            <div
+              className="text-center border rounded p-3 bg-danger"
+              style={{ maxWidth: 400 }}
+            >
+              <i className="fad fa-exclamation-triangle fa-3x mb-3" />
+              <h6>Something went wrong!</h6>
+              {typeof error === "string" ? (
+                <>
+                  <div className="text-center">
+                    Error message from the sever:
+                  </div>
+                  <div className="text-center">{error}</div>
+                </>
+              ) : (
+                <div className="text-center">
+                  Sadly, no error message was recieved from the server, so we
+                  don't know why.
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       );
     } else {
-      return <ProjectTree data={json} />;
+      return (
+        <>
+          <ProjectTree data={json} />
+        </>
+      );
     }
   };
 

@@ -6,9 +6,16 @@ import Select from "react-select";
 import Duplicate from "./widgets/Duplicate";
 
 export default props => {
-  props.options.map(option => {
+  let options = [];
+  props.options.forEach(element => {
+    options.push({
+      value: element
+    });
+  });
+  options.map(option => {
     let label = option.value;
-    label = label.replace(/_/g, " ");
+    label = label.replace(/([A-Z])/g, " $1");
+    label = label.replace(/([0-9])/g, " $1");
     label = label.charAt(0).toUpperCase() + label.slice(1);
     return (option.label = label);
   });
@@ -19,7 +26,7 @@ export default props => {
         {props.custom ? (
           <Creatable
             className="w-100"
-            options={props.options}
+            options={options}
             theme={theme => ({
               ...theme,
               colors: {
@@ -38,7 +45,7 @@ export default props => {
         ) : (
           <Select
             className="w-100"
-            options={props.options}
+            options={options}
             theme={theme => ({
               ...theme,
               colors: {
@@ -50,7 +57,7 @@ export default props => {
               }
             })}
             isClearable={true}
-            isSearchable={false}
+            isSearchable={true}
             placeholder={props.placeholder || "Select..."}
             value={props.value}
             onChange={props.onChange}
