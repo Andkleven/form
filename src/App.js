@@ -11,6 +11,7 @@ import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
 import Operator from "./page/Operator";
 import Div100vh from "react-div-100vh";
+import BatchingTest from "./page/BatchingTest";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
 
@@ -40,6 +41,10 @@ export default () => (
             <Route
               path="/order/lead-engineer/:descriptionId/:itemId/:different"
               component={LeadEngineerPage}
+            />
+            <Route
+              path="/operator/:stage/:descriptionId"
+              component={BatchingTest}
             />
           </Switch>
           {/* </main> */}

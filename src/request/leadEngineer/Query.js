@@ -136,6 +136,7 @@ const GET_OPERATOR = gql`
       items {
         id
         data
+        stage
         leadEngineers {
           id
           data
