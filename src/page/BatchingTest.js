@@ -61,6 +61,7 @@ export default pageInfo => {
                 getDataFromQuery(data, "descriptions.0", "geometry")
               ).toLowerCase()
             }
+            notSubmitButton={batchingListIds.length ? false : true}
             document={json.ducument}
             reRender={() => {
               setBatchingListIds([]);
@@ -82,7 +83,7 @@ export default pageInfo => {
                 : null
             }
             updateCache={() => update}
-            submitNextStage={true}
+            saveButton={true}
             batchingListIds={batchingListIds}
           />
         </Paper>

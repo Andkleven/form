@@ -1,5 +1,5 @@
 import StagesJson from "./Stages.json";
-import { stringToDictionary } from "components/Functions";
+import { stringToDictionary, emptyObject } from "components/Functions";
 import objectPath from "object-path";
 
 export default (speckData, stage, geometry) => {
@@ -9,7 +9,10 @@ export default (speckData, stage, geometry) => {
     let query = objectPath.get(speckData, stageCriteria.queryPath, null);
     if (query === null) {
       return false;
-    } else if (!stageCriteria.fieldPath.trim()) {
+    } else if (
+      [undefined, null, ""].includes(stageCriteria.fieldPath) ||
+      emptyObject(stageCriteria.fieldPath)
+    ) {
       return true;
     }
     console.log(query);

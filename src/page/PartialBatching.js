@@ -67,6 +67,8 @@ export default pageInfo => {
             }
             document={json.ducument}
             partialBatching={true}
+            saveButton={true}
+            notSubmitButton={batchingListIds.length ? false : true}
             reRender={() => {
               setBatchingListIds([]);
               setBatchingData(false);

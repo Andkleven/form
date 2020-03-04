@@ -55,8 +55,12 @@ export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
 export const removeSpace = string => string.replace(/\s/g, "");
 
-export const emptyObject = objectToCheck =>
-  Object.entries(objectToCheck).length === 0;
+export const emptyObject = objectToCheck => {
+  if (Object.entries(objectToCheck).length === 0) {
+    return true;
+  }
+  return false;
+};
 
 export const removeEmptyValueFromObject = object => {
   Object.keys(object).forEach(key => {
@@ -303,10 +307,16 @@ export const searchProjects = (data, terms) => {
 export const validaFieldWithValue = (validation, data) => {
   Object.keys(validation).forEach(key => {
     let paths = key.split("-");
-    if (data[paths[0]][paths[1]][paths[2]].trim() && !validation[key]) {
+    if (
+      data[paths[0]][paths[1]][paths[2]] !== undefined &&
+      data[paths[0]][paths[1]][paths[2]] !== null &&
+      data[paths[0]][paths[1]][paths[2]] !== "" &&
+      !validation[key]
+    ) {
       return false;
     }
   });
+  return true;
 };
 
 export const calculateMaxMin = (

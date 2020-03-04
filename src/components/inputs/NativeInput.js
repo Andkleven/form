@@ -14,7 +14,19 @@ function NativeInput(props) {
               <InputGroup.Text>{props.prepend}</InputGroup.Text>
             </InputGroup.Prepend>
           ) : null}
-          <Form.Control {...props} as={props.select}>
+          <Form.Control
+            id={`custom-${props.type}-${props.label}`}
+            required={false}
+            value={props.value}
+            name={props.name}
+            onChange={props.onChange}
+            as={props.select}
+            type={props.type}
+            min={props.min}
+            max={props.max}
+            step={props.decimal}
+            placeholder={props.placeholder}
+          >
             {props.options &&
               props.options.map((option, index) => {
                 return <option key={index}>{option}</option>;
