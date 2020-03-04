@@ -11,7 +11,7 @@ import {
   removeEmptyValueFromObject,
   validaFieldWithValue
 } from "./Functions";
-import FindNextStage from "components/stage/FindNextStage";
+import FindNextStage from "components/stages/FindNextStage";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();

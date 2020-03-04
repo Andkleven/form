@@ -55,9 +55,12 @@ export default pageInfo => {
           />
           <DocumentAndSubmit
             componentsId={"leadEngineersPage"}
-            geometry={removeSpace(
-              getDataFromQuery(data, "descriptions.0", "geometry")
-            ).toLowerCase()}
+            geometry={
+              getDataFromQuery(data, "descriptions.0", "geometry") &&
+              removeSpace(
+                getDataFromQuery(data, "descriptions.0", "geometry")
+              ).toLowerCase()
+            }
             document={json.ducument}
             reRender={() => {
               setBatchingListIds([]);
