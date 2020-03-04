@@ -9,13 +9,17 @@ import Input from "components/Input";
 
 import "../styles/styles.css";
 
-import Date from "./inputs/Date";
-import Datetime from "./inputs/Datetime";
-
 export default props => {
   const fieldsContext = useContext(FieldsContext);
   const documentDateContext = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
+
+  const onChangeDate = (name, date) => {
+    props.setState(prevState => ({
+      ...prevState,
+      [name]: date
+    }));
+  };
 
   const onChange = e => {
     setShowMinMax(true);
@@ -116,7 +120,9 @@ export default props => {
     <>
       <Input
         {...props}
+        onChangeDate={onChangeDate}
         onChange={onChange}
+        name={props.fieldName}
         min={props.minInput ? props.minInput : undefined}
         max={props.maxInput ? props.maxInput : undefined}
         step={props.decimal ? "0.1" : "1"}

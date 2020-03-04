@@ -59,11 +59,16 @@ export default pageInfo => {
           />
           <DocumentAndSubmit
             componentsId={"leadEngineersPage"}
-            geometry={removeSpace(
-              getDataFromQuery(data, "descriptions.0", "geometry")
-            ).toLowerCase()}
+            geometry={
+              getDataFromQuery(data, "descriptions.0", "geometry") &&
+              removeSpace(
+                getDataFromQuery(data, "descriptions.0", "geometry")
+              ).toLowerCase()
+            }
             document={json.ducument}
             partialBatching={true}
+            saveButton={true}
+            notSubmitButton={batchingListIds.length ? false : true}
             reRender={() => {
               setBatchingListIds([]);
               setBatchingData(false);

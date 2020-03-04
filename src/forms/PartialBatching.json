@@ -20,7 +20,7 @@
         "chapterAlwaysInWrite": true,
         "pages": [
           {
-            "pageTitle": "Priming 1",
+            "pageTitle": "Media Blasting",
             "pageName": "operator",
             "queryPath": "operators",
             "fields": [
@@ -74,6 +74,11 @@
                 "subtext": "Jaja: {}",
                 "placeholder": "Placeholder",
                 "unit": "C"
+              },
+              {
+                "fieldName": "date",
+                "label": "Equipment ID",
+                "type": "datetime-local"
               }
             ]
           }

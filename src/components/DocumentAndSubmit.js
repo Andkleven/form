@@ -11,7 +11,7 @@ import {
   removeEmptyValueFromObject,
   validaFieldWithValue
 } from "./Functions";
-import FindNextStage from "components/stage/FindNextStage";
+import FindNextStage from "components/stages/FindNextStage";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
@@ -232,6 +232,12 @@ export default props => {
           <SubmitButton
             key={thisChapter}
             onClick={submitHandler.bind(this, thisChapter)}
+            name={
+              props.saveButton &&
+              !Object.values(validationPassed).every(allTrue)
+                ? "Save"
+                : null
+            }
           />
           {isSubmited && (
             <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
@@ -284,16 +290,17 @@ export default props => {
             : undefined,
         itemId: Number(props.different) ? Number(props.itemId) : undefined,
         itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
-        stage: props.submitNextStage
-          ? FindNextStage(props.data, props.stage, props.geometry)
-          : null
+        stage:
+          props.saveButton && Object.values(validationPassed).every(allTrue)
+            ? FindNextStage(props.data, props.stage, props.geometry)
+            : null
       }
     });
     setFiles([]);
   };
   const submitHandler = thisChapter => {
     if (
-      (props.partialBatching &&
+      (props.saveButton &&
         validaFieldWithValue(validationPassed, documentDate[thisChapter])) ||
       Object.values(validationPassed).every(allTrue)
     ) {
@@ -362,6 +369,7 @@ export default props => {
             {page}
             {index === pageInfo.pages.length - 1 &&
               !editField &&
+              !props.notSubmitButton &&
               isSubmitButton(firstIndex + 1)}
           </Fragment>
         );
