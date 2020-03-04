@@ -308,10 +308,8 @@ export const validaFieldWithValue = (validation, data) => {
   Object.keys(validation).forEach(key => {
     let paths = key.split("-");
     if (
-      data[paths[0]][paths[1]][paths[2]] !== undefined &&
-      data[paths[0]][paths[1]][paths[2]] !== null &&
-      data[paths[0]][paths[1]][paths[2]] !== "" &&
-      !validation[key]
+      [undefined, null, ""].includes(data[paths[0]][paths[1]][paths[2]])
+      && !validation[key]
     ) {
       return false;
     }
