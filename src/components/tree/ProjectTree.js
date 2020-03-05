@@ -3,15 +3,28 @@ import Tree from "components/tree/Tree";
 import Input from "components/Input";
 import { searchProjects } from "components/Functions";
 import stagesJson from "components/stages/Stages.json";
-
-const stages = stagesJson.all;
+import { Link } from "react-router-dom";
 
 export default props => {
+  const stages = stagesJson.all;
+
   const [stageTerm, setStageTerm] = useState("");
   const [searchTerms, setSearchTerms] = useState("");
 
   const sumTerms = [stageTerm, searchTerms];
   const results = searchProjects(props.data, sumTerms);
+
+  const iconStyle = {
+    color: "#f1b25b",
+    position: "relative",
+    // top: "0.1em",
+    right: "0.25em",
+    width: "1.5em",
+    textAlign: "center"
+    // widthRigth: "5em"
+  };
+
+  console.log(results);
 
   return (
     <>
@@ -33,7 +46,6 @@ export default props => {
           placeholder="Search..."
           tight
           onChange={e => {
-            // Split may not make list of single word
             setSearchTerms(e.target.value);
           }}
           unit={
@@ -58,9 +70,28 @@ export default props => {
                       key={index}
                       name={description.data.geometry}
                     >
+                      <Link
+                        className="d-flex"
+                        to={`/order/item/${description.data.description}`}
+                      >
+                        <div className="pt-2">
+                          <i className="fas fa-cubes" style={iconStyle} />
+                          Batch all items in folder
+                        </div>
+                      </Link>
                       {description.items &&
                         description.items.map((item, index) => (
-                          <Tree defaultOpen check key={index} name={item.id} />
+                          <Link
+                            className="d-flex"
+                            to={`/order/lead-engineer/1/${item.id}/1`}
+                            key={index}
+                          >
+                            <div className="pt-2">
+                              <i className="fas fa-cube" style={iconStyle} />
+                              {item.id}
+                            </div>
+                          </Link>
+                          // <Tree defaultOpen item key={index} name={item.id} />
                         ))}
                     </Tree>
                   ))}
