@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { useDropzone } from "react-dropzone";
+import FileDescription from "./widgets/FileDescription";
 
 const baseStyle = {
   flex: 1,
@@ -29,7 +30,7 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
-function FileInput(props) {
+export default props => {
   const {
     acceptedFiles,
     getRootProps,
@@ -67,15 +68,25 @@ function FileInput(props) {
           </div>
           {files.length ? (
             <aside>
-              <label className="mt-3">Uploaded files</label>
+              <label className="mt-3">
+                Uploaded files
+                {/* <div className="text-secondary d-inline">
+                  {" "}
+                  (Click file to add description)
+                </div> */}
+              </label>
               <hr className="w-100 mt-0 mb-2" />
-              <ul>{files}</ul>
+              <ul className="list-unstyled mb-0">
+                {files.map(file => (
+                  <>
+                    <FileDescription key={file.key} file={file} />
+                  </>
+                ))}
+              </ul>
             </aside>
           ) : null}
         </section>
       </div>
     </>
   );
-}
-
-export default FileInput;
+};

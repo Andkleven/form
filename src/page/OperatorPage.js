@@ -12,10 +12,7 @@ export default () => {
     variables: { leadEngineerDone: true, operatorDone: false }
   });
 
-  let json;
-  if (data) {
-    json = expandJson(data);
-  }
+  const json = expandJson(data);
 
   const Content = () => {
     if (loading) {
@@ -23,7 +20,7 @@ export default () => {
         <div className="text-center">
           <p>Loading...</p>
           <div className="d-flex justify-content-center w-100">
-            <BounceLoader color={`#dddddd`} size="2em" />
+            <BounceLoader color="#dddddd" size="2em" />
           </div>
         </div>
       );
