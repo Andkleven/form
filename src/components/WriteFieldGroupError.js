@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import VariableLabel from "./VariableLabel";
-import { DocumentDateContext, FieldsContext } from "./DocumentAndSubmit";
+import {
+  DocumentDateContext,
+  FieldsContext,
+  variableLabel
+} from "./DocumentAndSubmit";
 import ReadOnlyField from "./ReadOnlyField";
 import WriteField from "./WriteField";
 
@@ -20,12 +23,11 @@ export default props => {
   const fieldsContext = useContext(FieldsContext);
   const [label, setLabel] = useState("");
   const [error, setError] = useState(initialState);
-
   useEffect(() => {
     setLabel(
       (props.queryNameVariableLabel && props.fieldNameVariableLabel) ||
         props.indexVariableLabel
-        ? VariableLabel(
+        ? variableLabel(
             props.label,
             documentDateContext.documentDate,
             props.indexVariableLabel,
@@ -89,7 +91,9 @@ export default props => {
       }
       fieldsContext.setvalidationPassed(prevState => ({
         ...prevState,
-        [props.indexId]: passedValidation
+        [`${props.pageName}-${props.repeatStep}-${
+          props.fieldName
+        }`]: passedValidation
       }));
     } else {
       setError(initialState);

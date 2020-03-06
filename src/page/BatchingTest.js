@@ -46,7 +46,7 @@ export default pageInfo => {
         <Paper>
           <Batching
             data={data}
-            json={json.batching}
+            json={json}
             setBatchingData={setBatchingData}
             batchingData={batchingData}
             batchingListIds={batchingListIds}
@@ -55,9 +55,13 @@ export default pageInfo => {
           />
           <DocumentAndSubmit
             componentsId={"leadEngineersPage"}
-            geometry={removeSpace(
-              getDataFromQuery(data, "descriptions.0", "geometry")
-            ).toLowerCase()}
+            geometry={
+              getDataFromQuery(data, "descriptions.0", "geometry") &&
+              removeSpace(
+                getDataFromQuery(data, "descriptions.0", "geometry")
+              ).toLowerCase()
+            }
+            notSubmitButton={batchingListIds.length ? false : true}
             document={json.ducument}
             reRender={() => {
               setBatchingListIds([]);
@@ -79,7 +83,7 @@ export default pageInfo => {
                 : null
             }
             updateCache={() => update}
-            submitNextStage={true}
+            saveButton={true}
             batchingListIds={batchingListIds}
           />
         </Paper>

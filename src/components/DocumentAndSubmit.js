@@ -6,7 +6,11 @@ import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
-import { allTrue } from "./Functions";
+import {
+  allTrue,
+  removeEmptyValueFromObject,
+  validaFieldWithValue
+} from "./Functions";
 import FindNextStage from "components/stages/FindNextStage";
 
 export const ChapterContext = createContext();
@@ -228,6 +232,12 @@ export default props => {
           <SubmitButton
             key={thisChapter}
             onClick={submitHandler.bind(this, thisChapter)}
+            name={
+              props.saveButton &&
+              !Object.values(validationPassed).every(allTrue)
+                ? "Save"
+                : null
+            }
           />
           {isSubmited && (
             <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
@@ -241,6 +251,10 @@ export default props => {
   const prepareDataForSubmit = (variables, key, dictionary) => {
     Object.keys(dictionary).forEach(value => {
       let saveInfo = dictionary[value]["saveInfo"];
+      delete dictionary[value]["saveInfo"];
+      if (props.partialBatching) {
+        removeEmptyValueFromObject(dictionary[value]);
+      }
       if (key === "uploadFile") {
         variables[key].push({
           ...saveInfo,
@@ -276,15 +290,20 @@ export default props => {
             : undefined,
         itemId: Number(props.different) ? Number(props.itemId) : undefined,
         itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
-        stage: props.submitNextStage
-          ? FindNextStage(props.data, props.stage, props.geometry)
-          : null
+        stage:
+          props.saveButton && Object.values(validationPassed).every(allTrue)
+            ? FindNextStage(props.data, props.stage, props.geometry)
+            : null
       }
     });
     setFiles([]);
   };
   const submitHandler = thisChapter => {
-    if (Object.values(validationPassed).every(allTrue)) {
+    if (
+      (props.saveButton &&
+        validaFieldWithValue(validationPassed, documentDate[thisChapter])) ||
+      Object.values(validationPassed).every(allTrue)
+    ) {
       submitData(documentDate[thisChapter]);
       setIsSubmited(false);
       setRepeatGroup(!repeatGroup);
@@ -350,6 +369,7 @@ export default props => {
             {page}
             {index === pageInfo.pages.length - 1 &&
               !editField &&
+              !props.notSubmitButton &&
               isSubmitButton(firstIndex + 1)}
           </Fragment>
         );

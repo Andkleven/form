@@ -8,7 +8,12 @@ export default props => (
       type={props.type}
       id={`custom-${props.type}-${props.label}`}
       label={props.label}
+      value={props.value}
+      name={props.name}
+      onChange={props.onChange}
     />
-    <Form.Text className="text-muted">{props.subtext}</Form.Text>
+    {props.subtext && (
+      <Form.Text className="text-muted">{props.subtext}</Form.Text>
+    )}
   </Form.Group>
 );

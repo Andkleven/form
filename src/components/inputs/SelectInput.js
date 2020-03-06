@@ -26,7 +26,8 @@ export default props => {
         {props.custom ? (
           <Creatable
             className="w-100"
-            options={options}
+            options={props.options}
+            name={props.name}
             theme={theme => ({
               ...theme,
               colors: {
@@ -44,8 +45,9 @@ export default props => {
           />
         ) : (
           <Select
+            id={`custom-${props.type}-${props.label}`}
             className="w-100"
-            options={options}
+            options={props.options}
             theme={theme => ({
               ...theme,
               colors: {
@@ -57,7 +59,8 @@ export default props => {
               }
             })}
             isClearable={true}
-            isSearchable={true}
+            isSearchable={false}
+            name={props.name}
             placeholder={props.placeholder || "Select..."}
             value={props.value}
             onChange={props.onChange}

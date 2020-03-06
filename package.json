@@ -12,6 +12,7 @@
     "apollo-link-context": "1.0.19",
     "apollo-link-http": "1.5.16",
     "apollo-upload-client": "12.1.0",
+    "components": "0.1.0",
     "graphql": "14.6.0",
     "graphql-tag": "2.10.3",
     "immer": "5.3.6",

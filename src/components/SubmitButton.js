@@ -62,7 +62,7 @@ function NavbarSolid(props) {
         onClick={props.onClick}
       >
         <i className="fas fa-check fa-2x" />
-        <div>Save and Continue</div>
+        <div>{props.name ? props.name : "Save and Continue"}</div>
       </Button>
     </>
   );
