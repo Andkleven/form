@@ -14,17 +14,17 @@ export default props => {
   const sumTerms = [stageTerm, searchTerms];
   const results = searchProjects(props.data, sumTerms);
 
-  const iconStyle = {
-    color: "#f1b25b",
+  const itemIconStyle = {
+    color: "#bbbbbb",
     position: "relative",
-    // top: "0.1em",
     right: "0.25em",
     width: "1.5em",
     textAlign: "center"
-    // widthRigth: "5em"
   };
 
-  console.log(results);
+  const linkStyle = {
+    color: "#dddddd"
+  };
 
   return (
     <>
@@ -73,9 +73,10 @@ export default props => {
                       <Link
                         className="d-flex"
                         to={`/order/item/${description.data.description}`}
+                        style={linkStyle}
                       >
                         <div className="pt-2">
-                          <i className="fas fa-cubes" style={iconStyle} />
+                          <i className="fas fa-cubes" style={itemIconStyle} />
                           Batch all items in folder
                         </div>
                       </Link>
@@ -85,13 +86,16 @@ export default props => {
                             className="d-flex"
                             to={`/order/lead-engineer/1/${item.id}/1`}
                             key={index}
+                            style={linkStyle}
                           >
                             <div className="pt-2">
-                              <i className="fas fa-cube" style={iconStyle} />
+                              <i
+                                className="fas fa-cube"
+                                style={itemIconStyle}
+                              />
                               {item.id}
                             </div>
                           </Link>
-                          // <Tree defaultOpen item key={index} name={item.id} />
                         ))}
                     </Tree>
                   ))}
