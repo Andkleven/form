@@ -74,7 +74,8 @@
               "label": "Text 9",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "subtext": "Accepts any value",
+              "default": "test"
             },
             {
               "fieldName": "numberOfDescriptions",

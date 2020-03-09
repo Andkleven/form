@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import ErrorMessage from "./ErrorMessage";
 import { FieldsContext, DocumentDateContext } from "./DocumentAndSubmit";
+import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { allTrue } from "./Functions";
 import Input from "components/Input";
@@ -12,11 +13,10 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
-  const onChangeDate = (name, date) => {
-    props.setState(prevState => ({
-      ...prevState,
-      [name]: date
-    }));
+  const onChangeDate = date => {
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, props.path, date);
+    });
   };
 
   const onChange = e => {
@@ -30,10 +30,14 @@ export default props => {
       (min && min < Number(value))
     ) {
       if (["checkbox", "radio", "switch"].includes(type)) {
-        props.setState(prevState => ({
-          ...prevState,
-          [name]: !props.state[name]
-        }));
+        let oldValue = objectPath.get(
+          documentDateContext.documentDate,
+          props.path,
+          false
+        );
+        documentDateContext.setDocumentDate(prevState => {
+          objectPath.set(prevState, props.path, oldValue);
+        });
       } else {
         if (type === "number") {
           let decimal = step
@@ -46,12 +50,13 @@ export default props => {
           ) {
             numberValue = props.state[name];
           }
-          props.setState(prevState => ({
-            ...prevState,
-            [name]: numberValue
-          }));
+          documentDateContext.setDocumentDate(prevState => {
+            objectPath.set(prevState, props.path, numberValue);
+          });
         } else {
-          props.setState(prevState => ({ ...prevState, [name]: value }));
+          documentDateContext.setDocumentDate(prevState => {
+            objectPath.set(prevState, props.path, value);
+          });
         }
       }
     }

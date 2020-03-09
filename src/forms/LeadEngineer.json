@@ -379,8 +379,7 @@
           "repeat": true,
           "notAddButton": true,
           "sumAllPage": true,
-          "repeatGroupWithChapter": -1,
-          "repeatGroupWithPageName": "vulcanizationStep",
+          "repeatGroupWithQuery": "leadEngineers.0.vulcanizationStep",
           "repeatGroupWithFieldName": "numberOfLayers",
           "fields": [
             {

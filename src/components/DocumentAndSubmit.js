@@ -7,11 +7,16 @@ import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
 import {
+  chapterPages,
   emptyField,
   notDataInField,
   allTrue,
   removeEmptyValueFromObject,
-  validaFieldWithValue
+  validaFieldWithValue,
+  getDataFromQuery,
+  getData,
+  stringToDictionaryForAQuery,
+  mergePath
 } from "./Functions";
 import FindNextStage from "components/stages/FindNextStage";
 
@@ -37,16 +42,18 @@ export default props => {
 
   const [editChapter, setEditChapter] = useState(0);
   const [editField, setEditField] = useState("");
-  const [documentDate, setDocumentDate] = useState({}); // Store data for all document
+  const [documentDate, setDocumentDate] = useState(); // Store data for all document
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [repeatGroup, setRepeatGroup] = useState(false);
-
+  console.log(documentDate, 12);
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useEffect(() => {
-    setDocumentDate({});
-  }, [props.componentsId]);
+    let transformData = stringToDictionaryForAQuery(props.data);
+    setDocumentDate(transformData);
+  }, [props.componentsId, props.data]);
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -160,13 +167,7 @@ export default props => {
   let stopLoop = false; // True when we are at the first chaper now one have wirte on
   let lastChapter = 0; // Map through chaper in document
 
-  const createDocumentFromForm = (
-    props,
-    getData,
-    view,
-    isSubmitButton,
-    editField
-  ) => {
+  const createDocumentFromForm = (props, view, isSubmitButton, editField) => {
     const document = props.document.chapters.map((pageInfo, firstIndex) => {
       let chapter; // new chapter to add to document
       if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
@@ -175,7 +176,12 @@ export default props => {
       if (stopLoop) {
         chapter = null;
       } else {
-        let getDataFromGroupWithLookUpBy = getData(pageInfo, true);
+        let getDataFromGroupWithLookUpBy = getData(
+          pageInfo,
+          props.arrayIndex,
+          documentDate,
+          true
+        );
         // if now data in lookUpBy this is last chapter
         if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
           lastChapter = firstIndex + 1;
@@ -217,13 +223,7 @@ export default props => {
     return document;
   };
 
-  const createDocumentFromSpeck = (
-    props,
-    getData,
-    view,
-    isSubmitButton,
-    editField
-  ) => {
+  const createDocumentFromSpeck = (props, view, isSubmitButton, editField) => {
     const subchapter = (
       getDataFromGroupWithLookUpBy,
       i,
@@ -275,7 +275,11 @@ export default props => {
       if (stopLoop) {
         chapter = null;
       } else {
-        let getDataFromGroupWithLookUpBy = getData(chaptersInfo);
+        let getDataFromGroupWithLookUpBy = getData(
+          chaptersInfo,
+          props.arrayIndex,
+          documentDate
+        );
         chapter = [];
         if (chaptersInfo.numberFromSpackField) {
           let speckChapterData = getDataFromQuery(
@@ -320,47 +324,47 @@ export default props => {
     return document;
   };
 
-  // Save number of chaper to documentDate
-  if (Object.keys(documentDate).length === 0) {
-    let chapters = {};
-    props.document.chapters.forEach((v, index) => {
-      chapters[index + 1] = {};
-    });
-    return setDocumentDate({ ...chapters });
-  }
+  // // Save number of chaper to documentDate
+  // if (Object.keys(documentDate).length === 0) {
+  //   let chapters = {};
+  //   props.document.chapters.forEach((v, index) => {
+  //     chapters[index + 1] = {};
+  //   });
+  //   return setDocumentDate({ ...chapters });
+  // }
 
-  // Get data to Group or test if group have data in database
-  const getData = (info, isItData = false) => {
-    let data;
-    if (!props.data) {
-      return null;
-    } else if (info.firstQueryPath) {
-      data = objectPath.get(
-        objectPath.get(
-          props.data,
-          `${info.firstQueryPath}.${props.arrayIndex}`
-        ),
-        info.secondQueryPath
-      );
-    } else if (props.data) {
-      data = objectPath.get(props.data, info.queryPath);
-    } else {
-      console.error("ERROR, Look Up document.js message:", 1234567);
-    }
-    if (isItData) {
-      return data[info.findByIndex ? props.arrayIndex : data.length - 1];
-    } else if (info.findByIndex) {
-      return data[props.arrayIndex];
-    } else {
-      return data;
-    }
-  };
+  // // Get data to Group or test if group have data in database
+  // const getData = (info, isItData = false) => {
+  //   let data;
+  //   if (!documentDate) {
+  //     return null;
+  //   } else if (info.firstQueryPath) {
+  //     data = objectPath.get(
+  //       objectPath.get(
+  //         documentDate,
+  //         `${info.firstQueryPath}.${props.arrayIndex}`
+  //       ),
+  //       info.secondQueryPath
+  //     );
+  //   } else if (documentDate) {
+  //     data = objectPath.get(documentDate, info.queryPath);
+  //   } else {
+  //     console.error("ERROR, Look Up document.js message:", 1234567);
+  //   }
+  //   if (isItData) {
+  //     return data[info.findByIndex ? props.arrayIndex : data.length - 1];
+  //   } else if (info.findByIndex) {
+  //     return data[props.arrayIndex];
+  //   } else {
+  //     return data;
+  //   }
+  // };
 
   // Find or test if Group have a ForeignKey
   const testForForeignKey = info => {
     if (info.getForeignKey) {
       let foreignKey = objectPath.get(
-        props.data,
+        documentDate,
         info.firstQueryPath + "." + JSON.stringify(props.arrayIndex)
       );
       if (foreignKey) {
@@ -457,7 +461,7 @@ export default props => {
         itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
         stage:
           props.saveButton && Object.values(validationPassed).every(allTrue)
-            ? FindNextStage(props.data, props.stage, props.geometry)
+            ? FindNextStage(documentDate, props.stage, props.geometry)
             : null
       }
     });
@@ -485,7 +489,8 @@ export default props => {
         {...props}
         key={`${index}-Page`}
         submitHandler={submitHandler}
-        data={getData(info)}
+        data={getData(info, props.arrayIndex, documentDate)}
+        path={mergePath(info, props.arrayIndex)}
         foreignKey={testForForeignKey(info)}
         thisChapter={thisChapter}
         stopLoop={stopLoop}
@@ -505,42 +510,44 @@ export default props => {
   };
 
   let document;
+  if (documentDate) {
+    if (props.stageForm) {
+      document = createDocumentFromSpeck(
+        props,
+        view,
+        isSubmitButton,
+        editField
+      );
+    } else {
+      document = createDocumentFromForm(props, view, isSubmitButton, editField);
+    }
 
-  if (props.stageForm) {
-    document = createDocumentFromSpeck(props, view, isSubmitButton, editField);
-  } else {
-    document = createDocumentFromForm(
-      props,
-      getData,
-      view,
-      isSubmitButton,
-      editField
-    );
-  }
-
-  return (
-    <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
-      <FieldsContext.Provider
-        value={{
-          validationPassed,
-          setvalidationPassed,
-          editField,
-          setEditField,
-          isSubmited,
-          setIsSubmited
-        }}
-      >
-        <ChapterContext.Provider
-          value={{ lastChapter, editChapter, setEditChapter }}
+    return (
+      <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
+        <FieldsContext.Provider
+          value={{
+            validationPassed,
+            setvalidationPassed,
+            editField,
+            setEditField,
+            isSubmited,
+            setIsSubmited
+          }}
         >
-          <FilesContext.Provider value={{ files, setFiles }}>
-            <Title title={props.document.documentTitle} />
-            {document}
-            {loadingMutation && <p>Loading...</p>}
-            {errorMutation && <p>Error :( Please try again</p>}
-          </FilesContext.Provider>
-        </ChapterContext.Provider>
-      </FieldsContext.Provider>
-    </DocumentDateContext.Provider>
-  );
+          <ChapterContext.Provider
+            value={{ lastChapter, editChapter, setEditChapter }}
+          >
+            <FilesContext.Provider value={{ files, setFiles }}>
+              <Title title={props.document.documentTitle} />
+              {document}
+              {loadingMutation && <p>Loading...</p>}
+              {errorMutation && <p>Error :( Please try again</p>}
+            </FilesContext.Provider>
+          </ChapterContext.Provider>
+        </FieldsContext.Provider>
+      </DocumentDateContext.Provider>
+    );
+  } else {
+    return null;
+  }
 };

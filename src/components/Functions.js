@@ -12,7 +12,7 @@ export const getDataFromQuery = (data, path, field) => {
     return null;
   }
   let stringFields = objectPath.get(data, path, null);
-  if (!stringFields) {
+  if (stringFields === null) {
     return null;
   }
   let fields = stringToDictionary(stringFields.data);
@@ -356,4 +356,63 @@ export const chapterPages = (
       </Fragment>
     );
   });
+};
+
+// Get data to Group or test if group have data in database
+export const getData = (info, arrayIndex, documentDate, isItData = false) => {
+  let data;
+  if (!documentDate) {
+    return null;
+  } else if (info.firstQueryPath) {
+    data = objectPath.get(
+      objectPath.get(documentDate, `${info.firstQueryPath}.${arrayIndex}`),
+      info.secondQueryPath
+    );
+  } else if (documentDate) {
+    data = objectPath.get(documentDate, info.queryPath);
+  } else {
+    console.error("ERROR, Look Up document.js message:", 1234567);
+  }
+  if (isItData) {
+    return data[info.findByIndex ? arrayIndex : data.length - 1];
+  } else if (info.findByIndex) {
+    return data[arrayIndex];
+  } else {
+    return data;
+  }
+};
+
+export const mergePath = (info, arrayIndex, oldPath = null) => {
+  let path = oldPath === null ? "" : `${oldPath}.`;
+  if (info.firstQueryPath) {
+    path = `${path}${info.firstQueryPath}.${arrayIndex}.
+      ${info.secondQueryPath}`;
+  } else if (info.findByIndex) {
+    path = `${path}${info.queryPath}.${arrayIndex}`;
+  } else {
+    path = `${path}${info.queryPath}`;
+  }
+  return path;
+};
+
+export const stringToDictionaryForAQuery = query => {
+  let newObject = { ...query };
+  const loopThroughQuery = (query, oldPath = null) => {
+    let path;
+    Object.keys(query).forEach(key => {
+      path = oldPath === null ? key : oldPath + "." + key;
+      if (Array.isArray(query[key])) {
+        query[key].forEach((value, index) => {
+          loopThroughQuery(value, path + "." + index.toString());
+        });
+      } else if (key === "data") {
+        let isData = stringToDictionary(query[key]);
+        if (isData) {
+          objectPath.set(newObject, path, isData);
+        }
+      }
+    });
+  };
+  loopThroughQuery(query);
+  return newObject;
 };

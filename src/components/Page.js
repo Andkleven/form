@@ -5,7 +5,12 @@ import {
   DocumentDateContext,
   FieldsContext
 } from "./DocumentAndSubmit";
-import { sumFieldInObject, getLastObjectValue } from "./Functions";
+import {
+  sumFieldInObject,
+  getLastObjectValue,
+  getData,
+  stringToDictionary
+} from "./Functions";
 import Title from "./Title";
 
 export default props => {
@@ -62,34 +67,26 @@ export default props => {
 
   // If number of repeat group decides by a anthor field, it's sets repeatGroup
   useEffect(() => {
-    if (
-      props.repeatGroupWithFieldName &&
-      props.repeatGroupWithPageName &&
-      documentDateContext.documentDate[
-        props.thisChapter +
-          (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
-      ][props.repeatGroupWithPageName] !== undefined &&
-      documentDateContext.documentDate[
-        props.thisChapter +
-          (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
-      ][props.repeatGroupWithPageName][0] !== undefined
-    ) {
+    if (props.repeatGroupWithFieldName && props.repeatGroupWithQuery) {
       let newValue;
-      let object =
-        documentDateContext.documentDate[
-          props.thisChapter +
-            (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
-        ][props.repeatGroupWithPageName];
+      let object = getData(
+        {
+          queryPath: props.repeatGroupWithQuery,
+          findByIndex: props.findByIndex,
+          firstQueryPath: props.repeatGroupWithFirstQuery,
+          secondQueryPath: props.repeatGroupWithSecondQuery
+        },
+        props.arrayIndex,
+        documentDateContext.documentDate
+      );
       if (props.sumAllPage) {
         newValue = sumFieldInObject(object, props.repeatGroupWithFieldName);
       } else if (props.useLastPage) {
         newValue = getLastObjectValue(object, props.repeatGroupWithFieldName);
       } else {
-        newValue =
-          documentDateContext.documentDate[
-            props.thisChapter +
-              (props.repeatGroupWithChapter ? props.repeatGroupWithChapter : 0)
-          ][props.repeatGroupWithPageName][0][props.repeatGroupWithFieldName];
+        newValue = stringToDictionary(object.data)[
+          props.repeatGroupWithFieldName
+        ];
       }
       setRepeatGroup(newValue - props.data.length);
     }
@@ -112,6 +109,9 @@ export default props => {
           repeatStep={
             (props.data && props.data.length ? props.data.length : 0) + i
           }
+          path={`${props.path}.${(props.data && props.data.length
+            ? props.data.length
+            : 0) + i}`}
           indexId={`${props.indexId}-${(props.data && props.data.length
             ? props.data.length
             : 0) + i}`}
@@ -177,6 +177,7 @@ export default props => {
                   writeChapter={writeChapter}
                   key={`${props.indexId}-${index}`}
                   data={itemsData}
+                  path={`${props.path}.${index}`}
                   fields={props.fields}
                   step={index}
                   repeatStep={index}

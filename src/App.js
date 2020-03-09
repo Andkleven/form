@@ -23,7 +23,6 @@ const backgroundStyle = {
   backgroundAttachment: "fixed",
   height: "100%"
 };
-console.log("TEST");
 export default () => (
   <>
     <Div100vh className="bg-secondary">

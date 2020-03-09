@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import Math from "./Math";
+import objectPath from "object-path";
 import ReadField from "./ReadField";
 
 import "../styles/styles.css";
@@ -22,11 +23,13 @@ export default props => {
     if (temporaryValue !== null && !showMinMax) {
       setShowMinMax(true);
     }
-    if (temporaryValue !== props.state[props.fieldName]) {
-      props.setState(prevState => ({
-        ...prevState,
-        [props.fieldName]: temporaryValue
-      }));
+    if (
+      objectPath.get(documentDateContext.documentDate, props.path) !==
+      props.state[props.fieldName]
+    ) {
+      documentDateContext.setDocumentDate(prevState => {
+        objectPath.set(prevState, props.path, temporaryValue);
+      });
     }
   }, [documentDateContext.documentDate]);
 
@@ -35,7 +38,7 @@ export default props => {
       {...props}
       key={props.indexId}
       submit={true}
-      value={props.state[props.fieldName]}
+      value={objectPath.get(documentDateContext.documentDate, props.path)}
       showMinMax={showMinMax}
     />
   );
