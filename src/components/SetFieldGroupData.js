@@ -117,13 +117,14 @@ export default props => {
       setId(0);
     }
 
-    documentDateContext.setDocumentDate(prevState => ({
-      // ...prevState,
-      ...objectPath.set(prevState, props.path + ".data", testData)
-    }));
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, props.path + ".data", testData);
+      return {
+        ...prevState
+      };
+    });
   }, [props.data, props.writeChapter]);
 
-  console.log(documentDateContext.documentDate);
   if (props.writeChapter !== undefined) {
     return (
       <>

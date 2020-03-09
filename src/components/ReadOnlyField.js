@@ -25,10 +25,13 @@ export default props => {
     }
     if (
       objectPath.get(documentDateContext.documentDate, props.path) !==
-      props.state[props.fieldName]
+      temporaryValue
     ) {
       documentDateContext.setDocumentDate(prevState => {
         objectPath.set(prevState, props.path, temporaryValue);
+        return {
+          ...prevState
+        };
       });
     }
   }, [documentDateContext.documentDate]);

@@ -8,8 +8,7 @@ import {
   getSubtext,
   getDataFromQuery,
   calculateMaxMin,
-  variableLabel,
-  mergePath
+  variableLabel
 } from "./Functions";
 
 export default props => {
@@ -68,7 +67,6 @@ export default props => {
   //   fieldsContext.editField,
   //   chapterContext.editChapter
   // ]);
-  console.log(33);
   const getNewPath = useCallback(
     fieldName => {
       return `${props.path}.data.${fieldName}`;

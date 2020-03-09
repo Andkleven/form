@@ -14,9 +14,10 @@ export default props => {
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
   const onChangeDate = date => {
-    documentDateContext.setDocumentDate(prevState => {
-      objectPath.set(prevState, props.path, date);
-    });
+    documentDateContext.setDocumentDate(prevState => ({
+      ...prevState,
+      ...objectPath.set(prevState, props.path, data)
+    }));
   };
 
   const onChange = e => {
@@ -37,6 +38,9 @@ export default props => {
         );
         documentDateContext.setDocumentDate(prevState => {
           objectPath.set(prevState, props.path, oldValue);
+          return {
+            ...prevState
+          };
         });
       } else {
         if (type === "number") {
@@ -52,10 +56,16 @@ export default props => {
           }
           documentDateContext.setDocumentDate(prevState => {
             objectPath.set(prevState, props.path, numberValue);
+            return {
+              ...prevState
+            };
           });
         } else {
           documentDateContext.setDocumentDate(prevState => {
             objectPath.set(prevState, props.path, value);
+            return {
+              ...prevState
+            };
           });
         }
       }
