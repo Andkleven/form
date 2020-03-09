@@ -1,4 +1,5 @@
 import objectPath from "object-path";
+import { Fragment } from "react";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -10,7 +11,7 @@ export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
   }
-  let stringFields = objectPath.get(data, path);
+  let stringFields = objectPath.get(data, path, null);
   if (!stringFields) {
     return null;
   }
@@ -43,9 +44,10 @@ export const getValue = (value, queryName, indexNumber, fieldName) => {
   return test;
 };
 
-export const getLastObjectValue = (object, key) => {
-  return object[Object.values(object).length - 1][key];
-};
+export const emptyField = field => [null, undefined, ""].includes(field);
+
+export const getLastObjectValue = (object, key) =>
+  object[Object.values(object).length - 1][key];
 
 export const allFalse = element => !element;
 
@@ -54,6 +56,14 @@ export const allTrue = element => element;
 export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
 export const removeSpace = string => string.replace(/\s/g, "");
+
+export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
+  return (
+    !getDataFromGroupWithLookUpBy ||
+    getDataFromGroupWithLookUpBy.data.trim() === "" ||
+    !stringToDictionary(getDataFromGroupWithLookUpBy.data)[lookUpBy]
+  );
+};
 
 export const emptyObject = objectToCheck => {
   if (Object.entries(objectToCheck).length === 0) {
@@ -192,23 +202,6 @@ export const expandJson = json => {
   return json;
 };
 
-export const getDataFromQuery = (data, path, field) => {
-  if (!data) {
-    return null;
-  }
-  let stringFields = objectPath.get(data, path);
-  if (!stringFields) {
-    return null;
-  }
-  let fields = stringToDictionary(stringFields.data);
-  if (!fields) {
-    return null;
-  }
-  return fields[field];
-};
-
-export const removeSpace = string => string.replace(/\s/g, "");
-
 export const searchProjects = (data, terms) => {
   let results = [];
   if (data) {
@@ -308,8 +301,8 @@ export const validaFieldWithValue = (validation, data) => {
   Object.keys(validation).forEach(key => {
     let paths = key.split("-");
     if (
-      [undefined, null, ""].includes(data[paths[0]][paths[1]][paths[2]])
-      && !validation[key]
+      [undefined, null, ""].includes(data[paths[0]][paths[1]][paths[2]]) &&
+      !validation[key]
     ) {
       return false;
     }
@@ -339,4 +332,28 @@ export const calculateMaxMin = (
     newMax = max;
   }
   return { min: newMin, max: newMax };
+};
+
+export const chapterPages = (
+  props,
+  view,
+  firstIndex,
+  stopLoop,
+  editField,
+  isSubmitButton,
+  pageInfo
+) => {
+  return pageInfo.pages.map((info, index) => {
+    let showEditButton = !props.notEditButton && !index ? true : false;
+    let page = view(info, index, firstIndex + 1, stopLoop, showEditButton);
+    return (
+      <Fragment key={`${index}-${firstIndex}-cancas`}>
+        {page}
+        {index === pageInfo.pages.length - 1 &&
+          !editField &&
+          !props.notSubmitButton &&
+          isSubmitButton(firstIndex + 1)}
+      </Fragment>
+    );
+  });
 };

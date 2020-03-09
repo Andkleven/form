@@ -9,7 +9,7 @@ export default props => {
   const fieldsContext = useContext(FieldsContext);
   // make it write field
   const handelClick = () => {
-    if (!props.readOnly) {
+    if (!props.readOnly && props.submitOneField) {
       fieldsContext.setIsSubmited(false);
       fieldsContext.setEditField(props.indexId);
       fieldsContext.setvalidationPassed({});
@@ -18,9 +18,7 @@ export default props => {
   return (
     <Form.Group
       className={props.textCenter ? "text-center" : ""}
-      onClick={() => {
-        props.submit ? handelClick() : null;
-      }}
+      onClick={() => handelClick()}
     >
       <small>
         {" "}

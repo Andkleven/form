@@ -149,6 +149,8 @@ export default props => {
     } else {
       return (
         <ReadField
+          {...props}
+          {...value}
           key={`${props.indexId}-${index}`}
           indexId={`${props.indexId}-${index}`}
           index={index}
