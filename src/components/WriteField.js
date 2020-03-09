@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Form, InputGroup } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
-import FilesUpload from "./FilesUpload";
 import { FieldsContext, DocumentDateContext } from "./DocumentAndSubmit";
 import SubmitButton from "./SubmitButton";
 import { allTrue } from "./Functions";
@@ -86,7 +84,7 @@ export default props => {
     let variables = {};
     Object.keys(data).forEach(key => {
       variables[key] = [];
-      prepareDataForSubmit(variables, key, data[key]);
+      props.prepareDataForSubmit(variables, key, data[key]);
     });
     props.mutation({
       variables: {

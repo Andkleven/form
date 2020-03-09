@@ -1,4 +1,4 @@
-import React, { Fragment, useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, Fragment } from "react";
 import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
@@ -7,6 +7,8 @@ import SubmitButton from "./SubmitButton";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
 import {
+  emptyField,
+  notDataInField,
   allTrue,
   removeEmptyValueFromObject,
   validaFieldWithValue
@@ -45,7 +47,6 @@ export default props => {
   useEffect(() => {
     setDocumentDate({});
   }, [props.componentsId]);
-
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -155,6 +156,170 @@ export default props => {
       onCompleted: props.reRender
     }
   );
+
+  let stopLoop = false; // True when we are at the first chaper now one have wirte on
+  let lastChapter = 0; // Map through chaper in document
+
+  const createDocumentFromForm = (
+    props,
+    getData,
+    view,
+    isSubmitButton,
+    editField
+  ) => {
+    const document = props.document.chapters.map((pageInfo, firstIndex) => {
+      let chapter; // new chapter to add to document
+      if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
+        lastChapter = firstIndex + 1;
+      }
+      if (stopLoop) {
+        chapter = null;
+      } else {
+        let getDataFromGroupWithLookUpBy = getData(pageInfo, true);
+        // if now data in lookUpBy this is last chapter
+        if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
+          lastChapter = firstIndex + 1;
+        }
+        // Map through pages in this pages
+        chapter = pageInfo.pages.map((info, index) => {
+          let showEditButton = !props.notEditButton && !index ? true : false;
+          let page = view(
+            info,
+            index,
+            firstIndex + 1,
+            stopLoop,
+            showEditButton
+          );
+          return (
+            <Fragment key={`${index}-${firstIndex}-cancas`}>
+              {page}
+              {index === pageInfo.pages.length - 1 &&
+                !editField &&
+                !props.notSubmitButton &&
+                isSubmitButton(firstIndex + 1)}
+            </Fragment>
+          );
+        });
+        // if now data in lookUpBy stop loop
+        if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
+          stopLoop = true;
+        }
+      }
+      return (
+        <Fragment key={`${firstIndex}-cancas`}>
+          {chapter ? (
+            <Title key={firstIndex} title={pageInfo.pages.chapterTitle} />
+          ) : null}
+          {chapter}
+        </Fragment>
+      );
+    });
+    return document;
+  };
+
+  const createDocumentFromSpeck = (
+    props,
+    getData,
+    view,
+    isSubmitButton,
+    editField
+  ) => {
+    const subchapter = (
+      getDataFromGroupWithLookUpBy,
+      i,
+      chaptersInfo,
+      chapter
+    ) => {
+      let thisChapter;
+      chapterCount += 1;
+      if (
+        notDataInField(getDataFromGroupWithLookUpBy[i], chaptersInfo.lookUpBy)
+      ) {
+        lastChapter = chapterCount;
+      }
+      if (stopLoop && chapter.length === 0) {
+        chapter = null;
+      } else if (!stopLoop) {
+        thisChapter = chapterPages(
+          props,
+          view,
+          chapterCount,
+          stopLoop,
+          editField,
+          isSubmitButton,
+          chaptersInfo
+        );
+      }
+      if (
+        notDataInField(getDataFromGroupWithLookUpBy[i], chaptersInfo.lookUpBy)
+      ) {
+        stopLoop = true;
+      }
+      chapter.push(
+        <Fragment key={`${chapterCount}-cancas`}>
+          {thisChapter ? (
+            <Title key={chapterCount} title={chaptersInfo.chapterTitle} />
+          ) : null}
+          {thisChapter}
+        </Fragment>
+      );
+    };
+
+    let chapterCount = 0;
+    const document = Object.values(
+      props.chaptersJson[
+        props.specificStage ? ["chapters"][props.specificStage] : "chapters"
+      ]
+    ).map(chaptersInfo => {
+      let chapter;
+      if (stopLoop) {
+        chapter = null;
+      } else {
+        let getDataFromGroupWithLookUpBy = getData(chaptersInfo);
+        chapter = [];
+        if (chaptersInfo.numberFromSpackField) {
+          let speckChapterData = getDataFromQuery(
+            props.speckData,
+            chaptersInfo.spackQueryPath,
+            chaptersInfo.spackFieldPath
+          );
+          if (emptyField(speckChapterData)) {
+            return null;
+          }
+          for (let i = 0; i < Number(speckChapterData); i++) {
+            subchapter(getDataFromGroupWithLookUpBy, i, chaptersInfo, chapter);
+          }
+        } else if (emptyField(chaptersInfo.spackQueryPath)) {
+          subchapter(getDataFromGroupWithLookUpBy, 0, chaptersInfo, chapter);
+        } else if (emptyField(chaptersInfo.spackFieldPath)) {
+          if (
+            !emptyField(
+              objectPath.get(props.speckData, chaptersInfo.spackQueryPath, null)
+            )
+          ) {
+            subchapter(getDataFromGroupWithLookUpBy, 0, chaptersInfo, chapter);
+          } else {
+            return null;
+          }
+        } else if (
+          !emptyField(
+            getDataFromQuery(
+              props.speckData,
+              chaptersInfo.spackQueryPath,
+              chaptersInfo.spackFieldPath
+            )
+          )
+        ) {
+          subchapter(getDataFromGroupWithLookUpBy, 0, chaptersInfo, chapter);
+        } else {
+          return null;
+        }
+      }
+      return chapter;
+    });
+    return document;
+  };
+
   // Save number of chaper to documentDate
   if (Object.keys(documentDate).length === 0) {
     let chapters = {};
@@ -332,69 +497,27 @@ export default props => {
         descriptionsId={
           Number(props.different) === 0 ? Number(props.descriptionsId) : 0
         }
+        prepareDataForSubmit={prepareDataForSubmit}
         itemsId={Number(props.different) ? Number(props.itemsId) : 0}
         mutation={mutation}
       />
     );
   };
 
-  let stopLoop = false; // True when we are at the first chaper now one have wirte on
-  let lastChapter = 0; // Default chapter in wirte
-  // Map through chaper in document
-  const document = props.document.chapters.map((pageInfo, firstIndex) => {
-    let chapter; // new chapter to add to document
-    if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
-      lastChapter = firstIndex + 1;
-    }
-    if (stopLoop) {
-      chapter = null;
-    } else {
-      let getDataFromGroupWithLookUpBy = getData(pageInfo, true);
-      // if now data in lookUpBy this is last chapter
-      if (
-        !getDataFromGroupWithLookUpBy ||
-        getDataFromGroupWithLookUpBy.data.trim() === "" ||
-        !JSON.parse(getDataFromGroupWithLookUpBy.data.replace(/'/g, '"'))[
-          pageInfo.lookUpBy
-        ]
-      ) {
-        lastChapter = firstIndex + 1;
-      }
-      // Map through pages in this chaper
-      chapter = pageInfo.pages.map((info, index) => {
-        let showEditButton = !props.notEditButton && !index ? true : false;
-        let page = view(info, index, firstIndex + 1, stopLoop, showEditButton);
-        return (
-          <Fragment key={`${index}-${firstIndex}-cancas`}>
-            {page}
-            {index === pageInfo.pages.length - 1 &&
-              !editField &&
-              !props.notSubmitButton &&
-              isSubmitButton(firstIndex + 1)}
-          </Fragment>
-        );
-      });
-      // if now data in lookUpBy stop loop
-      if (
-        !getDataFromGroupWithLookUpBy ||
-        getDataFromGroupWithLookUpBy.data.trim() === "" ||
-        !JSON.parse(getDataFromGroupWithLookUpBy.data.replace(/'/g, '"'))[
-          pageInfo.lookUpBy
-        ]
-      ) {
-        stopLoop = true;
-      }
-    }
-    // return chapter
-    return (
-      <Fragment key={`${firstIndex}-cancas`}>
-        {chapter ? (
-          <Title key={firstIndex} title={pageInfo.pages.chapterTitle} />
-        ) : null}
-        {chapter}
-      </Fragment>
+  let document;
+
+  if (props.stageForm) {
+    document = createDocumentFromSpeck(props, view, isSubmitButton, editField);
+  } else {
+    document = createDocumentFromForm(
+      props,
+      getData,
+      view,
+      isSubmitButton,
+      editField
     );
-  });
+  }
+
   return (
     <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
       <FieldsContext.Provider

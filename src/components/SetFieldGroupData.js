@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import variableLabel from "components/Functions";
+import { variableLabel } from "components/Functions";
 
 import "../styles/styles.css";
 

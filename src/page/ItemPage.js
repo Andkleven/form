@@ -113,6 +113,7 @@ export default pageInfo => {
         // buttonToEveryForm={true}
         // notEditButton={true}
         // allWaysShow={true}
+        submitOneField={true}
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={data}
