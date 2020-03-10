@@ -55,39 +55,6 @@ export const stringToDictionary = data => {
   }
 };
 
-export const expandJson = json => {
-  // Turns data strings into data dictionaries where applicable
-  if (json) {
-    const jsonIsExpandable = json => {
-      // A bit shady test for if the JSON is expandable
-      let expandable = true;
-      if (json.projects[0].data === undefined) {
-        expandable = false;
-      }
-      return expandable;
-    };
-
-    if (jsonIsExpandable(json)) {
-      json.projects &&
-        json.projects.map(project => {
-          project.data = stringToDictionary(project.data);
-          project.descriptions &&
-            project.descriptions.map(description => {
-              description.data = stringToDictionary(description.data);
-              description.items &&
-                description.items.map(item => {
-                  item.data = stringToDictionary(item.data);
-                  return true;
-                });
-              return true;
-            });
-          return true;
-        });
-    }
-  }
-  return json;
-};
-
 export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
@@ -198,4 +165,32 @@ export const searchProjects = (data, terms) => {
     getMatchingProjects(projects, terms);
   }
   return results;
+};
+
+export const objectifyQuery = query => {
+  if (query) {
+    let newObject = { ...query };
+
+    const objectifyEntries = (query, oldPath = null) => {
+      let path;
+      Object.keys(query).forEach(key => {
+        path = oldPath === null ? key : oldPath + "." + key;
+        if (Array.isArray(query[key])) {
+          query[key].forEach((value, index) => {
+            objectifyEntries(value, path + "." + index.toString());
+          });
+        } else if (key === "data") {
+          if (typeof query[key] === "string") {
+            let isData = stringToDictionary(query[key]);
+            if (isData) {
+              objectPath.set(newObject, path, isData);
+            }
+          }
+        }
+      });
+    };
+
+    objectifyEntries(query);
+    return newObject;
+  }
 };

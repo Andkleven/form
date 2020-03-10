@@ -47,7 +47,7 @@ export default props => {
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {})
     }),
-    [isDragActive, isDragReject]
+    [isDragActive, isDragReject, isDragAccept]
   );
 
   const files = acceptedFiles.map(file => (
