@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
-import "./styles/styles.css";
+import "styles/styles.css";
 import history from "./history";
 // import { AUTH_TOKEN } from "./constants";
 import Home from "./page/HomePage";

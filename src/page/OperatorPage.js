@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import Paper from "components/Paper";
 import ProjectTree from "components/tree/ProjectTree";
-import { expandJson } from "components/Functions";
+import { objectifyQuery } from "components/Functions";
 import BounceLoader from "react-spinners/BounceLoader";
 // import "components/stage";
 
@@ -12,7 +12,8 @@ export default () => {
     variables: { leadEngineerDone: true, operatorDone: false }
   });
 
-  const json = expandJson(data);
+  // const json = expandJson(data);
+  const json = objectifyQuery(data);
 
   const Content = () => {
     if (loading) {

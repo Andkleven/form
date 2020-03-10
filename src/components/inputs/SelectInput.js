@@ -12,13 +12,22 @@ export default props => {
       value: element
     });
   });
+
+  const camelCaseToNormal = string => {
+    if (!string.includes(" ")) {
+      string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
+    }
+    string = string.replace(/([0-9])/g, " $1");
+    string = string.charAt(0).toUpperCase() + string.slice(1);
+    return string;
+  };
+
   options.map(option => {
     let label = option.value;
-    label = label.replace(/([A-Z])/g, " $1");
-    label = label.replace(/([0-9])/g, " $1");
-    label = label.charAt(0).toUpperCase() + label.slice(1);
+    label = camelCaseToNormal(label);
     return (option.label = label);
   });
+
   return (
     <Form.Group className={props.tight && "mb-1"}>
       {props.label && <Form.Label>{props.label}</Form.Label>}
@@ -59,10 +68,13 @@ export default props => {
               }
             })}
             isClearable={true}
-            isSearchable={false}
-            name={props.name}
+            isSearchable={true}
+            value={
+              props.value
+                ? options.find(option => option.value === props.value)
+                : null
+            }
             placeholder={props.placeholder || "Select..."}
-            value={props.value}
             onChange={props.onChange}
           />
         )}
