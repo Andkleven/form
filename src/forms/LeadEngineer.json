@@ -68,15 +68,6 @@
               "type": "Number"
             },
             {
-              "fieldName": "airTemperature",
-              "label": "Air Temperature",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
-              "default": 3,
-              "type": "Number"
-            },
-            {
               "fieldName": "blastMediaConductivity",
               "label": "Blast Media Conductivity",
               "placeholder": "Placeholder",

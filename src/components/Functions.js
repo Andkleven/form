@@ -1,4 +1,26 @@
 import objectPath from "object-path";
+import { Fragment } from "react";
+
+export const stringToDictionary = data => {
+  if (typeof data === "string") {
+    return JSON.parse(data.replace(/'/g, '"'));
+  }
+};
+
+export const getDataFromQuery = (data, path, field) => {
+  if (!data) {
+    return null;
+  }
+  let stringFields = objectPath.get(data, path, null);
+  if (!stringFields) {
+    return null;
+  }
+  let fields = stringToDictionary(stringFields.data);
+  if (!fields) {
+    return null;
+  }
+  return fields[field];
+};
 
 export const sumFieldInObject = (object, key) => {
   let total = 0;
@@ -8,9 +30,24 @@ export const sumFieldInObject = (object, key) => {
   return total;
 };
 
-export const getLastObjectValue = (object, key) => {
-  return object[Object.values(object).length - 1][key];
+export const getValue = (value, queryName, indexNumber, fieldName) => {
+  let test;
+  Object.keys(value).forEach(key => {
+    if (
+      value[key][queryName] &&
+      value[key][queryName][indexNumber] !== undefined &&
+      value[key][queryName][indexNumber][fieldName] !== undefined
+    ) {
+      test = value[key][queryName][indexNumber][fieldName];
+    }
+  });
+  return test;
 };
+
+export const emptyField = field => [null, undefined, ""].includes(field);
+
+export const getLastObjectValue = (object, key) =>
+  object[Object.values(object).length - 1][key];
 
 export const allFalse = element => !element;
 
@@ -18,11 +55,89 @@ export const allTrue = element => element;
 
 export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
-export const emptyObject = objectToCheck =>
-  Object.entries(objectToCheck).length === 0;
+export const removeSpace = string => string.replace(/\s/g, "");
+
+export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
+  return (
+    !getDataFromGroupWithLookUpBy ||
+    getDataFromGroupWithLookUpBy.data.trim() === "" ||
+    !stringToDictionary(getDataFromGroupWithLookUpBy.data)[lookUpBy]
+  );
+};
+
+export const emptyObject = objectToCheck => {
+  if (Object.entries(objectToCheck).length === 0) {
+    return true;
+  }
+  return false;
+};
+
+export const removeEmptyValueFromObject = object => {
+  Object.keys(object).forEach(key => {
+    if ([null, undefined, ""].includes(object[key])) {
+      delete object[key];
+    }
+  });
+};
+
+export const variableString = (variable, string) => {
+  let newString;
+  if ([undefined, null, ""].includes(variable)) {
+    newString = string.replace("{", "");
+    newString = newString.replace("}", "");
+  } else {
+    let firstName = string.split("{")[0];
+    let lastName = string.split("}")[string.split("}").length - 1];
+
+    newString = firstName + variable + lastName;
+  }
+  return newString;
+};
+
+export const variableLabel = (
+  label,
+  value = undefined,
+  indexVariableLabel = undefined,
+  repeatStep = undefined,
+  queryNameVariableLabel = undefined,
+  fieldNameVariableLabel = undefined,
+  index = undefined
+) => {
+  if (!label) {
+    return "";
+  }
+  let variableLabel = undefined;
+  if (index === undefined) {
+    variableLabel = getValue(
+      value,
+      queryNameVariableLabel,
+      indexVariableLabel ? repeatStep + indexVariableLabel : repeatStep,
+      fieldNameVariableLabel
+    );
+  } else {
+    variableLabel = index;
+  }
+  return variableString(variableLabel, label);
+};
+
+export const variableSubtext = (
+  subtext,
+  data,
+  routToSpeckSubtext,
+  fieldSpeckSubtext
+) => {
+  let variable;
+  if (routToSpeckSubtext && fieldSpeckSubtext) {
+    variable = getDataFromQuery(data, routToSpeckSubtext, fieldSpeckSubtext);
+  }
+  return variableString(variable, subtext);
+};
 
 export const getSubtext = (
   subtext,
+  data,
+  routToSpeckSubtext,
+  fieldSpeckSubtext,
   max,
   min,
   maxInput,
@@ -31,20 +146,25 @@ export const getSubtext = (
   required
 ) => {
   if (subtext) {
-    return subtext;
+    return variableSubtext(
+      subtext,
+      data,
+      routToSpeckSubtext,
+      fieldSpeckSubtext
+    );
   }
-  let minLocal = min ? min : minInput ? minInput : null;
-  let maxLocal = max ? max : maxInput ? maxInput : null;
+  let minLocal = min ? min : minInput ? minInput : "";
+  let maxLocal = max ? max : maxInput ? maxInput : "";
 
-  let minString = minLocal === null ? "" : `Min: ${minLocal}`;
-  let maxString = maxLocal === null ? "" : `Max: ${maxLocal}`;
+  let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
+  let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
 
   let unitString = unit ? `${unit} ` : " ";
 
-  minString = minString ? minString + unitString : null;
-  maxString = maxString ? maxString + unitString : null;
+  minString = minString ? minString + unitString : "";
+  maxString = maxString ? maxString + unitString : "";
 
-  let requiredString = required ? "Required" : null;
+  let requiredString = required ? "Required" : "";
 
   return minString + maxString + requiredString;
 };
@@ -194,3 +314,63 @@ export const objectifyQuery = query => {
     return newObject;
   }
 };
+
+export const validaFieldWithValue = (validation, data) => {
+  Object.keys(validation).forEach(key => {
+    let paths = key.split("-");
+    if (
+      [undefined, null, ""].includes(data[paths[0]][paths[1]][paths[2]]) &&
+      !validation[key]
+    ) {
+      return false;
+    }
+  });
+  return true;
+};
+
+export const calculateMaxMin = (
+  min,
+  routToSpeckMin,
+  fieldSpeckMin,
+  max,
+  routToSpeckMax,
+  fieldSpeckMax,
+  data
+) => {
+  let newMin;
+  let newMax;
+  if (routToSpeckMin && fieldSpeckMin) {
+    newMin = getDataFromQuery(data, routToSpeckMin, fieldSpeckMin);
+  } else {
+    newMin = min;
+  }
+  if (routToSpeckMax && fieldSpeckMax) {
+    newMax = getDataFromQuery(data, routToSpeckMax, fieldSpeckMax);
+  } else {
+    newMax = max;
+  }
+  return { min: newMin, max: newMax };
+};
+
+export const chapterPages = (
+  props,
+  view,
+  firstIndex,
+  stopLoop,
+  editField,
+  isSubmitButton,
+  pageInfo
+) => {
+  return pageInfo.pages.map((info, index) => {
+    let showEditButton = !props.notEditButton && !index ? true : false;
+    let page = view(info, index, firstIndex + 1, stopLoop, showEditButton);
+    return (
+      <Fragment key={`${index}-${firstIndex}-cancas`}>
+        {page}
+        {index === pageInfo.pages.length - 1 &&
+          !editField &&
+          !props.notSubmitButton &&
+          isSubmitButton(firstIndex + 1)}
+      </Fragment>
+    );
+  });

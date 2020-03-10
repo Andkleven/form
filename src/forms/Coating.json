@@ -1,0 +1,397 @@
+{
+  "queryPath": "operators",
+  "mutation": "OPERATORBATCHING",
+  "query": "GET_OPERATOR",
+  "chapters": {
+    "steelPreparation1": {
+      "spackQueryPath": "",
+      "spackFieldPath": "",
+      "queryPath": "operators.0",
+      "lookUpBy": "airTemperature",
+      "pages": [
+        {
+          "pageTitle": "Media Blasting",
+          "pageName": "operator",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "routToSpeckValue": "leadEngineers.0",
+              "fieldSpeckValue": "blastMedia",
+              "label": "Blast Media"
+            },
+            { "line": true },
+            {
+              "fieldName": "relativeHumidity",
+              "label": "Relative Humidity",
+              "placeholder": "Placeholder",
+              "routToSpeckMax": "leadEngineers.0",
+              "fieldSpeckMax": "relativeHumidityt",
+              "unit": "%",
+              "required": true
+            },
+            {
+              "fieldName": "airTemperature",
+              "label": "Air Temperature",
+              "routToSpeckMin": "leadEngineers.0",
+              "fieldSpeckMin": "airTemperature",
+              "placeholder": "Placeholder",
+              "unit": "C",
+              "required": true
+            },
+            {
+              "fieldName": "steelTemperature",
+              "label": "Steel Temperature",
+              "routToSpeckMin": "leadEngineers.0",
+              "fieldSpeckMin": "steelTemperature",
+              "placeholder": "Placeholder",
+              "unit": "C",
+              "required": true
+            },
+            {
+              "fieldName": "temperatureOverDewPoint",
+              "label": "Temperature over Dew Point",
+              "routToSpeckMin": "leadEngineers.0",
+              "fieldSpeckMin": "temperatureOverDewPoint",
+              "placeholder": "Placeholder",
+              "unit": "C",
+              "required": true
+            },
+            {
+              "fieldName": "equipmentIDMediaBlasting",
+              "label": "Equipment ID",
+              "routToSpeckSubtext": "leadEngineers.0",
+              "fieldSpeckSubtext": "primer1",
+              "subtext": "Jaja: {}",
+              "placeholder": "Placeholder",
+              "unit": "C"
+            },
+            {
+              "fieldName": "nextCalibrationDateMediaBlasting",
+              "label": "Next Calibration Date",
+              "type": "date"
+            },
+            {
+              "fieldName": "mediaBlastingStarted",
+              "label": "Media Blasting Started",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "steelPreparation2": {
+      "spackQueryPath": "",
+      "spackFieldPath": "",
+      "queryPath": "operators.0",
+      "lookUpBy": "airTemperature",
+      "pages": [
+        {
+          "pageTitle": "Media Blasting",
+          "pageName": "operator",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "fieldName": "inspectionOfSteelSurface",
+              "label": "Inspection of Steel Surface",
+              "subtext": "ISO 8501-3, Welds to be grade P3",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "solubleSaltLevel",
+              "label": "Soluble Salt Level",
+              "routToSpeckMax": "leadEngineers.0",
+              "fieldSpeckMax": "solubleSaltLevel",
+              "placeholder": "Result",
+              "unit": "mg/m2",
+              "required": true,
+              "type": "number"
+            },
+            {
+              "fieldName": "equipmentIDSolubleSaltLevel",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateSolubleSaltLevel",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            { "line": true },
+            {
+              "fieldName": "surfaceCleanliness",
+              "label": "Surface Cleanliness",
+              "routToSpeckSubtext": "leadEngineers.0",
+              "fieldSpeckSubtext": "surfaceCleanliness",
+              "subtext": "ISO 8501-1, Min. Sa {} (Rust grade A or B)",
+              "unit": "Sa"
+            },
+            {
+              "fieldName": "compressedAirCheck",
+              "label": "Compressed Air Check",
+              "subtext": "ASTM D 4285, No oil and no water",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "equipmentIDCompressedAirCheck",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateCompressedAirCheck",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            { "line": true },
+            {
+              "fieldName": "uvTest",
+              "label": "UV Test",
+              "subtext": "No reflecting light",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "equipmentIDUvTest",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateUvTest",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            { "line": true },
+            {
+              "fieldName": "blastMediaConductivity",
+              "label": "Blast Media Conductivity",
+              "routToSpeckMax": "leadEngineers.0",
+              "fieldSpeckMax": "blastMediaConductivity",
+              "placeholder": "Result",
+              "unit": "µS/cm",
+              "type": "number"
+            },
+            {
+              "fieldName": "equipmentIDBlastMediaConductivity",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateBlastMediaConductivity",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            { "line": true },
+            {
+              "fieldName": "surfaceProfileRoughness",
+              "placeholder": "Result",
+              "label": "Surface Profile (Roughness)",
+              "subtext": "Between 50.0µm and 100.0µm",
+              "unit": "µm",
+              "type": "number"
+            },
+            {
+              "fieldName": "equipmentIDSurfaceProfileRoughness",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            {
+              "fieldName": "referencePlateId",
+              "placeholder": "Reference Plate Id (Optional)"
+            },
+            { "line": true },
+            {
+              "fieldName": "dustTest",
+              "label": "Dust Test",
+              "placeholder": "Result",
+              "routToSpeckMax": "leadEngineers.0",
+              "fieldSpeckMax": "blastMediaConductivity",
+              "type": "number"
+            },
+            { "line": true },
+            {
+              "fieldName": "mediaBlastingTestsFinished",
+              "label": "Media Blasting Tests Finished",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "priming1": {
+      "spackQueryPath": "leadEngineers.0",
+      "spackFieldPath": "primer1",
+      "queryPath": "operators.0",
+      "lookUpBy": "batchNumberpriming1",
+      "pages": [
+        {
+          "pageTitle": "Priming 1",
+          "pageName": "operator",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "routToSpeckValue": "leadEngineers.0",
+              "fieldSpeckValue": "primer1",
+              "label": "Primer Number:"
+            },
+            { "line": true },
+            {
+              "fieldName": "batchNumberpriming1",
+              "label": "Batch Number",
+              "type": "number"
+            },
+            {
+              "fieldName": "startTimePriming1",
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimePriming1",
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "priming2": {
+      "spackQueryPath": "leadEngineers.0",
+      "spackFieldPath": "primer2",
+      "queryPath": "operators.0",
+      "lookUpBy": "batchNumberpriming2",
+      "pages": [
+        {
+          "pageTitle": "Priming 2",
+          "pageName": "operator",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "routToSpeckValue": "leadEngineers.0",
+              "fieldSpeckValue": "primer2",
+              "label": "Primer Number:"
+            },
+            { "line": true },
+            {
+              "fieldName": "batchNumberpriming2",
+              "label": "Batch Number",
+              "type": "number"
+            },
+            {
+              "fieldName": "startTimePriming2",
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimePriming2",
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "actualSteelMeasurements": {
+      "spackQueryPath": "leadEngineers.0",
+      "spackFieldPath": "primer2",
+      "queryPath": "operators.0",
+      "lookUpBy": "batchNumberpriming2",
+      "chapterTitle": "Actual Steel OD Measurements",
+      "pages": [
+        {
+          "pageTitle": "Pre-Coating",
+          "queryPath": "leadEngineers.0.measurementPointActualTvds",
+          "pageName": "measurementPointActualTvd",
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "routToSpeckValue": "leadEngineers.0",
+              "fieldSpeckValue": "primer2",
+              "label": "Primer Number:"
+            },
+            { "line": true },
+            {
+              "fieldName": "batchNumberpriming2",
+              "label": "Batch Number",
+              "type": "number"
+            },
+            {
+              "fieldName": "startTimePriming2",
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimePriming2",
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "rubberCement": {
+      "spackQueryPath": "leadEngineers.0",
+      "spackFieldPath": "rubberCementsBeforeCoating",
+      "queryPath": "operators.0",
+      "lookUpBy": "batchNumberpriming2",
+      "pages": [
+        {
+          "pageTitle": "Priming 2",
+          "pageName": "operator",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "routToSpeckValue": "leadEngineers.0",
+              "fieldSpeckValue": "primer2",
+              "label": "Rubber Cement:"
+            },
+            { "line": true },
+            {
+              "fieldName": "mixDateRubberCement",
+              "label": "Mix Date",
+              "type": "date"
+            },
+            {
+              "fieldName": "startTimeRubberCement",
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimeRubberCement",
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "coating1": {
+      "lookUpBy": "",
+      "spackQueryPath": "leadEngineers.0.vulcanizationSteps.0",
+      "spackFieldPath": "numberOfLayers",
+      "queryPath": "operators.0.coatingLayers",
+      "numberFromSpackField": true,
+      "pages": [
+        {
+          "pageTitle": "coatingLayer",
+          "pageName": "mixDate",
+          "repeatWithRespectToSpeck": true,
+          "spackQueryPath": "leadEngineers.0.vulcanizationSteps.0",
+          "spackFieldPath": "numberOfLayers",
+          "repeat": true,
+          "queryPath": "operators.0.coatingOperators.0.mixDate",
+          "fields": [
+            {
+              "routToSpeckValue": "leadEngineers.0",
+              "fieldSpeckValue": "blastMedia",
+              "label": "Blast Media"
+            },
+            {
+              "fieldName": "mixDate",
+              "label": "Mix Date",
+              "type": "date"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

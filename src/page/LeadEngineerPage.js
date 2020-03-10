@@ -11,8 +11,6 @@ export default pageInfo => {
   // const { loading1, error1, data: getGategory } = useQuery(query["GET_GEOMETRY"], {
   //   variables: { id: descriptionId }
   // });
-  console.log(pageInfo.match.params);
-  console.log(descriptionId, itemId);
   const { loading, error, data } = useQuery(query[leadEngineersJson.query], {
     variables: { id: itemId }
   });
@@ -25,6 +23,7 @@ export default pageInfo => {
       <DocumentAndSubmit
         componentsId={"leadEngineersPage"}
         document={leadEngineersJson}
+        submitOneField={true}
         reRender={() => setReRender(!reRender)}
         data={data}
         getQueryBy={itemId}

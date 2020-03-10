@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import VariableLabel from "./VariableLabel";
+import { variableLabel } from "components/Functions";
 
 import "../styles/styles.css";
 
@@ -13,35 +13,45 @@ export default props => {
   const [id, setId] = useState(0); // Id for this group
 
   // set page name and which group number you are on to documentDate
-  if (
-    !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
-    !documentDateContext.documentDate[props.thisChapter][props.pageName][
-      props.repeatStep
-    ]
-  ) {
-    let updateValues = {};
-    if (!documentDateContext.documentDate[props.thisChapter][props.pageName]) {
-      updateValues = { [props.repeatStep]: {} };
-    } else if (
+  useEffect(() => {
+    if (
+      !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
       !documentDateContext.documentDate[props.thisChapter][props.pageName][
         props.repeatStep
       ]
     ) {
-      updateValues = {
-        ...documentDateContext.documentDate[props.thisChapter][props.pageName],
-        [props.repeatStep]: {}
-      };
-    }
-    documentDateContext.setDocumentDate(prevState => ({
-      ...prevState,
-      [props.thisChapter]: {
-        ...prevState[props.thisChapter],
-        [props.pageName]: {
-          ...updateValues
-        }
+      let updateValues = {};
+      if (
+        !documentDateContext.documentDate[props.thisChapter][props.pageName]
+      ) {
+        updateValues = { [props.repeatStep]: {} };
+      } else if (
+        !documentDateContext.documentDate[props.thisChapter][props.pageName][
+          props.repeatStep
+        ]
+      ) {
+        updateValues = {
+          ...documentDateContext.documentDate[props.thisChapter][
+            props.pageName
+          ],
+          [props.repeatStep]: {}
+        };
       }
-    }));
-  }
+      documentDateContext.setDocumentDate(prevState => ({
+        ...prevState,
+        [props.thisChapter]: {
+          ...prevState[props.thisChapter],
+          [props.pageName]: {
+            ...updateValues
+          }
+        }
+      }));
+    }
+  }, [
+    documentDateContext.documentDate[props.thisChapter],
+    documentDateContext.documentDate[props.thisChapter][props.pageName],
+    props.data
+  ]);
   // sets default data or data from database to every field in group and store it in state
   useEffect(() => {
     if (props.fields) {
@@ -58,6 +68,8 @@ export default props => {
               ? false
               : value.select === "select"
               ? value.options[0]
+              : ["date", "datetime-local"].includes(value.type)
+              ? new Date()
               : ""
         }));
       });
@@ -69,6 +81,16 @@ export default props => {
         props.fields.map(value => {
           if (value.type === "file" || value.line || value.routToSpeckValue) {
             return null;
+          }
+          if (["date", "datetime-local"].includes(value.type)) {
+            return setState(prevState => ({
+              ...prevState,
+              [value.fieldName]: [undefined, null, ""].includes(
+                inputData[value.fieldName]
+              )
+                ? null
+                : new Date(inputData[value.fieldName])
+            }));
           }
           return setState(prevState => ({
             ...prevState,
@@ -103,7 +125,7 @@ export default props => {
             key={`${props.thisChapter}-${props.index}-jja`}
             title={
               props.indexVariableFieldGroupRepeatTitle
-                ? VariableLabel(
+                ? variableLabel(
                     props.fieldGroupRepeatTitle,
                     undefined,
                     undefined,
@@ -116,20 +138,23 @@ export default props => {
             }
           />
         ) : null}
-        {props.fields && (
-          <Form key={props.indexId}>
-            {
-              <FieldGroup
-                {...props}
-                key={props.index}
-                state={state}
-                setState={setState}
-                id={id}
-                file={props.data && props.data.file}
-              />
-            }
-          </Form>
-        )}
+        {props.fields &&
+          documentDateContext.documentDate[props.thisChapter][
+            props.pageName
+          ] && (
+            <Form key={props.indexId}>
+              {
+                <FieldGroup
+                  {...props}
+                  key={props.index}
+                  state={state}
+                  setState={setState}
+                  id={id}
+                  file={props.data && props.data.file}
+                />
+              }
+            </Form>
+          )}
       </>
     );
   } else {

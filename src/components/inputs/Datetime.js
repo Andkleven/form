@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 
 import DatePicker, { CalendarContainer } from "react-datepicker";
@@ -8,7 +8,7 @@ import enGB from "date-fns/locale/en-GB";
 registerLocale("enGB", enGB);
 
 function Datetime(props) {
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
   const ExampleCustomInput = ({ value, onClick }) => (
     <InputGroup>
       <Form.Control
@@ -22,7 +22,8 @@ function Datetime(props) {
           style={{ position: "relative", zIndex: 0 }}
           variant="light"
           className="border px-3"
-          onClick={date => setStartDate(new Date())}
+          // onClick={date => setStartDate(new Date())}
+          onClick={date => props.onChangeDate(props.name, new Date())}
         >
           <i className="far fa-clock" style={{ width: "1.2em" }} />
           <div className="d-none d-sm-inline ml-1">{" Current time"}</div>
@@ -33,7 +34,8 @@ function Datetime(props) {
           style={{ position: "relative", zIndex: 0 }}
           variant="light"
           className="border px-3"
-          onClick={date => setStartDate(null)}
+          onClick={date => props.onChangeDate(props.name, null)}
+          // onClick={date => setStartDate(null)}
         >
           <i className="far fa-times" style={{ width: "1.2em" }} />
         </Button>
@@ -55,8 +57,9 @@ function Datetime(props) {
       <div>
         <DatePicker
           className="w-100"
-          selected={startDate}
-          onChange={date => setStartDate(date)}
+          selected={props.value}
+          onChange={date => props.onChangeDate(props.name, date)}
+          // onChange={date => setStartDate(date)}
           customInput={<ExampleCustomInput />}
           showTimeSelect
           // showTimeInput

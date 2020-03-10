@@ -7,8 +7,12 @@ import {
   ChapterContext
 } from "./DocumentAndSubmit";
 import Line from "./Line";
-import { getSubtext, getDataFromQuery } from "./Functions";
-import VariableLabel from "./VariableLabel";
+import {
+  getSubtext,
+  getDataFromQuery,
+  calculateMaxMin,
+  variableLabel
+} from "./Functions";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
@@ -67,7 +71,17 @@ export default props => {
     fieldsContext.editField,
     chapterContext.editChapter
   ]);
+
   return props.fields.map((value, index) => {
+    let { min, max } = calculateMaxMin(
+      value.min,
+      value.routToSpeckMin,
+      value.fieldSpeckMin,
+      value.max,
+      value.routToSpeckMax,
+      value.fieldSpeckMax,
+      props.speckData
+    );
     if (value.line) {
       return <Line key={`${props.indexId}-${index}`} />;
     } else if (value.routToSpeckValue && value.fieldSpeckValue) {
@@ -77,8 +91,11 @@ export default props => {
           {...value}
           subtext={getSubtext(
             value.subtext,
-            value.max,
-            value.min,
+            props.speckData,
+            value.routToSpeckSubtext,
+            value.fieldSpeckSubtext,
+            max,
+            min,
             value.maxInput,
             value.minInput,
             value.unit,
@@ -107,10 +124,15 @@ export default props => {
               ? true
               : false
           }
+          min={min}
+          max={max}
           subtext={getSubtext(
             value.subtext,
-            value.max,
-            value.min,
+            props.speckData,
+            value.routToSpeckSubtext,
+            value.fieldSpeckSubtext,
+            max,
+            min,
             value.maxInput,
             value.minInput,
             value.unit,
@@ -127,14 +149,19 @@ export default props => {
     } else {
       return (
         <ReadField
+          {...props}
+          {...value}
           key={`${props.indexId}-${index}`}
           indexId={`${props.indexId}-${index}`}
           index={index}
           value={props.state[value.fieldName]}
           subtext={getSubtext(
             value.subtext,
-            value.max,
-            value.min,
+            props.speckData,
+            value.routToSpeckSubtext,
+            value.fieldSpeckSubtext,
+            max,
+            min,
             value.maxInput,
             value.minInput,
             value.unit,
@@ -143,7 +170,7 @@ export default props => {
           label={
             (value.queryNameVariableLabel && value.fieldNameVariableLabel) ||
             value.indexVariableLabel
-              ? VariableLabel(
+              ? variableLabel(
                   value.label,
                   documentDateContext.documentDate,
                   value.indexVariableLabel,
