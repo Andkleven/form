@@ -11,7 +11,7 @@ export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
   }
-  let stringFields = objectPath.get(data, path, null);
+  let stringFields = objectPath.get(data, path);
   if (!stringFields) {
     return null;
   }
@@ -168,29 +168,6 @@ export const getSubtext = (
 
   return minString + maxString + requiredString;
 };
-
-export const stringToDictionary = data => {
-  if (typeof data === "string") {
-    return JSON.parse(data.replace(/'/g, '"'));
-  }
-};
-
-export const getDataFromQuery = (data, path, field) => {
-  if (!data) {
-    return null;
-  }
-  let stringFields = objectPath.get(data, path);
-  if (!stringFields) {
-    return null;
-  }
-  let fields = stringToDictionary(stringFields.data);
-  if (!fields) {
-    return null;
-  }
-  return fields[field];
-};
-
-export const removeSpace = string => string.replace(/\s/g, "");
 
 export const searchProjects = (data, terms) => {
   let results = [];
@@ -374,3 +351,4 @@ export const chapterPages = (
       </Fragment>
     );
   });
+};
