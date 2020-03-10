@@ -1,24 +1,17 @@
 import React from "react";
-import { stringToDictionary } from "components/Functions";
 import OrderItem from "./OrderItem";
 
-const OrderList = props => {
+export default props => {
   const orders = props.orders.map((order, index) => {
-    let data = {};
-    if (order.data.trim() !== "") {
-      data = stringToDictionary(order.data);
-    }
     return (
       <OrderItem
-        key={JSON.stringify(index) + "OrderItem" + JSON.stringify(order.id)}
+        key={index}
         orderId={order.id}
-        projectName={data.projectName ? data.projectName : ""}
-        projectNumber={data.projectNumber ? data.projectNumber : ""}
+        projectName={order.data.projectName ? order.data.projectName : ""}
+        projectNumber={order.data.projectNumber ? order.data.projectNumber : ""}
         onDetail={props.onViewDetail}
       />
     );
   });
   return <ul className="events__list">{orders}</ul>;
 };
-
-export default OrderList;

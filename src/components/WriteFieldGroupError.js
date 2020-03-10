@@ -101,14 +101,7 @@ export default props => {
   }, [props.value, props.writeChapter, fieldsContext.editField]);
 
   if (props.readOnly) {
-    return (
-      <ReadOnlyField
-        {...props}
-        key={props.indexId}
-        label={label}
-        error={error}
-      />
-    );
+    return <ReadOnlyField {...props} label={label} error={error} />;
   } else {
     return <WriteField {...props} label={label} error={error} />;
   }

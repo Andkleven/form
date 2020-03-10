@@ -15,7 +15,6 @@ import {
   validaFieldWithValue,
   getDataFromQuery,
   getData,
-  stringToDictionaryForAQuery,
   mergePath
 } from "./Functions";
 import FindNextStage from "components/stages/FindNextStage";
@@ -47,11 +46,9 @@ export default props => {
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [repeatGroup, setRepeatGroup] = useState(false);
-  console.log(documentDate, 12);
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useEffect(() => {
-    let transformData = stringToDictionaryForAQuery(props.data);
-    setDocumentDate(transformData);
+    setDocumentDate(props.data);
   }, [props.componentsId, props.data]);
 
   const update = (cache, { data }) => {
