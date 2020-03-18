@@ -24,7 +24,7 @@ function Datetime(props) {
           variant="light"
           className="border px-3"
           // onClick={date => setStartDate(new Date())}
-          onClick={date => props.onChangeDate(props.name, new Date())}
+          onClick={date => props.onChangeDate(new Date())}
         >
           <i className="far fa-calendar" style={{ width: "1.2em" }} />
           <div className="d-none d-sm-inline ml-1">{" Today"}</div>
@@ -36,7 +36,7 @@ function Datetime(props) {
           variant="light"
           className="border px-3"
           // onClick={date => setStartDate(null)}
-          onClick={date => props.onChangeDate(props.name, null)}
+          onClick={date => props.onChangeDate(null)}
         >
           <i className="far fa-times" style={{ width: "1.2em" }} />
         </Button>
@@ -60,7 +60,7 @@ function Datetime(props) {
           className="w-100"
           selected={props.value}
           // onChange={date => setStartDate(date)}
-          onChange={date => props.onChangeDate(props.name, date)}
+          onChange={date => props.onChangeDate(date)}
           customInput={<ExampleCustomInput />}
           dateFormat="dd/MM/yyyy"
           locale={enGB}

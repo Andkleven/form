@@ -11,8 +11,9 @@ export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
   }
-  let stringFields = objectPath.get(data, path);
-  if (!stringFields) {
+
+  let stringFields = objectPath.get(data, path, null);
+  if (stringFields === null) {
     return null;
   }
   let fields = stringToDictionary(stringFields.data);
@@ -20,6 +21,29 @@ export const getDataFromQuery = (data, path, field) => {
     return null;
   }
   return fields[field];
+};
+
+export const findValue = (
+  data,
+  firstQuery,
+  secendQuery = null,
+  thirdQuery = null,
+  whichFirstIndex = 0,
+  whichSecendIndex = 0,
+  repeatStepList = []
+) => {
+  let path;
+  if (thirdQuery !== null) {
+    path = `${firstQuery}.${repeatStepList[0] +
+      whichFirstIndex}.${secendQuery}.${repeatStepList[1] +
+      whichSecendIndex}.${thirdQuery}`;
+  } else if (secendQuery !== null) {
+    path = `${firstQuery}.${repeatStepList[0] +
+      whichFirstIndex}.${secendQuery}`;
+  } else {
+    path = `${firstQuery}`;
+  }
+  return objectPath.get(data, path, null);
 };
 
 export const sumFieldInObject = (object, key) => {
@@ -32,15 +56,15 @@ export const sumFieldInObject = (object, key) => {
 
 export const getValue = (value, queryName, indexNumber, fieldName) => {
   let test;
-  Object.keys(value).forEach(key => {
-    if (
-      value[key][queryName] &&
-      value[key][queryName][indexNumber] !== undefined &&
-      value[key][queryName][indexNumber][fieldName] !== undefined
-    ) {
-      test = value[key][queryName][indexNumber][fieldName];
-    }
-  });
+
+  if (
+    value[queryName] &&
+    value[queryName][indexNumber] !== undefined &&
+    value[queryName][indexNumber][fieldName] !== undefined
+  ) {
+    test = value[queryName][indexNumber][fieldName];
+  }
+
   return test;
 };
 
@@ -60,8 +84,8 @@ export const removeSpace = string => string.replace(/\s/g, "");
 export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
   return (
     !getDataFromGroupWithLookUpBy ||
-    getDataFromGroupWithLookUpBy.data.trim() === "" ||
-    !stringToDictionary(getDataFromGroupWithLookUpBy.data)[lookUpBy]
+    !getDataFromGroupWithLookUpBy.data ||
+    !getDataFromGroupWithLookUpBy.data[lookUpBy]
   );
 };
 
@@ -96,26 +120,32 @@ export const variableString = (variable, string) => {
 
 export const variableLabel = (
   label,
-  value = undefined,
-  indexVariableLabel = undefined,
-  repeatStep = undefined,
-  queryNameVariableLabel = undefined,
-  fieldNameVariableLabel = undefined,
+  value,
+  firstQueryVariableLabel = undefined,
+  secendQueryVariableLabel = undefined,
+  thirdQueryVariableLabel = undefined,
+  firstIndexVariableLabel = undefined,
+  secendIndexVariableLabel = undefined,
+  repeatStepList = [],
   index = undefined
 ) => {
   if (!label) {
     return "";
   }
   let variableLabel = undefined;
+
   if (index === undefined) {
-    variableLabel = getValue(
+    variableLabel = findValue(
       value,
-      queryNameVariableLabel,
-      indexVariableLabel ? repeatStep + indexVariableLabel : repeatStep,
-      fieldNameVariableLabel
+      firstQueryVariableLabel,
+      secendQueryVariableLabel,
+      thirdQueryVariableLabel,
+      firstIndexVariableLabel,
+      secendIndexVariableLabel,
+      repeatStepList[0]
     );
   } else {
-    variableLabel = index;
+    variableLabel = index + 1;
   }
   return variableString(variableLabel, label);
 };
@@ -264,41 +294,11 @@ export const searchProjects = (data, terms) => {
   return results;
 };
 
-export const objectifyQuery = query => {
-  if (query) {
-    let newObject = { ...query };
 
-    const objectifyEntries = (query, oldPath = null) => {
-      let path;
-      Object.keys(query).forEach(key => {
-        path = oldPath === null ? key : oldPath + "." + key;
-        if (Array.isArray(query[key])) {
-          query[key].forEach((value, index) => {
-            objectifyEntries(value, path + "." + index.toString());
-          });
-        } else if (key === "data") {
-          if (typeof query[key] === "string") {
-            let isData = stringToDictionary(query[key]);
-            if (isData) {
-              objectPath.set(newObject, path, isData);
-            }
-          }
-        }
-      });
-    };
+export const validaFieldWithValue = validation => {
 
-    objectifyEntries(query);
-    return newObject;
-  }
-};
-
-export const validaFieldWithValue = (validation, data) => {
   Object.keys(validation).forEach(key => {
-    let paths = key.split("-");
-    if (
-      [undefined, null, ""].includes(data[paths[0]][paths[1]][paths[2]]) &&
-      !validation[key]
-    ) {
+    if (!validation[key]) {
       return false;
     }
   });
@@ -335,20 +335,115 @@ export const chapterPages = (
   firstIndex,
   stopLoop,
   editField,
-  isSubmitButton,
-  pageInfo
+  pageInfo,
+  lastChapter
 ) => {
   return pageInfo.pages.map((info, index) => {
     let showEditButton = !props.notEditButton && !index ? true : false;
-    let page = view(info, index, firstIndex + 1, stopLoop, showEditButton);
-    return (
-      <Fragment key={`${index}-${firstIndex}-cancas`}>
-        {page}
-        {index === pageInfo.pages.length - 1 &&
-          !editField &&
-          !props.notSubmitButton &&
-          isSubmitButton(firstIndex + 1)}
-      </Fragment>
+    let showSaveButton =
+      index === pageInfo.pages.length - 1 &&
+      !editField &&
+      !props.notSubmitButton
+        ? true
+        : false;
+    let page = view(
+      info,
+      index,
+      firstIndex + 1,
+      stopLoop,
+      showEditButton,
+      lastChapter,
+      showSaveButton
     );
+    return <Fragment key={`${index}-${firstIndex}-cancas`}>{page}</Fragment>;
   });
+};
+
+// Get data to Group or test if group have data in database
+export const getData = (info, arrayIndex, documentDate, isItData = false) => {
+  let data;
+  if (!documentDate) {
+    return null;
+  } else if (info.firstQueryPath) {
+    data = objectPath.get(
+      objectPath.get(documentDate, `${info.firstQueryPath}.${arrayIndex}`),
+      info.secondQueryPath
+    );
+  } else if (documentDate) {
+    data = objectPath.get(documentDate, info.queryPath);
+  } else {
+  }
+  if (isItData) {
+    return data[info.findByIndex ? arrayIndex : data.length - 1];
+  } else if (info.findByIndex) {
+    return data[arrayIndex];
+  } else {
+    return data;
+  }
+};
+
+export const mergePath = (info, arrayIndex, oldPath = null) => {
+  let path = oldPath === null ? "" : `${oldPath}.`;
+  if (info.firstQueryPath) {
+    path = `${path}${info.firstQueryPath}.${arrayIndex}.${
+      info.secondQueryPath
+    }`;
+  } else if (info.findByIndex) {
+    path = `${path}${info.queryPath}.${arrayIndex}`;
+  } else if (info.queryPath) {
+    path = `${path}${info.queryPath}`;
+  } else {
+    return null;
+  }
+  return path;
+};
+
+export const objectifyQuery = query => {
+  if (query) {
+    let newObject = JSON.parse(JSON.stringify(query));
+    const objectifyEntries = (query, oldPath = null) => {
+      let path;
+      Object.keys(query).forEach(key => {
+        path = oldPath === null ? key : oldPath + "." + key;
+        if (Array.isArray(query[key])) {
+          query[key].forEach((value, index) => {
+            objectifyEntries(value, path + "." + index.toString());
+          });
+        } else if (key === "data") {
+          if (typeof query[key] === "string") {
+            let isData = stringToDictionary(query[key]);
+            if (isData) {
+              objectPath.set(newObject, path, isData);
+            }
+          }
+        } else if (key === "__typename") {
+          objectPath.del(newObject, path);
+        }
+      });
+    };
+    objectifyEntries(query);
+    return newObject;
+  }
+};
+
+export const stringifyQuery = query => {
+  let newObject = { ...query };
+  const loopThroughQuery = (query, oldPath = null) => {
+    let path;
+    Object.keys(query).forEach(key => {
+      path = oldPath === null ? key : oldPath + "." + key;
+      if (Array.isArray(query[key])) {
+        query[key].forEach((value, index) => {
+          loopThroughQuery(value, path + "." + index.toString());
+        });
+      } else if (key === "data") {
+        let isData = JSON.stringify(query[key]);
+        if (isData) {
+          objectPath.set(newObject, path, isData);
+        }
+      }
+    });
+  };
+  loopThroughQuery(query);
+  return newObject;
 };

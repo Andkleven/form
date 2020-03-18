@@ -1,21 +1,12 @@
 import gql from "graphql-tag";
 
 const ORDER = gql`
-  mutation projects(
-    $project: [ProjectInupt]
-    $description: [DescriptionInupt]
-    $item: [ItemInput]
-    $uploadFile: [UploadFileInupt]
-  ) {
-    projects(
-      project: $project
-      description: $description
-      item: $item
-      uploadFile: $uploadFile
-    ) {
+  mutation projects($projects: [ProjectInupt]) {
+    projects(projects: $projects) {
       new {
         id
         data
+        leadEngineerDone
         descriptions {
           id
           data
@@ -47,26 +38,48 @@ const DELETEITEM = gql`
   }
 `;
 
+const UPDATEITEM = gql`
+  mutation updateItem(
+    $id: Int!
+    $data: String
+    $different: Boolean
+    $qrCode: String
+    $repair: Boolean
+    $operatorDone: Boolean
+    $qualityControlDone: Boolean
+    $stage: String
+  ) {
+    updateItem(
+      id: $id
+      data: $data
+      different: $different
+      qrCode: $qrCode
+      repair: $repair
+      operatorDone: $operatorDone
+      qualityControlDone: $qualityControlDone
+      stage: $stage
+    ) {
+      new {
+        id
+        data
+        different
+        qrCode
+        repair
+        operatorDone
+        qualityControlDone
+      }
+    }
+  }
+`;
+
 const LEADENGINEER = gql`
   mutation leadEngineers(
-    $leadEngineer: [UnderCategoriesOfLeadEngineerInupt]
-    $measurementPointActualTvd: [UnderCategoriesOfLeadEngineerInupt]
-    $customSteelPreparation: [UnderCategoriesOfLeadEngineerInupt]
-    $rubberCement: [UnderCategoriesOfLeadEngineerInupt]
-    $vulcanizationStep: [UnderCategoriesOfLeadEngineerInupt]
-    $coatingLayer: [UnderCategoriesOfLeadEngineerInupt]
-    $customFinalInspection: [UnderCategoriesOfLeadEngineerInupt]
+    $leadEngineers: [LeadEngineerInupt]
     $descriptionId: Int
     $itemId: Int
   ) {
     leadEngineers(
-      leadEngineer: $leadEngineer
-      measurementPointActualTvd: $measurementPointActualTvd
-      customSteelPreparation: $customSteelPreparation
-      rubberCement: $rubberCement
-      vulcanizationStep: $vulcanizationStep
-      coatingLayer: $coatingLayer
-      customFinalInspection: $customFinalInspection
+      leadEngineers: $leadEngineers
       descriptionId: $descriptionId
       itemId: $itemId
     ) {
@@ -77,10 +90,6 @@ const LEADENGINEER = gql`
           id
           data
         }
-        customSteelPreparations {
-          id
-          data
-        }
         rubberCements {
           id
           data
@@ -88,14 +97,14 @@ const LEADENGINEER = gql`
         vulcanizationSteps {
           id
           data
-        }
-        coatingLayers {
-          id
-          data
-        }
-        customFinalInspections {
-          id
-          data
+          coatingLayers {
+            id
+            data
+            cumulativeThicknes {
+              id
+              data
+            }
+          }
         }
       }
     }
@@ -105,7 +114,6 @@ const LEADENGINEER = gql`
 const OPERATORBATCHING = gql`
   mutation operators(
     $operator: [UnderCategoriesOfLeadEngineerInupt]
-    $customMediaBlasting: [UnderCategoriesOfLeadEngineerInupt]
     $coatingOperator: [UnderCategoriesOfLeadEngineerInupt]
     $mixDate: [UnderCategoriesOfLeadEngineerInupt]
     $measurementPointOperator: [UnderCategoriesOfLeadEngineerInupt]
@@ -115,7 +123,6 @@ const OPERATORBATCHING = gql`
   ) {
     operators(
       operator: $operator
-      customMediaBlasting: $customMediaBlasting
       coatingOperator: $coatingOperator
       mixDate: $mixDate
       measurementPointOperator: $measurementPointOperator
@@ -133,10 +140,6 @@ const OPERATORBATCHING = gql`
           operators {
             id
             data
-            customMediaBlastings {
-              id
-              data
-            }
             coatingOperators {
               id
               data
@@ -163,7 +166,6 @@ const OPERATORBATCHING = gql`
 const OPERATOR = gql`
   mutation operators(
     $operator: [UnderCategoriesOfLeadEngineerInupt]
-    $customMediaBlasting: [UnderCategoriesOfLeadEngineerInupt]
     $coatingOperator: [UnderCategoriesOfLeadEngineerInupt]
     $mixDate: [UnderCategoriesOfLeadEngineerInupt]
     $measurementPointOperator: [UnderCategoriesOfLeadEngineerInupt]
@@ -173,7 +175,6 @@ const OPERATOR = gql`
   ) {
     operators(
       operator: $operator
-      customMediaBlasting: $customMediaBlasting
       coatingOperator: $coatingOperator
       mixDate: $mixDate
       measurementPointOperator: $measurementPointOperator
@@ -184,10 +185,6 @@ const OPERATOR = gql`
       new {
         id
         data
-        customMediaBlastings {
-          id
-          data
-        }
         coatingOperators {
           id
           data
@@ -222,6 +219,7 @@ const LEADENGINEERDONE = gql`
 const mutations = {
   ORDER,
   DELETEITEM,
+  UPDATEITEM,
   LEADENGINEER,
   OPERATORBATCHING,
   OPERATOR,

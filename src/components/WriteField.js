@@ -1,6 +1,11 @@
 import React, { useState, useContext } from "react";
 import ErrorMessage from "./ErrorMessage";
-import { FieldsContext, DocumentDateContext } from "./DocumentAndSubmit";
+import {
+  FieldsContext,
+  DocumentDateContext,
+  ChapterContext
+} from "./DocumentAndSubmit";
+import objectPath from "object-path";
 import SubmitButton from "./SubmitButton";
 import { allTrue } from "./Functions";
 import Input from "components/Input";
@@ -9,14 +14,15 @@ import "../styles/styles.css";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
+  const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
-  const onChangeDate = (name, date) => {
-    props.setState(prevState => ({
-      ...prevState,
-      [name]: date
-    }));
+  const onChangeDate = date => {
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, props.path, data);
+      return { ...prevState };
+    });
   };
 
   const onChange = e => {
@@ -30,10 +36,17 @@ export default props => {
       (min && min < Number(value))
     ) {
       if (["checkbox", "radio", "switch"].includes(type)) {
-        props.setState(prevState => ({
-          ...prevState,
-          [name]: !props.state[name]
-        }));
+        let oldValue = objectPath.get(
+          documentDateContext.documentDate,
+          props.path,
+          false
+        );
+        documentDateContext.setDocumentDate(prevState => {
+          objectPath.set(prevState, props.path, oldValue);
+          return {
+            ...prevState
+          };
+        });
       } else {
         if (type === "number") {
           let decimal = step
@@ -46,74 +59,36 @@ export default props => {
           ) {
             numberValue = props.state[name];
           }
-          props.setState(prevState => ({
-            ...prevState,
-            [name]: numberValue
-          }));
+          documentDateContext.setDocumentDate(prevState => {
+            objectPath.set(prevState, props.path, numberValue);
+            return {
+              ...prevState
+            };
+          });
         } else {
-          props.setState(prevState => ({ ...prevState, [name]: value }));
+          documentDateContext.setDocumentDate(prevState => {
+            objectPath.set(prevState, props.path, value);
+            return {
+              ...prevState
+            };
+          });
         }
       }
-    }
-  };
-
-  const prepareDataForSubmit = (variables, key, dictionary) => {
-    Object.keys(dictionary).forEach(value => {
-      let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
-      if (key === "uploadFile") {
-        variables[key].push({
-          ...saveInfo,
-          data: JSON.stringify(dictionary[value])
-        });
-      } else {
-        variables[key].push({
-          ...saveInfo,
-          data: JSON.stringify(dictionary[value])
-        });
-      }
-    });
-  };
-
-  const submitData = data => {
-    // let files;
-    // if (data["files"]) {
-    //   files = data["files"];
-    //   delete data["files"];
-    // }
-    let variables = {};
-    Object.keys(data).forEach(key => {
-      variables[key] = [];
-      props.prepareDataForSubmit(variables, key, data[key]);
-    });
-    props.mutation({
-      variables: {
-        ...variables,
-        descriptionId: props.descriptionId,
-        itemId: props.itemId
-      }
-    });
-  };
-
-  const submitHandler = (event, thisChapter) => {
-    event.persist();
-    event.preventDefault();
-
-    if (Object.values(fieldsContext.validationPassed).every(allTrue)) {
-      submitData(documentDateContext.documentDate[thisChapter]);
-      fieldsContext.setIsSubmited(false);
-      fieldsContext.setvalidationPassed({});
-      fieldsContext.setEditField("");
-    } else {
-      fieldsContext.setIsSubmited(true);
     }
   };
 
   const handelBack = event => {
     event.persist();
     event.preventDefault();
-    fieldsContext.setEditField("");
+    chapterContext.setEditChapter(0);
     fieldsContext.setvalidationPassed({});
+  };
+
+  const handelReRender = event => {
+    event.persist();
+    event.preventDefault();
+    chapterContext.setEditChapter(0);
+    props.submitHandler(documentDateContext.documentDate);
   };
 
   return (
@@ -130,9 +105,7 @@ export default props => {
       <ErrorMessage showMinMax={showMinMax} error={props.error} />
       {props.submitButton ? (
         <>
-          <SubmitButton
-            onClick={event => submitHandler(event, props.thisChapter)}
-          />
+          <SubmitButton onClick={event => handelReRender(event)} />
           {fieldsContext.isSubmited && props.submitButton ? (
             <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
           ) : null}

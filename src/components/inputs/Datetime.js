@@ -23,7 +23,7 @@ function Datetime(props) {
           variant="light"
           className="border px-3"
           // onClick={date => setStartDate(new Date())}
-          onClick={date => props.onChangeDate(props.name, new Date())}
+          onClick={date => props.onChangeDate(new Date())}
         >
           <i className="far fa-clock" style={{ width: "1.2em" }} />
           <div className="d-none d-sm-inline ml-1">{" Current time"}</div>
@@ -34,7 +34,7 @@ function Datetime(props) {
           style={{ position: "relative", zIndex: 0 }}
           variant="light"
           className="border px-3"
-          onClick={date => props.onChangeDate(props.name, null)}
+          onClick={date => props.onChangeDate(null)}
           // onClick={date => setStartDate(null)}
         >
           <i className="far fa-times" style={{ width: "1.2em" }} />
@@ -58,7 +58,7 @@ function Datetime(props) {
         <DatePicker
           className="w-100"
           selected={props.value}
-          onChange={date => props.onChangeDate(props.name, date)}
+          onChange={date => props.onChangeDate(date)}
           // onChange={date => setStartDate(date)}
           customInput={<ExampleCustomInput />}
           showTimeSelect

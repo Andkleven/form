@@ -9,41 +9,22 @@ import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
+import { objectifyQuery } from "components/Functions";
 
-export default pageInfo => {
-  let { _id } = pageInfo.match.params;
+export default props => {
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
+  const [fixedData, setFixedData] = useState(null);
+
   const setstate = counter => {
     setCounter(counter);
   };
   const { loading, error, data } = useQuery(query[itemsJson.query], {
-    variables: { id: _id }
+    variables: { id: props._id }
   });
-
-  useEffect(() => {
-    if (!error && !loading) {
-      if (
-        data.projects[0].descriptions[counter - 1] &&
-        data.projects[0].descriptions[counter - 1].items
-      ) {
-        setGeometryData(data.projects[0].descriptions[counter - 1]);
-      } else {
-        setGeometryData(0);
-      }
-      setProjectData(JSON.parse(data.projects[0].data.replace(/'/g, '"')));
-      let countNumberOfItems = 0;
-      data.projects[0].descriptions.forEach(description => {
-        // console.log(items, "item");
-        countNumberOfItems += description.items.length;
-        // console.log(countNumberOfItems, "count");
-      });
-      setNumberOfItems(countNumberOfItems);
-    }
-  }, [data, error, loading, counter, reRender]);
 
   const deleteFromCache = (
     cache,
@@ -55,7 +36,7 @@ export default pageInfo => {
   ) => {
     const oldData = cache.readQuery({
       query: query["GET_ORDER_GEOMETRY"],
-      variables: { id: _id }
+      variables: { id: props._id }
     });
     oldData.projects[0].descriptions[
       counter - 1
@@ -64,7 +45,7 @@ export default pageInfo => {
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
-      variables: { id: _id },
+      variables: { id: props._id },
       data: {
         projects: oldData.projects
       }
@@ -73,7 +54,7 @@ export default pageInfo => {
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
-      variables: { id: _id }
+      variables: { id: props._id }
     });
     let array = objectPath.get(oldData, itemsJson.queryPath);
     let index = array.findIndex(
@@ -94,18 +75,63 @@ export default pageInfo => {
   const [
     LeadEngineerDoneMutation,
     { loading: loadingLeadEngineerDone, error: errorLeadEngineerDone }
-  ] = useMutation(mutations["LEADENGINEERDONE"], { update });
+  ] = useMutation(mutations["ORDER"], { update });
 
-  const [deleteItem] = useMutation(mutations["DELETEITEM"], {
+  const [
+    deleteItem,
+    { loading: loadingDelete, error: errorDelete }
+  ] = useMutation(mutations["DELETEITEM"], {
     update: deleteFromCache
   });
   const [
     mutationDiffreant,
     { loading: loadingMutation, error: errorMutation }
   ] = useMutation(mutations["ORDER"]);
+
+  useEffect(() => {
+    setFixedData(objectifyQuery(data));
+  }, [
+    loading,
+    error,
+    data,
+    loadingMutation,
+    errorMutation,
+    loadingLeadEngineerDone,
+    errorLeadEngineerDone,
+    loadingDelete,
+    errorDelete
+  ]);
+
+  useEffect(() => {
+    if (
+      !error &&
+      !loading &&
+      fixedData &&
+      fixedData.projects &&
+      fixedData.projects[0].descriptions
+    ) {
+      if (
+        fixedData &&
+        fixedData.projects &&
+        fixedData.projects[0].descriptions &&
+        fixedData.projects[0].descriptions[counter - 1] &&
+        fixedData.projects[0].descriptions[counter - 1].items
+      ) {
+        setGeometryData(fixedData.projects[0].descriptions[counter - 1]);
+      } else {
+        setGeometryData(0);
+      }
+      setProjectData(fixedData.projects[0].data);
+      let countNumberOfItems = 0;
+      fixedData.projects[0].descriptions.forEach(description => {
+        countNumberOfItems += description.items.length;
+      });
+      setNumberOfItems(countNumberOfItems);
+    }
+  }, [counter, fixedData]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
   return (
     <Paper>
       <DocumentAndSubmit
@@ -116,10 +142,10 @@ export default pageInfo => {
         submitOneField={true}
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
-        data={data}
+        data={fixedData}
         arrayIndex={counter - 1}
-        getQueryBy={_id}
-        foreignKey={_id}
+        getQueryBy={props._id}
+        foreignKey={props._id}
       />
       {geometryData && geometryData.items && geometryData.items.length ? (
         <>
@@ -168,14 +194,14 @@ export default pageInfo => {
         <Button onClick={() => setstate(counter + 1)}>Next</Button>
       ) : (
         numberOfItems == projectsData.totalNumberOfItems &&
-        (data.projects[0].leadEngineerDone ? (
+        (fixedData.projects[0].leadEngineerDone ? (
           <h3>In Production</h3>
         ) : (
           <Button
             onClick={() =>
               LeadEngineerDoneMutation({
                 variables: {
-                  project: [{ id: _id, leadEngineerDone: true }]
+                  projects: [{ id: props._id, leadEngineerDone: true }]
                 }
               })
             }
@@ -184,6 +210,7 @@ export default pageInfo => {
           </Button>
         ))
       )}
+
       {loadingMutation && <p>Loading...</p>}
       {errorMutation && <p>Error :( Please try again</p>}
       {loadingLeadEngineerDone && <p>Loading...</p>}

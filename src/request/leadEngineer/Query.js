@@ -27,25 +27,21 @@ const ALL = gql`
               id
               data
             }
-            customSteelPreparations {
-              id
-              data
-            }
             rubberCements {
-              id
-              data
-            }
-            customFinalInspections {
               id
               data
             }
             vulcanizationSteps {
               id
               data
-            }
-            coatingLayers {
-              id
-              data
+              coatingLayers {
+                id
+                data
+                cumulativeThicknes {
+                  id
+                  data
+                }
+              }
             }
           }
         }
@@ -100,10 +96,6 @@ const GET_LEAD_ENGINEER = gql`
     leadEngineers(item: $id) {
       id
       data
-      customSteelPreparations {
-        id
-        data
-      }
       measurementPointActualTvds {
         id
         data
@@ -111,16 +103,16 @@ const GET_LEAD_ENGINEER = gql`
       vulcanizationSteps {
         id
         data
-      }
-      coatingLayers {
-        id
-        data
+        coatingLayers {
+          id
+          data
+          cumulativeThicknes {
+            id
+            data
+          }
+        }
       }
       rubberCements {
-        id
-        data
-      }
-      customFinalInspections {
         id
         data
       }
@@ -144,34 +136,26 @@ const GET_OPERATOR = gql`
             id
             data
           }
-          customSteelPreparations {
-            id
-            data
-          }
           rubberCements {
-            id
-            data
-          }
-          customFinalInspections {
             id
             data
           }
           vulcanizationSteps {
             id
             data
-          }
-          coatingLayers {
-            id
-            data
+            coatingLayers {
+              id
+              data
+              cumulativeThicknes {
+                id
+                data
+              }
+            }
           }
         }
         operators {
           id
           data
-          customMediaBlastings {
-            id
-            data
-          }
           coatingOperators {
             id
             data

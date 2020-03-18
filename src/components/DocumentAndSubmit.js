@@ -1,17 +1,28 @@
-import React, { useState, createContext, useEffect, Fragment } from "react";
+import React, {
+  useState,
+  createContext,
+  useEffect,
+  Fragment,
+  useMemo,
+  useLayoutEffect
+} from "react";
 import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
-import SubmitButton from "./SubmitButton";
+import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "./Title";
 import {
+  chapterPages,
   emptyField,
   notDataInField,
   allTrue,
-  removeEmptyValueFromObject,
-  validaFieldWithValue
+  validaFieldWithValue,
+  getDataFromQuery,
+  getData,
+  mergePath,
+  stringifyQuery
 } from "./Functions";
 import FindNextStage from "components/stages/FindNextStage";
 
@@ -19,6 +30,8 @@ export const ChapterContext = createContext();
 export const FilesContext = createContext();
 export const DocumentDateContext = createContext();
 export const FieldsContext = createContext();
+
+let document;
 
 export default props => {
   useEffect(() => {
@@ -36,17 +49,19 @@ export default props => {
   }, [props.componentsId, props.document, props.data]);
 
   const [editChapter, setEditChapter] = useState(0);
-  const [editField, setEditField] = useState("");
-  const [documentDate, setDocumentDate] = useState({}); // Store data for all document
+  const [documentDate, setDocumentDate] = useState(); // Store data for all document
   const [files, setFiles] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [repeatGroup, setRepeatGroup] = useState(false);
+  const [lastChapter, setLastChapter] = useState(0);
 
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
-  useEffect(() => {
-    setDocumentDate({});
-  }, [props.componentsId]);
+  useLayoutEffect(() => {
+    if (props.data) {
+      setDocumentDate(JSON.parse(JSON.stringify(props.data)));
+    }
+  }, [props.componentsId, props.data]);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -157,47 +172,46 @@ export default props => {
     }
   );
 
-  let stopLoop = false; // True when we are at the first chaper now one have wirte on
-  let lastChapter = 0; // Map through chaper in document
+  const createDocumentFromForm = (props, view) => {
+    let stopLoop = false; // True when we are at the first chaper now one have wirte on
 
-  const createDocumentFromForm = (
-    props,
-    getData,
-    view,
-    isSubmitButton,
-    editField
-  ) => {
+    let temporaryLastChapter = 0;
     const document = props.document.chapters.map((pageInfo, firstIndex) => {
       let chapter; // new chapter to add to document
       if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
-        lastChapter = firstIndex + 1;
+        temporaryLastChapter = firstIndex + 1;
       }
       if (stopLoop) {
         chapter = null;
       } else {
-        let getDataFromGroupWithLookUpBy = getData(pageInfo, true);
+        let getDataFromGroupWithLookUpBy = getData(
+          pageInfo,
+          props.arrayIndex,
+          props.data,
+          true
+        );
+
         // if now data in lookUpBy this is last chapter
         if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
-          lastChapter = firstIndex + 1;
+          temporaryLastChapter = firstIndex + 1;
         }
         // Map through pages in this pages
         chapter = pageInfo.pages.map((info, index) => {
           let showEditButton = !props.notEditButton && !index ? true : false;
+          let showSaveButton =
+            index === pageInfo.pages.length - 1 && !props.notSubmitButton
+              ? true
+              : false;
           let page = view(
             info,
             index,
             firstIndex + 1,
             stopLoop,
-            showEditButton
+            showEditButton,
+            showSaveButton
           );
           return (
-            <Fragment key={`${index}-${firstIndex}-cancas`}>
-              {page}
-              {index === pageInfo.pages.length - 1 &&
-                !editField &&
-                !props.notSubmitButton &&
-                isSubmitButton(firstIndex + 1)}
-            </Fragment>
+            <Fragment key={`${index}-${firstIndex}-cancas`}>{page}</Fragment>
           );
         });
         // if now data in lookUpBy stop loop
@@ -214,16 +228,12 @@ export default props => {
         </Fragment>
       );
     });
+    setLastChapter(temporaryLastChapter);
     return document;
   };
 
-  const createDocumentFromSpeck = (
-    props,
-    getData,
-    view,
-    isSubmitButton,
-    editField
-  ) => {
+  const createDocumentFromSpeck = (props, view) => {
+    let stopLoop = false; // True when we are at the first chaper now one have wirte on
     const subchapter = (
       getDataFromGroupWithLookUpBy,
       i,
@@ -235,7 +245,7 @@ export default props => {
       if (
         notDataInField(getDataFromGroupWithLookUpBy[i], chaptersInfo.lookUpBy)
       ) {
-        lastChapter = chapterCount;
+        setLastChapter(chapterCount);
       }
       if (stopLoop && chapter.length === 0) {
         chapter = null;
@@ -245,8 +255,6 @@ export default props => {
           view,
           chapterCount,
           stopLoop,
-          editField,
-          isSubmitButton,
           chaptersInfo
         );
       }
@@ -275,7 +283,11 @@ export default props => {
       if (stopLoop) {
         chapter = null;
       } else {
-        let getDataFromGroupWithLookUpBy = getData(chaptersInfo);
+        let getDataFromGroupWithLookUpBy = getData(
+          chaptersInfo,
+          props.arrayIndex,
+          props.data
+        );
         chapter = [];
         if (chaptersInfo.numberFromSpackField) {
           let speckChapterData = getDataFromQuery(
@@ -320,47 +332,11 @@ export default props => {
     return document;
   };
 
-  // Save number of chaper to documentDate
-  if (Object.keys(documentDate).length === 0) {
-    let chapters = {};
-    props.document.chapters.forEach((v, index) => {
-      chapters[index + 1] = {};
-    });
-    return setDocumentDate({ ...chapters });
-  }
-
-  // Get data to Group or test if group have data in database
-  const getData = (info, isItData = false) => {
-    let data;
-    if (!props.data) {
-      return null;
-    } else if (info.firstQueryPath) {
-      data = objectPath.get(
-        objectPath.get(
-          props.data,
-          `${info.firstQueryPath}.${props.arrayIndex}`
-        ),
-        info.secondQueryPath
-      );
-    } else if (props.data) {
-      data = objectPath.get(props.data, info.queryPath);
-    } else {
-      console.error("ERROR, Look Up document.js message:", 1234567);
-    }
-    if (isItData) {
-      return data[info.findByIndex ? props.arrayIndex : data.length - 1];
-    } else if (info.findByIndex) {
-      return data[props.arrayIndex];
-    } else {
-      return data;
-    }
-  };
-
   // Find or test if Group have a ForeignKey
   const testForForeignKey = info => {
     if (info.getForeignKey) {
       let foreignKey = objectPath.get(
-        props.data,
+        documentDate,
         info.firstQueryPath + "." + JSON.stringify(props.arrayIndex)
       );
       if (foreignKey) {
@@ -372,104 +348,82 @@ export default props => {
       return props.foreignKey;
     }
   };
-
+  // useEffect(() => {
+  //   if (errorMutation) {
+  //     objectifyQuery(documentDate);
+  //   }
+  // }, [errorMutation]);
   // Adds the submit button on the right place
-  const isSubmitButton = thisChapter => {
-    if (editChapter) {
-      if (thisChapter === editChapter) {
-        return (
-          <>
-            <SubmitButton
-              key={thisChapter}
-              onClick={submitHandler.bind(this, thisChapter)}
-            />
-            {isSubmited && (
-              <div style={{ fontSize: 12, color: "red" }}>
-                See Error Message
-              </div>
-            )}
-          </>
-        );
-      }
-    } else if (thisChapter === lastChapter) {
-      return (
-        <>
-          <SubmitButton
-            key={thisChapter}
-            onClick={submitHandler.bind(this, thisChapter)}
-            name={
-              props.saveButton &&
-              !Object.values(validationPassed).every(allTrue)
-                ? "Save"
-                : null
-            }
-          />
-          {isSubmited && (
-            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
-          )}
-        </>
+  // const isSubmitButton = useCallback(
+  //   thisChapter => {
+  //     if (editChapter) {
+  //       if (thisChapter === editChapter) {
+  //         return (
+  //           <>
+  //             <SubmitButton key={thisChapter} onClick={() => submitHandler()} />
+  //             {isSubmited && (
+  //               <div style={{ fontSize: 12, color: "red" }}>
+  //                 See Error Message
+  //               </div>
+  //             )}
+  //           </>
+  //         );
+  //       }
+  //     } else if (thisChapter === lastChapter) {
+  //       return (
+  //         <>
+  //           <SubmitButton
+  //             key={thisChapter}
+  //             onClick={() => submitHandler()}
+  //             name={
+  //               props.saveButton &&
+  //               !Object.values(validationPassed).every(allTrue)
+  //                 ? "Save"
+  //                 : null
+  //             }
+  //           />
+  //           {isSubmited && (
+  //             <div style={{ fontSize: 12, color: "red" }}>
+  //               See Error Message
+  //             </div>
+  //           )}
+  //         </>
+  //       );
+  //     }
+  //     return null;
+  //   },
+  //   [lastChapter]
+  // );
+
+  const submitData = documentDateNow => {
+    if (documentDateNow) {
+      let variables = stringifyQuery(
+        JSON.parse(JSON.stringify(documentDateNow))
       );
+      mutation({
+        variables: {
+          ...variables,
+          descriptionId:
+            Number(props.different) === 0
+              ? Number(props.descriptionId)
+              : undefined,
+          itemId: Number(props.different) ? Number(props.itemId) : undefined,
+          itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
+          stage:
+            props.saveButton && Object.values(validationPassed).every(allTrue)
+              ? FindNextStage(documentDate, props.stage, props.geometry)
+              : undefined
+        }
+      });
+      setFiles([]);
     }
-    return null;
   };
-
-  const prepareDataForSubmit = (variables, key, dictionary) => {
-    Object.keys(dictionary).forEach(value => {
-      let saveInfo = dictionary[value]["saveInfo"];
-      delete dictionary[value]["saveInfo"];
-      if (props.partialBatching) {
-        removeEmptyValueFromObject(dictionary[value]);
-      }
-      if (key === "uploadFile") {
-        variables[key].push({
-          ...saveInfo,
-          data: JSON.stringify(dictionary[value]),
-          files
-        });
-      } else {
-        variables[key].push({
-          ...saveInfo,
-          data: JSON.stringify(dictionary[value])
-        });
-      }
-    });
-  };
-
-  const submitData = data => {
-    // let files;
-    // if (data["files"]) {
-    //   files = data["files"];
-    //   delete data["files"];
-    // }
-    let variables = {};
-    Object.keys(data).forEach(key => {
-      variables[key] = [];
-      prepareDataForSubmit(variables, key, data[key]);
-    });
-    mutation({
-      variables: {
-        ...variables,
-        descriptionId:
-          Number(props.different) === 0
-            ? Number(props.descriptionId)
-            : undefined,
-        itemId: Number(props.different) ? Number(props.itemId) : undefined,
-        itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
-        stage:
-          props.saveButton && Object.values(validationPassed).every(allTrue)
-            ? FindNextStage(props.data, props.stage, props.geometry)
-            : null
-      }
-    });
-    setFiles([]);
-  };
-  const submitHandler = thisChapter => {
+  const submitHandler = documentDateNow => {
     if (
-      (props.saveButton &&
-        validaFieldWithValue(validationPassed, documentDate[thisChapter])) ||
+      (props.saveButton && validaFieldWithValue(validationPassed)) ||
       Object.values(validationPassed).every(allTrue)
     ) {
-      submitData(documentDate[thisChapter]);
+      submitData(documentDateNow);
       setIsSubmited(false);
       setRepeatGroup(!repeatGroup);
       setEditChapter(0);
@@ -478,14 +432,22 @@ export default props => {
       setIsSubmited(true);
     }
   };
-  const view = (info, index, thisChapter, stopLoop, showEditButton) => {
+  const view = (
+    info,
+    index,
+    thisChapter,
+    stopLoop,
+    showEditButton,
+    showSaveButton
+  ) => {
     return (
       <Page
         {...info}
         {...props}
         key={`${index}-Page`}
         submitHandler={submitHandler}
-        data={getData(info)}
+        data={getData(info, props.arrayIndex, props.data)}
+        path={mergePath(info, props.arrayIndex)}
         foreignKey={testForForeignKey(info)}
         thisChapter={thisChapter}
         stopLoop={stopLoop}
@@ -494,53 +456,51 @@ export default props => {
         index={index}
         repeatGroup={repeatGroup}
         submitData={submitData}
-        descriptionsId={
-          Number(props.different) === 0 ? Number(props.descriptionsId) : 0
-        }
-        prepareDataForSubmit={prepareDataForSubmit}
-        itemsId={Number(props.different) ? Number(props.itemsId) : 0}
         mutation={mutation}
+        showSaveButton={showSaveButton}
       />
     );
   };
-
-  let document;
-
-  if (props.stageForm) {
-    document = createDocumentFromSpeck(props, view, isSubmitButton, editField);
-  } else {
-    document = createDocumentFromForm(
-      props,
-      getData,
-      view,
-      isSubmitButton,
-      editField
-    );
-  }
-
-  return (
-    <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
-      <FieldsContext.Provider
-        value={{
-          validationPassed,
-          setvalidationPassed,
-          editField,
-          setEditField,
-          isSubmited,
-          setIsSubmited
-        }}
-      >
-        <ChapterContext.Provider
-          value={{ lastChapter, editChapter, setEditChapter }}
+  useMemo(() => {
+    if (props.stageForm) {
+      document = createDocumentFromSpeck(props, view);
+    } else {
+      document = createDocumentFromForm(props, view);
+    }
+  }, [props.data]);
+  if (documentDate) {
+    return (
+      <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
+        <FieldsContext.Provider
+          value={{
+            validationPassed,
+            setvalidationPassed,
+            isSubmited,
+            setIsSubmited
+          }}
         >
-          <FilesContext.Provider value={{ files, setFiles }}>
-            <Title title={props.document.documentTitle} />
-            {document}
-            {loadingMutation && <p>Loading...</p>}
-            {errorMutation && <p>Error :( Please try again</p>}
-          </FilesContext.Provider>
-        </ChapterContext.Provider>
-      </FieldsContext.Provider>
-    </DocumentDateContext.Provider>
-  );
+          <ChapterContext.Provider
+            value={{ lastChapter, editChapter, setEditChapter }}
+          >
+            <FilesContext.Provider value={{ files, setFiles }}>
+              <Title title={props.document.documentTitle} />
+              <Form
+                onSubmit={e => {
+                  e.persist();
+                  e.preventDefault();
+                  submitHandler();
+                }}
+              >
+                {document}
+                {loadingMutation && <p>Loading...</p>}
+                {errorMutation && <p>Error :( Please try again</p>}
+              </Form>
+            </FilesContext.Provider>
+          </ChapterContext.Provider>
+        </FieldsContext.Provider>
+      </DocumentDateContext.Provider>
+    );
+  } else {
+    return null;
+  }
 };

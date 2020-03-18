@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FieldsContext } from "./DocumentAndSubmit";
+import { FieldsContext, ChapterContext } from "./DocumentAndSubmit";
 import { Form } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 
@@ -7,11 +7,14 @@ import "../styles/styles.css";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
+  const chapterContext = useContext(ChapterContext);
   // make it write field
   const handelClick = () => {
-    if (!props.readOnly && props.submitOneField) {
+    if (!props.readOnly) {
       fieldsContext.setIsSubmited(false);
-      fieldsContext.setEditField(props.indexId);
+      chapterContext.setEditChapter(
+        `${props.repeatStepList}-${props.fieldName}`
+      );
       fieldsContext.setvalidationPassed({});
     }
   };
