@@ -1,68 +1,31 @@
 import React, { useState, useEffect, useContext } from "react";
 import objectPath from "object-path";
-import { Form } from "react-bootstrap";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import { variableLabel, emptyObject } from "components/Functions";
+import { variableString, emptyObject } from "components/Functions";
 
 import "../styles/styles.css";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  // const [state, setState] = useState({}); // Data for this group
-  const [id, setId] = useState(0); // Id for this group
+  const [trigger, setTrigger] = useState(false);
+  const [state, setState] = useState();
 
-  // set page name and which group number you are on to documentDate
-  // useEffect(() => {
-  //   if (
-  //     !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
-  //     !documentDateContext.documentDate[props.thisChapter][props.pageName][
-  //       props.repeatStep
-  //     ]
-  //   ) {
-  //     let updateValues = {};
-  //     if (
-  //       !documentDateContext.documentDate[props.thisChapter][props.pageName]
-  //     ) {
-  //       updateValues = { [props.repeatStep]: {} };
-  //     } else if (
-  //       !documentDateContext.documentDate[props.thisChapter][props.pageName][
-  //         props.repeatStep
-  //       ]
-  //     ) {
-  //       updateValues = {
-  //         ...documentDateContext.documentDate[props.thisChapter][
-  //           props.pageName
-  //         ],
-  //         [props.repeatStep]: {}
-  //       };
-  //     }
-  //     documentDateContext.setDocumentDate(prevState => ({
-  //       ...prevState,
-  //       [props.thisChapter]: {
-  //         ...prevState[props.thisChapter],
-  //         [props.pageName]: {
-  //           ...updateValues
-  //         }
-  //       }
-  //     }));
-  //   }
-  // }, [
-  //   documentDateContext.documentDate[props.thisChapter],
-  //   documentDateContext.documentDate[props.thisChapter][props.pageName],
-  //   props.data
-  // ]);
   // sets default data or data from database to every field in group and store it in state
   useEffect(() => {
-    let testData = {};
     if (props.fields) {
       props.fields.map(value => {
-        if (value.type === "file" || value.line || value.routToSpeckValue) {
+        if (
+          value.type === "file" ||
+          value.line ||
+          value.routToSpeckValue ||
+          value.page
+        ) {
           return null;
         }
-        return (testData = {
-          ...testData,
+        return setState(prevState => ({
+          ...prevState,
           [value.fieldName]:
             value.default !== undefined
               ? value.default
@@ -73,36 +36,38 @@ export default props => {
               : ["date", "datetime-local"].includes(value.type)
               ? new Date()
               : ""
-        });
+        }));
       });
     }
     const setStateWithData = data => {
-      setId(data.id);
-      if (data.data && !emptyObject(data.data)) {
+      if (data && data.data && !emptyObject(data.data)) {
         props.fields.map(value => {
-          if (value.type === "file" || value.line || value.routToSpeckValue) {
+          if (
+            value.type === "file" ||
+            value.line ||
+            value.routToSpeckValue ||
+            value.page
+          ) {
             return null;
           }
           if (["date", "datetime-local"].includes(value.type)) {
-            return (testData = {
-              ...testData,
+            return setState(pervState => ({
+              ...pervState,
               [value.fieldName]: [undefined, null, ""].includes(
                 data.data[value.fieldName]
               )
                 ? null
                 : new Date(data.data[value.fieldName])
-            });
+            }));
           }
-          return (testData = {
-            ...testData,
+          return setState(pervState => ({
+            ...pervState,
             [value.fieldName]: data.data[value.fieldName]
-          });
+          }));
         });
       }
     };
-    if (!props.data || props.data.length === 0) {
-      setId(0);
-    } else {
+    if (props.data) {
       if (Array.isArray(props.data)) {
         setStateWithData(
           props.createWithValueLast
@@ -113,17 +78,58 @@ export default props => {
         setStateWithData(props.data);
       }
     }
-    if (props.createWithOldValue) {
-      setId(0);
+    if (props.createWithOldValue && Array.isArray(props.data)) {
+      let length = props.data.length;
+      if (
+        length <=
+        objectPath.get(documentDateContext.documentDate, props.path).length
+      ) {
+        setTrigger(!trigger);
+      }
+    } else {
+      setTrigger(!trigger);
     }
+  }, [props.data, props.writeChapte]);
 
-    documentDateContext.setDocumentDate(prevState => {
-      objectPath.set(prevState, props.path + ".data", testData);
-      return {
-        ...prevState
-      };
-    });
-  }, [props.data, props.writeChapter]);
+  useEffect(() => {
+    if (props.createWithOldValue && Array.isArray(props.data)) {
+      let length = props.data.length;
+      if (
+        length <=
+        objectPath.get(documentDateContext.documentDate, props.path).length
+      ) {
+        documentDateContext.setDocumentDate(prevState => {
+          objectPath.set(
+            prevState,
+            props.path ? `${props.path}.${length}.data` : "data",
+            {
+              ...objectPath.get(
+                prevState,
+                props.path ? props.path + ".data" : "data"
+              ),
+              ...state
+            }
+          );
+          return {
+            ...prevState
+          };
+        });
+      }
+    } else {
+      documentDateContext.setDocumentDate(prevState => {
+        objectPath.set(prevState, props.path ? props.path + ".data" : "data", {
+          ...objectPath.get(
+            prevState,
+            props.path ? props.path + ".data" : "data"
+          ),
+          ...state
+        });
+        return {
+          ...prevState
+        };
+      });
+    }
+  }, [trigger]);
 
   if (props.writeChapter !== undefined) {
     return (
@@ -133,33 +139,23 @@ export default props => {
             key={`${props.thisChapter}-${props.index}-jja`}
             title={
               props.indexVariableFieldGroupRepeatTitle
-                ? variableLabel(
-                    props.fieldGroupRepeatTitle,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    props.repeatStep + 1
+                ? variableString(
+                    props.repeatStep + 1,
+                    props.fieldGroupRepeatTitle
                   )
                 : props.fieldGroupRepeatTitle
             }
           />
         ) : null}
         {props.fields && (
-          <Form key={props.indexId}>
-            {
-              <FieldGroup
-                {...props}
-                key={props.index}
-                path={props.path}
-                // state={state}
-                // setState={setState}
-                id={id}
-                file={props.data && props.data.file}
-              />
-            }
-          </Form>
+          <FieldGroup
+            {...props}
+            key={props.index}
+            path={props.path}
+            // state={state}
+            // setState={setState}
+            file={props.data && props.data.file}
+          />
         )}
       </>
     );

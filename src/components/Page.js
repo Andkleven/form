@@ -1,16 +1,13 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, Fragment } from "react";
 import SetFieldGroupData from "./SetFieldGroupData";
+import SubmitButton from "./SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
   FieldsContext
 } from "./DocumentAndSubmit";
-import {
-  sumFieldInObject,
-  getLastObjectValue,
-  getData,
-  stringToDictionary
-} from "./Functions";
+import { allTrue, findValue } from "./Functions";
+import objectPath from "object-path";
 import Title from "./Title";
 
 export default props => {
@@ -18,12 +15,35 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
-  const [repeatGroup, setRepeatGroup] = useState(0); // if repeat set number of repeat her
+  // const [repeatGroup, setRepeatGroup] = useState(0); // if repeat set number of repeat her
 
   // Set repeatGroup to zero on submit
-  useEffect(() => {
-    setRepeatGroup(0);
-  }, [props.repeatGroup]);
+  // useEffect(() => {
+  //   setRepeatGroup(0);
+  // }, [props.repeatGroup]);
+  const addData = pushOnIndex => {
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, `${props.path}.${pushOnIndex}`, {
+        data: {}
+      });
+      return {
+        ...prevState
+      };
+    });
+  };
+  const addHandeler = () => {
+    addData(
+      objectPath.get(documentDateContext.documentDate, props.path).length
+    );
+  };
+  const deleteHandler = index => {
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.del(prevState, `${props.path}.${index}`);
+      return {
+        ...prevState
+      };
+    });
+  };
 
   // set repeatGroup
   useEffect(() => {
@@ -52,10 +72,13 @@ export default props => {
     if (
       props.repeatStartWithOneGroup &&
       writeChapter &&
-      !repeatGroup &&
-      (!props.data || props.data.length === 0)
+      (!props.data || props.data.length === 0) &&
+      Array.isArray(
+        objectPath.get(documentDateContext.documentDate, props.path)
+      ) &&
+      objectPath.get(documentDateContext.documentDate, props.path).length === 0
     ) {
-      setRepeatGroup(1);
+      addData(0);
     }
   }, [
     props.repeatStartWithOneGroup,
@@ -67,75 +90,34 @@ export default props => {
 
   // If number of repeat group decides by a anthor field, it's sets repeatGroup
   useEffect(() => {
-    if (props.repeatGroupWithFieldName && props.repeatGroupWithQuery) {
-      let newValue;
-      let object = getData(
-        {
-          queryPath: props.repeatGroupWithQuery,
-          findByIndex: props.findByIndex,
-          firstQueryPath: props.repeatGroupWithFirstQuery,
-          secondQueryPath: props.repeatGroupWithSecondQuery
-        },
-        props.arrayIndex,
-        documentDateContext.documentDate
+    if (
+      props.repeatGroupWithFirstQuery &&
+      objectPath.get(documentDateContext.documentDate, props.path)
+    ) {
+      let newValue = findValue(
+        documentDateContext.documentDate,
+        props.repeatGroupWithFirstQuery,
+        props.repeatGroupWithSecondQuery,
+        props.repeatGroupWithThirdQuery,
+        props.repeatGroupWithFirstIndex,
+        props.repeatGroupWithSecendIndex,
+        props.repeatStepList
       );
-      if (props.sumAllPage) {
-        newValue = sumFieldInObject(object, props.repeatGroupWithFieldName);
-      } else if (props.useLastPage) {
-        newValue = getLastObjectValue(object, props.repeatGroupWithFieldName);
-      } else {
-        newValue = stringToDictionary(object.data)[
-          props.repeatGroupWithFieldName
-        ];
+      let oldValueLength = objectPath.get(
+        documentDateContext.documentDate,
+        props.path
+      ).length;
+      if (oldValueLength < newValue) {
+        for (let i = oldValueLength; i < newValue; i++) {
+          addData(i);
+        }
+      } else if (newValue < oldValueLength) {
+        for (let i = oldValueLength - 1; i > newValue - 1; i--) {
+          deleteHandler(i);
+        }
       }
-      setRepeatGroup(newValue - props.data.length);
     }
-  }, [props.data, repeatGroup, documentDateContext.documentDate]);
-
-  // sets field group without data
-  let emptyGroup;
-  if (repeatGroup && props.repeat) {
-    emptyGroup = [];
-    for (let i = 0; i < repeatGroup; i++) {
-      emptyGroup.push(
-        <SetFieldGroupData
-          {...props}
-          writeChapter={writeChapter}
-          fields={props.fields}
-          key={`${props.indexId}-${(props.data && props.data.length
-            ? props.data.length
-            : 0) + i}`}
-          data={false}
-          repeatStep={
-            (props.data && props.data.length ? props.data.length : 0) + i
-          }
-          path={`${props.path}.${(props.data && props.data.length
-            ? props.data.length
-            : 0) + i}`}
-          indexId={`${props.indexId}-${(props.data && props.data.length
-            ? props.data.length
-            : 0) + i}`}
-        />
-      );
-    }
-  } else {
-    emptyGroup = null;
-  }
-  // Test if you need add button or delete button
-  const button = (
-    <>
-      {!props.notAddButton ? (
-        <button onClick={() => setRepeatGroup(repeatGroup + 1)}>
-          {props.addButton ? props.addButton : "Add"}
-        </button>
-      ) : null}
-      {props.delete}
-      {props.delete && (repeatGroup || (props.data && props.data.length)) ? (
-        <button onClick={() => setRepeatGroup(repeatGroup - 1)}>Delete</button>
-      ) : null}
-    </>
-  );
-
+  }, [documentDateContext.documentDate]);
   return (
     <>
       {props.showEditButton && !props.stopLoop && !writeChapter ? (
@@ -144,6 +126,7 @@ export default props => {
           <br />
           <br />
           <button
+            type="button"
             onClick={() => {
               chapterContext.setEditChapter(props.thisChapter);
               fieldsContext.setvalidationPassed({});
@@ -163,44 +146,105 @@ export default props => {
       ) : null}
 
       {props.repeat ? (
-        props.data && Array.isArray(props.data) ? (
-          props.data.map((itemsData, index) => {
-            if (props.data.length + repeatGroup - 1 < index) {
-              delete documentDateContext.documentDate[props.thisChapter][
-                props.pageName
-              ][index];
-              return null;
-            } else {
+        props.data &&
+        Array.isArray(props.data) &&
+        objectPath.get(documentDateContext.documentDate, props.path) ? (
+          objectPath
+            .get(documentDateContext.documentDate, props.path)
+            .map((itemsData, index) => {
               return (
-                <SetFieldGroupData
-                  {...props}
-                  writeChapter={writeChapter}
-                  key={`${props.indexId}-${index}`}
-                  data={itemsData}
-                  path={`${props.path}.${index}`}
-                  fields={props.fields}
-                  step={index}
-                  repeatStep={index}
-                  indexId={`${props.indexId}-${index}`}
-                />
+                <Fragment key={index}>
+                  <SetFieldGroupData
+                    {...props}
+                    repeatStepList={
+                      props.repeatStepList !== undefined
+                        ? [...props.repeatStepList, index]
+                        : [index]
+                    }
+                    repeatStep={index}
+                    writeChapter={writeChapter}
+                    key={`${props.indexId}-${index}`}
+                    data={itemsData}
+                    path={`${props.path ? props.path + "." : null}${index}`}
+                    fields={props.fields}
+                    step={index}
+                    indexId={`${props.indexId}-${index}`}
+                  />
+                  {props.delete && writeChapter ? (
+                    <button
+                      type="button"
+                      key={index}
+                      onClick={() => deleteHandler(index)}
+                    >
+                      {"❌"}
+                    </button>
+                  ) : null}
+                </Fragment>
               );
-            }
-          })
+            })
         ) : null
       ) : (
         <SetFieldGroupData
           {...props}
+          repeatStepList={
+            props.repeatStepList !== undefined
+              ? [...props.repeatStepList, 0]
+              : [0]
+          }
+          repeatStep={0}
           writeChapter={writeChapter}
-          key={`${0}-SetFieldGroupData`}
           data={props.data}
           fields={props.fields}
           step={0}
-          repeatStep={0}
           indexId={`${props.indexId}-0`}
         />
       )}
-      {emptyGroup ? emptyGroup : null}
-      {props.repeat ? writeChapter && button : null}
+      <>
+        {!props.notAddButton && props.repeat && writeChapter ? (
+          <button type="button" onClick={() => addHandeler()}>
+            {props.addButton ? props.addButton : "Add"}
+          </button>
+        ) : null}
+      </>
+      {props.showSaveButton ? (
+        chapterContext.editChapter ? (
+          props.thisChapter === chapterContext.editChapter && (
+            <>
+              <SubmitButton
+                key={props.thisChapter}
+                onClick={() =>
+                  props.submitHandler(documentDateContext.documentDate)
+                }
+              />
+              {FieldsContext.isSubmited && (
+                <div style={{ fontSize: 12, color: "red" }}>
+                  See Error Message
+                </div>
+              )}
+            </>
+          )
+        ) : props.thisChapter === chapterContext.lastChapter ? (
+          <>
+            <SubmitButton
+              key={props.thisChapter}
+              onClick={() =>
+                props.submitHandler(documentDateContext.documentDate)
+              }
+              name={
+                props.saveButton &&
+                !Object.values(fieldsContext.validationPassed).every(allTrue)
+                  ? "Save"
+                  : null
+              }
+            />
+            {fieldsContext.isSubmited && (
+              <div style={{ fontSize: 12, color: "red" }}>
+                See Error Message
+              </div>
+            )}
+          </>
+        ) : null
+      ) : null}
     </>
   );
 };

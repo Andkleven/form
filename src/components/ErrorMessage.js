@@ -8,7 +8,7 @@ export default props => {
   useEffect(() => {
     setStyle(prevState => ({
       ...prevState,
-      color: props.showMinMax ? "orange" : fieldsContext.isSubmited ? "red" : ""
+      color: fieldsContext.isSubmited ? "red" : "orange"
     }));
   }, [props.showMinMax, fieldsContext.isSubmited]);
   return (

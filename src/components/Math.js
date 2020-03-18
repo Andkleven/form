@@ -1,48 +1,108 @@
-import { allZeroOrNaN, getValue } from "./Functions";
+import { allZeroOrNaN, findValue } from "./Functions";
 
-function whatTooReturn(value, decimal, array = [true]) {
+const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
     return null;
   } else {
     return value.toFixed(decimal);
   }
-}
+};
 
-function mathCumulativeThicknes(values, repeatStep, decimal) {
+const mathCumulativeThicknes = (values, repeatStepList, decimal) => {
   let previousCumulativeThicknes = 0;
-  if (repeatStep) {
+  let previousLayers = 0;
+  if (repeatStepList[0] && repeatStepList[1] === 0) {
+    const sumProposedThicknes = data => {
+      previousLayers += Number(data.data.actualThicknes);
+    };
+    for (let i = 0; i < repeatStepList[0]; i++) {
+      let coatingLayers = findValue(
+        values,
+        `leadEngineers.0.vulcanizationSteps.${i}.coatingLayers`
+      );
+      coatingLayers.forEach(data => sumProposedThicknes(data));
+    }
+  }
+  if (repeatStepList[1]) {
     previousCumulativeThicknes = Number(
-      getValue(values, "coatingLayer", repeatStep - 1, "cumulativeThicknes")
+      findValue(
+        values,
+        `leadEngineers.0.vulcanizationSteps.${
+          repeatStepList[0]
+        }.coatingLayers.${repeatStepList[1] - 1}.cumulativeThicknes.${
+          repeatStepList[2]
+        }.data.cumulativeThicknes`
+      )
+    );
+  } else {
+    previousCumulativeThicknes = Number(
+      findValue(
+        values,
+        `leadEngineers.0.measurementPointActualTvds.${
+          repeatStepList[2]
+        }.data.measurementPointActual`
+      )
     );
   }
+
   let proposedThicknes = Number(
-    getValue(values, "coatingLayer", repeatStep, "proposedThicknes")
+    findValue(
+      values,
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
+        repeatStepList[1]
+      }.data.proposedThicknes`
+    )
   );
-  let layersUnique = getValue(
+  let layersUnique = findValue(
     values,
-    "coatingLayer",
-    repeatStep,
-    "layersUnique"
+    `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
+      repeatStepList[1]
+    }.data.layersUnique`
   );
+
+  let tvd = findValue(values, `leadEngineers.0.data.targetDescriptionValue`);
+
   let cumulativeThicknes = 0;
   if (layersUnique) {
-    cumulativeThicknes = previousCumulativeThicknes;
+    proposedThicknes = 0;
+  }
+
+  if (tvd === "OD") {
+    cumulativeThicknes =
+      previousCumulativeThicknes + (previousLayers + proposedThicknes) * 2;
+  } else if (tvd === "ID") {
+    cumulativeThicknes =
+      previousCumulativeThicknes - (previousLayers + proposedThicknes) * 2;
   } else {
-    cumulativeThicknes = previousCumulativeThicknes + proposedThicknes;
+    cumulativeThicknes =
+      previousCumulativeThicknes + previousLayers + proposedThicknes;
   }
   return whatTooReturn(cumulativeThicknes, decimal, [
     previousCumulativeThicknes,
     proposedThicknes,
     layersUnique
   ]);
-}
+};
 
-function mathProposedThicknes(values, repeatStep, decimal) {
+const mathProposedThicknes = (values, repeatStepList, decimal) => {
   let partOfNumber = 0;
-  let shrink = Number(getValue(values, "coatingLayer", repeatStep, "shrink"));
-  let actualThicknes = Number(
-    getValue(values, "coatingLayer", repeatStep, "actualThicknes")
+  let shrink = Number(
+    findValue(
+      values,
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
+        repeatStepList[1]
+      }.data.shrink`
+    )
   );
+  let actualThicknes = Number(
+    findValue(
+      values,
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
+        repeatStepList[1]
+      }.data.actualThicknes`
+    )
+  );
+
   if (shrink) {
     partOfNumber = (shrink * actualThicknes) / 100;
   }
@@ -51,35 +111,36 @@ function mathProposedThicknes(values, repeatStep, decimal) {
     shrink,
     actualThicknes
   ]);
-}
+};
 
-function mathToleranceMinPercent(values, repeatStep, decimal) {
+const mathToleranceMinPercent = (values, repeatStepList, decimal) => {
   let toleranceMin = Number(
-    getValue(values, "leadEngineer", repeatStep, "toleranceMin")
+    findValue(values, "leadEngineers.0.data.toleranceMin")
   );
+
   let orderedTotalRubberThicknes = Number(
-    getValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
+    findValue(values, "leadEngineers.0.data.orderedTotalRubberThicknes")
   );
   return whatTooReturn(
     (toleranceMin * 100) / orderedTotalRubberThicknes,
     decimal,
     [toleranceMin, orderedTotalRubberThicknes]
   );
-}
+};
 
-function mathToleranceMaxPercent(values, repeatStep, decimal) {
+const mathToleranceMaxPercent = (values, repeatStepList, decimal) => {
   let toleranceMax = Number(
-    getValue(values, "leadEngineer", repeatStep, "toleranceMax")
+    findValue(values, "leadEngineers.0.data.toleranceMax")
   );
   let orderedTotalRubberThicknes = Number(
-    getValue(values, "leadEngineer", repeatStep, "orderedTotalRubberThicknes")
+    findValue(values, "leadEngineers.0.data.orderedTotalRubberThicknes")
   );
   return whatTooReturn(
     (toleranceMax * 100) / orderedTotalRubberThicknes,
     decimal,
     [toleranceMax, orderedTotalRubberThicknes]
   );
-}
+};
 
 const Math = {
   mathCumulativeThicknes,

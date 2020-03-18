@@ -16,7 +16,7 @@ export default props => {
       : props.math
       ? Math[props.math](
           documentDateContext.documentDate,
-          props.repeatStep,
+          props.repeatStepList,
           props.decimal ? props.decimal : 0
         )
       : props.state[props.fieldName];

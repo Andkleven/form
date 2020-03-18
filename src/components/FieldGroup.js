@@ -2,7 +2,8 @@ import React, { useContext, useCallback } from "react";
 import ReadField from "./ReadField";
 import WriteFieldGroupError from "./WriteFieldGroupError";
 import objectPath from "object-path";
-import { DocumentDateContext, FieldsContext } from "./DocumentAndSubmit";
+import { DocumentDateContext, ChapterContext } from "./DocumentAndSubmit";
+import Page from "./Page";
 import Line from "./Line";
 import {
   getSubtext,
@@ -13,63 +14,11 @@ import {
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  const fieldsContext = useContext(FieldsContext);
+  const chapterContext = useContext(ChapterContext);
 
-  // set state to documentDate
-  // useEffect(() => {
-  //   if (
-  //     documentDateContext.documentDate[props.thisChapter][props.pageName] !==
-  //       undefined &&
-  //     documentDateContext.documentDate[props.thisChapter][props.pageName][
-  //       props.repeatStep
-  //     ] !== undefined
-  //   ) {
-  //     documentDateContext.setDocumentDate(prevState => ({
-  //       ...prevState,
-  //       [props.thisChapter]: {
-  //         ...prevState[props.thisChapter],
-  //         [props.pageName]: {
-  //           ...prevState[props.thisChapter][props.pageName],
-  //           [props.repeatStep]: {
-  //             ...prevState[props.thisChapter][props.pageName][props.repeatStep],
-  //             ...props.state
-  //           }
-  //         }
-  //       }
-  //     }));
-  //   }
-  // }, [props.state]);
-
-  // set information about saveing to documentDate
-  // useEffect(() => {
-  //   let saveInfo = {};
-  //   saveInfo["step"] = props.repeat ? props.repeatStep : undefined;
-  //   saveInfo["foreignKey"] = props.foreignKey;
-  //   saveInfo["id"] = props.id;
-  //   documentDateContext.setDocumentDate(prevState => ({
-  //     ...prevState,
-  //     [props.thisChapter]: {
-  //       ...prevState[props.thisChapter],
-  //       [props.pageName]: {
-  //         ...prevState[props.thisChapter][props.pageName],
-  //         [props.repeatStep]: {
-  //           ...prevState[props.thisChapter][props.pageName][props.repeatStep],
-  //           saveInfo
-  //         }
-  //       }
-  //     }
-  //   }));
-  // }, [
-  //   props.repeat,
-  //   props.repeatStep,
-  //   props.foreignKey,
-  //   props.id,
-  //   fieldsContext.editField,
-  //   chapterContext.editChapter
-  // ]);
   const getNewPath = useCallback(
     fieldName => {
-      return `${props.path}.data.${fieldName}`;
+      return `${props.path ? props.path + ".data." : ""}${fieldName}`;
     },
     [props.path]
   );
@@ -86,6 +35,35 @@ export default props => {
     );
     if (field.line) {
       return <Line key={`${props.indexId}-${index}`} />;
+    } else if (field.page) {
+      if (
+        objectPath.get(
+          documentDateContext.documentDate,
+          `${props.path}.${field.queryPath}`,
+          null
+        ) === null
+      ) {
+        objectPath.set(
+          documentDateContext.documentDate,
+          `${props.path}.${field.queryPath}`,
+          []
+        );
+      }
+      return (
+        <Page
+          {...field}
+          key={index}
+          repeatStepList={props.repeatStepList}
+          submitHandler={props.submitHandler}
+          submitData={props.submitData}
+          thisChapter={props.thisChapter}
+          stopLoop={props.stopLoop}
+          mutation={props.mutation}
+          showEditButton={false}
+          data={objectPath.get(props.data, field.queryPath, false)}
+          path={`${props.path}.${field.queryPath}`}
+        />
+      );
     } else if (field.routToSpeckValue && field.fieldSpeckValue) {
       return (
         <ReadField
@@ -115,7 +93,8 @@ export default props => {
     } else if (
       field.readOnly ||
       props.writeChapter ||
-      `${props.indexId}-${index}` === fieldsContext.editField
+      `${props.repeatStepList}-${field.fieldName}` ===
+        chapterContext.editChapter
     ) {
       return (
         <WriteFieldGroupError
@@ -124,7 +103,8 @@ export default props => {
           key={`${props.indexId}-${index}`}
           path={getNewPath(field.fieldName)}
           submitButton={
-            `${props.indexId}-${index}` === fieldsContext.editField
+            `${props.repeatStepList}-${field.fieldName}` ===
+            chapterContext.editChapter
               ? true
               : false
           }
@@ -178,15 +158,16 @@ export default props => {
             field.required
           )}
           label={
-            (field.queryNameVariableLabel && field.fieldNameVariableLabel) ||
-            field.indexVariableLabel
+            field.firstQueryVariableLabel || field.indexVariableLabel
               ? variableLabel(
                   field.label,
                   documentDateContext.documentDate,
-                  field.indexVariableLabel,
-                  props.repeatStep,
-                  field.queryNameVariableLabel,
-                  field.fieldNameVariableLabel,
+                  field.firstQueryVariableLabel,
+                  field.secendQueryVariableLabel,
+                  field.thirdQueryVariableLabel,
+                  field.firstIndexVariableLabel,
+                  field.secendIndexVariableLabel,
+                  props.repeatStepList,
                   field.indexVariableLabel ? props.repeatStep : undefined
                 )
               : field.label
