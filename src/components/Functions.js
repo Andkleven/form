@@ -11,6 +11,7 @@ export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
   }
+
   let stringFields = objectPath.get(data, path, null);
   if (stringFields === null) {
     return null;
@@ -198,39 +199,6 @@ export const getSubtext = (
   return minString + maxString + requiredString;
 };
 
-export const expandJson = json => {
-  // Turns data strings into data dictionaries where applicable
-  if (json) {
-    const jsonIsExpandable = json => {
-      // A bit shady test for if the JSON is expandable
-      let expandable = true;
-      if (json.projects[0].data === undefined) {
-        expandable = false;
-      }
-      return expandable;
-    };
-
-    if (jsonIsExpandable(json)) {
-      json.projects &&
-        json.projects.map(project => {
-          project.data = stringToDictionary(project.data);
-          project.descriptions &&
-            project.descriptions.map(description => {
-              description.data = stringToDictionary(description.data);
-              description.items &&
-                description.items.map(item => {
-                  item.data = stringToDictionary(item.data);
-                  return true;
-                });
-              return true;
-            });
-          return true;
-        });
-    }
-  }
-  return json;
-};
-
 export const searchProjects = (data, terms) => {
   let results = [];
   if (data) {
@@ -326,7 +294,9 @@ export const searchProjects = (data, terms) => {
   return results;
 };
 
+
 export const validaFieldWithValue = validation => {
+
   Object.keys(validation).forEach(key => {
     if (!validation[key]) {
       return false;
