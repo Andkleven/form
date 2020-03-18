@@ -10,8 +10,8 @@ import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "components/Functions";
-
-export default props => {
+export default pageInfo => {
+  const [_id, set_id] = useState(Number(pageInfo.match.params._id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
@@ -23,9 +23,10 @@ export default props => {
     setCounter(counter);
   };
   const { loading, error, data } = useQuery(query[itemsJson.query], {
-    variables: { id: props._id }
+    variables: { id: _id }
   });
 
+  console.log(data);
   const deleteFromCache = (
     cache,
     {
@@ -36,7 +37,7 @@ export default props => {
   ) => {
     const oldData = cache.readQuery({
       query: query["GET_ORDER_GEOMETRY"],
-      variables: { id: props._id }
+      variables: { id: _id }
     });
     oldData.projects[0].descriptions[
       counter - 1
@@ -45,7 +46,7 @@ export default props => {
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
-      variables: { id: props._id },
+      variables: { id: _id },
       data: {
         projects: oldData.projects
       }
@@ -54,7 +55,7 @@ export default props => {
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
-      variables: { id: props._id }
+      variables: { id: _id }
     });
     let array = objectPath.get(oldData, itemsJson.queryPath);
     let index = array.findIndex(
@@ -90,7 +91,13 @@ export default props => {
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
+    console.log(132);
+    if (data && data.projects && data.projects[0] && data.projects[0].id) {
+      console.log(data.projects[0].id);
+      set_id(data.projects[0].id);
+    }
   }, [
+    reRender,
     loading,
     error,
     data,
@@ -108,6 +115,7 @@ export default props => {
       !loading &&
       fixedData &&
       fixedData.projects &&
+      fixedData.projects[0] &&
       fixedData.projects[0].descriptions
     ) {
       if (
@@ -136,16 +144,13 @@ export default props => {
     <Paper>
       <DocumentAndSubmit
         componentsId={"itemsPage" + counter.toString()}
-        // buttonToEveryForm={true}
-        // notEditButton={true}
-        // allWaysShow={true}
         submitOneField={true}
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={fixedData}
         arrayIndex={counter - 1}
-        getQueryBy={props._id}
-        foreignKey={props._id}
+        getQueryBy={_id}
+        foreignKey={_id}
       />
       {geometryData && geometryData.items && geometryData.items.length ? (
         <>
@@ -183,10 +188,11 @@ export default props => {
           />
         </>
       ) : null}
-
-      <h4>
-        Geometry {counter}/{projectsData.numberOfDescriptions}
-      </h4>
+      {fixedData && fixedData.projects && fixedData.projects[0] ? (
+        <h4>
+          Geometry {counter}/{projectsData.numberOfDescriptions}
+        </h4>
+      ) : null}
       {counter !== 1 && (
         <Button onClick={() => setstate(counter - 1)}>Back</Button>
       )}
@@ -201,7 +207,7 @@ export default props => {
             onClick={() =>
               LeadEngineerDoneMutation({
                 variables: {
-                  projects: [{ id: props._id, leadEngineerDone: true }]
+                  projects: [{ id: _id, leadEngineerDone: true }]
                 }
               })
             }

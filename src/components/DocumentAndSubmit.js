@@ -121,7 +121,7 @@ export default props => {
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      variables: { id: 0 }
     });
     objectPath.push(
       oldData,
@@ -348,52 +348,6 @@ export default props => {
       return props.foreignKey;
     }
   };
-  // useEffect(() => {
-  //   if (errorMutation) {
-  //     objectifyQuery(documentDate);
-  //   }
-  // }, [errorMutation]);
-  // Adds the submit button on the right place
-  // const isSubmitButton = useCallback(
-  //   thisChapter => {
-  //     if (editChapter) {
-  //       if (thisChapter === editChapter) {
-  //         return (
-  //           <>
-  //             <SubmitButton key={thisChapter} onClick={() => submitHandler()} />
-  //             {isSubmited && (
-  //               <div style={{ fontSize: 12, color: "red" }}>
-  //                 See Error Message
-  //               </div>
-  //             )}
-  //           </>
-  //         );
-  //       }
-  //     } else if (thisChapter === lastChapter) {
-  //       return (
-  //         <>
-  //           <SubmitButton
-  //             key={thisChapter}
-  //             onClick={() => submitHandler()}
-  //             name={
-  //               props.saveButton &&
-  //               !Object.values(validationPassed).every(allTrue)
-  //                 ? "Save"
-  //                 : null
-  //             }
-  //           />
-  //           {isSubmited && (
-  //             <div style={{ fontSize: 12, color: "red" }}>
-  //               See Error Message
-  //             </div>
-  //           )}
-  //         </>
-  //       );
-  //     }
-  //     return null;
-  //   },
-  //   [lastChapter]
-  // );
 
   const submitData = documentDateNow => {
     if (documentDateNow) {
