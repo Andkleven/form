@@ -26,7 +26,6 @@ export default pageInfo => {
     variables: { id: _id }
   });
 
-  console.log(data);
   const deleteFromCache = (
     cache,
     {
@@ -91,9 +90,7 @@ export default pageInfo => {
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
-    console.log(132);
     if (data && data.projects && data.projects[0] && data.projects[0].id) {
-      console.log(data.projects[0].id);
       set_id(data.projects[0].id);
     }
   }, [
