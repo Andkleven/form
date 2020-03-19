@@ -150,24 +150,22 @@ export const variableLabel = (
   return variableString(variableLabel, label);
 };
 
-export const variableSubtext = (
-  subtext,
-  data,
-  routToSpeckSubtext,
-  fieldSpeckSubtext
-) => {
-  let variable;
-  if (routToSpeckSubtext && fieldSpeckSubtext) {
-    variable = getDataFromQuery(data, routToSpeckSubtext, fieldSpeckSubtext);
-  }
-  return variableString(variable, subtext);
-};
+// export const variableSubtext = (
+//   subtext,
+//   data,
+//   routToSpeckSubtext,
+//   fieldSpeckSubtext
+// ) => {
+//   let variable;
+//   if (routToSpeckSubtext && fieldSpeckSubtext) {
+//     variable = getDataFromQuery(data, routToSpeckSubtext, fieldSpeckSubtext);
+//   }
+//   return variableString(variable, subtext);
+// };
 
 export const getSubtext = (
   subtext,
-  data,
-  routToSpeckSubtext,
-  fieldSpeckSubtext,
+  SpeckSubtext,
   max,
   min,
   maxInput,
@@ -176,12 +174,10 @@ export const getSubtext = (
   required
 ) => {
   if (subtext) {
-    return variableSubtext(
-      subtext,
-      data,
-      routToSpeckSubtext,
-      fieldSpeckSubtext
-    );
+    if (SpeckSubtext) {
+      return variableString(SpeckSubtext, subtext);
+    }
+    return subtext;
   }
   let minLocal = min ? min : minInput ? minInput : "";
   let maxLocal = max ? max : maxInput ? maxInput : "";
@@ -294,9 +290,7 @@ export const searchProjects = (data, terms) => {
   return results;
 };
 
-
 export const validaFieldWithValue = validation => {
-
   Object.keys(validation).forEach(key => {
     if (!validation[key]) {
       return false;
@@ -446,4 +440,16 @@ export const stringifyQuery = query => {
   };
   loopThroughQuery(query);
   return newObject;
+};
+
+export const getDataToBatching = (fixedData, batchingListIds, json) => {
+  if (fixedData && batchingListIds[0]) {
+    let newData = fixedData["descriptions"][0]["items"].find(
+      item => item.id == batchingListIds[0]
+    )[json];
+    let splitWordInJson = json.split(/[.]+/);
+    let key = splitWordInJson[splitWordInJson.length - 1];
+    return { [key]: newData };
+  }
+  return null;
 };

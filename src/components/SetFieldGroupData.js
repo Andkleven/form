@@ -20,7 +20,8 @@ export default props => {
           value.type === "file" ||
           value.line ||
           value.routToSpeckValue ||
-          value.page
+          value.page ||
+          value.firstSpeckValue
         ) {
           return null;
         }
@@ -46,7 +47,8 @@ export default props => {
             value.type === "file" ||
             value.line ||
             value.routToSpeckValue ||
-            value.page
+            value.page ||
+            value.firstSpeckValue
           ) {
             return null;
           }

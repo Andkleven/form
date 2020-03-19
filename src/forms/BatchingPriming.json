@@ -7,43 +7,9 @@
   },
   "ducument": {
     "queryPath": "operators",
+    "spackQueryPath": "leadEngineers",
     "mutation": "OPERATORBATCHING",
     "query": "GET_OPERATOR",
-    "chapters": [
-      {
-        "chapterAlwaysInWrite": true,
-        "pages": [
-          {
-            "pageTitle": "Priming 1",
-            "pageName": "operator",
-            "queryPath": "operators",
-            "fields": [
-              {
-                "routToSpeckValue": "leadEngineers.0",
-                "fieldSpeckValue": "primer1",
-                "label": "Primer"
-              },
-              { "line": true },
-              {
-                "fieldName": "description",
-                "label": "Description",
-                "placeholder": "Placeholder"
-              },
-              {
-                "fieldName": "ifsActivityCodes",
-                "label": "IFS Activity Codes",
-                "placeholder": "Placeholder",
-                "unit": "Unit"
-              },
-              {
-                "fieldName": "CPS",
-                "label": "CPS",
-                "placeholder": "Placeholder"
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "chapters": "priming1"
   }
 }

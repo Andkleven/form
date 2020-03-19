@@ -1,7 +1,7 @@
 import React from "react";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
-import { getDataFromQuery, stringToDictionary } from "components/Functions";
+import { findValue } from "components/Functions";
 
 export default props => {
   const add = (item, batchingData) => {
@@ -32,10 +32,9 @@ export default props => {
           .map((item, index) => {
             let batchingData = {};
             props.json.batching.dataField.forEach(field => {
-              batchingData[field] = getDataFromQuery(
+              batchingData[field] = findValue(
                 item,
-                props.json.batching.dataPath + "0",
-                field
+                `${props.json.batching.dataPath}.0.data.${field}`
               );
             });
             if (
@@ -48,6 +47,7 @@ export default props => {
                 <>
                   {props.partialBatching ? (
                     <button
+                      key={index}
                       onClick={() => {
                         props.setFinishedItem(Number(item.id));
                         props.setBatchingListIds([Number(item.id)]);
@@ -69,19 +69,15 @@ export default props => {
                         ? true
                         : false
                     }
-                    label={
-                      stringToDictionary(item.data)[
-                        props.json.batching.showField
-                      ]
-                    }
+                    label={item.data[props.json.batching.showField]}
                   />
                 </>
               );
             } else {
-              //  fade out check box
+              //  fade out check box?
               return (
                 <div key={index} className="text-danger">
-                  {stringToDictionary(item.data)[props.json.batching.showField]}
+                  {item.data[props.json.batching.showField]}
                 </div>
               );
             }

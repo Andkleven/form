@@ -15,7 +15,6 @@ export default (speckData, stage, geometry) => {
     ) {
       return true;
     }
-    console.log(query);
     let field = stringToDictionary(query.data)[stageCriteria.fieldPath];
     if (field !== undefined) {
       return true;

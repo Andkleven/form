@@ -20,7 +20,7 @@ export default props => {
 
   const onChangeDate = date => {
     documentDateContext.setDocumentDate(prevState => {
-      objectPath.set(prevState, props.path, data);
+      objectPath.set(prevState, props.path, date);
       return { ...prevState };
     });
   };

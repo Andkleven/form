@@ -4,7 +4,8 @@ import React, {
   useEffect,
   Fragment,
   useMemo,
-  useLayoutEffect
+  useLayoutEffect,
+  useCallback
 } from "react";
 import Page from "./Page";
 import query from "../request/leadEngineer/Query";
@@ -351,6 +352,9 @@ export default props => {
 
   const submitData = documentDateNow => {
     if (documentDateNow) {
+      console.log(documentDateNow);
+      console.log(JSON.stringify(documentDateNow), 5);
+      console.log(JSON.parse(JSON.stringify(documentDateNow)));
       let variables = stringifyQuery(
         JSON.parse(JSON.stringify(documentDateNow))
       );
@@ -365,27 +369,30 @@ export default props => {
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
             props.saveButton && Object.values(validationPassed).every(allTrue)
-              ? FindNextStage(documentDate, props.stage, props.geometry)
+              ? FindNextStage(props.speckData, props.stage, props.geometry)
               : undefined
         }
       });
       setFiles([]);
     }
   };
-  const submitHandler = documentDateNow => {
-    if (
-      (props.saveButton && validaFieldWithValue(validationPassed)) ||
-      Object.values(validationPassed).every(allTrue)
-    ) {
-      submitData(documentDateNow);
-      setIsSubmited(false);
-      setRepeatGroup(!repeatGroup);
-      setEditChapter(0);
-      setvalidationPassed({});
-    } else {
-      setIsSubmited(true);
-    }
-  };
+  const submitHandler = useCallback(
+    documentDateNow => {
+      if (
+        (props.saveButton && validaFieldWithValue(validationPassed)) ||
+        Object.values(validationPassed).every(allTrue)
+      ) {
+        submitData(documentDate);
+        setIsSubmited(false);
+        setRepeatGroup(!repeatGroup);
+        setEditChapter(0);
+        setvalidationPassed({});
+      } else {
+        setIsSubmited(true);
+      }
+    },
+    [documentDate]
+  );
   const view = (
     info,
     index,

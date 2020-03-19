@@ -7,7 +7,7 @@ import Page from "./Page";
 import Line from "./Line";
 import {
   getSubtext,
-  getDataFromQuery,
+  findValue,
   calculateMaxMin,
   variableLabel
 } from "./Functions";
@@ -64,7 +64,7 @@ export default props => {
           path={`${props.path}.${field.queryPath}`}
         />
       );
-    } else if (field.routToSpeckValue && field.fieldSpeckValue) {
+    } else if (field.firstSpeckValue) {
       return (
         <ReadField
           {...props}
@@ -73,9 +73,15 @@ export default props => {
           path={getNewPath(field.fieldName)}
           subtext={getSubtext(
             field.subtext,
-            props.speckData,
-            field.routToSpeckSubtext,
-            field.fieldSpeckSubtext,
+            findValue(
+              props.speckData,
+              field.firstSpeckValue,
+              field.secendSpeckValue,
+              field.thirdSpeckValue,
+              field.whichFirstSpeckValue,
+              field.whichFirstSpeckValue,
+              props.repeatStepList
+            ),
             max,
             min,
             field.maxInput,
@@ -83,10 +89,14 @@ export default props => {
             field.unit,
             field.required
           )}
-          value={getDataFromQuery(
+          value={findValue(
             props.speckData,
-            field.routToSpeckValue,
-            field.fieldSpeckValue
+            field.firstSpeckValue,
+            field.secendSpeckValue,
+            field.thirdSpeckValue,
+            field.whichFirstSpeckValue,
+            field.whichFirstSpeckValue,
+            props.repeatStepList
           )}
         />
       );
@@ -112,9 +122,15 @@ export default props => {
           max={max}
           subtext={getSubtext(
             field.subtext,
-            props.speckData,
-            field.routToSpeckSubtext,
-            field.fieldSpeckSubtext,
+            findValue(
+              props.speckData,
+              field.firstSpeckValue,
+              field.secendSpeckValue,
+              field.thirdSpeckValue,
+              field.whichFirstSpeckValue,
+              field.whichFirstSpeckValue,
+              props.repeatStepList
+            ),
             max,
             min,
             field.maxInput,
@@ -147,9 +163,15 @@ export default props => {
           )}
           subtext={getSubtext(
             field.subtext,
-            props.speckData,
-            field.routToSpeckSubtext,
-            field.fieldSpeckSubtext,
+            findValue(
+              props.speckData,
+              field.firstSpeckValue,
+              field.secendSpeckValue,
+              field.thirdSpeckValue,
+              field.whichFirstSpeckValue,
+              field.whichFirstSpeckValue,
+              props.repeatStepList
+            ),
             max,
             min,
             field.maxInput,

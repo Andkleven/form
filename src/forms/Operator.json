@@ -6,7 +6,7 @@
     "steelPreparation1": {
       "spackQueryPath": "",
       "spackFieldPath": "",
-      "queryPath": "operators.0",
+      "queryPath": "operators",
       "lookUpBy": "airTemperature",
       "pages": [
         {
@@ -82,7 +82,7 @@
     "steelPreparation2": {
       "spackQueryPath": "",
       "spackFieldPath": "",
-      "queryPath": "operators.0",
+      "queryPath": "operators",
       "lookUpBy": "airTemperature",
       "pages": [
         {
@@ -219,7 +219,7 @@
     "priming1": {
       "spackQueryPath": "leadEngineers.0",
       "spackFieldPath": "primer1",
-      "queryPath": "operators.0",
+      "queryPath": "operators",
       "lookUpBy": "batchNumberpriming1",
       "pages": [
         {
@@ -228,9 +228,8 @@
           "queryPath": "operators",
           "fields": [
             {
-              "routToSpeckValue": "leadEngineers.0",
-              "fieldSpeckValue": "primer1",
-              "label": "Primer Number:"
+              "firstSpeckValue": "leadEngineers.0.data.primer1",
+              "label": "Primer Number"
             },
             { "line": true },
             {
@@ -255,7 +254,7 @@
     "priming2": {
       "spackQueryPath": "leadEngineers.0",
       "spackFieldPath": "primer2",
-      "queryPath": "operators.0",
+      "queryPath": "operators",
       "lookUpBy": "batchNumberpriming2",
       "pages": [
         {
@@ -264,8 +263,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "routToSpeckValue": "leadEngineers.0",
-              "fieldSpeckValue": "primer2",
+              "firstSpeckValue": "leadEngineers.0.data.primer2",
               "label": "Primer Number:"
             },
             { "line": true },
@@ -291,7 +289,7 @@
     "actualSteelMeasurements": {
       "spackQueryPath": "leadEngineers.0",
       "spackFieldPath": "primer2",
-      "queryPath": "operators.0",
+      "queryPath": "operators",
       "lookUpBy": "batchNumberpriming2",
       "chapterTitle": "Actual Steel OD Measurements",
       "pages": [
@@ -303,7 +301,7 @@
           "notAddButton": true,
           "fields": [
             {
-              "routToSpeckValue": "leadEngineers.0",
+              "firstSpeckValue": "leadEngineers.0",
               "fieldSpeckValue": "primer2",
               "label": "Primer Number:"
             },
@@ -330,7 +328,7 @@
     "rubberCement": {
       "spackQueryPath": "leadEngineers.0",
       "spackFieldPath": "rubberCementsBeforeCoating",
-      "queryPath": "operators.0",
+      "queryPath": "operators",
       "lookUpBy": "batchNumberpriming2",
       "pages": [
         {
