@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { FieldsContext, ChapterContext } from "./DocumentAndSubmit";
 import { Form } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
+import Moment from "react-moment";
 
 import "../styles/styles.css";
 
@@ -26,9 +27,20 @@ export default props => {
       <small>
         {" "}
         <strong>{props.label + ": "}</strong>
-        {props.value}
-        {props.value === false && "✖"}
-        {props.value === true && "✅"}
+        {["date", "datetime-local"].includes(props.type) ? (
+          <Moment
+            parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
+          >
+            {props.value}{" "}
+          </Moment>
+        ) : (
+          // <time datetime={props.value}> Time </time>
+          <>
+            {props.value}
+            {props.value === false && "✖"}
+            {props.value === true && "✅"}
+          </>
+        )}
       </small>
       {props.subtext && props.writeChapter ? (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>

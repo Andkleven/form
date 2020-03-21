@@ -7,6 +7,8 @@ export const stringToDictionary = data => {
   }
 };
 
+export const emptyField = field => [null, undefined, ""].includes(field);
+
 export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
@@ -46,6 +48,23 @@ export const findValue = (
   return objectPath.get(data, path, null);
 };
 
+export const createPath = (
+  pathList,
+  repeatStepList,
+  editRepeatStepList = {}
+) => {
+  let mergePath;
+  pathList.forEach((path, index) => {
+    let getIndex = null;
+    mergePath += path.toString();
+    getIndex = repeatStepList[index] + editRepeatStepList[index];
+    if (!emptyField(getIndex)) {
+      mergePath += "." + getIndex.toString();
+    }
+  });
+  return mergePath;
+};
+
 export const sumFieldInObject = (object, key) => {
   let total = 0;
   Object.values(object).forEach(value => {
@@ -67,8 +86,8 @@ export const getValue = (value, queryName, indexNumber, fieldName) => {
 
   return test;
 };
-
-export const emptyField = field => [null, undefined, ""].includes(field);
+export const isStringInstance = string =>
+  typeof string === "string" || string instanceof String;
 
 export const getLastObjectValue = (object, key) =>
   object[Object.values(object).length - 1][key];
@@ -149,19 +168,6 @@ export const variableLabel = (
   }
   return variableString(variableLabel, label);
 };
-
-// export const variableSubtext = (
-//   subtext,
-//   data,
-//   routToSpeckSubtext,
-//   fieldSpeckSubtext
-// ) => {
-//   let variable;
-//   if (routToSpeckSubtext && fieldSpeckSubtext) {
-//     variable = getDataFromQuery(data, routToSpeckSubtext, fieldSpeckSubtext);
-//   }
-//   return variableString(variable, subtext);
-// };
 
 export const getSubtext = (
   subtext,
@@ -366,6 +372,7 @@ export const getData = (info, arrayIndex, documentDate, isItData = false) => {
   } else if (documentDate) {
     data = objectPath.get(documentDate, info.queryPath);
   } else {
+    console.error("custom error: 12345675");
   }
   if (isItData) {
     return data[info.findByIndex ? arrayIndex : data.length - 1];
@@ -443,13 +450,13 @@ export const stringifyQuery = query => {
 };
 
 export const getDataToBatching = (fixedData, batchingListIds, json) => {
+  let splitWordInJson = json.split(/[.]+/);
+  let key = splitWordInJson[splitWordInJson.length - 1];
   if (fixedData && batchingListIds[0]) {
     let newData = fixedData["descriptions"][0]["items"].find(
       item => item.id == batchingListIds[0]
     )[json];
-    let splitWordInJson = json.split(/[.]+/);
-    let key = splitWordInJson[splitWordInJson.length - 1];
     return { [key]: newData };
   }
-  return null;
+  return { [key]: [] };
 };

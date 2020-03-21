@@ -112,21 +112,15 @@ const LEADENGINEER = gql`
 `;
 
 const OPERATORBATCHING = gql`
-  mutation operators(
-    $operator: [UnderCategoriesOfLeadEngineerInupt]
-    $coatingOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $mixDate: [UnderCategoriesOfLeadEngineerInupt]
-    $measurementPointOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $vulcanizationOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $itemIdList: [Int]
+  mutation operatorsBaching(
+    $operators: [UnderCategoriesOfLeadEngineerInupt]
+    $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInupt]
+    $itemIdList: [Int]!
     $stage: String
   ) {
-    operators(
-      operator: $operator
-      coatingOperator: $coatingOperator
-      mixDate: $mixDate
-      measurementPointOperator: $measurementPointOperator
-      vulcanizationOperator: $vulcanizationOperator
+    operatorsBaching(
+      operators: $operators
+      vulcanizationOperators: $vulcanizationOperators
       itemIdList: $itemIdList
       stage: $stage
     ) {

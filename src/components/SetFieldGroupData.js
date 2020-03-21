@@ -92,7 +92,6 @@ export default props => {
       setTrigger(!trigger);
     }
   }, [props.data, props.writeChapte]);
-
   useEffect(() => {
     if (props.createWithOldValue && Array.isArray(props.data)) {
       let length = props.data.length;

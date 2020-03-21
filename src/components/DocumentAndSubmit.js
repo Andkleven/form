@@ -4,8 +4,7 @@ import React, {
   useEffect,
   Fragment,
   useMemo,
-  useLayoutEffect,
-  useCallback
+  useLayoutEffect
 } from "react";
 import Page from "./Page";
 import query from "../request/leadEngineer/Query";
@@ -33,6 +32,7 @@ export const DocumentDateContext = createContext();
 export const FieldsContext = createContext();
 
 let document;
+const cloneDeep = require("clone-deep");
 
 export default props => {
   useEffect(() => {
@@ -60,9 +60,10 @@ export default props => {
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
     if (props.data) {
-      setDocumentDate(JSON.parse(JSON.stringify(props.data)));
+      setDocumentDate(cloneDeep(props.data));
     }
   }, [props.componentsId, props.data]);
+  console.log(documentDate);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -172,14 +173,16 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-
   const createDocumentFromForm = (props, view) => {
     let stopLoop = false; // True when we are at the first chaper now one have wirte on
-
     let temporaryLastChapter = 0;
     const document = props.document.chapters.map((pageInfo, firstIndex) => {
       let chapter; // new chapter to add to document
-      if (pageInfo.chapterAlwaysInWrite && !lastChapter) {
+
+      if (
+        (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
+        !temporaryLastChapter
+      ) {
         temporaryLastChapter = firstIndex + 1;
       }
       if (stopLoop) {
@@ -350,14 +353,9 @@ export default props => {
     }
   };
 
-  const submitData = documentDateNow => {
-    if (documentDateNow) {
-      console.log(documentDateNow);
-      console.log(JSON.stringify(documentDateNow), 5);
-      console.log(JSON.parse(JSON.stringify(documentDateNow)));
-      let variables = stringifyQuery(
-        JSON.parse(JSON.stringify(documentDateNow))
-      );
+  const submitData = data => {
+    if (data) {
+      let variables = stringifyQuery(cloneDeep(data));
       mutation({
         variables: {
           ...variables,
@@ -369,30 +367,27 @@ export default props => {
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
             props.saveButton && Object.values(validationPassed).every(allTrue)
-              ? FindNextStage(props.speckData, props.stage, props.geometry)
+              ? FindNextStage(props.data, props.stage, props.geometry)
               : undefined
         }
       });
       setFiles([]);
     }
   };
-  const submitHandler = useCallback(
-    documentDateNow => {
-      if (
-        (props.saveButton && validaFieldWithValue(validationPassed)) ||
-        Object.values(validationPassed).every(allTrue)
-      ) {
-        submitData(documentDate);
-        setIsSubmited(false);
-        setRepeatGroup(!repeatGroup);
-        setEditChapter(0);
-        setvalidationPassed({});
-      } else {
-        setIsSubmited(true);
-      }
-    },
-    [documentDate]
-  );
+  const submitHandler = data => {
+    if (
+      (props.saveButton && validaFieldWithValue(validationPassed)) ||
+      Object.values(validationPassed).every(allTrue)
+    ) {
+      submitData(data);
+      setIsSubmited(false);
+      setRepeatGroup(!repeatGroup);
+      setEditChapter(0);
+      setvalidationPassed({});
+    } else {
+      setIsSubmited(true);
+    }
+  };
   const view = (
     info,
     index,

@@ -12,11 +12,10 @@
         {
           "pageTitle": "Media Blasting",
           "pageName": "operator",
-          "queryPath": "operators",
+          "queryPath": "operators.0",
           "fields": [
             {
-              "routToSpeckValue": "leadEngineers.0",
-              "fieldSpeckValue": "blastMedia",
+              "firstSpeckValue": "leadEngineers.0.data.blastMedia",
               "label": "Blast Media"
             },
             { "line": true },
@@ -88,7 +87,7 @@
         {
           "pageTitle": "Media Blasting",
           "pageName": "operator",
-          "queryPath": "operators",
+          "queryPath": "operators.0",
           "fields": [
             {
               "fieldName": "inspectionOfSteelSurface",
@@ -100,7 +99,7 @@
             {
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
-              "routToSpeckMax": "leadEngineers.0",
+              "routToSpeckMax": "leadEngineers.0.data.solubleSaltLevel",
               "fieldSpeckMax": "solubleSaltLevel",
               "placeholder": "Result",
               "unit": "mg/m2",
@@ -216,7 +215,7 @@
         }
       ]
     },
-    "priming1": {
+    "primer1": {
       "spackQueryPath": "leadEngineers.0",
       "spackFieldPath": "primer1",
       "queryPath": "operators",
@@ -225,7 +224,7 @@
         {
           "pageTitle": "Priming 1",
           "pageName": "operator",
-          "queryPath": "operators",
+          "queryPath": "operators.0",
           "fields": [
             {
               "firstSpeckValue": "leadEngineers.0.data.primer1",
@@ -251,7 +250,7 @@
         }
       ]
     },
-    "priming2": {
+    "primer2": {
       "spackQueryPath": "leadEngineers.0",
       "spackFieldPath": "primer2",
       "queryPath": "operators",
@@ -260,7 +259,7 @@
         {
           "pageTitle": "Priming 2",
           "pageName": "operator",
-          "queryPath": "operators",
+          "queryPath": "operators.0",
           "fields": [
             {
               "firstSpeckValue": "leadEngineers.0.data.primer2",
@@ -334,7 +333,7 @@
         {
           "pageTitle": "Priming 2",
           "pageName": "operator",
-          "queryPath": "operators",
+          "queryPath": "operators.0",
           "fields": [
             {
               "routToSpeckValue": "leadEngineers.0",

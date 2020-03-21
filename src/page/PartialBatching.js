@@ -1,41 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
-import json from "../forms/PartialBatching.json";
+import batchingJson from "../forms/PartialBatching.json";
+import Operator from "../forms/Operator.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import objectPath from "object-path";
 import Batching from "components/Batching";
 import { getDataFromQuery, removeSpace } from "components/Functions";
+import {
+  findValue,
+  objectifyQuery,
+  getDataToBatching
+} from "components/Functions";
+
+batchingJson.ducument.chapters = [
+  Operator.chapters[batchingJson.ducument.chapters]
+];
 
 export default pageInfo => {
   const { stage, descriptionId } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [finishedItem, setFinishedItem] = useState(0);
+  const [fixedData, setFixedData] = useState(null);
+  const [reRender, setReRender] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
-  const { loading, error, data } = useQuery(query[json.ducument.query], {
-    variables: { id: descriptionId }
-  });
+
+  const { loading, error, data } = useQuery(
+    query[batchingJson.ducument.query],
+    {
+      variables: { id: descriptionId }
+    }
+  );
+  useEffect(() => {
+    setFixedData(objectifyQuery(data));
+  }, [loading, error, data, reRender]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[json.document.query],
+      query: query[batchingJson.document.query],
       variables: { id: descriptionId }
     });
-    let array = objectPath.get(oldData, json.document.queryPath);
+    let array = objectPath.get(oldData, batchingJson.document.queryPath);
     let index = array.findIndex(
       x =>
-        x.id === data[json.document.queryPath.split(/[.]+/).pop()].batching.id
+        x.id ===
+        data[batchingJson.document.queryPath.split(/[.]+/).pop()].batching.id
     );
     objectPath.set(
       oldData,
-      `${json.document.queryPath}.${index}`,
-      data[json.document.queryPath.split(/[.]+/).pop()].batching
+      `${batchingJson.document.queryPath}.${index}`,
+      data[batchingJson.document.queryPath.split(/[.]+/).pop()].batching
     );
-    let saveData = json.document.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = batchingJson.document.queryPath
+      .split(/[.]+/)
+      .splice(0, 1)[0];
     cache.writeQuery({
-      query: query[json.document.query],
+      query: query[batchingJson.document.query],
       variables: { id: descriptionId },
       data: { [saveData]: oldData[saveData] }
     });
@@ -46,8 +69,8 @@ export default pageInfo => {
       {
         <Paper>
           <Batching
-            data={data}
-            json={json}
+            data={fixedData}
+            json={batchingJson}
             setBatchingData={setBatchingData}
             batchingData={batchingData}
             partialBatching={true}
@@ -58,6 +81,7 @@ export default pageInfo => {
             stage={stage}
           />
           <DocumentAndSubmit
+            chapterAlwaysInWrite={true}
             componentsId={"leadEngineersPage"}
             geometry={
               getDataFromQuery(data, "descriptions.0", "geometry") &&
@@ -65,29 +89,26 @@ export default pageInfo => {
                 getDataFromQuery(data, "descriptions.0", "geometry")
               ).toLowerCase()
             }
-            document={json.ducument}
+            document={batchingJson.ducument}
             partialBatching={true}
             saveButton={true}
             notSubmitButton={batchingListIds.length ? false : true}
             reRender={() => {
               setBatchingListIds([]);
               setBatchingData(false);
+              setReRender(!reRender);
             }}
-            data={
-              batchingListIds
-                ? data["descriptions"][0]["items"].find(
-                    item => item.id == finishedItem
-                  )
-                : null
-            }
+            data={getDataToBatching(
+              fixedData,
+              batchingListIds,
+              batchingJson.ducument.queryPath
+            )}
             stage={stage}
-            speckData={
-              batchingListIds
-                ? data["descriptions"][0]["items"].find(
-                    item => item.id == batchingListIds[0]
-                  )
-                : null
-            }
+            speckData={getDataToBatching(
+              fixedData,
+              batchingListIds,
+              batchingJson.ducument.spackQueryPath
+            )}
             updateCache={() => update}
             batchingListIds={batchingListIds}
           />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { findValue } from "components/Functions";
@@ -14,7 +14,9 @@ export default props => {
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
     }
-    props.setFinishedItem(0);
+    if (props.finishedItem) {
+      props.setFinishedItem(0);
+    }
     props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
   };
   const handelClick = (e, item, batchingData) => {
@@ -26,6 +28,7 @@ export default props => {
   };
   return (
     <>
+      <h3 className={"text-center"}>Batching</h3>
       {props.data &&
         objectPath
           .get(props.data, props.json.batching.itemPath)
@@ -44,7 +47,7 @@ export default props => {
                   JSON.stringify(props.batchingData))
             ) {
               return (
-                <>
+                <Fragment key={index}>
                   {props.partialBatching ? (
                     <button
                       key={index}
@@ -71,7 +74,7 @@ export default props => {
                     }
                     label={item.data[props.json.batching.showField]}
                   />
-                </>
+                </Fragment>
               );
             } else {
               //  fade out check box?

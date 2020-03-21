@@ -165,7 +165,7 @@ export default props => {
                     writeChapter={writeChapter}
                     key={`${props.indexId}-${index}`}
                     data={itemsData}
-                    path={`${props.path ? props.path + "." : null}${index}`}
+                    path={props.path ? `${props.path}.${index}` : null}
                     fields={props.fields}
                     step={index}
                     indexId={`${props.indexId}-${index}`}
@@ -191,6 +191,7 @@ export default props => {
               ? [...props.repeatStepList, 0]
               : [0]
           }
+          // path={props.path ? `${props.path}.0` : null}
           repeatStep={0}
           writeChapter={writeChapter}
           data={props.data}

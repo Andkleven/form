@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import ErrorMessage from "./ErrorMessage";
 import {
   FieldsContext,
@@ -84,11 +84,11 @@ export default props => {
     fieldsContext.setvalidationPassed({});
   };
 
-  const handelReRender = event => {
+  const handelReRender = (event, data) => {
     event.persist();
     event.preventDefault();
     chapterContext.setEditChapter(0);
-    props.submitHandler(documentDateContext.documentDate);
+    props.submitHandler(data);
   };
 
   return (
@@ -105,7 +105,12 @@ export default props => {
       <ErrorMessage showMinMax={showMinMax} error={props.error} />
       {props.submitButton ? (
         <>
-          <SubmitButton onClick={event => handelReRender(event)} />
+          <SubmitButton
+            onClick={event =>
+              handelReRender(event, documentDateContext.documentDate)
+            }
+          />
+
           {fieldsContext.isSubmited && props.submitButton ? (
             <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
           ) : null}
