@@ -25,29 +25,6 @@ export const getDataFromQuery = (data, path, field) => {
   return fields[field];
 };
 
-export const findValue = (
-  data,
-  firstQuery,
-  secendQuery = null,
-  thirdQuery = null,
-  whichFirstIndex = 0,
-  whichSecendIndex = 0,
-  repeatStepList = []
-) => {
-  let path;
-  if (thirdQuery !== null) {
-    path = `${firstQuery}.${repeatStepList[0] +
-      whichFirstIndex}.${secendQuery}.${repeatStepList[1] +
-      whichSecendIndex}.${thirdQuery}`;
-  } else if (secendQuery !== null) {
-    path = `${firstQuery}.${repeatStepList[0] +
-      whichFirstIndex}.${secendQuery}`;
-  } else {
-    path = `${firstQuery}`;
-  }
-  return objectPath.get(data, path, null);
-};
-
 export const createPath = (
   pathList,
   repeatStepList,
@@ -63,6 +40,21 @@ export const createPath = (
     }
   });
   return mergePath;
+};
+
+export const findValue = (
+  data,
+  oldPath,
+  repeatStepList = [],
+  editRepeatStepList = {}
+) => {
+  let path 
+  if (Array.isArray(oldPath)) {
+    path = createPath(oldPath, repeatStepList, editRepeatStepList);
+  } else {
+    path = oldPath
+  }
+  return objectPath.get(data, path, null);
 };
 
 export const sumFieldInObject = (object, key) => {
@@ -140,12 +132,9 @@ export const variableString = (variable, string) => {
 export const variableLabel = (
   label,
   value,
-  firstQueryVariableLabel = undefined,
-  secendQueryVariableLabel = undefined,
-  thirdQueryVariableLabel = undefined,
-  firstIndexVariableLabel = undefined,
-  secendIndexVariableLabel = undefined,
+  queryVariableLabel = undefined,
   repeatStepList = [],
+  editRepeatStepListVariableLabel = {},
   index = undefined
 ) => {
   if (!label) {
@@ -156,12 +145,9 @@ export const variableLabel = (
   if (index === undefined) {
     variableLabel = findValue(
       value,
-      firstQueryVariableLabel,
-      secendQueryVariableLabel,
-      thirdQueryVariableLabel,
-      firstIndexVariableLabel,
-      secendIndexVariableLabel,
-      repeatStepList[0]
+      queryVariableLabel,
+      repeatStepList,
+      editRepeatStepListVariableLabel
     );
   } else {
     variableLabel = index + 1;

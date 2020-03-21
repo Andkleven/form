@@ -9,7 +9,6 @@ import objectPath from "object-path";
 import Batching from "components/Batching";
 import { getDataFromQuery, removeSpace } from "components/Functions";
 import {
-  findValue,
   objectifyQuery,
   getDataToBatching
 } from "components/Functions";

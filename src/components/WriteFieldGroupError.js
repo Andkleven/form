@@ -27,16 +27,13 @@ export default props => {
   const [error, setError] = useState(initialState);
   useEffect(() => {
     setLabel(
-      props.firstQueryVariableLabel || props.indexVariableLabel
+      props.queryVariableLabel || props.indexVariableLabel
         ? variableLabel(
             props.label,
             documentDateContext.documentDate,
-            props.firstQueryVariableLabel,
-            props.secendQueryVariableLabel,
-            props.thirdQueryVariableLabel,
-            props.firstIndexVariableLabel,
-            props.secendIndexVariableLabel,
+            props.queryVariableLabel,
             props.repeatStepList,
+            props.editRepeatStepListVariableLabel,
             props.indexVariableLabel ? props.repeatStep : undefined
           )
         : props.label

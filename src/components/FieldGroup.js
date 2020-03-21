@@ -64,7 +64,7 @@ export default props => {
           path={`${props.path}.${field.queryPath}`}
         />
       );
-    } else if (field.firstSpeckValue) {
+    } else if (field.speckValueList) {
       return (
         <ReadField
           {...props}
@@ -75,12 +75,9 @@ export default props => {
             field.subtext,
             findValue(
               props.speckData,
-              field.firstSpeckValue,
-              field.secendSpeckValue,
-              field.thirdSpeckValue,
-              field.whichFirstSpeckValue,
-              field.whichFirstSpeckValue,
-              props.repeatStepList
+              field.speckValueList,
+              props.repeatStepList,
+              field.editRepeatStepValueList
             ),
             max,
             min,
@@ -91,12 +88,9 @@ export default props => {
           )}
           value={findValue(
             props.speckData,
-            field.firstSpeckValue,
-            field.secendSpeckValue,
-            field.thirdSpeckValue,
-            field.whichFirstSpeckValue,
-            field.whichFirstSpeckValue,
-            props.repeatStepList
+            field.speckValueList,
+            props.repeatStepList,
+            field.editRepeatStepValueList
           )}
         />
       );
@@ -124,12 +118,9 @@ export default props => {
             field.subtext,
             findValue(
               props.speckData,
-              field.firstSpeckValue,
-              field.secendSpeckValue,
-              field.thirdSpeckValue,
-              field.whichFirstSpeckValue,
-              field.whichFirstSpeckValue,
-              props.repeatStepList
+            field.speckValueList,
+            props.repeatStepList,
+            field.editRepeatStepValueList
             ),
             max,
             min,
@@ -165,12 +156,9 @@ export default props => {
             field.subtext,
             findValue(
               props.speckData,
-              field.firstSpeckValue,
-              field.secendSpeckValue,
-              field.thirdSpeckValue,
-              field.whichFirstSpeckValue,
-              field.whichFirstSpeckValue,
-              props.repeatStepList
+            field.speckValueList,
+            props.repeatStepList,
+            field.editRepeatStepValueList
             ),
             max,
             min,
@@ -180,16 +168,13 @@ export default props => {
             field.required
           )}
           label={
-            field.firstQueryVariableLabel || field.indexVariableLabel
+            field.queryVariableLabel || field.indexVariableLabel
               ? variableLabel(
                   field.label,
                   documentDateContext.documentDate,
-                  field.firstQueryVariableLabel,
-                  field.secendQueryVariableLabel,
-                  field.thirdQueryVariableLabel,
-                  field.firstIndexVariableLabel,
-                  field.secendIndexVariableLabel,
+                  field.queryVariableLabel,
                   props.repeatStepList,
+                  field.editRepeatStepListVariableLabel,
                   field.indexVariableLabel ? props.repeatStep : undefined
                 )
               : field.label

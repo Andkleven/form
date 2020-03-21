@@ -91,17 +91,14 @@ export default props => {
   // If number of repeat group decides by a anthor field, it's sets repeatGroup
   useEffect(() => {
     if (
-      props.repeatGroupWithFirstQuery &&
+      props.repeatGroupWithQuery &&
       objectPath.get(documentDateContext.documentDate, props.path)
     ) {
       let newValue = findValue(
         documentDateContext.documentDate,
-        props.repeatGroupWithFirstQuery,
-        props.repeatGroupWithSecondQuery,
-        props.repeatGroupWithThirdQuery,
-        props.repeatGroupWithFirstIndex,
-        props.repeatGroupWithSecendIndex,
-        props.repeatStepList
+        props.repeatGroupWithQuery,
+        props.repeatStepList,
+        props.editRepeatStepListRepeat
       );
       let oldValueLength = objectPath.get(
         documentDateContext.documentDate,

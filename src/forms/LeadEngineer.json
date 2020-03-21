@@ -255,11 +255,11 @@
           "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithFirstQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "fields": [
             {
               "fieldName": "measurementPointActual",
-              "firstQueryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -330,8 +330,7 @@
               "queryPath": "coatingLayers",
               "repeat": true,
               "notAddButton": true,
-              "repeatGroupWithFirstQuery": "leadEngineers.0.vulcanizationSteps",
-              "repeatGroupWithSecondQuery": "data.numberOfLayers",
+              "repeatGroupWithQuery": ["leadEngineers.0.vulcanizationSteps", "data.numberOfLayers"],
               "fields": [
                 {
                   "fieldName": "layer",
@@ -392,7 +391,7 @@
                   "queryPath": "cumulativeThicknes",
                   "repeat": true,
                   "notAddButton": true,
-                  "repeatGroupWithFirstQuery": "leadEngineers.0.data.measurementPoint",
+                  "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
                   "fields": [
                     {
                       "fieldName": "cumulativeThicknes",

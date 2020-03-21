@@ -15,7 +15,7 @@
           "queryPath": "operators.0",
           "fields": [
             {
-              "firstSpeckValue": "leadEngineers.0.data.blastMedia",
+              "speckValueList": "leadEngineers.0.data.blastMedia",
               "label": "Blast Media"
             },
             { "line": true },
@@ -227,7 +227,7 @@
           "queryPath": "operators.0",
           "fields": [
             {
-              "firstSpeckValue": "leadEngineers.0.data.primer1",
+              "speckValueList": "leadEngineers.0.data.primer1",
               "label": "Primer Number"
             },
             { "line": true },
@@ -262,7 +262,7 @@
           "queryPath": "operators.0",
           "fields": [
             {
-              "firstSpeckValue": "leadEngineers.0.data.primer2",
+              "speckValueList": "leadEngineers.0.data.primer2",
               "label": "Primer Number:"
             },
             { "line": true },
@@ -300,7 +300,7 @@
           "notAddButton": true,
           "fields": [
             {
-              "firstSpeckValue": "leadEngineers.0",
+              "speckValueList": "leadEngineers.0",
               "fieldSpeckValue": "primer2",
               "label": "Primer Number:"
             },
