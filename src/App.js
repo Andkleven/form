@@ -8,6 +8,7 @@ import Home from "./page/HomePage";
 import Login from "./page/LoginPage";
 import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
+import LeadEngineerStartPage from "./page/leadEngineer/startPage";
 import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
 import PartialBatching from "./page/PartialBatching";
@@ -49,14 +50,14 @@ export default () => (
               path="/partial-batching/:stage/:descriptionId"
               component={PartialBatching}
             />
+
             <Route
               path="/singelItem/:itemId/:geometry/:stage"
               component={SingelItem}
             />
-            {/* <Route
-              path="/partial-batching/:stage/:descriptionId"
-              component={PartialBatching}
-            /> */}
+
+            <Route path="/lead-engineer" component={LeadEngineerStartPage} />
+
           </Switch>
         </Router>
       </div>
