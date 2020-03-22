@@ -41,6 +41,8 @@ export default props => {
         {props.custom ? (
           <Creatable
             className="w-100"
+            name={props.name}
+            readOnly={props.readOnlyFields}
             options={options}
             theme={theme => ({
               ...theme,

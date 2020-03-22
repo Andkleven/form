@@ -10,9 +10,8 @@ import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "components/Functions";
-
-export default pageInfo => {
-  const [_id, set_id] = useState(Number(pageInfo.match.params._id));
+export default props => {
+  const [_id, set_id] = useState(Number(props.id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
@@ -142,7 +141,6 @@ export default pageInfo => {
     <Paper>
       <DocumentAndSubmit
         componentsId={"itemsPage" + counter.toString()}
-        submitOneField={true}
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={fixedData}

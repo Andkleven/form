@@ -6,6 +6,7 @@ export default props => (
     <Form.Check
       custom
       type={props.type}
+      readOnly={props.readOnlyFields}
       id={`custom-${props.type}-${props.label}`}
       label={props.label}
       value={props.value}
