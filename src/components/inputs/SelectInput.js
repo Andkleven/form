@@ -37,6 +37,7 @@ export default props => {
             className="w-100"
             options={props.options}
             name={props.name}
+            readOnly={props.readOnlyFields}
             theme={theme => ({
               ...theme,
               colors: {

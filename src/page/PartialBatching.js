@@ -105,6 +105,7 @@ export default pageInfo => {
           batchingJson.ducument.spackQueryPath
         )}
         updateCache={() => update}
+        readOnlyFields={!batchingListIds[0]}
         batchingListIds={batchingListIds}
       />
     </Paper>

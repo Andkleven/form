@@ -4,6 +4,10 @@ import { Form, InputGroup } from "react-bootstrap";
 import Duplicate from "./widgets/Duplicate";
 
 function NativeInput(props) {
+  const test = e => {
+    console.log(e.target.readOnly);
+    console.log(e.readOnly);
+  };
   return (
     <Form.Group className={props.tight && "mb-1"}>
       {props.label && <Form.Label>{props.label}</Form.Label>}
@@ -17,6 +21,8 @@ function NativeInput(props) {
           <Form.Control
             id={`custom-${props.type}-${props.label}`}
             required={false}
+            readOnly={props.readOnlyFields}
+            onClick={e => test(e)}
             value={props.value}
             name={props.name}
             onChange={props.onChange}

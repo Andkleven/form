@@ -3,7 +3,12 @@ import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import { variableString, emptyObject } from "components/Functions";
+import {
+  variableString,
+  emptyObject,
+  emptyField,
+  isStringInstance
+} from "components/Functions";
 
 import "../styles/styles.css";
 
@@ -34,9 +39,9 @@ export default props => {
               ? false
               : value.select === "select"
               ? value.options[0]
-              : ["date", "datetime-local"].includes(value.type)
-              ? new Date()
-              : ""
+              : // : ["date", "datetime-local"].includes(value.type)
+                // ? new Date()
+                ""
         }));
       });
     }
@@ -55,9 +60,7 @@ export default props => {
           if (["date", "datetime-local"].includes(value.type)) {
             return setState(pervState => ({
               ...pervState,
-              [value.fieldName]: [undefined, null, ""].includes(
-                data.data[value.fieldName]
-              )
+              [value.fieldName]: emptyField(data.data[value.fieldName])
                 ? null
                 : new Date(data.data[value.fieldName])
             }));
