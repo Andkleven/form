@@ -77,7 +77,7 @@
             },
             {
               "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile (Roughnes)",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -86,7 +86,7 @@
             },
             {
               "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile (Roughnes)",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -110,15 +110,15 @@
             },
             {
               "fieldName": "compressedAirCheck",
-              "label": "Compressed Air Check",
+              "label": "compressed Air Check",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "checkbox"
             },
             {
-              "fieldName": "surfaceCleanliness",
-              "label": "Surface Cleanliness",
+              "fieldName": "surfaceCleanlines",
+              "label": "Surface Cleanlines",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -330,7 +330,10 @@
               "queryPath": "coatingLayers",
               "repeat": true,
               "notAddButton": true,
-              "repeatGroupWithQuery": ["leadEngineers.0.vulcanizationSteps", "data.numberOfLayers"],
+              "repeatGroupWithQuery": [
+                "leadEngineers.0.vulcanizationSteps",
+                "data.numberOfLayers"
+              ],
               "fields": [
                 {
                   "fieldName": "layer",

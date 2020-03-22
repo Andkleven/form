@@ -8,10 +8,7 @@ import Paper from "components/Paper";
 import objectPath from "object-path";
 import Batching from "components/Batching";
 import { getDataFromQuery, removeSpace } from "components/Functions";
-import {
-  objectifyQuery,
-  getDataToBatching
-} from "components/Functions";
+import { objectifyQuery, getDataToBatching } from "components/Functions";
 
 batchingJson.ducument.chapters = [
   Operator.chapters[batchingJson.ducument.chapters]
@@ -64,55 +61,52 @@ export default pageInfo => {
   };
 
   return (
-    <>
-      {
-        <Paper>
-          <Batching
-            data={fixedData}
-            json={batchingJson}
-            setBatchingData={setBatchingData}
-            batchingData={batchingData}
-            partialBatching={true}
-            batchingListIds={batchingListIds}
-            setBatchingListIds={setBatchingListIds}
-            setFinishedItem={setFinishedItem}
-            finishedItem={finishedItem}
-            stage={stage}
-          />
-          <DocumentAndSubmit
-            chapterAlwaysInWrite={true}
-            componentsId={"leadEngineersPage"}
-            geometry={
-              getDataFromQuery(data, "descriptions.0", "geometry") &&
-              removeSpace(
-                getDataFromQuery(data, "descriptions.0", "geometry")
-              ).toLowerCase()
-            }
-            document={batchingJson.ducument}
-            partialBatching={true}
-            saveButton={true}
-            notSubmitButton={batchingListIds.length ? false : true}
-            reRender={() => {
-              setBatchingListIds([]);
-              setBatchingData(false);
-              setReRender(!reRender);
-            }}
-            data={getDataToBatching(
-              fixedData,
-              batchingListIds,
-              batchingJson.ducument.queryPath
-            )}
-            stage={stage}
-            speckData={getDataToBatching(
-              fixedData,
-              batchingListIds,
-              batchingJson.ducument.spackQueryPath
-            )}
-            updateCache={() => update}
-            batchingListIds={batchingListIds}
-          />
-        </Paper>
-      }
-    </>
+    <Paper>
+      <h3 className={"text-center"}>Partial Batching</h3>
+      <Batching
+        data={fixedData}
+        json={batchingJson}
+        setBatchingData={setBatchingData}
+        batchingData={batchingData}
+        partialBatching={true}
+        batchingListIds={batchingListIds}
+        setBatchingListIds={setBatchingListIds}
+        setFinishedItem={setFinishedItem}
+        finishedItem={finishedItem}
+        stage={stage}
+      />
+      <DocumentAndSubmit
+        chapterAlwaysInWrite={true}
+        componentsId={"leadEngineersPage"}
+        geometry={
+          getDataFromQuery(data, "descriptions.0", "geometry") &&
+          removeSpace(
+            getDataFromQuery(data, "descriptions.0", "geometry")
+          ).toLowerCase()
+        }
+        document={batchingJson.ducument}
+        partialBatching={true}
+        saveButton={true}
+        notSubmitButton={batchingListIds.length ? false : true}
+        reRender={() => {
+          setBatchingListIds([]);
+          setBatchingData(false);
+          setReRender(!reRender);
+        }}
+        data={getDataToBatching(
+          fixedData,
+          [finishedItem],
+          batchingJson.ducument.queryPath
+        )}
+        stage={finishedItem ? stage : null}
+        speckData={getDataToBatching(
+          fixedData,
+          batchingListIds,
+          batchingJson.ducument.spackQueryPath
+        )}
+        updateCache={() => update}
+        batchingListIds={batchingListIds}
+      />
+    </Paper>
   );
 };

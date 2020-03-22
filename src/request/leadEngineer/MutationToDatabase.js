@@ -111,6 +111,16 @@ const LEADENGINEER = gql`
   }
 `;
 
+const LEADENGINEERDONE = gql`
+  mutation projects($project: [ProjectInupt]) {
+    projects(project: $project) {
+      new {
+        leadEngineerDone
+      }
+    }
+  }
+`;
+
 const OPERATORBATCHING = gql`
   mutation operatorsBaching(
     $operators: [UnderCategoriesOfLeadEngineerInupt]
@@ -134,21 +144,21 @@ const OPERATORBATCHING = gql`
           operators {
             id
             data
-            coatingOperators {
-              id
-              data
-              mixDates {
-                id
-                data
-              }
-              measurementPointOperators {
-                id
-                data
-              }
-            }
             vulcanizationOperators {
               id
               data
+              coatingOperators {
+                id
+                data
+                mixDates {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
             }
           }
         }
@@ -179,32 +189,22 @@ const OPERATOR = gql`
       new {
         id
         data
-        coatingOperators {
-          id
-          data
-          mixDates {
-            id
-            data
-          }
-          measurementPointOperators {
-            id
-            data
-          }
-        }
         vulcanizationOperators {
           id
           data
+          coatingOperators {
+            id
+            data
+            mixDates {
+              id
+              data
+            }
+            measurementPointOperators {
+              id
+              data
+            }
+          }
         }
-      }
-    }
-  }
-`;
-
-const LEADENGINEERDONE = gql`
-  mutation projects($project: [ProjectInupt]) {
-    projects(project: $project) {
-      new {
-        leadEngineerDone
       }
     }
   }
@@ -215,8 +215,8 @@ const mutations = {
   DELETEITEM,
   UPDATEITEM,
   LEADENGINEER,
+  LEADENGINEERDONE,
   OPERATORBATCHING,
-  OPERATOR,
-  LEADENGINEERDONE
+  OPERATOR
 };
 export default mutations;

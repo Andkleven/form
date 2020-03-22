@@ -9,10 +9,11 @@ import {
   getSubtext,
   findValue,
   calculateMaxMin,
-  variableLabel
+  variableLabel,
+  emptyField
 } from "./Functions";
-
 export default props => {
+  console.log(props.speckData);
   const documentDateContext = useContext(DocumentDateContext);
   const chapterContext = useContext(ChapterContext);
 
@@ -22,18 +23,30 @@ export default props => {
     },
     [props.path]
   );
-
   return props.fields.map((field, index) => {
-    let { min, max } = calculateMaxMin(
+    const { min, max } = calculateMaxMin(
       field.min,
       field.routToSpeckMin,
-      field.fieldSpeckMin,
+      field.editRepeatStepListMin,
       field.max,
       field.routToSpeckMax,
-      field.fieldSpeckMax,
+      field.editRepeatStepListMax,
+      props.repeatStepList,
       props.speckData
     );
-    if (field.line) {
+    if (
+      field.showFieldSpackPath &&
+      [null, undefined, "", false].includes(
+        findValue(
+          props.speckData,
+          field.speckValueList,
+          props.repeatStepList,
+          field.editRepeatStepValueList
+        )
+      )
+    ) {
+      return null;
+    } else if (field.line) {
       return <Line key={`${props.indexId}-${index}`} />;
     } else if (field.page) {
       if (
@@ -75,9 +88,9 @@ export default props => {
             field.subtext,
             findValue(
               props.speckData,
-              field.speckValueList,
+              field.speckSubtextList,
               props.repeatStepList,
-              field.editRepeatStepValueList
+              field.editRepeatStepSubtextList
             ),
             max,
             min,
@@ -118,9 +131,9 @@ export default props => {
             field.subtext,
             findValue(
               props.speckData,
-            field.speckValueList,
-            props.repeatStepList,
-            field.editRepeatStepValueList
+              field.speckSubtextList,
+              props.repeatStepList,
+              field.editRepeatStepSubtextList
             ),
             max,
             min,
@@ -156,9 +169,9 @@ export default props => {
             field.subtext,
             findValue(
               props.speckData,
-            field.speckValueList,
-            props.repeatStepList,
-            field.editRepeatStepValueList
+              field.speckSubtextList,
+              props.repeatStepList,
+              field.editRepeatStepSubtextList
             ),
             max,
             min,

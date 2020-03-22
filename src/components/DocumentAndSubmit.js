@@ -63,7 +63,7 @@ export default props => {
       setDocumentDate(cloneDeep(props.data));
     }
   }, [props.componentsId, props.data]);
-  console.log(documentDate);
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],

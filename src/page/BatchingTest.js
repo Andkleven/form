@@ -66,6 +66,7 @@ export default pageInfo => {
 
   return (
     <Paper>
+      <h3 className={"text-center"}>Batching</h3>
       <Batching
         data={fixedData}
         json={batchingJson}

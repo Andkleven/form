@@ -3,7 +3,7 @@ import { FieldsContext, ChapterContext } from "./DocumentAndSubmit";
 import { Form } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
 import Moment from "react-moment";
-
+import { isStringInstance } from "./Functions";
 import "../styles/styles.css";
 
 export default props => {
@@ -31,10 +31,9 @@ export default props => {
           <Moment
             parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
           >
-            {props.value}{" "}
+            {isStringInstance(props.value) ? null : props.value}
           </Moment>
         ) : (
-          // <time datetime={props.value}> Time </time>
           <>
             {props.value}
             {props.value === false && "✖"}

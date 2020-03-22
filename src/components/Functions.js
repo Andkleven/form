@@ -48,11 +48,14 @@ export const findValue = (
   repeatStepList = [],
   editRepeatStepList = {}
 ) => {
-  let path 
+  let path;
   if (Array.isArray(oldPath)) {
     path = createPath(oldPath, repeatStepList, editRepeatStepList);
   } else {
-    path = oldPath
+    path = oldPath;
+  }
+  if (emptyField(path)) {
+    return null;
   }
   return objectPath.get(data, path, null);
 };
@@ -169,7 +172,7 @@ export const getSubtext = (
     if (SpeckSubtext) {
       return variableString(SpeckSubtext, subtext);
     }
-    return subtext;
+    return variableString("", subtext);
   }
   let minLocal = min ? min : minInput ? minInput : "";
   let maxLocal = max ? max : maxInput ? maxInput : "";
@@ -294,21 +297,32 @@ export const validaFieldWithValue = validation => {
 export const calculateMaxMin = (
   min,
   routToSpeckMin,
-  fieldSpeckMin,
+  editRepeatStepListMin,
   max,
   routToSpeckMax,
-  fieldSpeckMax,
+  editRepeatStepListMax,
+  repeatStepList,
   data
 ) => {
   let newMin;
   let newMax;
-  if (routToSpeckMin && fieldSpeckMin) {
-    newMin = getDataFromQuery(data, routToSpeckMin, fieldSpeckMin);
+  if (routToSpeckMin) {
+    newMin = findValue(
+      data,
+      routToSpeckMin,
+      repeatStepList,
+      editRepeatStepListMin
+    );
   } else {
     newMin = min;
   }
-  if (routToSpeckMax && fieldSpeckMax) {
-    newMax = getDataFromQuery(data, routToSpeckMax, fieldSpeckMax);
+  if (routToSpeckMax) {
+    newMax = findValue(
+      data,
+      routToSpeckMax,
+      repeatStepList,
+      editRepeatStepListMax
+    );
   } else {
     newMax = max;
   }
@@ -445,4 +459,14 @@ export const getDataToBatching = (fixedData, batchingListIds, json) => {
     return { [key]: newData };
   }
   return { [key]: [] };
+};
+
+export const allRequiredFinished = (data, fields) => {
+  let requiredApproved = true;
+  fields.forEach(field => {
+    if (field.required && emptyField(data[field.fieldName])) {
+      requiredApproved = false;
+    }
+  });
+  return requiredApproved;
 };

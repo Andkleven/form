@@ -156,21 +156,21 @@ const GET_OPERATOR = gql`
         operators {
           id
           data
-          coatingOperators {
-            id
-            data
-            mixDates {
-              id
-              data
-            }
-            measurementPointOperators {
-              id
-              data
-            }
-          }
           vulcanizationOperators {
             id
             data
+            coatingOperators {
+              id
+              data
+              mixDates {
+                id
+                data
+              }
+              measurementPointOperators {
+                id
+                data
+              }
+            }
           }
         }
       }

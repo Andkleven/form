@@ -57,7 +57,7 @@ function Datetime(props) {
       <div>
         <DatePicker
           className="w-100"
-          selected={isStringInstance(props.value) ? new Date() : props.value}
+          selected={isStringInstance(props.value) ? null : props.value}
           onChange={date => props.onChangeDate(date)}
           // onChange={date => setStartDate(date)}
           customInput={<ExampleCustomInput />}

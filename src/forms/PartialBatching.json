@@ -13,8 +13,8 @@
   },
   "ducument": {
     "queryPath": "operators",
-    "mutation": "OPERATORBATCHING",
     "spackQueryPath": "leadEngineers",
+    "mutation": "OPERATORBATCHING",
     "query": "GET_OPERATOR",
     "chapters": "steelPreparation1"
   }
