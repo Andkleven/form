@@ -10,6 +10,7 @@ import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "components/Functions";
+
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params._id));
   const [counter, setCounter] = useState(1);
