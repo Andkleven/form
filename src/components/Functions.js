@@ -332,34 +332,6 @@ export const mergePath = (info, arrayIndex, oldPath = null) => {
   return path;
 };
 
-export const objectifyQuery = query => {
-  if (query) {
-    let newObject = JSON.parse(JSON.stringify(query));
-    const objectifyEntries = (query, oldPath = null) => {
-      let path;
-      Object.keys(query).forEach(key => {
-        path = oldPath === null ? key : oldPath + "." + key;
-        if (Array.isArray(query[key])) {
-          query[key].forEach((value, index) => {
-            objectifyEntries(value, path + "." + index.toString());
-          });
-        } else if (key === "data") {
-          if (typeof query[key] === "string") {
-            let isData = stringToDictionary(query[key]);
-            if (isData) {
-              objectPath.set(newObject, path, isData);
-            }
-          }
-        } else if (key === "__typename") {
-          objectPath.del(newObject, path);
-        }
-      });
-    };
-    objectifyEntries(query);
-    return newObject;
-  }
-};
-
 export const stringifyQuery = query => {
   let newObject = { ...query };
   const loopThroughQuery = (query, oldPath = null) => {

@@ -127,10 +127,13 @@ export const search = (data, filters, search) => {
 
   // Do not search unless filters or search active
   const activeFilters = filters && Object.keys(filters).length;
-  const activeItemFilters = filters.stage && 1;
-  const activeDescriptionFilters = filters.geometry && 1;
+  const activeItemFilters = (filters.stage && 1) || 0;
+  console.log("Active item filters:\t\t", activeItemFilters);
+  const activeDescriptionFilters = (filters.geometry && 1) || 0;
+  console.log("Active description filters:\t", activeDescriptionFilters);
 
-  const activeSearches = search !== "" && 1;
+  const activeSearches = (search !== "" && 1) || 0;
+  console.log("Active searches:\t\t", activeSearches);
 
   const activeSearchAndFilters = activeSearches + activeFilters;
   // console.log("Active filters:\t", activeSearchAndFilters);
@@ -164,11 +167,13 @@ export const search = (data, filters, search) => {
       if (search) {
         if (loopTroughData(item, matchesSearch)) matches += 1;
       }
-      if (activeFilters > 0) {
+      if (activeItemFilters > 0) {
         if (loopTroughData(item, matchesItemFilters))
-          matches += Object.keys(filters).length;
+          matches += activeItemFilters;
       }
-      if (matches === activeSearchAndFilters) return item;
+      if (matches === activeItemFilters + activeSearches) {
+        return item;
+      }
     } else {
       return item;
     }
