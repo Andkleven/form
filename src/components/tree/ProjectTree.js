@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import Tree from "components/tree/Tree";
 import Input from "components/Input";
-import { searchProjects } from "components/Functions";
-import stagesJson from "components/stages/Stages.json";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { search } from "./functions";
+
+import stagesJson from "components/stages/Stages.json";
+
+const createStages = operatorStages => {
+  let stages = operatorStages.all;
+  stages.unshift("leadEngineer");
+  stages.push("qualityControl");
+  return stages;
+};
+
+const stages = createStages(stagesJson);
+const itemTypes = ["Coated Item", "Mould"];
 
 export default props => {
-  const stages = stagesJson.all;
-  const itemTypes = ["Coated Item", "Mould"];
-
-  const [stageTerm, setStageTerm] = useState("");
-  const [itemTerm, setItemTerm] = useState("");
+  const [filters, setFilters] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-  const sumTerms = [stageTerm, itemTerm, searchTerm];
-  const results = searchProjects(props.data, sumTerms);
+  const results = search(props.data, filters, searchTerm);
 
-  const clearFilters = () => {
-    setStageTerm("");
-    setItemTerm("");
+  const clearAll = () => {
+    setFilters({});
     setSearchTerm("");
   };
 
@@ -46,12 +51,16 @@ export default props => {
             options={stages}
             select="select"
             tight
-            value={stageTerm}
-            getOptionLabel={label => console.log("Label:\t", label)}
-            getOptionValue={value => console.log("Value:\t", value)}
+            value={filters.stage}
             onChange={e => {
               if (e) {
-                setStageTerm(e.value);
+                if (e.value) {
+                  setFilters({ ...filters, stage: e.value });
+                } else {
+                  let tempFilters = { ...filters };
+                  delete tempFilters.stage;
+                  setFilters(tempFilters);
+                }
               }
             }}
           />
@@ -62,15 +71,21 @@ export default props => {
             options={itemTypes}
             select="select"
             tight
-            value={itemTerm}
+            value={filters.geometry}
             onChange={e => {
               if (e) {
-                setItemTerm(e.value);
+                if (e.value) {
+                  setFilters({ ...filters, geometry: e.value });
+                } else {
+                  let tempFilters = { ...filters };
+                  delete tempFilters.geometry;
+                  setFilters(tempFilters);
+                }
               }
             }}
           />
           <Input
-            placeholder="Search..."
+            placeholder="Search item properties..."
             tight
             onChange={e => {
               setSearchTerm(e.target.value);
@@ -87,7 +102,7 @@ export default props => {
             type="reset"
             className="w-100"
             onClick={() => {
-              clearFilters();
+              clearAll();
             }}
           >
             <i className="fa fa-trash pr-2" style={{ width: "" }} />
@@ -99,64 +114,62 @@ export default props => {
       <h6 className="mb-0">Projects</h6>
       {results && results.length > 0 ? (
         results.map(
-          (project, indexProject) =>
-            project.data ? ( // Adresses crash on revisit,
-              <Tree
-                defaultOpen
-                key={`project${indexProject}`}
-                name={project.data.projectName}
-              >
-                {project.descriptions &&
-                  project.descriptions.map((description, indexDescription) => (
-                    <Tree
-                      defaultOpen
-                      key={`project${indexProject}Description${indexDescription}`}
-                      name={description.data.geometry}
+          (project, indexProject) => (
+            // project.data ? ( // Adresses crash on revisit,
+            <Tree
+              defaultOpen
+              key={`project${indexProject}`}
+              name={project.data.projectName}
+            >
+              {project.descriptions &&
+                project.descriptions.map((description, indexDescription) => (
+                  <Tree
+                    defaultOpen
+                    key={`project${indexProject}Description${indexDescription}`}
+                    name={description.data.geometry}
+                  >
+                    <Link
+                      className="d-flex unselectable"
+                      to={`/order/item/${description.data.description}`}
+                      style={linkStyle}
                     >
-                      <Link
-                        className="d-flex"
-                        to={`/order/item/${description.data.description}`}
-                        style={linkStyle}
-                      >
-                        {description.items.length > 1 && (
-                          <div className="pt-2">
-                            <i className="fad fa-cubes" style={itemIconStyle} />
-                            Batch items
+                      {description.items.length > 1 && (
+                        <div className="pt-2 unselectable">
+                          <i className="fad fa-cubes" style={itemIconStyle} />
+                          Batch items
+                        </div>
+                      )}
+                    </Link>
+                    {description.items &&
+                      description.items.map((item, indexItem) => (
+                        <Link
+                          className="d-flex"
+                          to={`/order/lead-engineer/1/${item.id}/1`}
+                          key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
+                          style={linkStyle}
+                        >
+                          <div className="pt-2 unselectable">
+                            <i className="fad fa-cube" style={itemIconStyle} />
+                            {item.id}
                           </div>
-                        )}
-                      </Link>
-                      {description.items &&
-                        description.items.map((item, indexItem) => (
-                          <Link
-                            className="d-flex"
-                            to={`/order/lead-engineer/1/${item.id}/1`}
-                            key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
-                            style={linkStyle}
-                          >
-                            <div className="pt-2">
-                              <i
-                                className="fad fa-cube"
-                                style={itemIconStyle}
-                              />
-                              {item.id}
-                            </div>
-                          </Link>
-                        ))}
-                    </Tree>
-                  ))}
-              </Tree>
-            ) : (
-              <div className="pt-1">
-                Data missing -{" "}
-                <a onClick={() => window.location.reload()} href=" ">
-                  refreshing the page
-                </a>{" "}
-                might fix this.
-              </div>
-            ) // Adresses crash on revisit,
+                        </Link>
+                      ))}
+                  </Tree>
+                ))}
+            </Tree>
+          )
+          // ) : (
+          //   <div className="pt-1">
+          //     Data missing -{" "}
+          //     <a onClick={() => window.location.reload()} href=" ">
+          //       refreshing the page
+          //     </a>{" "}
+          //     might fix this.
+          //   </div>
+          // ) // Adresses crash on revisit,
         )
       ) : (
-        <div className="pt-1">No projects available.</div>
+        <div className="pt-1">No projects found.</div>
       )}
     </>
   );

@@ -13,13 +13,19 @@ export default props => {
     });
   });
 
+  options.unshift({ value: null, label: "None" });
+
   const camelCaseToNormal = string => {
-    if (!string.includes(" ")) {
-      string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
+    if (string === null) {
+      return <div className="text-secondary">None</div>;
+    } else {
+      if (!string.includes(" ")) {
+        string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
+      }
+      string = string.replace(/([0-9])/g, " $1");
+      string = string.charAt(0).toUpperCase() + string.slice(1);
+      return string;
     }
-    string = string.replace(/([0-9])/g, " $1");
-    string = string.charAt(0).toUpperCase() + string.slice(1);
-    return string;
   };
 
   options.map(option => {
@@ -35,9 +41,9 @@ export default props => {
         {props.custom ? (
           <Creatable
             className="w-100"
-            options={props.options}
             name={props.name}
             readOnly={props.readOnlyFields}
+            options={options}
             theme={theme => ({
               ...theme,
               colors: {
@@ -48,16 +54,18 @@ export default props => {
                 primary: "#f1b25b"
               }
             })}
-            isClearable={true}
             placeholder={props.placeholder || "Select or type..."}
-            value={props.value}
+            value={
+              props.value
+                ? options.find(option => option.value === props.value)
+                : null
+            }
             onChange={props.onChange}
           />
         ) : (
           <Select
-            id={`custom-${props.type}-${props.label}`}
             className="w-100"
-            options={props.options}
+            options={options}
             theme={theme => ({
               ...theme,
               colors: {
@@ -68,7 +76,6 @@ export default props => {
                 primary: "#f1b25b"
               }
             })}
-            isClearable={true}
             isSearchable={true}
             value={
               props.value
