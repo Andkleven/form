@@ -1,18 +1,12 @@
 import React from "react";
-import { stringToDictionary } from "components/Functions";
 import Item from "./Item";
 
 const OrderList = props => {
-  const items = props.items.map(item => {
-    let data = {};
-    if (item.data.trim() !== "") {
-      data = stringToDictionary(item.data);
-    }
+  const items = props.items.map((item, index) => {
     return (
       <Item
-        key={item.id}
+        key={index}
         item={item}
-        data={data}
         submitItem={props.submitItem}
         submitDelete={props.submitDelete}
       />

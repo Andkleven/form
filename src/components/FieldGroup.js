@@ -1,147 +1,153 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import ReadField from "./ReadField";
 import WriteFieldGroupError from "./WriteFieldGroupError";
-import {
-  DocumentDateContext,
-  FieldsContext,
-  ChapterContext
-} from "./DocumentAndSubmit";
+import objectPath from "object-path";
+import { DocumentDateContext, ChapterContext } from "./DocumentAndSubmit";
+import Page from "./Page";
 import Line from "./Line";
 import {
   getSubtext,
-  getDataFromQuery,
+  findValue,
   calculateMaxMin,
-  variableLabel
+  variableLabel,
+  emptyField
 } from "./Functions";
-
 export default props => {
+  console.log(props.speckData);
   const documentDateContext = useContext(DocumentDateContext);
-  const fieldsContext = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
 
-  // set state to documentDate
-  useEffect(() => {
-    if (
-      documentDateContext.documentDate[props.thisChapter][props.pageName] !==
-        undefined &&
-      documentDateContext.documentDate[props.thisChapter][props.pageName][
-        props.repeatStep
-      ] !== undefined
-    ) {
-      documentDateContext.setDocumentDate(prevState => ({
-        ...prevState,
-        [props.thisChapter]: {
-          ...prevState[props.thisChapter],
-          [props.pageName]: {
-            ...prevState[props.thisChapter][props.pageName],
-            [props.repeatStep]: {
-              ...prevState[props.thisChapter][props.pageName][props.repeatStep],
-              ...props.state
-            }
-          }
-        }
-      }));
-    }
-  }, [props.state]);
-
-  // set information about saveing to documentDate
-  useEffect(() => {
-    let saveInfo = {};
-    saveInfo["step"] = props.repeat ? props.repeatStep : undefined;
-    saveInfo["foreignKey"] = props.foreignKey;
-    saveInfo["id"] = props.id;
-    documentDateContext.setDocumentDate(prevState => ({
-      ...prevState,
-      [props.thisChapter]: {
-        ...prevState[props.thisChapter],
-        [props.pageName]: {
-          ...prevState[props.thisChapter][props.pageName],
-          [props.repeatStep]: {
-            ...prevState[props.thisChapter][props.pageName][props.repeatStep],
-            saveInfo
-          }
-        }
-      }
-    }));
-  }, [
-    props.repeat,
-    props.repeatStep,
-    props.foreignKey,
-    props.id,
-    fieldsContext.editField,
-    chapterContext.editChapter
-  ]);
-
-  return props.fields.map((value, index) => {
-    let { min, max } = calculateMaxMin(
-      value.min,
-      value.routToSpeckMin,
-      value.fieldSpeckMin,
-      value.max,
-      value.routToSpeckMax,
-      value.fieldSpeckMax,
+  const getNewPath = useCallback(
+    fieldName => {
+      return `${props.path ? props.path + ".data." : ""}${fieldName}`;
+    },
+    [props.path]
+  );
+  return props.fields.map((field, index) => {
+    const { min, max } = calculateMaxMin(
+      field.min,
+      field.routToSpeckMin,
+      field.editRepeatStepListMin,
+      field.max,
+      field.routToSpeckMax,
+      field.editRepeatStepListMax,
+      props.repeatStepList,
       props.speckData
     );
-    if (value.line) {
+    if (
+      field.showFieldSpackPath &&
+      [null, undefined, "", false].includes(
+        findValue(
+          props.speckData,
+          field.speckValueList,
+          props.repeatStepList,
+          field.editRepeatStepValueList
+        )
+      )
+    ) {
+      return null;
+    } else if (field.line) {
       return <Line key={`${props.indexId}-${index}`} />;
-    } else if (value.routToSpeckValue && value.fieldSpeckValue) {
+    } else if (field.page) {
+      if (
+        objectPath.get(
+          documentDateContext.documentDate,
+          `${props.path}.${field.queryPath}`,
+          null
+        ) === null
+      ) {
+        objectPath.set(
+          documentDateContext.documentDate,
+          `${props.path}.${field.queryPath}`,
+          []
+        );
+      }
+      return (
+        <Page
+          {...field}
+          key={index}
+          repeatStepList={props.repeatStepList}
+          submitHandler={props.submitHandler}
+          submitData={props.submitData}
+          thisChapter={props.thisChapter}
+          stopLoop={props.stopLoop}
+          mutation={props.mutation}
+          showEditButton={false}
+          data={objectPath.get(props.data, field.queryPath, false)}
+          path={`${props.path}.${field.queryPath}`}
+        />
+      );
+    } else if (field.speckValueList) {
       return (
         <ReadField
           {...props}
-          {...value}
+          {...field}
+          key={`${props.indexId}-${index}`}
+          path={getNewPath(field.fieldName)}
           subtext={getSubtext(
-            value.subtext,
-            props.speckData,
-            value.routToSpeckSubtext,
-            value.fieldSpeckSubtext,
+            field.subtext,
+            findValue(
+              props.speckData,
+              field.speckSubtextList,
+              props.repeatStepList,
+              field.editRepeatStepSubtextList
+            ),
             max,
             min,
-            value.maxInput,
-            value.minInput,
-            value.unit,
-            value.required
+            field.maxInput,
+            field.minInput,
+            field.unit,
+            field.required
           )}
-          key={`${props.indexId}-${index}`}
-          value={getDataFromQuery(
+          value={findValue(
             props.speckData,
-            value.routToSpeckValue,
-            value.fieldSpeckValue
+            field.speckValueList,
+            props.repeatStepList,
+            field.editRepeatStepValueList
           )}
         />
       );
     } else if (
-      value.readOnly ||
+      field.readOnly ||
       props.writeChapter ||
-      `${props.indexId}-${index}` === fieldsContext.editField
+      `${props.repeatStepList}-${field.fieldName}` ===
+        chapterContext.editChapter
     ) {
       return (
         <WriteFieldGroupError
-          {...value}
+          {...field}
           {...props}
           key={`${props.indexId}-${index}`}
+          path={getNewPath(field.fieldName)}
           submitButton={
-            `${props.indexId}-${index}` === fieldsContext.editField
+            `${props.repeatStepList}-${field.fieldName}` ===
+            chapterContext.editChapter
               ? true
               : false
           }
           min={min}
           max={max}
           subtext={getSubtext(
-            value.subtext,
-            props.speckData,
-            value.routToSpeckSubtext,
-            value.fieldSpeckSubtext,
+            field.subtext,
+            findValue(
+              props.speckData,
+              field.speckSubtextList,
+              props.repeatStepList,
+              field.editRepeatStepSubtextList
+            ),
             max,
             min,
-            value.maxInput,
-            value.minInput,
-            value.unit,
-            value.required
+            field.maxInput,
+            field.minInput,
+            field.unit,
+            field.required
           )}
-          value={
-            props.state[value.fieldName] ? props.state[value.fieldName] : ""
-          }
-          file={value.type === "file" ? props.file : null}
+          value={objectPath.get(
+            documentDateContext.documentDate,
+            getNewPath(field.fieldName),
+            ""
+          )}
+          file={field.type === "file" ? props.file : null}
           indexId={`${props.indexId}-${index}`}
           index={index}
         />
@@ -150,36 +156,41 @@ export default props => {
       return (
         <ReadField
           {...props}
-          {...value}
+          {...field}
           key={`${props.indexId}-${index}`}
+          path={getNewPath(field.fieldName)}
           indexId={`${props.indexId}-${index}`}
           index={index}
-          value={props.state[value.fieldName]}
+          value={objectPath.get(
+            documentDateContext.documentDate,
+            getNewPath(field.fieldName)
+          )}
           subtext={getSubtext(
-            value.subtext,
-            props.speckData,
-            value.routToSpeckSubtext,
-            value.fieldSpeckSubtext,
+            field.subtext,
+            findValue(
+              props.speckData,
+              field.speckSubtextList,
+              props.repeatStepList,
+              field.editRepeatStepSubtextList
+            ),
             max,
             min,
-            value.maxInput,
-            value.minInput,
-            value.unit,
-            value.required
+            field.maxInput,
+            field.minInput,
+            field.unit,
+            field.required
           )}
           label={
-            (value.queryNameVariableLabel && value.fieldNameVariableLabel) ||
-            value.indexVariableLabel
+            field.queryVariableLabel || field.indexVariableLabel
               ? variableLabel(
-                  value.label,
+                  field.label,
                   documentDateContext.documentDate,
-                  value.indexVariableLabel,
-                  props.repeatStep,
-                  value.queryNameVariableLabel,
-                  value.fieldNameVariableLabel,
-                  value.indexVariableLabel ? props.repeatStep : undefined
+                  field.queryVariableLabel,
+                  props.repeatStepList,
+                  field.editRepeatStepListVariableLabel,
+                  field.indexVariableLabel ? props.repeatStep : undefined
                 )
-              : value.label
+              : field.label
           }
         />
       );

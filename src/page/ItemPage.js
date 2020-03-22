@@ -9,41 +9,22 @@ import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
-
+import { objectifyQuery } from "components/Functions";
 export default pageInfo => {
-  let { _id } = pageInfo.match.params;
+  const [_id, set_id] = useState(Number(pageInfo.match.params._id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
+  const [fixedData, setFixedData] = useState(null);
+
   const setstate = counter => {
     setCounter(counter);
   };
   const { loading, error, data } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
-
-  useEffect(() => {
-    if (!error && !loading) {
-      if (
-        data.projects[0].descriptions[counter - 1] &&
-        data.projects[0].descriptions[counter - 1].items
-      ) {
-        setGeometryData(data.projects[0].descriptions[counter - 1]);
-      } else {
-        setGeometryData(0);
-      }
-      setProjectData(JSON.parse(data.projects[0].data.replace(/'/g, '"')));
-      let countNumberOfItems = 0;
-      data.projects[0].descriptions.forEach(description => {
-        // console.log(items, "item");
-        countNumberOfItems += description.items.length;
-        // console.log(countNumberOfItems, "count");
-      });
-      setNumberOfItems(countNumberOfItems);
-    }
-  }, [data, error, loading, counter, reRender]);
 
   const deleteFromCache = (
     cache,
@@ -94,29 +75,76 @@ export default pageInfo => {
   const [
     LeadEngineerDoneMutation,
     { loading: loadingLeadEngineerDone, error: errorLeadEngineerDone }
-  ] = useMutation(mutations["LEADENGINEERDONE"], { update });
+  ] = useMutation(mutations["ORDER"], { update });
 
-  const [deleteItem] = useMutation(mutations["DELETEITEM"], {
+  const [
+    deleteItem,
+    { loading: loadingDelete, error: errorDelete }
+  ] = useMutation(mutations["DELETEITEM"], {
     update: deleteFromCache
   });
   const [
     mutationDiffreant,
     { loading: loadingMutation, error: errorMutation }
   ] = useMutation(mutations["ORDER"]);
+
+  useEffect(() => {
+    setFixedData(objectifyQuery(data));
+    if (data && data.projects && data.projects[0] && data.projects[0].id) {
+      set_id(data.projects[0].id);
+    }
+  }, [
+    reRender,
+    loading,
+    error,
+    data,
+    loadingMutation,
+    errorMutation,
+    loadingLeadEngineerDone,
+    errorLeadEngineerDone,
+    loadingDelete,
+    errorDelete
+  ]);
+
+  useEffect(() => {
+    if (
+      !error &&
+      !loading &&
+      fixedData &&
+      fixedData.projects &&
+      fixedData.projects[0] &&
+      fixedData.projects[0].descriptions
+    ) {
+      if (
+        fixedData &&
+        fixedData.projects &&
+        fixedData.projects[0].descriptions &&
+        fixedData.projects[0].descriptions[counter - 1] &&
+        fixedData.projects[0].descriptions[counter - 1].items
+      ) {
+        setGeometryData(fixedData.projects[0].descriptions[counter - 1]);
+      } else {
+        setGeometryData(0);
+      }
+      setProjectData(fixedData.projects[0].data);
+      let countNumberOfItems = 0;
+      fixedData.projects[0].descriptions.forEach(description => {
+        countNumberOfItems += description.items.length;
+      });
+      setNumberOfItems(countNumberOfItems);
+    }
+  }, [counter, fixedData]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
   return (
     <Paper>
       <DocumentAndSubmit
         componentsId={"itemsPage" + counter.toString()}
-        // buttonToEveryForm={true}
-        // notEditButton={true}
-        // allWaysShow={true}
         submitOneField={true}
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
-        data={data}
+        data={fixedData}
         arrayIndex={counter - 1}
         getQueryBy={_id}
         foreignKey={_id}
@@ -157,10 +185,11 @@ export default pageInfo => {
           />
         </>
       ) : null}
-
-      <h4>
-        Geometry {counter}/{projectsData.numberOfDescriptions}
-      </h4>
+      {fixedData && fixedData.projects && fixedData.projects[0] ? (
+        <h4>
+          Geometry {counter}/{projectsData.numberOfDescriptions}
+        </h4>
+      ) : null}
       {counter !== 1 && (
         <Button onClick={() => setstate(counter - 1)}>Back</Button>
       )}
@@ -168,14 +197,14 @@ export default pageInfo => {
         <Button onClick={() => setstate(counter + 1)}>Next</Button>
       ) : (
         numberOfItems == projectsData.totalNumberOfItems &&
-        (data.projects[0].leadEngineerDone ? (
+        (fixedData.projects[0].leadEngineerDone ? (
           <h3>In Production</h3>
         ) : (
           <Button
             onClick={() =>
               LeadEngineerDoneMutation({
                 variables: {
-                  project: [{ id: _id, leadEngineerDone: true }]
+                  projects: [{ id: _id, leadEngineerDone: true }]
                 }
               })
             }
@@ -184,6 +213,7 @@ export default pageInfo => {
           </Button>
         ))
       )}
+
       {loadingMutation && <p>Loading...</p>}
       {errorMutation && <p>Error :( Please try again</p>}
       {loadingLeadEngineerDone && <p>Loading...</p>}

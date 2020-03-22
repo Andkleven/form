@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   DocumentDateContext,
   FieldsContext,
-  variableLabel
+  ChapterContext
 } from "./DocumentAndSubmit";
+import { variableLabel } from "./Functions";
 import ReadOnlyField from "./ReadOnlyField";
 import WriteField from "./WriteField";
 
@@ -21,19 +22,18 @@ const initialState = {
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
+  const chapterContext = useContext(ChapterContext);
   const [label, setLabel] = useState("");
   const [error, setError] = useState(initialState);
   useEffect(() => {
     setLabel(
-      (props.queryNameVariableLabel && props.fieldNameVariableLabel) ||
-        props.indexVariableLabel
+      props.queryVariableLabel || props.indexVariableLabel
         ? variableLabel(
             props.label,
             documentDateContext.documentDate,
-            props.indexVariableLabel,
-            props.repeatStep,
-            props.queryNameVariableLabel,
-            props.fieldNameVariableLabel,
+            props.queryVariableLabel,
+            props.repeatStepList,
+            props.editRepeatStepListVariableLabel,
             props.indexVariableLabel ? props.repeatStep : undefined
           )
         : props.label
@@ -43,8 +43,9 @@ export default props => {
   // set error message if outside criteria
   useEffect(() => {
     if (
-      Number(fieldsContext.editField.split("-")[0]) === props.thisChapter ||
-      (!fieldsContext.editField && props.writeChapter)
+      chapterContext.editChapter ===
+        `${props.repeatStepList}-${props.fieldName}` ||
+      props.writeChapter
     ) {
       let passedValidation = true;
       if (props.required) {
@@ -91,24 +92,14 @@ export default props => {
       }
       fieldsContext.setvalidationPassed(prevState => ({
         ...prevState,
-        [`${props.pageName}-${props.repeatStep}-${
-          props.fieldName
-        }`]: passedValidation
+        [`${props.repeatStepList}-${props.fieldName}`]: passedValidation
       }));
     } else {
       setError(initialState);
     }
   }, [props.value, props.writeChapter, fieldsContext.editField]);
-
   if (props.readOnly) {
-    return (
-      <ReadOnlyField
-        {...props}
-        key={props.indexId}
-        label={label}
-        error={error}
-      />
-    );
+    return <ReadOnlyField {...props} label={label} error={error} />;
   } else {
     return <WriteField {...props} label={label} error={error} />;
   }

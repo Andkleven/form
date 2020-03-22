@@ -5,7 +5,7 @@ const OrderItem = props => (
     <div>
       <h1>
         {props.item.id}
-        {props.data.itemId}
+        {props.item.data.itemId}
       </h1>
     </div>
     <div>

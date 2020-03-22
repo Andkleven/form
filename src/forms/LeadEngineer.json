@@ -9,8 +9,8 @@
       "pages": [
         {
           "pageTitle": "Steel Preparation",
-          "queryPath": "leadEngineers",
           "pageName": "leadEngineer",
+          "queryPath": "leadEngineers.0",
           "fields": [
             {
               "fieldName": "steel",
@@ -77,7 +77,7 @@
             },
             {
               "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile (Roughnes)",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -86,7 +86,7 @@
             },
             {
               "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile (Roughnes)",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -110,15 +110,15 @@
             },
             {
               "fieldName": "compressedAirCheck",
-              "label": "Compressed Air Check",
+              "label": "compressed Air Check",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "checkbox"
             },
             {
-              "fieldName": "surfaceCleanliness",
-              "label": "Surface Cleanliness",
+              "fieldName": "surfaceCleanlines",
+              "label": "Surface Cleanlines",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
@@ -134,38 +134,8 @@
           ]
         },
         {
-          "pageTitle": "Custom Test",
-          "queryPath": "leadEngineers.0.customSteelPreparations",
-          "pageName": "customSteelPreparation",
-          "repeat": true,
-          "delete": true,
-          "addButton": "Add Custom Test",
-          "fields": [
-            {
-              "fieldName": "nameOfTest",
-              "label": "Name of Test",
-              "placeholder": "Min",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
-            },
-            {
-              "fieldName": "criteria",
-              "label": "Criteria",
-              "placeholder": "Max",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
-            },
-            {
-              "fieldName": "standard",
-              "label": "Standard",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
-            }
-          ]
-        },
-        {
           "pageTitle": "Priming",
-          "queryPath": "leadEngineers",
+          "queryPath": "leadEngineers.0",
           "pageName": "leadEngineer",
           "fields": [
             {
@@ -217,7 +187,7 @@
         {
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
-          "queryPath": "leadEngineers",
+          "queryPath": "leadEngineers.0",
           "pageName": "leadEngineer",
           "mutation": "LEADENGINEER",
           "fields": [
@@ -229,17 +199,6 @@
               "subtext": "Accepts any value",
               "select": "select",
               "options": ["", "OD", "ID"]
-            },
-            {
-              "fieldName": "actualSteelTDV",
-              "label": "Actual Steel {TDV}",
-              "queryNameVariableLabel": "leadEngineer",
-              "fieldNameVariableLabel": "targetDescriptionValue",
-              "indexVariableLabel": 0,
-              "placeholder": "Max",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
-              "type": "number"
             },
             {
               "fieldName": "orderedTotalRubberThicknes",
@@ -296,12 +255,12 @@
           "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithPageName": "leadEngineer",
-          "repeatGroupWithFieldName": "measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "fields": [
             {
               "fieldName": "measurementPointActual",
-              "label": "Measurement Point Actual",
+              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "label": "Measurement Point Actual Steel {}",
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "number"
@@ -331,6 +290,7 @@
           "repeat": true,
           "repeatStartWithOneGroup": true,
           "delete": true,
+          "addButton": "Add Step",
           "pageTitle": "Vulcanization Steps",
           "indexVariableFieldGroupRepeatTitle": true,
           "fieldGroupRepeatTitle": "Step {}",
@@ -363,89 +323,92 @@
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "Number"
+            },
+            {
+              "page": true,
+              "pageTitle": "Coating Layer",
+              "queryPath": "coatingLayers",
+              "repeat": true,
+              "notAddButton": true,
+              "repeatGroupWithQuery": [
+                "leadEngineers.0.vulcanizationSteps",
+                "data.numberOfLayers"
+              ],
+              "fields": [
+                {
+                  "fieldName": "layer",
+                  "label": "Layer",
+                  "readOnly": true,
+                  "setValueByIndex": true,
+                  "type": "Number",
+                  "textCenter": true
+                },
+                { "line": true },
+                {
+                  "fieldName": "compoundNumber",
+                  "label": "Compound Number",
+                  "select": "select",
+                  "options": ["Compound Number", 73165]
+                },
+                {
+                  "fieldName": "actualThicknes",
+                  "label": "Actual Thicknes",
+                  "feedback": "Enter valid number.",
+                  "type": "Number",
+                  "min": 2,
+                  "max": 4,
+                  "unit": "mm",
+                  "decimal": 2,
+                  "required": true
+                },
+                {
+                  "fieldName": "shrink",
+                  "label": "Shrink",
+                  "feedback": "Enter valid number.",
+                  "subtext": "Accepts any value",
+                  "type": "Number",
+                  "max": 15,
+                  "min": 2,
+                  "required": true
+                },
+                {
+                  "fieldName": "proposedThicknes",
+                  "label": "Proposed Thicknes",
+                  "math": "mathProposedThicknes",
+                  "min": 2,
+                  "max": 4,
+                  "unit": "mm",
+                  "readOnly": true,
+                  "decimal": 1,
+                  "type": "Number"
+                },
+                {
+                  "fieldName": "layersUnique",
+                  "label": "Layers Unique",
+                  "feedback": "Enter valid number.",
+                  "subtext": "Accepts any value",
+                  "type": "checkbox"
+                },
+                {
+                  "page": true,
+                  "queryPath": "cumulativeThicknes",
+                  "repeat": true,
+                  "notAddButton": true,
+                  "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+                  "fields": [
+                    {
+                      "fieldName": "cumulativeThicknes",
+                      "label": "Cumulative Thicknes {}",
+                      "math": "mathCumulativeThicknes",
+                      "indexVariableLabel": true,
+                      "readOnly": true,
+                      "decimal": 1,
+                      "type": "Number"
+                    }
+                  ]
+                }
+              ]
             }
-          ]
-        }
-      ]
-    },
-    {
-      "lookUpBy": "actualThicknes",
-      "queryPath": "leadEngineers.0.coatingLayers",
-      "pages": [
-        {
-          "pageTitle": "Coating Layer",
-          "queryPath": "leadEngineers.0.coatingLayers",
-          "pageName": "coatingLayer",
-          "repeat": true,
-          "notAddButton": true,
-          "sumAllPage": true,
-          "repeatGroupWithChapter": -1,
-          "repeatGroupWithPageName": "vulcanizationStep",
-          "repeatGroupWithFieldName": "numberOfLayers",
-          "fields": [
-            {
-              "fieldName": "layer",
-              "label": "Layer",
-              "readOnly": true,
-              "setValueByIndex": true,
-              "type": "Number",
-              "textCenter": true
-            },
-            { "line": true },
-            {
-              "fieldName": "compoundNumber",
-              "label": "Compound Number",
-              "select": "select",
-              "options": ["Compound Number", 73165]
-            },
-            {
-              "fieldName": "actualThicknes",
-              "label": "Actual Thicknes",
-              "feedback": "Enter valid number.",
-              "type": "Number",
-              "min": 2,
-              "max": 4,
-              "unit": "mm",
-              "decimal": 2,
-              "required": true
-            },
-            {
-              "fieldName": "shrink",
-              "label": "Shrink",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
-              "type": "Number",
-              "max": 15,
-              "min": 2,
-              "required": true
-            },
-            {
-              "fieldName": "proposedThicknes",
-              "label": "Proposed Thicknes",
-              "math": "mathProposedThicknes",
-              "min": 2,
-              "max": 4,
-              "unit": "mm",
-              "readOnly": true,
-              "decimal": 1,
-              "type": "Number"
-            },
-            {
-              "fieldName": "layersUnique",
-              "label": "Layers Unique",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
-              "type": "checkbox"
-            },
-            {
-              "fieldName": "cumulativeThicknes",
-              "label": "Cumulative Thicknes",
-              "math": "mathCumulativeThicknes",
-              "readOnly": true,
-              "decimal": 1,
-              "type": "Number"
-            },
-            { "line": true }
           ]
         }
       ]

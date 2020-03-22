@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
-import { getDataFromQuery, stringToDictionary } from "components/Functions";
+import { findValue, allRequiredFinished } from "components/Functions";
 
 export default props => {
   const add = (item, batchingData) => {
@@ -9,12 +9,17 @@ export default props => {
     if (!props.batchingData) {
       props.setBatchingData({ ...batchingData });
     }
+    if (props.finishedItem) {
+      props.setFinishedItem(0);
+    }
   };
   const remove = item => {
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
     }
-    props.setFinishedItem(0);
+    if (props.finishedItem) {
+      props.setFinishedItem(0);
+    }
     props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
   };
   const handelClick = (e, item, batchingData) => {
@@ -32,10 +37,9 @@ export default props => {
           .map((item, index) => {
             let batchingData = {};
             props.json.batching.dataField.forEach(field => {
-              batchingData[field] = getDataFromQuery(
+              batchingData[field] = findValue(
                 item,
-                props.json.batching.dataPath + "0",
-                field
+                `${props.json.batching.dataPath}.0.data.${field}`
               );
             });
             if (
@@ -45,9 +49,10 @@ export default props => {
                   JSON.stringify(props.batchingData))
             ) {
               return (
-                <>
+                <Fragment key={`${index}-fragment`}>
                   {props.partialBatching ? (
                     <button
+                      key={`${index}-button`}
                       onClick={() => {
                         props.setFinishedItem(Number(item.id));
                         props.setBatchingListIds([Number(item.id)]);
@@ -58,7 +63,7 @@ export default props => {
                     </button>
                   ) : null}
                   <Form.Check
-                    key={index}
+                    key={`${index}-check`}
                     className="text-success"
                     onChange={e => handelClick(e, item, batchingData)}
                     id={`custom-${props.type}-${props.fieldName}-${
@@ -69,19 +74,15 @@ export default props => {
                         ? true
                         : false
                     }
-                    label={
-                      stringToDictionary(item.data)[
-                        props.json.batching.showField
-                      ]
-                    }
+                    label={item.data[props.json.batching.showField]}
                   />
-                </>
+                </Fragment>
               );
             } else {
-              //  fade out check box
+              //  fade out check box?
               return (
-                <div key={index} className="text-danger">
-                  {stringToDictionary(item.data)[props.json.batching.showField]}
+                <div key={`${index}-text`} className="text-danger">
+                  {item.data[props.json.batching.showField]}
                 </div>
               );
             }

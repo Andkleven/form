@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 const ALL = gql`
-  query($id: Int!) {
+  query($id: Int) {
     projects(id: $id) {
       id
       data
@@ -27,25 +27,21 @@ const ALL = gql`
               id
               data
             }
-            customSteelPreparations {
-              id
-              data
-            }
             rubberCements {
-              id
-              data
-            }
-            customFinalInspections {
               id
               data
             }
             vulcanizationSteps {
               id
               data
-            }
-            coatingLayers {
-              id
-              data
+              coatingLayers {
+                id
+                data
+                cumulativeThicknes {
+                  id
+                  data
+                }
+              }
             }
           }
         }
@@ -64,7 +60,7 @@ const GET_ORDER = gql`
 `;
 
 const GET_GEOMETRY = gql`
-  query($id: Int!) {
+  query($id: Int) {
     descriptions(id: $id) {
       data
     }
@@ -72,7 +68,7 @@ const GET_GEOMETRY = gql`
 `;
 
 const GET_ORDER_GEOMETRY = gql`
-  query($id: Int!) {
+  query($id: Int) {
     projects(id: $id) {
       id
       data
@@ -96,14 +92,10 @@ const GET_ORDER_GEOMETRY = gql`
 `;
 
 const GET_LEAD_ENGINEER = gql`
-  query getLeadEngineer($id: Int!) {
+  query getLeadEngineer($id: Int) {
     leadEngineers(item: $id) {
       id
       data
-      customSteelPreparations {
-        id
-        data
-      }
       measurementPointActualTvds {
         id
         data
@@ -111,16 +103,16 @@ const GET_LEAD_ENGINEER = gql`
       vulcanizationSteps {
         id
         data
-      }
-      coatingLayers {
-        id
-        data
+        coatingLayers {
+          id
+          data
+          cumulativeThicknes {
+            id
+            data
+          }
+        }
       }
       rubberCements {
-        id
-        data
-      }
-      customFinalInspections {
         id
         data
       }
@@ -129,7 +121,7 @@ const GET_LEAD_ENGINEER = gql`
 `;
 
 const GET_OPERATOR = gql`
-  query($id: Int!) {
+  query($id: Int) {
     descriptions(id: $id) {
       id
       data
@@ -144,49 +136,41 @@ const GET_OPERATOR = gql`
             id
             data
           }
-          customSteelPreparations {
-            id
-            data
-          }
           rubberCements {
-            id
-            data
-          }
-          customFinalInspections {
             id
             data
           }
           vulcanizationSteps {
             id
             data
-          }
-          coatingLayers {
-            id
-            data
+            coatingLayers {
+              id
+              data
+              cumulativeThicknes {
+                id
+                data
+              }
+            }
           }
         }
         operators {
           id
           data
-          customMediaBlastings {
-            id
-            data
-          }
-          coatingOperators {
-            id
-            data
-            mixDates {
-              id
-              data
-            }
-            measurementPointOperators {
-              id
-              data
-            }
-          }
           vulcanizationOperators {
             id
             data
+            coatingOperators {
+              id
+              data
+              mixDates {
+                id
+                data
+              }
+              measurementPointOperators {
+                id
+                data
+              }
+            }
           }
         }
       }

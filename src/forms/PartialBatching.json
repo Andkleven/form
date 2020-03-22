@@ -13,77 +13,9 @@
   },
   "ducument": {
     "queryPath": "operators",
+    "spackQueryPath": "leadEngineers",
     "mutation": "OPERATORBATCHING",
     "query": "GET_OPERATOR",
-    "chapters": [
-      {
-        "chapterAlwaysInWrite": true,
-        "pages": [
-          {
-            "pageTitle": "Media Blasting",
-            "pageName": "operator",
-            "queryPath": "operators",
-            "fields": [
-              {
-                "routToSpeckValue": "leadEngineers.0",
-                "fieldSpeckValue": "blastMedia",
-                "label": "Blast Media"
-              },
-              { "line": true },
-              {
-                "fieldName": "relativeHumidity",
-                "label": "Relative Humidity",
-                "placeholder": "Placeholder",
-                "routToSpeckMax": "leadEngineers.0",
-                "fieldSpeckMax": "relativeHumidityt",
-                "unit": "%",
-                "required": true
-              },
-              {
-                "fieldName": "airTemperature",
-                "label": "Air Temperature",
-                "routToSpeckMin": "leadEngineers.0",
-                "fieldSpeckMin": "airTemperature",
-                "placeholder": "Placeholder",
-                "unit": "C",
-                "required": true
-              },
-              {
-                "fieldName": "steelTemperature",
-                "label": "Steel Temperature",
-                "routToSpeckMin": "leadEngineers.0",
-                "fieldSpeckMin": "steelTemperature",
-                "placeholder": "Placeholder",
-                "unit": "C",
-                "required": true
-              },
-              {
-                "fieldName": "temperatureOverDewPoint",
-                "label": "Temperature over Dew Point",
-                "routToSpeckMin": "leadEngineers.0",
-                "fieldSpeckMin": "temperatureOverDewPoint",
-                "placeholder": "Placeholder",
-                "unit": "C",
-                "required": true
-              },
-              {
-                "fieldName": "equipmentIDMediaBlasting",
-                "label": "Equipment ID",
-                "routToSpeckSubtext": "leadEngineers.0",
-                "fieldSpeckSubtext": "primer1",
-                "subtext": "Jaja: {}",
-                "placeholder": "Placeholder",
-                "unit": "C"
-              },
-              {
-                "fieldName": "date",
-                "label": "Equipment ID",
-                "type": "datetime-local"
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "chapters": "steelPreparation1"
   }
 }

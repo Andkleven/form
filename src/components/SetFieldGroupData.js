@@ -1,62 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form } from "react-bootstrap";
+import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import { variableLabel } from "components/Functions";
+import { variableString, emptyObject } from "components/Functions";
 
 import "../styles/styles.css";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  const [state, setState] = useState({}); // Data for this group
-  const [id, setId] = useState(0); // Id for this group
+  const [trigger, setTrigger] = useState(false);
+  const [state, setState] = useState();
 
-  // set page name and which group number you are on to documentDate
-  useEffect(() => {
-    if (
-      !documentDateContext.documentDate[props.thisChapter][props.pageName] ||
-      !documentDateContext.documentDate[props.thisChapter][props.pageName][
-        props.repeatStep
-      ]
-    ) {
-      let updateValues = {};
-      if (
-        !documentDateContext.documentDate[props.thisChapter][props.pageName]
-      ) {
-        updateValues = { [props.repeatStep]: {} };
-      } else if (
-        !documentDateContext.documentDate[props.thisChapter][props.pageName][
-          props.repeatStep
-        ]
-      ) {
-        updateValues = {
-          ...documentDateContext.documentDate[props.thisChapter][
-            props.pageName
-          ],
-          [props.repeatStep]: {}
-        };
-      }
-      documentDateContext.setDocumentDate(prevState => ({
-        ...prevState,
-        [props.thisChapter]: {
-          ...prevState[props.thisChapter],
-          [props.pageName]: {
-            ...updateValues
-          }
-        }
-      }));
-    }
-  }, [
-    documentDateContext.documentDate[props.thisChapter],
-    documentDateContext.documentDate[props.thisChapter][props.pageName],
-    props.data
-  ]);
   // sets default data or data from database to every field in group and store it in state
   useEffect(() => {
     if (props.fields) {
       props.fields.map(value => {
-        if (value.type === "file" || value.line || value.routToSpeckValue) {
+        if (
+          value.type === "file" ||
+          value.line ||
+          value.routToSpeckValue ||
+          value.page ||
+          value.firstSpeckValue
+        ) {
           return null;
         }
         return setState(prevState => ({
@@ -75,33 +41,35 @@ export default props => {
       });
     }
     const setStateWithData = data => {
-      setId(data.id);
-      if (data.data && data.data.trim() !== "") {
-        let inputData = JSON.parse(data.data.replace(/'/g, '"'));
+      if (data && data.data && !emptyObject(data.data)) {
         props.fields.map(value => {
-          if (value.type === "file" || value.line || value.routToSpeckValue) {
+          if (
+            value.type === "file" ||
+            value.line ||
+            value.routToSpeckValue ||
+            value.page ||
+            value.firstSpeckValue
+          ) {
             return null;
           }
           if (["date", "datetime-local"].includes(value.type)) {
-            return setState(prevState => ({
-              ...prevState,
+            return setState(pervState => ({
+              ...pervState,
               [value.fieldName]: [undefined, null, ""].includes(
-                inputData[value.fieldName]
+                data.data[value.fieldName]
               )
                 ? null
-                : new Date(inputData[value.fieldName])
+                : new Date(data.data[value.fieldName])
             }));
           }
-          return setState(prevState => ({
-            ...prevState,
-            [value.fieldName]: inputData[value.fieldName]
+          return setState(pervState => ({
+            ...pervState,
+            [value.fieldName]: data.data[value.fieldName]
           }));
         });
       }
     };
-    if (!props.data || props.data.length === 0) {
-      setId(0);
-    } else {
+    if (props.data) {
       if (Array.isArray(props.data)) {
         setStateWithData(
           props.createWithValueLast
@@ -112,10 +80,57 @@ export default props => {
         setStateWithData(props.data);
       }
     }
-    if (props.createWithOldValue) {
-      setId(0);
+    if (props.createWithOldValue && Array.isArray(props.data)) {
+      let length = props.data.length;
+      if (
+        length <=
+        objectPath.get(documentDateContext.documentDate, props.path).length
+      ) {
+        setTrigger(!trigger);
+      }
+    } else {
+      setTrigger(!trigger);
     }
-  }, [props.data, props.writeChapter]);
+  }, [props.data, props.writeChapte]);
+  useEffect(() => {
+    if (props.createWithOldValue && Array.isArray(props.data)) {
+      let length = props.data.length;
+      if (
+        length <=
+        objectPath.get(documentDateContext.documentDate, props.path).length
+      ) {
+        documentDateContext.setDocumentDate(prevState => {
+          objectPath.set(
+            prevState,
+            props.path ? `${props.path}.${length}.data` : "data",
+            {
+              ...objectPath.get(
+                prevState,
+                props.path ? props.path + ".data" : "data"
+              ),
+              ...state
+            }
+          );
+          return {
+            ...prevState
+          };
+        });
+      }
+    } else {
+      documentDateContext.setDocumentDate(prevState => {
+        objectPath.set(prevState, props.path ? props.path + ".data" : "data", {
+          ...objectPath.get(
+            prevState,
+            props.path ? props.path + ".data" : "data"
+          ),
+          ...state
+        });
+        return {
+          ...prevState
+        };
+      });
+    }
+  }, [trigger]);
 
   if (props.writeChapter !== undefined) {
     return (
@@ -125,36 +140,24 @@ export default props => {
             key={`${props.thisChapter}-${props.index}-jja`}
             title={
               props.indexVariableFieldGroupRepeatTitle
-                ? variableLabel(
-                    props.fieldGroupRepeatTitle,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    props.repeatStep + 1
+                ? variableString(
+                    props.repeatStep + 1,
+                    props.fieldGroupRepeatTitle
                   )
                 : props.fieldGroupRepeatTitle
             }
           />
         ) : null}
-        {props.fields &&
-          documentDateContext.documentDate[props.thisChapter][
-            props.pageName
-          ] && (
-            <Form key={props.indexId}>
-              {
-                <FieldGroup
-                  {...props}
-                  key={props.index}
-                  state={state}
-                  setState={setState}
-                  id={id}
-                  file={props.data && props.data.file}
-                />
-              }
-            </Form>
-          )}
+        {props.fields && (
+          <FieldGroup
+            {...props}
+            key={props.index}
+            path={props.path}
+            // state={state}
+            // setState={setState}
+            file={props.data && props.data.file}
+          />
+        )}
       </>
     );
   } else {

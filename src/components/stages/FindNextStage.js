@@ -1,23 +1,14 @@
 import StagesJson from "./Stages.json";
-import { stringToDictionary, emptyObject } from "components/Functions";
-import objectPath from "object-path";
+import { findValue } from "components/Functions";
 
 export default (speckData, stage, geometry) => {
   const findNextStage = (speckData, geometry, nextStage) => {
     let stageCriteria = StagesJson[geometry][nextStage];
-
-    let query = objectPath.get(speckData, stageCriteria.queryPath, null);
-    if (query === null) {
-      return false;
-    } else if (
-      [undefined, null, ""].includes(stageCriteria.fieldPath) ||
-      emptyObject(stageCriteria.fieldPath)
-    ) {
+    if ([undefined, null, ""].includes(stageCriteria)) {
       return true;
     }
-    console.log(query);
-    let field = stringToDictionary(query.data)[stageCriteria.fieldPath];
-    if (field !== undefined) {
+    let query = findValue(speckData, stageCriteria.queryPath);
+    if ([undefined, null, ""].includes(query)) {
       return true;
     }
     return false;

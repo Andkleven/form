@@ -2,8 +2,8 @@
   "all": [
     "steelPreparation1",
     "steelPreparation2",
-    "priming1",
-    "priming2",
+    "primer1",
+    "primer2",
     "actualSteelMeasurement",
     "rubberCement",
     "coatingStep1",
@@ -17,95 +17,78 @@
     "touchUp"
   ],
   "coateditem": {
-    "steelPreparation1": {},
-    "steelPreparation2": {},
-    "priming1": {
-      "queryPath": "leadEngineers.0",
-      "fieldPath": "primer1"
+    "steelPreparation1": "",
+    "steelPreparation2": "",
+    "primer1": {
+      "queryPath": "operators.0.data.primer1"
     },
 
-    "priming2": {
-      "queryPath": "leadEngineers.0",
-      "fieldPath": "primer2"
+    "primer2": {
+      "queryPath": "operators.0.data.primer2"
     },
-    "actualSteelMeasurement": {},
+    "actualSteelMeasurement": "",
 
     "rubberCement": {
-      "queryPath": "leadEngineers.0",
-      "fieldPath": "rubberCementsBeforeCoating"
+      "queryPath": "operators.0.data.rubberCementsBeforeCoating"
     },
-    "coatingStep1": {},
-    "vulcanizationStage1": {},
+    "coatingStep1": "",
+    "vulcanizationStage1": "",
 
     "measurementStage1": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.1"
     },
 
     "coatingStage2": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.1"
     },
 
     "vulcanizationStage2": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.1"
     },
 
     "measurementStage2": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.2"
     },
 
     "coatingStage3": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.2"
     },
 
     "vulcanizationStage3": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.2"
     },
-    "touchUp": {}
+    "touchUp": ""
   },
   "mould": {
-    "steelPreparation1": {},
+    "steelPreparation1": "",
 
-    "priming1": {
-      "queryPath": "leadEngineers.0",
-      "fieldPath": "primer1"
+    "primer1": {
+      "queryPath": "operators.0.data.primer1"
     },
-    "priming2": {
-      "queryPath": "leadEngineers.0",
-      "fieldPath": "primer2"
+    "primer2": {
+      "queryPath": "operators.0.data.primer2"
     },
-    "coatingStep1": {},
-    "vulcanizationStage1": {},
+    "coatingStep1": "",
+    "vulcanizationStage1": "",
     "measurementStage1": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.1"
     },
     "coatingStage2": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.1"
     },
     "vulcanizationStage2": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.1",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.1"
     },
     "measurementStage2": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.2"
     },
     "coatingStage3": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.2"
     },
     "vulcanizationStage3": {
-      "queryPath": "leadEngineers.0.vulcanizationSteps.2",
-      "fieldPath": ""
+      "queryPath": "operators.0.vulcanizationSteps.2"
     },
 
-    "touchUp": {}
+    "touchUp": ""
   }
 }
