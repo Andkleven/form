@@ -92,16 +92,28 @@ export default props => {
   useEffect(() => {
     if (
       props.repeatGroupWithQuery &&
-      objectPath.get(documentDateContext.documentDate, props.path)
+      objectPath.get(
+        props.repeatGroupWithQuerySpeckData
+          ? props.speckData
+          : documentDateContext.documentDate,
+        props.path
+      )
     ) {
       let newValue = findValue(
-        documentDateContext.documentDate,
+        props.repeatGroupWithQuerySpeckData
+          ? props.speckData
+          : documentDateContext.documentDate,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
+      if (Array.isArray(newValue)) {
+        newValue = newValue.length;
+      }
       let oldValueLength = objectPath.get(
-        documentDateContext.documentDate,
+        props.repeatGroupWithQuerySpeckData
+          ? props.speckData
+          : documentDateContext.documentDate,
         props.path
       ).length;
       if (oldValueLength < newValue) {

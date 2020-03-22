@@ -4,14 +4,10 @@
   "query": "GET_OPERATOR",
   "chapters": {
     "steelPreparation1": {
-      "spackQueryPath": "",
-      "spackFieldPath": "",
       "queryPath": "operators",
-      "lookUpBy": "airTemperature",
       "pages": [
         {
           "pageTitle": "Media Blasting",
-          "pageName": "operator",
           "queryPath": "operators.0",
           "fields": [
             {
@@ -74,14 +70,10 @@
       ]
     },
     "steelPreparation2": {
-      "spackQueryPath": "",
-      "spackFieldPath": "",
       "queryPath": "operators",
-      "lookUpBy": "airTemperature",
       "pages": [
         {
           "pageTitle": "Media Blasting",
-          "pageName": "operator",
           "queryPath": "operators.0",
           "fields": [
             {
@@ -240,18 +232,14 @@
       ]
     },
     "primer1": {
-      "spackQueryPath": "leadEngineers.0",
-      "spackFieldPath": "primer1",
       "queryPath": "operators",
-      "lookUpBy": "batchNumberpriming1",
       "pages": [
         {
           "pageTitle": "Priming 1",
-          "pageName": "operator",
           "queryPath": "operators.0",
           "fields": [
             {
-              "speckSValueList": "leadEngineers.0.data.primer1",
+              "speckValueList": "leadEngineers.0.data.primer1",
               "label": "Primer Number"
             },
             { "line": true },
@@ -275,14 +263,10 @@
       ]
     },
     "primer2": {
-      "spackQueryPath": "leadEngineers.0",
-      "spackFieldPath": "primer2",
       "queryPath": "operators",
-      "lookUpBy": "batchNumberpriming2",
       "pages": [
         {
           "pageTitle": "Priming 2",
-          "pageName": "operator",
           "queryPath": "operators.0",
           "fields": [
             {
@@ -310,57 +294,39 @@
       ]
     },
     "actualSteelMeasurements": {
-      "spackQueryPath": "leadEngineers.0",
-      "spackFieldPath": "primer2",
       "queryPath": "operators",
-      "lookUpBy": "batchNumberpriming2",
       "chapterTitle": "Actual Steel OD Measurements",
       "pages": [
         {
           "pageTitle": "Pre-Coating",
           "queryPath": "leadEngineers.0.measurementPointActualTvds",
-          "pageName": "measurementPointActualTvd",
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuerySpeckData": true,
           "repeat": true,
           "notAddButton": true,
           "fields": [
             {
-              "speckValueList": "leadEngineers.0.data.primer2",
-              "label": "Primer Number"
-            },
-            { "line": true },
-            {
-              "fieldName": "batchNumberpriming2",
-              "label": "Batch Number",
+              "fieldName": "measurementPointActual",
+              "variableLabelWithSpeckData": true,
+              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "label": "Measurement Point Actual Steel {}",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
               "type": "number"
-            },
-            {
-              "fieldName": "startTimePriming2",
-              "label": "Start Time",
-              "type": "datetime-local"
-            },
-            {
-              "fieldName": "stopTimePriming2",
-              "label": "Stop Time",
-              "type": "datetime-local"
             }
           ]
         }
       ]
     },
     "rubberCement": {
-      "spackQueryPath": "leadEngineers.0",
-      "spackFieldPath": "rubberCementsBeforeCoating",
       "queryPath": "operators",
-      "lookUpBy": "batchNumberpriming2",
       "pages": [
         {
-          "pageTitle": "Priming 2",
-          "pageName": "operator",
+          "pageTitle": "Rubber Cement Before Coating",
           "queryPath": "operators.0",
           "fields": [
             {
-              "routToSpeckValue": "leadEngineers.0",
-              "fieldSpeckValue": "primer2",
+              "speckValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
               "label": "Rubber Cement:"
             },
             { "line": true },
@@ -383,31 +349,137 @@
         }
       ]
     },
-    "coating1": {
-      "lookUpBy": "",
-      "spackQueryPath": "leadEngineers.0.vulcanizationSteps.0",
-      "spackFieldPath": "numberOfLayers",
-      "queryPath": "operators.0.coatingLayers",
+    "coating": {
       "numberFromSpackField": true,
       "pages": [
         {
-          "pageTitle": "coatingLayer",
-          "pageName": "mixDate",
-          "repeatWithRespectToSpeck": true,
-          "spackQueryPath": "leadEngineers.0.vulcanizationSteps.0",
-          "spackFieldPath": "numberOfLayers",
+          "pageTitle": "Coating Layer",
+          "queryPath": "operators.0.vulcanizationOperators.0.coatingOperators",
           "repeat": true,
-          "queryPath": "operators.0.coatingOperators.0.mixDate",
           "fields": [
             {
-              "routToSpeckValue": "leadEngineers.0",
-              "fieldSpeckValue": "blastMedia",
-              "label": "Blast Media"
+              "speckValueList": [
+                "leadEngineers.rubberCements",
+                "data.rubberCement"
+              ],
+              "indexVariableLabel": true,
+              "label": "Rubber Cement / Release Agent {}"
+            },
+            { "line": true },
+            {
+              "page": true,
+              "repeatGroupWithQuerySpeckData": true,
+              "repeatGroupWithQuery": "leadEngineers.0.data.rubberCements",
+              "repeat": true,
+              "notAddButton": true,
+              "queryPath": "mixDates",
+              "fields": [
+                {
+                  "page": true,
+                  "repeat": true,
+                  "queryPath": "",
+                  "fields": [
+                    {
+                      "fieldName": "mixDate",
+                      "label": "Mix Date",
+                      "type": "date"
+                    }
+                  ]
+                }
+              ]
             },
             {
-              "fieldName": "mixDate",
-              "label": "Mix Date",
-              "type": "date"
+              "fieldName": "rubberThickness",
+              "label": "Rubber Thickness",
+              "type": "number"
+            },
+            {
+              "page": true,
+              "pageTitle": "Measurement Points",
+              "repeat": true,
+              "repeatGroupWithQuerySpeckData": true,
+              "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+              "queryPath": "measurementPointOperators",
+              "fields": [
+                {
+                  "fieldName": "mixDate",
+                  "label": "Mix Date",
+                  "speckSubtextList": [
+                    "leadEngineers.0.vulcanizationSteps.0.coatingOperators",
+                    "cumulativeThicknes.data.cumulativeThicknes"
+                  ],
+                  "subtext": "Target cumulative thickness: {}mm",
+                  "type": "number"
+                }
+              ]
+            },
+            {
+              "fieldName": "layerApplied",
+              "label": "Layer Applied",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "vulcanization": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Vulcanization",
+          "queryPath": "operators.0",
+          "fields": [
+            {
+              "speckValueList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "data.vulcanizationOption"
+              ],
+              "label": "Vulcanization Type"
+            },
+            {
+              "speckValueList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "data.programNumber"
+              ],
+              "label": "Program Number"
+            },
+            { "line": true },
+            {
+              "fieldName": "autoclaveNumber",
+              "label": "Autoclave Number",
+              "type": "number"
+            },
+            {
+              "fieldName": "startTime",
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTime",
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "touchUp": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Touch-Up",
+          "queryPath": "operators.0",
+          "fields": [
+            {
+              "fieldName": "touchUp",
+              "label": "Touch-Up",
+              "type": "checkbox",
+              "subtext": "Check if touch-up is performed"
+            },
+            {
+              "fieldName": "touchUpPerformed",
+              "label": "Touch Up Performed",
+              "type": "datetime-local"
             }
           ]
         }
