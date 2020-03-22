@@ -13,6 +13,7 @@ import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
 import PartialBatching from "./page/PartialBatching";
 import BatchingTest from "./page/BatchingTest";
+import SingelItem from "./page/SingelItem";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
 
@@ -49,7 +50,14 @@ export default () => (
               path="/partial-batching/:stage/:descriptionId"
               component={PartialBatching}
             />
+
+            <Route
+              path="/singelItem/:itemId/:geometry/:stage"
+              component={SingelItem}
+            />
+
             <Route path="/lead-engineer" component={LeadEngineerStartPage} />
+
           </Switch>
         </Router>
       </div>

@@ -141,7 +141,6 @@ export default pageInfo => {
     <Paper>
       <DocumentAndSubmit
         componentsId={"itemsPage" + counter.toString()}
-        submitOneField={true}
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={fixedData}

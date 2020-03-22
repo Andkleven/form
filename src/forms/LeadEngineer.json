@@ -9,7 +9,6 @@
       "pages": [
         {
           "pageTitle": "Steel Preparation",
-          "pageName": "leadEngineer",
           "queryPath": "leadEngineers.0",
           "fields": [
             {
@@ -136,7 +135,6 @@
         {
           "pageTitle": "Priming",
           "queryPath": "leadEngineers.0",
-          "pageName": "leadEngineer",
           "fields": [
             {
               "fieldName": "primer1",
@@ -188,7 +186,6 @@
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineers.0",
-          "pageName": "leadEngineer",
           "mutation": "LEADENGINEER",
           "fields": [
             {
@@ -252,7 +249,6 @@
         {
           "pageTitle": "Measurement Point Actual",
           "queryPath": "leadEngineers.0.measurementPointActualTvds",
-          "pageName": "measurementPointActualTvd",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
@@ -270,7 +266,6 @@
         {
           "pageTitle": "Rubber Cement",
           "queryPath": "leadEngineers.0.rubberCements",
-          "pageName": "rubberCement",
           "repeat": true,
           "delete": true,
           "addButton": "Add Rubber Cement",
@@ -285,7 +280,6 @@
           ]
         },
         {
-          "pageName": "vulcanizationStep",
           "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
           "repeatStartWithOneGroup": true,

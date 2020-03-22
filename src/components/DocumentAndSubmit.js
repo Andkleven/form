@@ -24,6 +24,7 @@ import {
   mergePath,
   stringifyQuery
 } from "./Functions";
+
 import FindNextStage from "components/stages/FindNextStage";
 
 export const ChapterContext = createContext();

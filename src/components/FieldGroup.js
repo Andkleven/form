@@ -183,7 +183,9 @@ export default props => {
             field.queryVariableLabel || field.indexVariableLabel
               ? variableLabel(
                   field.label,
-                  documentDateContext.documentDate,
+                  field.variableLabelWithSpeckData
+                    ? props.speckData
+                    : documentDateContext.documentDate,
                   field.queryVariableLabel,
                   props.repeatStepList,
                   field.editRepeatStepListVariableLabel,
