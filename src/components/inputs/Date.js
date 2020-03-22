@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
-import { isStringInstance } from "components/Functions";
+import { isStringInstance, emptyField } from "components/Functions";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
@@ -58,6 +58,7 @@ function Datetime(props) {
       <div>
         <DatePicker
           className="w-100"
+          readOnly={props.readOnlyFields}
           selected={isStringInstance(props.value) ? null : props.value}
           // onChange={date => setStartDate(date)}
           onChange={date => props.onChangeDate(date)}

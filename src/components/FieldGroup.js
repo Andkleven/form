@@ -9,11 +9,9 @@ import {
   getSubtext,
   findValue,
   calculateMaxMin,
-  variableLabel,
-  emptyField
+  variableLabel
 } from "./Functions";
 export default props => {
-  console.log(props.speckData);
   const documentDateContext = useContext(DocumentDateContext);
   const chapterContext = useContext(ChapterContext);
 
@@ -72,6 +70,7 @@ export default props => {
           thisChapter={props.thisChapter}
           stopLoop={props.stopLoop}
           mutation={props.mutation}
+          readOnly={props.readOnly}
           showEditButton={false}
           data={objectPath.get(props.data, field.queryPath, false)}
           path={`${props.path}.${field.queryPath}`}
