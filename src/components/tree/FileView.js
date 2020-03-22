@@ -1,5 +1,6 @@
 import React from "react";
 import Paper from "components/Paper";
+import PaperStack from "components/PaperStack";
 import DataTree from "components/tree/DataTree";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useQuery } from "@apollo/react-hooks";
@@ -64,9 +65,12 @@ export default props => {
 
   return (
     <>
-      <Paper darkMode>
-        <Content />
-      </Paper>
+      <PaperStack>
+        <Paper darkMode fullPage={!props.children && true}>
+          <Content />
+        </Paper>
+        {props.children}
+      </PaperStack>
     </>
   );
 };

@@ -25,6 +25,7 @@ const backgroundStyle = {
   backgroundAttachment: "fixed",
   height: "100%"
 };
+
 export default () => (
   <>
     <Div100vh className="bg-secondary">
@@ -50,14 +51,11 @@ export default () => (
               path="/partial-batching/:stage/:descriptionId"
               component={PartialBatching}
             />
-
             <Route
               path="/singelItem/:itemId/:geometry/:stage"
               component={SingelItem}
             />
-
             <Route path="/lead-engineer" component={LeadEngineerStartPage} />
-
           </Switch>
         </Router>
       </div>

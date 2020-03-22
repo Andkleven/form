@@ -9,7 +9,7 @@ export default () => {
     <LinkContainer to={props.link} className="p-0">
       <Dropdown.Item>
         <div className="nav-link">
-          <i style={{ width: "1.5em" }} className={`fas fa-${props.icon}`} />
+          <i style={{ width: "1.7em" }} className={`fas fa-${props.icon}`} />
           {props.title}
         </div>
       </Dropdown.Item>
@@ -35,6 +35,11 @@ export default () => {
             <NavLink title="Home" link="/" icon="home" />
             <NavLink title="Orders" link="/orders" icon="list" />
             <NavLink title="Operator" link="/operator" icon="user-hard-hat" />
+            <NavLink
+              title="Lead Engineer"
+              link="/lead-engineer"
+              icon="user-cog"
+            />
           </Dropdown.Menu>
         </Dropdown>
       </div>
