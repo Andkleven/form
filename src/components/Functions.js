@@ -192,8 +192,7 @@ export const getSubtext = (
 
 export const objectifyQuery = query => {
   if (query) {
-    let newObject = { ...query };
-
+    let newObject = JSON.parse(JSON.stringify(query));
     const objectifyEntries = (query, oldPath = null) => {
       let path;
       Object.keys(query).forEach(key => {
@@ -209,10 +208,11 @@ export const objectifyQuery = query => {
               objectPath.set(newObject, path, isData);
             }
           }
+        } else if (key === "__typename") {
+          objectPath.del(newObject, path);
         }
       });
     };
-
     objectifyEntries(query);
     return newObject;
   }
