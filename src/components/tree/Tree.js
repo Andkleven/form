@@ -10,11 +10,21 @@ export default memo(
     const previous = usePrevious(isOpen);
     const [bind, { height: viewHeight }] = useMeasure();
     const { height, opacity, transform } = useSpring({
-      from: { height: 0, opacity: 0, transform: "translate3d(20px,0,0)" },
+      config: {
+        mass: 1.5,
+        tension: isOpen ? 800 : 600,
+        friction: isOpen ? 35 : 50,
+        clamp: isOpen ? false : true
+      },
+      from: {
+        height: 0,
+        opacity: 0,
+        transform: "translate3d(0,-3px,0)"
+      },
       to: {
-        height: isOpen ? viewHeight * 1.0 : 0,
+        height: isOpen ? viewHeight * 1 : 0,
         opacity: isOpen ? 1 : 0,
-        transform: `translate3d(${isOpen ? 0 : 20}px,0,0)`
+        transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`
       }
     });
     const Icon = Icons[`${children ? (isOpen ? "Open" : "") : "Open"}Folder`];
@@ -24,7 +34,7 @@ export default memo(
         <Frame>
           <div onClick={() => setOpen(!isOpen)}>
             <Icon />
-            <Title>{name}</Title>
+            <Title className="unselectable">{name}</Title>
           </div>
           <Content
             style={{

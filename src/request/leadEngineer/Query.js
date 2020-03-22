@@ -181,12 +181,15 @@ const GET_OPERATOR = gql`
 const OPERATOR_PROJECTS = gql`
   query($leadEngineerDone: Boolean, $operatorDone: Boolean) {
     projects(leadEngineerDone: $leadEngineerDone, operatorDone: $operatorDone) {
+      leadEngineerDone
       data
       descriptions {
         data
         items {
           stage
           id
+          operatorDone
+          qualityControlDone
           data
         }
       }

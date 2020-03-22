@@ -9,10 +9,9 @@ import BounceLoader from "react-spinners/BounceLoader";
 
 export default () => {
   const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
-    variables: { leadEngineerDone: true, operatorDone: false }
+    // variables: { leadEngineerDone: true, operatorDone: false }
   });
 
-  // const json = expandJson(data);
   const json = objectifyQuery(data);
 
   const Content = () => {
