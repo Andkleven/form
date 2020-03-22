@@ -4,7 +4,7 @@ import { findValue } from "components/Functions";
 export default (speckData, stage, geometry) => {
   const findNextStage = (speckData, geometry, nextStage) => {
     let stageCriteria = StagesJson[geometry][nextStage];
-    if ([undefined, null, ""].includes(stageCriteria)) {
+    if ([undefined, null, ""].includes(stageCriteria.queryPath)) {
       return true;
     }
     let query = findValue(speckData, stageCriteria.queryPath);
