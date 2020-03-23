@@ -144,7 +144,7 @@ export default props => {
         document={itemsJson}
         reRender={() => setReRender(!reRender)}
         data={fixedData}
-        arrayIndex={counter - 1}
+        arrayIndex={[counter - 1]}
         getQueryBy={_id}
         foreignKey={_id}
       />

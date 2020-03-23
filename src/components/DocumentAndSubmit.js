@@ -21,7 +21,7 @@ import {
   validaFieldWithValue,
   getDataFromQuery,
   getData,
-  mergePath,
+  createPath,
   stringifyQuery
 } from "./Functions";
 
@@ -57,7 +57,6 @@ export default props => {
   const [validationPassed, setvalidationPassed] = useState({});
   const [repeatGroup, setRepeatGroup] = useState(false);
   const [lastChapter, setLastChapter] = useState(0);
-
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
     if (props.data) {
@@ -337,23 +336,6 @@ export default props => {
     return document;
   };
 
-  // Find or test if Group have a ForeignKey
-  const testForForeignKey = info => {
-    if (info.getForeignKey) {
-      let foreignKey = objectPath.get(
-        documentDate,
-        info.firstQueryPath + "." + JSON.stringify(props.arrayIndex)
-      );
-      if (foreignKey) {
-        return foreignKey.id;
-      } else {
-        return 0;
-      }
-    } else {
-      return props.foreignKey;
-    }
-  };
-
   const submitData = data => {
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
@@ -404,8 +386,7 @@ export default props => {
         key={`${index}-Page`}
         submitHandler={submitHandler}
         data={getData(info, props.arrayIndex, props.data)}
-        path={mergePath(info, props.arrayIndex)}
-        foreignKey={testForForeignKey(info)}
+        path={createPath(info.queryPath, props.arrayIndex)}
         thisChapter={thisChapter}
         stopLoop={stopLoop}
         showEditButton={showEditButton}
