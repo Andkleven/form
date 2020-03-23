@@ -8,7 +8,7 @@ import Home from "./page/HomePage";
 import Login from "./page/LoginPage";
 import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
-import LeadEngineerStartPage from "./page/leadEngineer/startPage";
+import LeadEngineerStartPage from "./page/leadEngineer/StartPage";
 import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
 import PartialBatching from "./page/PartialBatching";

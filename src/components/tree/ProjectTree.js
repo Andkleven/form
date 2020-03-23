@@ -63,7 +63,9 @@ export default props => {
           </Tree>
         ))
       ) : (
-        <div className="pt-1">No projects found.</div>
+        <div className="pt-1">
+          <em>No projects found.</em>
+        </div>
       )}
     </>
   );

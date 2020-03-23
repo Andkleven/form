@@ -11,7 +11,7 @@ export default props => (
   >
     <div className="m-0 h-100" style={{ paddingTop: 54 }}>
       <div className="h-100 overflow-auto">
-        <Container className="mt-0 p-0 py-sm-3 h-100">
+        <Container className="mt-sm-0 p-0 py-sm-3 h-100">
           {props.children}
         </Container>
       </div>

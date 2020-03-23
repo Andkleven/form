@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ProjectContext } from "components/tree/ProjectContext";
 
 const itemIconStyle = {
   // color: "#bbbbbb",
@@ -15,16 +16,29 @@ const linkStyle = {
 };
 
 export default props => {
+  const [project, setProject] = useContext(ProjectContext);
   return (
     <>
       <h6 className="mb-0">Projects</h6>
+      <Link
+        className="d-flex unselectable"
+        style={linkStyle}
+        to="#"
+        onClick={() => setProject(0)}
+      >
+        <div className="pt-2 unselectable">
+          <i className="fad fa-folder-plus" style={itemIconStyle} />
+          Create new project
+        </div>
+      </Link>
       {props.data && props.data.length > 0 ? (
         props.data.map((project, indexProject) => (
           <Link
             key={`project${indexProject}`}
             className="d-flex unselectable"
-            to={`#`}
             style={linkStyle}
+            to="#"
+            onClick={() => setProject(project.data.projectNumber)}
           >
             <div className="pt-2 unselectable">
               <i className="fas fa-folder" style={itemIconStyle} />
