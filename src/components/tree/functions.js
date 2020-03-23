@@ -1,139 +1,36 @@
-export const searchProjects = (data, terms) => {
-  const excludedTerms = [
-    "ItemNode",
-    "DescriptionNode",
-    "ItemNode",
-    "foreignKey"
-  ];
-
-  let results = [];
-
-  if (data) {
-    const findAllProjects = data => {
-      if (data.projects) {
-        const projects = data.projects;
-        return projects;
-      }
-    };
-
-    const projects = findAllProjects(data);
-
-    const hasChildren = element => {
-      const isNonEmptyObject =
-        element &&
-        element.constructor === Object &&
-        Object.entries(element).length > 0;
-      const isNonEmptyArray =
-        Array.isArray(element) &&
-        element.length > 0 &&
-        typeof element !== "string";
-      if (isNonEmptyObject || isNonEmptyArray) {
-        return true;
-      }
-      return false;
-    };
-
-    const elementOrChildrenMatches = (element, term) => {
-      let match = false;
-
-      const recurse = (element, term) => {
-        if (!excludedTerms.includes(element)) {
-          if (match === true) {
-            // May not be necessary
-            return;
-          } else {
-            if (
-              typeof element === "string" &&
-              element.toLowerCase().includes(term)
-            ) {
-              match = true;
-              return;
-            } else if (hasChildren(element)) {
-              element = Object.entries(element);
-              element.forEach(child => {
-                const childElement = child[1];
-                recurse(childElement, term);
-              });
-            }
-          }
-        }
-      };
-
-      recurse(element, term);
-
-      return match;
-    };
-
-    const projectNotInResults = (project, results) => {
-      return !results.includes(project);
-    };
-
-    const resultsIntersection = resultsArray => {
-      let intersectingResults = resultsArray.shift();
-      resultsArray.forEach(results => {
-        intersectingResults = intersectingResults.filter(x =>
-          results.includes(x)
-        );
-      });
-      return intersectingResults;
-    };
-
-    const getMatchingProjects = (projects, terms) => {
-      let resultsArray = [];
-      terms.forEach(term => {
-        if (term === null) {
-          term = "";
-        }
-        let termResults = [];
-        term = term.toLowerCase();
-        if (projects && Array.isArray(projects)) {
-          projects.forEach(project => {
-            if (projectNotInResults(project, results)) {
-              if (term === "leadengineer" && !project.leadEngineerDone) {
-                termResults.push(project);
-              } else if (
-                term === "qualitycontrol" &&
-                !project.leadEngineerDone
-              ) {
-                termResults.push(project);
-              } else if (elementOrChildrenMatches(project, term)) {
-                termResults.push(project);
-              }
-            }
-          });
-        }
-        resultsArray.push(termResults);
-      });
-      results = resultsIntersection(resultsArray);
-    };
-    getMatchingProjects(projects, terms);
-  }
-  return results;
-};
-
 export const search = (data, filters, search) => {
   // Search function that returns data containing
   // only items that matches the applied filters
   // and search terms.
 
-  // console.log("- - - - - - - - - - - - New search - - - - - - - - - - - -");
-  // console.log("Data:\t\t", data);
-  // console.log("Filters:\t", filters);
-  // console.log("Search term:\t", search);
+  console.log("- - - - - - - - - - - - New search - - - - - - - - - - - -");
+  console.log("Data:\t\t", data);
+  console.log("Filters:\t", filters);
+  console.log("Search term:\t", search);
 
   // No search is done if there is no data
   // or if data is not a valid object.
   if (!data) return;
 
   // Do not search unless filters or search active
-  const activeFilters = filters && Object.keys(filters).length;
-  const activeItemFilters = (filters.stage && 1) || 0;
+  const activeItemFilters =
+    (filters.stage && filters.stage !== "leadEngineer" && 1) || 0;
   const activeDescriptionFilters = (filters.geometry && 1) || 0;
+  const activeProjectFilters = (filters.stage === "leadEngineer" && 1) || 0;
+  const activeFilters = filters && Object.keys(filters).length;
 
   const activeSearches = (search !== "" && 1) || 0;
-
   const activeSearchAndFilters = activeSearches + activeFilters;
-  // console.log("Active filters:\t", activeSearchAndFilters);
+
+  console.log("Item\tDesc\tProj\tItSr\tSUM");
+  console.log(
+    `${activeItemFilters}   +\t\
+${activeDescriptionFilters}   +\t\
+${activeProjectFilters}   +\t\
+${activeSearches}   =\t\
+${activeSearchAndFilters}`
+  );
+
   if (activeSearchAndFilters === 0) return data.projects;
 
   // console.log("- - - - - - - - - - - - Searching... - - - - - - - - - - -");
@@ -156,6 +53,19 @@ export const search = (data, filters, search) => {
       return true;
     }
     return false;
+  };
+
+  const matchesProjectFilters = project => {
+    if (activeProjectFilters === 0) {
+      return true;
+    }
+
+      if (filters.stage === "leadEngineer") {
+        if (project.leadEngineerDone === true) {
+          return true;
+        }
+        return false;
+      }
   };
 
   const matchingItem = item => {
@@ -216,8 +126,10 @@ export const search = (data, filters, search) => {
       // console.log("!project:\t", project);
       let results = searchProject(project);
       if (results && elementHasChildren(results)) {
-        results.data = project.data;
-        matches.push(results);
+        if (!activeDescriptionFilters || matchesProjectFilters(project)) {
+          results.data = project.data;
+          matches.push(results);
+        }
       }
     });
     // if (matches.length > 0) {

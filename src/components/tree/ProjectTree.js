@@ -64,7 +64,7 @@ export default props => {
         ))
       ) : (
         <div className="pt-1">
-          <em>No projects found.</em>
+          <em>No items found.</em>
         </div>
       )}
     </>

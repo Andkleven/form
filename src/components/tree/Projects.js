@@ -16,7 +16,7 @@ const linkStyle = {
 };
 
 export default props => {
-  const [project, setProject] = useContext(ProjectContext);
+  const [projectId, setProjectId] = useContext(ProjectContext);
   return (
     <>
       <h6 className="mb-0">Projects</h6>
@@ -24,7 +24,7 @@ export default props => {
         className="d-flex unselectable"
         style={linkStyle}
         to="#"
-        onClick={() => setProject(0)}
+        onClick={() => setProjectId(0)}
       >
         <div className="pt-2 unselectable">
           <i className="fad fa-folder-plus" style={itemIconStyle} />
@@ -38,7 +38,7 @@ export default props => {
             className="d-flex unselectable"
             style={linkStyle}
             to="#"
-            onClick={() => setProject(project.data.projectNumber)}
+            onClick={() => setProjectId(project.id)}
           >
             <div className="pt-2 unselectable">
               <i className="fas fa-folder" style={itemIconStyle} />
@@ -47,7 +47,9 @@ export default props => {
           </Link>
         ))
       ) : (
-        <div className="pt-1">No projects found.</div>
+        <div className="pt-1">
+          <em>No projects found.</em>
+        </div>
       )}
     </>
   );

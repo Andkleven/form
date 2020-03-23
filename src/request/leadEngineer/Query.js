@@ -183,6 +183,7 @@ const OPERATOR_PROJECTS = gql`
     projects(leadEngineerDone: $leadEngineerDone, operatorDone: $operatorDone) {
       leadEngineerDone
       data
+      id
       descriptions {
         data
         items {

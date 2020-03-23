@@ -7,14 +7,14 @@ import {
 } from "components/tree/ProjectContext";
 
 const Content = () => {
-  const [project] = useContext(ProjectContext);
+  const [projectId] = useContext(ProjectContext);
   return (
     <FileView view="projects">
-      {(typeof project === "string" || typeof project === "number") && (
+      {(typeof projectId === "string" || typeof projectId === "number") && (
         <>
-          {console.log(project)}
+          {console.log(projectId)}
           <div className="mt-n1 mt-sm-1" />
-          <ProjectPage id={project} />
+          <ProjectPage id={projectId} />
         </>
       )}
     </FileView>
