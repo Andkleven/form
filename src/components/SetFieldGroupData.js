@@ -15,6 +15,7 @@ import "../styles/styles.css";
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [trigger, setTrigger] = useState(false);
+  const [newPath, setNewPath] = useState(null);
   const [state, setState] = useState();
 
   // sets default data or data from database to every field in group and store it in state
@@ -118,6 +119,7 @@ export default props => {
             ...prevState
           };
         });
+        setNewPath(`.${length}`);
       }
     } else {
       documentDateContext.setDocumentDate(prevState => {
@@ -155,7 +157,7 @@ export default props => {
           <FieldGroup
             {...props}
             key={props.index}
-            path={props.path}
+            path={newPath ? props.path + newPath : props.path}
             // state={state}
             // setState={setState}
             file={props.data && props.data.file}
