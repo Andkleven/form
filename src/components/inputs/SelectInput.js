@@ -57,7 +57,7 @@ export default props => {
             placeholder={props.placeholder || "Select or type..."}
             value={
               props.value
-                ? options.find(option => option.value === props.value)
+                ? options.find(option => option.value === props.value) 
                 : null
             }
             onChange={props.onChange}
