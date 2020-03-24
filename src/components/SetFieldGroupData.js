@@ -3,12 +3,7 @@ import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import {
-  variableString,
-  emptyObject,
-  emptyField,
-  isStringInstance
-} from "components/Functions";
+import { variableString, emptyObject, emptyField } from "components/Functions";
 
 import "../styles/styles.css";
 

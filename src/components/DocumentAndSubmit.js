@@ -24,7 +24,6 @@ import {
   createPath,
   stringifyQuery,
   findValue
-
 } from "./Functions";
 
 import FindNextStage from "components/stages/FindNextStage";
@@ -65,7 +64,6 @@ export default props => {
       setDocumentDate(cloneDeep(props.data));
     }
   }, [props.componentsId, props.data]);
-
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -366,10 +364,8 @@ export default props => {
         variables: {
           ...variables,
           descriptionId:
-            Number(props.different) === 0
-              ? Number(props.descriptionId)
-              : undefined,
-          itemId: Number(props.different) ? Number(props.itemId) : undefined,
+            props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
+          itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
             props.saveButton && Object.values(validationPassed).every(allTrue)

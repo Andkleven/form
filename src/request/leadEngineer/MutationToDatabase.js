@@ -159,6 +159,10 @@ const OPERATORBATCHING = gql`
                   data
                 }
               }
+              measurementPointOperators {
+                id
+                data
+              }
             }
           }
         }
@@ -169,23 +173,11 @@ const OPERATORBATCHING = gql`
 
 const OPERATOR = gql`
   mutation operators(
-    $operator: [UnderCategoriesOfLeadEngineerInupt]
-    $coatingOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $mixDate: [UnderCategoriesOfLeadEngineerInupt]
-    $measurementPointOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $vulcanizationOperator: [UnderCategoriesOfLeadEngineerInupt]
-    $itemIdList: [Int]
+    $operators: [OperatorInupt]
     $stage: String
+    $itemId: Int
   ) {
-    operators(
-      operator: $operator
-      coatingOperator: $coatingOperator
-      mixDate: $mixDate
-      measurementPointOperator: $measurementPointOperator
-      vulcanizationOperator: $vulcanizationOperator
-      itemIdList: $itemIdList
-      stage: $stage
-    ) {
+    operators(operators: $operators, stage: $stage, itemId: $itemId) {
       new {
         id
         data
@@ -195,14 +187,14 @@ const OPERATOR = gql`
           coatingOperators {
             id
             data
-            mixDates {
-              id
-              data
-            }
             measurementPointOperators {
               id
               data
             }
+          }
+          measurementPointOperators {
+            id
+            data
           }
         }
       }

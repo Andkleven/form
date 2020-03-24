@@ -98,7 +98,7 @@ export default props => {
       setError(initialState);
     }
   }, [props.value, props.writeChapter, fieldsContext.editField]);
-  if (props.readOnly) {
+  if (props.math || props.setValueByIndex) {
     return <ReadOnlyField {...props} label={label} error={error} />;
   } else {
     return <WriteField {...props} label={label} error={error} />;

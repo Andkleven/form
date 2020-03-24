@@ -35,12 +35,11 @@ export default props => {
       });
     }
   }, [documentDateContext.documentDate]);
-
   return (
     <ReadField
       {...props}
       key={props.indexId}
-      submit={true}
+      readOnly={true}
       value={objectPath.get(documentDateContext.documentDate, props.path)}
       showMinMax={showMinMax}
     />

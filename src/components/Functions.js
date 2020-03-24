@@ -231,8 +231,13 @@ export const objectifyQuery = query => {
             objectifyEntries(value, path + "." + index.toString());
           });
         } else if (key === "data") {
-          if (typeof query[key] === "string") {
-            let isData = stringToDictionary(query[key]);
+          if (isStringInstance(query[key])) {
+            let isData;
+            if (!query[key].trim()) {
+              isData = {};
+            } else {
+              isData = stringToDictionary(query[key]);
+            }
             if (isData) {
               objectPath.set(newObject, path, isData);
             }
