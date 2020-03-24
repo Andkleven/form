@@ -362,18 +362,74 @@
       "lookUpBy": "layerApplied",
       "pages": [
         {
-          "repeat": true,
           "pageTitle": "Coating",
+          "customComponent": "CustomCoating"
+        },
+        {
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
+          "fields": [
+            {
+              "speckValueList": [
+                "",
+                "",
+                "leadEngineers.0.rubberCements",
+                "data.rubberCement"
+              ],
+              "label": "Rubber Cement"
+            }
+          ]
+        },
+        {
+          "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpeckData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
-          "queryPath": "",
           "fields": [
             {
-              "speckValueList": "leadEngineers.0.measurementPointActualTvds.0.data.measurementPointActual",
+              "showFieldSpackPath": "leadEngineers.0.rubberCements",
+              "line": true
+            },
+            {
+              "speckValueList": [
+                "",
+                "",
+                "leadEngineers.0.measurementPointActualTvds",
+                "data.measurementPointActual"
+              ],
               "variableLabelWithSpeckData": true,
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
               "label": "Pipe {}"
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "speckValueList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "coatingLayers",
+                "data.compoundNumber"
+              ],
+              "label": "Compound Number"
+            },
+            {
+              "speckValueList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "coatingLayers",
+                "data.actualThicknes"
+              ],
+              "label": "Actual Rubber Thickness"
+            },
+            {
+              "speckValueList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "coatingLayers",
+                "data.proposedThicknes"
+              ],
+              "label": "Proposed Rubber Thickness"
             }
           ]
         },

@@ -11,6 +11,9 @@ export const emptyField = field => [null, undefined, ""].includes(field);
 
 export const isNumber = number => typeof number === "number";
 
+export const isNumberAndNotNaN = number =>
+  typeof number === "number" && !isNaN(number);
+
 export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
@@ -36,21 +39,19 @@ export const createPath = (
   if (Array.isArray(pathList)) {
     pathList.forEach((path, index) => {
       let getIndex = null;
+      let lastPath = mergePath.split(".")[mergePath.split(".").length - 1];
       if (
         index &&
-        isNumber(repeatStepList[index - 1]) &&
-        !isNaN(repeatStepList[index - 1])
+        isNumberAndNotNaN(repeatStepList[index - 1]) &&
+        isNaN(Number(lastPath))
       ) {
         getIndex += repeatStepList[index - 1];
-        if (
-          isNumber(editRepeatStepList[index - 1]) &&
-          !isNaN(editRepeatStepList[index - 1])
-        ) {
+        if (isNumberAndNotNaN(editRepeatStepList[index - 1])) {
           getIndex += editRepeatStepList[index - 1];
         }
         mergePath += "." + getIndex.toString();
       }
-      if (index !== 0 && path !== "") {
+      if (index !== 0 && path !== "" && mergePath !== "") {
         mergePath += ".";
       }
       mergePath += path.toString();
@@ -58,7 +59,6 @@ export const createPath = (
   } else {
     return pathList;
   }
-
   return mergePath;
 };
 
@@ -88,10 +88,10 @@ export const getData = (info, arrayIndex, documentDate, isItData = false) => {
   return data;
 };
 
-export const sumFieldInObject = (object, key) => {
+export const sumFieldInObject = (array, key) => {
   let total = 0;
-  Object.values(object).forEach(value => {
-    total += Number(value[key]);
+  array.forEach(value => {
+    total += Number(value.data[key]);
   });
   return total;
 };
@@ -386,4 +386,23 @@ export const formDataStructure = (json, data, path) => {
   return {
     [lastPath[lastPath.length - 1]]: objectPath.get(data, json[path], null)
   };
+};
+
+export const getRepeatNumber = (
+  data,
+  repeatGroupWithQuery,
+  repeatStepList,
+  editRepeatStepListRepeat
+) => {
+  let newValue = findValue(
+    data,
+    repeatGroupWithQuery,
+    repeatStepList,
+    editRepeatStepListRepeat
+  );
+
+  if (Array.isArray(newValue)) {
+    newValue = newValue.length;
+  }
+  return newValue;
 };
