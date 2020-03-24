@@ -360,27 +360,24 @@
         ""
       ],
       "lookUpBy": "layerApplied",
-      "pageTitle": "Coating",
       "pages": [
         {
           "repeat": true,
+          "pageTitle": "Coating",
           "notAddButton": true,
           "repeatGroupWithQuerySpeckData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "queryPath": "",
           "fields": [
             {
-              "speckValueList": [
-                "leadEngineers.0.measurementPointActualTvds",
-                "data.measurementPointActual"
-              ],
+              "speckValueList": "leadEngineers.0.measurementPointActualTvds.0.data.measurementPointActual",
               "variableLabelWithSpeckData": true,
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
-              "label": "Pipe    {}"
+              "label": "Pipe {}"
             }
           ]
         },
         {
-          "page": true,
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpeckData": true,
