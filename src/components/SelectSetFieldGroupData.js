@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from "react";
 import SetFieldGroupData from "./SetFieldGroupData";
 import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
-import { findValue } from "./Functions";
+import { getRepeatNumber } from "./Functions";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
@@ -47,19 +47,15 @@ export default props => {
             </Fragment>
           );
         });
-    } else if (!props.path) {
+    } else if (!props.queryPath) {
       let arraySetFieldGroupData = [];
-      for (
-        let index = 0;
-        index <
-        findValue(
-          props.speckData,
-          props.repeatGroupWithQuery,
-          props.repeatStepList,
-          props.editRepeatStepListRepeat
-        );
-        index++
-      ) {
+      let repeatNumber = getRepeatNumber(
+        props.speckData,
+        props.repeatGroupWithQuery,
+        props.repeatStepList,
+        props.editRepeatStepListRepeat
+      );
+      for (let index = 0; index < repeatNumber; index++) {
         arraySetFieldGroupData.push(
           <SetFieldGroupData
             key={index}

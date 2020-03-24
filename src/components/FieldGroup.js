@@ -31,7 +31,6 @@ export default props => {
       props.repeatStepList,
       props.speckData
     );
-    console.log(field.label);
     if (
       field.showFieldSpackPath &&
       [null, undefined, "", false].includes(
@@ -77,7 +76,6 @@ export default props => {
         />
       );
     } else if (field.speckValueList) {
-      console.log(field.label);
       return (
         <ReadField
           {...props}

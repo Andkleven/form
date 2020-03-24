@@ -1,21 +1,15 @@
-import React, {
-  useEffect,
-  useContext,
-  useState,
-  Fragment,
-  useCallback,
-  useMemo
-} from "react";
-import SelectSetFieldGroupData from "./SelectSetFieldGroupData";
-import SubmitButton from "./SubmitButton";
+import React, { useEffect, useContext, useState, useMemo } from "react";
+import SelectSetFieldGroupData from "components/SelectSetFieldGroupData";
+import SubmitButton from "components/SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
   FieldsContext
-} from "./DocumentAndSubmit";
-import { allTrue, findValue } from "./Functions";
+} from "components/DocumentAndSubmit";
+import { allTrue, getRepeatNumber } from "components/Functions";
 import objectPath from "object-path";
-import Title from "./Title";
+import Title from "components/Title";
+import CustomComponents from "components/CustomComponents";
 
 export default props => {
   const chapterContext = useContext(ChapterContext);
@@ -103,15 +97,13 @@ export default props => {
       !props.repeatGroupWithQuerySpeckData &&
       objectPath.get(documentDateContext.documentDate, props.path)
     ) {
-      let newValue = findValue(
+      let newValue = getRepeatNumber(
         documentDateContext.documentDate,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
-      if (Array.isArray(newValue)) {
-        newValue = newValue.length;
-      }
+
       let oldValueLength = objectPath.get(
         documentDateContext.documentDate,
         props.path
@@ -132,22 +124,24 @@ export default props => {
     if (
       props.repeatGroupWithQuery &&
       props.repeatGroupWithQuerySpeckData &&
-      props.path
+      props.queryPath
     ) {
-      let newValue = findValue(
+      let newValue = getRepeatNumber(
         props.speckData,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
-      if (Array.isArray(newValue)) {
-        newValue = newValue.length;
-      }
+
       for (let i = 0; i < newValue; i++) {
         addData(i);
       }
     }
   }, []);
+  const Components = useMemo(() => CustomComponents[props.customComponent], [
+    props.arrayIndex,
+    props.speckData
+  ]);
 
   return (
     <>
@@ -176,11 +170,14 @@ export default props => {
         />
       ) : null}
 
+      {Components ? <Components {...props} /> : null}
+
       <SelectSetFieldGroupData
         {...props}
         writeChapter={writeChapter}
         deleteHandler={deleteHandler}
       />
+
       <>
         {!props.notAddButton && props.repeat && writeChapter ? (
           <button type="button" onClick={() => addHandeler()}>
