@@ -106,7 +106,7 @@ export default pageInfo => {
         )}
         updateCache={() => update}
         saveButton={true}
-        readOnly={!batchingListIds[0]}
+        readOnlyFields={!batchingListIds[0]}
         batchingListIds={batchingListIds}
       />
     </Paper>

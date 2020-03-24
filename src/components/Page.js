@@ -1,5 +1,12 @@
-import React, { useEffect, useContext, useState, Fragment } from "react";
-import SetFieldGroupData from "./SetFieldGroupData";
+import React, {
+  useEffect,
+  useContext,
+  useState,
+  Fragment,
+  useCallback,
+  useMemo
+} from "react";
+import SelectSetFieldGroupData from "./SelectSetFieldGroupData";
 import SubmitButton from "./SubmitButton";
 import {
   ChapterContext,
@@ -21,6 +28,7 @@ export default props => {
   // useEffect(() => {
   //   setRepeatGroup(0);
   // }, [props.repeatGroup]);
+
   const addData = pushOnIndex => {
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, `${props.path}.${pushOnIndex}`, {
@@ -92,17 +100,11 @@ export default props => {
   useEffect(() => {
     if (
       props.repeatGroupWithQuery &&
-      objectPath.get(
-        props.repeatGroupWithQuerySpeckData
-          ? props.speckData
-          : documentDateContext.documentDate,
-        props.path
-      )
+      !props.repeatGroupWithQuerySpeckData &&
+      objectPath.get(documentDateContext.documentDate, props.path)
     ) {
       let newValue = findValue(
-        props.repeatGroupWithQuerySpeckData
-          ? props.speckData
-          : documentDateContext.documentDate,
+        documentDateContext.documentDate,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
@@ -111,9 +113,7 @@ export default props => {
         newValue = newValue.length;
       }
       let oldValueLength = objectPath.get(
-        props.repeatGroupWithQuerySpeckData
-          ? props.speckData
-          : documentDateContext.documentDate,
+        documentDateContext.documentDate,
         props.path
       ).length;
       if (oldValueLength < newValue) {
@@ -127,6 +127,28 @@ export default props => {
       }
     }
   }, [documentDateContext.documentDate]);
+
+  useEffect(() => {
+    if (
+      props.repeatGroupWithQuery &&
+      props.repeatGroupWithQuerySpeckData &&
+      props.path
+    ) {
+      let newValue = findValue(
+        props.speckData,
+        props.repeatGroupWithQuery,
+        props.repeatStepList,
+        props.editRepeatStepListRepeat
+      );
+      if (Array.isArray(newValue)) {
+        newValue = newValue.length;
+      }
+      for (let i = 0; i < newValue; i++) {
+        addData(i);
+      }
+    }
+  }, []);
+
   return (
     <>
       {props.showEditButton && !props.stopLoop && !writeChapter ? (
@@ -154,61 +176,11 @@ export default props => {
         />
       ) : null}
 
-      {props.repeat ? (
-        props.data &&
-        Array.isArray(props.data) &&
-        objectPath.get(documentDateContext.documentDate, props.path) ? (
-          objectPath
-            .get(documentDateContext.documentDate, props.path)
-            .map((itemsData, index) => {
-              return (
-                <Fragment key={index}>
-                  <SetFieldGroupData
-                    {...props}
-                    repeatStepList={
-                      props.repeatStepList !== undefined
-                        ? [...props.repeatStepList, index]
-                        : [index]
-                    }
-                    repeatStep={index}
-                    writeChapter={writeChapter}
-                    key={`${props.indexId}-${index}`}
-                    data={itemsData}
-                    path={props.path ? `${props.path}.${index}` : null}
-                    fields={props.fields}
-                    step={index}
-                    indexId={`${props.indexId}-${index}`}
-                  />
-                  {props.delete && writeChapter ? (
-                    <button
-                      type="button"
-                      key={index}
-                      onClick={() => deleteHandler(index)}
-                    >
-                      {"❌"}
-                    </button>
-                  ) : null}
-                </Fragment>
-              );
-            })
-        ) : null
-      ) : (
-        <SetFieldGroupData
-          {...props}
-          repeatStepList={
-            props.repeatStepList !== undefined
-              ? [...props.repeatStepList, 0]
-              : [0]
-          }
-          // path={props.path ? `${props.path}.0` : null}
-          repeatStep={0}
-          writeChapter={writeChapter}
-          data={props.data}
-          fields={props.fields}
-          step={0}
-          indexId={`${props.indexId}-0`}
-        />
-      )}
+      <SelectSetFieldGroupData
+        {...props}
+        writeChapter={writeChapter}
+        deleteHandler={deleteHandler}
+      />
       <>
         {!props.notAddButton && props.repeat && writeChapter ? (
           <button type="button" onClick={() => addHandeler()}>

@@ -14,7 +14,6 @@ import {
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const chapterContext = useContext(ChapterContext);
-
   const getNewPath = useCallback(
     fieldName => {
       return `${props.path ? props.path + ".data." : ""}${fieldName}`;
@@ -32,12 +31,13 @@ export default props => {
       props.repeatStepList,
       props.speckData
     );
+    console.log(field.label);
     if (
       field.showFieldSpackPath &&
       [null, undefined, "", false].includes(
         findValue(
           props.speckData,
-          field.speckValueList,
+          field.showFieldSpackPath,
           props.repeatStepList,
           field.editRepeatStepValueList
         )
@@ -70,13 +70,14 @@ export default props => {
           thisChapter={props.thisChapter}
           stopLoop={props.stopLoop}
           mutation={props.mutation}
-          readOnly={props.readOnly}
+          readOnlyFields={props.readOnlyFields}
           showEditButton={false}
           data={objectPath.get(props.data, field.queryPath, false)}
           path={`${props.path}.${field.queryPath}`}
         />
       );
     } else if (field.speckValueList) {
+      console.log(field.label);
       return (
         <ReadField
           {...props}
@@ -104,6 +105,20 @@ export default props => {
             props.repeatStepList,
             field.editRepeatStepValueList
           )}
+          label={
+            field.queryVariableLabel || field.indexVariableLabel
+              ? variableLabel(
+                  field.label,
+                  field.variableLabelWithSpeckData
+                    ? props.speckData
+                    : documentDateContext.documentDate,
+                  field.queryVariableLabel,
+                  props.repeatStepList,
+                  field.editRepeatStepListVariableLabel,
+                  field.indexVariableLabel ? props.repeatStep : undefined
+                )
+              : field.label
+          }
         />
       );
     } else if (

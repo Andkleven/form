@@ -9,7 +9,7 @@
     "queryPath": "operators",
     "spackQueryPath": "leadEngineers",
     "mutation": "OPERATORBATCHING",
-    "query": "GET_OPERATOR",
+    "query": "GET_OPERATOR_BY_DESCRIPTION",
     "chapters": "primer1"
   }
 }
