@@ -4,6 +4,7 @@ import query from "../request/leadEngineer/Query";
 import operatorJson from "../forms/Operator.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
+import PaperStack from "components/PaperStack";
 import { objectifyQuery } from "components/Functions";
 
 export default pageInfo => {
@@ -22,16 +23,18 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <Paper>
-      <DocumentAndSubmit
-        componentsId={"SingleItem"}
-        document={operatorJson}
-        reRender={() => setReRender(!reRender)}
-        data={fixedData}
-        stage={stage}
-        geometry={geometry}
-        getQueryBy={itemId}
-      />
-    </Paper>
+    <PaperStack>
+      <Paper>
+        <DocumentAndSubmit
+          componentsId={"SingleItem"}
+          document={operatorJson}
+          reRender={() => setReRender(!reRender)}
+          data={fixedData}
+          stage={stage}
+          geometry={geometry}
+          getQueryBy={itemId}
+        />
+      </Paper>
+    </PaperStack>
   );
 };

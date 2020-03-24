@@ -14,6 +14,15 @@ const linkStyle = {
   color: "#dddddd"
 };
 
+// const countProjectItems = project => {
+//   let numItems = 0;
+//   project.descriptions.forEach(description => {
+//     console.log(description.items.length);
+//     numItems += description.items.length;
+//   });
+//   return numItems;
+// };
+
 export default props => {
   return (
     <>
@@ -23,14 +32,18 @@ export default props => {
           <Tree
             defaultOpen
             key={`project${indexProject}`}
-            name={project.data.projectName}
+            name={
+              `${project.data.projectName}`
+              // + `(${countProjectItems(project)} items)`
+            }
           >
             {project.descriptions &&
               project.descriptions.map((description, indexDescription) => (
                 <Tree
                   defaultOpen
                   key={`project${indexProject}Description${indexDescription}`}
-                  name={description.data.geometry}
+                  // name={description.data.geometry}
+                  name={`Description ${indexDescription + 1}`}
                 >
                   <Link
                     className="d-flex unselectable"
