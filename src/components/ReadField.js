@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { FieldsContext, ChapterContext } from "./DocumentAndSubmit";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
-import Moment from "react-moment";
+// import Moment from "react-moment";
 import { isStringInstance } from "./Functions";
 import "../styles/styles.css";
 import TinyButton from "components/TinyButton";
@@ -22,17 +22,17 @@ export default props => {
   };
 
   const DateValue = () => {
-    if (["date", "datetime-local"].includes(props.type)) {
-      return (
-        <Moment
-          parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
-        >
-          {/* Good to have when dealing with dates */}
-          {isStringInstance(props.value) ? null : props.value}
-          TEST
-        </Moment>
-      );
-    }
+    // if (["date", "datetime-local"].includes(props.type)) {
+    //   return (
+    //     // <Moment
+    //     //   parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
+    //     // >
+    //     //   {/* Good to have when dealing with dates */}
+    //     //   {isStringInstance(props.value) ? null : props.value}
+    //     //   TEST
+    //     // </Moment>
+    //   // );
+    // }
     return false;
   };
 
@@ -45,7 +45,11 @@ export default props => {
             {props.value === false && `Not performed`}
             {props.value === true && `Performed`}
           </div>
-          <TinyButton onClick={() => flipToWrite()} icon="pencil-alt" color="dark" />
+          <TinyButton
+            onClick={() => flipToWrite()}
+            icon="pencil-alt"
+            color="dark"
+          />
         </div>
       </Col>
     );
