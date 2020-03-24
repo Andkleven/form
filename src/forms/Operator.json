@@ -350,69 +350,68 @@
       ]
     },
     "coating": {
-      "numberFromSpackField": true,
+      "chapterBySpeckData": [
+        "leadEngineers.0.vulcanizationSteps",
+        "coatingLayers"
+      ],
+      "queryPath": [
+        "operators.0.vulcanizationOperators",
+        "coatingOperators",
+        ""
+      ],
+      "lookUpBy": "layerApplied",
+      "pageTitle": "Coating",
       "pages": [
         {
-          "pageTitle": "Coating Layer",
-          "queryPath": "operators.0.vulcanizationOperators.0.coatingOperators",
           "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "fields": [
             {
               "speckValueList": [
-                "leadEngineers.rubberCements",
-                "data.rubberCement"
+                "leadEngineers.0.measurementPointActualTvds",
+                "data.measurementPointActual"
               ],
-              "indexVariableLabel": true,
-              "label": "Rubber Cement / Release Agent {}"
-            },
-            { "line": true },
+              "variableLabelWithSpeckData": true,
+              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "label": "Pipe    {}"
+            }
+          ]
+        },
+        {
+          "page": true,
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            "coatingOperators",
+            "measurementPointOperators"
+          ],
+          "fields": [
             {
-              "page": true,
-              "repeatGroupWithQuerySpeckData": true,
-              "repeatGroupWithQuery": "leadEngineers.0.data.rubberCements",
-              "repeat": true,
-              "notAddButton": true,
-              "queryPath": "mixDates",
-              "fields": [
-                {
-                  "page": true,
-                  "repeat": true,
-                  "queryPath": "",
-                  "fields": [
-                    {
-                      "fieldName": "mixDate",
-                      "label": "Mix Date",
-                      "type": "date"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "fieldName": "rubberThickness",
-              "label": "Rubber Thickness",
+              "fieldName": "measurementPoint",
+              "label": "Measurement Point",
+              "speckSubtextList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "coatingLayers",
+                "cumulativeThicknes",
+                "data.cumulativeThicknes"
+              ],
+              "subtext": "Target cumulative thickness: {}mm",
               "type": "number"
-            },
-            {
-              "page": true,
-              "pageTitle": "Measurement Points",
-              "repeat": true,
-              "repeatGroupWithQuerySpeckData": true,
-              "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
-              "queryPath": "measurementPointOperators",
-              "fields": [
-                {
-                  "fieldName": "mixDate",
-                  "label": "Mix Date",
-                  "speckSubtextList": [
-                    "leadEngineers.0.vulcanizationSteps.0.coatingOperators",
-                    "cumulativeThicknes.data.cumulativeThicknes"
-                  ],
-                  "subtext": "Target cumulative thickness: {}mm",
-                  "type": "number"
-                }
-              ]
-            },
+            }
+          ]
+        },
+        {
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            "coatingOperators",
+            ""
+          ],
+          "fields": [
             {
               "fieldName": "layerApplied",
               "label": "Layer Applied",
@@ -427,7 +426,7 @@
       "pages": [
         {
           "pageTitle": "Vulcanization",
-          "queryPath": "operators.0",
+          "queryPath": ["operators.0.vulcanizationOperators", ""],
           "fields": [
             {
               "speckValueList": [

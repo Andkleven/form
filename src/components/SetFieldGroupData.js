@@ -25,9 +25,8 @@ export default props => {
         if (
           value.type === "file" ||
           value.line ||
-          value.routToSpeckValue ||
           value.page ||
-          value.firstSpeckValue
+          value.speckValueList
         ) {
           return null;
         }
@@ -40,9 +39,7 @@ export default props => {
               ? false
               : value.select === "select"
               ? value.options[0]
-              : // : ["date", "datetime-local"].includes(value.type)
-                // ? new Date()
-                ""
+              : ""
         }));
       });
     }
@@ -52,9 +49,8 @@ export default props => {
           if (
             value.type === "file" ||
             value.line ||
-            value.routToSpeckValue ||
             value.page ||
-            value.firstSpeckValue
+            value.speckValueList
           ) {
             return null;
           }
@@ -96,6 +92,7 @@ export default props => {
       setTrigger(!trigger);
     }
   }, [props.data, props.writeChapte]);
+
   useEffect(() => {
     if (props.createWithOldValue && Array.isArray(props.data)) {
       let length = props.data.length;

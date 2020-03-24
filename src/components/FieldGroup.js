@@ -14,7 +14,7 @@ import {
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const chapterContext = useContext(ChapterContext);
-
+  console.log(props.speckData);
   const getNewPath = useCallback(
     fieldName => {
       return `${props.path ? props.path + ".data." : ""}${fieldName}`;
@@ -37,7 +37,7 @@ export default props => {
       [null, undefined, "", false].includes(
         findValue(
           props.speckData,
-          field.speckValueList,
+          field.showFieldSpackPath,
           props.repeatStepList,
           field.editRepeatStepValueList
         )
@@ -104,6 +104,20 @@ export default props => {
             props.repeatStepList,
             field.editRepeatStepValueList
           )}
+          label={
+            field.queryVariableLabel || field.indexVariableLabel
+              ? variableLabel(
+                  field.label,
+                  field.variableLabelWithSpeckData
+                    ? props.speckData
+                    : documentDateContext.documentDate,
+                  field.queryVariableLabel,
+                  props.repeatStepList,
+                  field.editRepeatStepListVariableLabel,
+                  field.indexVariableLabel ? props.repeatStep : undefined
+                )
+              : field.label
+          }
         />
       );
     } else if (

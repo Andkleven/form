@@ -22,7 +22,9 @@ import {
   getDataFromQuery,
   getData,
   createPath,
-  stringifyQuery
+  stringifyQuery,
+  findValue
+
 } from "./Functions";
 
 import FindNextStage from "components/stages/FindNextStage";
@@ -176,67 +178,88 @@ export default props => {
   const createDocumentFromForm = (props, view) => {
     let stopLoop = false; // True when we are at the first chaper now one have wirte on
     let temporaryLastChapter = 0;
-    const document = props.document.chapters.map((pageInfo, firstIndex) => {
-      let chapter; // new chapter to add to document
+    let count = 0;
+    const document = props.document.chapters.map(pageInfo => {
+      const newChapter = arrayIndex => {
+        let chapter; // new chapter to add to document
 
-      if (
-        (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
-        !temporaryLastChapter
-      ) {
-        temporaryLastChapter = firstIndex + 1;
-      }
-      if (stopLoop) {
-        chapter = null;
-      } else {
-        let getDataFromGroupWithLookUpBy = getData(
-          pageInfo,
-          props.arrayIndex,
-          props.data,
-          true
+        if (
+          (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
+          !temporaryLastChapter
+        ) {
+          temporaryLastChapter = count + 1;
+        }
+        if (stopLoop) {
+          chapter = null;
+        } else {
+          let getDataFromGroupWithLookUpBy = getData(
+            pageInfo,
+            arrayIndex,
+            props.data,
+            true
+          );
+
+          // if now data in lookUpBy this is last chapter
+          if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
+            temporaryLastChapter = count + 1;
+          }
+          // Map through pages in this pages
+          chapter = pageInfo.pages.map((info, index) => {
+            let showEditButton = !props.notEditButton && !index ? true : false;
+            let showSaveButton =
+              index === pageInfo.pages.length - 1 && !props.notSubmitButton
+                ? true
+                : false;
+            let page = view(
+              info,
+              index,
+              count + 1,
+              stopLoop,
+              showEditButton,
+              showSaveButton,
+              arrayIndex
+            );
+            return <Fragment key={`${index}-${count}-cancas`}>{page}</Fragment>;
+          });
+          // if now data in lookUpBy stop loop
+          if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
+            stopLoop = true;
+          }
+        }
+        count += 1;
+        return (
+          <Fragment key={`${count}-cancas`}>
+            {chapter ? (
+              <Title key={count} title={pageInfo.pages.chapterTitle} />
+            ) : null}
+            {chapter}
+          </Fragment>
         );
+      };
 
-        // if now data in lookUpBy this is last chapter
-        if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
-          temporaryLastChapter = firstIndex + 1;
+      if (pageInfo.chapterBySpeckData) {
+        let numberOfChapters = findValue(
+          props.speckData,
+          pageInfo.chapterBySpeckData,
+          props.arrayIndex
+        );
+        if (numberOfChapters && numberOfChapters.length) {
+          for (let i = 0; i < Number(numberOfChapters.length); i++) {
+            let a = newChapter([...props.arrayIndex, i]);
+            return <Fragment key={count}> {a} </Fragment>;
+          }
         }
-        // Map through pages in this pages
-        chapter = pageInfo.pages.map((info, index) => {
-          let showEditButton = !props.notEditButton && !index ? true : false;
-          let showSaveButton =
-            index === pageInfo.pages.length - 1 && !props.notSubmitButton
-              ? true
-              : false;
-          let page = view(
-            info,
-            index,
-            firstIndex + 1,
-            stopLoop,
-            showEditButton,
-            showSaveButton
-          );
-          return (
-            <Fragment key={`${index}-${firstIndex}-cancas`}>{page}</Fragment>
-          );
-        });
-        // if now data in lookUpBy stop loop
-        if (notDataInField(getDataFromGroupWithLookUpBy, pageInfo.lookUpBy)) {
-          stopLoop = true;
-        }
+        return null;
+      } else {
+        let a = newChapter(props.arrayIndex);
+        return <Fragment key={count}> {a} </Fragment>;
       }
-      return (
-        <Fragment key={`${firstIndex}-cancas`}>
-          {chapter ? (
-            <Title key={firstIndex} title={pageInfo.pages.chapterTitle} />
-          ) : null}
-          {chapter}
-        </Fragment>
-      );
     });
     setLastChapter(temporaryLastChapter);
     return document;
   };
 
-  const createDocumentFromSpeck = (props, view) => {
+  const createDocumentFromStage = (props, view) => {
     let stopLoop = false; // True when we are at the first chaper now one have wirte on
     const subchapter = (
       getDataFromGroupWithLookUpBy,
@@ -377,7 +400,8 @@ export default props => {
     thisChapter,
     stopLoop,
     showEditButton,
-    showSaveButton
+    showSaveButton,
+    arrayIndex = props.arrayIndex
   ) => {
     return (
       <Page
@@ -385,8 +409,8 @@ export default props => {
         {...props}
         key={`${index}-Page`}
         submitHandler={submitHandler}
-        data={getData(info, props.arrayIndex, props.data)}
-        path={createPath(info.queryPath, props.arrayIndex)}
+        data={getData(info, arrayIndex, props.data)}
+        path={createPath(info.queryPath, arrayIndex)}
         thisChapter={thisChapter}
         stopLoop={stopLoop}
         showEditButton={showEditButton}
@@ -396,12 +420,13 @@ export default props => {
         submitData={submitData}
         mutation={mutation}
         showSaveButton={showSaveButton}
+        arrayIndex={arrayIndex}
       />
     );
   };
   useMemo(() => {
     if (props.stageForm) {
-      document = createDocumentFromSpeck(props, view);
+      document = createDocumentFromStage(props, view);
     } else {
       document = createDocumentFromForm(props, view);
     }

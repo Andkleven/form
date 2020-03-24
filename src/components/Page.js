@@ -21,7 +21,10 @@ export default props => {
   // useEffect(() => {
   //   setRepeatGroup(0);
   // }, [props.repeatGroup]);
+  console.log(documentDateContext.documentDate);
+
   const addData = pushOnIndex => {
+    console.log(props.path, 12);
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, `${props.path}.${pushOnIndex}`, {
         data: {}
@@ -92,17 +95,11 @@ export default props => {
   useEffect(() => {
     if (
       props.repeatGroupWithQuery &&
-      objectPath.get(
-        props.repeatGroupWithQuerySpeckData
-          ? props.speckData
-          : documentDateContext.documentDate,
-        props.path
-      )
+      !props.repeatGroupWithQuerySpeckData &&
+      objectPath.get(documentDateContext.documentDate, props.path)
     ) {
       let newValue = findValue(
-        props.repeatGroupWithQuerySpeckData
-          ? props.speckData
-          : documentDateContext.documentDate,
+        documentDateContext.documentDate,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
@@ -111,9 +108,7 @@ export default props => {
         newValue = newValue.length;
       }
       let oldValueLength = objectPath.get(
-        props.repeatGroupWithQuerySpeckData
-          ? props.speckData
-          : documentDateContext.documentDate,
+        documentDateContext.documentDate,
         props.path
       ).length;
       if (oldValueLength < newValue) {
@@ -127,6 +122,24 @@ export default props => {
       }
     }
   }, [documentDateContext.documentDate]);
+
+  useEffect(() => {
+    if (props.repeatGroupWithQuery && props.repeatGroupWithQuerySpeckData) {
+      let newValue = findValue(
+        props.speckData,
+        props.repeatGroupWithQuery,
+        props.repeatStepList,
+        props.editRepeatStepListRepeat
+      );
+      if (Array.isArray(newValue)) {
+        newValue = newValue.length;
+      }
+      for (let i = 0; i < newValue; i++) {
+        addData(i);
+      }
+    }
+  }, []);
+
   return (
     <>
       {props.showEditButton && !props.stopLoop && !writeChapter ? (
@@ -155,9 +168,9 @@ export default props => {
       ) : null}
 
       {props.repeat ? (
-        props.data &&
-        Array.isArray(props.data) &&
-        objectPath.get(documentDateContext.documentDate, props.path) ? (
+        Array.isArray(
+          objectPath.get(documentDateContext.documentDate, props.path)
+        ) && objectPath.get(documentDateContext.documentDate, props.path) ? (
           objectPath
             .get(documentDateContext.documentDate, props.path)
             .map((itemsData, index) => {
@@ -168,6 +181,8 @@ export default props => {
                     repeatStepList={
                       props.repeatStepList !== undefined
                         ? [...props.repeatStepList, index]
+                        : props.arrayIndex
+                        ? [...props.arrayIndex, index]
                         : [index]
                     }
                     repeatStep={index}
@@ -198,6 +213,8 @@ export default props => {
           repeatStepList={
             props.repeatStepList !== undefined
               ? [...props.repeatStepList, 0]
+              : props.arrayIndex
+              ? [...props.arrayIndex, 0]
               : [0]
           }
           // path={props.path ? `${props.path}.0` : null}

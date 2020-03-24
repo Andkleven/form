@@ -29,7 +29,7 @@ export const getDataFromQuery = (data, path, field) => {
 
 export const createPath = (
   pathList,
-  repeatStepList,
+  repeatStepList = [],
   editRepeatStepList = {}
 ) => {
   let mergePath = "";
@@ -82,7 +82,7 @@ export const getData = (info, arrayIndex, documentDate, isItData = false) => {
   }
   let path = createPath(info.queryPath, arrayIndex);
   let data = objectPath.get(documentDate, path);
-  if (isItData) {
+  if (isItData && Array.isArray(data)) {
     return data[data.length - 1];
   }
   return data;
@@ -379,4 +379,11 @@ export const allRequiredFinished = (data, fields) => {
     }
   });
   return requiredApproved;
+};
+
+export const formDataStructure = (json, data, path) => {
+  let lastPath = json[path].split(".");
+  return {
+    [lastPath[lastPath.length - 1]]: objectPath.get(data, json[path], null)
+  };
 };
