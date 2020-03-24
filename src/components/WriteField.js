@@ -91,13 +91,22 @@ export default props => {
     props.submitHandler(data);
   };
 
+  const Label = tinyButtons => {
+    return (
+      <div className="d-flex justify-items-between">
+        {props.fieldName}
+        <div>{tinyButtons}</div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Input
         {...props}
         onChangeDate={onChangeDate}
         onChange={onChange}
-        name={props.fieldName}
+        name={Label()}
         min={props.minInput ? props.minInput : undefined}
         max={props.maxInput ? props.maxInput : undefined}
         step={props.decimal ? "0.1" : "1"}
