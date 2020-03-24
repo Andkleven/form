@@ -16,7 +16,6 @@ export default props => {
     chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
     fieldsContext.setvalidationPassed({});
   };
-  console.log(props.value, props.label);
   const DateValue = () => {
     if (["date", "datetime-local"].includes(props.type)) {
       return (
