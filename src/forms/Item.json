@@ -107,8 +107,7 @@
         {
           "pageTitle": "Description",
           "pageName": "description",
-          "queryPath": "projects.0.descriptions",
-          "findByIndex": true,
+          "queryPath": ["projects.0.descriptions", ""],
           "fields": [
             {
               "fieldName": "geometry",
@@ -143,8 +142,7 @@
         },
         {
           "pageTitle": "Add File",
-          "firstQueryPath": "projects.0.descriptions",
-          "secondQueryPath": "uploadFiles",
+          "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "pageName": "uploadFile",
           "repeat": true,
           "delete": true,
@@ -167,11 +165,8 @@
         {
           "pageTitle": "Add item",
           "pageName": "item",
-          "firstQueryPath": "projects.0.descriptions",
-          "secondQueryPath": "items",
+          "queryPath": ["projects.0.descriptions", "items"],
           "createWithOldValue": true,
-          "createWithValueLast": true,
-          "getForeignKey": true,
           "fields": [
             {
               "fieldName": "itemId",

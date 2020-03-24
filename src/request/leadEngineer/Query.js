@@ -120,7 +120,7 @@ const GET_LEAD_ENGINEER = gql`
   }
 `;
 
-const GET_OPERATOR = gql`
+const GET_OPERATOR_BY_DESCRIPTION = gql`
   query($id: Int) {
     descriptions(id: $id) {
       id
@@ -178,6 +178,56 @@ const GET_OPERATOR = gql`
   }
 `;
 
+const GET_OPERATOR_BY_ITEM = gql`
+  query($id: Int) {
+    items(id: $id) {
+      id
+      data
+      stage
+      leadEngineers {
+        id
+        data
+        measurementPointActualTvds {
+          id
+          data
+        }
+        rubberCements {
+          id
+          data
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
+            id
+            data
+            cumulativeThicknes {
+              id
+              data
+            }
+          }
+        }
+      }
+      operators {
+        id
+        data
+        vulcanizationOperators {
+          id
+          data
+          coatingOperators {
+            id
+            data
+            measurementPointOperators {
+              id
+              data
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const OPERATOR_PROJECTS = gql`
   query($leadEngineerDone: Boolean, $operatorDone: Boolean) {
     projects(leadEngineerDone: $leadEngineerDone, operatorDone: $operatorDone) {
@@ -204,7 +254,8 @@ const query = {
   GET_LEAD_ENGINEER,
   GET_GEOMETRY,
   GET_ORDER,
-  GET_OPERATOR,
+  GET_OPERATOR_BY_DESCRIPTION,
+  GET_OPERATOR_BY_ITEM,
   OPERATOR_PROJECTS
 };
 export default query;

@@ -129,13 +129,7 @@
               "feedback": "Enter valid number.",
               "subtext": "Accepts any value",
               "type": "checkbox"
-            }
-          ]
-        },
-        {
-          "pageTitle": "Priming",
-          "queryPath": "leadEngineers.0",
-          "fields": [
+            },
             {
               "fieldName": "primer1",
               "label": "Primer 1",

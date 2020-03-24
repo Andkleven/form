@@ -9,6 +9,8 @@ export const stringToDictionary = data => {
 
 export const emptyField = field => [null, undefined, ""].includes(field);
 
+export const isNumber = number => typeof number === "number";
+
 export const getDataFromQuery = (data, path, field) => {
   if (!data) {
     return null;
@@ -27,18 +29,36 @@ export const getDataFromQuery = (data, path, field) => {
 
 export const createPath = (
   pathList,
-  repeatStepList,
+  repeatStepList = [],
   editRepeatStepList = {}
 ) => {
-  let mergePath;
-  pathList.forEach((path, index) => {
-    let getIndex = null;
-    mergePath += path.toString();
-    getIndex = repeatStepList[index] + editRepeatStepList[index];
-    if (!emptyField(getIndex)) {
-      mergePath += "." + getIndex.toString();
-    }
-  });
+  let mergePath = "";
+  if (Array.isArray(pathList)) {
+    pathList.forEach((path, index) => {
+      let getIndex = null;
+      if (
+        index &&
+        isNumber(repeatStepList[index - 1]) &&
+        !isNaN(repeatStepList[index - 1])
+      ) {
+        getIndex += repeatStepList[index - 1];
+        if (
+          isNumber(editRepeatStepList[index - 1]) &&
+          !isNaN(editRepeatStepList[index - 1])
+        ) {
+          getIndex += editRepeatStepList[index - 1];
+        }
+        mergePath += "." + getIndex.toString();
+      }
+      if (index !== 0 && path !== "") {
+        mergePath += ".";
+      }
+      mergePath += path.toString();
+    });
+  } else {
+    return pathList;
+  }
+
   return mergePath;
 };
 
@@ -48,16 +68,24 @@ export const findValue = (
   repeatStepList = [],
   editRepeatStepList = {}
 ) => {
-  let path;
-  if (Array.isArray(oldPath)) {
-    path = createPath(oldPath, repeatStepList, editRepeatStepList);
-  } else {
-    path = oldPath;
-  }
+  let path = createPath(oldPath, repeatStepList, editRepeatStepList);
   if (emptyField(path)) {
     return null;
   }
   return objectPath.get(data, path, null);
+};
+
+// Get data to Group or test if group have data in database
+export const getData = (info, arrayIndex, documentDate, isItData = false) => {
+  if (!documentDate) {
+    return null;
+  }
+  let path = createPath(info.queryPath, arrayIndex);
+  let data = objectPath.get(documentDate, path);
+  if (isItData && Array.isArray(data)) {
+    return data[data.length - 1];
+  }
+  return data;
 };
 
 export const sumFieldInObject = (object, key) => {
@@ -81,6 +109,7 @@ export const getValue = (value, queryName, indexNumber, fieldName) => {
 
   return test;
 };
+
 export const isStringInstance = string =>
   typeof string === "string" || string instanceof String;
 
@@ -292,45 +321,21 @@ export const chapterPages = (
   });
 };
 
-// Get data to Group or test if group have data in database
-export const getData = (info, arrayIndex, documentDate, isItData = false) => {
-  let data;
-  if (!documentDate) {
-    return null;
-  } else if (info.firstQueryPath) {
-    data = objectPath.get(
-      objectPath.get(documentDate, `${info.firstQueryPath}.${arrayIndex}`),
-      info.secondQueryPath
-    );
-  } else if (documentDate) {
-    data = objectPath.get(documentDate, info.queryPath);
-  } else {
-    console.error("custom error: 12345675");
-  }
-  if (isItData) {
-    return data[info.findByIndex ? arrayIndex : data.length - 1];
-  } else if (info.findByIndex) {
-    return data[arrayIndex];
-  } else {
-    return data;
-  }
-};
-
-export const mergePath = (info, arrayIndex, oldPath = null) => {
-  let path = oldPath === null ? "" : `${oldPath}.`;
-  if (info.firstQueryPath) {
-    path = `${path}${info.firstQueryPath}.${arrayIndex}.${
-      info.secondQueryPath
-    }`;
-  } else if (info.findByIndex) {
-    path = `${path}${info.queryPath}.${arrayIndex}`;
-  } else if (info.queryPath) {
-    path = `${path}${info.queryPath}`;
-  } else {
-    return null;
-  }
-  return path;
-};
+// export const mergePath = (info, arrayIndex, oldPath = null) => {
+//   let path = oldPath === null ? "" : `${oldPath}.`;
+//   if (info.firstQueryPath) {
+//     path = `${path}${info.firstQueryPath}.${arrayIndex}.${
+//       info.secondQueryPath
+//     }`;
+//   } else if (info.findByIndex) {
+//     path = `${path}${info.queryPath}.${arrayIndex}`;
+//   } else if (info.queryPath) {
+//     path = `${path}${info.queryPath}`;
+//   } else {
+//     return null;
+//   }
+//   return path;
+// };
 
 export const stringifyQuery = query => {
   let newObject = { ...query };
@@ -374,4 +379,11 @@ export const allRequiredFinished = (data, fields) => {
     }
   });
   return requiredApproved;
+};
+
+export const formDataStructure = (json, data, path) => {
+  let lastPath = json[path].split(".");
+  return {
+    [lastPath[lastPath.length - 1]]: objectPath.get(data, json[path], null)
+  };
 };
