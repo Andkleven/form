@@ -375,7 +375,7 @@
               ],
               "variableLabelWithSpeckData": true,
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
-              "label": "Pipe {}"
+              "label": "Pipe    {}"
             }
           ]
         },
