@@ -17,8 +17,8 @@ const stages = createStages(stagesJson);
 const itemTypes = ["Coated Item", "Mould"];
 
 export default props => {
-  const [filters, setFilters] = useState({});
-  const [searchTerm, setSearchTerm] = useState("");
+  const [filters, setFilters] = useState(props.defaultFilters || {});
+  const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
   const results = search(props.data, filters, searchTerm);
 
   const clearAll = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import Paper from "components/Paper";
 import PaperStack from "components/PaperStack";
-import DataTree from "components/tree/DataTree";
+import Filter from "components/tree/Filter";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useQuery } from "@apollo/react-hooks";
 import query from "request/leadEngineer/Query";
@@ -57,7 +57,12 @@ export default props => {
     } else {
       return (
         <>
-          <DataTree data={objectifiedData} view={props.view} />
+          <Filter
+            data={objectifiedData}
+            view={props.view}
+            defaultFilters={props.defaultFilters}
+            defaultSearch={props.defaultSearch}
+          />
         </>
       );
     }

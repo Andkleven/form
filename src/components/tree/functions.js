@@ -3,10 +3,10 @@ export const search = (data, filters, search) => {
   // only items that matches the applied filters
   // and search terms.
 
-  console.log("- - - - - - - - - - - - New search - - - - - - - - - - - -");
-  console.log("Data:\t\t", data);
-  console.log("Filters:\t", filters);
-  console.log("Search term:\t", search);
+  // console.log("- - - - - - - - - - - - New search - - - - - - - - - - - -");
+  // console.log("Data:\t\t", data);
+  // console.log("Filters:\t", filters);
+  // console.log("Search term:\t", search);
 
   // No search is done if there is no data
   // or if data is not a valid object.
@@ -16,20 +16,22 @@ export const search = (data, filters, search) => {
   const activeItemFilters =
     (filters.stage && filters.stage !== "leadEngineer" && 1) || 0;
   const activeDescriptionFilters = (filters.geometry && 1) || 0;
-  const activeProjectFilters = (filters.stage === "leadEngineer" && 1) || 0;
-  const activeFilters = filters && Object.keys(filters).length;
+  const activeProjectFilters = (filters.stage && 1) || 0;
+  // const activeFilters = filters && Object.keys(filters).length;
+  const activeFilters =
+    activeItemFilters + activeDescriptionFilters + activeProjectFilters;
 
   const activeSearches = (search !== "" && 1) || 0;
   const activeSearchAndFilters = activeSearches + activeFilters;
 
-  console.log("Item\tDesc\tProj\tItSr\tSUM");
-  console.log(
-    `${activeItemFilters}   +\t\
-${activeDescriptionFilters}   +\t\
-${activeProjectFilters}   +\t\
-${activeSearches}   =\t\
-${activeSearchAndFilters}`
-  );
+  //   console.log("Item\tDesc\tProj\tItSr\tSUM");
+  //   console.log(
+  //     `${activeItemFilters}   +\t\
+  // ${activeDescriptionFilters}   +\t\
+  // ${activeProjectFilters}   +\t\
+  // ${activeSearches}   =\t\
+  // ${activeSearchAndFilters}`
+  //   );
 
   if (activeSearchAndFilters === 0) return data.projects;
 
@@ -60,12 +62,13 @@ ${activeSearchAndFilters}`
       return true;
     }
 
-      if (filters.stage === "leadEngineer") {
-        if (project.leadEngineerDone === true) {
-          return true;
-        }
-        return false;
+    if (filters.stage === "leadEngineer") {
+      if (project.leadEngineerDone === false) {
+        return true;
       }
+    }
+
+    return false;
   };
 
   const matchingItem = item => {
@@ -126,7 +129,7 @@ ${activeSearchAndFilters}`
       // console.log("!project:\t", project);
       let results = searchProject(project);
       if (results && elementHasChildren(results)) {
-        if (!activeDescriptionFilters || matchesProjectFilters(project)) {
+        if (!activeProjectFilters || matchesProjectFilters(project)) {
           results.data = project.data;
           matches.push(results);
         }

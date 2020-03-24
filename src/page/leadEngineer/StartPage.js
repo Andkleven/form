@@ -9,7 +9,7 @@ import {
 const Content = () => {
   const [projectId] = useContext(ProjectContext);
   return (
-    <FileView view="projects">
+    <FileView view="projects" defaultFilters={{ stage: "leadEngineer" }}>
       {(typeof projectId === "string" || typeof projectId === "number") && (
         <>
           {console.log(projectId)}
