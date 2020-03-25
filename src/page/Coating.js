@@ -22,7 +22,6 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
   return (
     <PaperStack>
       <Paper>
@@ -47,6 +46,7 @@ export default pageInfo => {
           itemId={itemId}
           sendItemId={true}
           getQueryBy={itemId}
+          saveButton={true}
         />
       </Paper>
     </PaperStack>
