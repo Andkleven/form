@@ -5,9 +5,10 @@ import { search } from "./functions";
 import ProjectTree from "./ProjectTree";
 import Projects from "./Projects";
 import stagesJson from "components/stages/Stages.json";
+const cloneDeep = require("clone-deep");
 
 const createStages = operatorStages => {
-  let stages = operatorStages.all;
+  let stages = cloneDeep(operatorStages.all);
   stages.unshift("leadEngineer");
   stages.push("qualityControl");
   return stages;

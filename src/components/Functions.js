@@ -193,7 +193,7 @@ export const removeEmptyValueFromObject = object => {
 
 export const variableString = (variable, string) => {
   let newString;
-  if ([undefined, null, ""].includes(variable)) {
+  if (emptyField(variable)) {
     newString = string.replace("{", "");
     newString = newString.replace("}", "");
   } else {

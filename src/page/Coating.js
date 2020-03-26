@@ -40,7 +40,7 @@ export default pageInfo => {
           geometry={geometry}
           arrayIndex={
             data.items[0].stage && [
-              Number(data.items[0].stage.split("-")[1]) - 1
+              Number(data.items[0].stage.split("Step")[1]) - 1
             ]
           }
           itemId={itemId}

@@ -1,62 +1,85 @@
-import StagesJson from "./Stages.json";
-import { findValue } from "components/Functions";
+import stagesJson from "./Stages.json";
+import {
+  findValue,
+  isNumber,
+  emptyField,
+  removeSpace
+} from "components/Functions";
 
 export default (speckData, stage, geometry) => {
+  geometry = removeSpace(geometry).toLowerCase();
+  console.log(geometry);
   let stageSplit = stage.split("Step");
   let newStage = stageSplit[1] ? stageSplit[0] + "Step" : stageSplit[0];
-  const findNextStageInLoop = (geometry, nextStage, number) => {
-    for (index < StagesJson.all.length; index++; ) {
-      if (findNextStage(geometry, nextStage, number)) {
-        return `${nextStage}-${number}`;
-      } else {
-        return "loop normal";
+  console.log(newStage, 1);
+  const findNextStageInLoop = (indexStart, geometry, number, nextStage) => {
+    while (number < 5) {
+      for (index = indexStart; index < stagesJson.all.length; index++) {
+        nextStage = stagesJson.all[6][index];
+        console.log(stagesJson);
+        console.log(nextStage, "hhhhh");
+        if (findNextStage(geometry, nextStage, number)) {
+          return `${nextStage}-${number}`;
+        } else if (index === stagesJson.all.length - 1) {
+          return "loop normal";
+        }
       }
+      index = 0;
+      number += 1;
     }
-    return "loop again";
   };
-  const testForStage = (index, nextStage) => {
-    for (index < StagesJson.all.length; index++; ) {
-      nextStage = StagesJson.all[index];
+  const testForStage = indexStart => {
+    for (index = indexStart; index < stagesJson.all.length; index++) {
+      nextStage = stagesJson.all[index];
       if (findNextStage(geometry, nextStage)) {
         return nextStage;
-      } else {
-        return null;
       }
     }
+    return "jaja";
   };
   const findNextStage = (geometry, nextStage, number = null) => {
-    let stageCriteria = StagesJson[geometry][nextStage];
-    if ([undefined, null, ""].includes(stageCriteria.queryPath)) {
+    console.log(nextStage);
+    let stageCriteria = stagesJson[geometry][nextStage];
+    if (emptyField(stageCriteria.queryPath)) {
       return true;
     }
     let query = findValue(
       speckData,
       stageCriteria.queryPath,
-      number,
+      isNumber(number) ? number - 1 : [],
       stageCriteria.editIndexList
     );
-    if ([undefined, null, ""].includes(query)) {
+    if (emptyField(query)) {
       return false;
     }
     return true;
   };
-  let index = StagesJson.all.indexOf(newStage);
+  let index = stagesJson.all.indexOf(newStage);
   let nextStage;
-  if (index === -1) {
-    nextStage = "loop again";
-    let index = StagesJson.all[6].indexOf(newStage);
-    nextStage = StagesJson.all[6][index];
+  if (index === -1 || index === 4) {
+    console.log(2);
+    let arrayInArray = stagesJson.all[6];
     let number = stageSplit[1];
-    while (nextStage === "loop again" && number < 5) {
-      nextStage = findNextStageInLoop(geometry, nextStage, number);
+    if (index === 4) {
+      index = 0;
+    } else if (number === arrayInArray.length - 1) {
+      index = arrayInArray[0];
       number += 1;
-    }
-    if (nextStage === "loop normal") {
-      return testForStage(6, StagesJson.all[6]);
     } else {
+      index = arrayInArray.indexOf(newStage) + 1;
+    }
+    nextStage = findNextStageInLoop(index, geometry, number, nextStage);
+    if (nextStage === "loop normal") {
+      let a = testForStage(6);
+      console.log(a, 2);
+      return a;
+    } else {
+      console.log(nextStage, 4);
       return nextStage;
     }
   } else {
-    return testForStage(index, nextStage);
+    let b = testForStage(index + 1);
+    console.log(b, 5);
+    return b;
   }
 };

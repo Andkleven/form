@@ -16,7 +16,12 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
-  chapterContext.setLastChapter(props.thisChapter);
+  useMemo(() => {
+    if (props.lastChapter) {
+      chapterContext.setLastChapter(props.lastChapter);
+    }
+  }, [props.lastChapter]);
+
   // const [repeatGroup, setRepeatGroup] = useState(0); // if repeat set number of repeat her
 
   // Set repeatGroup to zero on submit

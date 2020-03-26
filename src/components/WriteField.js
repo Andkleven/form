@@ -80,6 +80,10 @@ export default props => {
   const handelBack = event => {
     event.persist();
     event.preventDefault();
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, props.path, props.data.data[props.fieldName]);
+      return { ...prevState };
+    });
     chapterContext.setEditChapter(0);
     fieldsContext.setvalidationPassed({});
   };
