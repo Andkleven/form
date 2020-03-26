@@ -2,8 +2,8 @@ import StagesJson from "./Stages.json";
 import { findValue } from "components/Functions";
 
 export default (speckData, stage, geometry) => {
-  let stageSplit = stage.split("-");
-  let newStage = stageSplit[0];
+  let stageSplit = stage.split("Step");
+  let newStage = stageSplit[1] ? stageSplit[0] + "Step" : stageSplit[0];
   const findNextStageInLoop = (geometry, nextStage, number) => {
     for (index < StagesJson.all.length; index++; ) {
       if (findNextStage(geometry, nextStage, number)) {
@@ -44,8 +44,8 @@ export default (speckData, stage, geometry) => {
   let nextStage;
   if (index === -1) {
     nextStage = "loop again";
-    let index = StagesJson.indexOf(newStage);
-    nextStage = StagesJson.all[index];
+    let index = StagesJson.all[6].indexOf(newStage);
+    nextStage = StagesJson.all[6][index];
     let number = stageSplit[1];
     while (nextStage === "loop again" && number < 5) {
       nextStage = findNextStageInLoop(geometry, nextStage, number);

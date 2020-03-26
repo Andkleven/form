@@ -13,25 +13,29 @@ export default props => {
   const chapterContext = useContext(ChapterContext);
   // make it write field
   const flipToWrite = () => {
-    if (!props.readOnly) {
-      fieldsContext.setIsSubmited(false);
-      chapterContext.setEditChapter(
-        `${props.repeatStepList}-${props.fieldName}`
-      );
-      fieldsContext.setvalidationPassed({});
-    }
+    fieldsContext.setIsSubmited(false);
+    chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
+    fieldsContext.setvalidationPassed({});
   };
-
   const DateValue = () => {
     if (["date", "datetime-local"].includes(props.type)) {
       return (
-        <Moment
-          parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
-        >
-          {/* Good to have when dealing with dates */}
-          {isStringInstance(props.value) ? null : props.value}
-          TEST
-        </Moment>
+        <>
+          <Moment
+            parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
+          >
+            {/* Good to have when dealing with dates */}
+            {isStringInstance(props.value) ? null : props.value}
+            TEST
+          </Moment>
+          {props.readOnly ? null : (
+            <TinyButton
+              onClick={() => flipToWrite()}
+              icon="pencil-alt"
+              color="dark"
+            />
+          )}
+        </>
       );
     }
     return false;
@@ -63,7 +67,7 @@ export default props => {
   );
 
   const Value = props =>
-    DateValue() || (
+    DateValue() || (\
       <div className="d-flex justify-content-between align-items-end">
         {props.value ||
           (props.value === false && `Not performed`) ||

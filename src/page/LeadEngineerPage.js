@@ -36,7 +36,7 @@ export default pageInfo => {
           getQueryBy={itemId}
           descriptionId={descriptionId}
           itemId={itemId}
-          different={different}
+          sendItemId={Number(different)}
         />
       </Paper>
     </PaperStack>

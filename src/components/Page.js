@@ -16,6 +16,7 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
+  chapterContext.setLastChapter(props.thisChapter);
   // const [repeatGroup, setRepeatGroup] = useState(0); // if repeat set number of repeat her
 
   // Set repeatGroup to zero on submit
@@ -132,9 +133,16 @@ export default props => {
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
-
-      for (let i = 0; i < newValue; i++) {
-        addData(i);
+      if (
+        objectPath.get(
+          documentDateContext.documentDate,
+          `${props.path}.${0}`,
+          null
+        ) === null
+      ) {
+        for (let i = 0; i < newValue; i++) {
+          addData(i);
+        }
       }
     }
   }, []);
@@ -171,58 +179,62 @@ export default props => {
       ) : null}
 
       {Components ? <Components {...props} /> : null}
+      {props.fields ? (
+        <>
+          <SelectSetFieldGroupData
+            {...props}
+            writeChapter={writeChapter}
+            deleteHandler={deleteHandler}
+          />
 
-      <SelectSetFieldGroupData
-        {...props}
-        writeChapter={writeChapter}
-        deleteHandler={deleteHandler}
-      />
+          {!props.notAddButton && props.repeat && writeChapter ? (
+            <button type="button" onClick={() => addHandeler()}>
+              {props.addButton ? props.addButton : "Add"}
+            </button>
+          ) : null}
 
-      <>
-        {!props.notAddButton && props.repeat && writeChapter ? (
-          <button type="button" onClick={() => addHandeler()}>
-            {props.addButton ? props.addButton : "Add"}
-          </button>
-        ) : null}
-      </>
-      {props.showSaveButton ? (
-        chapterContext.editChapter ? (
-          props.thisChapter === chapterContext.editChapter && (
-            <>
-              <SubmitButton
-                key={props.thisChapter}
-                onClick={() =>
-                  props.submitHandler(documentDateContext.documentDate)
-                }
-              />
-              {FieldsContext.isSubmited && (
-                <div style={{ fontSize: 12, color: "red" }}>
-                  See Error Message
-                </div>
-              )}
-            </>
-          )
-        ) : props.thisChapter === chapterContext.lastChapter ? (
-          <>
-            <SubmitButton
-              key={props.thisChapter}
-              onClick={() =>
-                props.submitHandler(documentDateContext.documentDate)
-              }
-              name={
-                props.saveButton &&
-                !Object.values(fieldsContext.validationPassed).every(allTrue)
-                  ? "Save"
-                  : null
-              }
-            />
-            {fieldsContext.isSubmited && (
-              <div style={{ fontSize: 12, color: "red" }}>
-                See Error Message
-              </div>
-            )}
-          </>
-        ) : null
+          {props.showSaveButton ? (
+            chapterContext.editChapter ? (
+              props.thisChapter === chapterContext.editChapter && (
+                <>
+                  <SubmitButton
+                    key={props.thisChapter}
+                    onClick={() =>
+                      props.submitHandler(documentDateContext.documentDate)
+                    }
+                  />
+                  {FieldsContext.isSubmited && (
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      See Error Message
+                    </div>
+                  )}
+                </>
+              )
+            ) : props.thisChapter === chapterContext.lastChapter ? (
+              <>
+                <SubmitButton
+                  key={props.thisChapter}
+                  onClick={() =>
+                    props.submitHandler(documentDateContext.documentDate)
+                  }
+                  name={
+                    props.saveButton &&
+                    !Object.values(fieldsContext.validationPassed).every(
+                      allTrue
+                    )
+                      ? "Save"
+                      : null
+                  }
+                />
+                {fieldsContext.isSubmited && (
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    See Error Message
+                  </div>
+                )}
+              </>
+            ) : null
+          ) : null}
+        </>
       ) : null}
     </>
   );

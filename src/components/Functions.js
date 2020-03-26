@@ -133,6 +133,50 @@ export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
   );
 };
 
+export const allRequiredSatisfied = (pageInfo, data, array) => {
+  let returnValue = true;
+  pageInfo.pages.forEach(page => {
+    let newPath = page.queryPath;
+    if (Array.isArray(newPath)) {
+      newPath = newPath.slice(0, array.length + 1);
+    }
+    page.fields &&
+      page.fields.forEach(field => {
+        if (field.required) {
+          let dataFields = objectPath.get(
+            data,
+            createPath(newPath, array).toString()
+          );
+          if (Array.isArray(dataFields)) {
+            dataFields.forEach(dataField => {
+              if (emptyField(dataField.data[field.fieldName])) {
+                // console.log(
+                //   dataFields,
+                //   createPath(newPath, array),
+                //   dataField.data[field.fieldName],
+                //   1
+                // );
+                returnValue = false;
+              }
+            });
+          } else if (!dataFields || !dataFields.data) {
+            // console.log(dataFields, createPath(newPath, array), 2);
+            returnValue = false;
+          } else if (emptyField(dataFields.data[field.fieldName])) {
+            // console.log(
+            //   dataFields,
+            //   createPath(newPath, array),
+            //   dataFields.data[field.fieldName],
+            //   3
+            // );
+            returnValue = false;
+          }
+        }
+      });
+  });
+  return returnValue;
+};
+
 export const emptyObject = objectToCheck => {
   if (Object.entries(objectToCheck).length === 0) {
     return true;
@@ -232,8 +276,13 @@ export const objectifyQuery = query => {
             objectifyEntries(value, path + "." + index.toString());
           });
         } else if (key === "data") {
-          if (typeof query[key] === "string") {
-            let isData = stringToDictionary(query[key]);
+          if (isStringInstance(query[key])) {
+            let isData;
+            if (!query[key].trim()) {
+              isData = {};
+            } else {
+              isData = stringToDictionary(query[key]);
+            }
             if (isData) {
               objectPath.set(newObject, path, isData);
             }

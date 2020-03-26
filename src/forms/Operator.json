@@ -349,7 +349,7 @@
         }
       ]
     },
-    "coating": {
+    "coatingStep": {
       "chapterBySpeckData": [
         "leadEngineers.0.vulcanizationSteps",
         "coatingLayers"
@@ -360,9 +360,9 @@
         ""
       ],
       "lookUpBy": "layerApplied",
+      "chapterTitle": "Coating",
       "pages": [
         {
-          "pageTitle": "Coating",
           "customComponent": "CustomCoating"
         },
         {
@@ -379,29 +379,6 @@
                 "data.rubberCement"
               ],
               "label": "Rubber Cement"
-            }
-          ]
-        },
-        {
-          "repeat": true,
-          "notAddButton": true,
-          "repeatGroupWithQuerySpeckData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
-          "fields": [
-            {
-              "showFieldSpackPath": "leadEngineers.0.rubberCements",
-              "line": true
-            },
-            {
-              "speckValueList": [
-                "",
-                "",
-                "leadEngineers.0.measurementPointActualTvds",
-                "data.measurementPointActual"
-              ],
-              "variableLabelWithSpeckData": true,
-              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
-              "label": "Pipe {}"
             }
           ]
         },
@@ -434,6 +411,21 @@
           ]
         },
         {
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            "coatingOperators",
+            ""
+          ],
+          "fields": [
+            {
+              "fieldName": "rubberThickness",
+              "label": "Layer Applied",
+              "type": "Number",
+              "required": true
+            }
+          ]
+        },
+        {
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpeckData": true,
@@ -454,7 +446,8 @@
                 "data.cumulativeThicknes"
               ],
               "subtext": "Target cumulative thickness: {}mm",
-              "type": "number"
+              "type": "number",
+              "required": true
             }
           ]
         },
@@ -468,13 +461,14 @@
             {
               "fieldName": "layerApplied",
               "label": "Layer Applied",
-              "type": "datetime-local"
+              "type": "datetime-local",
+              "required": true
             }
           ]
         }
       ]
     },
-    "vulcanization": {
+    "vulcanizationStep": {
       "queryPath": "operators",
       "pages": [
         {

@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import SetFieldGroupData from "./SetFieldGroupData";
+import FieldGroup from "./FieldGroup";
 import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import { getRepeatNumber } from "./Functions";
@@ -57,7 +58,7 @@ export default props => {
       );
       for (let index = 0; index < repeatNumber; index++) {
         arraySetFieldGroupData.push(
-          <SetFieldGroupData
+          <FieldGroup
             key={index}
             {...props}
             repeatStepList={
@@ -69,7 +70,7 @@ export default props => {
             }
             repeatStep={index}
             writeChapter={props.writeChapter}
-            path={props.path ? `${props.path}.${index}` : null}
+            path={props.path ? `${props.path}.${index}.data` : null}
             fields={props.fields}
             indexId={`${props.indexId}-${index}`}
           />

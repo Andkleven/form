@@ -3,5 +3,5 @@
   "spackQueryPath": "items.0.leadEngineers",
   "mutation": "OPERATOR",
   "query": "GET_OPERATOR_BY_ITEM",
-  "chapters": "coating"
+  "chapters": "coatingStep"
 }

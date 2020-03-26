@@ -81,6 +81,7 @@ export default props => {
           {...props}
           {...field}
           key={`${props.indexId}-${index}`}
+          readOnly={true}
           path={getNewPath(field.fieldName)}
           subtext={getSubtext(
             field.subtext,
@@ -120,7 +121,8 @@ export default props => {
         />
       );
     } else if (
-      field.readOnly ||
+      field.math ||
+      field.setValueByIndex ||
       props.writeChapter ||
       `${props.repeatStepList}-${field.fieldName}` ===
         chapterContext.editChapter

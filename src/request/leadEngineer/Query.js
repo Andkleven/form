@@ -171,6 +171,10 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
                 data
               }
             }
+            measurementPointOperators {
+              id
+              data
+            }
           }
         }
       }
@@ -221,6 +225,10 @@ const GET_OPERATOR_BY_ITEM = gql`
               id
               data
             }
+          }
+          measurementPointOperators {
+            id
+            data
           }
         }
       }

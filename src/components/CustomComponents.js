@@ -19,6 +19,7 @@ const CustomCoating = props => {
     <>
       <ReadField
         textCenter={true}
+        readOnly={true}
         label={"Step"}
         value={`${props.arrayIndex[0] + 1} of ${
           objectPath.get(props.speckData, "leadEngineers.0.vulcanizationSteps")
@@ -27,6 +28,7 @@ const CustomCoating = props => {
       />
       <ReadField
         textCenter={true}
+        readOnly={true}
         label={"Layer"}
         value={`${layers} of ${sumFieldInObject(
           objectPath.get(props.speckData, "leadEngineers.0.vulcanizationSteps"),

@@ -3,12 +3,7 @@ import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
 import Title from "./Title";
-import {
-  variableString,
-  emptyObject,
-  emptyField,
-  isStringInstance
-} from "components/Functions";
+import { variableString, emptyObject, emptyField } from "components/Functions";
 
 import "../styles/styles.css";
 
@@ -79,31 +74,51 @@ export default props => {
       } else {
         setStateWithData(props.data);
       }
-    }
-    if (props.createWithOldValue && Array.isArray(props.data)) {
-      let length = props.data.length;
-      if (
-        length <=
-        objectPath.get(documentDateContext.documentDate, props.path).length
-      ) {
+      if (props.createWithOldValue && Array.isArray(props.data)) {
+        let length = props.data.length;
+        if (
+          length <=
+          objectPath.get(documentDateContext.documentDate, props.path).length
+        ) {
+          setTrigger(!trigger);
+        }
+      } else {
         setTrigger(!trigger);
       }
-    } else {
-      setTrigger(!trigger);
     }
   }, [props.data, props.writeChapte]);
 
   useEffect(() => {
-    if (props.createWithOldValue && Array.isArray(props.data)) {
-      let length = props.data.length;
-      if (
-        length <=
-        objectPath.get(documentDateContext.documentDate, props.path).length
-      ) {
+    if (props.data && props.path) {
+      if (props.createWithOldValue && Array.isArray(props.data)) {
+        let length = props.data.length;
+        if (
+          length <=
+          objectPath.get(documentDateContext.documentDate, props.path).length
+        ) {
+          documentDateContext.setDocumentDate(prevState => {
+            objectPath.set(
+              prevState,
+              props.path ? `${props.path}.${length}.data` : "data",
+              {
+                ...objectPath.get(
+                  prevState,
+                  props.path ? props.path + ".data" : "data"
+                ),
+                ...state
+              }
+            );
+            return {
+              ...prevState
+            };
+          });
+          setNewPath(`.${length}`);
+        }
+      } else {
         documentDateContext.setDocumentDate(prevState => {
           objectPath.set(
             prevState,
-            props.path ? `${props.path}.${length}.data` : "data",
+            props.path ? props.path + ".data" : "data",
             {
               ...objectPath.get(
                 prevState,
@@ -116,21 +131,7 @@ export default props => {
             ...prevState
           };
         });
-        setNewPath(`.${length}`);
       }
-    } else {
-      documentDateContext.setDocumentDate(prevState => {
-        objectPath.set(prevState, props.path ? props.path + ".data" : "data", {
-          ...objectPath.get(
-            prevState,
-            props.path ? props.path + ".data" : "data"
-          ),
-          ...state
-        });
-        return {
-          ...prevState
-        };
-      });
     }
   }, [trigger]);
 
