@@ -4,19 +4,35 @@ import Button from "react-bootstrap/Button";
 import { search } from "./functions";
 import ProjectTree from "./ProjectTree";
 import Projects from "./Projects";
-import stagesJson from "components/stages/Stages.json";
 
-const createStages = operatorStages => {
-  let stages = operatorStages.all;
-  stages.unshift("leadEngineer");
-  stages.push("qualityControl");
+const createStages = data => {
+  let stages = [];
+  let leadEngineer = false;
+  let qualityControl = false;
+
+  data.projects.forEach(project => {
+    project.leadEngineerDone
+      ? project.descriptions.forEach(description => {
+          description.items.forEach(item => {
+            item.qualityControlDone // Not tested yet
+              ? (qualityControl = true)
+              : !stages.includes(item.stage) && stages.push(item.stage);
+          });
+        })
+      : (leadEngineer = true);
+  });
+
+  // Add LE & QC stages
+  leadEngineer && stages.unshift("leadEngineer");
+  qualityControl && stages.push("qualityControl");
   return stages;
 };
 
-const stages = createStages(stagesJson);
 const itemTypes = ["Coated Item", "Mould"];
 
 export default props => {
+  const stages = createStages(props.data);
+
   const [filters, setFilters] = useState(props.defaultFilters || {});
   const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
   const results = search(props.data, filters, searchTerm);

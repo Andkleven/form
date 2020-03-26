@@ -1,13 +1,28 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default props => {
+  if (props.tooltip) {
+    console.log(true);
+  }
+
   return (
-    <Button variant="link" className="py-0 m-0" onClick={props.onClick}>
-      <span className={props.color && `text-${props.color}`}>
-        {props.icon && <i className={`far fa-${props.icon} fa-sm`} />}
-        {props.text && ` ${props.text}`}
-      </span>
-    </Button>
+    <OverlayTrigger
+      overlay={
+        <Tooltip hidden={props.tooltip ? false : true}>{props.tooltip}</Tooltip>
+      }
+    >
+      <Button
+        variant="link"
+        className={`py-0 m-0 px-1 text-center ${props.className}`}
+        onClick={props.onClick}
+        style={{ minWidth: "2em" }}
+      >
+        <span className={props.color && `text-${props.color}`}>
+          {props.icon && <i className={`fas fa-${props.icon}`} />}
+          {props.content && ` ${props.content}`}
+        </span>
+      </Button>
+    </OverlayTrigger>
   );
 };

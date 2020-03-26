@@ -2,6 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import Creatable from "react-select/creatable";
 import Select from "react-select";
+import { camelCaseToNormal } from "components/Functions";
 
 import Duplicate from "./widgets/Duplicate";
 
@@ -14,19 +15,6 @@ export default props => {
   });
 
   options.unshift({ value: null, label: "None" });
-
-  const camelCaseToNormal = string => {
-    if (string === null) {
-      return <div className="text-secondary">None</div>;
-    } else {
-      if (!string.includes(" ")) {
-        string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
-      }
-      string = string.replace(/([0-9])/g, " $1");
-      string = string.charAt(0).toUpperCase() + string.slice(1);
-      return string;
-    }
-  };
 
   options.map(option => {
     let label = option.value;
@@ -57,7 +45,7 @@ export default props => {
             placeholder={props.placeholder || "Select or type..."}
             value={
               props.value
-                ? options.find(option => option.value === props.value) 
+                ? options.find(option => option.value === props.value)
                 : null
             }
             onChange={props.onChange}
