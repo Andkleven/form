@@ -31,7 +31,7 @@
               "options": ["", "Garnet", "Grit", "Aluminum Oxide"]
             },
             {
-              "fieldName": "relativeHumidityt",
+              "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
@@ -100,7 +100,7 @@
             },
             {
               "fieldName": "compressedAirCheck",
-              "label": "compressed Air Check",
+              "label": "Compressed Air Check",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
               "type": "checkbox"

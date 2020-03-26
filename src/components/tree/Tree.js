@@ -10,12 +10,6 @@ export default memo(
     const previous = usePrevious(isOpen);
     const [bind, { height: viewHeight }] = useMeasure();
     const { height, opacity, transform } = useSpring({
-      config: {
-        mass: 1.5,
-        tension: isOpen ? 800 : 600,
-        friction: isOpen ? 35 : 50,
-        clamp: isOpen ? false : true
-      },
       from: {
         height: 0,
         opacity: 0,
@@ -25,8 +19,17 @@ export default memo(
         height: isOpen ? viewHeight * 1 : 0,
         opacity: isOpen ? 1 : 0,
         transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`
+      },
+      config: {
+        mass: 1 + 0.001 * viewHeight,
+        tension: isOpen ? 800 * (1 + 0.008 * viewHeight) : 1000,
+        friction: isOpen
+          ? 35 * (1 + 0.004 * viewHeight)
+          : 35 * (1 + 0.004 * viewHeight),
+        clamp: isOpen ? false : true
       }
     });
+
     const Icon = Icons[`${children ? (isOpen ? "Open" : "") : "Open"}Folder`];
 
     return (
