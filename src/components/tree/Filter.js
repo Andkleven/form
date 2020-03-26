@@ -25,6 +25,7 @@ const createStages = data => {
   // Add LE & QC stages
   leadEngineer && stages.unshift("leadEngineer");
   qualityControl && stages.push("qualityControl");
+
   return stages;
 };
 

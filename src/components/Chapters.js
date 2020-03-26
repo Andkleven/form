@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react";
+import React, { Fragment } from "react";
 import {
   getData,
   findValue,
@@ -22,6 +22,7 @@ export default props => {
         (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
         !temporaryLastChapter
       ) {
+        console.log(count + 1);
         temporaryLastChapter = count + 1;
       }
       if (stopLoop) {
@@ -55,6 +56,7 @@ export default props => {
               showEditButton={showEditButton}
               indexId={`${count + 1}-${index}`}
               index={index}
+              lastChapter={temporaryLastChapter}
               // repeatGroup={repeatGroup}
               submitData={props.submitData}
               mutation={props.mutation}

@@ -419,7 +419,7 @@
           "fields": [
             {
               "fieldName": "rubberThickness",
-              "label": "Layer Applied",
+              "label": "Rubber Thickness",
               "type": "Number",
               "required": true
             }
