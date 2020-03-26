@@ -2,10 +2,6 @@ import React from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default props => {
-  if (props.tooltip) {
-    console.log(true);
-  }
-
   return (
     <OverlayTrigger
       overlay={

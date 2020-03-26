@@ -11,12 +11,13 @@ import LightLine from "components/LightLine";
 export default props => {
   const fieldsContext = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
-  // make it write field
+
   const flipToWrite = () => {
     fieldsContext.setIsSubmited(false);
     chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
     fieldsContext.setvalidationPassed({});
   };
+
   const DateValue = () => {
     if (["date", "datetime-local"].includes(props.type)) {
       return (
@@ -67,7 +68,7 @@ export default props => {
   );
 
   const Value = props =>
-    DateValue() || (\
+    DateValue() || (
       <div className="d-flex justify-content-between align-items-end">
         {props.value ||
           (props.value === false && `Not performed`) ||
