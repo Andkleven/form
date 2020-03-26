@@ -6,11 +6,11 @@ import {
   ChapterContext
 } from "./DocumentAndSubmit";
 import objectPath from "object-path";
-import SubmitButton from "./SubmitButton";
-import { allTrue } from "./Functions";
 import Input from "components/Input";
-
+import TinyButton from "components/TinyButton";
+import LightLine from "components/LightLine";
 import "../styles/styles.css";
+import { Button } from "react-bootstrap";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
@@ -77,27 +77,75 @@ export default props => {
     }
   };
 
-  const handelBack = event => {
+  const cancelEdit = event => {
     event.persist();
     event.preventDefault();
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, props.path, props.data.data[props.fieldName]);
+      return { ...prevState };
+    });
     chapterContext.setEditChapter(0);
     fieldsContext.setvalidationPassed({});
   };
 
-  const handelReRender = (event, data) => {
+  const submitEdit = (event, data) => {
     event.persist();
     event.preventDefault();
     chapterContext.setEditChapter(0);
     props.submitHandler(data);
   };
 
-  const Label = tinyButtons => {
-    return (
-      <div className="d-flex justify-items-between">
-        {props.fieldName}
-        <div>{tinyButtons}</div>
+  const buttonBreakPoint = "sm";
+
+  const TinyButtons = () => {
+    return props.submitButton ? (
+      <div
+        className={`d-none d-${buttonBreakPoint}-inline ${!props.label &&
+          " w-100 text-right"}`}
+      >
+        <TinyButton
+          icon="check"
+          onClick={event => submitEdit(event, documentDateContext.documentDate)}
+          tooltip="Submit"
+        />
+        <TinyButton
+          icon="times"
+          onClick={event => cancelEdit(event)}
+          tooltip="Cancel"
+          // color="secondary"
+        />
       </div>
-    );
+    ) : null;
+  };
+
+  const BigButtons = () => {
+    if (props.submitButton) {
+      return (
+        <>
+          <div className={`d-flex d-${buttonBreakPoint}-none mb-1`}>
+            <Button
+              className="w-100 m-0 px-0 text-light"
+              variant="primary"
+              onClick={event =>
+                submitEdit(event, documentDateContext.documentDate)
+              }
+            >
+              <i className="fal fa-check" style={{ width: "1.5em" }} />
+              Submit
+            </Button>
+            <div className="px-1" />
+            <Button
+              className="w-100 m-0 px-0"
+              variant="secondary"
+              onClick={event => cancelEdit(event)}
+            >
+              <i className="fal fa-times" style={{ width: "1.5em" }} />
+              Cancel
+            </Button>
+          </div>
+        </>
+      );
+    }
   };
 
   return (
@@ -106,26 +154,17 @@ export default props => {
         {...props}
         onChangeDate={onChangeDate}
         onChange={onChange}
-        name={Label()}
+        label={props.label}
+        TinyButtons={TinyButtons()}
+        BigButtons={BigButtons()}
+        name={props.fieldName}
         min={props.minInput ? props.minInput : undefined}
         max={props.maxInput ? props.maxInput : undefined}
         step={props.decimal ? "0.1" : "1"}
+        tight={props.submitButton}
       />
       <ErrorMessage showMinMax={showMinMax} error={props.error} />
-      {props.submitButton ? (
-        <>
-          <SubmitButton
-            onClick={event =>
-              handelReRender(event, documentDateContext.documentDate)
-            }
-          />
-
-          {fieldsContext.isSubmited && props.submitButton ? (
-            <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
-          ) : null}
-          <button onClick={event => handelBack(event)}>Back</button>
-        </>
-      ) : null}
+      {props.submitButton ? <LightLine /> : null}
     </>
   );
 };

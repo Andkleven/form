@@ -1,3 +1,4 @@
+import React from "react";
 import objectPath from "object-path";
 import { Fragment } from "react";
 
@@ -405,4 +406,17 @@ export const getRepeatNumber = (
     newValue = newValue.length;
   }
   return newValue;
+};
+
+export const camelCaseToNormal = string => {
+  if (string === null) {
+    return <div className="text-secondary">None</div>;
+  } else {
+    if (!string.includes(" ")) {
+      string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
+    }
+    string = string.replace(/([0-9])/g, " $1");
+    string = string.charAt(0).toUpperCase() + string.slice(1);
+    return string;
+  }
 };

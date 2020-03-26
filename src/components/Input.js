@@ -6,6 +6,7 @@ import {
   isChrome,
   isFirefox
 } from "react-device-detect";
+import { Form } from "react-bootstrap";
 
 import Date from "./inputs/Date";
 import Datetime from "./inputs/Datetime";
@@ -14,7 +15,31 @@ import CheckInput from "./inputs/CheckInput";
 import SelectInput from "./inputs/SelectInput";
 import FileInput from "./inputs/FileInput";
 
-function Input(props) {
+const customLabelTypes = ["checkbox", "radio", "switch"];
+
+const InputShell = props => {
+  const BottomPart = props => {
+    return <>{props.BigButtons}</>;
+  };
+
+  return !customLabelTypes.includes(props.type) ? (
+    <>
+      <div className="d-flex justify-content-between">
+        {props.label && <Form.Label>{props.label}</Form.Label>}
+        {props.TinyButtons}
+      </div>
+      {props.children}
+      <BottomPart {...props} />
+    </>
+  ) : (
+    <>
+      {props.children}
+      <BottomPart {...props} />
+    </>
+  );
+};
+
+const InputType = props => {
   const isDateRelated = ["date", "datetime-local"].includes(props.type);
   const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
   const isDesktop = !isMobile;
@@ -35,6 +60,10 @@ function Input(props) {
   } else {
     return <NativeInput {...props} />;
   }
-}
+};
 
-export default Input;
+export default props => (
+  <InputShell {...props}>
+    <InputType {...props} />
+  </InputShell>
+);

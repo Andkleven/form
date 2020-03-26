@@ -11,6 +11,8 @@ export default props => {
   const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
   const objectifiedData = objectifyQuery(data);
 
+  console.log(data);
+
   const Content = () => {
     if (loading) {
       return (
