@@ -7,7 +7,9 @@ import {
   isNumber
 } from "./Functions";
 import Page from "./Page";
+
 import findNextStage from "components/stages/FindNextStage";
+
 import Title from "./Title";
 // import objectPath from "object-path";
 

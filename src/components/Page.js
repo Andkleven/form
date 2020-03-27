@@ -10,6 +10,7 @@ import { allTrue, getRepeatNumber } from "components/Functions";
 import objectPath from "object-path";
 import Title from "components/Title";
 import CustomComponents from "components/CustomComponents";
+import Line from "./Line";
 
 export default props => {
   const chapterContext = useContext(ChapterContext);
@@ -150,31 +151,31 @@ export default props => {
   ]);
 
   return (
-    <>
-      {props.showEditButton && !props.stopLoop && !writeChapter ? (
-        <>
-          <br />
-          <br />
-          <br />
-          <button
-            type="button"
-            onClick={() => {
-              chapterContext.setEditChapter(props.thisChapter);
-              fieldsContext.setvalidationPassed({});
-            }}
-            key={chapterContext.lastChapter}
-          >
-            Edit
-          </button>
-        </>
-      ) : null}
+    <div className={`${!props.lastChapter && "mb-4"}`}>
+      <div className="d-flex justify-content-between">
+        {!props.stopLoop ? (
+          <Title
+            key={`${props.thisChapter}-${props.index}-jja`}
+            title={props.pageTitle}
+          />
+        ) : null}
 
-      {!props.stopLoop ? (
-        <Title
-          key={`${props.thisChapter}-${props.index}-jja`}
-          title={props.pageTitle}
-        />
-      ) : null}
+        {props.showEditButton && !props.stopLoop && !writeChapter ? (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                chapterContext.setEditChapter(props.thisChapter);
+                fieldsContext.setvalidationPassed({});
+              }}
+              key={chapterContext.lastChapter}
+            >
+              Edit
+            </button>
+          </>
+        ) : null}
+      </div>
+      <Line />
 
       {Components ? <Components {...props} /> : null}
       {props.fields ? (
@@ -234,6 +235,6 @@ export default props => {
           ) : null}
         </>
       ) : null}
-    </>
+    </div>
   );
 };

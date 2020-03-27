@@ -24,7 +24,6 @@ export default props => {
 
   return (
     <Form.Group className={props.tight && "mb-1"}>
-      {props.label && <Form.Label>{props.label}</Form.Label>}
       <div className="d-flex text-dark">
         {props.custom ? (
           <Creatable

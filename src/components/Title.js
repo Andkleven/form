@@ -1,14 +1,11 @@
 import React from "react";
-import Line from "./Line";
 
 export default props => {
   return (
     <>
       {props.title ? (
         <>
-          <br />
-          <h1 className="text-center">{props.title}</h1>
-          <Line />
+          <h5>{props.title}</h5>
         </>
       ) : null}
     </>
