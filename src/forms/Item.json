@@ -45,28 +45,24 @@
               "fieldName": "projectManager",
               "label": "Text 5",
               "subtext": "Subtext",
-              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "supervisor",
               "label": "Text 6",
               "subtext": "Subtext",
-              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "leadEngineer",
               "label": "Text 7",
               "subtext": "Subtext",
-              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "supervisingEngineer",
               "label": "Text 8",
               "subtext": "Subtext",
-              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
@@ -113,7 +109,6 @@
               "fieldName": "geometry",
               "label": "Geometry",
               "subtext": "Subtext",
-              "type": "select",
               "options": ["", "Mould", "Coated Item"]
             },
             {
