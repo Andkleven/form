@@ -59,7 +59,6 @@ export default props => {
 
   return (
     <>
-      {/* <label>{props.label}</label> */}
       <div className="p-3 border rounded">
         <section className="container px-0">
           <div {...getRootProps({ style })} className="">

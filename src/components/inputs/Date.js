@@ -54,7 +54,6 @@ function Datetime(props) {
   };
   return (
     <Form.Group>
-      <Form.Label>{props.label}</Form.Label>
       <div>
         <DatePicker
           className="w-100"
