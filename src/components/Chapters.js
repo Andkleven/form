@@ -82,14 +82,13 @@ export default props => {
       let numberOfChapters = findValue(
         props.speckData,
         pageInfo.chapterBySpeckData,
-        isNumber(step) ? [step] : props.arrayIndex
+        step === null ? props.arrayIndex : [step]
       );
-
       if (numberOfChapters && numberOfChapters.length) {
         let newChapterArray = [];
         for (let index = 0; index < numberOfChapters.length; index++) {
           let newChapter = getNewChapter(
-            isNumber(step)
+            step !== null
               ? [step, index]
               : props.arrayIndex
               ? [...props.arrayIndex, index]
