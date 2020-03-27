@@ -144,6 +144,10 @@ const OPERATORBATCHING = gql`
           operators {
             id
             data
+            measurementPointActualTvds {
+              id
+              data
+            }
             vulcanizationOperators {
               id
               data
@@ -181,6 +185,10 @@ const OPERATOR = gql`
       new {
         id
         data
+        measurementPointActualTvds {
+          id
+          data
+        }
         vulcanizationOperators {
           id
           data

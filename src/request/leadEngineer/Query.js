@@ -156,6 +156,10 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
         operators {
           id
           data
+          measurementPointActualTvds {
+            id
+            data
+          }
           vulcanizationOperators {
             id
             data
@@ -215,6 +219,10 @@ const GET_OPERATOR_BY_ITEM = gql`
       operators {
         id
         data
+        measurementPointActualTvds {
+          id
+          data
+        }
         vulcanizationOperators {
           id
           data

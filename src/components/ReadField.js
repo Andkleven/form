@@ -75,9 +75,11 @@ export default props => {
           (props.value === true && `Performed`) || (
             <div className="text-danger">Not registered</div>
           )}
-        <TinyEditButton
-          className={`justify-self-end ${showAboveBreakpoint()}`}
-        />
+        {props.readOnly ? null : (
+          <TinyEditButton
+            className={`justify-self-end ${showAboveBreakpoint()}`}
+          />
+        )}
       </div>
     );
 

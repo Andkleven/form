@@ -5,10 +5,10 @@ import operatorJson from "../forms/Operator.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import PaperStack from "components/PaperStack";
-import { objectifyQuery } from "components/Functions";
+import { objectifyQuery, formDataStructure } from "components/Functions";
 
 export default pageInfo => {
-  const { itemId, geometry, stage } = pageInfo.match.params;
+  const { itemId, geometry } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
@@ -21,7 +21,6 @@ export default pageInfo => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
   return (
     <PaperStack>
       <Paper>
@@ -29,10 +28,19 @@ export default pageInfo => {
           componentsId={"SingleItem"}
           document={operatorJson}
           reRender={() => setReRender(!reRender)}
-          data={fixedData}
-          stage={stage}
+          data={
+            fixedData && formDataStructure(operatorJson, fixedData, "queryPath")
+          }
+          speckData={
+            fixedData &&
+            formDataStructure(operatorJson, fixedData, "spackQueryPath")
+          }
+          stage={fixedData && fixedData.items[0].stage}
           geometry={geometry}
           getQueryBy={itemId}
+          itemId={itemId}
+          sendItemId={true}
+          saveButton={true}
         />
       </Paper>
     </PaperStack>

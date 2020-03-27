@@ -125,7 +125,7 @@
               "feedback": "Enter valid number.",
               "select": "select",
               "options": [
-                "None",
+                "",
                 "Chemosil 211",
                 "Chemosil 231",
                 "Chemosil 360",
@@ -139,7 +139,7 @@
               "feedback": "Enter valid number.",
               "select": "select",
               "options": [
-                "None",
+                "",
                 "Chemosil 211",
                 "Chemosil 231",
                 "Chemosil 360",
@@ -151,7 +151,7 @@
               "label": "Rubber Cement Before Coating",
               "feedback": "Enter valid number.",
               "select": "select",
-              "options": ["None", "75051", "Soap"]
+              "options": ["", "75051", "Soap"]
             }
           ]
         }

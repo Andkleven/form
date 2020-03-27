@@ -22,13 +22,6 @@ export default props => {
     }
   }, [props.lastChapter]);
 
-  // const [repeatGroup, setRepeatGroup] = useState(0); // if repeat set number of repeat her
-
-  // Set repeatGroup to zero on submit
-  // useEffect(() => {
-  //   setRepeatGroup(0);
-  // }, [props.repeatGroup]);
-
   const addData = pushOnIndex => {
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, `${props.path}.${pushOnIndex}`, {

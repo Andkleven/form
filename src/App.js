@@ -53,7 +53,7 @@ export default () => (
               component={PartialBatching}
             />
             <Route
-              path="/singelItem/:itemId/:geometry/:stage"
+              path="/singelItem/:itemId/:geometry"
               component={SingleItem}
             />
             <Route path="/coating/:itemId/:geometry" component={Coating} />
