@@ -17,7 +17,7 @@
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
               "subtext": "Subtext",
-              "select": "select",
+              "type": "select",
               "options": ["", "Carbon", "Duplex"]
             },
             {
@@ -27,7 +27,7 @@
               "feedback": "Enter valid number.",
               "unit": "Unit",
               "subtext": "Subtext",
-              "select": "select",
+              "type": "select",
               "options": ["", "Garnet", "Grit", "Aluminum Oxide"]
             },
             {
@@ -123,7 +123,7 @@
               "label": "Primer 1",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
-              "select": "select",
+              "type": "select",
               "options": [
                 "None",
                 "Chemosil 211",
@@ -137,7 +137,7 @@
               "label": "Primer 2",
               "placeholder": "Max",
               "feedback": "Enter valid number.",
-              "select": "select",
+              "type": "select",
               "options": [
                 "None",
                 "Chemosil 211",
@@ -150,7 +150,7 @@
               "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Cement Before Coating",
               "feedback": "Enter valid number.",
-              "select": "select",
+              "type": "select",
               "options": ["None", "75051", "Soap"]
             }
           ]
@@ -172,7 +172,7 @@
               "label": "TDV (Target Description Value)",
               "placeholder": "Min",
               "feedback": "Enter valid number.",
-              "select": "select",
+              "type": "select",
               "options": ["", "OD", "ID"]
             },
             {
@@ -264,7 +264,7 @@
               "fieldName": "vulcanizationOption",
               "label": "Vulcanization Option",
               "feedback": "Enter valid number.",
-              "select": "select",
+              "type": "select",
               "options": [
                 "",
                 "Air Autoclave",
@@ -308,7 +308,7 @@
                 {
                   "fieldName": "compoundNumber",
                   "label": "Compound Number",
-                  "select": "select",
+                  "type": "select",
                   "options": ["Compound Number", 73165]
                 },
                 {
