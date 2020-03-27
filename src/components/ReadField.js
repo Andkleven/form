@@ -5,7 +5,7 @@ import ErrorMessage from "./ErrorMessage";
 import Moment from "react-moment";
 import { isStringInstance } from "./Functions";
 import "../styles/styles.css";
-import TinyButton from "components/TinyButton";
+import TinyButton from "components/buttons/TinyButton";
 import LightLine from "components/LightLine";
 
 export default props => {

@@ -7,7 +7,7 @@ import {
 } from "./DocumentAndSubmit";
 import objectPath from "object-path";
 import Input from "components/Input";
-import TinyButton from "components/TinyButton";
+import TinyButton from "components/buttons/TinyButton";
 import LightLine from "components/LightLine";
 import "../styles/styles.css";
 import { Button } from "react-bootstrap";

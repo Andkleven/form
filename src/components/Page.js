@@ -11,6 +11,7 @@ import objectPath from "object-path";
 import Title from "components/Title";
 import CustomComponents from "components/CustomComponents";
 import Line from "./Line";
+import TabButton from "components/buttons/TabButton";
 
 export default props => {
   const chapterContext = useContext(ChapterContext);
@@ -159,7 +160,7 @@ export default props => {
 
   return (
     <div className={`${!props.lastChapter && "mb-4"}`}>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between align-items-end">
         {!props.stopLoop ? (
           <Title
             key={`${props.thisChapter}-${props.index}-jja`}
@@ -169,16 +170,16 @@ export default props => {
 
         {props.showEditButton && !props.stopLoop && !writeChapter ? (
           <>
-            <button
-              type="button"
+            <TabButton
+              // size="sm"
               onClick={() => {
                 chapterContext.setEditChapter(props.thisChapter);
                 fieldsContext.setvalidationPassed({});
               }}
               key={chapterContext.lastChapter}
             >
-              Edit
-            </button>
+              Edit all
+            </TabButton>
           </>
         ) : null}
       </div>
