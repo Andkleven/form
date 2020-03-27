@@ -42,7 +42,7 @@ export default props => {
           false
         );
         documentDateContext.setDocumentDate(prevState => {
-          objectPath.set(prevState, props.path, oldValue);
+          objectPath.set(prevState, props.path, !oldValue);
           return {
             ...prevState
           };

@@ -40,17 +40,19 @@ export default props => {
 
   const [editChapter, setEditChapter] = useState(0);
   const [documentDate, setDocumentDate] = useState(); // Store data for all document
-  const [files, setFiles] = useState([]);
+  const [nextStage, setNextStage] = useState(true);
+  const [lastSubmitButton, setLastSubmitButton] = useState(false);
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
-  // const [repeatGroup, setRepeatGroup] = useState(false);
   const [lastChapter, setLastChapter] = useState(0);
+
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
     if (props.data) {
       setDocumentDate(cloneDeep(props.data));
     }
   }, [props.componentsId, props.data]);
+  console.log(documentDate);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -172,14 +174,20 @@ export default props => {
           itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
-            props.saveButton && Object.values(validationPassed).every(allTrue)
-              ? FindNextStage(props.data, props.stage, props.geometry)
-              : undefined
+            props.saveButton &&
+            nextStage &&
+            Object.values(validationPassed).every(allTrue) &&
+            FindNextStage(props.speckData, props.stage, props.geometry)
         }
       });
-      setFiles([]);
     }
   };
+
+  console.log(
+    props.saveButton,
+    nextStage,
+    Object.values(validationPassed).every(allTrue)
+  );
   const submitHandler = data => {
     if (
       (props.saveButton && validaFieldWithValue(validationPassed)) ||
@@ -187,9 +195,12 @@ export default props => {
     ) {
       submitData(data);
       setIsSubmited(false);
-      // setRepeatGroup(!repeatGroup);
-      setEditChapter(0);
       setvalidationPassed({});
+      setNextStage(true);
+      if (lastSubmitButton && props.lastbutton) {
+        props.lastbutton();
+      }
+      setEditChapter(0);
     } else {
       setIsSubmited(true);
     }
@@ -209,25 +220,25 @@ export default props => {
           <ChapterContext.Provider
             value={{ lastChapter, setLastChapter, editChapter, setEditChapter }}
           >
-            <FilesContext.Provider value={{ files, setFiles }}>
-              <Title title={props.document.documentTitle} />
-              <Form
-                onSubmit={e => {
-                  e.persist();
-                  e.preventDefault();
-                  submitHandler();
-                }}
-              >
-                <Chapters
-                  {...props}
-                  submitHandler={submitHandler}
-                  submitData={submitData}
-                  mutation={mutation}
-                />
-                {loadingMutation && <p>Loading...</p>}
-                {errorMutation && <p>Error :( Please try again</p>}
-              </Form>
-            </FilesContext.Provider>
+            <Title title={props.document.documentTitle} />
+            <Form
+              onSubmit={e => {
+                e.persist();
+                e.preventDefault();
+                submitHandler();
+              }}
+            >
+              <Chapters
+                {...props}
+                submitHandler={submitHandler}
+                submitData={submitData}
+                mutation={mutation}
+                setNextStage={setNextStage}
+                setLastSubmitButton={setLastSubmitButton}
+              />
+              {loadingMutation && <p>Loading...</p>}
+              {errorMutation && <p>Error :( Please try again</p>}
+            </Form>
           </ChapterContext.Provider>
         </FieldsContext.Provider>
       </DocumentDateContext.Provider>

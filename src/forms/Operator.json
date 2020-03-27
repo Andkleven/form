@@ -1,7 +1,9 @@
 {
-  "queryPath": "operators",
-  "mutation": "OPERATORBATCHING",
-  "query": "GET_OPERATOR",
+  "queryPath": "items.0.operators",
+  "spackQueryPath": "items.0.leadEngineers",
+  "mutation": "OPERATOR",
+  "query": "GET_OPERATOR_BY_ITEM",
+  "chapterByStage": true,
   "chapters": {
     "steelPreparation1": {
       "queryPath": "operators",
@@ -103,6 +105,7 @@
               "showFieldSpackPath": "leadEngineers.0.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
               "label": "Next Calibration Date",
+              "type": "date",
               "required": true
             },
             {
@@ -293,13 +296,12 @@
         }
       ]
     },
-    "actualSteelMeasurements": {
+    "actualSteelMeasurement": {
       "queryPath": "operators",
-      "chapterTitle": "Actual Steel OD Measurements",
       "pages": [
         {
-          "pageTitle": "Pre-Coating",
-          "queryPath": "leadEngineers.0.measurementPointActualTvds",
+          "pageTitle": "Actual Steel OD",
+          "queryPath": "operators.0.measurementPointActualTvds",
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "repeatGroupWithQuerySpeckData": true,
           "repeat": true,
@@ -469,7 +471,6 @@
       ]
     },
     "vulcanizationStep": {
-      "queryPath": "operators",
       "pages": [
         {
           "pageTitle": "Vulcanization",
@@ -510,7 +511,6 @@
       ]
     },
     "touchUp": {
-      "queryPath": "operators",
       "pages": [
         {
           "pageTitle": "Touch-Up",
