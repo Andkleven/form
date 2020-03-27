@@ -6,7 +6,6 @@ import {
   createPath
 } from "./Functions";
 import Page from "./Page";
-
 import Title from "./Title";
 // import objectPath from "object-path";
 
