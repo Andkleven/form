@@ -12,8 +12,8 @@ const ORDER = gql`
           data
           uploadFiles {
             id
-            data
             file
+            fileDescription
           }
           items {
             id

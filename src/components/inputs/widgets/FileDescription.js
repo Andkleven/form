@@ -1,7 +1,8 @@
 import React from "react";
-import Input from "../../Input";
-
+import Input from "components/Input";
+import TinyButton from "components/TinyButton";
 export default props => {
+  console.log(props.value);
   return (
     <>
       <div className="pb-2">
@@ -12,15 +13,22 @@ export default props => {
             "--fa-secondary-opacity": "1.0"
           }}
         />
-        {props.file.key}
-      </div>
-      <div className="">
-        <Input
-          placeholder={`Description or comment...`}
-          className=""
-          onChange={props.onChange}
+        {props.file.name}
+        <TinyButton
+          onClick={() => props.deleteHandler(props.index)}
+          content={"❌"}
         />
       </div>
+      {props.description && (
+        <div className="">
+          <Input
+            placeholder={`Description or comment...`}
+            className=""
+            value={props.value}
+            onChange={e => props.onChange(e.target, props.index)}
+          />
+        </div>
+      )}
     </>
   );
 };

@@ -136,19 +136,11 @@
           ]
         },
         {
+          "type": "file",
           "pageTitle": "Add File",
           "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "pageName": "uploadFile",
-          "repeat": true,
-          "delete": true,
-          "fields": [
-            {
-              "fieldName": "itemsId",
-              "type": "file",
-              "label": "Image",
-              "multipleFiles": true
-            }
-          ]
+          "description": true
         }
       ]
     },

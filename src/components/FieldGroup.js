@@ -1,6 +1,7 @@
 import React, { useContext, useCallback } from "react";
 import ReadField from "./ReadField";
 import WriteFieldGroupError from "./WriteFieldGroupError";
+import Input from "./Input";
 import objectPath from "object-path";
 import { DocumentDateContext, ChapterContext } from "./DocumentAndSubmit";
 import Page from "./Page";
@@ -164,6 +165,45 @@ export default props => {
           file={field.type === "file" ? props.file : null}
           indexId={`${props.indexId}-${index}`}
           index={index}
+        />
+      );
+    } else if (field.type === "file") {
+      return (
+        <Input
+          {...props}
+          {...field}
+          key={`${props.indexId}-${index}`}
+          subtext={getSubtext(
+            field.subtext,
+            findValue(
+              props.speckData,
+              field.speckSubtextList,
+              props.repeatStepList,
+              field.editRepeatStepSubtextList
+            ),
+            max,
+            min,
+            field.maxInput,
+            field.minInput,
+            field.unit,
+            field.required
+          )}
+          oneFile={true}
+          path={`${props.path}.${field.fieldName}`}
+          label={
+            field.queryVariableLabel || field.indexVariableLabel
+              ? variableLabel(
+                  field.label,
+                  field.variableLabelWithSpeckData
+                    ? props.speckData
+                    : documentDateContext.documentDate,
+                  field.queryVariableLabel,
+                  props.repeatStepList,
+                  field.editRepeatStepListVariableLabel,
+                  field.indexVariableLabel ? props.repeatStep : undefined
+                )
+              : field.label
+          }
         />
       );
     } else {

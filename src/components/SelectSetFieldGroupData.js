@@ -7,7 +7,6 @@ import { getRepeatNumber } from "./Functions";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-
   if (props.repeat) {
     if (
       Array.isArray(
@@ -29,11 +28,9 @@ export default props => {
                     : [index]
                 }
                 repeatStep={index}
-                writeChapter={props.writeChapter}
                 key={`${props.indexId}-${index}`}
                 data={itemsData}
                 path={props.path ? `${props.path}.${index}` : null}
-                fields={props.fields}
                 indexId={`${props.indexId}-${index}`}
               />
               {props.delete && props.writeChapter ? (
@@ -69,9 +66,7 @@ export default props => {
                 : [index]
             }
             repeatStep={index}
-            writeChapter={props.writeChapter}
             path={props.path ? `${props.path}.${index}.data` : null}
-            fields={props.fields}
             indexId={`${props.indexId}-${index}`}
           />
         );
@@ -97,9 +92,6 @@ export default props => {
         }
         // path={props.path ? `${props.path}.0` : null}
         repeatStep={0}
-        writeChapter={props.writeChapter}
-        data={props.data}
-        fields={props.fields}
         indexId={`${props.indexId}-0`}
       />
     );
