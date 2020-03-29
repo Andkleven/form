@@ -3,8 +3,7 @@ import {
   getData,
   findValue,
   allRequiredSatisfied,
-  createPath,
-  isNumber
+  createPath
 } from "./Functions";
 import Page from "./Page";
 

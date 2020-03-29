@@ -84,7 +84,7 @@ const GET_ORDER_GEOMETRY = gql`
         uploadFiles {
           id
           file
-          data
+          fileDescription
         }
       }
     }

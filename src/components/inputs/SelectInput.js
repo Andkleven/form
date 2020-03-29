@@ -53,6 +53,7 @@ export default props => {
           <Select
             className="w-100"
             options={options}
+            name={props.name}
             theme={theme => ({
               ...theme,
               colors: {

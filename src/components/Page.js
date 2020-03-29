@@ -7,6 +7,7 @@ import {
   FieldsContext
 } from "components/DocumentAndSubmit";
 import { allTrue, getRepeatNumber } from "components/Functions";
+import Input from "./Input";
 import objectPath from "object-path";
 import Title from "components/Title";
 import CustomComponents from "components/CustomComponents";
@@ -191,49 +192,48 @@ export default props => {
               {props.addButton ? props.addButton : "Add"}
             </button>
           ) : null}
-
-          {props.showSaveButton ? (
-            chapterContext.editChapter ? (
-              props.thisChapter === chapterContext.editChapter && (
-                <>
-                  <SubmitButton
-                    key={props.thisChapter}
-                    onClick={() =>
-                      props.submitHandler(documentDateContext.documentDate)
-                    }
-                  />
-                  {FieldsContext.isSubmited && (
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      See Error Message
-                    </div>
-                  )}
-                </>
-              )
-            ) : props.thisChapter === chapterContext.lastChapter ? (
-              <>
-                <SubmitButton
-                  key={props.thisChapter}
-                  onClick={() =>
-                    props.submitHandler(documentDateContext.documentDate)
-                  }
-                  name={
-                    props.saveButton &&
-                    !Object.values(fieldsContext.validationPassed).every(
-                      allTrue
-                    )
-                      ? "Save"
-                      : null
-                  }
-                />
-                {fieldsContext.isSubmited && (
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    See Error Message
-                  </div>
-                )}
-              </>
-            ) : null
-          ) : null}
         </>
+      ) : props.type === "file" ? (
+        <Input {...props} />
+      ) : null}
+      {props.showSaveButton ? (
+        chapterContext.editChapter ? (
+          props.thisChapter === chapterContext.editChapter && (
+            <>
+              <SubmitButton
+                key={props.thisChapter}
+                onClick={() =>
+                  props.submitHandler(documentDateContext.documentDate)
+                }
+              />
+              {FieldsContext.isSubmited && (
+                <div style={{ fontSize: 12, color: "red" }}>
+                  See Error Message
+                </div>
+              )}
+            </>
+          )
+        ) : props.thisChapter === chapterContext.lastChapter ? (
+          <>
+            <SubmitButton
+              key={props.thisChapter}
+              onClick={() =>
+                props.submitHandler(documentDateContext.documentDate)
+              }
+              name={
+                props.saveButton &&
+                !Object.values(fieldsContext.validationPassed).every(allTrue)
+                  ? "Save"
+                  : null
+              }
+            />
+            {fieldsContext.isSubmited && (
+              <div style={{ fontSize: 12, color: "red" }}>
+                See Error Message
+              </div>
+            )}
+          </>
+        ) : null
       ) : null}
     </div>
   );

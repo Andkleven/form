@@ -183,11 +183,6 @@ export default props => {
     }
   };
 
-  console.log(
-    props.saveButton,
-    nextStage,
-    Object.values(validationPassed).every(allTrue)
-  );
   const submitHandler = data => {
     if (
       (props.saveButton && validaFieldWithValue(validationPassed)) ||

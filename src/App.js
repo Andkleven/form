@@ -5,7 +5,7 @@ import "styles/styles.css";
 import history from "./history";
 // import { AUTH_TOKEN } from "./constants";
 import Home from "./page/HomePage";
-import Login from "./page/LoginPage";
+// import Login from "./page/LoginPage";
 import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
 import LeadEngineerStartPage from "./page/leadEngineer/StartPage";
@@ -34,7 +34,7 @@ export default () => (
         <Router history={history}>
           <Header />
           <Switch>
-            <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/login" component={Login} /> */}
             {/* {!authToken && <Redirect to="/login" exact />} */}
             <Route exact path="/" component={Home} />
             <Route exact path="/operator" component={OperatorPage} />
