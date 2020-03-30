@@ -86,7 +86,7 @@ export default props => {
   const [
     mutationDiffreant,
     { loading: loadingMutation, error: errorMutation }
-  ] = useMutation(mutations["ORDER"]);
+  ] = useMutation(mutations["UPDATEITEM"]);
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
@@ -170,7 +170,8 @@ export default props => {
               if (!item.different) {
                 mutationDiffreant({
                   variables: {
-                    item: [{ id: item.id, different: true }]
+                    id: item.id,
+                    different: true
                   }
                 });
               }

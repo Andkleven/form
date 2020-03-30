@@ -47,7 +47,7 @@ export default props => {
                 ? options.find(option => option.value === props.value)
                 : null
             }
-            onChange={props.onChange}
+            onChange={props.onChangeSelect}
           />
         ) : (
           <Select
@@ -71,7 +71,7 @@ export default props => {
                 : null
             }
             placeholder={props.placeholder || "Select..."}
-            onChange={props.onChange}
+            onChange={props.onChangeSelect}
           />
         )}
         <Duplicate {...props} />

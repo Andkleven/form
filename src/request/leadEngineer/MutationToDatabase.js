@@ -48,6 +48,7 @@ const UPDATEITEM = gql`
     $operatorDone: Boolean
     $qualityControlDone: Boolean
     $stage: String
+    $foreignKey: Int
   ) {
     updateItem(
       id: $id
@@ -57,7 +58,7 @@ const UPDATEITEM = gql`
       repair: $repair
       operatorDone: $operatorDone
       qualityControlDone: $qualityControlDone
-      stage: $stage
+      foreignKey: $foreignKey
     ) {
       new {
         id
@@ -67,6 +68,7 @@ const UPDATEITEM = gql`
         repair
         operatorDone
         qualityControlDone
+        stage
       }
     }
   }

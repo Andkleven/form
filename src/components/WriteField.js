@@ -24,7 +24,14 @@ export default props => {
       return { ...prevState };
     });
   };
-
+  const onChangeSelect = e => {
+    documentDateContext.setDocumentDate(prevState => {
+      objectPath.set(prevState, props.path, e.value);
+      return {
+        ...prevState
+      };
+    });
+  };
   const onChange = e => {
     setShowMinMax(true);
     let { name, value, type, step, min, max } = e.target;
@@ -154,6 +161,7 @@ export default props => {
         {...props}
         onChangeDate={onChangeDate}
         onChange={onChange}
+        onChangeSelect={onChangeSelect}
         label={props.label}
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}

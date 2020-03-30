@@ -52,7 +52,6 @@ export default props => {
       setDocumentDate(cloneDeep(props.data));
     }
   }, [props.componentsId, props.data]);
-  console.log(documentDate);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -112,7 +111,7 @@ export default props => {
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: 0 }
+      variables: { id: props.getQueryBy }
     });
     objectPath.push(
       oldData,

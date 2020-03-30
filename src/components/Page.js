@@ -155,12 +155,10 @@ export default props => {
   return (
     <div className={`${!props.lastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
-        {!props.stopLoop ? (
-          <Title
-            key={`${props.thisChapter}-${props.index}-jja`}
-            title={props.pageTitle}
-          />
-        ) : null}
+        <Title
+          key={`${props.thisChapter}-${props.index}-jja`}
+          title={props.pageTitle}
+        />
 
         {props.showEditButton && !props.stopLoop && !writeChapter ? (
           <>
@@ -177,7 +175,11 @@ export default props => {
           </>
         ) : null}
       </div>
-      <Line />
+
+      {props.pageTitle &&
+        props.showEditButton &&
+        !props.stopLoop &&
+        !writeChapter && <Line />}
 
       {Components ? <Components {...props} /> : null}
       {props.fields ? (

@@ -34,8 +34,8 @@ const rejectStyle = {
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-
   const [files, setFiles] = useState([]);
+
   useEffect(() => {
     if (!props.oneFile) {
       let oldFiles = objectPath.get(
@@ -52,9 +52,15 @@ export default props => {
       }
     }
   }, []);
+  console.log(props.path, 4);
   useEffect(() => {
-    objectPath.set(documentDateContext.documentDate, props.path, files);
+    documentDateContext.setDocumentDate(prevState => {
+      console.log(prevState, props.path, files, 1);
+      console.log(objectPath.set(prevState, props.path, files), 1);
+      return { ...objectPath.set(prevState, props.path, files) };
+    });
   }, [files]);
+
   const {
     getRootProps,
     getInputProps,
@@ -91,7 +97,7 @@ export default props => {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  console.log(files);
+  console.log(files, 2);
   const onChange = (value, index) => {
     setFiles(prevState => {
       prevState[index] = { ...prevState[index], fileDescription: value.value };
@@ -99,7 +105,6 @@ export default props => {
     });
   };
   const deleteHandler = index => {
-    console.log(233);
     setFiles(prevState => {
       prevState.splice(index, 1);
       return prevState;
@@ -109,22 +114,25 @@ export default props => {
     <>
       <div className="p-3 border rounded">
         <section className="container px-0">
-          <div {...getRootProps({ style })} className="">
-            <input {...getInputProps()} />
-            <p className="mt-2">
-              {files.length && props.oneFile
-                ? objectPath.get(documentDateContext.documentDate, props.path)
-                    .file
-                : `Drag 'n' drop ${
-                    props.oneFile ? "file" : "files"
-                  }, or click to
+          {props.writeChapter && (
+            <div {...getRootProps({ style })} className="">
+              <input {...getInputProps()} />
+              <p className="mt-2">
+                {files.length && props.oneFile
+                  ? objectPath.get(documentDateContext.documentDate, props.path)
+                      .file
+                  : `Drag 'n' drop ${
+                      props.oneFile ? "file" : "files"
+                    }, or click to
               upload.`}
-            </p>
-          </div>
+              </p>
+            </div>
+          )}
           {files.length && !props.oneFile ? (
             <aside>
               <label className="mt-3">
-                Uploaded {props.oneFile ? "file" : "files"}
+                Uploaded{" "}
+                {props.oneFile || files.length === 1 ? "file" : "files"}
                 {/* <div className="text-secondary d-inline">
                   {" "}
                   (Click file to add description)
@@ -140,7 +148,6 @@ export default props => {
                     index={index}
                     onChange={onChange}
                     file={file}
-                    value={file.fileDescription}
                   />
                 ))}
               </ul>

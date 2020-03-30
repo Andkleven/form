@@ -4,8 +4,6 @@
   "query": "GET_ORDER_GEOMETRY",
   "chapters": [
     {
-      "lookUpBy": "projectName",
-      "queryPath": "projects",
       "pages": [
         {
           "pageTitle": "Order",
@@ -96,9 +94,6 @@
       ]
     },
     {
-      "lookUpBy": "CPS",
-      "queryPath": "projects.0.descriptions",
-      "findByIndex": true,
       "pages": [
         {
           "pageTitle": "Description",
@@ -131,13 +126,13 @@
               "label": "CPS",
               "placeholder": "Placeholder",
               "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "subtext": "Accepts any value",
+              "required": true
             }
           ]
         },
         {
           "type": "file",
-          "pageTitle": "Add File",
           "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "pageName": "uploadFile",
           "description": true
@@ -146,8 +141,6 @@
     },
     {
       "chapterAlwaysInWrite": true,
-      "firstQueryPath": "projects.0.descriptions",
-      "secondQueryPath": "items",
       "pages": [
         {
           "pageTitle": "Add item",
