@@ -1,6 +1,4 @@
 import React from "react";
-import "react-awesome-button/dist/styles.css";
-import "react-awesome-button/dist/themes/theme-amber.css";
 import Button from "react-bootstrap/Button";
 // import { touch } from "styles/device";
 
