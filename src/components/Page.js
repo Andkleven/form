@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState, useMemo } from "react";
 import SelectSetFieldGroupData from "components/SelectSetFieldGroupData";
-import SubmitButton from "components/SubmitButton";
+import SubmitButton from "components/buttons/SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
@@ -9,7 +9,7 @@ import {
 import { allTrue, getRepeatNumber } from "components/Functions";
 import Input from "./Input";
 import objectPath from "object-path";
-import Title from "components/Title";
+import Title from "components/text/Title";
 import CustomComponents from "components/CustomComponents";
 import Line from "./Line";
 import TabButton from "components/buttons/TabButton";
@@ -180,64 +180,62 @@ export default props => {
         props.showEditButton &&
         !props.stopLoop &&
         !writeChapter && <Line />}
-
-      {Components ? <Components {...props} /> : null}
-      {props.fields ? (
-        <>
-          <SelectSetFieldGroupData
-            {...props}
-            writeChapter={writeChapter}
-            deleteHandler={deleteHandler}
-          />
-
-          {!props.notAddButton && props.repeat && writeChapter ? (
-            <button type="button" onClick={() => addHandeler()}>
-              {props.addButton ? props.addButton : "Add"}
-            </button>
-          ) : null}
-        </>
-      ) : props.type === "file" ? (
-        <Input {...props} />
-      ) : null}
-      {props.showSaveButton ? (
-        chapterContext.editChapter ? (
-          props.thisChapter === chapterContext.editChapter && (
-            <>
-              <SubmitButton
-                key={props.thisChapter}
-                onClick={() =>
-                  props.submitHandler(documentDateContext.documentDate)
-                }
-              />
-              {FieldsContext.isSubmited && (
-                <div style={{ fontSize: 12, color: "red" }}>
-                  See Error Message
-                </div>
-              )}
-            </>
-          )
-        ) : props.thisChapter === chapterContext.lastChapter ? (
+        {Components ? <Components {...props} /> : null}
+        {props.fields ? (
+          <>
+            <SelectSetFieldGroupData
+              {...props}
+              writeChapter={writeChapter}
+              deleteHandler={deleteHandler}
+            />
+        {!props.notAddButton && props.repeat && writeChapter ? (
+          <button type="button" onClick={() => addHandeler()}>
+            {props.addButton ? props.addButton : "Add"}
+          </button>
+        ) : null}
+      </>
+    ) : props.type === "file" ? (
+      <Input {...props} />
+    ) : null}
+    {props.showSaveButton ? (
+      chapterContext.editChapter ? (
+        props.thisChapter === chapterContext.editChapter && (
           <>
             <SubmitButton
               key={props.thisChapter}
               onClick={() =>
                 props.submitHandler(documentDateContext.documentDate)
               }
-              name={
-                props.saveButton &&
-                !Object.values(fieldsContext.validationPassed).every(allTrue)
-                  ? "Save"
-                  : null
-              }
             />
-            {fieldsContext.isSubmited && (
+            {FieldsContext.isSubmited && (
               <div style={{ fontSize: 12, color: "red" }}>
                 See Error Message
               </div>
             )}
           </>
-        ) : null
-      ) : null}
-    </div>
+        )
+      ) : props.thisChapter === chapterContext.lastChapter ? (
+        <>
+          <SubmitButton
+            key={props.thisChapter}
+            onClick={() =>
+              props.submitHandler(documentDateContext.documentDate)
+            }
+            name={
+              props.saveButton &&
+              !Object.values(fieldsContext.validationPassed).every(allTrue)
+                ? "Save"
+                : null
+            }
+          />
+          {fieldsContext.isSubmited && (
+            <div style={{ fontSize: 12, color: "red" }}>
+              See Error Message
+            </div>
+          )}
+        </>
+      ) : null
+    ) : null}
+  </div>
   );
 };

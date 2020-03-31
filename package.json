@@ -9,6 +9,7 @@
     "apollo-client": "2.6.8",
     "apollo-link-context": "1.0.19",
     "apollo-upload-client": "12.1.0",
+    "bootstrap": "4.4.1",
     "clone-deep": "4.0.1",
     "components": "0.1.0",
     "graphql": "14.6.0",

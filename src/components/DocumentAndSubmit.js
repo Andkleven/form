@@ -10,7 +10,7 @@ import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
-import Title from "./Title";
+import Title from "components/text/Title";
 import { allTrue, validaFieldWithValue, stringifyQuery } from "./Functions";
 
 import FindNextStage from "components/stages/FindNextStage";

@@ -10,7 +10,7 @@ export default props => {
         top: "0.05em"
         // boxShadow: "0.06em -0.15em 0.35em rgba(0, 0, 0, .04)"
       }}
-      className="text-secondary position-relative rounded-top border"
+      className="text-secondary position-relative rounded-top border text-nowrap"
       {...props}
     >
       {props.children}
