@@ -460,12 +460,15 @@ export const getRepeatNumber = (
 export const camelCaseToNormal = string => {
   if (string === null) {
     return <div className="text-secondary">None</div>;
-  } else {
+  } else if (typeof string === "number") {
+    return String(string);
+  } else if (typeof string === "string") {
     if (!string.includes(" ")) {
       string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
     }
-    string = string.replace(/([0-9])/g, " $1");
     string = string.charAt(0).toUpperCase() + string.slice(1);
+    string = string.replace(/[^0-9](?=[0-9])/g, "$& ");
+    string = string.replace(/\s+/g, " ");
     return string;
   }
 };

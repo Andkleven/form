@@ -83,7 +83,7 @@ export default props => {
           (props.value === false && `Not performed`) ||
           (props.value === true &&
             props.type === "checkbox" &&
-            `Performed`) || <div className="text-danger">Not registered</div>}
+            `Performed`) || <div className="text-secondary">-</div>}
         {props.readOnly ? null : (
           <TinyEditButton
             className={`justify-self-end ${showAboveBreakpoint()}`}

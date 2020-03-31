@@ -76,13 +76,13 @@
         {
           "pageTitle": "Description",
           "pageName": "description",
-          "queryPath": ["projects.0.descriptions", ""],
+          "queryPath": ["projects.0.descriptions"],
           "fields": [
             {
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
-              "options": ["", "Mould", "Coated Item"]
+              "options": ["Mould", "Coated Item"]
             },
             {
               "fieldName": "description",

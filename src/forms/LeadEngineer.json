@@ -14,7 +14,7 @@
               "label": "Steel",
               "subtext": "Subtext",
               "type": "select",
-              "options": ["", "Carbon", "Duplex"]
+              "options": ["Carbon", "Duplex"]
             },
             {
               "fieldName": "blastMedia",
@@ -22,7 +22,7 @@
               "unit": "Unit",
               "subtext": "Subtext",
               "type": "select",
-              "options": ["", "Garnet", "Grit", "Aluminum Oxide"]
+              "options": ["Garnet", "Grit", "Aluminum Oxide"]
             },
             {
               "fieldName": "relativeHumidity",
@@ -123,7 +123,7 @@
               "label": "Rubber Cement Before Coating",
 
               "type": "select",
-              "options": ["None", "75051", "Soap"]
+              "options": ["75051", "Soap"]
             }
           ]
         }
@@ -142,7 +142,7 @@
               "label": "TDV (Target Description Value)",
               "placeholder": "Min",
               "type": "select",
-              "options": ["", "OD", "ID"]
+              "options": ["OD", "ID"]
             },
             {
               "fieldName": "orderedTotalRubberThicknes",
@@ -229,7 +229,6 @@
               "label": "Vulcanization Option",
               "type": "select",
               "options": [
-                "",
                 "Air Autoclave",
                 "Heating Blankets",
                 "Heating Cables",
