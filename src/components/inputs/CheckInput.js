@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 export default props => (
-  <Form.Group className={props.tight && "mb-1"}>
+  <Form.Group className={props.tight && "mb-0"}>
     <div className="d-flex justify-content-between">
       <Form.Check
         custom
@@ -13,6 +13,7 @@ export default props => (
         value={props.value}
         name={props.name}
         onChange={props.onChange}
+        className="mb-0 pb-0"
       />
       {props.TinyButtons}
     </div>
