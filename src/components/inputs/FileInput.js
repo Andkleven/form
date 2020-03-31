@@ -1,6 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import FileDescription from "./widgets/FileDescription";
+import objectPath from "object-path";
+import { DocumentDateContext } from "components/DocumentAndSubmit";
 
 const baseStyle = {
   flex: 1,
@@ -31,15 +33,60 @@ const rejectStyle = {
 };
 
 export default props => {
+  const documentDateContext = useContext(DocumentDateContext);
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    if (!props.oneFile) {
+      let oldFiles = objectPath.get(
+        documentDateContext.documentDate,
+        props.path
+      );
+      if (oldFiles) {
+        setFiles(
+          oldFiles.map(oldFile => ({
+            ...oldFile,
+            file: { name: oldFile.file.split("/")[1] }
+          }))
+        );
+      }
+    }
+  }, []);
+  console.log(props.path, 4);
+  useEffect(() => {
+    documentDateContext.setDocumentDate(prevState => {
+      console.log(prevState, props.path, files, 1);
+      console.log(objectPath.set(prevState, props.path, files), 1);
+      return { ...objectPath.set(prevState, props.path, files) };
+    });
+  }, [files]);
+
   const {
-    acceptedFiles,
     getRootProps,
     getInputProps,
     isDragActive,
     isDragAccept,
     isDragReject
-  } = useDropzone({ accept: "image/*" });
-
+  } = useDropzone({
+    accept: "image/*",
+    onDrop: acceptedFiles => {
+      if (props.oneFile) {
+        objectPath.set(
+          documentDateContext.documentDate,
+          props.path,
+          acceptedFiles[0]
+        );
+      } else {
+        setFiles(prevState => {
+          acceptedFiles.forEach(file => {
+            prevState.push({ file: file });
+          });
+          return prevState;
+        });
+      }
+    }
+  });
+  // preview: URL.createObjectURL(file)
   const style = useMemo(
     () => ({
       ...baseStyle,
@@ -50,25 +97,42 @@ export default props => {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path}
-      {/* {file.size} */}
-    </li>
-  ));
-
+  console.log(files, 2);
+  const onChange = (value, index) => {
+    setFiles(prevState => {
+      prevState[index] = { ...prevState[index], fileDescription: value.value };
+      return prevState;
+    });
+  };
+  const deleteHandler = index => {
+    setFiles(prevState => {
+      prevState.splice(index, 1);
+      return prevState;
+    });
+  };
   return (
     <>
       <div className="p-3 border rounded">
         <section className="container px-0">
-          <div {...getRootProps({ style })} className="">
-            <input {...getInputProps()} />
-            <p className="mt-2">Drag 'n' drop files, or click to upload.</p>
-          </div>
-          {files.length ? (
+          {props.writeChapter && (
+            <div {...getRootProps({ style })} className="">
+              <input {...getInputProps()} />
+              <p className="mt-2">
+                {files.length && props.oneFile
+                  ? objectPath.get(documentDateContext.documentDate, props.path)
+                      .file
+                  : `Drag 'n' drop ${
+                      props.oneFile ? "file" : "files"
+                    }, or click to
+              upload.`}
+              </p>
+            </div>
+          )}
+          {files.length && !props.oneFile ? (
             <aside>
               <label className="mt-3">
-                Uploaded files
+                Uploaded{" "}
+                {props.oneFile || files.length === 1 ? "file" : "files"}
                 {/* <div className="text-secondary d-inline">
                   {" "}
                   (Click file to add description)
@@ -76,10 +140,15 @@ export default props => {
               </label>
               <hr className="w-100 mt-0 mb-2" />
               <ul className="list-unstyled mb-0">
-                {files.map(file => (
-                  <>
-                    <FileDescription key={file.key} file={file} />
-                  </>
+                {files.map((file, index) => (
+                  <FileDescription
+                    key={index}
+                    {...props}
+                    deleteHandler={deleteHandler}
+                    index={index}
+                    onChange={onChange}
+                    file={file}
+                  />
                 ))}
               </ul>
             </aside>

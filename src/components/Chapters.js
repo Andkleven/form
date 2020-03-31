@@ -4,7 +4,6 @@ import {
   findValue,
   allRequiredSatisfied,
   createPath
-  // isNumber
 } from "./Functions";
 import Page from "./Page";
 import findNextStage from "components/stages/FindNextStage";
@@ -106,7 +105,9 @@ export default props => {
           );
         }
         if (newChapterArray[newChapterArray.length - 1] === null) {
+          console.log("s");
           props.setNextStage(false);
+          console.log("q");
         }
         return newChapterArray;
       }

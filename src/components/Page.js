@@ -7,6 +7,7 @@ import {
   FieldsContext
 } from "components/DocumentAndSubmit";
 import { allTrue, getRepeatNumber } from "components/Functions";
+import Input from "./Input";
 import objectPath from "object-path";
 import Title from "components/text/Title";
 import CustomComponents from "components/CustomComponents";
@@ -152,32 +153,33 @@ export default props => {
   ]);
 
   return (
-    <>
-      <div className={`${!props.lastChapter && "mb-4"}`}>
-        <div className="d-flex justify-content-between align-items-end">
-          {!props.stopLoop && props.showEditButton ? (
-            <Title key={`${props.thisChapter}-${props.index}-jja`}>
-              {props.pageTitle}
-            </Title>
-          ) : null}
+    <div className={`${!props.lastChapter && "mb-4"}`}>
+      <div className="d-flex justify-content-between align-items-end">
+        <Title
+          key={`${props.thisChapter}-${props.index}-jja`}
+          title={props.pageTitle}
+        />
 
-          {props.showEditButton && !props.stopLoop && !writeChapter ? (
-            <>
-              <TabButton
-                // size="sm"
-                onClick={() => {
-                  chapterContext.setEditChapter(props.thisChapter);
-                  fieldsContext.setvalidationPassed({});
-                }}
-                key={chapterContext.lastChapter}
-              >
-                Edit all
-              </TabButton>
-            </>
-          ) : null}
-        </div>
-        <Line />
+        {props.showEditButton && !props.stopLoop && !writeChapter ? (
+          <>
+            <TabButton
+              // size="sm"
+              onClick={() => {
+                chapterContext.setEditChapter(props.thisChapter);
+                fieldsContext.setvalidationPassed({});
+              }}
+              key={chapterContext.lastChapter}
+            >
+              Edit all
+            </TabButton>
+          </>
+        ) : null}
+      </div>
 
+      {props.pageTitle &&
+        props.showEditButton &&
+        !props.stopLoop &&
+        !writeChapter && <Line />}
         {Components ? <Components {...props} /> : null}
         {props.fields ? (
           <>
@@ -186,57 +188,54 @@ export default props => {
               writeChapter={writeChapter}
               deleteHandler={deleteHandler}
             />
-
-            {!props.notAddButton && props.repeat && writeChapter ? (
-              <button type="button" onClick={() => addHandeler()}>
-                {props.addButton ? props.addButton : "Add"}
-              </button>
-            ) : null}
-
-            {props.showSaveButton ? (
-              chapterContext.editChapter ? (
-                props.thisChapter === chapterContext.editChapter && (
-                  <>
-                    <SubmitButton
-                      key={props.thisChapter}
-                      onClick={() => {
-                        props.submitHandler(documentDateContext.documentDate);
-                      }}
-                    />
-                    {FieldsContext.isSubmited && (
-                      <div style={{ fontSize: 12, color: "red" }}>
-                        See Error Message
-                      </div>
-                    )}
-                  </>
-                )
-              ) : props.thisChapter === chapterContext.lastChapter ? (
-                <>
-                  <SubmitButton
-                    key={props.thisChapter}
-                    onClick={() => {
-                      props.submitHandler(documentDateContext.documentDate);
-                    }}
-                    name={
-                      props.saveButton &&
-                      !Object.values(fieldsContext.validationPassed).every(
-                        allTrue
-                      )
-                        ? "Save"
-                        : null
-                    }
-                  />
-                  {fieldsContext.isSubmited && (
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      See Error Message
-                    </div>
-                  )}
-                </>
-              ) : null
-            ) : null}
-          </>
+        {!props.notAddButton && props.repeat && writeChapter ? (
+          <button type="button" onClick={() => addHandeler()}>
+            {props.addButton ? props.addButton : "Add"}
+          </button>
         ) : null}
-      </div>
-    </>
+      </>
+    ) : props.type === "file" ? (
+      <Input {...props} />
+    ) : null}
+    {props.showSaveButton ? (
+      chapterContext.editChapter ? (
+        props.thisChapter === chapterContext.editChapter && (
+          <>
+            <SubmitButton
+              key={props.thisChapter}
+              onClick={() =>
+                props.submitHandler(documentDateContext.documentDate)
+              }
+            />
+            {FieldsContext.isSubmited && (
+              <div style={{ fontSize: 12, color: "red" }}>
+                See Error Message
+              </div>
+            )}
+          </>
+        )
+      ) : props.thisChapter === chapterContext.lastChapter ? (
+        <>
+          <SubmitButton
+            key={props.thisChapter}
+            onClick={() =>
+              props.submitHandler(documentDateContext.documentDate)
+            }
+            name={
+              props.saveButton &&
+              !Object.values(fieldsContext.validationPassed).every(allTrue)
+                ? "Save"
+                : null
+            }
+          />
+          {fieldsContext.isSubmited && (
+            <div style={{ fontSize: 12, color: "red" }}>
+              See Error Message
+            </div>
+          )}
+        </>
+      ) : null
+    ) : null}
+  </div>
   );
 };

@@ -4,8 +4,6 @@
   "query": "GET_ORDER_GEOMETRY",
   "chapters": [
     {
-      "lookUpBy": "projectName",
-      "queryPath": "projects",
       "pages": [
         {
           "pageTitle": "Order",
@@ -14,80 +12,58 @@
           "fields": [
             {
               "fieldName": "projectName",
-              "label": "Text 1",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "label": "Project Name"
             },
             {
               "fieldName": "projectNumber",
-              "label": "Text 2",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "unit": "Unit",
-              "subtext": "Accepts any value"
+              "label": "Project Number"
             },
             {
               "fieldName": "client",
-              "label": "Text 3",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "label": "Client"
             },
             {
               "fieldName": "itpDocumentNumber",
-              "label": "Text 4",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "label": "Itp Document Number"
             },
             {
               "fieldName": "projectManager",
-              "label": "Text 5",
-              "subtext": "Subtext",
+              "label": "Project Manager",
+              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "supervisor",
-              "label": "Text 6",
-              "subtext": "Subtext",
+              "label": "Supervisor",
+              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "leadEngineer",
-              "label": "Text 7",
-              "subtext": "Subtext",
+              "label": "Lead Engineer",
+              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "supervisingEngineer",
-              "label": "Text 8",
-              "subtext": "Subtext",
+              "label": "Supervising Engineer",
+              "type": "select",
               "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "qualityControl",
-              "label": "Text 9",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
+              "label": "Quality Control",
               "default": "test"
             },
             {
               "fieldName": "numberOfDescriptions",
-              "label": "Text 10",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
+              "label": "Number of Descriptions",
               "type": "Number",
               "required": true
             },
             {
               "fieldName": "totalNumberOfItems",
-              "label": "Text 11",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
+              "label": "Total Number of Items",
               "type": "Number",
               "required": true
             }
@@ -96,9 +72,6 @@
       ]
     },
     {
-      "lookUpBy": "CPS",
-      "queryPath": "projects.0.descriptions",
-      "findByIndex": true,
       "pages": [
         {
           "pageTitle": "Description",
@@ -113,49 +86,30 @@
             },
             {
               "fieldName": "description",
-              "label": "Description",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "label": "Description"
             },
             {
               "fieldName": "ifsActivityCodes",
               "label": "IFS Activity Codes",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "unit": "Unit",
-              "subtext": "Accepts any value"
+              "unit": "Unit"
             },
             {
               "fieldName": "CPS",
               "label": "CPS",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value"
+              "required": true
             }
           ]
         },
         {
-          "pageTitle": "Add File",
+          "type": "file",
           "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "pageName": "uploadFile",
-          "repeat": true,
-          "delete": true,
-          "fields": [
-            {
-              "fieldName": "itemsId",
-              "type": "file",
-              "label": "Image",
-              "multipleFiles": true
-            }
-          ]
+          "description": true
         }
       ]
     },
     {
       "chapterAlwaysInWrite": true,
-      "firstQueryPath": "projects.0.descriptions",
-      "secondQueryPath": "items",
       "pages": [
         {
           "pageTitle": "Add item",

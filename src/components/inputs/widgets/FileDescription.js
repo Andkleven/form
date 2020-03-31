@@ -1,6 +1,7 @@
 import React from "react";
-import Input from "../../Input";
-
+import Input from "components/Input";
+import ReadField from "components/ReadField";
+import TinyButton from "components/buttons/TinyButton";
 export default props => {
   return (
     <>
@@ -12,15 +13,36 @@ export default props => {
             "--fa-secondary-opacity": "1.0"
           }}
         />
-        {props.file.key}
+        {props.file.file.name}
+        {props.writeChapter && (
+          <TinyButton
+            onClick={() => props.deleteHandler(props.index)}
+            icon="trash-alt"
+          />
+        )}
       </div>
-      <div className="">
-        <Input
-          placeholder={`Description or comment...`}
-          className=""
-          onChange={props.onChange}
-        />
-      </div>
+      {props.description && (
+        <div className="">
+          {props.writeChapter ? (
+            <Input
+              placeholder={`Description or comment...`}
+              className=""
+              value={props.file.fileDescription}
+              onChange={e => props.onChange(e.target, props.index)}
+            />
+          ) : (
+            props.file.fileDescription && (
+              <ReadField
+                {...props}
+                key={props.indexId}
+                readOnly={true}
+                label="Description"
+                value={props.file.fileDescription}
+              />
+            )
+          )}
+        </div>
+      )}
     </>
   );
 };

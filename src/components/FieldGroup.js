@@ -1,6 +1,7 @@
 import React, { useContext, useCallback } from "react";
 import ReadField from "./ReadField";
 import WriteFieldGroupError from "./WriteFieldGroupError";
+import Input from "./Input";
 import objectPath from "object-path";
 import { DocumentDateContext, ChapterContext } from "./DocumentAndSubmit";
 import Page from "./Page";
@@ -14,6 +15,46 @@ import {
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const chapterContext = useContext(ChapterContext);
+
+  const getLabel = useCallback(
+    field => {
+      return field.queryVariableLabel || field.indexVariableLabel
+        ? variableLabel(
+            field.label,
+            field.variableLabelWithSpeckData
+              ? props.speckData
+              : documentDateContext.documentDate,
+            field.queryVariableLabel,
+            props.repeatStepList,
+            field.editRepeatStepListVariableLabel,
+            field.indexVariableLabel ? props.repeatStep : undefined
+          )
+        : field.label;
+    },
+    [props.speckData, documentDateContext.documentDate]
+  );
+
+  const subtext = useCallback(
+    (field, min, max) => {
+      return getSubtext(
+        field.subtext,
+        findValue(
+          props.speckData,
+          field.speckSubtextList,
+          props.repeatStepList,
+          field.editRepeatStepSubtextList
+        ),
+        max,
+        min,
+        field.maxInput,
+        field.minInput,
+        field.unit,
+        field.required
+      );
+    },
+    [props.speckData]
+  );
+
   const getNewPath = useCallback(
     fieldName => {
       return `${props.path ? props.path + ".data." : ""}${fieldName}`;
@@ -83,41 +124,14 @@ export default props => {
           key={`${props.indexId}-${index}`}
           readOnly={true}
           path={getNewPath(field.fieldName)}
-          subtext={getSubtext(
-            field.subtext,
-            findValue(
-              props.speckData,
-              field.speckSubtextList,
-              props.repeatStepList,
-              field.editRepeatStepSubtextList
-            ),
-            max,
-            min,
-            field.maxInput,
-            field.minInput,
-            field.unit,
-            field.required
-          )}
+          subtext={subtext(field, min, max)}
           value={findValue(
             props.speckData,
             field.speckValueList,
             props.repeatStepList,
             field.editRepeatStepValueList
           )}
-          label={
-            field.queryVariableLabel || field.indexVariableLabel
-              ? variableLabel(
-                  field.label,
-                  field.variableLabelWithSpeckData
-                    ? props.speckData
-                    : documentDateContext.documentDate,
-                  field.queryVariableLabel,
-                  props.repeatStepList,
-                  field.editRepeatStepListVariableLabel,
-                  field.indexVariableLabel ? props.repeatStep : undefined
-                )
-              : field.label
-          }
+          label={getLabel(field)}
         />
       );
     } else if (
@@ -141,21 +155,7 @@ export default props => {
           }
           min={min}
           max={max}
-          subtext={getSubtext(
-            field.subtext,
-            findValue(
-              props.speckData,
-              field.speckSubtextList,
-              props.repeatStepList,
-              field.editRepeatStepSubtextList
-            ),
-            max,
-            min,
-            field.maxInput,
-            field.minInput,
-            field.unit,
-            field.required
-          )}
+          subtext={subtext(field, min, max)}
           value={objectPath.get(
             documentDateContext.documentDate,
             getNewPath(field.fieldName),
@@ -164,6 +164,18 @@ export default props => {
           file={field.type === "file" ? props.file : null}
           indexId={`${props.indexId}-${index}`}
           index={index}
+        />
+      );
+    } else if (field.type === "file") {
+      return (
+        <Input
+          {...props}
+          {...field}
+          key={`${props.indexId}-${index}`}
+          subtext={subtext(field, min, max)}
+          oneFile={true}
+          path={`${props.path}.${field.fieldName}`}
+          label={getLabel(field)}
         />
       );
     } else {
@@ -179,35 +191,8 @@ export default props => {
             documentDateContext.documentDate,
             getNewPath(field.fieldName)
           )}
-          subtext={getSubtext(
-            field.subtext,
-            findValue(
-              props.speckData,
-              field.speckSubtextList,
-              props.repeatStepList,
-              field.editRepeatStepSubtextList
-            ),
-            max,
-            min,
-            field.maxInput,
-            field.minInput,
-            field.unit,
-            field.required
-          )}
-          label={
-            field.queryVariableLabel || field.indexVariableLabel
-              ? variableLabel(
-                  field.label,
-                  field.variableLabelWithSpeckData
-                    ? props.speckData
-                    : documentDateContext.documentDate,
-                  field.queryVariableLabel,
-                  props.repeatStepList,
-                  field.editRepeatStepListVariableLabel,
-                  field.indexVariableLabel ? props.repeatStep : undefined
-                )
-              : field.label
-          }
+          subtext={subtext(field, min, max)}
+          label={getLabel(field)}
         />
       );
     }

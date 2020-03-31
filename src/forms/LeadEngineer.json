@@ -4,8 +4,6 @@
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
-      "lookUpBy": "primer1",
-      "queryPath": "leadEngineers",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
@@ -14,8 +12,6 @@
             {
               "fieldName": "steel",
               "label": "Steel",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "subtext": "Subtext",
               "type": "select",
               "options": ["", "Carbon", "Duplex"]
@@ -23,8 +19,6 @@
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "unit": "Unit",
               "subtext": "Subtext",
               "type": "select",
@@ -33,47 +27,36 @@
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "default": 85,
               "type": "Number"
             },
             {
               "fieldName": "airTemperature",
               "label": "Air Temperature",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "default": 15,
               "type": "Number"
             },
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "default": 15,
               "type": "Number"
             },
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "default": 15,
               "type": "Number"
             },
             {
               "fieldName": "blastMediaConductivity",
               "label": "Blast Media Conductivity",
-              "placeholder": "Placeholder",
-              "feedback": "Enter valid number.",
               "type": "Number"
             },
             {
               "fieldName": "surfaceProfileMin",
               "label": "Surface Profile (Roughnes)",
               "placeholder": "Min",
-              "feedback": "Enter valid number.",
               "default": 50,
               "type": "Number"
             },
@@ -81,65 +64,54 @@
               "fieldName": "surfaceProfileMax",
               "label": "Surface Profile (Roughnes)",
               "placeholder": "Max",
-              "feedback": "Enter valid number.",
               "default": 100,
               "type": "Number"
             },
             {
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
-              "feedback": "Enter valid number.",
               "default": 20,
               "type": "Number"
             },
             {
               "fieldName": "inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
-              "feedback": "Enter valid number.",
               "type": "checkbox"
             },
             {
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
               "placeholder": "Min",
-              "feedback": "Enter valid number.",
               "type": "checkbox"
             },
             {
               "fieldName": "surfaceCleanlines",
               "label": "Surface Cleanlines",
               "placeholder": "Max",
-              "feedback": "Enter valid number.",
               "type": "checkbox"
             },
             {
               "fieldName": "uvTest",
               "label": "UV Test",
-              "feedback": "Enter valid number.",
               "type": "checkbox"
             },
             {
               "fieldName": "primer1",
               "label": "Primer 1",
-              "placeholder": "Min",
-              "feedback": "Enter valid number.",
               "type": "select",
               "options": [
-                "",
                 "Chemosil 211",
                 "Chemosil 231",
                 "Chemosil 360",
                 "Chemosil 411"
-              ]
+              ],
+              "required": true
             },
             {
               "fieldName": "primer2",
               "label": "Primer 2",
-              "placeholder": "Max",
-              "feedback": "Enter valid number.",
               "type": "select",
               "options": [
-                "",
                 "Chemosil 211",
                 "Chemosil 231",
                 "Chemosil 360",
@@ -149,19 +121,15 @@
             {
               "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Cement Before Coating",
-              "feedback": "Enter valid number.",
 
               "type": "select",
               "options": ["None", "75051", "Soap"]
-
             }
           ]
         }
       ]
     },
     {
-      "lookUpBy": "numberOfLayers",
-      "queryPath": "leadEngineers.0.vulcanizationSteps",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanzation",
@@ -173,20 +141,18 @@
               "fieldName": "targetDescriptionValue",
               "label": "TDV (Target Description Value)",
               "placeholder": "Min",
-              "feedback": "Enter valid number.",
               "type": "select",
               "options": ["", "OD", "ID"]
             },
             {
               "fieldName": "orderedTotalRubberThicknes",
               "label": "Ordered Total Rubber Thicknes",
-              "feedback": "Enter valid number.",
-              "type": "number"
+              "type": "number",
+              "required": true
             },
             {
               "fieldName": "toleranceMin",
               "label": "Tolerance Min",
-              "feedback": "Enter valid number.",
               "prepend": "Min",
               "type": "number"
             },
@@ -200,7 +166,6 @@
             {
               "fieldName": "toleranceMax",
               "label": "Tolerance Max",
-              "feedback": "Enter valid number.",
               "prepend": "Max",
               "type": "number"
             },
@@ -214,7 +179,6 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
-              "feedback": "Enter valid number.",
               "maxInput": 22,
               "max": 22
             }
@@ -231,7 +195,6 @@
               "fieldName": "measurementPointActual",
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
-              "feedback": "Enter valid number.",
               "type": "number"
             }
           ]
@@ -246,7 +209,6 @@
             {
               "fieldName": "rubberCement",
               "label": "Rubber Cement",
-              "feedback": "Enter valid number.",
               "notLabel": true,
               "type": "number"
             }
@@ -265,7 +227,6 @@
             {
               "fieldName": "vulcanizationOption",
               "label": "Vulcanization Option",
-              "feedback": "Enter valid number.",
               "type": "select",
               "options": [
                 "",
@@ -279,13 +240,11 @@
             {
               "fieldName": "programNumber",
               "label": "Program Number",
-              "feedback": "Enter valid number.",
               "type": "Number"
             },
             {
               "fieldName": "numberOfLayers",
               "label": "Number of Layers",
-              "feedback": "Enter valid number.",
               "type": "Number"
             },
             {
@@ -316,7 +275,6 @@
                 {
                   "fieldName": "actualThicknes",
                   "label": "Actual Thicknes",
-                  "feedback": "Enter valid number.",
                   "type": "Number",
                   "min": 2,
                   "max": 4,
@@ -327,7 +285,6 @@
                 {
                   "fieldName": "shrink",
                   "label": "Shrink",
-                  "feedback": "Enter valid number.",
                   "type": "Number",
                   "max": 15,
                   "min": 2,
@@ -346,7 +303,6 @@
                 {
                   "fieldName": "layersUnique",
                   "label": "Layers Unique",
-                  "feedback": "Enter valid number.",
                   "type": "checkbox"
                 },
                 {
