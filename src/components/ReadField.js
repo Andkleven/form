@@ -67,14 +67,23 @@ export default props => {
     </Button>
   );
 
+  const Label = props => (
+    <div className={`d-flex justify-content-between align-items-start h-100`}>
+      <div className={showUnderBreakpoint()}>
+        <small className="text-secondary">{`${props.label}`}</small>
+      </div>
+      <div className={showAboveBreakpoint()}>{`${props.label}`}</div>
+    </div>
+  );
+
   const Value = props =>
     DateValue() || (
-      <div className="d-flex justify-content-between align-items-end">
-        {props.value ||
+      <div className={`d-flex justify-content-between align-items-start h-100`}>
+        {(props.type !== "checkbox" && props.value) ||
           (props.value === false && `Not performed`) ||
-          (props.value === true && `Performed`) || (
-            <div className="text-danger">Not registered</div>
-          )}
+          (props.value === true &&
+            props.type === "checkbox" &&
+            `Performed`) || <div className="text-danger">Not registered</div>}
         {props.readOnly ? null : (
           <TinyEditButton
             className={`justify-self-end ${showAboveBreakpoint()}`}
@@ -82,15 +91,6 @@ export default props => {
         )}
       </div>
     );
-
-  const Label = props => (
-    <div className="d-flex justify-content-between align-items-end">
-      <div className={showUnderBreakpoint()}>
-        <small className="text-secondary">{`${props.label}`}</small>
-      </div>
-      <div className={showAboveBreakpoint()}>{`${props.label}`}</div>
-    </div>
-  );
 
   return (
     <Row>

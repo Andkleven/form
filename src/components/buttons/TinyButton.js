@@ -14,7 +14,7 @@ export default props => {
         onClick={props.onClick}
         style={{ minWidth: "2em" }}
       >
-        <span className={props.color && `text-${props.color}`}>
+        <span className={`${props.color && `text-${props.color}`}`}>
           {props.icon && <i className={`fas fa-${props.icon}`} />}
           {props.content && ` ${props.content}`}
         </span>
