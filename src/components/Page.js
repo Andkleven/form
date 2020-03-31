@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState, useMemo } from "react";
 import SelectSetFieldGroupData from "components/SelectSetFieldGroupData";
-import SubmitButton from "components/SubmitButton";
+import SubmitButton from "components/buttons/SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
@@ -8,7 +8,7 @@ import {
 } from "components/DocumentAndSubmit";
 import { allTrue, getRepeatNumber } from "components/Functions";
 import objectPath from "object-path";
-import Title from "components/Title";
+import Title from "components/text/Title";
 import CustomComponents from "components/CustomComponents";
 import Line from "./Line";
 import TabButton from "components/buttons/TabButton";
@@ -152,90 +152,91 @@ export default props => {
   ]);
 
   return (
-    <div className={`${!props.lastChapter && "mb-4"}`}>
-      <div className="d-flex justify-content-between align-items-end">
-        {!props.stopLoop ? (
-          <Title
-            key={`${props.thisChapter}-${props.index}-jja`}
-            title={props.pageTitle}
-          />
-        ) : null}
-
-        {props.showEditButton && !props.stopLoop && !writeChapter ? (
-          <>
-            <TabButton
-              // size="sm"
-              onClick={() => {
-                chapterContext.setEditChapter(props.thisChapter);
-                fieldsContext.setvalidationPassed({});
-              }}
-              key={chapterContext.lastChapter}
-            >
-              Edit all
-            </TabButton>
-          </>
-        ) : null}
-      </div>
-      <Line />
-
-      {Components ? <Components {...props} /> : null}
-      {props.fields ? (
-        <>
-          <SelectSetFieldGroupData
-            {...props}
-            writeChapter={writeChapter}
-            deleteHandler={deleteHandler}
-          />
-
-          {!props.notAddButton && props.repeat && writeChapter ? (
-            <button type="button" onClick={() => addHandeler()}>
-              {props.addButton ? props.addButton : "Add"}
-            </button>
+    <>
+      <div className={`${!props.lastChapter && "mb-4"}`}>
+        <div className="d-flex justify-content-between align-items-end">
+          {!props.stopLoop && props.showEditButton ? (
+            <Title key={`${props.thisChapter}-${props.index}-jja`}>
+              {props.pageTitle}
+            </Title>
           ) : null}
 
-          {props.showSaveButton ? (
-            chapterContext.editChapter ? (
-              props.thisChapter === chapterContext.editChapter && (
+          {props.showEditButton && !props.stopLoop && !writeChapter ? (
+            <>
+              <TabButton
+                // size="sm"
+                onClick={() => {
+                  chapterContext.setEditChapter(props.thisChapter);
+                  fieldsContext.setvalidationPassed({});
+                }}
+                key={chapterContext.lastChapter}
+              >
+                Edit all
+              </TabButton>
+            </>
+          ) : null}
+        </div>
+        <Line />
+
+        {Components ? <Components {...props} /> : null}
+        {props.fields ? (
+          <>
+            <SelectSetFieldGroupData
+              {...props}
+              writeChapter={writeChapter}
+              deleteHandler={deleteHandler}
+            />
+
+            {!props.notAddButton && props.repeat && writeChapter ? (
+              <button type="button" onClick={() => addHandeler()}>
+                {props.addButton ? props.addButton : "Add"}
+              </button>
+            ) : null}
+
+            {props.showSaveButton ? (
+              chapterContext.editChapter ? (
+                props.thisChapter === chapterContext.editChapter && (
+                  <>
+                    <SubmitButton
+                      key={props.thisChapter}
+                      onClick={() => {
+                        props.submitHandler(documentDateContext.documentDate);
+                      }}
+                    />
+                    {FieldsContext.isSubmited && (
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        See Error Message
+                      </div>
+                    )}
+                  </>
+                )
+              ) : props.thisChapter === chapterContext.lastChapter ? (
                 <>
                   <SubmitButton
                     key={props.thisChapter}
-                    onClick={() =>
-                      props.submitHandler(documentDateContext.documentDate)
+                    onClick={() => {
+                      props.submitHandler(documentDateContext.documentDate);
+                    }}
+                    name={
+                      props.saveButton &&
+                      !Object.values(fieldsContext.validationPassed).every(
+                        allTrue
+                      )
+                        ? "Save"
+                        : null
                     }
                   />
-                  {FieldsContext.isSubmited && (
+                  {fieldsContext.isSubmited && (
                     <div style={{ fontSize: 12, color: "red" }}>
                       See Error Message
                     </div>
                   )}
                 </>
-              )
-            ) : props.thisChapter === chapterContext.lastChapter ? (
-              <>
-                <SubmitButton
-                  key={props.thisChapter}
-                  onClick={() =>
-                    props.submitHandler(documentDateContext.documentDate)
-                  }
-                  name={
-                    props.saveButton &&
-                    !Object.values(fieldsContext.validationPassed).every(
-                      allTrue
-                    )
-                      ? "Save"
-                      : null
-                  }
-                />
-                {fieldsContext.isSubmited && (
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    See Error Message
-                  </div>
-                )}
-              </>
-            ) : null
-          ) : null}
-        </>
-      ) : null}
-    </div>
+              ) : null
+            ) : null}
+          </>
+        ) : null}
+      </div>
+    </>
   );
 };

@@ -3,14 +3,13 @@ import {
   getData,
   findValue,
   allRequiredSatisfied,
-  createPath,
-  isNumber
+  createPath
+  // isNumber
 } from "./Functions";
 import Page from "./Page";
-
 import findNextStage from "components/stages/FindNextStage";
+import Title from "components/text/Title";
 
-import Title from "./Title";
 // import objectPath from "object-path";
 
 export default props => {
@@ -143,7 +142,7 @@ export default props => {
       }
       i++;
     }
-    if (stage === "Anders er best") {
+    if (["Anders er best", "og kjekk"].includes(stage)) {
       props.setLastSubmitButton(true);
     }
     return chapterBasedOnStage;

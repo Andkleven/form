@@ -10,7 +10,7 @@ import mutations from "../request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
-import Title from "./Title";
+import Title from "components/text/Title";
 import { allTrue, validaFieldWithValue, stringifyQuery } from "./Functions";
 
 import FindNextStage from "components/stages/FindNextStage";
@@ -52,7 +52,7 @@ export default props => {
       setDocumentDate(cloneDeep(props.data));
     }
   }, [props.componentsId, props.data]);
-  console.log(documentDate);
+  // console.log(documentDate);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -183,11 +183,11 @@ export default props => {
     }
   };
 
-  console.log(
-    props.saveButton,
-    nextStage,
-    Object.values(validationPassed).every(allTrue)
-  );
+  // console.log(
+  //   props.saveButton,
+  //   nextStage,
+  //   Object.values(validationPassed).every(allTrue)
+  // );
   const submitHandler = data => {
     if (
       (props.saveButton && validaFieldWithValue(validationPassed)) ||
