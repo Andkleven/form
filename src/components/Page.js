@@ -10,6 +10,7 @@ import { allTrue, getRepeatNumber } from "components/Functions";
 import Input from "./Input";
 import objectPath from "object-path";
 import Title from "components/text/Title";
+import Subtitle from "components/text/Subtitle";
 import CustomComponents from "components/CustomComponents";
 import Line from "./Line";
 import TabButton from "components/buttons/TabButton";
@@ -155,10 +156,15 @@ export default props => {
   return (
     <div className={`${!props.lastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
-        <Title
-          key={`${props.thisChapter}-${props.index}-jja`}
-          title={props.pageTitle}
-        />
+        {!props.stopLoop && props.showEditButton ? (
+          <Title key={`${props.thisChapter}-${props.index}-jja`}>
+            {props.pageTitle}
+          </Title>
+        ) : (
+          <Subtitle key={`${props.thisChapter}-${props.index}-jja`}>
+            {props.pageTitle}
+          </Subtitle>
+        )}
 
         {props.showEditButton && !props.stopLoop && !writeChapter ? (
           <>
@@ -176,66 +182,67 @@ export default props => {
         ) : null}
       </div>
 
-      {props.pageTitle &&
+      <Line />
+      {/* {props.pageTitle &&
         props.showEditButton &&
         !props.stopLoop &&
-        !writeChapter && <Line />}
-        {Components ? <Components {...props} /> : null}
-        {props.fields ? (
-          <>
-            <SelectSetFieldGroupData
-              {...props}
-              writeChapter={writeChapter}
-              deleteHandler={deleteHandler}
-            />
-        {!props.notAddButton && props.repeat && writeChapter ? (
-          <button type="button" onClick={() => addHandeler()}>
-            {props.addButton ? props.addButton : "Add"}
-          </button>
-        ) : null}
-      </>
-    ) : props.type === "file" ? (
-      <Input {...props} />
-    ) : null}
-    {props.showSaveButton ? (
-      chapterContext.editChapter ? (
-        props.thisChapter === chapterContext.editChapter && (
+        !writeChapter && <Line />} */}
+      {Components ? <Components {...props} /> : null}
+      {props.fields ? (
+        <>
+          <SelectSetFieldGroupData
+            {...props}
+            writeChapter={writeChapter}
+            deleteHandler={deleteHandler}
+          />
+          {!props.notAddButton && props.repeat && writeChapter ? (
+            <button type="button" onClick={() => addHandeler()}>
+              {props.addButton ? props.addButton : "Add"}
+            </button>
+          ) : null}
+        </>
+      ) : props.type === "file" ? (
+        <Input {...props} />
+      ) : null}
+      {props.showSaveButton ? (
+        chapterContext.editChapter ? (
+          props.thisChapter === chapterContext.editChapter && (
+            <>
+              <SubmitButton
+                key={props.thisChapter}
+                onClick={() =>
+                  props.submitHandler(documentDateContext.documentDate)
+                }
+              />
+              {FieldsContext.isSubmited && (
+                <div style={{ fontSize: 12, color: "red" }}>
+                  See Error Message
+                </div>
+              )}
+            </>
+          )
+        ) : props.thisChapter === chapterContext.lastChapter ? (
           <>
             <SubmitButton
               key={props.thisChapter}
               onClick={() =>
                 props.submitHandler(documentDateContext.documentDate)
               }
+              name={
+                props.saveButton &&
+                !Object.values(fieldsContext.validationPassed).every(allTrue)
+                  ? "Save"
+                  : null
+              }
             />
-            {FieldsContext.isSubmited && (
+            {fieldsContext.isSubmited && (
               <div style={{ fontSize: 12, color: "red" }}>
                 See Error Message
               </div>
             )}
           </>
-        )
-      ) : props.thisChapter === chapterContext.lastChapter ? (
-        <>
-          <SubmitButton
-            key={props.thisChapter}
-            onClick={() =>
-              props.submitHandler(documentDateContext.documentDate)
-            }
-            name={
-              props.saveButton &&
-              !Object.values(fieldsContext.validationPassed).every(allTrue)
-                ? "Save"
-                : null
-            }
-          />
-          {fieldsContext.isSubmited && (
-            <div style={{ fontSize: 12, color: "red" }}>
-              See Error Message
-            </div>
-          )}
-        </>
-      ) : null
-    ) : null}
-  </div>
+        ) : null
+      ) : null}
+    </div>
   );
 };
