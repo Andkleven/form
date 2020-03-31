@@ -197,7 +197,7 @@ export default props => {
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <Input {...props} />
+        <Input {...props} writeChapter={writeChapter} />
       ) : null}
       {props.showSaveButton ? (
         chapterContext.editChapter ? (

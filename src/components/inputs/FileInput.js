@@ -35,7 +35,7 @@ const rejectStyle = {
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
-
+  console.log(documentDateContext.documentDate);
   useEffect(() => {
     if (!props.oneFile) {
       let oldFiles = objectPath.get(
@@ -52,12 +52,12 @@ export default props => {
       }
     }
   }, []);
-  console.log(props.path, 4);
+
   useEffect(() => {
+    console.log(222222);
     documentDateContext.setDocumentDate(prevState => {
-      console.log(prevState, props.path, files, 1);
-      console.log(objectPath.set(prevState, props.path, files), 1);
-      return { ...objectPath.set(prevState, props.path, files) };
+      objectPath.set(prevState, props.path, files);
+      return { ...prevState };
     });
   }, [files]);
 
@@ -81,12 +81,12 @@ export default props => {
           acceptedFiles.forEach(file => {
             prevState.push({ file: file });
           });
-          return prevState;
+          return [...prevState];
         });
       }
     }
   });
-  // preview: URL.createObjectURL(file)
+
   const style = useMemo(
     () => ({
       ...baseStyle,
@@ -101,15 +101,16 @@ export default props => {
   const onChange = (value, index) => {
     setFiles(prevState => {
       prevState[index] = { ...prevState[index], fileDescription: value.value };
-      return prevState;
+      return [...prevState];
     });
   };
   const deleteHandler = index => {
     setFiles(prevState => {
       prevState.splice(index, 1);
-      return prevState;
+      return [...prevState];
     });
   };
+
   return (
     <>
       <div className="p-3 border rounded">

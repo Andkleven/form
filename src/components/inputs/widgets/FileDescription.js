@@ -37,7 +37,9 @@ export default props => {
                 key={props.indexId}
                 readOnly={true}
                 label="Description"
-                value={props.file.fileDescription}
+                value={
+                  props.file.fileDescription ? props.file.fileDescription : ""
+                }
               />
             )
           )}

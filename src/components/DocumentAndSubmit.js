@@ -46,6 +46,7 @@ export default props => {
   const [validationPassed, setvalidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
 
+  console.log(documentDate);
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
     if (props.data) {
