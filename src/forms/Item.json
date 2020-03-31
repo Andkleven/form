@@ -81,7 +81,7 @@
             {
               "fieldName": "geometry",
               "label": "Geometry",
-              "subtext": "Subtext",
+              "type": "select",
               "options": ["", "Mould", "Coated Item"]
             },
             {
@@ -90,8 +90,7 @@
             },
             {
               "fieldName": "ifsActivityCodes",
-              "label": "IFS Activity Codes",
-              "unit": "Unit"
+              "label": "IFS Activity Codes"
             },
             {
               "fieldName": "CPS",
@@ -119,8 +118,7 @@
           "fields": [
             {
               "fieldName": "itemId",
-              "label": "Item ID",
-              "subtext": "Subtext"
+              "label": "Item ID"
             }
           ]
         }
