@@ -5,7 +5,7 @@ import TinyButton from "components/buttons/TinyButton";
 export default props => {
   return (
     <>
-      <div className="pb-2">
+      <div className="pt-2">
         <i
           className="fad fa-file-image text-primary text-center mr-2 shadow-sm"
           style={{

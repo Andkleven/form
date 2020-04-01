@@ -54,7 +54,7 @@ export default props => {
   }, []);
 
   useEffect(() => {
-    console.log(222222);
+    // console.log(222222);
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, files);
       return { ...prevState };
@@ -124,14 +124,13 @@ export default props => {
                       .file
                   : `Drag 'n' drop ${
                       props.oneFile ? "file" : "files"
-                    }, or click to
-              upload.`}
+                    }, or click to upload.`}
               </p>
             </div>
           )}
           {files.length && !props.oneFile ? (
             <aside>
-              <label className="mt-3">
+              <label className={`${props.writeChapter ? `mt-3` : ``}`}>
                 Uploaded{" "}
                 {props.oneFile || files.length === 1 ? "file" : "files"}
                 {/* <div className="text-secondary d-inline">
@@ -139,7 +138,7 @@ export default props => {
                   (Click file to add description)
                 </div> */}
               </label>
-              <hr className="w-100 mt-0 mb-2" />
+              <hr className="w-100 m-0" />
               <ul className="list-unstyled mb-0">
                 {files.map((file, index) => (
                   <FileDescription
