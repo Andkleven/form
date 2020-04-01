@@ -37,7 +37,7 @@ export default props => {
   const [files, setFiles] = useState([]);
   console.log(documentDateContext.documentDate);
   useEffect(() => {
-    if (!props.oneFile) {
+    if (!props.singleFile) {
       let oldFiles = objectPath.get(
         documentDateContext.documentDate,
         props.path
@@ -54,7 +54,6 @@ export default props => {
   }, []);
 
   useEffect(() => {
-    // console.log(222222);
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, files);
       return { ...prevState };
@@ -70,7 +69,7 @@ export default props => {
   } = useDropzone({
     accept: "image/*",
     onDrop: acceptedFiles => {
-      if (props.oneFile) {
+      if (props.singleFile) {
         objectPath.set(
           documentDateContext.documentDate,
           props.path,
@@ -119,20 +118,20 @@ export default props => {
             <div {...getRootProps({ style })} className="">
               <input {...getInputProps()} />
               <p className="mt-2">
-                {files.length && props.oneFile
+                {files.length && props.singleFile
                   ? objectPath.get(documentDateContext.documentDate, props.path)
                       .file
                   : `Drag 'n' drop ${
-                      props.oneFile ? "file" : "files"
+                      props.singleFile ? "file" : "files"
                     }, or click to upload.`}
               </p>
             </div>
           )}
-          {files.length && !props.oneFile ? (
+          {files.length && !props.singleFile ? (
             <aside>
               <label className={`${props.writeChapter ? `mt-3` : ``}`}>
                 Uploaded{" "}
-                {props.oneFile || files.length === 1 ? "file" : "files"}
+                {props.singleFile || files.length === 1 ? "file" : "files"}
                 {/* <div className="text-secondary d-inline">
                   {" "}
                   (Click file to add description)
