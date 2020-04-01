@@ -54,7 +54,6 @@ export default props => {
   }, []);
 
   useEffect(() => {
-    // console.log(222222);
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, files);
       return { ...prevState };
