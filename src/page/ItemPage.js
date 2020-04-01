@@ -10,6 +10,8 @@ import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "components/Functions";
+import ItemUpdate from "components/../page/ItemUpdate";
+
 export default props => {
   const [_id, set_id] = useState(Number(props.id));
   const [counter, setCounter] = useState(1);
@@ -151,6 +153,7 @@ export default props => {
       {geometryData && geometryData.items && geometryData.items.length ? (
         <>
           <br />
+          <ItemUpdate foreignKey={geometryData.id} />
           <br />
           <Button
             onClick={() =>
@@ -165,6 +168,8 @@ export default props => {
           </Button>
           <h3> Number of items: {geometryData.items.length}</h3>
           <ItemList
+            getQueryBy={_id}
+            counter={counter}
             items={geometryData.items}
             submitItem={item => {
               if (!item.different) {

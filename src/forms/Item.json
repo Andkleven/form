@@ -106,23 +106,6 @@
           "description": true
         }
       ]
-    },
-    {
-      "chapterAlwaysInWrite": true,
-      "pages": [
-        {
-          "pageTitle": "Add item",
-          "pageName": "item",
-          "queryPath": ["projects.0.descriptions", "items"],
-          "createWithOldValue": true,
-          "fields": [
-            {
-              "fieldName": "itemId",
-              "label": "Item ID"
-            }
-          ]
-        }
-      ]
     }
   ]
 }
