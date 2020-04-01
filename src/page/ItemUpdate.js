@@ -14,12 +14,15 @@ export default props => {
       query: query[itemsJson.query],
       variables: { id: props.getQueryBy }
     });
-    let array = objectPath.get(oldData, props.queryPath);
-    let index = array.findIndex(x => x.id === data.items.new.id);
+    let array = objectPath.get(
+      oldData,
+      `projects.0.descriptions.${props.counter}.items`
+    );
+    let index = array.findIndex(x => x.id === data.item.new.id);
     objectPath.set(
       oldData,
       `projects.0.descriptions.${props.counter}.items.${index}`,
-      data.items.new
+      data.item.new
     );
     cache.writeQuery({
       query: query[itemsJson.query],
@@ -28,26 +31,22 @@ export default props => {
     });
   };
   const create = (cache, { data }) => {
-    console.log("hva?");
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
       variables: { id: props.getQueryBy }
     });
-    console.log("hva?");
-    console.log(oldData, 3);
     objectPath.push(
       oldData,
       `projects.0.descriptions.${props.counter}.items`,
-      data.items.new
+      data.item.new
     );
-    console.log(oldData, 1);
     cache.writeQuery({
       query: query[itemsJson.query],
       variables: { id: props.getQueryBy },
       data: { ...oldData }
     });
   };
-  const [mutation, { loading, error }] = useMutation(mutations["UPDATEITEM"], {
+  const [mutation, { loading, error }] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });
 
