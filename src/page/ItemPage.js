@@ -88,7 +88,7 @@ export default props => {
   const [
     mutationDiffreant,
     { loading: loadingMutation, error: errorMutation }
-  ] = useMutation(mutations["UPDATEITEM"]);
+  ] = useMutation(mutations["ITEM"]);
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
@@ -153,7 +153,11 @@ export default props => {
       {geometryData && geometryData.items && geometryData.items.length ? (
         <>
           <br />
-          <ItemUpdate foreignKey={geometryData.id} />
+          <ItemUpdate
+            foreignKey={geometryData.id}
+            getQueryBy={_id}
+            counter={counter - 1}
+          />
           <br />
           <Button
             onClick={() =>
@@ -169,7 +173,7 @@ export default props => {
           <h3> Number of items: {geometryData.items.length}</h3>
           <ItemList
             getQueryBy={_id}
-            counter={counter}
+            counter={counter - 1}
             items={geometryData.items}
             submitItem={item => {
               if (!item.different) {

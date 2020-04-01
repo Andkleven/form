@@ -37,7 +37,6 @@ export default props => {
       console.error("Du må gi en 'data' til komponent Canvas");
     }
   }, [props.componentsId, props.document, props.data]);
-
   const [editChapter, setEditChapter] = useState(0);
   const [documentDate, setDocumentDate] = useState(); // Store data for all document
   const [nextStage, setNextStage] = useState(true);
@@ -45,6 +44,7 @@ export default props => {
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
+  console.log(validationPassed);
 
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
