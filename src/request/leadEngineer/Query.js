@@ -14,7 +14,7 @@ const ALL = gql`
         data
         items {
           id
-          data
+          itemId
           different
           qrCode
           repair
@@ -78,7 +78,7 @@ const GET_ORDER_GEOMETRY = gql`
         data
         items {
           id
-          data
+          itemId
           different
         }
         uploadFiles {
@@ -127,7 +127,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
       data
       items {
         id
-        data
+        itemId
         stage
         leadEngineers {
           id
@@ -190,7 +190,7 @@ const GET_OPERATOR_BY_ITEM = gql`
   query($id: Int) {
     items(id: $id) {
       id
-      data
+      itemId
       stage
       leadEngineers {
         id
@@ -257,7 +257,7 @@ const OPERATOR_PROJECTS = gql`
           id
           operatorDone
           qualityControlDone
-          data
+          itemId
         }
       }
     }

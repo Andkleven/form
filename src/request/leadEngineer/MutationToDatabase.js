@@ -15,15 +15,6 @@ const ORDER = gql`
             file
             fileDescription
           }
-          items {
-            id
-            data
-            different
-            qrCode
-            repair
-            operatorDone
-            qualityControlDone
-          }
         }
       }
     }
@@ -40,8 +31,8 @@ const DELETEITEM = gql`
 
 const UPDATEITEM = gql`
   mutation updateItem(
-    $id: Int!
-    $data: String
+    $id: Int
+    $itemId: String
     $different: Boolean
     $qrCode: String
     $repair: Boolean
@@ -52,7 +43,8 @@ const UPDATEITEM = gql`
   ) {
     updateItem(
       id: $id
-      data: $data
+      itemId: $itemId
+      stage: $stage
       different: $different
       qrCode: $qrCode
       repair: $repair
@@ -62,7 +54,7 @@ const UPDATEITEM = gql`
     ) {
       new {
         id
-        data
+        itemId
         different
         qrCode
         repair
@@ -141,7 +133,7 @@ const OPERATORBATCHING = gql`
         data
         items {
           id
-          data
+          itemId
           stage
           operators {
             id

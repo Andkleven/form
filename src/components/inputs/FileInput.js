@@ -35,7 +35,6 @@ const rejectStyle = {
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
-  console.log(documentDateContext.documentDate);
   useEffect(() => {
     if (!props.oneFile) {
       let oldFiles = objectPath.get(
@@ -54,7 +53,6 @@ export default props => {
   }, []);
 
   useEffect(() => {
-    // console.log(222222);
     documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, files);
       return { ...prevState };
@@ -97,7 +95,6 @@ export default props => {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  console.log(files, 2);
   const onChange = (value, index) => {
     setFiles(prevState => {
       prevState[index] = { ...prevState[index], fileDescription: value.value };
