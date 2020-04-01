@@ -12,7 +12,6 @@ const Content = () => {
     <FileView view="projects">
       {(typeof projectId === "string" || typeof projectId === "number") && (
         <>
-          {console.log(projectId)}
           <div className="mt-n1 mt-sm-1" />
           <ProjectPage id={projectId} />
         </>
