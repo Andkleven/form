@@ -29,8 +29,8 @@ const DELETEITEM = gql`
   }
 `;
 
-const UPDATEITEM = gql`
-  mutation updateItem(
+const ITEM = gql`
+  mutation item(
     $id: Int
     $itemId: String
     $different: Boolean
@@ -41,7 +41,7 @@ const UPDATEITEM = gql`
     $stage: String
     $foreignKey: Int
   ) {
-    updateItem(
+    item(
       id: $id
       itemId: $itemId
       stage: $stage
@@ -207,7 +207,7 @@ const OPERATOR = gql`
 const mutations = {
   ORDER,
   DELETEITEM,
-  UPDATEITEM,
+  ITEM,
   LEADENGINEER,
   LEADENGINEERDONE,
   OPERATORBATCHING,
