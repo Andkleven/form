@@ -7,20 +7,34 @@ import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import objectPath from "object-path";
 import Batching from "components/Batching";
-import { getDataFromQuery, removeSpace } from "components/Functions";
-import { objectifyQuery, getDataToBatching } from "components/Functions";
+import {
+  getDataFromQuery,
+  removeSpace,
+  batchingKey,
+  objectifyQuery,
+  getDataToBatching
+} from "components/Functions";
 
 batchingJson.ducument.chapters = [
   Operator.chapters[batchingJson.ducument.chapters]
 ];
 
 export default pageInfo => {
-  const { stage, descriptionId } = pageInfo.match.params;
+  const { stage, descriptionId, step } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [finishedItem, setFinishedItem] = useState(0);
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
+
+  useEffect(() => {
+    batchingJson.ducument.queryPath = [
+      batchingKey(batchingJson.ducument.queryPath)
+    ];
+    batchingJson.ducument.spackQueryPath = [
+      batchingKey(batchingJson.ducument.spackQueryPath)
+    ];
+  }, []);
 
   const { loading, error, data } = useQuery(
     query[batchingJson.ducument.query],
@@ -74,8 +88,10 @@ export default pageInfo => {
         setFinishedItem={setFinishedItem}
         finishedItem={finishedItem}
         stage={stage}
+        arrayIndex={[step]}
       />
       <DocumentAndSubmit
+        arrayIndex={[step]}
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={
@@ -96,13 +112,15 @@ export default pageInfo => {
         data={getDataToBatching(
           fixedData,
           [finishedItem],
-          batchingJson.ducument.queryPath
+          batchingJson.ducument.queryPath,
+          step
         )}
         stage={finishedItem ? stage : null}
         speckData={getDataToBatching(
           fixedData,
           batchingListIds,
-          batchingJson.ducument.spackQueryPath
+          batchingJson.ducument.spackQueryPath,
+          step
         )}
         updateCache={() => update}
         readOnlyFields={!batchingListIds[0]}

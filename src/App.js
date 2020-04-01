@@ -14,7 +14,6 @@ import Div100vh from "react-div-100vh";
 import PartialBatching from "./page/PartialBatching";
 import BatchingTest from "./page/BatchingTest";
 import SingleItem from "./page/SingleItem";
-import Coating from "./page/Coating";
 import ViewFile from "components/ViewFile";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
@@ -57,7 +56,7 @@ export default () => (
               path="/singelItem/:itemId/:geometry"
               component={SingleItem}
             />
-            <Route path="/coating/:itemId/:geometry" component={Coating} />
+
             <Route path="/lead-engineer" component={LeadEngineerStartPage} />
             <Route path="/file/:path" component={ViewFile} />
           </Switch>

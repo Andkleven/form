@@ -4,10 +4,10 @@
     "dataPath": "operators"
   },
   "ducument": {
-    "queryPath": "operators",
-    "spackQueryPath": "leadEngineers",
+    "queryPath": ["operators.0.vulcanizationOperators", ""],
+    "spackQueryPath": ["leadEngineers.0.vulcanizationOperators", ""],
     "mutation": "OPERATORBATCHING",
     "query": "GET_OPERATOR_BY_DESCRIPTION",
-    "chapters": "primer1"
+    "chapters": "vulcanizationStep"
   }
 }

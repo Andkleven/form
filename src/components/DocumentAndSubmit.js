@@ -37,7 +37,6 @@ export default props => {
       console.error("Du må gi en 'data' til komponent Canvas");
     }
   }, [props.componentsId, props.document, props.data]);
-
   const [editChapter, setEditChapter] = useState(0);
   const [documentDate, setDocumentDate] = useState(); // Store data for all document
   const [nextStage, setNextStage] = useState(true);
