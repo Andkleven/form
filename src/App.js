@@ -12,7 +12,7 @@ import LeadEngineerStartPage from "./page/leadEngineer/StartPage";
 import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
 import PartialBatching from "./page/PartialBatching";
-import BatchingTest from "./page/BatchingTest";
+import Batching from "./page/Batching";
 import SingleItem from "./page/SingleItem";
 import Coating from "./page/Coating";
 import ViewFile from "components/ViewFile";
@@ -47,7 +47,7 @@ export default () => (
             />
             <Route
               path="/batching/:stage/:descriptionId"
-              component={BatchingTest}
+              component={Batching}
             />
             <Route
               path="/partial-batching/:stage/:descriptionId"
