@@ -5,21 +5,28 @@ import TinyButton from "components/buttons/TinyButton";
 export default props => {
   return (
     <>
-      <div className="pb-2">
-        <i
-          className="fad fa-file-image text-primary text-center mr-2 shadow-sm"
-          style={{
-            "--fa-primary-opacity": "0.4",
-            "--fa-secondary-opacity": "1.0"
-          }}
-        />
-        {props.file.file.name}
-        {props.writeChapter && (
-          <TinyButton
-            onClick={() => props.deleteHandler(props.index)}
-            icon="trash-alt"
-          />
-        )}
+      <div className="pt-2">
+        <div className="d-flex justify-content-between">
+          <div>
+            <i
+              className="fad fa-file-image text-primary text-center mr-2 shadow-sm"
+              style={{
+                "--fa-primary-opacity": "0.4",
+                "--fa-secondary-opacity": "1.0"
+              }}
+            />
+            {props.file.file.name}
+          </div>
+          {props.writeChapter && (
+            <TinyButton
+              onClick={() => props.deleteHandler(props.index)}
+              icon="trash-alt"
+              color="danger"
+              tooltip="Delete file"
+              style={{ position: "relative", bottom: "0.5em" }}
+            />
+          )}
+        </div>
       </div>
       {props.description && (
         <div className="">
