@@ -495,3 +495,11 @@ export const camelCaseToNormal = string => {
     return string;
   }
 };
+
+export const reshapeStageSting = stage => {
+  let newStage = stage;
+  if (stage.split("Step")[1]) {
+    newStage = stage.split("Step")[0] + "Step";
+  }
+  return newStage;
+};

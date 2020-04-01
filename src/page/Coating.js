@@ -2,21 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import operatorJson from "../forms/Operator.json";
-import outSideJson from "../forms/Coating.json";
+import SingelStageJson from "../forms/SingelStage.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import PaperStack from "components/PaperStack";
 import Paper from "components/Paper";
-import { objectifyQuery, formDataStructure } from "components/Functions";
-
-outSideJson.chapters = [operatorJson.chapters[outSideJson.chapters]];
+import {
+  objectifyQuery,
+  formDataStructure,
+  reshapeStageSting
+} from "components/Functions";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-  const { loading, error, data } = useQuery(query[outSideJson.query], {
+
+  const { loading, error, data } = useQuery(query[SingelStageJson.query], {
     variables: { id: itemId }
   });
+  if (data.items[0].stage) {
+    SingelStageJson.chapters = [
+      operatorJson.chapters[reshapeStageSting(data.items[0].stage)]
+    ];
+  }
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -27,19 +35,21 @@ export default pageInfo => {
       <Paper>
         <DocumentAndSubmit
           componentsId={"SingleItem"}
-          document={outSideJson}
+          document={SingelStageJson}
           reRender={() => setReRender(!reRender)}
           data={
-            fixedData && formDataStructure(outSideJson, fixedData, "queryPath")
+            fixedData &&
+            formDataStructure(SingelStageJson, fixedData, "queryPath")
           }
           stage={data.items[0].stage}
           speckData={
             fixedData &&
-            formDataStructure(outSideJson, fixedData, "spackQueryPath")
+            formDataStructure(SingelStageJson, fixedData, "spackQueryPath")
           }
           geometry={geometry}
           arrayIndex={
-            data.items[0].stage && [
+            data.items[0].stage &&
+            data.items[0].stage.split("Step")[1] && [
               Number(data.items[0].stage.split("Step")[1]) - 1
             ]
           }
