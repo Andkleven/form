@@ -105,9 +105,7 @@ export default props => {
           );
         }
         if (newChapterArray[newChapterArray.length - 1] === null) {
-          console.log("s");
           props.setNextStage(false);
-          console.log("q");
         }
         return newChapterArray;
       }
