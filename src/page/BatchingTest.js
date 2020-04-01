@@ -19,7 +19,7 @@ batchingJson.ducument.chapters = [
 ];
 
 export default pageInfo => {
-  const { stage, descriptionId } = pageInfo.match.params;
+  const { stage, descriptionId, step } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
   const [fixedData, setFixedData] = useState(null);
@@ -75,8 +75,10 @@ export default pageInfo => {
         batchingListIds={batchingListIds}
         setBatchingListIds={setBatchingListIds}
         stage={stage}
+        arrayIndex={[step]}
       />
       <DocumentAndSubmit
+        arrayIndex={[step]}
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={

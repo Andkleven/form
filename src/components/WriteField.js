@@ -43,11 +43,13 @@ export default props => {
       (min && min < Number(value))
     ) {
       if (["checkbox", "radio", "switch"].includes(type)) {
+        console.log(value);
         let oldValue = objectPath.get(
           documentDateContext.documentDate,
           props.path,
           false
         );
+        console.log(oldValue);
         documentDateContext.setDocumentDate(prevState => {
           objectPath.set(prevState, props.path, !oldValue);
           return {
@@ -98,7 +100,6 @@ export default props => {
   const submitEdit = (event, data) => {
     event.persist();
     event.preventDefault();
-    chapterContext.setEditChapter(0);
     props.submitHandler(data);
   };
 
