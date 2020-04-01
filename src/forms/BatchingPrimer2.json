@@ -1,13 +1,13 @@
 {
   "batching": {
     "itemPath": "descriptions.0.items",
-    "dataPath": "leadEngineers"
+    "dataPath": "operators"
   },
   "ducument": {
     "queryPath": "operators",
     "spackQueryPath": "leadEngineers",
     "mutation": "OPERATORBATCHING",
     "query": "GET_OPERATOR_BY_DESCRIPTION",
-    "chapters": "steelPreparation1"
+    "chapters": "primer2"
   }
 }

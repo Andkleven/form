@@ -409,13 +409,36 @@ export const stringifyQuery = query => {
   return newObject;
 };
 
-export const getDataToBatching = (fixedData, batchingListIds, json) => {
-  let splitWordInJson = json.split(/[.]+/);
-  let key = splitWordInJson[splitWordInJson.length - 1];
+export const batchingKey = path => {
+  let splitWordInJson;
+  let key;
+  if (Array.isArray(path)) {
+    let lastPath = path[path.length - 1];
+    if (lastPath.trim()) {
+      splitWordInJson = lastPath.split(/[.]+/);
+      key = splitWordInJson[splitWordInJson.length - 1];
+    } else {
+      splitWordInJson = path[path.length - 2].split(/[.]+/);
+      key = splitWordInJson[splitWordInJson.length - 1];
+    }
+  } else {
+    splitWordInJson = path.split(/[.]+/);
+    key = splitWordInJson[splitWordInJson.length - 1];
+  }
+  return key;
+};
+
+export const getDataToBatching = (
+  fixedData,
+  batchingListIds,
+  path,
+  arrayIndex
+) => {
+  let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
     let newData = fixedData["descriptions"][0]["items"].find(
       item => item.id == batchingListIds[0]
-    )[json];
+    )[Array.isArray(path) ? createPath(path, arrayIndex) : path];
     return { [key]: newData };
   }
   return { [key]: [] };
