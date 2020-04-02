@@ -2,16 +2,27 @@ import React, {
   useState,
   createContext,
   useEffect,
-  useLayoutEffect
+  useLayoutEffect,
+  Fragment
 } from "react";
 import Chapters from "./Chapters";
+import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
+import findNextStage from "components/stages/FindNextStage";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
 import Title from "components/text/Title";
-import { allTrue, validaFieldWithValue, stringifyQuery } from "./Functions";
+import {
+  allTrue,
+  validaFieldWithValue,
+  stringifyQuery,
+  getData,
+  findValue,
+  allRequiredSatisfied,
+  createPath
+} from "./Functions";
 
 import FindNextStage from "components/stages/FindNextStage";
 

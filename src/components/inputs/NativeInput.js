@@ -6,7 +6,6 @@ import Duplicate from "./widgets/Duplicate";
 function NativeInput(props) {
   return (
     <Form.Group className={props.tight && "mb-1"}>
-      
       <div className="d-flex">
         <InputGroup className="d-flex">
           {props.prepend ? (
@@ -39,7 +38,7 @@ function NativeInput(props) {
             </InputGroup.Append>
           )}
         </InputGroup>
-        <Duplicate {...props} />
+        {/* <Duplicate {...props} /> */}
       </div>
       {props.subtext && (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
