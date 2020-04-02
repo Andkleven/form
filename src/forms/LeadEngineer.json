@@ -183,6 +183,7 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
+              "type": "Number",
               "maxInput": 22,
               "max": 22
             }
