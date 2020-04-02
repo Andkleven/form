@@ -9,7 +9,7 @@ import { objectifyQuery } from "components/Functions";
 
 export default pageInfo => {
   const { descriptionId, itemId, different } = pageInfo.match.params;
-  console.log(descriptionId, itemId, different);
+  // console.log(descriptionId, itemId, different);
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   // const { loading1, error1, data: getGategory } = useQuery(query["GET_GEOMETRY"], {

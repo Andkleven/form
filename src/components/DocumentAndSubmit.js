@@ -2,14 +2,14 @@ import React, {
   useState,
   createContext,
   useEffect,
-  useLayoutEffect,
-  Fragment
+  useLayoutEffect
+  // Fragment
 } from "react";
 import Chapters from "./Chapters";
-import Page from "./Page";
+// import Page from "./Page";
 import query from "../request/leadEngineer/Query";
 import mutations from "../request/leadEngineer/MutationToDatabase";
-import findNextStage from "components/stages/FindNextStage";
+// import findNextStage from "components/stages/FindNextStage";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
@@ -17,11 +17,11 @@ import Title from "components/text/Title";
 import {
   allTrue,
   validaFieldWithValue,
-  stringifyQuery,
-  getData,
-  findValue,
-  allRequiredSatisfied,
-  createPath
+  stringifyQuery
+  // getData,
+  // findValue,
+  // allRequiredSatisfied,
+  // createPath
 } from "./Functions";
 
 import FindNextStage from "components/stages/FindNextStage";
@@ -55,7 +55,7 @@ export default props => {
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
-  console.log(documentDate);
+  // console.log(documentDate);
 
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
