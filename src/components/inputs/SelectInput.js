@@ -74,7 +74,7 @@ export default props => {
             onChange={props.onChangeSelect}
           />
         )}
-        <Duplicate {...props} />
+        {/* <Duplicate {...props} /> */}
       </div>
       {props.subtext && (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>

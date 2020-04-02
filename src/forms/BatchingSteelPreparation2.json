@@ -1,7 +1,7 @@
 {
   "batching": {
     "itemPath": "descriptions.0.items",
-    "dataPath": "leadEngineers"
+    "dataPath": "operators"
   },
   "ducument": {
     "queryPath": "operators",

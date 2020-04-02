@@ -1,15 +1,15 @@
 import React from "react";
 import { ButtonGroup, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
-// GUIDE 
+// GUIDE
 // - onClick -
 // Use props onClickDuplicate and onClickDelete to control onClick events
-// 
+//
 // - Show Buttons -
 // Pass props duplicate and delete like so:
 // <Input duplicate delete/>
 // or if you want it to be dynamic:
-// <Input duplicate={someVariable} delete={someOtherVariable} /> 
+// <Input duplicate={someVariable} delete={someOtherVariable} />
 
 export default props => {
   const DuplicateButton = (

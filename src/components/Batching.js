@@ -1,9 +1,33 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
-import { findValue, allRequiredFinished } from "components/Functions";
+import { findValue } from "components/Functions";
 
 export default props => {
+  const allFields = (chapter, itemData) => {
+    let batchingData = {};
+    chapter.pages.forEach(page => {
+      page.fields.forEach(field => {
+        if (field.speckValueList) {
+          batchingData[field.fieldName] = findValue(
+            itemData,
+            field.speckValueList,
+            props.arrayIndex
+          );
+        } else if (field.fieldName && !props.partialBatching) {
+          batchingData[field.fieldName] = findValue(
+            itemData,
+
+            Array.isArray(props.json.batching.dataPath)
+              ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
+              : [props.json.batching.dataPath, `data.${field.fieldName}`],
+            props.arrayIndex
+          );
+        }
+      });
+    });
+  };
+
   const add = (item, batchingData) => {
     props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
     if (!props.batchingData) {
@@ -35,13 +59,7 @@ export default props => {
         objectPath
           .get(props.data, props.json.batching.itemPath)
           .map((item, index) => {
-            let batchingData = {};
-            props.json.batching.dataField.forEach(field => {
-              batchingData[field] = findValue(
-                item,
-                `${props.json.batching.dataPath}.0.data.${field}`
-              );
-            });
+            let batchingData = allFields(props.json.ducument.chapters, item);
             if (
               item.stage === props.stage &&
               (!props.batchingData ||
@@ -74,7 +92,7 @@ export default props => {
                         ? true
                         : false
                     }
-                    label={item.data[props.json.batching.showField]}
+                    label={item.itemId}
                   />
                 </Fragment>
               );
@@ -82,7 +100,7 @@ export default props => {
               //  fade out check box?
               return (
                 <div key={`${index}-text`} className="text-danger">
-                  {item.data[props.json.batching.showField]}
+                  {item.itemId}
                 </div>
               );
             }

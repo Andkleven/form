@@ -1,4 +1,10 @@
-import React, { useEffect, useContext, useState, useMemo } from "react";
+import React, {
+  useEffect,
+  useContext,
+  useState,
+  useLayoutEffect,
+  useMemo
+} from "react";
 import SelectSetFieldGroupData from "components/SelectSetFieldGroupData";
 import SubmitButton from "components/buttons/SubmitButton";
 import {
@@ -20,7 +26,7 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
-  useMemo(() => {
+  useLayoutEffect(() => {
     if (props.lastChapter) {
       chapterContext.setLastChapter(props.lastChapter);
     }
@@ -187,7 +193,6 @@ export default props => {
         ) : null}
       </div>
       {showLine && <Line />}
-
       {Components ? <Components {...props} /> : null}
       {props.fields ? (
         <>

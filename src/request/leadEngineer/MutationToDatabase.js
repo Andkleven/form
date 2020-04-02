@@ -10,6 +10,11 @@ const ORDER = gql`
         descriptions {
           id
           data
+          items {
+            id
+            itemId
+            different
+          }
           uploadFiles {
             id
             file

@@ -36,7 +36,7 @@ export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
   useEffect(() => {
-    if (!props.oneFile) {
+    if (!props.singleFile) {
       let oldFiles = objectPath.get(
         documentDateContext.documentDate,
         props.path
@@ -68,7 +68,7 @@ export default props => {
   } = useDropzone({
     accept: "image/*",
     onDrop: acceptedFiles => {
-      if (props.oneFile) {
+      if (props.singleFile) {
         objectPath.set(
           documentDateContext.documentDate,
           props.path,
