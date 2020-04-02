@@ -5,7 +5,7 @@ import TinyButton from "components/buttons/TinyButton";
 export default props => {
   return (
     <>
-      <div className="pt-2">
+      <div className={props.writeChapter && "pt-2"}>
         <div className="d-flex justify-content-between">
           <div>
             <i
@@ -22,36 +22,35 @@ export default props => {
               onClick={() => props.deleteHandler(props.index)}
               icon="trash-alt"
               color="danger"
-              tooltip="Delete file"
-              style={{ position: "relative", bottom: "0.5em" }}
+              tooltip={`Delete "${props.file.file.name}"`}
+              noPadding
             />
           )}
         </div>
       </div>
-      {props.description && (
-        <div className="">
-          {props.writeChapter ? (
+      {props.description &&
+        (props.writeChapter ? (
+          <div className="mt-2">
             <Input
               placeholder={`Description or comment...`}
               className=""
               value={props.file.fileDescription}
               onChange={e => props.onChange(e.target, props.index)}
             />
-          ) : (
-            props.file.fileDescription && (
-              <ReadField
-                {...props}
-                key={props.indexId}
-                readOnly={true}
-                label="Description"
-                value={
-                  props.file.fileDescription ? props.file.fileDescription : ""
-                }
-              />
-            )
-          )}
-        </div>
-      )}
+          </div>
+        ) : (
+          props.file.fileDescription && (
+            <ReadField
+              {...props}
+              key={props.indexId}
+              readOnly={true}
+              label="Description"
+              value={
+                props.file.fileDescription ? props.file.fileDescription : ""
+              }
+            />
+          )
+        ))}
     </>
   );
 };

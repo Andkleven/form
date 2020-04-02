@@ -76,14 +76,26 @@ export default props => {
     </div>
   );
 
+  const showUnit = [undefined, null, "", false].includes(props.unit)
+    ? ""
+    : props.unit;
+
+  const EmptyValue = () => (
+    <div className="text-secondary">
+      <em>―</em>
+    </div>
+  );
+
   const Value = props =>
     DateValue() || (
       <div className={`d-flex justify-content-between align-items-start h-100`}>
-        {(props.type !== "checkbox" && props.value) ||
+        {(props.type !== "checkbox" &&
+          ![null, false, "null", undefined].includes(props.value) &&
+          `${props.value}${showUnit}`) ||
           (props.value === false && `Not performed`) ||
           (props.value === true &&
             props.type === "checkbox" &&
-            `Performed`) || <div className="text-secondary">-</div>}
+            `Performed`) || <EmptyValue />}
         {props.readOnly ? null : (
           <TinyEditButton
             className={`justify-self-end ${showAboveBreakpoint()}`}

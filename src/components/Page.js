@@ -192,12 +192,7 @@ export default props => {
           </>
         ) : null}
       </div>
-
       {showLine && <Line />}
-      {/* {props.pageTitle &&
-        props.showEditButton &&
-        !props.stopLoop &&
-        !writeChapter && <Line />} */}
       {Components ? <Components {...props} /> : null}
       {props.fields ? (
         <>

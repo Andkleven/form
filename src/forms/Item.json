@@ -100,7 +100,7 @@
           ]
         },
         {
-          "label": "File upload",
+          "label": "File Upload",
           "type": "file",
           "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "pageName": "uploadFile",

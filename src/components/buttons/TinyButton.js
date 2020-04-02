@@ -10,9 +10,11 @@ export default props => {
     >
       <Button
         variant="link"
-        className={`py-0 m-0 px-1 text-center ${props.className}`}
+        className={`py-0 m-0 ${props.noPadding ? `px-0` : `px-1`} text-center ${
+          props.className
+        }`}
         onClick={props.onClick}
-        style={{ minWidth: "2em" }}
+        style={{ minWidth: props.noPadding ? `` : `1.8em` }}
       >
         <span className={`${props.color && `text-${props.color}`}`}>
           {props.icon && <i className={`fas fa-${props.icon}`} />}

@@ -56,7 +56,7 @@ export default props => {
             select="select"
             tight
             value={filters.stage}
-            onChange={e => {
+            onChangeSelect={e => {
               if (e) {
                 if (e.value) {
                   setFilters({ ...filters, stage: e.value });
@@ -76,7 +76,7 @@ export default props => {
             select="select"
             tight
             value={filters.geometry}
-            onChange={e => {
+            onChangeSelect={e => {
               if (e) {
                 if (e.value) {
                   setFilters({ ...filters, geometry: e.value });
