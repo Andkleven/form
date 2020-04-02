@@ -19,7 +19,6 @@
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
-              "unit": "Unit",
               "subtext": "Subtext",
               "type": "select",
               "options": ["Garnet", "Grit", "Aluminum Oxide"]
@@ -34,18 +33,21 @@
               "fieldName": "airTemperature",
               "label": "Air Temperature",
               "default": 15,
+              "unit": "°C",
               "type": "Number"
             },
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
               "default": 15,
+              "unit": "°C",
               "type": "Number"
             },
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
               "default": 15,
+              "unit": "°C",
               "type": "Number"
             },
             {
@@ -220,7 +222,7 @@
           "repeatStartWithOneGroup": true,
           "delete": true,
           "addButton": "Add Step",
-          "pageTitle": "Vulcanization Steps",
+          "pageTitle": "Vulcanization",
           "indexVariableFieldGroupRepeatTitle": true,
           "fieldGroupRepeatTitle": "Step {}",
           "fields": [
@@ -248,7 +250,7 @@
             },
             {
               "page": true,
-              "pageTitle": "Coating Layer",
+              "pageTitle": "Coating",
               "queryPath": "coatingLayers",
               "repeat": true,
               "notAddButton": true,
@@ -269,7 +271,7 @@
                   "fieldName": "compoundNumber",
                   "label": "Compound Number",
                   "type": "select",
-                  "options": ["Compound Number", 73165]
+                  "options": [73165]
                 },
                 {
                   "fieldName": "actualThicknes",

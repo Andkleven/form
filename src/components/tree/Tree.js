@@ -21,11 +21,13 @@ export default memo(
         transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`
       },
       config: {
-        mass: 1 + 0.001 * viewHeight,
-        tension: isOpen ? 800 * (1 + 0.008 * viewHeight) : 1000,
+        mass: 1 + 0.00125 * viewHeight,
+        tension: isOpen
+          ? 800 * (1 + 0.007 * viewHeight)
+          : 400 * (1 + 0.007 * viewHeight),
         friction: isOpen
-          ? 35 * (1 + 0.004 * viewHeight)
-          : 35 * (1 + 0.004 * viewHeight),
+          ? 35 * (1 + 0.005 * viewHeight)
+          : 35 * (1 + 0.005 * viewHeight),
         clamp: isOpen ? false : true
       }
     });

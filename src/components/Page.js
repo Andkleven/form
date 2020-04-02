@@ -153,10 +153,15 @@ export default props => {
     props.speckData
   ]);
 
+  // Checks for conditional rendering
+  const showTitleOrSubtitle = !props.stopLoop && props.showEditButton;
+  const showEditAll = props.showEditButton && !props.stopLoop && !writeChapter;
+  const showLine = props.pageTitle && true;
+
   return (
     <div className={`${!props.lastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
-        {!props.stopLoop && props.showEditButton ? (
+        {showTitleOrSubtitle ? (
           <Title key={`${props.thisChapter}-${props.index}-jja`}>
             {props.pageTitle}
           </Title>
@@ -166,7 +171,7 @@ export default props => {
           </Subtitle>
         )}
 
-        {props.showEditButton && !props.stopLoop && !writeChapter ? (
+        {showEditAll ? (
           <>
             <TabButton
               // size="sm"
@@ -181,12 +186,8 @@ export default props => {
           </>
         ) : null}
       </div>
+      {showLine && <Line />}
 
-      <Line />
-      {/* {props.pageTitle &&
-        props.showEditButton &&
-        !props.stopLoop &&
-        !writeChapter && <Line />} */}
       {Components ? <Components {...props} /> : null}
       {props.fields ? (
         <>

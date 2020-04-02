@@ -464,7 +464,7 @@ export const camelCaseToNormal = string => {
     return String(string);
   } else if (typeof string === "string") {
     if (!string.includes(" ")) {
-      string = string[0] + string.slice(1).replace(/([A-Z])/g, " $1");
+      string = string[0] + string.slice(1).replace(/[^A-Z](?=[A-Z])/g, "$& ");
     }
     string = string.charAt(0).toUpperCase() + string.slice(1);
     string = string.replace(/[^0-9](?=[0-9])/g, "$& ");

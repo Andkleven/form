@@ -110,33 +110,32 @@ export default props => {
 
   return (
     <>
-      <div className="p-3 border rounded">
+      <div className={`p-3 border rounded`}>
         <section className="container px-0">
           {props.writeChapter && (
             <div {...getRootProps({ style })} className="">
               <input {...getInputProps()} />
               <p className="mt-2">
-                {files.length && props.oneFile
+                {files.length && props.singleFile
                   ? objectPath.get(documentDateContext.documentDate, props.path)
                       .file
                   : `Drag 'n' drop ${
-                      props.oneFile ? "file" : "files"
-                    }, or click to
-              upload.`}
+                      props.singleFile ? "file" : "files"
+                    }, or click to upload.`}
               </p>
             </div>
           )}
-          {files.length && !props.oneFile ? (
+          {files.length && !props.singleFile ? (
             <aside>
-              <label className="mt-3">
-                Uploaded{" "}
-                {props.oneFile || files.length === 1 ? "file" : "files"}
-                {/* <div className="text-secondary d-inline">
-                  {" "}
-                  (Click file to add description)
-                </div> */}
-              </label>
-              <hr className="w-100 mt-0 mb-2" />
+              {props.writeChapter && (
+                <>
+                  <label className={`${props.writeChapter ? `mt-3` : ``}`}>
+                    Uploaded{" "}
+                    {props.singleFile || files.length === 1 ? "file" : "files"}
+                  </label>
+                  <hr className="w-100 m-0" />
+                </>
+              )}
               <ul className="list-unstyled mb-0">
                 {files.map((file, index) => (
                   <FileDescription
@@ -150,7 +149,14 @@ export default props => {
                 ))}
               </ul>
             </aside>
-          ) : null}
+          ) : (
+            !props.writeChapter && (
+              <div className="text-secondary">
+                <i className="fal fa-file-times mr-2" />
+                <div className="d-inline">No files uploaded.</div>
+              </div>
+            )
+          )}
         </section>
       </div>
     </>
