@@ -44,7 +44,7 @@ export default props => {
   const [isSubmited, setIsSubmited] = useState(false);
   const [validationPassed, setvalidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
-  console.log(validationPassed);
+  console.log(documentDate);
 
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
@@ -219,7 +219,7 @@ export default props => {
               onSubmit={e => {
                 e.persist();
                 e.preventDefault();
-                submitHandler();
+                submitHandler(documentDate);
               }}
             >
               <Chapters
