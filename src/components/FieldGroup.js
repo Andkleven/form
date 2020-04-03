@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import objectPath from "object-path";
-import FeildProperties from "components/FeildProperties";
+import FieldProperties from "components/FieldProperties";
 import Page from "./Page";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import Line from "./Line";
@@ -54,7 +54,9 @@ export default props => {
         />
       );
     } else {
-      return <FeildProperties key={index} {...field} {...props} />;
+      return (
+        <FieldProperties key={index} {...field} {...props} index={index} />
+      );
     }
   });
 };

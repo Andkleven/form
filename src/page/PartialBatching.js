@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import allBatchingJson from "../forms/PartialBatching.json";
-import operatorCoatedItemJson from "../forms/Operator.json";
-import operatorMouldJson from "../forms/Operator.json";
+import operatorCoatedItemJson from "../forms/OperatorCoatedItem.json";
+import operatorMouldJson from "../forms/OperatorMould.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import objectPath from "object-path";
@@ -40,7 +40,9 @@ export default pageInfo => {
       variables: { id: descriptionId }
     }
   );
-  setFixedData(objectifyQuery(data));
+  useEffect(() => {
+    setFixedData(objectifyQuery(data));
+  }, [loading, error, data, reRender]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;

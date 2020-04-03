@@ -7,7 +7,7 @@
       "pages": [
         {
           "pageTitle": "Steel Preparation",
-          "queryPath": "leadEngineers.0",
+          "queryPath": "leadEngineers",
           "fields": [
             {
               "fieldName": "relativeHumidity",
@@ -51,7 +51,7 @@
         {
           "pageTitle": "Coating and Vulcanzation",
           "query": "GET_LEAD_ENGINEER",
-          "queryPath": "leadEngineers.0",
+          "queryPath": "leadEngineers",
           "mutation": "LEADENGINEER",
           "fields": [
             {
@@ -211,7 +211,7 @@
           "pages": [
             {
               "pageTitle": "Final Inspection",
-              "queryPath": "leadEngineers.0",
+              "queryPath": "leadEngineers",
               "fields": [
                 {
                   "fieldName": "hardnessOfOuterLayer",

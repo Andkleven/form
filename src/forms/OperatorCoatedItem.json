@@ -10,7 +10,7 @@
       "pages": [
         {
           "pageTitle": "Media Blasting",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "speckValueList": "leadEngineers.0.data.blastMedia",
@@ -73,7 +73,7 @@
       "pages": [
         {
           "pageTitle": "Media Blasting",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "fieldName": "inspectionOfSteelSurface",
@@ -236,7 +236,7 @@
       "pages": [
         {
           "pageTitle": "Priming 1",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "speckValueList": "leadEngineers.0.data.primer1",
@@ -261,7 +261,7 @@
       "pages": [
         {
           "pageTitle": "Priming 2",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "speckValueList": "leadEngineers.0.data.primer2",
@@ -310,7 +310,7 @@
       "pages": [
         {
           "pageTitle": "Rubber Cement Before Coating",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "speckValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
@@ -493,7 +493,7 @@
       "pages": [
         {
           "pageTitle": "Touch-Up",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "fieldName": "touchUp",

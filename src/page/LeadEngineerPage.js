@@ -7,22 +7,19 @@ import DocumentAndSubmit from "components/DocumentAndSubmit";
 import PaperStack from "components/PaperStack";
 import Paper from "components/Paper";
 import { objectifyQuery, coatedItemORMould } from "components/Functions";
-
+let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {
-  const { descriptionId, itemId, different } = pageInfo.match.params;
-
+  const {
+    descriptionId,
+    itemId,
+    different,
+    description
+  } = pageInfo.match.params;
 
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-  const { loading1, error1, data: getGategory } = useQuery(
-    query["GET_GEOMETRY"],
-    {
-      variables: { id: descriptionId }
-    }
-  );
-  let gategory = objectifyQuery(getGategory);
-  let leadEngineersJson = coatedItemORMould(
-    gategory.data.description,
+  leadEngineersJson = coatedItemORMould(
+    description.toString(),
     leadEngineersCoatedItemJson,
     leadEngineersMouldJson
   );
@@ -36,8 +33,6 @@ export default pageInfo => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  if (loading1) return <p>Loading...</p>;
-  if (error1) return <p>Error :(</p>;
   return (
     <PaperStack>
       <Paper>

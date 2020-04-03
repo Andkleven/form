@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "../history";
 import query from "../request/leadEngineer/Query";
 import objectPath from "object-path";
-import itemsJson from "../forms/Item.json";
+import itemsJson from "../forms/Order.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
@@ -139,6 +139,7 @@ export default props => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+  console.log(geometryData);
   return (
     <Paper>
       <DocumentAndSubmit
@@ -164,7 +165,7 @@ export default props => {
               history.push(
                 `/order/lead-engineer/${geometryData.id}/${
                   geometryData.items.find(item => item.different === false).id
-                }/0`
+                }/0/${geometryData.data.geometry}`
               )
             }
           >
@@ -185,7 +186,9 @@ export default props => {
                 });
               }
               history.push(
-                `/order/lead-engineer/${geometryData.id}/${item.id}/1`
+                `/order/lead-engineer/${geometryData.id}/${item.id}/1/${
+                  geometryData.data.geometry
+                }`
               );
             }}
             submitDelete={id => {

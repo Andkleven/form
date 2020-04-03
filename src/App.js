@@ -41,7 +41,7 @@ export default () => (
             <Route exact path="/orders" component={OperatorPage} />
             <Route path="/order/item/:_id" component={Item} />
             <Route
-              path="/order/lead-engineer/:descriptionId/:itemId/:different"
+              path="/order/lead-engineer/:descriptionId/:itemId/:different/:description"
               component={LeadEngineerPage}
             />
             <Route

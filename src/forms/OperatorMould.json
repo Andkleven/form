@@ -10,7 +10,7 @@
       "pages": [
         {
           "pageTitle": "Media Blasting",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "speckValueList": "leadEngineers.0.data.blastMedia",
@@ -102,7 +102,7 @@
       "pages": [
         {
           "pageTitle": "Rubber Cement",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "speckValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
