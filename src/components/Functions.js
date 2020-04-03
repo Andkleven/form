@@ -503,3 +503,25 @@ export const reshapeStageSting = stage => {
   }
   return newStage;
 };
+
+export const coatedItemORMould = (
+  gategory,
+  leadEngineersCoatedItemJson,
+  leadEngineersMouldJson
+) => {
+  let leadEngineersJson;
+  if (removeSpace(gategory).lowerCase() === "coateditem") {
+    leadEngineersJson = leadEngineersCoatedItemJson;
+  } else if (removeSpace(gategory).lowerCase() === "mould") {
+    leadEngineersJson = leadEngineersMouldJson;
+  }
+  return leadEngineersJson;
+};
+
+export const getStepFromStage = stage => {
+  let step = null;
+  if (stage.split("Step")[1]) {
+    step = Number(stage.split("Step")[1]);
+  }
+  return step;
+};

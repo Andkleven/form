@@ -242,12 +242,6 @@
               "speckValueList": "leadEngineers.0.data.primer1",
               "label": "Primer Number"
             },
-            { "line": true },
-            {
-              "fieldName": "batchNumberpriming1",
-              "label": "Batch Number",
-              "type": "number"
-            },
             {
               "fieldName": "startTimePriming1",
               "label": "Start Time",
@@ -272,12 +266,6 @@
             {
               "speckValueList": "leadEngineers.0.data.primer2",
               "label": "Primer Number:"
-            },
-            { "line": true },
-            {
-              "fieldName": "batchNumberpriming2",
-              "label": "Batch Number",
-              "type": "number"
             },
             {
               "fieldName": "startTimePriming2",
@@ -317,7 +305,7 @@
         }
       ]
     },
-    "rubberCement": {
+    "rubberCementsBeforeCoating": {
       "queryPath": "operators",
       "pages": [
         {
@@ -327,12 +315,6 @@
             {
               "speckValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
               "label": "Rubber Cement:"
-            },
-            { "line": true },
-            {
-              "fieldName": "mixDateRubberCement",
-              "label": "Mix Date",
-              "type": "date"
             },
             {
               "fieldName": "startTimeRubberCement",

@@ -1,8 +1,0 @@
-[
-  {
-    "queryPath": "leadEngineers.0.vulcanizationSteps.0",
-    "fieldPath": "numberOfLayers",
-    "numberFromField": true,
-    "name": "coating1"
-  }
-]

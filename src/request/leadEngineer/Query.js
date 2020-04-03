@@ -264,6 +264,81 @@ const OPERATOR_PROJECTS = gql`
   }
 `;
 
+const QUALITY_CONTROL = gql`
+  query($id: Int) {
+    items(id: $id) {
+      id
+      itemId
+      different
+      qrCode
+      repair
+      operatorDone
+      qualityControlDone
+      leadEngineers {
+        id
+        data
+        measurementPointActualTvds {
+          id
+          data
+        }
+        rubberCements {
+          id
+          data
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
+            id
+            data
+            cumulativeThicknes {
+              id
+              data
+            }
+          }
+        }
+      }
+      operators {
+        id
+        data
+        measurementPointActualTvds {
+          id
+          data
+        }
+        vulcanizationOperators {
+          id
+          data
+          coatingOperators {
+            id
+            data
+            measurementPointOperators {
+              id
+              data
+            }
+          }
+          measurementPointOperators {
+            id
+            data
+          }
+        }
+      }
+      finalInspectionQualityControls {
+        id
+        data
+        measurementPointQcs {
+          id
+          data
+        }
+        uploadFiles {
+          id
+          file
+          fileDescription
+        }
+      }
+    }
+  }
+`;
+
 const query = {
   ALL,
   GET_ORDER_GEOMETRY,
@@ -272,6 +347,7 @@ const query = {
   GET_ORDER,
   GET_OPERATOR_BY_DESCRIPTION,
   GET_OPERATOR_BY_ITEM,
-  OPERATOR_PROJECTS
+  OPERATOR_PROJECTS,
+  QUALITY_CONTROL
 };
 export default query;

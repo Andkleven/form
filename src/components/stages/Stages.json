@@ -21,7 +21,7 @@
     },
     "actualSteelMeasurement": { "queryPath": "" },
 
-    "rubberCement": {
+    "rubberCementsBeforeCoating": {
       "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
     },
     "coatingStep": {
@@ -39,12 +39,8 @@
 
   "mould": {
     "steelPreparation1": { "queryPath": "" },
-
-    "primer1": {
-      "queryPath": "leadEngineers.0.data.primer1"
-    },
-    "primer2": {
-      "queryPath": "leadEngineers.0.data.primer2"
+    "rubberCementsBeforeCoating": {
+      "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
     },
     "coatingStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""]
