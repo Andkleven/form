@@ -1,11 +1,10 @@
-import React, { Fragment, useEffect, useContext } from "react";
+import React, { Fragment, useEffect } from "react";
 import {
   getData,
   findValue,
   allRequiredSatisfied,
   createPath
 } from "./Functions";
-import { ChapterContext } from "components/DocumentAndSubmit";
 import Page from "./Page";
 import findNextStage from "components/stages/FindNextStage";
 import Title from "components/text/Title";
@@ -13,8 +12,6 @@ import Title from "components/text/Title";
 // import objectPath from "object-path";
 
 export default props => {
-  const chapterContext = useContext(ChapterContext);
-
   let stopLoop = false; // True when we are at the first chaper now one have wirte on
   let temporaryLastChapter = 0;
   let count = 0;
@@ -62,7 +59,7 @@ export default props => {
             showEditButton={showEditButton}
             indexId={`${count + 1}-${index}`}
             index={index}
-            // lastChapter={temporaryLastChapter}
+            lastChapter={temporaryLastChapter}
             submitData={props.submitData}
             mutation={props.mutation}
             showSaveButton={showSaveButton}

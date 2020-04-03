@@ -46,7 +46,7 @@
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
-              "default": 15,
+              "default": 3,
               "unit": "°C",
               "type": "Number"
             },
@@ -324,6 +324,55 @@
                       "type": "Number"
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pages": [
+            {
+              "pageTitle": "Final Inspection",
+              "queryPath": "leadEngineers.0",
+              "fields": [
+                {
+                  "fieldName": "hardnessOfOuterLayer",
+                  "label": "Hardness of Outer Layer",
+                  "unit": "Shore A"
+                },
+                {
+                  "fieldName": "identificationMarking",
+                  "label": "Identification Marking"
+                },
+                {
+                  "fieldName": "peelTest",
+                  "label": "Peel Test",
+                  "type": "N/25mm"
+                },
+                {
+                  "fieldName": "totalCoatingThickness",
+                  "label": "Total Coating Thickness",
+                  "type": "checkbox"
+                },
+                {
+                  "fieldName": "visualInspection",
+                  "label": "Visual Inspection",
+                  "type": "checkbox"
+                },
+                {
+                  "fieldName": "finalDimensionsCheck",
+                  "label": "Final Dimensions Check",
+                  "type": "checkbox"
+                },
+                {
+                  "fieldName": "sparkTest",
+                  "label": "Spark Test",
+                  "type": "checkbox"
+                },
+                {
+                  "fieldName": "hammerTest",
+                  "label": "Hammer Test",
+                  "type": "checkbox"
                 }
               ]
             }

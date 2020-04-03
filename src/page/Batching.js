@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
-import batchingJson from "../forms/BatchingPriming.json";
-import Operator from "../forms/Operator.json";
+import allBatchingJson from "../forms/Batching.json";
+import operatorCoatedItemJson from "../forms/Operator.json";
+import operatorMouldJson from "../forms/Operator.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import objectPath from "object-path";
@@ -11,19 +12,26 @@ import {
   findValue,
   removeSpace,
   objectifyQuery,
-  getDataToBatching
+  getDataToBatching,
+  reshapeStageSting,
+  coatedItemORMould,
+  getStepFromStage
 } from "components/Functions";
 
-batchingJson.ducument.chapters = [
-  Operator.chapters[batchingJson.ducument.chapters]
-];
-
 export default pageInfo => {
-  const { stage, descriptionId, step } = pageInfo.match.params;
+  const { stage, descriptionId, geometry } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(false);
+  let operatorJson = coatedItemORMould(
+    geometry,
+    operatorCoatedItemJson,
+    operatorMouldJson
+  );
+  let batchingJson = (allBatchingJson[
+    reshapeStageSting(stage)
+  ].ducument.chapters = [operatorJson.chapters[reshapeStageSting(stage)]]);
 
   const { loading, error, data } = useQuery(
     query[batchingJson.ducument.query],
@@ -31,10 +39,8 @@ export default pageInfo => {
       variables: { id: descriptionId }
     }
   );
+  setFixedData(objectifyQuery(data));
 
-  useEffect(() => {
-    setFixedData(objectifyQuery(data));
-  }, [loading, error, data, reRender]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
@@ -75,10 +81,10 @@ export default pageInfo => {
         batchingListIds={batchingListIds}
         setBatchingListIds={setBatchingListIds}
         stage={stage}
-        arrayIndex={[step]}
+        arrayIndex={getStepFromStage(stage) && [getStepFromStage(stage)]}
       />
       <DocumentAndSubmit
-        arrayIndex={[step]}
+        arrayIndex={getStepFromStage(stage) && [getStepFromStage(stage)]}
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={

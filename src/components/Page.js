@@ -27,7 +27,7 @@ export default props => {
   const fieldsContext = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState(undefined);
   useLayoutEffect(() => {
-    if (props.lastChapter) {
+    if (props.lastChapter && props.lastChapter !== chapterContext.lastChapter) {
       chapterContext.setLastChapter(props.lastChapter);
     }
   }, [props.lastChapter]);

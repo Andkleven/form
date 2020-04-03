@@ -1,0 +1,93 @@
+{
+  "steelPreparation1": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": "operators",
+      "spackQueryPath": "leadEngineers",
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  },
+  "steelPreparation2": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": "operators",
+      "spackQueryPath": "leadEngineers",
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  },
+  "primer1": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": "operators",
+      "spackQueryPath": "leadEngineers",
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  },
+  "primer2": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": "operators",
+      "spackQueryPath": "leadEngineers",
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  },
+  "rubberCementsBeforeCoating": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": "operators",
+      "spackQueryPath": "leadEngineers",
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  },
+  "vulcanizationStep": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": ["operators.0.vulcanizationOperators", ""],
+      "spackQueryPath": ["leadEngineers.0.vulcanizationOperators", ""],
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  },
+  "touchUp": {
+    "batching": {
+      "itemPath": "descriptions.0.items",
+      "dataPath": "operators"
+    },
+    "ducument": {
+      "queryPath": "operators",
+      "spackQueryPath": "leadEngineers",
+      "mutation": "OPERATORBATCHING",
+      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "chapters": ""
+    }
+  }
+}
