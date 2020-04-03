@@ -10,10 +10,8 @@ import { objectifyQuery, coatedItemORMould } from "components/Functions";
 
 export default pageInfo => {
   const { descriptionId, itemId, different } = pageInfo.match.params;
-<<<<<<< HEAD
-=======
-  // console.log(descriptionId, itemId, different);
->>>>>>> master
+
+
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   const { loading1, error1, data: getGategory } = useQuery(
