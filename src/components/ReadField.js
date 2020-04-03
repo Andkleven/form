@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import { FieldsContext, ChapterContext } from "./DocumentAndSubmit";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import ErrorMessage from "./ErrorMessage";
-import Moment from "react-moment";
-import { isStringInstance } from "./Functions";
 import "../styles/styles.css";
 import TinyButton from "components/buttons/TinyButton";
 import LightLine from "components/LightLine";
+import { convertDatetimeToString } from "functions/datetime";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
@@ -16,30 +15,6 @@ export default props => {
     fieldsContext.setIsSubmited(false);
     chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
     fieldsContext.setvalidationPassed({});
-  };
-
-  const DateValue = () => {
-    if (["date", "datetime-local"].includes(props.type)) {
-      return (
-        <>
-          <Moment
-            parse={props.type === "date" ? "dd/MM/yyyy" : "dd/MM/yyyy HH:mm"}
-          >
-            {/* Good to have when dealing with dates */}
-            {isStringInstance(props.value) ? null : props.value}
-            TEST
-          </Moment>
-          {props.readOnly ? null : (
-            <TinyButton
-              onClick={() => flipToWrite()}
-              icon="pencil-alt"
-              color="dark"
-            />
-          )}
-        </>
-      );
-    }
-    return false;
   };
 
   const breakpoint = "sm";
@@ -61,11 +36,11 @@ export default props => {
     />
   );
 
-  const BigEditButton = props => (
-    <Button {...props} onClick={() => flipToWrite()} icon="pencil">
-      {/* {props.children} */}
-    </Button>
-  );
+  // const BigEditButton = props => (
+  //   <Button {...props} onClick={() => flipToWrite()} icon="pencil">
+  //     {/* {props.children} */}
+  //   </Button>
+  // );
 
   const Label = props => (
     <div className={`d-flex justify-content-between align-items-start h-100`}>
@@ -86,20 +61,41 @@ export default props => {
     </div>
   );
 
+  const DateValue = () => {
+    if (["date", "datetime-local"].includes(props.type)) {
+      const datetimeString = convertDatetimeToString(
+        props.value,
+        props.type
+      ) || <EmptyValue />;
+
+      return (
+        <>
+          <div
+            className={`d-flex justify-content-between align-items-start h-100`}
+          >
+            <div>{datetimeString}</div>
+            {props.readOnly ? null : (
+              <TinyEditButton className={showAboveBreakpoint()} />
+            )}
+          </div>
+        </>
+      );
+    }
+    return false;
+  };
+
   const Value = props =>
     DateValue() || (
       <div className={`d-flex justify-content-between align-items-start h-100`}>
         {(props.type !== "checkbox" &&
-          ![null, false, "null", undefined].includes(props.value) &&
+          ![null, false, "null", undefined, ""].includes(props.value) &&
           `${props.value}${showUnit}`) ||
           (props.value === false && `Not performed`) ||
           (props.value === true &&
             props.type === "checkbox" &&
             `Performed`) || <EmptyValue />}
         {props.readOnly ? null : (
-          <TinyEditButton
-            className={`justify-self-end ${showAboveBreakpoint()}`}
-          />
+          <TinyEditButton className={showAboveBreakpoint()} />
         )}
       </div>
     );
@@ -118,13 +114,7 @@ export default props => {
             <Label {...props} />
             <Value {...props} />
           </div>
-          <BigEditButton
-            className="h-100 border text-secondary"
-            variant="light"
-          >
-            {/* <i className="fal fa-pencil mr-1" /> */}
-            Edit
-          </BigEditButton>
+          {props.readOnly ? null : <TinyEditButton />}
         </div>
       </Col>
       <Col xs="12">

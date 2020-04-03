@@ -20,7 +20,6 @@
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
-              "placeholder": "Placeholder",
               "routToSpeckMax": "leadEngineers.0.data.relativeHumidityt",
               "unit": "%",
               "required": true
@@ -29,33 +28,31 @@
               "fieldName": "airTemperature",
               "label": "Air Temperature",
               "routToSpeckMin": "leadEngineers.0.data.airTemperature",
-              "placeholder": "Placeholder",
-              "unit": "C",
+              "unit": "°C",
+              "type": "number",
               "required": true
             },
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
               "routToSpeckMin": "leadEngineers.0.data.steelTemperature",
-              "placeholder": "Placeholder",
-              "unit": "C",
+              "unit": "°C",
+              "type": "number",
               "required": true
             },
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
               "routToSpeckMin": "leadEngineers.0.data.temperatureOverDewPoint",
-              "placeholder": "Placeholder",
-              "unit": "C",
+              "unit": "°C",
+              "type": "number",
               "required": true
             },
             {
               "fieldName": "equipmentIDMediaBlasting",
               "label": "Equipment ID",
               "speckSubtextList": "leadEngineers.0.data.primer1",
-              "subtext": "Jaja: {}",
-              "placeholder": "Placeholder",
-              "unit": "C"
+              "subtext": "Jaja: {}"
             },
             {
               "fieldName": "nextCalibrationDateMediaBlasting",
@@ -123,7 +120,7 @@
             {
               "showFieldSpackPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "compressedAirCheck",
-              "label": "compressed Air Check",
+              "label": "Compressed Air Check",
               "subtext": "ASTM D 4285, No oil and no water",
               "type": "checkbox"
             },

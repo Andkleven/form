@@ -43,13 +43,13 @@ export default props => {
       (min && min < Number(value))
     ) {
       if (["checkbox", "radio", "switch"].includes(type)) {
-        console.log(value);
+        // console.log(value);
         let oldValue = objectPath.get(
           documentDateContext.documentDate,
           props.path,
           false
         );
-        console.log(oldValue);
+        // console.log(oldValue);
         documentDateContext.setDocumentDate(prevState => {
           objectPath.set(prevState, props.path, !oldValue);
           return {
