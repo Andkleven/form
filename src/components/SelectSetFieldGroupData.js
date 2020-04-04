@@ -90,6 +90,7 @@ export default props => {
             ? [...props.arrayIndex, 0]
             : [0]
         }
+        data={props.data[0]}
         path={`${props.path}.0`}
         repeatStep={0}
         indexId={`${props.indexId}-0`}

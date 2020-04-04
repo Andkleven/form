@@ -182,8 +182,11 @@ export default props => {
             <TabButton
               // size="sm"
               onClick={() => {
-                chapterContext.setEditChapter(props.thisChapter);
-                fieldsContext.setvalidationPassed({});
+                if (window.confirm("Are you sure you wish to edit?")) {
+                  fieldsContext.setIsSubmited(false);
+                  chapterContext.setEditChapter(props.thisChapter);
+                  fieldsContext.setvalidationPassed({});
+                }
               }}
               key={chapterContext.lastChapter}
             >
@@ -200,6 +203,7 @@ export default props => {
             {...props}
             writeChapter={writeChapter}
             deleteHandler={deleteHandler}
+            addHandeler={addHandeler}
           />
           {!props.notAddButton && props.repeat && writeChapter ? (
             <button type="button" onClick={() => addHandeler()}>

@@ -12,9 +12,13 @@ export default props => {
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
-    fieldsContext.setIsSubmited(false);
-    chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
-    fieldsContext.setvalidationPassed({});
+    if (window.confirm("Are you sure you wish to edit?")) {
+      fieldsContext.setIsSubmited(false);
+      chapterContext.setEditChapter(
+        `${props.repeatStepList}-${props.fieldName}`
+      );
+      fieldsContext.setvalidationPassed({});
+    }
   };
 
   const breakpoint = "sm";

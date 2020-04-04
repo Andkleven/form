@@ -364,6 +364,29 @@
           ]
         },
         {
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            "coatingOperators",
+            "mixDates"
+          ],
+          "fields": [
+            {
+              "fieldName": "mixDate1",
+              "label": "Mix Date",
+              "type": "date"
+            },
+            {
+              "fieldName": "mixDate2",
+              "label": "Mix Date",
+              "type": "date"
+            }
+          ]
+        },
+        {
           "fields": [
             {
               "speckValueList": [

@@ -106,6 +106,7 @@ const GET_LEAD_ENGINEER = gql`
         coatingLayers {
           id
           data
+
           cumulativeThicknes {
             id
             data
@@ -229,6 +230,10 @@ const GET_OPERATOR_BY_ITEM = gql`
           coatingOperators {
             id
             data
+            mixDates {
+              id
+              data
+            }
             measurementPointOperators {
               id
               data

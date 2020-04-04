@@ -191,9 +191,14 @@ const OPERATOR = gql`
         vulcanizationOperators {
           id
           data
+
           coatingOperators {
             id
             data
+            mixDates {
+              id
+              data
+            }
             measurementPointOperators {
               id
               data

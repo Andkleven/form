@@ -14,6 +14,7 @@ import NativeInput from "./inputs/NativeInput";
 import CheckInput from "./inputs/CheckInput";
 import SelectInput from "./inputs/SelectInput";
 import FileInput from "./inputs/FileInput";
+import Duplicate from "components/inputs/widgets/Duplicate";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
@@ -65,5 +66,6 @@ const InputType = props => {
 export default props => (
   <InputShell {...props}>
     <InputType {...props} />
+    {/* {props.repeat && props.repeatStartWithOneGroup && <Duplicate {...props}   />} */}
   </InputShell>
 );

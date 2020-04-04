@@ -18,7 +18,7 @@ export default props => {
         variant="light"
         className="border ml-1"
         style={{ zIndex: 0 }}
-        onClick={props.onClickDuplicate}
+        onClick={props.addHandeler}
       >
         <div className="d-flex align-items-center text-dark">
           <i className="far fa-clone" style={{ width: "1.2em" }} />
@@ -33,7 +33,7 @@ export default props => {
         variant="light"
         className="border"
         style={{ zIndex: 0 }}
-        onClick={props.onClickDelete}
+        onClick={props.deleteHandler(props.repeatStep)}
       >
         <div className="d-flex align-items-center text-dark">
           <i className="far fa-trash" style={{ width: "1.2em" }} />
@@ -44,7 +44,7 @@ export default props => {
 
   return (
     <ButtonGroup>
-      {props.duplicate && <DuplicateButton />}
+      <DuplicateButton />
       {props.delete && <DeleteButton />}
     </ButtonGroup>
   );
