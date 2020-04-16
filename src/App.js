@@ -13,6 +13,7 @@ import OperatorPage from "./page/OperatorPage";
 import Div100vh from "react-div-100vh";
 import PartialBatching from "./page/PartialBatching";
 import Batching from "./page/Batching";
+import QualityControl from "./page/QualityControl";
 import SingleItem from "./page/SingleItem";
 import ViewFile from "components/ViewFile";
 
@@ -53,8 +54,12 @@ export default () => (
               component={PartialBatching}
             />
             <Route
-              path="/singelItem/:itemId/:geometry"
+              path="/singel-item/:itemId/:geometry"
               component={SingleItem}
+            />
+            <Route
+              path="/quality-control/:item/:geometry"
+              component={QualityControl}
             />
 
             <Route path="/lead-engineer" component={LeadEngineerStartPage} />

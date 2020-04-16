@@ -1,6 +1,7 @@
 import React from "react";
 import objectPath from "object-path";
 import { Fragment } from "react";
+import Math from "components/Math";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -294,11 +295,14 @@ export const calculateMaxMin = (
   min,
   routToSpeckMin,
   editRepeatStepListMin,
+  calculateMin,
   max,
   routToSpeckMax,
   editRepeatStepListMax,
+  calculateMax,
   repeatStepList,
-  data
+  data,
+  allData
 ) => {
   let newMin;
   let newMax;
@@ -309,6 +313,8 @@ export const calculateMaxMin = (
       repeatStepList,
       editRepeatStepListMin
     );
+  } else if (calculateMin) {
+    min = Math[calculateMin](allData);
   } else {
     newMin = min;
   }
@@ -319,6 +325,8 @@ export const calculateMaxMin = (
       repeatStepList,
       editRepeatStepListMax
     );
+  } else if (calculateMax) {
+    max = Math[calculateMax](allData);
   } else {
     newMax = max;
   }
@@ -438,10 +446,10 @@ export const allRequiredFinished = (data, fields) => {
   return requiredApproved;
 };
 
-export const formDataStructure = (json, data, path) => {
-  let lastPath = json[path].split(".");
+export const formDataStructure = (data, path) => {
+  let lastPath = path.split(".");
   return {
-    [lastPath[lastPath.length - 1]]: objectPath.get(data, json[path], null)
+    [lastPath[lastPath.length - 1]]: objectPath.get(data, path, null)
   };
 };
 

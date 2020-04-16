@@ -1,6 +1,4 @@
 {
-  "queryPath": "items.0.operators",
-  "spackQueryPath": "items.0.leadEngineers",
   "mutation": "OPERATOR",
   "query": "GET_OPERATOR_BY_ITEM",
   "chapterByStage": true,

@@ -1,0 +1,99 @@
+{
+  "queryPath": "leadEngineers",
+  "mutation": "LEADENGINEER",
+  "query": "GET_LEAD_ENGINEER",
+  "chapters": [
+    {
+      "pages": [
+        {
+          "pageTitle": "Final Inspection",
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "queryPath": [
+            "finalInspectionQualityControls",
+            "measurementPointQcs"
+          ],
+          "fields": [
+            {
+              "fieldName": "measurementPoint",
+              "label": "Measurement Point",
+              "speckSubtextList": [
+                "leadEngineers.0.vulcanizationSteps",
+                "coatingLayers",
+                "cumulativeThicknes",
+                "data.cumulativeThicknes"
+              ],
+              "subtext": "Target cumulative thickness: {}mm",
+              "type": "number",
+              "required": true
+            }
+          ]
+        },
+        {
+          "pageTitle": "Final Inspection",
+          "queryPath": "finalInspectionQualityControls",
+          "fields": [
+            {
+              "fieldName": "totalCoatingThickness",
+              "label": "Total Coating Thickness",
+              "type": "checkbox",
+              "subtext": "APS. Final measurments are within tolerances."
+            },
+            {
+              "fieldName": "visualInspection",
+              "label": "Visual Inspection",
+              "type": "checkbox",
+              "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted.",
+              "showFieldSpackPath": "leadEngineers.0.data.visualInspection"
+            },
+            {
+              "fieldName": "finalDimensionsCheck",
+              "label": "Final Dimensions Check",
+              "subtext": "APS. All parts in accordance to drawings.",
+              "type": "checkbox",
+              "showFieldSpackPath": "leadEngineers.0.data.finalDimensionsCheck"
+            },
+            {
+              "fieldName": "sparkTest",
+              "label": "Spark Test",
+              "subtext": "TR 2028. No Holidays.",
+              "type": "checkbox",
+              "showFieldSpackPath": "leadEngineers.0.data.sparkTest"
+            },
+            {
+              "fieldName": "hammerTest",
+              "label": "Hammer Test",
+              "type": "checkbox",
+              "subtext": "TR 2028. No change in audible pitch.",
+              "showFieldSpackPath": "leadEngineers.0.data.hammerTest"
+            },
+            {
+              "fieldName": "identificationMarking",
+              "label": "Identification Marking",
+              "subtext": "ID matches 123.",
+              "showFieldSpackPath": "leadEngineers.0.data.identificationMarking",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "hardnessOfOuterLayer",
+              "label": "Hardness of Outer Layer",
+              "subtext": "Minimum 123 Shore A",
+              "unit": "Shore A",
+              "showFieldSpackPath": "leadEngineers.0.data.hardnessOfOuterLayer",
+              "type": "number"
+            },
+            {
+              "label": "File Upload",
+              "type": "file",
+              "queryPath": ["finalInspectionQualityControls", "uploadFiles"],
+              "pageName": "uploadFile",
+              "description": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

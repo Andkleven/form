@@ -330,7 +330,15 @@ const QUALITY_CONTROL = gql`
       finalInspectionQualityControls {
         id
         data
-        measurementPointQcs {
+        measurementPointQualityControls {
+          id
+          data
+        }
+        hardhetQualityControls {
+          id
+          data
+        }
+        peeltestQualityControls {
           id
           data
         }

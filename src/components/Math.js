@@ -1,5 +1,7 @@
 import { allZeroOrNaN, findValue } from "./Functions";
 
+const qualityControlMeasurementPoint = allData => {};
+
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
     return null;

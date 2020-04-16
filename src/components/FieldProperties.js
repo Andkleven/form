@@ -24,11 +24,14 @@ export default props => {
       props.min,
       props.routToSpeckMin,
       props.editRepeatStepListMin,
+      props.calculateMin,
       props.max,
       props.routToSpeckMax,
       props.editRepeatStepListMax,
+      props.calculateMax,
       props.repeatStepList,
-      props.speckData
+      props.speckData,
+      props.allData
     );
     setMin(min);
     setMax(max);
@@ -82,7 +85,6 @@ export default props => {
     return (
       <ReadField
         {...props}
-        {...props}
         key={`${props.indexId}-${props.index}`}
         readOnly={true}
         path={getNewPath(props.fieldName)}
@@ -104,7 +106,6 @@ export default props => {
   ) {
     return (
       <WriteFieldGroupError
-        {...props}
         {...props}
         key={`${props.indexId}-${props.index}`}
         path={getNewPath(props.fieldName)}
@@ -132,7 +133,6 @@ export default props => {
     return (
       <Input
         {...props}
-        {...props}
         key={`${props.indexId}-${props.index}`}
         subtext={subtext}
         oneFile={true}
@@ -143,7 +143,6 @@ export default props => {
   } else {
     return (
       <ReadField
-        {...props}
         {...props}
         key={`${props.indexId}-${props.index}`}
         path={getNewPath(props.fieldName)}

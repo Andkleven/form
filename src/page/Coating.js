@@ -37,14 +37,10 @@ export default pageInfo => {
           componentsId={"SingleItem"}
           document={SingelStageJson}
           reRender={() => setReRender(!reRender)}
-          data={
-            fixedData &&
-            formDataStructure(SingelStageJson, fixedData, "queryPath")
-          }
+          data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           stage={data.items[0].stage}
           speckData={
-            fixedData &&
-            formDataStructure(SingelStageJson, fixedData, "spackQueryPath")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           geometry={geometry}
           arrayIndex={
