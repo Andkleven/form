@@ -225,7 +225,8 @@ export const getSubtext = (
   maxInput,
   minInput,
   unit,
-  required
+  required,
+  subtextMath
 ) => {
   if (subtext) {
     if (SpeckSubtext) {
@@ -233,6 +234,8 @@ export const getSubtext = (
     }
     return variableString("", subtext);
   }
+
+  min, (max = Math[subtextMath]);
   let minLocal = min ? min : minInput ? minInput : "";
   let maxLocal = max ? max : maxInput ? maxInput : "";
 

@@ -5,7 +5,7 @@
     "primer1",
     "primer2",
     "actualSteelMeasurement",
-    "rubberCement",
+    "rubberCementsBeforeCoating",
     ["coatingStep", "vulcanizationStep", "measurementPiontStep"],
     "touchUp"
   ],

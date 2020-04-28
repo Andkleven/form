@@ -69,7 +69,8 @@ export default props => {
         props.maxInput,
         props.minInput,
         props.unit,
-        props.required
+        props.required,
+        props.subtextMath
       )
     );
   }, [props.speckData]);

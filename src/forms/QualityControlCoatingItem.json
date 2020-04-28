@@ -1,7 +1,7 @@
 {
   "queryPath": "leadEngineers",
-  "mutation": "LEADENGINEER",
-  "query": "GET_LEAD_ENGINEER",
+  "mutation": "QUALITY_CONTROL",
+  "query": "QUALITY_CONTROL",
   "chapters": [
     {
       "pages": [
@@ -26,6 +26,7 @@
                 "data.cumulativeThicknes"
               ],
               "subtext": "Target cumulative thickness: {}mm",
+              "subtextMath": "qualityControlMeasurementPoint",
               "type": "number",
               "required": true,
               "unit": "mm"
@@ -78,21 +79,57 @@
               "type": "checkbox"
             },
             {
-              "fieldName": "hardnessOfOuterLayer",
-              "label": "Hardness of Outer Layer",
-              "subtext": "Minimum 123 Shore A",
+              "fieldName": "numberOfHardnessOfOuterLayer",
+              "label": "Number of Hardhet",
               "unit": "Shore A",
               "showFieldSpackPath": "leadEngineers.0.data.hardnessOfOuterLayer",
               "type": "number"
             },
+
             {
-              "label": "File Upload",
-              "type": "file",
-              "queryPath": ["finalInspectionQualityControls", "uploadFiles"],
-              "pageName": "uploadFile",
-              "description": true
+              "fieldName": "numberOfPeelTest",
+              "label": "Number of Peel Test",
+              "unit": "N/25mm",
+              "showFieldSpackPath": "leadEngineers.0.data.peelTest",
+              "type": "number"
             }
           ]
+        },
+        {
+          "pageTitle": "Measurement Point Actual",
+          "queryPath": "finalInspectionQualityControls.0.hardhetQualityControls",
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfHardnessOfOuterLayer",
+          "fields": [
+            {
+              "fieldName": "hardhet",
+              "indexVariableLabel": true,
+              "label": "Hardhet: {}",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "queryPath": "finalInspectionQualityControls.0.peeltestQualityControls",
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfPeelTest",
+          "fields": [
+            {
+              "fieldName": "peelTest",
+              "indexVariableLabel": true,
+              "label": "Peel Test: {}",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "label": "File Upload",
+          "type": "file",
+          "queryPath": ["finalInspectionQualityControls", "uploadFiles"],
+          "pageName": "uploadFile",
+          "description": true
         }
       ]
     }

@@ -213,6 +213,41 @@ const OPERATOR = gql`
     }
   }
 `;
+const QUALITY_CONTROL = gql`
+  mutation finalInspectionQualityControls(
+    $finalInspectionQualityControls: [UnderCategoriesOfLeadEngineerInupt]
+    $itemId: Int
+  ) {
+    finalInspectionQualityControls(
+      finalInspectionQualityControls: $finalInspectionQualityControls
+      itemId: $itemId
+    ) {
+      new {
+        id
+        data
+        id
+        data
+        measurementPointQualityControls {
+          id
+          data
+        }
+        hardhetQualityControls {
+          id
+          data
+        }
+        peeltestQualityControls {
+          id
+          data
+        }
+        uploadFiles {
+          id
+          file
+          fileDescription
+        }
+      }
+    }
+  }
+`;
 
 const mutations = {
   ORDER,
@@ -221,6 +256,7 @@ const mutations = {
   LEADENGINEER,
   LEADENGINEERDONE,
   OPERATORBATCHING,
-  OPERATOR
+  OPERATOR,
+  QUALITY_CONTROL
 };
 export default mutations;

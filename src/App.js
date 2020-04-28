@@ -42,7 +42,7 @@ export default () => (
             <Route exact path="/orders" component={OperatorPage} />
             <Route path="/order/item/:_id" component={Item} />
             <Route
-              path="/order/lead-engineer/:descriptionId/:itemId/:different/:description"
+              path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
               component={LeadEngineerPage}
             />
             <Route
@@ -58,7 +58,7 @@ export default () => (
               component={SingleItem}
             />
             <Route
-              path="/quality-control/:item/:geometry"
+              path="/quality-control/:itemId/:geometry"
               component={QualityControl}
             />
 

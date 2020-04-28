@@ -329,53 +329,54 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "pages": [
         {
-          "pages": [
+          "pageTitle": "Final Inspection",
+          "queryPath": "leadEngineers",
+          "fields": [
             {
-              "pageTitle": "Final Inspection",
-              "queryPath": "leadEngineers",
-              "fields": [
-                {
-                  "fieldName": "hardnessOfOuterLayer",
-                  "label": "Hardness of Outer Layer",
-                  "unit": "Shore A"
-                },
-                {
-                  "fieldName": "identificationMarking",
-                  "label": "Identification Marking"
-                },
-                {
-                  "fieldName": "peelTest",
-                  "label": "Peel Test",
-                  "unit": "N/25mm"
-                },
-                {
-                  "fieldName": "totalCoatingThickness",
-                  "label": "Total Coating Thickness",
-                  "type": "checkbox"
-                },
-                {
-                  "fieldName": "visualInspection",
-                  "label": "Visual Inspection",
-                  "type": "checkbox"
-                },
-                {
-                  "fieldName": "finalDimensionsCheck",
-                  "label": "Final Dimensions Check",
-                  "type": "checkbox"
-                },
-                {
-                  "fieldName": "sparkTest",
-                  "label": "Spark Test",
-                  "type": "checkbox"
-                },
-                {
-                  "fieldName": "hammerTest",
-                  "label": "Hammer Test",
-                  "type": "checkbox"
-                }
-              ]
+              "fieldName": "hardnessOfOuterLayer",
+              "label": "Hardness of Outer Layer",
+              "required": true,
+              "unit": "Shore A"
+            },
+            {
+              "fieldName": "identificationMarking",
+              "label": "Identification Marking"
+            },
+            {
+              "fieldName": "peelTest",
+              "label": "Peel Test",
+              "unit": "N/25mm"
+            },
+            {
+              "fieldName": "totalCoatingThickness",
+              "label": "Total Coating Thickness",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "visualInspection",
+              "label": "Visual Inspection",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "finalDimensionsCheck",
+              "label": "Final Dimensions Check",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "sparkTest",
+              "label": "Spark Test",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "hammerTest",
+              "label": "Hammer Test",
+              "type": "checkbox"
             }
           ]
         }

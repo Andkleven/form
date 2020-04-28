@@ -30,15 +30,14 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  operatorJson.query = "QUALITY_CONTROL";
-  const { loading, error, data } = useQuery(query["QUALITY_CONTROL"], {
+
+  const { loading, error, data } = useQuery(query[qualityControl.query], {
     variables: { id: itemId }
   });
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
-  console.log(fixedData);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
@@ -74,7 +73,6 @@ export default pageInfo => {
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           allData={fixedData}
-          stage={fixedData && fixedData.items[0].stage}
           geometry={geometry}
           getQueryBy={itemId}
           itemId={itemId}

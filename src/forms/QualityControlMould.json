@@ -1,7 +1,7 @@
 {
   "queryPath": "leadEngineers",
-  "mutation": "LEADENGINEER",
-  "query": "GET_LEAD_ENGINEER",
+  "mutation": "QUALITY_CONTROL",
+  "query": "QUALITY_CONTROL",
   "chapters": [
     {
       "pages": [

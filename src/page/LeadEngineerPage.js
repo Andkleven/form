@@ -9,17 +9,12 @@ import Paper from "components/Paper";
 import { objectifyQuery, coatedItemORMould } from "components/Functions";
 let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {
-  const {
-    descriptionId,
-    itemId,
-    different,
-    description
-  } = pageInfo.match.params;
+  const { descriptionId, itemId, different, geometry } = pageInfo.match.params;
 
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   leadEngineersJson = coatedItemORMould(
-    description.toString(),
+    geometry.toString(),
     leadEngineersCoatedItemJson,
     leadEngineersMouldJson
   );
