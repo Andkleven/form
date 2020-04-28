@@ -39,7 +39,6 @@ export default (speckData, stage, geometry) => {
     return "Anders er best";
   };
   const findNextStage = (geometry, nextStage, number = null) => {
-    console.log(nextStage);
     let stageCriteria = stagesJson[geometry][nextStage];
     if (emptyField(stageCriteria.queryPath)) {
       return true;

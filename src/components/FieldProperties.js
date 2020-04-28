@@ -70,7 +70,10 @@ export default props => {
         props.minInput,
         props.unit,
         props.required,
-        props.subtextMath
+        props.subtextMathMin,
+        props.subtextMathMax,
+        props.repeatStepList,
+        props.allData
       )
     );
   }, [props.speckData]);

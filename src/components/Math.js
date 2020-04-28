@@ -1,13 +1,105 @@
 import { allZeroOrNaN, findValue } from "./Functions";
 
-const qualityControlMeasurementPoint = allData => {};
-
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
     return null;
   } else {
     return value.toFixed(decimal);
   }
+};
+
+const qualityControlMeasurementPointMould = (allData, tolerance, decimal) => {
+  let orderedTotalRubberThicknes = findValue(
+    allData,
+    `items.0.leadEngineers.0.data.orderedTotalRubberThicknes`
+  );
+  let value = orderedTotalRubberThicknes + tolerance;
+
+  return whatTooReturn(value, decimal, [orderedTotalRubberThicknes, tolerance]);
+};
+
+const qualityControlMeasurementPointMouldMin = (allData, repeatStepList) => {
+  let toleranceMin = Number(
+    findValue(allData, `items.0.leadEngineers.0.data.toleranceMin`)
+  );
+  return qualityControlMeasurementPointMould(
+    allData,
+    repeatStepList,
+    toleranceMin,
+    1
+  );
+};
+const qualityControlMeasurementPointMouldMax = (allData, repeatStepList) => {
+  let toleranceMax = Number(
+    findValue(allData, `items.0.leadEngineers.0.data.toleranceMax`)
+  );
+  return qualityControlMeasurementPointMould(
+    allData,
+    repeatStepList,
+    toleranceMax,
+    1
+  );
+};
+
+const qualityControlMeasurementPointCoatingItem = (
+  allData,
+  repeatStepList,
+  tolerance,
+  decimal
+) => {
+  let measurementPointActual = Number(
+    findValue(
+      allData,
+      `items.0.leadEngineers.0.measurementPointActualTvds.${
+        repeatStepList[0]
+      }.data.measurementPointActual`
+    )
+  );
+
+  let targetDescriptionValue = findValue(
+    allData,
+    `items.0.leadEngineers.0.data.targetDescriptionValue`
+  );
+  let value;
+  if (targetDescriptionValue.toLowerCase() === "od") {
+    value = measurementPointActual + tolerance;
+  } else if (targetDescriptionValue.toLowerCase() === "id") {
+    value = measurementPointActual - tolerance;
+  }
+  return whatTooReturn(value, decimal, [
+    measurementPointActual,
+    tolerance,
+    targetDescriptionValue
+  ]);
+};
+
+const qualityControlMeasurementPointCoatingItemMin = (
+  allData,
+  repeatStepList
+) => {
+  let toleranceMin = Number(
+    findValue(allData, `items.0.leadEngineers.0.data.toleranceMin`)
+  );
+  return qualityControlMeasurementPointCoatingItem(
+    allData,
+    repeatStepList,
+    toleranceMin,
+    1
+  );
+};
+const qualityControlMeasurementPointCoatingItemMax = (
+  allData,
+  repeatStepList
+) => {
+  let toleranceMax = Number(
+    findValue(allData, `items.0.leadEngineers.0.data.toleranceMax`)
+  );
+  return qualityControlMeasurementPointCoatingItem(
+    allData,
+    repeatStepList,
+    toleranceMax,
+    1
+  );
 };
 
 const mathCumulativeThicknes = (values, repeatStepList, decimal) => {
@@ -148,7 +240,11 @@ const Math = {
   mathCumulativeThicknes,
   mathProposedThicknes,
   mathToleranceMinPercent,
-  mathToleranceMaxPercent
+  mathToleranceMaxPercent,
+  qualityControlMeasurementPointCoatingItemMin,
+  qualityControlMeasurementPointCoatingItemMax,
+  qualityControlMeasurementPointMouldMin,
+  qualityControlMeasurementPointMouldMax
 };
 
 export default Math;

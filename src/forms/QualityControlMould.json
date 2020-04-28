@@ -12,8 +12,8 @@
           "repeatGroupWithQuerySpeckData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [
-            "finalInspectionQualityControls",
-            "measurementPointQcs"
+            "finalInspectionQualityControls.0.measurementPointQcs",
+            ""
           ],
           "fields": [
             {
@@ -25,7 +25,8 @@
                 "cumulativeThicknes",
                 "data.cumulativeThicknes"
               ],
-              "subtext": "Target cumulative thickness: {}mm",
+              "subtextMathMin": "qualityControlMeasurementPointMouldMin",
+              "subtextMathMax": "qualityControlMeasurementPointMouldMax",
               "type": "number",
               "required": true
             }
@@ -77,21 +78,55 @@
               "type": "checkbox"
             },
             {
-              "fieldName": "hardnessOfOuterLayer",
-              "label": "Hardness of Outer Layer",
-              "subtext": "Minimum 123 Shore A",
-              "unit": "Shore A",
+              "fieldName": "numberOfHardnessOfOuterLayer",
+              "label": "Number of Hardness of Outer Layer",
               "showFieldSpackPath": "leadEngineers.0.data.hardnessOfOuterLayer",
               "type": "number"
             },
             {
-              "label": "File Upload",
-              "type": "file",
-              "queryPath": ["finalInspectionQualityControls", "uploadFiles"],
-              "pageName": "uploadFile",
-              "description": true
+              "fieldName": "numberOfPeelTest",
+              "label": "Number of Peel Test",
+              "showFieldSpackPath": "leadEngineers.0.data.peelTest",
+              "type": "number"
             }
           ]
+        },
+        {
+          "queryPath": "finalInspectionQualityControls.0.hardhetQualityControls",
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfHardnessOfOuterLayer",
+          "fields": [
+            {
+              "fieldName": "hardnessOfOuterLayer",
+              "indexVariableLabel": true,
+              "label": "Hardhet Of Outer Layer: {}",
+              "unit": "Shore A",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "queryPath": "finalInspectionQualityControls.0.peeltestQualityControls",
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfPeelTest",
+          "fields": [
+            {
+              "fieldName": "peelTest",
+              "indexVariableLabel": true,
+              "label": "Peel Test: {}",
+              "unit": "N/25mm",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "label": "File Upload",
+          "type": "file",
+          "queryPath": "finalInspectionQualityControls.0.uploadFiles",
+          "pageName": "uploadFile",
+          "description": true
         }
       ]
     }

@@ -12,21 +12,15 @@
           "repeatGroupWithQuerySpeckData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [
-            "finalInspectionQualityControls",
-            "measurementPointQcs"
+            "finalInspectionQualityControls.0.measurementPointQcs",
+            ""
           ],
           "fields": [
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Point",
-              "speckSubtextList": [
-                "leadEngineers.0.vulcanizationSteps",
-                "coatingLayers",
-                "cumulativeThicknes",
-                "data.cumulativeThicknes"
-              ],
-              "subtext": "Target cumulative thickness: {}mm",
-              "subtextMath": "qualityControlMeasurementPoint",
+              "subtextMathMin": "qualityControlMeasurementPointCoatingItemMin",
+              "subtextMathMax": "qualityControlMeasurementPointCoatingItemMax",
               "type": "number",
               "required": true,
               "unit": "mm"
@@ -80,8 +74,7 @@
             },
             {
               "fieldName": "numberOfHardnessOfOuterLayer",
-              "label": "Number of Hardhet",
-              "unit": "Shore A",
+              "label": "Number of Hardness of Outer Layer",
               "showFieldSpackPath": "leadEngineers.0.data.hardnessOfOuterLayer",
               "type": "number"
             },
@@ -89,23 +82,22 @@
             {
               "fieldName": "numberOfPeelTest",
               "label": "Number of Peel Test",
-              "unit": "N/25mm",
               "showFieldSpackPath": "leadEngineers.0.data.peelTest",
               "type": "number"
             }
           ]
         },
         {
-          "pageTitle": "Measurement Point Actual",
           "queryPath": "finalInspectionQualityControls.0.hardhetQualityControls",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfHardnessOfOuterLayer",
           "fields": [
             {
-              "fieldName": "hardhet",
+              "fieldName": "hardnessOfOuterLayer",
               "indexVariableLabel": true,
-              "label": "Hardhet: {}",
+              "label": "Hardhet Of Outer Layer: {}",
+              "unit": "Shore A",
               "type": "number"
             }
           ]
@@ -120,6 +112,7 @@
               "fieldName": "peelTest",
               "indexVariableLabel": true,
               "label": "Peel Test: {}",
+              "unit": "N/25mm",
               "type": "number"
             }
           ]
@@ -127,7 +120,7 @@
         {
           "label": "File Upload",
           "type": "file",
-          "queryPath": ["finalInspectionQualityControls", "uploadFiles"],
+          "queryPath": "finalInspectionQualityControls.0.uploadFiles",
           "pageName": "uploadFile",
           "description": true
         }

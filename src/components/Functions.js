@@ -226,7 +226,10 @@ export const getSubtext = (
   minInput,
   unit,
   required,
-  subtextMath
+  subtextMathMin,
+  subtextMathMax,
+  repeatStepList,
+  allData
 ) => {
   if (subtext) {
     if (SpeckSubtext) {
@@ -235,9 +238,20 @@ export const getSubtext = (
     return variableString("", subtext);
   }
 
-  min, (max = Math[subtextMath]);
-  let minLocal = min ? min : minInput ? minInput : "";
-  let maxLocal = max ? max : maxInput ? maxInput : "";
+  let minLocal = subtextMathMin
+    ? Math[subtextMathMin](allData, repeatStepList)
+    : min
+    ? min
+    : minInput
+    ? minInput
+    : "";
+  let maxLocal = subtextMathMax
+    ? Math[subtextMathMax](allData, repeatStepList)
+    : max
+    ? max
+    : maxInput
+    ? maxInput
+    : "";
 
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
   let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;

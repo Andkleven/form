@@ -103,8 +103,9 @@ export default props => {
   useEffect(() => {
     if (
       props.repeatGroupWithQuery &&
-      !props.repeatGroupWithQuerySpeckData &&
-      objectPath.get(documentDateContext.documentDate, props.path)
+      !props.repeatGroupWithQuerySpeckData
+      // &&
+      // objectPath.get(documentDateContext.documentDate, props.path)
     ) {
       let newValue = getRepeatNumber(
         documentDateContext.documentDate,
@@ -112,11 +113,12 @@ export default props => {
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
-
-      let oldValueLength = objectPath.get(
+      let oldValue = objectPath.get(
         documentDateContext.documentDate,
-        props.path
-      ).length;
+        props.path,
+        false
+      );
+      let oldValueLength = oldValue ? oldValue.length : 0;
       if (oldValueLength < newValue) {
         for (let i = oldValueLength; i < newValue; i++) {
           addData(i);
