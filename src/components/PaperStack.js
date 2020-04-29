@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Div100vh from "react-div-100vh";
 
-export default props => (
+export default (props) => (
   <Div100vh
     className={`shadow-sm p-0 m-0`}
     style={{

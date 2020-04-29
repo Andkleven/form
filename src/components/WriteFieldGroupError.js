@@ -11,10 +11,10 @@ import "../styles/styles.css";
 const initialState = {
   min: "",
   max: "",
-  required: ""
+  required: "",
 };
 
-export default props => {
+export default (props) => {
   const fieldsContext = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
   const [error, setError] = useState(initialState);
@@ -30,48 +30,48 @@ export default props => {
       if (props.required) {
         let testValue = JSON.stringify(props.value);
         if (!testValue.trim() || !props.value) {
-          setError(prevState => ({
+          setError((prevState) => ({
             ...prevState,
-            required: "You forgot this field"
+            required: "You forgot this field",
           }));
           passedValidation = false;
         } else {
-          setError(prevState => ({
+          setError((prevState) => ({
             ...prevState,
-            required: ""
+            required: "",
           }));
         }
       }
       let min = props.min ? props.min : 0;
       if (props.value < min) {
-        setError(prevState => ({
+        setError((prevState) => ({
           ...prevState,
-          min: `Too small, ${props.label} have to be bigger than ${min}`
+          min: `Too small, ${props.label} have to be bigger than ${min}`,
         }));
         passedValidation = false;
       } else {
-        setError(prevState => ({
+        setError((prevState) => ({
           ...prevState,
-          min: ""
+          min: "",
         }));
       }
       if (props.max) {
         if (props.value > props.max) {
-          setError(prevState => ({
+          setError((prevState) => ({
             ...prevState,
-            max: `Too big, ${props.label} have to be smaller than ${props.max}`
+            max: `Too big, ${props.label} have to be smaller than ${props.max}`,
           }));
           passedValidation = false;
         } else {
-          setError(prevState => ({
+          setError((prevState) => ({
             ...prevState,
-            max: ""
+            max: "",
           }));
         }
       }
-      fieldsContext.setvalidationPassed(prevState => ({
+      fieldsContext.setValidationPassed((prevState) => ({
         ...prevState,
-        [`${props.repeatStepList}-${props.fieldName}`]: passedValidation
+        [`${props.repeatStepList}-${props.fieldName}`]: passedValidation,
       }));
     } else {
       setError(initialState);

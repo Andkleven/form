@@ -16,6 +16,8 @@ import Batching from "./page/Batching";
 import QualityControl from "./page/QualityControl";
 import SingleItem from "./page/SingleItem";
 import ViewFile from "components/ViewFile";
+import { hot } from "react-hot-loader/root";
+import ScrollMemory from "react-router-scroll-memory";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
 
@@ -28,11 +30,12 @@ const backgroundStyle = {
   height: "100%"
 };
 
-export default () => (
+export default hot(() => (
   <>
     <Div100vh className="bg-secondary">
       <div style={backgroundStyle}>
         <Router history={history}>
+          <ScrollMemory />
           <Header />
           <Switch>
             {/* <Route exact path="/login" component={Login} /> */}
@@ -69,4 +72,4 @@ export default () => (
       </div>
     </Div100vh>
   </>
-);
+));

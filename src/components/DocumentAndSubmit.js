@@ -2,7 +2,7 @@ import React, {
   useState,
   createContext,
   useEffect,
-  useLayoutEffect
+  useLayoutEffect,
 } from "react";
 import Chapters from "./Chapters";
 import query from "../request/leadEngineer/Query";
@@ -23,7 +23,7 @@ export const FieldsContext = createContext();
 // let document;
 const cloneDeep = require("clone-deep");
 
-export default props => {
+export default (props) => {
   useEffect(() => {
     if (!props.componentsId) {
       console.error(
@@ -41,8 +41,8 @@ export default props => {
   const [documentDate, setDocumentDate] = useState(); // Store data for all document
   const [nextStage, setNextStage] = useState(true);
   const [lastSubmitButton, setLastSubmitButton] = useState(false);
-  const [isSubmited, setIsSubmited] = useState(false);
-  const [validationPassed, setvalidationPassed] = useState({});
+  const [isSubmited, setIsSubmitted] = useState(false);
+  const [validationPassed, setValidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
   // Set DocumentDate to empty dictionary if a new components calls DocumentAndSubmit
   useLayoutEffect(() => {
@@ -53,11 +53,11 @@ export default props => {
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      variables: { id: props.getQueryBy },
     });
     let array = objectPath.get(oldData, props.document.queryPath);
     let index = array.findIndex(
-      x => x.id === data[props.document.queryPath.split(/[.]+/).pop()].new.id
+      (x) => x.id === data[props.document.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
@@ -68,14 +68,14 @@ export default props => {
     cache.writeQuery({
       query: query[props.document.query],
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { [saveData]: oldData[saveData] },
     });
   };
 
   const updateWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      variables: { id: props.getQueryBy },
     });
     let secondQueryPath = "";
     let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
@@ -89,9 +89,9 @@ export default props => {
     );
     let index = 0;
     if (props.secondQueryPath.trim()) {
-      index = array.findIndex(x => x.id === newData.new.id);
+      index = array.findIndex((x) => x.id === newData.new.id);
     } else {
-      index = array.findIndex(x => x.id === newData.new.id);
+      index = array.findIndex((x) => x.id === newData.new.id);
     }
     objectPath.set(
       oldData,
@@ -103,13 +103,13 @@ export default props => {
     cache.writeQuery({
       query: query[props.document.query],
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { [saveData]: oldData[saveData] },
     });
   };
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      variables: { id: props.getQueryBy },
     });
     objectPath.push(
       oldData,
@@ -120,14 +120,14 @@ export default props => {
     cache.writeQuery({
       query: query[props.document.query],
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { [saveData]: oldData[saveData] },
     });
   };
 
   const createWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      variables: { id: props.getQueryBy },
     });
     objectPath.push(
       oldData,
@@ -138,7 +138,7 @@ export default props => {
     cache.writeQuery({
       query: props.document.query,
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { [saveData]: oldData[saveData] },
     });
   };
 
@@ -156,11 +156,11 @@ export default props => {
         : props.firstQueryPath
         ? updateWithVariable
         : update,
-      onCompleted: props.reRender
+      onCompleted: props.reRender,
     }
   );
 
-  const submitData = data => {
+  const submitData = (data) => {
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
       mutation({
@@ -174,27 +174,27 @@ export default props => {
             props.saveButton &&
             nextStage &&
             Object.values(validationPassed).every(allTrue) &&
-            FindNextStage(props.speckData, props.stage, props.geometry)
-        }
+            FindNextStage(props.speckData, props.stage, props.geometry),
+        },
       });
     }
   };
 
-  const submitHandler = data => {
+  const submitHandler = (data) => {
     if (
       (props.saveButton && validaFieldWithValue(validationPassed)) ||
       Object.values(validationPassed).every(allTrue)
     ) {
       submitData(data);
-      setIsSubmited(false);
-      setvalidationPassed({});
+      setIsSubmitted(false);
+      setValidationPassed({});
       setNextStage(true);
       if (lastSubmitButton && props.lastbutton) {
         props.lastbutton();
       }
       setEditChapter(0);
     } else {
-      setIsSubmited(true);
+      setIsSubmitted(true);
     }
   };
 
@@ -204,9 +204,9 @@ export default props => {
         <FieldsContext.Provider
           value={{
             validationPassed,
-            setvalidationPassed,
+            setValidationPassed,
             isSubmited,
-            setIsSubmited
+            setIsSubmitted,
           }}
         >
           <ChapterContext.Provider
@@ -214,7 +214,7 @@ export default props => {
           >
             <Title title={props.document.documentTitle} />
             <Form
-              onSubmit={e => {
+              onSubmit={(e) => {
                 e.persist();
                 e.preventDefault();
                 submitHandler(documentDate);

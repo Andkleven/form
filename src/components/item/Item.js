@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ItemUpdate from "components/../page/ItemUpdate";
 
-export default props => {
+export default (props) => {
   const [show, setShow] = useState(false);
   return (
     <li key={props.id}>
@@ -25,7 +25,7 @@ export default props => {
           Delete
         </button>
         <button className="btn" onClick={() => setShow(true)}>
-          Eidt
+          Edit
         </button>
         {show && (
           <>
