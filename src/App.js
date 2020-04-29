@@ -16,7 +16,6 @@ import Batching from "./page/Batching";
 import QualityControl from "./page/QualityControl";
 import SingleItem from "./page/SingleItem";
 import ViewFile from "components/ViewFile";
-import { hot } from "react-hot-loader/root";
 import ScrollMemory from "react-router-scroll-memory";
 
 import background from "./images/trelleborg-coating-compressed.jpg";
@@ -30,7 +29,7 @@ const backgroundStyle = {
   height: "100%"
 };
 
-export default hot(() => (
+export default () => (
   <>
     <Div100vh className="bg-secondary">
       <div style={backgroundStyle}>
@@ -72,4 +71,4 @@ export default hot(() => (
       </div>
     </Div100vh>
   </>
-));
+);
