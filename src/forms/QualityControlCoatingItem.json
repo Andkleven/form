@@ -101,7 +101,7 @@
             {
               "fieldName": "numberOfPeelTest",
               "label": "Number of Peel Test",
-              "showFieldSpackPath": "leadEngineers.0.data.peelTest",
+              "showFieldSpecPath": "leadEngineers.0.data.peelTest",
               "type": "number"
             }
           ]
