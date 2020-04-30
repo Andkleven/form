@@ -77,13 +77,6 @@
               "label": "Number of Hardness of Outer Layer",
               "showFieldSpackPath": "leadEngineers.0.data.hardnessOfOuterLayer",
               "type": "number"
-            },
-
-            {
-              "fieldName": "numberOfPeelTest",
-              "label": "Number of Peel Test",
-              "showFieldSpackPath": "leadEngineers.0.data.peelTest",
-              "type": "number"
             }
           ]
         },
@@ -98,6 +91,17 @@
               "indexVariableLabel": true,
               "label": "Hardhet Of Outer Layer: {}",
               "unit": "Shore A",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "queryPath": "finalInspectionQualityControls",
+          "fields": [
+            {
+              "fieldName": "numberOfPeelTest",
+              "label": "Number of Peel Test",
+              "showFieldSpackPath": "leadEngineers.0.data.peelTest",
               "type": "number"
             }
           ]
