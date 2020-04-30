@@ -4,7 +4,7 @@ import FieldProperties from "components/FieldProperties";
 import Page from "./Page";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import Line from "./Line";
-import { findValue } from "./Functions";
+import { findValue } from "../functions/general";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);

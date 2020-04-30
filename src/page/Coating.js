@@ -10,7 +10,7 @@ import {
   objectifyQuery,
   formDataStructure,
   reshapeStageSting
-} from "components/Functions";
+} from "functions/general";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;

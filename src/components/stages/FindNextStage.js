@@ -1,5 +1,5 @@
 import stagesJson from "./Stages.json";
-import { findValue, emptyField, removeSpace } from "components/Functions";
+import { findValue, emptyField, removeSpace } from "functions/general";
 
 export default (speckData, stage, geometry) => {
   geometry = removeSpace(geometry).toLowerCase();

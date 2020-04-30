@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from "components/Input";
 import Button from "react-bootstrap/Button";
-import { search } from "./functions";
+import { search } from "../functions/search";
 import ProjectTree from "./ProjectTree";
 import Projects from "./Projects";
 

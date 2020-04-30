@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
-import { findValue } from "components/Functions";
+import { findValue } from "functions/general";
 
 export default props => {
   const allFields = (chapter, itemData) => {
@@ -84,9 +84,7 @@ export default props => {
                     key={`${index}-check`}
                     className="text-success"
                     onChange={e => handelClick(e, item, batchingData)}
-                    id={`custom-${props.type}-${props.fieldName}-${
-                      props.indexId
-                    }`}
+                    id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
                     checked={
                       props.batchingListIds.find(id => id == item.id)
                         ? true

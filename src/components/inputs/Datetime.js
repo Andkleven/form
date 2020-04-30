@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
-import { isStringInstance } from "components/Functions";
+import { isStringInstance } from "functions/general";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";

@@ -3,16 +3,16 @@ import React, {
   useContext,
   useState,
   useLayoutEffect,
-  useMemo,
+  useMemo
 } from "react";
 import SelectSetFieldGroupData from "components/SelectSetFieldGroupData";
 import SubmitButton from "components/buttons/SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
-  FieldsContext,
+  FieldsContext
 } from "components/DocumentAndSubmit";
-import { allTrue, getRepeatNumber } from "components/Functions";
+import { allTrue, getRepeatNumber } from "functions/general";
 import Input from "./Input";
 import objectPath from "object-path";
 import Title from "components/text/Title";
@@ -21,7 +21,7 @@ import CustomComponents from "components/CustomComponents";
 import Line from "./Line";
 import TabButton from "components/buttons/TabButton";
 
-export default (props) => {
+export default props => {
   const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
   const fieldsContext = useContext(FieldsContext);
@@ -32,13 +32,13 @@ export default (props) => {
     }
   }, [props.lastChapter]);
 
-  const addData = (pushOnIndex) => {
-    documentDateContext.setDocumentDate((prevState) => {
+  const addData = pushOnIndex => {
+    documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, `${props.path}.${pushOnIndex}`, {
-        data: {},
+        data: {}
       });
       return {
-        ...prevState,
+        ...prevState
       };
     });
   };
@@ -47,11 +47,11 @@ export default (props) => {
       objectPath.get(documentDateContext.documentDate, props.path).length
     );
   };
-  const deleteHandler = (index) => {
-    documentDateContext.setDocumentDate((prevState) => {
+  const deleteHandler = index => {
+    documentDateContext.setDocumentDate(prevState => {
       objectPath.del(prevState, `${props.path}.${index}`);
       return {
-        ...prevState,
+        ...prevState
       };
     });
   };
@@ -75,7 +75,7 @@ export default (props) => {
     props.allWaysShow,
     chapterContext.editChapter,
     props.thisChapter,
-    chapterContext.lastChapter,
+    chapterContext.lastChapter
   ]);
 
   // If repeat group start with one group set repeatGroup to 1
@@ -96,7 +96,7 @@ export default (props) => {
     writeChapter,
     props.data,
     chapterContext.editChapter,
-    chapterContext.lastChapter,
+    chapterContext.lastChapter
   ]);
 
   // If number of repeat group decides by a anthor field, it's sets repeatGroup
@@ -158,7 +158,7 @@ export default (props) => {
   }, []);
   const Components = useMemo(() => CustomComponents[props.customComponent], [
     props.arrayIndex,
-    props.speckData,
+    props.speckData
   ]);
 
   // Checks for conditional rendering

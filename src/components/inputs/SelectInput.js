@@ -2,21 +2,21 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import Creatable from "react-select/creatable";
 import Select from "react-select";
-import { camelCaseToNormal } from "components/Functions";
+import { camelCaseToNormal } from "functions/general";
 
 // import Duplicate from "./widgets/Duplicate";
 
-export default (props) => {
+export default props => {
   let options = [];
-  props.options.forEach((element) => {
+  props.options.forEach(element => {
     options.push({
-      value: element,
+      value: element
     });
   });
 
   options.unshift({ value: null, label: "None" });
 
-  options.map((option) => {
+  options.map(option => {
     let label = option.value;
     label = camelCaseToNormal(label);
     return (option.label = label);
@@ -31,20 +31,20 @@ export default (props) => {
             name={props.name}
             readOnly={props.readOnlyFields}
             options={options}
-            theme={(theme) => ({
+            theme={theme => ({
               ...theme,
               colors: {
                 ...theme.colors,
                 primary25: "#FBECD6",
                 primary50: "#FBECD6",
                 primary75: "#FBECD6",
-                primary: "#f1b25b",
-              },
+                primary: "#f1b25b"
+              }
             })}
             placeholder={props.placeholder || "Select or type..."}
             value={
               props.value
-                ? options.find((option) => option.value === props.value)
+                ? options.find(option => option.value === props.value)
                 : null
             }
             onChange={props.onChangeSelect}
@@ -54,20 +54,20 @@ export default (props) => {
             className="w-100"
             options={options}
             name={props.name}
-            theme={(theme) => ({
+            theme={theme => ({
               ...theme,
               colors: {
                 ...theme.colors,
                 primary25: "#FBECD6",
                 primary50: "#FBECD6",
                 primary75: "#FBECD6",
-                primary: "#f1b25b",
-              },
+                primary: "#f1b25b"
+              }
             })}
             isSearchable={true}
             value={
               props.value
-                ? options.find((option) => option.value === props.value)
+                ? options.find(option => option.value === props.value)
                 : null
             }
             placeholder={props.placeholder || "Select..."}

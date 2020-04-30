@@ -9,10 +9,10 @@ import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import Paper from "components/Paper";
 import { Button } from "react-bootstrap";
-import { objectifyQuery } from "components/Functions";
+import { objectifyQuery } from "functions/general";
 import ItemUpdate from "components/../page/ItemUpdate";
 
-export default (props) => {
+export default props => {
   const [_id, set_id] = useState(Number(props.id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
@@ -21,7 +21,7 @@ export default (props) => {
   const [projectsData, setProjectData] = useState(0);
   const [fixedData, setFixedData] = useState(null);
 
-  const setstate = (counter) => {
+  const setstate = counter => {
     setCounter(counter);
   };
   const { loading, error, data } = useQuery(query[itemsJson.query], {
@@ -43,7 +43,7 @@ export default (props) => {
     oldData.projects[0].descriptions[
       counter - 1
     ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
-      (item) => item.id != deletet
+      item => item.id != deletet
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
@@ -60,7 +60,7 @@ export default (props) => {
     });
     let array = objectPath.get(oldData, itemsJson.queryPath);
     let index = array.findIndex(
-      (x) => x.id === data[itemsJson.queryPath.split(/[.]+/).pop()].new.id
+      x => x.id === data[itemsJson.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
@@ -130,7 +130,7 @@ export default (props) => {
       }
       setProjectData(fixedData.projects[0].data);
       let countNumberOfItems = 0;
-      fixedData.projects[0].descriptions.forEach((description) => {
+      fixedData.projects[0].descriptions.forEach(description => {
         countNumberOfItems += description.items.length;
       });
       setNumberOfItems(countNumberOfItems);
@@ -162,7 +162,7 @@ export default (props) => {
             onClick={() =>
               history.push(
                 `/order/lead-engineer/${geometryData.id}/${
-                  geometryData.items.find((item) => item.different === false).id
+                  geometryData.items.find(item => item.different === false).id
                 }/0/${geometryData.data.geometry}`
               )
             }
@@ -174,7 +174,7 @@ export default (props) => {
             getQueryBy={_id}
             counter={counter - 1}
             items={geometryData.items}
-            submitItem={(item) => {
+            submitItem={item => {
               if (!item.different) {
                 mutationDiffreant({
                   variables: {
@@ -187,7 +187,7 @@ export default (props) => {
                 `/order/lead-engineer/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
               );
             }}
-            submitDelete={(id) => {
+            submitDelete={id => {
               deleteItem({ variables: { id: id } });
             }}
           />

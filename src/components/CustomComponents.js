@@ -1,7 +1,7 @@
 import React from "react";
 import ReadField from "components/ReadField";
 import objectPath from "object-path";
-import { sumFieldInObject } from "./Functions";
+import { sumFieldInObject } from "../functions/general";
 
 const CustomCoating = props => {
   let layers = 0;

@@ -15,10 +15,10 @@ import {
   getDataToBatching,
   reshapeStageSting,
   coatedItemORMould,
-  getStepFromStage,
-} from "components/Functions";
+  getStepFromStage
+} from "functions/general";
 
-export default (pageInfo) => {
+export default pageInfo => {
   const { stage, descriptionId, geometry } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [finishedItem, setFinishedItem] = useState(0);
@@ -37,7 +37,7 @@ export default (pageInfo) => {
   const { loading, error, data } = useQuery(
     query[batchingJson.ducument.query],
     {
-      variables: { id: descriptionId },
+      variables: { id: descriptionId }
     }
   );
   useEffect(() => {
@@ -49,11 +49,11 @@ export default (pageInfo) => {
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[batchingJson.document.query],
-      variables: { id: descriptionId },
+      variables: { id: descriptionId }
     });
     let array = objectPath.get(oldData, batchingJson.document.queryPath);
     let index = array.findIndex(
-      (x) =>
+      x =>
         x.id ===
         data[batchingJson.document.queryPath.split(/[.]+/).pop()].batching.id
     );
@@ -68,7 +68,7 @@ export default (pageInfo) => {
     cache.writeQuery({
       query: query[batchingJson.document.query],
       variables: { id: descriptionId },
-      data: { [saveData]: oldData[saveData] },
+      data: { [saveData]: oldData[saveData] }
     });
   };
 

@@ -1,4 +1,4 @@
-import { allZeroOrNaN, findValue } from "./Functions";
+import { allZeroOrNaN, findValue } from "../functions/general";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
@@ -50,9 +50,7 @@ const qualityControlMeasurementPointCoatingItem = (
   let measurementPointActual = Number(
     findValue(
       allData,
-      `items.0.leadEngineers.0.measurementPointActualTvds.${
-        repeatStepList[0]
-      }.data.measurementPointActual`
+      `items.0.leadEngineers.0.measurementPointActualTvds.${repeatStepList[0]}.data.measurementPointActual`
     )
   );
 
@@ -132,9 +130,7 @@ const mathCumulativeThicknes = (values, repeatStepList, decimal) => {
     previousCumulativeThicknes = Number(
       findValue(
         values,
-        `leadEngineers.0.measurementPointActualTvds.${
-          repeatStepList[2]
-        }.data.measurementPointActual`
+        `leadEngineers.0.measurementPointActualTvds.${repeatStepList[2]}.data.measurementPointActual`
       )
     );
   }
@@ -142,16 +138,12 @@ const mathCumulativeThicknes = (values, repeatStepList, decimal) => {
   let proposedThicknes = Number(
     findValue(
       values,
-      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
-        repeatStepList[1]
-      }.data.proposedThicknes`
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.proposedThicknes`
     )
   );
   let layersUnique = findValue(
     values,
-    `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
-      repeatStepList[1]
-    }.data.layersUnique`
+    `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
   );
 
   let tvd = findValue(values, `leadEngineers.0.data.targetDescriptionValue`);
@@ -183,17 +175,13 @@ const mathProposedThicknes = (values, repeatStepList, decimal) => {
   let shrink = Number(
     findValue(
       values,
-      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
-        repeatStepList[1]
-      }.data.shrink`
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.shrink`
     )
   );
   let actualThicknes = Number(
     findValue(
       values,
-      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
-        repeatStepList[1]
-      }.data.actualThicknes`
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.actualThicknes`
     )
   );
 

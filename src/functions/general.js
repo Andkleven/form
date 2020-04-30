@@ -299,7 +299,7 @@ export const objectifyQuery = query => {
   }
 };
 
-export const validaFieldWithValue = validation => {
+export const validateFieldWithValue = validation => {
   Object.keys(validation).forEach(key => {
     if (!validation[key]) {
       return false;

@@ -16,7 +16,7 @@ import {
   reshapeStageSting,
   coatedItemORMould,
   getStepFromStage
-} from "components/Functions";
+} from "functions/general";
 
 export default pageInfo => {
   const { stage, descriptionId, geometry } = pageInfo.match.params;

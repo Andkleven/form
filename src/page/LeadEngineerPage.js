@@ -6,7 +6,7 @@ import leadEngineersMouldJson from "../forms/LeadEngineerMould.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
 import PaperStack from "components/PaperStack";
 import Paper from "components/Paper";
-import { objectifyQuery, coatedItemORMould } from "components/Functions";
+import { objectifyQuery, coatedItemORMould } from "functions/general";
 let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {
   const { descriptionId, itemId, different, geometry } = pageInfo.match.params;

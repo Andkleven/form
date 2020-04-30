@@ -1,4 +1,4 @@
-import { isStringInstance } from "components/Functions";
+import { isStringInstance } from "functions/general";
 
 /**
  * Converts date and datetime to correct string formats

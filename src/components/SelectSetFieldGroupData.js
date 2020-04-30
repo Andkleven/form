@@ -3,7 +3,7 @@ import SetFieldGroupData from "./SetFieldGroupData";
 import FieldGroup from "./FieldGroup";
 import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
-import { getRepeatNumber } from "./Functions";
+import { getRepeatNumber } from "../functions/general";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);

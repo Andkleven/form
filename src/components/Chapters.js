@@ -4,7 +4,7 @@ import {
   findValue,
   allRequiredSatisfied,
   createPath
-} from "./Functions";
+} from "../functions/general";
 import Page from "./Page";
 import findNextStage from "components/stages/FindNextStage";
 import Title from "components/text/Title";

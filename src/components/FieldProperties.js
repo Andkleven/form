@@ -10,7 +10,7 @@ import {
   findValue,
   calculateMaxMin,
   variableLabel
-} from "./Functions";
+} from "../functions/general";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
