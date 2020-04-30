@@ -19,7 +19,7 @@ export default (speckData, stage, geometry) => {
       number += 1;
     }
   };
-  const testForStage = indexStart => {
+  const testForStage = (indexStart) => {
     for (index = indexStart; index < stagesJson.all.length; index++) {
       nextStage = stagesJson.all[index];
       if (Array.isArray(nextStage)) {

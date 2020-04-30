@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import ProjectPage from "page/ItemPage";
-import FileView from "components/tree/components/FileView";
+import FileView from "components/FileView/components/FileView";
 import {
   ProjectContext,
   ProjectProvider
-} from "components/tree/components/ProjectContext";
+} from "components/FileView/components/ProjectContext";
 
 const Content = () => {
   const [projectId] = useContext(ProjectContext);

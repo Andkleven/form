@@ -1,5 +1,5 @@
 import React from "react";
-import Tree from "components/tree/components/Tree";
+import Tree from "components/FileView/components/Tree";
 import { Link } from "react-router-dom";
 
 const itemIconStyle = {
