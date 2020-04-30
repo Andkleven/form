@@ -75,7 +75,7 @@
           "fields": [
             {
               "fieldName": "inspectionOfSteelSurface",
-              "showFieldSpackPath": "leadEngineers.0.data.inspectionOfSteelSurface",
+              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "subtext": "ISO 8501-3, Welds to be grade P3",
               "required": true,
@@ -84,7 +84,7 @@
             {
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
-              "showFieldSpackPath": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "routToSpeckMax": "leadEngineers.0.data.solubleSaltLevel",
               "placeholder": "Result",
               "unit": "mg/m2",
@@ -92,76 +92,76 @@
               "type": "number"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "fieldName": "equipmentIDSolubleSaltLevel",
               "placeholder": "Equipment ID"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
               "label": "Next Calibration Date",
               "type": "date",
               "required": true
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "line": true
             },
             {
               "fieldName": "surfaceCleanlines",
               "label": "Surface Cleanlines",
-              "showFieldSpackPath": "leadEngineers.0.data.surfaceCleanlines",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanlines",
               "speckSubtextList": "leadEngineers.0.data.surfaceCleanlines",
               "subtext": "ISO 8501-1, Min. Sa {} (Rust grade A or B)",
               "unit": "Sa"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
               "subtext": "ASTM D 4285, No oil and no water",
               "type": "checkbox"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "equipmentIDcompressedAirCheck",
               "placeholder": "Equipment ID"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "nextCalibrationDatecompressedAirCheck",
               "label": "Next Calibration Date",
               "required": true
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "line": true
             },
             {
               "fieldName": "uvTest",
-              "showFieldSpackPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "label": "UV Test",
               "subtext": "No reflecting light",
               "type": "checkbox"
             },
             {
               "fieldName": "equipmentIDUvTest",
-              "showFieldSpackPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "placeholder": "Equipment ID"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "fieldName": "nextCalibrationDateUvTest",
               "label": "Next Calibration Date",
               "required": true
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "line": true
             },
             {
               "fieldName": "blastMediaConductivity",
-              "showFieldSpackPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "label": "Blast Media Conductivity",
               "routToSpeckMax": "leadEngineers.0.data.blastMediaConductivity",
               "placeholder": "Result",
@@ -169,23 +169,23 @@
               "type": "number"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "fieldName": "equipmentIDBlastMediaConductivity",
               "placeholder": "Equipment ID"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
               "label": "Next Calibration Date",
               "required": true
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "line": true
             },
             {
               "fieldName": "surfaceProfileRoughnes",
-              "showFieldSpackPath": "leadEngineers.0.data.surfaceCleanlines",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanlines",
               "placeholder": "Result",
               "label": "Surface Profile (Roughnes)",
               "subtext": "Between 50.0µm and 100.0µm",
@@ -193,23 +193,23 @@
               "type": "number"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.surfaceCleanlines",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanlines",
               "fieldName": "equipmentIDSurfaceProfileRoughnes",
               "placeholder": "Equipment ID"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.surfaceCleanlines",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanlines",
               "fieldName": "nextCalibrationDateSurfaceProfileRoughnes",
               "label": "Next Calibration Date",
               "required": true
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.surfaceCleanlines",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanlines",
               "fieldName": "referencePlateId",
               "placeholder": "Reference Plate Id (Optional)"
             },
             {
-              "showFieldSpackPath": "leadEngineers.0.data.surfaceCleanlines",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanlines",
               "line": true
             },
             {

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DocumentDateContext } from "./DocumentAndSubmit";
-import Math from "./Math";
+import { DocumentDateContext } from "../DocumentAndSubmit";
+import Math from "functions/math";
 import objectPath from "object-path";
 import ReadField from "./ReadField";
 
-import "../styles/styles.css";
+import "styles/styles.css";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);

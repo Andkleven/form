@@ -69,7 +69,7 @@
             },
             {
               "fieldName": "inspectionOfSteelSurface",
-              "showFieldSpackPath": "leadEngineers.0.data.inspectionOfSteelSurface",
+              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "subtext": "ISO 8501-3, Welds to be grade P3",
               "required": true,
@@ -82,7 +82,7 @@
             },
             {
               "fieldName": "inspectionOfSteelSurface",
-              "showFieldSpackPath": "leadEngineers.0.data.inspectionOfSteelSurface",
+              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "subtext": "ISO 8501-3, Welds to be grade P3",
               "required": true,

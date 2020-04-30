@@ -7,7 +7,7 @@ import itemsJson from "../forms/Order.json";
 import mutations from "../request/leadEngineer/MutationToDatabase";
 import ItemList from "components/item/ItemList";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
-import Paper from "components/Paper";
+import Paper from "components/layout/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
 import ItemUpdate from "components/../page/ItemUpdate";

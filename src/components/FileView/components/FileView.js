@@ -3,8 +3,8 @@
  */
 
 import React from "react";
-import Paper from "components/Paper";
-import PaperStack from "components/PaperStack";
+import Paper from "components/layout/Paper";
+import PaperStack from "components/layout/PaperStack";
 import Filter from "components/FileView/components/Filter";
 import { useQuery } from "@apollo/react-hooks";
 import query from "request/leadEngineer/Query";

@@ -1,7 +1,7 @@
 import React from "react";
 import objectPath from "object-path";
 import { Fragment } from "react";
-import Math from "components/Math";
+import Math from "functions/math";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {

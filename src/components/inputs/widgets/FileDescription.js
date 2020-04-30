@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "components/Input";
-import ReadField from "components/ReadField";
+import ReadField from "components/fields/ReadField";
 import TinyButton from "components/buttons/TinyButton";
 export default props => {
   return (

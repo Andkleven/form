@@ -1,20 +1,20 @@
 import React, { useContext } from "react";
 import objectPath from "object-path";
-import FieldProperties from "components/FieldProperties";
+import FieldProperties from "components/fields/FieldProperties";
 import Page from "./Page";
 import { DocumentDateContext } from "./DocumentAndSubmit";
-import Line from "./Line";
-import { findValue } from "../functions/general";
+import Line from "components/layout/design/Line";
+import { findValue } from "functions/general";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
   return props.fields.map((field, index) => {
     if (
-      field.showFieldSpackPath &&
+      field.showFieldSpecPath &&
       [null, undefined, "", false].includes(
         findValue(
           props.speckData,
-          field.showFieldSpackPath,
+          field.showFieldSpecPath,
           props.repeatStepList,
           field.editRepeatStepValueList
         )

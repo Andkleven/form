@@ -1,38 +1,38 @@
 import React, { useState, useContext } from "react";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
 import {
   FieldsContext,
   DocumentDateContext,
-  ChapterContext,
-} from "./DocumentAndSubmit";
+  ChapterContext
+} from "../DocumentAndSubmit";
 import objectPath from "object-path";
 import Input from "components/Input";
 import TinyButton from "components/buttons/TinyButton";
-import LightLine from "components/LightLine";
-import "../styles/styles.css";
+import LightLine from "components/layout/design/LightLine";
+import "styles/styles.css";
 import { Button } from "react-bootstrap";
 
-export default (props) => {
+export default props => {
   const fieldsContext = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
 
-  const onChangeDate = (date) => {
-    documentDateContext.setDocumentDate((prevState) => {
+  const onChangeDate = date => {
+    documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, date);
       return { ...prevState };
     });
   };
-  const onChangeSelect = (e) => {
-    documentDateContext.setDocumentDate((prevState) => {
+  const onChangeSelect = e => {
+    documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, e.value);
       return {
-        ...prevState,
+        ...prevState
       };
     });
   };
-  const onChange = (e) => {
+  const onChange = e => {
     setShowMinMax(true);
     let { name, value, type, step, min, max } = e.target;
     min = Number(min);
@@ -50,16 +50,16 @@ export default (props) => {
           false
         );
         // console.log(oldValue);
-        documentDateContext.setDocumentDate((prevState) => {
+        documentDateContext.setDocumentDate(prevState => {
           objectPath.set(prevState, props.path, !oldValue);
           return {
-            ...prevState,
+            ...prevState
           };
         });
       } else {
         if (type === "number") {
           let decimal = step
-            ? props.fields.find((x) => x.fieldName === name).decimal
+            ? props.fields.find(x => x.fieldName === name).decimal
             : 0;
           let numberValue = value;
           if (
@@ -68,17 +68,17 @@ export default (props) => {
           ) {
             numberValue = props.state[name];
           }
-          documentDateContext.setDocumentDate((prevState) => {
+          documentDateContext.setDocumentDate(prevState => {
             objectPath.set(prevState, props.path, numberValue);
             return {
-              ...prevState,
+              ...prevState
             };
           });
         } else {
-          documentDateContext.setDocumentDate((prevState) => {
+          documentDateContext.setDocumentDate(prevState => {
             objectPath.set(prevState, props.path, value);
             return {
-              ...prevState,
+              ...prevState
             };
           });
         }
@@ -86,10 +86,10 @@ export default (props) => {
     }
   };
 
-  const cancelEdit = (event) => {
+  const cancelEdit = event => {
     event.persist();
     event.preventDefault();
-    documentDateContext.setDocumentDate((prevState) => {
+    documentDateContext.setDocumentDate(prevState => {
       objectPath.set(prevState, props.path, props.data.data[props.fieldName]);
       return { ...prevState };
     });
@@ -114,14 +114,12 @@ export default (props) => {
       >
         <TinyButton
           icon="check"
-          onClick={(event) =>
-            submitEdit(event, documentDateContext.documentDate)
-          }
+          onClick={event => submitEdit(event, documentDateContext.documentDate)}
           tooltip="Submit"
         />
         <TinyButton
           icon="times"
-          onClick={(event) => cancelEdit(event)}
+          onClick={event => cancelEdit(event)}
           tooltip="Cancel"
           // color="secondary"
         />
@@ -137,7 +135,7 @@ export default (props) => {
             <Button
               className="w-100 m-0 px-0 text-light"
               variant="primary"
-              onClick={(event) =>
+              onClick={event =>
                 submitEdit(event, documentDateContext.documentDate)
               }
             >
@@ -148,7 +146,7 @@ export default (props) => {
             <Button
               className="w-100 m-0 px-0"
               variant="secondary"
-              onClick={(event) => cancelEdit(event)}
+              onClick={event => cancelEdit(event)}
             >
               <i className="fal fa-times" style={{ width: "1.5em" }} />
               Cancel

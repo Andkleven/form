@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import { FieldsContext, ChapterContext } from "./DocumentAndSubmit";
+import { FieldsContext, ChapterContext } from "../DocumentAndSubmit";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import ErrorMessage from "./ErrorMessage";
-import "../styles/styles.css";
+import ErrorMessage from "../ErrorMessage";
+import "styles/styles.css";
 import TinyButton from "components/buttons/TinyButton";
-import LightLine from "components/LightLine";
+import LightLine from "components/layout/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 
-export default (props) => {
+export default props => {
   const fieldsContext = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
 
@@ -29,7 +29,7 @@ export default (props) => {
     return `d-none d-${breakpoint}-inline`;
   };
 
-  const TinyEditButton = (props) => (
+  const TinyEditButton = props => (
     <TinyButton
       {...props}
       onClick={() => flipToWrite()}
@@ -44,7 +44,7 @@ export default (props) => {
   //   </Button>
   // );
 
-  const Label = (props) => (
+  const Label = props => (
     <div className={`d-flex justify-content-between align-items-start h-100`}>
       <div className={showUnderBreakpoint()}>
         <small className="text-secondary">{`${props.label}`}</small>
@@ -86,7 +86,7 @@ export default (props) => {
     return false;
   };
 
-  const Value = (props) =>
+  const Value = props =>
     DateValue() || (
       <div className={`d-flex justify-content-between align-items-start h-100`}>
         {(props.type !== "checkbox" &&

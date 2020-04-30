@@ -4,8 +4,8 @@ import query from "../request/leadEngineer/Query";
 import operatorJson from "../forms/Operator.json";
 import SingelStageJson from "../forms/SingelStage.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
-import PaperStack from "components/PaperStack";
-import Paper from "components/Paper";
+import PaperStack from "components/layout/PaperStack";
+import Paper from "components/layout/Paper";
 import {
   objectifyQuery,
   formDataStructure,

@@ -4,8 +4,8 @@ import query from "../request/leadEngineer/Query";
 import leadEngineersCoatedItemJson from "../forms/LeadEngineerCoatedItem.json";
 import leadEngineersMouldJson from "../forms/LeadEngineerMould.json";
 import DocumentAndSubmit from "components/DocumentAndSubmit";
-import PaperStack from "components/PaperStack";
-import Paper from "components/Paper";
+import PaperStack from "components/layout/PaperStack";
+import Paper from "components/layout/Paper";
 import { objectifyQuery, coatedItemORMould } from "functions/general";
 let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {

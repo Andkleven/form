@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import objectPath from "object-path";
 import { DocumentDateContext } from "./DocumentAndSubmit";
 import FieldGroup from "./FieldGroup";
-import Title from "components/text/Title";
+import Title from "components/layout/design/fonts/Title";
 import { variableString, emptyObject, emptyField } from "functions/general";
 
 import "../styles/styles.css";

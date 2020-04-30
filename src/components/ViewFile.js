@@ -1,6 +1,6 @@
 import React from "react";
-import PaperStack from "components/PaperStack";
-import Paper from "components/Paper";
+import PaperStack from "components/layout/PaperStack";
+import Paper from "components/layout/Paper";
 import FetchData from "components/FetchData";
 
 export default pageInfo => {

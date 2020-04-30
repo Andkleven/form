@@ -15,10 +15,10 @@ import {
 import { allTrue, getRepeatNumber } from "functions/general";
 import Input from "./Input";
 import objectPath from "object-path";
-import Title from "components/text/Title";
-import Subtitle from "components/text/Subtitle";
+import Title from "components/layout/design/fonts/Title";
+import Subtitle from "components/layout/design/fonts/Subtitle";
 import CustomComponents from "components/CustomComponents";
-import Line from "./Line";
+import Line from "components/layout/design/Line";
 import TabButton from "components/buttons/TabButton";
 
 export default props => {

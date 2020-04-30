@@ -1,5 +1,5 @@
 import React from "react";
-import ReadField from "components/ReadField";
+import ReadField from "components/fields/ReadField";
 import objectPath from "object-path";
 import { sumFieldInObject } from "../functions/general";
 
