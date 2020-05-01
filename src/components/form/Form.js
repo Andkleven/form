@@ -193,8 +193,8 @@ export default props => {
       setIsSubmitted(false);
       setValidationPassed({});
       setNextStage(true);
-      if (lastSubmitButton && props.lastbutton) {
-        props.lastbutton();
+      if (lastSubmitButton && props.finalButton) {
+        props.finalButton();
       }
       setEditChapter(0);
     } else {

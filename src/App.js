@@ -1,11 +1,10 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Header from "components/layout/Header";
-// import "styles/styles.css";
 import history from "./history";
-// import { AUTH_TOKEN } from "./constants";
+import { AUTH_TOKEN } from "./constants";
 import Home from "./pages/HomePage";
-// import Login from "./pages/LoginPage";
+import Login from "./pages/LoginPage";
 import Item from "./pages/ItemPage";
 import LeadEngineerPage from "./pages/LeadEngineerPage";
 import LeadEngineerStartPage from "./pages/leadEngineer/StartPage";
@@ -29,46 +28,52 @@ const backgroundStyle = {
   height: "100%"
 };
 
-export default () => (
-  <>
-    <Div100vh className="bg-secondary">
-      <div style={backgroundStyle}>
-        <Router history={history}>
-          <ScrollMemory />
-          <Header />
-          <Switch>
-            {/* <Route exact path="/login" component={Login} /> */}
-            {/* {!authToken && <Redirect to="/login" exact />} */}
-            <Route exact path="/" component={Home} />
-            <Route exact path="/operator" component={OperatorPage} />
-            <Route exact path="/orders" component={OperatorPage} />
-            <Route path="/order/item/:_id" component={Item} />
-            <Route
-              path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
-              component={LeadEngineerPage}
-            />
-            <Route
-              path="/batching/:stage/:descriptionId"
-              component={Batching}
-            />
-            <Route
-              path="/partial-batching/:stage/:descriptionId"
-              component={PartialBatching}
-            />
-            <Route
-              path="/singel-item/:itemId/:geometry"
-              component={SingleItem}
-            />
-            <Route
-              path="/quality-control/:itemId/:geometry"
-              component={QualityControl}
-            />
+export default () => {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
 
-            <Route path="/lead-engineer" component={LeadEngineerStartPage} />
-            <Route path="/file/:path" component={ViewFile} />
-          </Switch>
-        </Router>
-      </div>
-    </Div100vh>
-  </>
-);
+  return (
+    <>
+      <Div100vh className="bg-secondary">
+        <div style={backgroundStyle}>
+          <Router history={history}>
+            <ScrollMemory />
+            <Header />
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              {!authToken && <Redirect to="/login" exact />}
+              <Route exact path="/" component={Home} />
+
+              <Route exact path="/operator" component={OperatorPage} />
+              <Route exact path="/orders" component={OperatorPage} />
+              <Route path="/lead-engineer" component={LeadEngineerStartPage} />
+
+              <Route path="/order/item/:_id" component={Item} />
+              <Route
+                path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
+                component={LeadEngineerPage}
+              />
+              <Route
+                path="/batching/:stage/:descriptionId"
+                component={Batching}
+              />
+              <Route
+                path="/partial-batching/:stage/:descriptionId"
+                component={PartialBatching}
+              />
+              <Route
+                path="/singel-item/:itemId/:geometry"
+                component={SingleItem}
+              />
+              <Route
+                path="/quality-control/:itemId/:geometry"
+                component={QualityControl}
+              />
+
+              <Route path="/file/:path" component={ViewFile} />
+            </Switch>
+          </Router>
+        </div>
+      </Div100vh>
+    </>
+  );
+};
