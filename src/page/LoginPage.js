@@ -1,22 +1,26 @@
-import React, { useState } from "react";
-import { AUTH_TOKEN } from "../constants";
-import { useMutation } from "@apollo/react-hooks";
+import React, { useState, useEffect } from "react";
+import { AUTH_TOKEN, USER } from "../constants";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import history from "../history";
 import gql from "graphql-tag";
 // import { getAllPosts } from "@apollo/react-hooks";
 
 import { Form, Button, Image } from "react-bootstrap";
 import styled from "styled-components";
-import "../styles/bootstrap.css";
+// import "../styles/bootstrap.css";
 import emblem from "../images/trelleborg_emblem.png";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
+      user {
+        employee
+      }
     }
   }
 `;
+
 
 const OuterLogin = styled.div`
   height: 90vh;
@@ -30,24 +34,35 @@ const OuterLogin = styled.div`
   -webkit-box-pack: center;
   justify-content: center;
 `;
+let is_login = localStorage.getItem(AUTH_TOKEN);
 
 export default () => {
-  let token;
-  async function pushHome(data) {
-    token = await data.tokenAuth;
-    localStorage.setItem(AUTH_TOKEN, token);
-    // console.log("Starting push to home...");
-    history.push(`/`);
-    // console.log("Push done.");
-  }
+  const [token, setToken] = useState();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  useEffect(() => {
+    if (token) {
+      history.push(`/`);
+    }
+  }, [token])
+  if (is_login) {
+    localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(USER);
+  }
+  async function saveToke(data) {
+    let new_token = await data.tokenAuth.token;
+    let user = await data.tokenAuth.user;
+    setToken(new_token)
+    localStorage.setItem(AUTH_TOKEN, new_token);
+    localStorage.setItem(USER, JSON.stringify({username, ...user}));
+  }
+
   const [
     login,
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(LOGIN_MUTATION, {
     onCompleted: data => {
-      pushHome(data);
+      saveToke(data);
     }
   });
 

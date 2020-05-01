@@ -1,11 +1,11 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Header from "components/layout/Header";
 // import "styles/styles.css";
 import history from "./history";
-// import { AUTH_TOKEN } from "./constants";
+import { AUTH_TOKEN } from "./constants";
 import Home from "./page/HomePage";
-// import Login from "./page/LoginPage";
+import Login from "./page/LoginPage";
 import Item from "./page/ItemPage";
 import LeadEngineerPage from "./page/LeadEngineerPage";
 import LeadEngineerStartPage from "./page/leadEngineer/StartPage";
@@ -29,7 +29,10 @@ const backgroundStyle = {
   height: "100%"
 };
 
-export default () => (
+export default () => {
+const authToken = localStorage.getItem(AUTH_TOKEN);
+
+return(
   <>
     <Div100vh className="bg-secondary">
       <div style={backgroundStyle}>
@@ -37,8 +40,8 @@ export default () => (
           <ScrollMemory />
           <Header />
           <Switch>
-            {/* <Route exact path="/login" component={Login} /> */}
-            {/* {!authToken && <Redirect to="/login" exact />} */}
+            <Route exact path="/login" component={Login} />
+            {!authToken && <Redirect to="/login" exact />}
             <Route exact path="/" component={Home} />
             <Route exact path="/operator" component={OperatorPage} />
             <Route exact path="/orders" component={OperatorPage} />
@@ -71,4 +74,4 @@ export default () => (
       </div>
     </Div100vh>
   </>
-);
+)};
