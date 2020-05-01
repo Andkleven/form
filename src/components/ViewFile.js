@@ -1,7 +1,7 @@
 import React from "react";
 import PaperStack from "components/layout/PaperStack";
 import Paper from "components/layout/Paper";
-import FetchData from "components/FetchData";
+import FetchData from "functions/fetchData";
 
 export default pageInfo => {
   const { path } = pageInfo.match.params;

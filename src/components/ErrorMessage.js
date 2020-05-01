@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FieldsContext } from "./DocumentAndSubmit";
+import { FieldsContext } from "components/forms/DocumentAndSubmit";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);

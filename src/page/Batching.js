@@ -4,7 +4,7 @@ import query from "../request/leadEngineer/Query";
 import allBatchingJson from "../forms/Batching.json";
 import operatorCoatedItemJson from "../forms/OperatorCoatedItem.json";
 import operatorMouldJson from "../forms/OperatorMould.json";
-import DocumentAndSubmit from "components/DocumentAndSubmit";
+import DocumentAndSubmit from "components/forms/DocumentAndSubmit";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
 import Batching from "components/Batching";

@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
-.vscode
+# .vscode
 react-app-env.d.ts

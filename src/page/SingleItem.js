@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "../request/leadEngineer/Query";
 import operatorCoatedItemJson from "../forms/OperatorCoatedItem.json";
 import operatorMouldJson from "../forms/OperatorMould.json";
-import DocumentAndSubmit from "components/DocumentAndSubmit";
+import DocumentAndSubmit from "components/forms/DocumentAndSubmit";
 import Paper from "components/layout/Paper";
 import PaperStack from "components/layout/PaperStack";
 import {

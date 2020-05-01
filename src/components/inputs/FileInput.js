@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import FileDescription from "./widgets/FileDescription";
 import objectPath from "object-path";
-import { DocumentDateContext } from "components/DocumentAndSubmit";
+import { DocumentDateContext } from "components/forms/DocumentAndSubmit";
 
 const baseStyle = {
   flex: 1,

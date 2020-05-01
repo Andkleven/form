@@ -40,7 +40,7 @@
               "fieldName": "totalCoatingThickness",
               "label": "Total Coating Thickness",
               "type": "checkbox",
-              "subtext": "APS. Final measurments are within tolerances."
+              "subtext": "APS. Final measurements are within tolerances."
             },
             {
               "fieldName": "visualInspection",
@@ -94,7 +94,7 @@
             {
               "fieldName": "hardnessOfOuterLayer",
               "indexVariableLabel": true,
-              "label": "Hardhet Of Outer Layer: {}",
+              "label": "Hardness Of Outer Layer: {}",
               "unit": "Shore A",
               "type": "number"
             }

@@ -5,7 +5,7 @@ import operatorCoatedItemJson from "../forms/OperatorCoatedItem.json";
 import operatorMouldJson from "../forms/OperatorCoatedItem.json";
 import qualityControlCoatingItem from "../forms/QualityControlCoatingItem.json";
 import qualityControlMould from "../forms/QualityControlMould.json";
-import DocumentAndSubmit from "components/DocumentAndSubmit";
+import DocumentAndSubmit from "components/forms/DocumentAndSubmit";
 import Paper from "components/layout/Paper";
 import PaperStack from "components/layout/PaperStack";
 import {

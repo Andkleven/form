@@ -4,8 +4,8 @@ import {
   findValue,
   allRequiredSatisfied,
   createPath
-} from "../functions/general";
-import Page from "./Page";
+} from "../../functions/general";
+import Page from "../Page";
 import findNextStage from "components/stages/FindNextStage";
 import Title from "components/layout/design/fonts/Title";
 
