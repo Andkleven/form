@@ -43,8 +43,11 @@ return(
             <Route exact path="/login" component={Login} />
             {!authToken && <Redirect to="/login" exact />}
             <Route exact path="/" component={Home} />
+            
             <Route exact path="/operator" component={OperatorPage} />
             <Route exact path="/orders" component={OperatorPage} />
+            <Route path="/lead-engineer" component={LeadEngineerStartPage} />
+            
             <Route path="/order/item/:_id" component={Item} />
             <Route
               path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
@@ -67,7 +70,6 @@ return(
               component={QualityControl}
             />
 
-            <Route path="/lead-engineer" component={LeadEngineerStartPage} />
             <Route path="/file/:path" component={ViewFile} />
           </Switch>
         </Router>

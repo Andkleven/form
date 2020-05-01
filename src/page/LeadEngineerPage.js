@@ -40,6 +40,7 @@ export default pageInfo => {
           descriptionId={descriptionId}
           itemId={itemId}
           sendItemId={Number(different)}
+          lastbutton={console.log("lastbutton")}
         />
       </Paper>
     </PaperStack>
