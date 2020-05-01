@@ -5,9 +5,8 @@ import "styles/styles.css";
 import { LinkContainer } from "react-router-bootstrap";
 import { USER } from "../../constants";
 
-
 export default () => {
-  const userInfo = JSON.parse(localStorage.getItem(USER));
+  const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
   const NavLink = props => (
     <LinkContainer to={props.link} className="p-0">
       <Dropdown.Item>
@@ -64,7 +63,10 @@ export default () => {
         <Dropdown className="">
           <Dropdown.Toggle variant="dark" className="caret-off">
             <div className="d-none d-sm-block">
-              {userInfo ? `${userInfo.employee} • ${userInfo.username}` : "userRole • ID"} <i className="fas fa-user ml-2" />
+              {userInfo
+                ? `${userInfo.employee} • ${userInfo.username}`
+                : "userRole • ID"}{" "}
+              <i className="fas fa-user ml-2" />
             </div>
             <div className="d-block d-sm-none">
               ID <i className="fas fa-user ml-2" />

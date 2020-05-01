@@ -15,8 +15,6 @@ import Batching from "./pages/Batching";
 import QualityControl from "./pages/QualityControl";
 import SingleItem from "./pages/SingleItem";
 import ViewFile from "components/ViewFile";
-import ScrollMemory from "react-router-scroll-memory";
-
 import background from "./images/trelleborg-coating-compressed.jpg";
 
 const backgroundStyle = {
@@ -32,48 +30,51 @@ export default () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
   return (
-    <>
-      <Div100vh className="bg-secondary">
-        <div style={backgroundStyle}>
-          <Router history={history}>
-            <ScrollMemory />
-            <Header />
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              {!authToken && <Redirect to="/login" exact />}
-              <Route exact path="/" component={Home} />
+    <Div100vh className="bg-secondary">
+      <div style={backgroundStyle}>
+        <Router history={history}>
+          <Header />
+          <Switch>
+            {/* Login */}
+            <Route exact path="/login" component={Login} />
+            {!authToken && <Redirect to="/login" exact />}
+            {/* Home */}
 
-              <Route exact path="/operator" component={OperatorPage} />
-              <Route exact path="/orders" component={OperatorPage} />
-              <Route path="/lead-engineer" component={LeadEngineerStartPage} />
+            <Route exact path="/" component={Home} />
+            {/* Lead Engineer: Create Project */}
+            <Route path="/order/item/:_id" component={Item} />
+            {/* Lead Engineer: Create Items */}
+            <Route
+              path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
+              component={LeadEngineerPage}
+            />
 
-              <Route path="/order/item/:_id" component={Item} />
-              <Route
-                path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
-                component={LeadEngineerPage}
-              />
-              <Route
-                path="/batching/:stage/:descriptionId"
-                component={Batching}
-              />
-              <Route
-                path="/partial-batching/:stage/:descriptionId"
-                component={PartialBatching}
-              />
-              <Route
-                path="/single-item/:itemId/:geometry"
-                component={SingleItem}
-              />
-              <Route
-                path="/quality-control/:itemId/:geometry"
-                component={QualityControl}
-              />
+            {/* Operator: Batching */}
+            <Route
+              path="/batching/:stage/:descriptionId"
+              component={Batching}
+            />
+            {/* Operator: Partial Batching */}
+            <Route
+              path="/partial-batching/:stage/:descriptionId"
+              component={PartialBatching}
+            />
+            {/* Operator: Single Item */}
+            <Route
+              path="/single-item/:itemId/:geometry"
+              component={SingleItem}
+            />
 
-              <Route path="/file/:path" component={ViewFile} />
-            </Switch>
-          </Router>
-        </div>
-      </Div100vh>
-    </>
+            {/* Quality Control: Final Inspection */}
+            <Route
+              path="/quality-control/:itemId/:geometry"
+              component={QualityControl}
+            />
+
+            <Route path="/file/:path" component={ViewFile} />
+          </Switch>
+        </Router>
+      </div>
+    </Div100vh>
   );
 };
