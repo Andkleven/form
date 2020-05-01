@@ -23,7 +23,7 @@ const ALL = gql`
           leadEngineers {
             id
             data
-            measurementPointActualTvds {
+            measurementPointActualTdvs {
               id
               data
             }
@@ -37,7 +37,7 @@ const ALL = gql`
               coatingLayers {
                 id
                 data
-                cumulativeThicknes {
+                cumulativeThickness {
                   id
                   data
                 }
@@ -96,7 +96,7 @@ const GET_LEAD_ENGINEER = gql`
     leadEngineers(item: $id) {
       id
       data
-      measurementPointActualTvds {
+      measurementPointActualTdvs {
         id
         data
       }
@@ -107,7 +107,7 @@ const GET_LEAD_ENGINEER = gql`
           id
           data
 
-          cumulativeThicknes {
+          cumulativeThickness {
             id
             data
           }
@@ -133,7 +133,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
         leadEngineers {
           id
           data
-          measurementPointActualTvds {
+          measurementPointActualTdvs {
             id
             data
           }
@@ -147,7 +147,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             coatingLayers {
               id
               data
-              cumulativeThicknes {
+              cumulativeThickness {
                 id
                 data
               }
@@ -157,7 +157,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
         operators {
           id
           data
-          measurementPointActualTvds {
+          measurementPointActualTdvs {
             id
             data
           }
@@ -196,7 +196,7 @@ const GET_OPERATOR_BY_ITEM = gql`
       leadEngineers {
         id
         data
-        measurementPointActualTvds {
+        measurementPointActualTdvs {
           id
           data
         }
@@ -210,7 +210,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           coatingLayers {
             id
             data
-            cumulativeThicknes {
+            cumulativeThickness {
               id
               data
             }
@@ -220,7 +220,7 @@ const GET_OPERATOR_BY_ITEM = gql`
       operators {
         id
         data
-        measurementPointActualTvds {
+        measurementPointActualTdvs {
           id
           data
         }
@@ -282,7 +282,7 @@ const QUALITY_CONTROL = gql`
       leadEngineers {
         id
         data
-        measurementPointActualTvds {
+        measurementPointActualTdvs {
           id
           data
         }
@@ -296,7 +296,7 @@ const QUALITY_CONTROL = gql`
           coatingLayers {
             id
             data
-            cumulativeThicknes {
+            cumulativeThickness {
               id
               data
             }
@@ -306,7 +306,7 @@ const QUALITY_CONTROL = gql`
       operators {
         id
         data
-        measurementPointActualTvds {
+        measurementPointActualTdvs {
           id
           data
         }
@@ -334,11 +334,11 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
-        hardhetQualityControls {
+        hardnessQualityControls {
           id
           data
         }
-        peeltestQualityControls {
+        peelTestQualityControls {
           id
           data
         }

@@ -1,6 +1,6 @@
 {
   "queryPath": "leadEngineers",
-  "mutation": "LEADENGINEER",
+  "mutation": "LEAD_ENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
@@ -49,14 +49,14 @@
     {
       "pages": [
         {
-          "pageTitle": "Coating and Vulcanzation",
+          "pageTitle": "Coating and Vulcanization",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineers",
-          "mutation": "LEADENGINEER",
+          "mutation": "LEAD_ENGINEER",
           "fields": [
             {
-              "fieldName": "orderedTotalRubberThicknes",
-              "label": "Ordered Total Rubber Thicknes",
+              "fieldName": "orderedTotalRubberThickness",
+              "label": "Ordered Total Rubber Thickness",
               "type": "number",
               "required": true
             },
@@ -154,8 +154,8 @@
                   "options": [73165]
                 },
                 {
-                  "fieldName": "actualThicknes",
-                  "label": "Actual Thicknes",
+                  "fieldName": "actualThickness",
+                  "label": "Actual Thickness",
                   "type": "Number",
                   "min": 2,
                   "max": 4,
@@ -172,9 +172,9 @@
                   "required": true
                 },
                 {
-                  "fieldName": "proposedThicknes",
-                  "label": "Proposed Thicknes",
-                  "math": "mathProposedThicknes",
+                  "fieldName": "proposedThickness",
+                  "label": "Proposed Thickness",
+                  "math": "mathProposedThickness",
                   "min": 2,
                   "max": 4,
                   "unit": "mm",
@@ -188,15 +188,15 @@
                 },
                 {
                   "page": true,
-                  "queryPath": "cumulativeThicknes",
+                  "queryPath": "cumulativeThickness",
                   "repeat": true,
                   "notAddButton": true,
                   "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
                   "fields": [
                     {
-                      "fieldName": "cumulativeThicknes",
-                      "label": "Cumulative Thicknes {}",
-                      "math": "mathCumulativeThicknes",
+                      "fieldName": "cumulativeThickness",
+                      "label": "Cumulative Thickness {}",
+                      "math": "mathCumulativeThickness",
                       "indexVariableLabel": true,
                       "decimal": 1,
                       "type": "Number"

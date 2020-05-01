@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  useEffect,
-  useLayoutEffect
-} from "react";
+import React, { useState, createContext, useLayoutEffect } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/leadEngineer/Query";
 import mutations from "graphql/leadEngineer/MutationToDatabase";
@@ -28,24 +23,11 @@ export const FieldsContext = createContext();
 const cloneDeep = require("clone-deep");
 
 export default props => {
-  useEffect(() => {
-    if (!props.componentsId) {
-      console.error(
-        "Du har ikke gitt komponent Canvas en 'componentsId'. Tips: Sett componentsId lik navnet på komponenten som kjører Canvas komponeten."
-      );
-    }
-    if (props.document === undefined && props.document === null) {
-      console.error("Du må gi en 'document' til komponent Canvas");
-    }
-    if (props.data === undefined && props.data === null) {
-      console.error("Du må gi en 'data' til komponent Canvas");
-    }
-  }, [props.componentsId, props.document, props.data]);
   const [editChapter, setEditChapter] = useState(0);
   const [documentDate, setDocumentDate] = useState(); // Store data for all document
   const [nextStage, setNextStage] = useState(true);
   const [lastSubmitButton, setLastSubmitButton] = useState(false);
-  const [isSubmited, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [validationPassed, setValidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
   // Set DocumentDate to empty dictionary if a new components calls Form
@@ -178,7 +160,7 @@ export default props => {
             props.saveButton &&
             nextStage &&
             Object.values(validationPassed).every(allTrue) &&
-            FindNextStage(props.speckData, props.stage, props.geometry)
+            FindNextStage(props.specData, props.stage, props.geometry)
         }
       });
     }
@@ -209,7 +191,7 @@ export default props => {
           value={{
             validationPassed,
             setValidationPassed,
-            isSubmited,
+            isSubmitted,
             setIsSubmitted
           }}
         >

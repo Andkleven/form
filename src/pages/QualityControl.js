@@ -11,7 +11,7 @@ import PaperStack from "components/layout/PaperStack";
 import {
   objectifyQuery,
   formDataStructure,
-  coatedItemORMould
+  coatedItemOrMould
 } from "functions/general";
 
 export default pageInfo => {
@@ -19,13 +19,13 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-  let qualityControl = coatedItemORMould(
+  let qualityControl = coatedItemOrMould(
     geometry,
     qualityControlCoatingItem,
     qualityControlMould
   );
 
-  let operatorJson = coatedItemORMould(
+  let operatorJson = coatedItemOrMould(
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
@@ -48,7 +48,7 @@ export default pageInfo => {
           document={operatorJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
-          speckData={
+          specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           stage={fixedData && fixedData.items[0].stage}
@@ -69,7 +69,7 @@ export default pageInfo => {
               "items.0.finalInspectionQualityControls"
             )
           }
-          speckData={
+          specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           allData={fixedData}

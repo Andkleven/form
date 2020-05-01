@@ -22,28 +22,28 @@ export default props => {
   useEffect(() => {
     let { min, max } = calculateMaxMin(
       props.min,
-      props.routToSpeckMin,
+      props.routeToSpecMin,
       props.editRepeatStepListMin,
       props.calculateMin,
       props.max,
-      props.routToSpeckMax,
+      props.routeToSpecMax,
       props.editRepeatStepListMax,
       props.calculateMax,
       props.repeatStepList,
-      props.speckData,
+      props.specData,
       props.allData
     );
     setMin(min);
     setMax(max);
-  }, [props.speckData]);
+  }, [props.specData]);
 
   useEffect(() => {
     setLabel(
       props.queryVariableLabel || props.indexVariableLabel
         ? variableLabel(
             props.label,
-            props.variableLabelWithSpeckData
-              ? props.speckData
+            props.variableLabelSpec
+              ? props.specData
               : documentDateContext.documentDate,
             props.queryVariableLabel,
             props.repeatStepList,
@@ -52,15 +52,15 @@ export default props => {
           )
         : props.label
     );
-  }, [props.speckData, documentDateContext.documentDate]);
+  }, [props.specData, documentDateContext.documentDate]);
 
   useEffect(() => {
     setSubtext(
       getSubtext(
         props.subtext,
         findValue(
-          props.speckData,
-          props.speckSubtextList,
+          props.specData,
+          props.specSubtextList,
           props.repeatStepList,
           props.editRepeatStepSubtextList
         ),
@@ -76,7 +76,7 @@ export default props => {
         props.allData
       )
     );
-  }, [props.speckData]);
+  }, [props.specData]);
 
   const getNewPath = useCallback(
     fieldName => {
@@ -85,7 +85,7 @@ export default props => {
     [props.path]
   );
 
-  if (props.speckValueList) {
+  if (props.specValueList) {
     return (
       <ReadField
         {...props}
@@ -94,8 +94,8 @@ export default props => {
         path={getNewPath(props.fieldName)}
         subtext={subtext}
         value={findValue(
-          props.speckData,
-          props.speckValueList,
+          props.specData,
+          props.specValueList,
           props.repeatStepList,
           props.editRepeatStepValueList
         )}

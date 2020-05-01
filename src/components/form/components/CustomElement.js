@@ -8,7 +8,7 @@ const CustomCoating = props => {
   for (let i = 0; i < props.arrayIndex[0]; i++) {
     layers += Number(
       objectPath.get(
-        props.speckData,
+        props.specData,
         `leadEngineers.0.vulcanizationSteps.${i}.data.numberOfLayers`
       )
     );
@@ -22,7 +22,7 @@ const CustomCoating = props => {
         readOnly={true}
         label={"Step"}
         value={`${props.arrayIndex[0] + 1} of ${
-          objectPath.get(props.speckData, "leadEngineers.0.vulcanizationSteps")
+          objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
             .length
         }`}
       />
@@ -31,7 +31,7 @@ const CustomCoating = props => {
         readOnly={true}
         label={"Layer"}
         value={`${layers} of ${sumFieldInObject(
-          objectPath.get(props.speckData, "leadEngineers.0.vulcanizationSteps"),
+          objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps"),
           "numberOfLayers"
         )}`}
       />

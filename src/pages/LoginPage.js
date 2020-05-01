@@ -67,11 +67,6 @@ export default () => {
   return (
     <>
       <OuterLogin>
-        <link
-          rel="stylepages"
-          href="https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css"
-          media="all"
-        />
         <div
           className="rounded shadow-lg bg-dark"
           // style={{ backgroundColor: "rgba(0, 0, 0, .7)" }}

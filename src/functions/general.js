@@ -219,7 +219,7 @@ export const variableLabel = (
 
 export const getSubtext = (
   subtext,
-  SpeckSubtext,
+  specSubtext,
   max,
   min,
   maxInput,
@@ -232,8 +232,8 @@ export const getSubtext = (
   allData
 ) => {
   if (subtext) {
-    if (SpeckSubtext) {
-      return variableString(SpeckSubtext, subtext);
+    if (specSubtext) {
+      return variableString(specSubtext, subtext);
     }
     return variableString("", subtext);
   }
@@ -310,11 +310,11 @@ export const validateFieldWithValue = validation => {
 
 export const calculateMaxMin = (
   min,
-  routToSpeckMin,
+  routeToSpecMin,
   editRepeatStepListMin,
   calculateMin,
   max,
-  routToSpeckMax,
+  routeToSpecMax,
   editRepeatStepListMax,
   calculateMax,
   repeatStepList,
@@ -323,10 +323,10 @@ export const calculateMaxMin = (
 ) => {
   let newMin;
   let newMax;
-  if (routToSpeckMin) {
+  if (routeToSpecMin) {
     newMin = findValue(
       data,
-      routToSpeckMin,
+      routeToSpecMin,
       repeatStepList,
       editRepeatStepListMin
     );
@@ -335,10 +335,10 @@ export const calculateMaxMin = (
   } else {
     newMin = min;
   }
-  if (routToSpeckMax) {
+  if (routeToSpecMax) {
     newMax = findValue(
       data,
-      routToSpeckMax,
+      routeToSpecMax,
       repeatStepList,
       editRepeatStepListMax
     );
@@ -376,7 +376,7 @@ export const chapterPages = (
       lastChapter,
       showSaveButton
     );
-    return <Fragment key={`${index}-${firstIndex}-cancas`}>{page}</Fragment>;
+    return <Fragment key={`${index}-${firstIndex}-canvas`}>{page}</Fragment>;
   });
 };
 
@@ -513,15 +513,15 @@ export const reshapeStageSting = stage => {
   return newStage;
 };
 
-export const coatedItemORMould = (
-  gategory,
+export const coatedItemOrMould = (
+  category,
   leadEngineersCoatedItemJson,
   leadEngineersMouldJson
 ) => {
   let leadEngineersJson;
-  if (removeSpace(gategory).toLowerCase() === "coateditem") {
+  if (removeSpace(category).toLowerCase() === "coatedItem") {
     leadEngineersJson = leadEngineersCoatedItemJson;
-  } else if (removeSpace(gategory).toLowerCase() === "mould") {
+  } else if (removeSpace(category).toLowerCase() === "mould") {
     leadEngineersJson = leadEngineersMouldJson;
   }
   return leadEngineersJson;

@@ -1,7 +1,7 @@
 import stagesJson from "./stages.json";
 import { findValue, emptyField, removeSpace } from "functions/general";
 
-export default (speckData, stage, geometry) => {
+export default (specData, stage, geometry) => {
   geometry = removeSpace(geometry).toLowerCase();
   let stageSplit = stage.split("Step");
   let newStage = stageSplit[1] ? stageSplit[0] + "Step" : stageSplit[0];
@@ -36,7 +36,7 @@ export default (speckData, stage, geometry) => {
         return nextStage;
       }
     }
-    return "Anders er best";
+    return "Nei";
   };
   const findNextStage = (geometry, nextStage, number = null) => {
     let stageCriteria = stagesJson[geometry][nextStage];
@@ -44,7 +44,7 @@ export default (speckData, stage, geometry) => {
       return true;
     }
     let query = findValue(
-      speckData,
+      specData,
       stageCriteria.queryPath,
       number === null ? [] : [number - 1],
       stageCriteria.editIndexList

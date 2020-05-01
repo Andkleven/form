@@ -136,7 +136,7 @@ export default props => {
                   <hr className="w-100 m-0" />
                 </>
               )}
-              <ul className="list-unstyled mb-0">
+              <ul className="mb-0">
                 {files.map((file, index) => (
                   <FileDescription
                     key={index}

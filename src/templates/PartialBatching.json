@@ -3,10 +3,10 @@
     "itemPath": "descriptions.0.items",
     "dataPath": "leadEngineers"
   },
-  "ducument": {
+  "document": {
     "queryPath": "operators",
     "specQueryPath": "leadEngineers",
-    "mutation": "OPERATORBATCHING",
+    "mutation": "OPERATOR_BATCHING",
     "query": "GET_OPERATOR_BY_DESCRIPTION",
     "chapters": "steelPreparation1"
   }

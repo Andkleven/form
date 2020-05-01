@@ -4,10 +4,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }
@@ -17,10 +17,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }
@@ -30,10 +30,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }
@@ -43,10 +43,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }
@@ -56,10 +56,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }
@@ -69,10 +69,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": ["operators.0.vulcanizationOperators", ""],
       "specQueryPath": ["leadEngineers.0.vulcanizationOperators", ""],
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }
@@ -82,10 +82,10 @@
       "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
-    "ducument": {
+    "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
-      "mutation": "OPERATORBATCHING",
+      "mutation": "OPERATOR_BATCHING",
       "query": "GET_OPERATOR_BY_DESCRIPTION",
       "chapters": ""
     }

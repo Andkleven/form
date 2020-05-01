@@ -9,7 +9,7 @@
           "pageTitle": "Final Inspection",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [
             "finalInspectionQualityControls.0.measurementPointQcs",
@@ -81,7 +81,7 @@
           ]
         },
         {
-          "queryPath": "finalInspectionQualityControls.0.hardhetQualityControls",
+          "queryPath": "finalInspectionQualityControls.0.hardnessQualityControls",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfHardnessOfOuterLayer",
@@ -107,7 +107,7 @@
           ]
         },
         {
-          "queryPath": "finalInspectionQualityControls.0.peeltestQualityControls",
+          "queryPath": "finalInspectionQualityControls.0.peelTestQualityControls",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfPeelTest",

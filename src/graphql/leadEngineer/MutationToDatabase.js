@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 const ORDER = gql`
-  mutation projects($projects: [ProjectInupt]) {
+  mutation projects($projects: [ProjectInput]) {
     projects(projects: $projects) {
       new {
         id
@@ -26,7 +26,7 @@ const ORDER = gql`
   }
 `;
 
-const DELETEITEM = gql`
+const DELETE_ITEM = gql`
   mutation itemDelete($id: Int) {
     itemDelete(id: $id) {
       deleted
@@ -71,9 +71,9 @@ const ITEM = gql`
   }
 `;
 
-const LEADENGINEER = gql`
+const LEAD_ENGINEER = gql`
   mutation leadEngineers(
-    $leadEngineers: [LeadEngineerInupt]
+    $leadEngineers: [LeadEngineerInput]
     $descriptionId: Int
     $itemId: Int
   ) {
@@ -85,7 +85,7 @@ const LEADENGINEER = gql`
       new {
         id
         data
-        measurementPointActualTvds {
+        measurementPointActualTdvs {
           id
           data
         }
@@ -99,7 +99,7 @@ const LEADENGINEER = gql`
           coatingLayers {
             id
             data
-            cumulativeThicknes {
+            cumulativeThickness {
               id
               data
             }
@@ -110,8 +110,8 @@ const LEADENGINEER = gql`
   }
 `;
 
-const LEADENGINEERDONE = gql`
-  mutation projects($project: [ProjectInupt]) {
+const LEAD_ENGINEER_DONE = gql`
+  mutation projects($project: [ProjectInput]) {
     projects(project: $project) {
       new {
         leadEngineerDone
@@ -120,10 +120,10 @@ const LEADENGINEERDONE = gql`
   }
 `;
 
-const OPERATORBATCHING = gql`
+const OPERATOR_BATCHING = gql`
   mutation operatorsBaching(
-    $operators: [UnderCategoriesOfLeadEngineerInupt]
-    $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInupt]
+    $operators: [UnderCategoriesOfLeadEngineerInput]
+    $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
     $itemIdList: [Int]!
     $stage: String
   ) {
@@ -143,7 +143,7 @@ const OPERATORBATCHING = gql`
           operators {
             id
             data
-            measurementPointActualTvds {
+            measurementPointActualTdvs {
               id
               data
             }
@@ -176,7 +176,7 @@ const OPERATORBATCHING = gql`
 
 const OPERATOR = gql`
   mutation operators(
-    $operators: [OperatorInupt]
+    $operators: [OperatorInput]
     $stage: String
     $itemId: Int
   ) {
@@ -184,7 +184,7 @@ const OPERATOR = gql`
       new {
         id
         data
-        measurementPointActualTvds {
+        measurementPointActualTdvs {
           id
           data
         }
@@ -215,7 +215,7 @@ const OPERATOR = gql`
 `;
 const QUALITY_CONTROL = gql`
   mutation finalInspectionQualityControls(
-    $finalInspectionQualityControls: [UnderCategoriesOfLeadEngineerInupt]
+    $finalInspectionQualityControls: [UnderCategoriesOfLeadEngineerInput]
     $itemId: Int
   ) {
     finalInspectionQualityControls(
@@ -231,11 +231,11 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
-        hardhetQualityControls {
+        hardnessQualityControls {
           id
           data
         }
-        peeltestQualityControls {
+        peelTestQualityControls {
           id
           data
         }
@@ -251,11 +251,11 @@ const QUALITY_CONTROL = gql`
 
 const mutations = {
   ORDER,
-  DELETEITEM,
+  DELETE_ITEM,
   ITEM,
-  LEADENGINEER,
-  LEADENGINEERDONE,
-  OPERATORBATCHING,
+  LEAD_ENGINEER,
+  LEAD_ENGINEER_DONE,
+  OPERATOR_BATCHING,
   OPERATOR,
   QUALITY_CONTROL
 };

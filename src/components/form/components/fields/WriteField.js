@@ -16,7 +16,7 @@ export default props => {
   const fieldsContext = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
   const documentDateContext = useContext(DocumentDateContext);
-  const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
+  const [showMinMax, setShowMinMax] = useState(false); // if true show error message before submit
 
   const onChangeDate = date => {
     documentDateContext.setDocumentDate(prevState => {

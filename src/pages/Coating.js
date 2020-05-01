@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/leadEngineer/Query";
-import operatorJson from "forms/Operator.json";
-import SingleStageJson from "forms/SingleStage.json";
+import operatorJson from "templates/Operator.json";
+import SingleStageJson from "templates/SingleStage.json";
 import Form from "components/form/Form";
 import PaperStack from "components/layout/PaperStack";
 import Paper from "components/layout/Paper";
@@ -39,7 +39,7 @@ export default pageInfo => {
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           stage={data.items[0].stage}
-          speckData={
+          specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           geometry={geometry}

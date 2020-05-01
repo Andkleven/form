@@ -18,7 +18,7 @@ export default props => {
         variant="light"
         className="border ml-1"
         style={{ zIndex: 0 }}
-        onClick={props.addHandeler}
+        onClick={props.addHandler}
       >
         <div className="d-flex align-items-center text-dark">
           <i className="far fa-clone" style={{ width: "1.2em" }} />

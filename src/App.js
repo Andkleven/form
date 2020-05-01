@@ -61,7 +61,7 @@ export default () => {
                 component={PartialBatching}
               />
               <Route
-                path="/singel-item/:itemId/:geometry"
+                path="/single-item/:itemId/:geometry"
                 component={SingleItem}
               />
               <Route

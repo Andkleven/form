@@ -21,7 +21,7 @@ export default props => {
           value.type === "file" ||
           value.line ||
           value.page ||
-          value.speckValueList
+          value.specValueList
         ) {
           return null;
         }
@@ -45,7 +45,7 @@ export default props => {
             value.type === "file" ||
             value.line ||
             value.page ||
-            value.speckValueList
+            value.specValueList
           ) {
             return null;
           }
@@ -76,7 +76,7 @@ export default props => {
       }
       setTrigger(!trigger);
     }
-  }, [props.data, props.writeChapte]);
+  }, [props.data, props.writeChapter]);
 
   useEffect(() => {
     if (props.data && props.path) {
