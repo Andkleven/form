@@ -13,11 +13,7 @@ import { createUploadLink } from "apollo-upload-client";
 
 const httpLink = createUploadLink({
   // uri: "http://127.0.0.1:8000/graphql/"
-<<<<<<< HEAD
   uri: "https://versjon2.herokuapp.com/graphql/",
-=======
-  uri: "https://versjon2.herokuapp.com/graphql/"
->>>>>>> 6c6950f7cc4cfd0690cd85d9827d0bc56a93118c
 });
 
 const authLink = setContext((_, { headers }) => {
