@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FieldsContext, ChapterContext } from "components/form/Form";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import ErrorMessage from "../components/ErrorMessage";
 import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
