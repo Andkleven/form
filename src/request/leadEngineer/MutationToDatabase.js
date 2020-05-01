@@ -223,7 +223,7 @@ const QUALITY_CONTROL = gql`
       itemId: $itemId
     ) {
       new {
-        id
+      id
         data
         id
         data
