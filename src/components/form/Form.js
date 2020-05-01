@@ -12,7 +12,7 @@ import {
   stringifyQuery
 } from "functions/general";
 
-import FindNextStage from "components/form/functions/findNextStage";
+import FindNextStage from "components/form/stage/findNextStage";
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
