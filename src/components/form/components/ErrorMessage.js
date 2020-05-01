@@ -8,18 +8,18 @@ export default props => {
   useEffect(() => {
     setStyle(prevState => ({
       ...prevState,
-      color: fieldsContext.isSubmited ? "red" : "orange"
+      color: fieldsContext.isSubmitted ? "red" : "orange"
     }));
-  }, [props.showMinMax, fieldsContext.isSubmited]);
+  }, [props.showMinMax, fieldsContext.isSubmitted]);
   return (
     <>
-      {(props.showMinMax || fieldsContext.isSubmited) && (
+      {(props.showMinMax || fieldsContext.isSubmitted) && (
         <div style={style}>{props.error["min"]}</div>
       )}
-      {(props.showMinMax || fieldsContext.isSubmited) && (
+      {(props.showMinMax || fieldsContext.isSubmitted) && (
         <div style={style}>{props.error["max"]}</div>
       )}
-      {fieldsContext.isSubmited &&
+      {fieldsContext.isSubmitted &&
       !props.error["min"] &&
       !props.error["max"] ? (
         <div style={style}>{props.error["required"]}</div>

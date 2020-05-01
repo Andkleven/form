@@ -6,10 +6,10 @@
     "primer2",
     "actualSteelMeasurement",
     "rubberCementsBeforeCoating",
-    ["coatingStep", "vulcanizationStep", "measurementPiontStep"],
+    ["coatingStep", "vulcanizationStep", "measurementPointStep"],
     "touchUp"
   ],
-  "coateditem": {
+  "coatedItem": {
     "steelPreparation1": { "queryPath": "" },
     "steelPreparation2": { "queryPath": "" },
     "primer1": {
@@ -30,7 +30,7 @@
     "vulcanizationStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""]
     },
-    "measurementPiontStep": {
+    "measurementPointStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "editIndexList": { "0": 1 }
     },
@@ -48,7 +48,7 @@
     "vulcanizationStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""]
     },
-    "measurementPiontStep": {
+    "measurementPointStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "editIndexList": { "0": 1 }
     },

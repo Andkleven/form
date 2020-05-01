@@ -48,7 +48,7 @@ export default props => {
     } else if (!props.queryPath) {
       let arraySetFieldGroupData = [];
       let repeatNumber = getRepeatNumber(
-        props.speckData,
+        props.specData,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat

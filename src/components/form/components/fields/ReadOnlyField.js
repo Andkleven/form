@@ -8,7 +8,7 @@ import "styles/styles.css";
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
-  const [showMinMax, setShowMinMax] = useState(false); // if true show error message befor submit
+  const [showMinMax, setShowMinMax] = useState(false); // if true show error message before submit
   // Test if value shall update when documentDate update
   useEffect(() => {
     let temporaryValue = props.setValueByIndex

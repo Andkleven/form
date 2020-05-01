@@ -1,6 +1,6 @@
 {
   "queryPath": "leadEngineers",
-  "mutation": "LEADENGINEER",
+  "mutation": "LEAD_ENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
@@ -57,14 +57,14 @@
             },
             {
               "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile (Roughnes)",
+              "label": "Surface Profile (Roughness)",
               "placeholder": "Min",
               "default": 50,
               "type": "Number"
             },
             {
               "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile (Roughnes)",
+              "label": "Surface Profile (Roughness)",
               "placeholder": "Max",
               "default": 100,
               "type": "Number"
@@ -87,8 +87,8 @@
               "type": "checkbox"
             },
             {
-              "fieldName": "surfaceCleanlines",
-              "label": "Surface Cleanlines",
+              "fieldName": "surfaceCleanliness",
+              "label": "Surface Cleanliness",
               "placeholder": "Max",
               "type": "checkbox"
             },
@@ -134,10 +134,10 @@
     {
       "pages": [
         {
-          "pageTitle": "Coating and Vulcanzation",
+          "pageTitle": "Coating and Vulcanization",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineers",
-          "mutation": "LEADENGINEER",
+          "mutation": "LEAD_ENGINEER",
           "fields": [
             {
               "fieldName": "targetDescriptionValue",
@@ -147,8 +147,8 @@
               "options": ["OD", "ID"]
             },
             {
-              "fieldName": "orderedTotalRubberThicknes",
-              "label": "Ordered Total Rubber Thicknes",
+              "fieldName": "orderedTotalRubberThickness",
+              "label": "Ordered Total Rubber Thickness",
               "type": "number",
               "required": true
             },
@@ -191,7 +191,7 @@
         },
         {
           "pageTitle": "Measurement Point Actual",
-          "queryPath": "leadEngineers.0.measurementPointActualTvds",
+          "queryPath": "leadEngineers.0.measurementPointActualTdvs",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
@@ -277,8 +277,8 @@
                   "options": [73165]
                 },
                 {
-                  "fieldName": "actualThicknes",
-                  "label": "Actual Thicknes",
+                  "fieldName": "actualThickness",
+                  "label": "Actual Thickness",
                   "type": "Number",
                   "min": 2,
                   "max": 4,
@@ -295,9 +295,9 @@
                   "required": true
                 },
                 {
-                  "fieldName": "proposedThicknes",
-                  "label": "Proposed Thicknes",
-                  "math": "mathProposedThicknes",
+                  "fieldName": "proposedThickness",
+                  "label": "Proposed Thickness",
+                  "math": "mathProposedThickness",
                   "min": 2,
                   "max": 4,
                   "unit": "mm",
@@ -311,15 +311,15 @@
                 },
                 {
                   "page": true,
-                  "queryPath": "cumulativeThicknes",
+                  "queryPath": "cumulativeThickness",
                   "repeat": true,
                   "notAddButton": true,
                   "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
                   "fields": [
                     {
-                      "fieldName": "cumulativeThicknes",
-                      "label": "Cumulative Thicknes {}",
-                      "math": "mathCumulativeThicknes",
+                      "fieldName": "cumulativeThickness",
+                      "label": "Cumulative Thickness {}",
+                      "math": "mathCumulativeThickness",
                       "indexVariableLabel": true,
                       "decimal": 1,
                       "type": "Number"

@@ -82,7 +82,7 @@ export default props => {
   const [
     deleteItem,
     { loading: loadingDelete, error: errorDelete }
-  ] = useMutation(mutations["DELETEITEM"], {
+  ] = useMutation(mutations["DELETE_ITEM"], {
     update: deleteFromCache
   });
   const [

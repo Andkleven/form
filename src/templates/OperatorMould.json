@@ -13,7 +13,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "speckValueList": "leadEngineers.0.data.blastMedia",
+              "specValueList": "leadEngineers.0.data.blastMedia",
               "label": "Blast Media"
             },
             { "line": true },
@@ -21,14 +21,14 @@
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
               "placeholder": "Placeholder",
-              "routToSpeckMax": "leadEngineers.0.data.relativeHumidityt",
+              "routeToSpecMax": "leadEngineers.0.data.relativeHumidity",
               "unit": "%",
               "required": true
             },
             {
               "fieldName": "airTemperature",
               "label": "Air Temperature",
-              "routToSpeckMin": "leadEngineers.0.data.airTemperature",
+              "routeToSpecMin": "leadEngineers.0.data.airTemperature",
               "placeholder": "Placeholder",
               "unit": "C",
               "required": true
@@ -36,7 +36,7 @@
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
-              "routToSpeckMin": "leadEngineers.0.data.steelTemperature",
+              "routeToSpecMin": "leadEngineers.0.data.steelTemperature",
               "placeholder": "Placeholder",
               "unit": "C",
               "required": true
@@ -44,7 +44,7 @@
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
-              "routToSpeckMin": "leadEngineers.0.data.temperatureOverDewPoint",
+              "routeToSpecMin": "leadEngineers.0.data.temperatureOverDewPoint",
               "placeholder": "Placeholder",
               "unit": "C",
               "required": true
@@ -52,8 +52,7 @@
             {
               "fieldName": "equipmentIDMediaBlasting",
               "label": "Equipment ID",
-              "speckSubtextList": "leadEngineers.0.data.primer1",
-              "subtext": "Jaja: {}",
+              "specSubtextList": "leadEngineers.0.data.primer1",
               "placeholder": "Placeholder",
               "unit": "C"
             },
@@ -105,7 +104,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "speckValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
+              "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
               "label": "Rubber Cement:"
             },
             { "line": true },
@@ -124,10 +123,7 @@
       ]
     },
     "coatingStep": {
-      "chapterBySpeckData": [
-        "leadEngineers.0.vulcanizationSteps",
-        "coatingLayers"
-      ],
+      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -142,11 +138,11 @@
         {
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
           "fields": [
             {
-              "speckValueList": [
+              "specValueList": [
                 "",
                 "",
                 "leadEngineers.0.rubberCements",
@@ -159,7 +155,7 @@
         {
           "fields": [
             {
-              "speckValueList": [
+              "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
                 "data.compoundNumber"
@@ -167,18 +163,18 @@
               "label": "Compound Number"
             },
             {
-              "speckValueList": [
+              "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.actualThicknes"
+                "data.actualThickness"
               ],
               "label": "Actual Rubber Thickness"
             },
             {
-              "speckValueList": [
+              "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.proposedThicknes"
+                "data.proposedThickness"
               ],
               "label": "Proposed Rubber Thickness"
             }
@@ -202,7 +198,7 @@
         {
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithQuerySpeckData": true,
+          "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [
             "operators.0.vulcanizationOperators",
@@ -213,11 +209,11 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Point",
-              "speckSubtextList": [
+              "specSubtextList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "cumulativeThicknes",
-                "data.cumulativeThicknes"
+                "cumulativeThickness",
+                "data.cumulativeThickness"
               ],
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
@@ -249,14 +245,14 @@
           "queryPath": ["operators.0.vulcanizationOperators", ""],
           "fields": [
             {
-              "speckValueList": [
+              "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "data.vulcanizationOption"
               ],
               "label": "Vulcanization Type"
             },
             {
-              "speckValueList": [
+              "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "data.programNumber"
               ],

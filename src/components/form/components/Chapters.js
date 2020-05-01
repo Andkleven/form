@@ -12,7 +12,7 @@ import Title from "components/layout/design/fonts/Title";
 // import objectPath from "object-path";
 
 export default props => {
-  let stopLoop = false; // True when we are at the first chaper now one have wirte on
+  let stopLoop = false; // Flips to true for last chapter with input
   let temporaryLastChapter = 0;
   let count = 0;
   let stage = "steelPreparation1";
@@ -48,7 +48,7 @@ export default props => {
             : false;
         return (
           <Page
-            key={`${index}-${count}-cancas`}
+            key={`${index}-${count}-canvas`}
             {...info}
             {...props}
             submitHandler={props.submitHandler}
@@ -74,14 +74,14 @@ export default props => {
     }
     count += 1;
     return chapter ? (
-      <Fragment key={`${count}-cancas`}>{chapter}</Fragment>
+      <Fragment key={`${count}-canvas`}>{chapter}</Fragment>
     ) : null;
   };
   const runChapter = (pageInfo, step = null) => {
-    if (pageInfo.chapterBySpeckData) {
+    if (pageInfo.specChapter) {
       let numberOfChapters = findValue(
-        props.speckData,
-        pageInfo.chapterBySpeckData,
+        props.specData,
+        pageInfo.specChapter,
         step === null ? props.arrayIndex : [step]
       );
       if (numberOfChapters && numberOfChapters.length) {
@@ -132,7 +132,7 @@ export default props => {
           stageSplit[1] - 1
         )
       );
-      stage = findNextStage(props.speckData, stage, props.geometry);
+      stage = findNextStage(props.specData, stage, props.geometry);
       stageSplit = stage.split("Step");
       if (
         !props.document.chapters[stageSplit[1] ? stageSplit[0] + "Step" : stage]
@@ -141,7 +141,7 @@ export default props => {
       }
       i++;
     }
-    if (["Anders er best", "og kjekk"].includes(stage)) {
+    if (["Nei"].includes(stage)) {
       props.setLastSubmitButton(true);
     }
     return chapterBasedOnStage;

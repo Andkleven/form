@@ -14,7 +14,7 @@ import {
   objectifyQuery,
   getDataToBatching,
   reshapeStageSting,
-  coatedItemORMould,
+  coatedItemOrMould,
   getStepFromStage
 } from "functions/general";
 
@@ -25,17 +25,17 @@ export default pageInfo => {
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
-  let operatorJson = coatedItemORMould(
+  let operatorJson = coatedItemOrMould(
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
   );
   let batchingJson = (allBatchingJson[
     reshapeStageSting(stage)
-  ].ducument.chapters = [operatorJson.chapters[reshapeStageSting(stage)]]);
+  ].document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]]);
 
   const { loading, error, data } = useQuery(
-    query[batchingJson.ducument.query],
+    query[batchingJson.document.query],
     {
       variables: { id: descriptionId }
     }
@@ -98,7 +98,7 @@ export default pageInfo => {
             getDataFromQuery(data, "descriptions.0", "geometry")
           ).toLowerCase()
         }
-        document={batchingJson.ducument}
+        document={batchingJson.document}
         partialBatching={true}
         saveButton={true}
         notSubmitButton={batchingListIds.length ? false : true}
@@ -110,14 +110,14 @@ export default pageInfo => {
         data={getDataToBatching(
           fixedData,
           [finishedItem],
-          batchingJson.ducument.queryPath
+          batchingJson.document.queryPath
           // step
         )}
         stage={finishedItem ? stage : null}
-        speckData={getDataToBatching(
+        specData={getDataToBatching(
           fixedData,
           batchingListIds,
-          batchingJson.ducument.specQueryPath
+          batchingJson.document.specQueryPath
           // step
         )}
         updateCache={() => update}

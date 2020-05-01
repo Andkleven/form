@@ -42,7 +42,7 @@ export default props => {
       };
     });
   };
-  const addHandeler = () => {
+  const addHandler = () => {
     addData(
       objectPath.get(documentDateContext.documentDate, props.path).length
     );
@@ -99,11 +99,11 @@ export default props => {
     chapterContext.lastChapter
   ]);
 
-  // If number of repeat group decides by a anthor field, it's sets repeatGroup
+  // If number of repeat group decides by a another field, it's sets repeatGroup
   useEffect(() => {
     if (
       props.repeatGroupWithQuery &&
-      !props.repeatGroupWithQuerySpeckData
+      !props.repeatGroupWithQuerySpecData
       // &&
       // objectPath.get(documentDateContext.documentDate, props.path)
     ) {
@@ -134,11 +134,11 @@ export default props => {
   useEffect(() => {
     if (
       props.repeatGroupWithQuery &&
-      props.repeatGroupWithQuerySpeckData &&
+      props.repeatGroupWithQuerySpecData &&
       props.queryPath
     ) {
       let newValue = getRepeatNumber(
-        props.speckData,
+        props.specData,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
@@ -158,7 +158,7 @@ export default props => {
   }, []);
   const Components = useMemo(() => CustomComponents[props.customComponent], [
     props.arrayIndex,
-    props.speckData
+    props.specData
   ]);
 
   // Checks for conditional rendering
@@ -205,10 +205,10 @@ export default props => {
             {...props}
             writeChapter={writeChapter}
             deleteHandler={deleteHandler}
-            addHandeler={addHandeler}
+            addHandler={addHandler}
           />
           {!props.notAddButton && props.repeat && writeChapter ? (
-            <button type="button" onClick={() => addHandeler()}>
+            <button type="button" onClick={() => addHandler()}>
               {props.addButton ? props.addButton : "Add"}
             </button>
           ) : null}
@@ -226,7 +226,7 @@ export default props => {
                   props.submitHandler(documentDateContext.documentDate)
                 }
               />
-              {FieldsContext.isSubmited && (
+              {FieldsContext.isSubmitted && (
                 <div style={{ fontSize: 12, color: "red" }}>
                   See Error Message
                 </div>
@@ -247,7 +247,7 @@ export default props => {
                   : null
               }
             />
-            {fieldsContext.isSubmited && (
+            {fieldsContext.isSubmitted && (
               <div style={{ fontSize: 12, color: "red" }}>
                 See Error Message
               </div>

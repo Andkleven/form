@@ -13,7 +13,7 @@ export default props => {
       field.showFieldSpecPath &&
       [null, undefined, "", false].includes(
         findValue(
-          props.speckData,
+          props.specData,
           field.showFieldSpecPath,
           props.repeatStepList,
           field.editRepeatStepValueList

@@ -8,10 +8,10 @@ export default props => {
     let batchingData = {};
     chapter.pages.forEach(page => {
       page.fields.forEach(field => {
-        if (field.speckValueList) {
+        if (field.specValueList) {
           batchingData[field.fieldName] = findValue(
             itemData,
-            field.speckValueList,
+            field.specValueList,
             props.arrayIndex
           );
         } else if (field.fieldName && !props.partialBatching) {
@@ -59,7 +59,7 @@ export default props => {
         objectPath
           .get(props.data, props.json.batching.itemPath)
           .map((item, index) => {
-            let batchingData = allFields(props.json.ducument.chapters, item);
+            let batchingData = allFields(props.json.document.chapters, item);
             if (
               item.stage === props.stage &&
               (!props.batchingData ||

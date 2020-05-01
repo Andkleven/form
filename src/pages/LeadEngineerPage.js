@@ -6,14 +6,14 @@ import leadEngineersMouldJson from "templates/LeadEngineerMould.json";
 import Form from "components/form/Form";
 import PaperStack from "components/layout/PaperStack";
 import Paper from "components/layout/Paper";
-import { objectifyQuery, coatedItemORMould } from "functions/general";
+import { objectifyQuery, coatedItemOrMould } from "functions/general";
 let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {
   const { descriptionId, itemId, different, geometry } = pageInfo.match.params;
 
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-  leadEngineersJson = coatedItemORMould(
+  leadEngineersJson = coatedItemOrMould(
     geometry.toString(),
     leadEngineersCoatedItemJson,
     leadEngineersMouldJson
