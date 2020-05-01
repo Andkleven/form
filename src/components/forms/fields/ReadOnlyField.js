@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DocumentDateContext } from "../DocumentAndSubmit";
+import { DocumentDateContext } from "components/forms/DocumentAndSubmit";
 import Math from "functions/math";
 import objectPath from "object-path";
-import ReadField from "./ReadField";
+import ReadField from "components/forms/fields/ReadField";
 
 import "styles/styles.css";
 

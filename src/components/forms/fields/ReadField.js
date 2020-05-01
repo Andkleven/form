@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
-import { FieldsContext, ChapterContext } from "../DocumentAndSubmit";
+import {
+  FieldsContext,
+  ChapterContext
+} from "components/forms/DocumentAndSubmit";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../../ErrorMessage";
 import "styles/styles.css";
 import TinyButton from "components/buttons/TinyButton";
 import LightLine from "components/layout/design/LightLine";

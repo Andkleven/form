@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useState, useEffect } from "react";
 import ReadField from "./ReadField";
 import WriteFieldGroupError from "./WriteFieldGroupError";
-import Input from "../Input";
+import Input from "../../Input";
 import objectPath from "object-path";
 import { DocumentDateContext, ChapterContext } from "../DocumentAndSubmit";
 

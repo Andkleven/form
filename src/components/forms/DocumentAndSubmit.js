@@ -5,8 +5,8 @@ import React, {
   useLayoutEffect
 } from "react";
 import Chapters from "./Chapters";
-import query from "../request/leadEngineer/Query";
-import mutations from "../request/leadEngineer/MutationToDatabase";
+import query from "request/leadEngineer/Query";
+import mutations from "request/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
@@ -15,7 +15,7 @@ import {
   allTrue,
   validateFieldWithValue,
   stringifyQuery
-} from "../functions/general";
+} from "functions/general";
 
 import FindNextStage from "components/stages/FindNextStage";
 

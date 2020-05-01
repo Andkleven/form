@@ -5,19 +5,19 @@ import React, {
   useLayoutEffect,
   useMemo
 } from "react";
-import SelectSetFieldGroupData from "components/SelectSetFieldGroupData";
+import SelectSetFieldGroupData from "components/forms/fields/SelectSetFieldGroupData";
 import SubmitButton from "components/buttons/SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
   FieldsContext
-} from "components/DocumentAndSubmit";
+} from "components/forms/DocumentAndSubmit";
 import { allTrue, getRepeatNumber } from "functions/general";
 import Input from "./Input";
 import objectPath from "object-path";
 import Title from "components/layout/design/fonts/Title";
 import Subtitle from "components/layout/design/fonts/Subtitle";
-import CustomComponents from "components/CustomComponents";
+import CustomComponents from "components/forms/CustomElement";
 import Line from "components/layout/design/Line";
 import TabButton from "components/buttons/TabButton";
 

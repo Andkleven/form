@@ -9,8 +9,8 @@ import Filter from "components/FileView/components/Filter";
 import { useQuery } from "@apollo/react-hooks";
 import query from "request/leadEngineer/Query";
 import { objectifyQuery } from "functions/general";
-import LoadingAnimation from "./LoadingAnimation";
-import ErrorMessage from "./ErrorMessage";
+import LoadingAnimation from "./components/LoadingAnimation";
+import ErrorMessage from "./components/ErrorMessage";
 
 export default props => {
   const { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);

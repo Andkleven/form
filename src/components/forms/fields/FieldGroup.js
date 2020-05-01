@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import objectPath from "object-path";
-import FieldProperties from "components/fields/FieldProperties";
-import Page from "./Page";
-import { DocumentDateContext } from "./DocumentAndSubmit";
+import FieldProperties from "components/forms/fields/FieldProperties";
+import Page from "components/Page";
+import { DocumentDateContext } from "components/forms/DocumentAndSubmit";
 import Line from "components/layout/design/Line";
 import { findValue } from "functions/general";
 

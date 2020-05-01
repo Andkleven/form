@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ProjectPage from "page/ItemPage";
-import FileView from "components/FileView/components/FileView";
+import FileView from "components/FileView/FileView";
 import {
   ProjectContext,
   ProjectProvider

@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../../ErrorMessage";
 import {
   FieldsContext,
   DocumentDateContext,
   ChapterContext
-} from "../DocumentAndSubmit";
+} from "components/forms/DocumentAndSubmit";
 import objectPath from "object-path";
 import Input from "components/Input";
 import TinyButton from "components/buttons/TinyButton";
