@@ -35,31 +35,37 @@ export default () => {
         <Router history={history}>
           <Header />
           <Switch>
+            {/* Login */}
             <Route exact path="/login" component={Login} />
             {!authToken && <Redirect to="/login" exact />}
+            {/* Home */}
+
             <Route exact path="/" component={Home} />
-
-            <Route exact path="/operator" component={OperatorPage} />
-            <Route exact path="/orders" component={OperatorPage} />
-            <Route path="/lead-engineer" component={LeadEngineerStartPage} />
-
+            {/* Lead Engineer: Create Project */}
             <Route path="/order/item/:_id" component={Item} />
+            {/* Lead Engineer: Create Items */}
             <Route
               path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
               component={LeadEngineerPage}
             />
+
+            {/* Operator: Batching */}
             <Route
               path="/batching/:stage/:descriptionId"
               component={Batching}
             />
+            {/* Operator: Partial Batching */}
             <Route
               path="/partial-batching/:stage/:descriptionId"
               component={PartialBatching}
             />
+            {/* Operator: Single Item */}
             <Route
               path="/single-item/:itemId/:geometry"
               component={SingleItem}
             />
+
+            {/* Quality Control: Final Inspection */}
             <Route
               path="/quality-control/:itemId/:geometry"
               component={QualityControl}
