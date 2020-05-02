@@ -519,7 +519,7 @@ export const coatedItemOrMould = (
   leadEngineersMouldJson
 ) => {
   let leadEngineersJson;
-  if (removeSpace(category).toLowerCase() === "coatedItem") {
+  if (removeSpace(category).toLowerCase() === "coateditem") {
     leadEngineersJson = leadEngineersCoatedItemJson;
   } else if (removeSpace(category).toLowerCase() === "mould") {
     leadEngineersJson = leadEngineersMouldJson;
