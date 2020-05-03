@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { AUTH_TOKEN, USER } from "constants.js";
 import { useMutation } from "@apollo/react-hooks";
-import history from "../history";
+import history from "../functions/history";
 import gql from "graphql-tag";
 // import { getAllPosts } from "@apollo/react-hooks";
 
 import { Form, Button, Image } from "react-bootstrap";
 import styled from "styled-components";
-import emblem from "../images/trelleborg_emblem.png";
+import emblem from "../images/emblem.png";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($username: String!, $password: String!) {

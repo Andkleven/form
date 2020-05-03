@@ -113,7 +113,7 @@ export default props => {
       <div className={`p-3 border rounded`}>
         <section className="container px-0">
           {props.writeChapter && (
-            <div {...getRootProps({ style })} className="">
+            <div {...getRootProps({ style })}>
               <input {...getInputProps()} />
               <p className="mt-2">
                 {files.length && props.singleFile

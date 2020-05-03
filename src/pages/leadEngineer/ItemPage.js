@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import history from "../history";
+import history from "functions/history";
 import query from "graphql/leadEngineer/Query";
 import objectPath from "object-path";
 import itemsJson from "templates/Order.json";
@@ -10,7 +10,7 @@ import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
-import ItemUpdate from "pages/ItemUpdate";
+import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 
 export default props => {
   const [_id, set_id] = useState(Number(props.id));

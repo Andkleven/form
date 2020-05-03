@@ -33,7 +33,6 @@ export default props => {
           <div className="mt-2">
             <Input
               placeholder={`Description or comment...`}
-              className=""
               value={props.file.fileDescription}
               onChange={e => props.onChange(e.target, props.index)}
             />

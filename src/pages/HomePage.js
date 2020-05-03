@@ -1,5 +1,11 @@
 import React from "react";
+import Search from "components/search/Search";
+import Canvas from "components/layout/Canvas";
 
-const Home = () => <div />;
-
-export default Home;
+export default () => {
+  return (
+    <Canvas>
+      <Search />
+    </Canvas>
+  );
+};
