@@ -5,6 +5,7 @@ import "styles/styles.css";
 import { LinkContainer } from "react-router-bootstrap";
 import { USER } from "constants.js";
 import { camelCaseToNormal } from "functions/general";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default () => {
   const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
@@ -13,7 +14,7 @@ export default () => {
     <LinkContainer to={props.link} className="p-0">
       <Dropdown.Item>
         <div className="nav-link">
-          <i style={{ width: "1.7em" }} className={`fas fa-${props.icon}`} />
+          <FontAwesomeIcon icon={props.icon} style={{ width: "1.7em" }} />
           {props.title}
         </div>
       </Dropdown.Item>
@@ -26,16 +27,16 @@ export default () => {
       // sticky="top"
       bg="dark"
       variant="dark"
-      className="text-light mx-0 px-1 w-100 shadow"
+      className="text-light mx-0 px-1 w-100 shadow header"
       style={{ height: 42 }}
-      sticky="top"
+      fixed="top"
     >
       {/* Left */}
       <div className="w-100 mx-0 px-0 d-flex justify-content-start">
         <Dropdown id="dropdown-left">
           <Dropdown.Toggle variant="dark" className="caret-off py-1 px-2">
             <div style={{ opacity: 1 }}>
-              <i className="fas fa-bars mt-1" />
+              <FontAwesomeIcon icon="bars" />
               <div className="ml-2 d-inline">Menu</div>
             </div>
           </Dropdown.Toggle>
@@ -73,7 +74,7 @@ export default () => {
                       )})`
                     : "role • name"}
                 </div>
-                <i className="fas fa-user ml-2" />
+                <FontAwesomeIcon icon="user" className="ml-2" />
               </div>
               {/* Small */}
               <div className="d-block d-sm-none">
@@ -82,7 +83,7 @@ export default () => {
                     ? `${camelCaseToNormal(userInfo.employee.toLowerCase())}`
                     : "role • name"}
                 </div>
-                <i className="fas fa-user ml-2" />
+                <FontAwesomeIcon icon="user" className="ml-2" />
               </div>
             </div>
           </Dropdown.Toggle>

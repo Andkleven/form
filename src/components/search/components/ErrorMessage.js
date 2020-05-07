@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default error => (
   <div className="d-flex justify-content-center w-100">
@@ -6,7 +7,11 @@ export default error => (
       className="text-center border rounded p-3 bg-danger"
       style={{ maxWidth: 400 }}
     >
-      <i className="fad fa-exclamation-triangle fa-3x mb-3" />
+      <FontAwesomeIcon
+        icon={["fad", "exclamation-triangle"]}
+        className="mb-3"
+        size="fa-3x"
+      />
       <h6>Something went wrong!</h6>
       {typeof error === "string" ? (
         <>

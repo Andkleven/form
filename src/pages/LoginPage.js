@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { AUTH_TOKEN, USER } from "constants.js";
 import { useMutation } from "@apollo/react-hooks";
-import history from "../functions/history";
+import { AUTH_TOKEN, USER } from "constants.js";
 import gql from "graphql-tag";
+import React, { useEffect, useState } from "react";
 // import { getAllPosts } from "@apollo/react-hooks";
-
-import { Form, Button, Image } from "react-bootstrap";
+import { Button, Form, Image } from "react-bootstrap";
 import styled from "styled-components";
+import history from "../functions/history";
 import emblem from "../images/emblem.png";
+import Copyright from "components/layout/design/Copyright";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($username: String!, $password: String!) {
@@ -32,7 +33,8 @@ const OuterLogin = styled.div`
   -webkit-box-pack: center;
   justify-content: center;
 `;
-let is_login = localStorage.getItem(AUTH_TOKEN);
+
+let loggedIn = localStorage.getItem(AUTH_TOKEN);
 
 export default () => {
   const [token, setToken] = useState();
@@ -43,15 +45,15 @@ export default () => {
       history.push(`/`);
     }
   }, [token]);
-  if (is_login) {
+  if (loggedIn) {
     localStorage.removeItem(AUTH_TOKEN);
     localStorage.removeItem(USER);
   }
   async function saveToke(data) {
-    let new_token = await data.tokenAuth.token;
+    let newToken = await data.tokenAuth.token;
     let user = await data.tokenAuth.user;
-    setToken(new_token);
-    localStorage.setItem(AUTH_TOKEN, new_token);
+    setToken(newToken);
+    localStorage.setItem(AUTH_TOKEN, newToken);
     localStorage.setItem(USER, JSON.stringify({ username, ...user }));
   }
 
@@ -76,7 +78,7 @@ export default () => {
               <Image
                 src={emblem}
                 className="mb-3 py-2 mx-auto"
-                style={{ width: "8em" }}
+                style={{ width: "8em", height: "100%" }}
               />
             </div>
             <Form
@@ -125,18 +127,15 @@ export default () => {
                 className="w-100 mb-3 text-light"
                 type="submit"
               >
-                <i
-                  className="fas fa-sign-in position-relative"
+                <FontAwesomeIcon
+                  icon="sign-in"
+                  className="position-relative"
                   style={{ fontSize: "1.5em", top: 2 }}
                 />
               </Button>
 
-              <p className="mb-0 text-muted text-center">
-                <i
-                  className="fas fa-copyright position-relative"
-                  style={{ fontSize: ".95em" }}
-                />{" "}
-                {new Date().getFullYear()} Trelleborg
+              <p align="center" className="mb-0 text-muted">
+                <Copyright />
               </p>
             </Form>
           </div>

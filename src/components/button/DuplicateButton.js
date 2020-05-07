@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonGroup, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // GUIDE
 // - onClick -
@@ -24,13 +25,13 @@ const ButtonShell = props => (
       onClick={props.onClick}
     >
       <div
-        className={`d-flex justify-content-center align-items-center ${props.variant ===
-          "primary" && "text-light"}`}
+        className={`d-flex justify-content-center align-items-center ${
+          props.variant === "primary" && "text-light"
+        }`}
       >
-        <i
-          className={`fas fa-${
-            props.icon
-          } position-relative d-flex align-items-center`}
+        <FontAwesomeIcon
+          icon={props.icon}
+          className={`position-relative d-flex align-items-center`}
           style={{ width: "1.2em", height: "1.5em", top: "0.05em" }}
         />
         {props.icon && props.children ? (

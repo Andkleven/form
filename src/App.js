@@ -13,6 +13,8 @@ import SingleItem from "./pages/operator/SingleItem";
 import ViewFile from "components/ViewFile";
 import { ProjectProvider } from "components/search/components/ProjectContext";
 
+import "styles/icons";
+
 export default () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
   return (

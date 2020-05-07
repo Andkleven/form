@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
 import { DocumentDateContext } from "components/form/Form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const baseStyle = {
   flex: 1,
@@ -152,7 +153,7 @@ export default props => {
           ) : (
             !props.writeChapter && (
               <div className="text-secondary">
-                <i className="fal fa-file-times mr-2" />
+                <FontAwesomeIcon icon="file-times" />
                 <div className="d-inline">No files uploaded.</div>
               </div>
             )

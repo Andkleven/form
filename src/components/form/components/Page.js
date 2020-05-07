@@ -5,7 +5,7 @@ import React, {
   useLayoutEffect,
   useMemo
 } from "react";
-import SelectSetFieldGroupData from "components/form/fields/SelectSetFieldGroupData";
+import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
 import SubmitButton from "components/button/SubmitButton";
 import {
   ChapterContext,

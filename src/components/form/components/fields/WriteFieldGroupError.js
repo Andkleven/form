@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FieldsContext, ChapterContext } from "components/form/Form";
-import ReadOnlyField from "components/form/fields/ReadOnlyField";
-import WriteField from "components/form/fields/WriteField";
+import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
+import WriteField from "components/form/components/fields/WriteField";
 
 // import Datetime from "react-datetime";
 // import "react-datetime/css/react-datetime.css";

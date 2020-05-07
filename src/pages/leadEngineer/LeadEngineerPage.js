@@ -18,7 +18,6 @@ export default pageInfo => {
     leadEngineersCoatedItemJson,
     leadEngineersMouldJson
   );
-
   const { loading, error, data } = useQuery(query[leadEngineersJson.query], {
     variables: { id: itemId }
   });

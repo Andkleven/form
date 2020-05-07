@@ -1,53 +1,31 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { ProjectContext } from "./ProjectContext";
+import ProjectLink from "./ProjectLink";
 
-const itemIconStyle = {
-  // color: "#bbbbbb",
-  color: "#f1b25b",
-  position: "relative",
-  right: "0.25em",
-  width: "1.5em",
-  textAlign: "center"
-};
-
-const linkStyle = {
-  color: "#dddddd"
-};
-
-export default props => {
+export default ({ data, iconSize }) => {
   const [projectId, setProjectId] = useContext(ProjectContext);
   return (
     <>
       <h6 className="mb-0">Projects</h6>
-      <Link
-        className="d-flex not-selectable"
-        style={linkStyle}
-        to="#"
+      <ProjectLink
         onClick={() => setProjectId(0)}
+        icon="folder-plus"
+        iconSize={iconSize}
       >
-        <div className="pt-2 not-selectable">
-          <i className="fad fa-folder-plus" style={itemIconStyle} />
-          Create new project
-        </div>
-      </Link>
-      {props.data && props.data.length > 0 ? (
-        props.data.map((project, indexProject) => (
-          <Link
-            key={`project${indexProject}`}
-            className="d-flex not-selectable"
-            style={linkStyle}
-            to="#"
+        Create new project
+      </ProjectLink>
+      {data && data.length > 0 ? (
+        data.map((project, indexProject) => (
+          <ProjectLink
             onClick={() => setProjectId(project.id)}
+            key={`project${indexProject}`}
+            iconSize={iconSize}
           >
-            <div className="pt-2 not-selectable">
-              <i className="fas fa-folder" style={itemIconStyle} />
-              {project.data.projectName}
-            </div>
-          </Link>
+            {project.data.projectName}
+          </ProjectLink>
         ))
       ) : (
-        <div className="pt-1">
+        <div className="pt-1 text-secondary">
           <em>No projects found.</em>
         </div>
       )}

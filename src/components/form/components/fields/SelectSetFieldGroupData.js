@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
-import SetFieldGroupData from "components/form/fields/SetFieldGroupData";
-import FieldGroup from "components/form/fields/FieldGroup";
+import SetFieldGroupData from "components/form/components/fields/SetFieldGroupData";
+import FieldGroup from "components/form/components/fields/FieldGroup";
 import objectPath from "object-path";
 import { DocumentDateContext } from "components/form/Form";
 import { getRepeatNumber } from "functions/general";

@@ -1,15 +1,17 @@
 import React from "react";
 import Input from "components/input/Input";
-import ReadField from "components/form/fields/ReadField";
+import ReadField from "components/form/components/fields/ReadField";
 import TinyButton from "components/button/TinyButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default props => {
   return (
     <>
       <div className={props.writeChapter && "pt-2"}>
         <div className="d-flex justify-content-between">
           <div>
-            <i
-              className="fad fa-file-image text-primary text-center mr-2 shadow-sm"
+            <FontAwesomeIcon
+              icon={["fad", "file-image"]}
+              className="text-primary text-center mr-2 shadow-sm"
               style={{
                 "--fa-primary-opacity": "0.4",
                 "--fa-secondary-opacity": "1.0"

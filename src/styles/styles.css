@@ -1,9 +1,56 @@
-body {
+/* body {
   background: url("../images/background.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+} */
+
+/* html {
+  height: 100vh;
+  min-height: 100%;
+} */
+
+html {
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #343a40;
+  padding-top: 50px;
+  min-height: 100%;
+  display: grid;
+}
+
+body:after {
+  background-attachment: scroll;
+  content: "";
+  position: fixed;
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background: url("../images/background.jpg") center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.content {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  /* align-items: center; */
+}
+
+footer {
+  grid-row-start: 2;
+  grid-row-end: 3;
 }
 
 .w85 {

@@ -1,15 +1,9 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-// import { touch } from "styles/device";
 
 export default props => {
   const Content = () => {
-    return (
-      <>
-        {/* <i className="far fa-check mr-1" /> */}
-        <b>Submit</b>
-      </>
-    );
+    return <b>Submit</b>;
   };
 
   const DeviceButton = () => {

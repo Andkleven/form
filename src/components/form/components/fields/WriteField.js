@@ -11,6 +11,7 @@ import TinyButton from "components/button/TinyButton";
 import LightLine from "components/layout/design/LightLine";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
@@ -139,7 +140,7 @@ export default props => {
                 submitEdit(event, documentDateContext.documentDate)
               }
             >
-              <i className="fal fa-check" style={{ width: "1.5em" }} />
+              <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
               Submit
             </Button>
             <div className="px-1" />
@@ -148,7 +149,7 @@ export default props => {
               variant="secondary"
               onClick={event => cancelEdit(event)}
             >
-              <i className="fal fa-times" style={{ width: "1.5em" }} />
+              <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
               Cancel
             </Button>
           </div>

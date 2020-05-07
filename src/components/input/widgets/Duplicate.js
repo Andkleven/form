@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonGroup, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // GUIDE
 // - onClick -
@@ -21,7 +22,7 @@ export default props => {
         onClick={props.addHandler}
       >
         <div className="d-flex align-items-center text-dark">
-          <i className="far fa-clone" style={{ width: "1.2em" }} />
+          <FontAwesomeIcon icon="clone" style={{ width: "1.2em" }} />
         </div>
       </Button>
     </OverlayTrigger>
@@ -36,7 +37,7 @@ export default props => {
         onClick={props.deleteHandler(props.repeatStep)}
       >
         <div className="d-flex align-items-center text-dark">
-          <i className="far fa-trash" style={{ width: "1.2em" }} />
+          <FontAwesomeIcon icon="trash" style={{ width: "1.2em" }} />
         </div>
       </Button>
     </OverlayTrigger>

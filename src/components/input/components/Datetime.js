@@ -7,6 +7,7 @@ import DatePicker, {
 } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import enGB from "date-fns/locale/en-GB";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 registerLocale("enGB", enGB);
 
 function Datetime(props) {
@@ -27,7 +28,7 @@ function Datetime(props) {
           // onClick={date => setStartDate(new Date())}
           onClick={date => props.onChangeDate(new Date())}
         >
-          <i className="far fa-clock" style={{ width: "1.2em" }} />
+          <FontAwesomeIcon icon="clock" style={{ width: "1.2em" }} />
           <div className="d-none d-sm-inline ml-1">{" Current time"}</div>
         </Button>
       </InputGroup.Append>
@@ -39,7 +40,7 @@ function Datetime(props) {
           onClick={date => props.onChangeDate(null)}
           // onClick={date => setStartDate(null)}
         >
-          <i className="far fa-times" style={{ width: "1.2em" }} />
+          <FontAwesomeIcon icon="times" style={{ width: "1.2em" }} />
         </Button>
       </InputGroup.Append>
     </InputGroup>

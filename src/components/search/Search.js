@@ -10,17 +10,29 @@ import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
 import { USER } from "constants.js";
-import ProjectTree from "components/search/components/ProjectTree";
 
-export default props => {
+export default ({
+  view,
+  defaultFilters,
+  defaultSearch,
+  // animated = true,
+  iconSize = "lg",
+  iconStyle = {
+    position: "relative",
+    bottom: "0.025em",
+    right: "0.25em",
+    width: "1.5em",
+    textAlign: "center"
+  },
+  rowStyle = {
+    height: "2.5em"
+  },
+  ...props
+}) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
 
   let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
   data = objectifyQuery(data);
-
-  const Files = () => {
-    return <ProjectTree data={data} />;
-  };
 
   if (loading) {
     return LoadingAnimation;
@@ -28,15 +40,13 @@ export default props => {
     return <ErrorMessage error={error} />;
   } else {
     return (
-      <>
-        <Filter
-          data={data}
-          view={props.view}
-          defaultFilters={props.defaultFilters}
-          defaultSearch={props.defaultSearch}
-        />
-        <Files />
-      </>
+      <Filter
+        {...props}
+        iconSize={iconSize}
+        iconStyle={iconStyle}
+        rowStyle={rowStyle}
+        data={data}
+      />
     );
   }
 };
