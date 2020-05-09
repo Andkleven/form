@@ -16,6 +16,7 @@ export default props => {
                 "--fa-primary-opacity": "0.4",
                 "--fa-secondary-opacity": "1.0"
               }}
+              // swapOpacity
             />
             {props.file.file.name}
           </div>

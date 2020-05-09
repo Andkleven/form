@@ -12,7 +12,6 @@ import ErrorMessage from "./components/ErrorMessage";
 import { USER } from "constants.js";
 
 export default ({
-  view,
   defaultFilters,
   defaultSearch,
   // animated = true,

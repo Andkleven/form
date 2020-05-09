@@ -66,6 +66,6 @@ const InputType = props => {
 export default props => (
   <InputShell {...props}>
     <InputType {...props} />
-    {/* {props.repeat && props.repeatStartWithOneGroup && <Duplicate {...props}   />} */}
+    {/* {props.repeat && props.repeatStartWithOneGroup && <Duplicate {...props} />} */}
   </InputShell>
 );

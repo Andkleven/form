@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 
 export default props => {
   const Content = () => {
-    return <b>Submit</b>;
+    return <>Submit</>;
   };
 
   const DeviceButton = () => {

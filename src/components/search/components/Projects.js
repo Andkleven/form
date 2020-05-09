@@ -2,15 +2,16 @@ import React, { useContext } from "react";
 import { ProjectContext } from "./ProjectContext";
 import ProjectLink from "./ProjectLink";
 
-export default ({ data, iconSize }) => {
+export default ({ data, iconSize, iconStyle }) => {
   const [projectId, setProjectId] = useContext(ProjectContext);
   return (
     <>
       <h6 className="mb-0">Projects</h6>
       <ProjectLink
         onClick={() => setProjectId(0)}
-        icon="folder-plus"
+        icon={["fad", "folder-plus"]}
         iconSize={iconSize}
+        iconStyle={iconStyle}
       >
         Create new project
       </ProjectLink>
@@ -20,6 +21,7 @@ export default ({ data, iconSize }) => {
             onClick={() => setProjectId(project.id)}
             key={`project${indexProject}`}
             iconSize={iconSize}
+            iconStyle={iconStyle}
           >
             {project.data.projectName}
           </ProjectLink>
