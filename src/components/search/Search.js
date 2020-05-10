@@ -9,7 +9,7 @@ import query from "graphql/leadEngineer/Query";
 import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
-import { USER } from "constants.js";
+import { getUser, getRole, decideSearchView } from "functions/user.ts";
 
 export default ({
   defaultFilters,
@@ -28,10 +28,12 @@ export default ({
   },
   ...props
 }) => {
-  const userInfo = JSON.parse(localStorage.getItem(USER));
-
   let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
   data = objectifyQuery(data);
+
+  const user = getUser();
+  const role = getRole(user);
+  const view = decideSearchView(role);
 
   if (loading) {
     return LoadingAnimation;
@@ -45,6 +47,7 @@ export default ({
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
+        view={view}
       />
     );
   }

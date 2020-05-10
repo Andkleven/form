@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ProjectPage from "pages/leadEngineer/ItemPage";
-import Search from "components/search/Search";
+import Search from "components/search/Search.js";
 import {
   ProjectContext,
   ProjectProvider

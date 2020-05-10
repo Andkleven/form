@@ -5,7 +5,6 @@ import { search } from "../functions/search";
 import ProjectTree from "./ProjectTree";
 import Projects from "./Projects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import GeneralButton from "components/button/GeneralButton";
 import DarkButton from "components/button/DarkButton";
 
 const createStages = data => {
@@ -44,6 +43,28 @@ export default ({ view = "items", ...props }) => {
   const clearAll = () => {
     setFilters({});
     setSearchTerm("");
+  };
+
+  const Files = () => {
+    switch (view) {
+      case "all":
+        return (
+          <>
+            <Projects {...props} data={results} className="mb-3" />
+            <ProjectTree
+              {...props}
+              data={results}
+              headline="Projects (items)"
+            />
+          </>
+        );
+      case "items":
+        return <ProjectTree {...props} data={results} />;
+      case "projects":
+        return <Projects {...props} data={results} />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -122,9 +143,7 @@ export default ({ view = "items", ...props }) => {
           ></Button> */}
         </form>
       </div>
-      {view === "items" && <ProjectTree {...props} data={results} />}
-      {view === "projects" && <Projects {...props} data={results} />}
-      {props.children}
+      <Files />
     </>
   );
 };

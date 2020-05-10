@@ -11,24 +11,30 @@ export default memo(
     const [bind, { height: viewHeight }] = useMeasure();
     const { height, opacity, transform } = useSpring({
       from: {
-        height: 0
         // opacity: 0,
-        // transform: "translate3d(0,-3px,0)"
+        // transform: "translate3d(0,-3px,0)",
+        height: 0
       },
       to: {
-        height: isOpen ? viewHeight * 1 : 0
         // opacity: isOpen ? 1 : 0,
-        // transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`
+        // transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`,
+        height: isOpen ? viewHeight * 1 : 0
       },
       config: {
-        mass: 1 + 0.00125 * viewHeight,
         tension: isOpen
-          ? 800 * (1 + 0.007 * viewHeight)
-          : 400 * (1 + 0.007 * viewHeight),
+          ? // ? 800 * (1 + 0.007 * viewHeight)
+            // : 400 * (1 + 0.007 * viewHeight),
+            1000
+          : 1000,
         friction: isOpen
-          ? 35 * (1 + 0.005 * viewHeight)
-          : 35 * (1 + 0.005 * viewHeight),
-        clamp: isOpen ? false : true
+          ? // ? 35 * (1 + 0.005 * viewHeight)
+            // : 35 * (1 + 0.005 * viewHeight),
+            0.1
+          : 0.1,
+        // clamp: isOpen ? false : true,
+        clamp: true,
+        // mass: 1 + 0.00125 * viewHeight
+        mass: 0.1
       }
     });
 

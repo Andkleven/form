@@ -2,11 +2,17 @@ import React, { useContext } from "react";
 import { ProjectContext } from "./ProjectContext";
 import ProjectLink from "./ProjectLink";
 
-export default ({ data, iconSize, iconStyle }) => {
+export default ({
+  data,
+  iconSize,
+  iconStyle,
+  headline = "Projects",
+  ...props
+}) => {
   const [projectId, setProjectId] = useContext(ProjectContext);
   return (
-    <>
-      <h6 className="mb-0">Projects</h6>
+    <div className={props.className}>
+      {headline && <h6 className="mb-0">{headline}</h6>}
       <ProjectLink
         onClick={() => setProjectId(0)}
         icon={["fad", "folder-plus"]}
@@ -31,6 +37,6 @@ export default ({ data, iconSize, iconStyle }) => {
           <em>No projects found.</em>
         </div>
       )}
-    </>
+    </div>
   );
 };

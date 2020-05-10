@@ -21,7 +21,14 @@ const itemIconStyle = {
 //   return numItems;
 // };
 
-export default ({ data, iconSize, iconStyle, rowStyle }) => {
+export default ({
+  data,
+  iconSize,
+  iconStyle,
+  rowStyle,
+  headline = "Projects",
+  ...props
+}) => {
   const linkStyle = {
     color: "#dddddd",
     ...rowStyle
@@ -29,7 +36,7 @@ export default ({ data, iconSize, iconStyle, rowStyle }) => {
 
   return (
     <>
-      <h6>Projects</h6>
+      {headline && <h6 className="mb-0">{headline}</h6>}
       {data && data.length > 0 ? (
         data.map((project, indexProject) => (
           <Tree

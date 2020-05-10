@@ -69,9 +69,7 @@ export default () => {
                   {userInfo
                     ? `${camelCaseToNormal(
                         userInfo.username
-                      )} (${camelCaseToNormal(
-                        userInfo.employee.toLowerCase()
-                      )})`
+                      )} (${camelCaseToNormal(userInfo.role.toLowerCase())})`
                     : "role • name"}
                 </div>
                 <FontAwesomeIcon icon="user" className="ml-2" />
@@ -80,7 +78,7 @@ export default () => {
               <div className="d-block d-sm-none">
                 <div className="d-inline">
                   {userInfo
-                    ? `${camelCaseToNormal(userInfo.employee.toLowerCase())}`
+                    ? `${camelCaseToNormal(userInfo.role.toLowerCase())}`
                     : "role • name"}
                 </div>
                 <FontAwesomeIcon icon="user" className="ml-2" />
