@@ -50,11 +50,36 @@ export default ({ view = "items", ...props }) => {
       case "all":
         return (
           <>
-            <Projects {...props} data={results} className="mb-3" />
+            <Projects
+              {...props}
+              data={results}
+              className="mb-3"
+              headline={
+                <>
+                  Projects{" "}
+                  <div
+                    style={{ fontWeight: "normal" }}
+                    className="text-secondary d-inline"
+                  >
+                    (specifications)
+                  </div>
+                </>
+              }
+            />
             <ProjectTree
               {...props}
               data={results}
-              headline="Projects (items)"
+              headline={
+                <>
+                  Projects{" "}
+                  <div
+                    style={{ fontWeight: "normal" }}
+                    className="text-secondary d-inline"
+                  >
+                    (items)
+                  </div>
+                </>
+              }
             />
           </>
         );

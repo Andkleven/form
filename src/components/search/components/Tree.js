@@ -24,17 +24,17 @@ export default memo(
         tension: isOpen
           ? // ? 800 * (1 + 0.007 * viewHeight)
             // : 400 * (1 + 0.007 * viewHeight),
-            1000
-          : 1000,
+            10000
+          : 10000,
         friction: isOpen
           ? // ? 35 * (1 + 0.005 * viewHeight)
             // : 35 * (1 + 0.005 * viewHeight),
-            0.1
-          : 0.1,
+            0.01
+          : 0.01,
         // clamp: isOpen ? false : true,
         clamp: true,
         // mass: 1 + 0.00125 * viewHeight
-        mass: 0.1
+        mass: 0.01
       }
     });
 

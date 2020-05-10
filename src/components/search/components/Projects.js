@@ -15,7 +15,7 @@ export default ({
       {headline && <h6 className="mb-0">{headline}</h6>}
       <ProjectLink
         onClick={() => setProjectId(0)}
-        icon={["fad", "folder-plus"]}
+        icon={["fad", "file-plus"]}
         iconSize={iconSize}
         iconStyle={iconStyle}
       >
@@ -26,6 +26,7 @@ export default ({
           <ProjectLink
             onClick={() => setProjectId(project.id)}
             key={`project${indexProject}`}
+            icon={["fas", "file-invoice"]}
             iconSize={iconSize}
             iconStyle={iconStyle}
           >

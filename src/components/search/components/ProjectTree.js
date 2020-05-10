@@ -56,7 +56,7 @@ export default ({
                   iconSize={iconSize}
                   iconStyle={iconStyle}
                   rowStyle={rowStyle}
-                  defaultOpen
+                  // defaultOpen
                   key={`project${indexProject}Description${indexDescription}`}
                   // name={description.data.geometry}
                   name={`Description ${indexDescription + 1}`}
