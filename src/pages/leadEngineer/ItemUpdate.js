@@ -50,7 +50,7 @@ export default props => {
     update: props.id ? update : create
   });
 
-  const handelSubmit = () => {
+  const handleSubmit = () => {
     mutation({
       variables: {
         id: props.id,
@@ -70,7 +70,7 @@ export default props => {
         value={state}
         label="Item Id"
       />
-      <SubmitButton onClick={handelSubmit} />
+      <SubmitButton onClick={handleSubmit} />
       {loading && <p>Loading...</p>}
       {error && <p>Error :( Please try again</p>}
     </>

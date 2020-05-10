@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   return (
@@ -17,7 +18,7 @@ export default props => {
         style={{ minWidth: props.noPadding ? `` : `1.8em` }}
       >
         <span className={`${props.color && `text-${props.color}`}`}>
-          {props.icon && <i className={`fas fa-${props.icon}`} />}
+          {props.icon && <FontAwesomeIcon icon={props.icon} />}
           {props.content && ` ${props.content}`}
         </span>
       </Button>

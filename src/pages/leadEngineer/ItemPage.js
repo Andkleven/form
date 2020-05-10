@@ -10,7 +10,7 @@ import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
-import ItemUpdate from "pages/ItemUpdate";
+import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 
 export default props => {
   const [_id, set_id] = useState(Number(props.id));

@@ -1,4 +1,4 @@
-import { allZeroOrNaN, findValue } from "./general";
+import { allZeroOrNaN, findValue } from "../../../functions/general";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {

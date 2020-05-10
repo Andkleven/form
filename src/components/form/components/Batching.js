@@ -46,7 +46,7 @@ export default props => {
     }
     props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
   };
-  const handelClick = (e, item, batchingData) => {
+  const handleClick = (e, item, batchingData) => {
     if (e.target.checked) {
       add(item, batchingData);
     } else {
@@ -83,7 +83,7 @@ export default props => {
                   <Form.Check
                     key={`${index}-check`}
                     className="text-success"
-                    onChange={e => handelClick(e, item, batchingData)}
+                    onChange={e => handleClick(e, item, batchingData)}
                     id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
                     checked={
                       props.batchingListIds.find(id => id == item.id)

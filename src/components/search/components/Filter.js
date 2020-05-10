@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import { search } from "../functions/search";
 import ProjectTree from "./ProjectTree";
 import Projects from "./Projects";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DarkButton from "components/button/DarkButton";
 
 const createStages = data => {
   let stages = [];
@@ -31,7 +33,7 @@ const createStages = data => {
 
 const itemTypes = ["Coated Item", "Mould"];
 
-export default props => {
+export default ({ view = "items", ...props }) => {
   const stages = createStages(props.data);
 
   const [filters, setFilters] = useState(props.defaultFilters || {});
@@ -43,9 +45,56 @@ export default props => {
     setSearchTerm("");
   };
 
+  const Files = () => {
+    switch (view) {
+      case "all":
+        return (
+          <>
+            <Projects
+              {...props}
+              data={results}
+              className="mb-3"
+              headline={
+                <>
+                  Projects{" "}
+                  <div
+                    style={{ fontWeight: "normal" }}
+                    className="text-secondary d-inline"
+                  >
+                    (specifications)
+                  </div>
+                </>
+              }
+            />
+            <ProjectTree
+              {...props}
+              data={results}
+              headline={
+                <>
+                  Projects{" "}
+                  <div
+                    style={{ fontWeight: "normal" }}
+                    className="text-secondary d-inline"
+                  >
+                    (items)
+                  </div>
+                </>
+              }
+            />
+          </>
+        );
+      case "items":
+        return <ProjectTree {...props} data={results} />;
+      case "projects":
+        return <Projects {...props} data={results} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
-      <h6 className="pb-1">Filter</h6>
+      <h6 className="pb-1">Filters</h6>
       <div className="mb-3">
         <form id="filterForm">
           <Input
@@ -95,28 +144,31 @@ export default props => {
               setSearchTerm(e.target.value);
             }}
             unit={
-              <i
-                className="fas fa-search"
+              <FontAwesomeIcon
+                icon="search"
                 style={{ position: "relative", top: "0.09em" }}
               />
             }
           />
-          <Button
+          <DarkButton
+            onClick={() => {
+              clearAll();
+            }}
+          >
+            <FontAwesomeIcon icon={["fas", "trash-alt"]} className="mr-1" />
+            Clear all filters
+          </DarkButton>
+          {/* <Button
             variant="secondary"
             type="reset"
             className="w-100"
             onClick={() => {
               clearAll();
             }}
-          >
-            <i className="fa fa-trash pr-2" style={{ width: "" }} />
-            <b>Clear all filters</b>
-          </Button>
+          ></Button> */}
         </form>
       </div>
-      {props.view === "projectTree" && <ProjectTree data={results} />}
-      {props.view === "projects" && <Projects data={results} />}
-      {props.children}
+      <Files />
     </>
   );
 };

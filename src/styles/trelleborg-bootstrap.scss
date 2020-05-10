@@ -5,8 +5,9 @@ $theme-colors: (
   "info": #17a2b8,
   "warning": #ffc107,
   "danger": #dc3545,
-  "light": #f8f9fa,
-  "dark": #23272b
+  "light": #e9ecef,
+  "dark": #23272b,
+  "darkLight": #2f343a
 );
 
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";

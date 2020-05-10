@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
 import { DocumentDateContext } from "components/form/Form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const baseStyle = {
   flex: 1,
@@ -100,6 +101,7 @@ export default props => {
       return [...prevState];
     });
   };
+
   const deleteHandler = index => {
     setFiles(prevState => {
       prevState.splice(index, 1);
@@ -108,56 +110,54 @@ export default props => {
   };
 
   return (
-    <>
-      <div className={`p-3 border rounded`}>
-        <section className="container px-0">
-          {props.writeChapter && (
-            <div {...getRootProps({ style })} className="">
-              <input {...getInputProps()} />
-              <p className="mt-2">
-                {files.length && props.singleFile
-                  ? objectPath.get(documentDate, props.path)
-                      .file
-                  : `Drag 'n' drop ${
-                      props.singleFile ? "file" : "files"
-                    }, or click to upload.`}
-              </p>
+    <div className={`p-3 border rounded`}>
+      <section className="container px-0 mx-0">
+        {props.writeChapter && (
+          <div {...getRootProps({ style })}>
+            <input {...getInputProps()} />
+            <p className="mt-2">
+              {files.length && props.singleFile
+                ? objectPath.get(documentDateContext.documentDate, props.path)
+                    .file
+                : `Drag 'n' drop ${
+                    props.singleFile ? "file" : "files"
+                  }, or click to upload.`}
+            </p>
+          </div>
+        )}
+        {files.length && !props.singleFile ? (
+          <aside>
+            {props.writeChapter && (
+              <>
+                <label className={`${props.writeChapter ? `mt-3` : ``}`}>
+                  Uploaded{" "}
+                  {props.singleFile || files.length === 1 ? "file" : "files"}
+                </label>
+                <hr className="w-100 m-0" />
+              </>
+            )}
+            <ul className="mb-0">
+              {files.map((file, index) => (
+                <FileDescription
+                  key={index}
+                  {...props}
+                  deleteHandler={deleteHandler}
+                  index={index}
+                  onChange={onChange}
+                  file={file}
+                />
+              ))}
+            </ul>
+          </aside>
+        ) : (
+          !props.writeChapter && (
+            <div className="text-secondary">
+              <FontAwesomeIcon icon="file-times" className="mr-2" />
+              <div className="d-inline">No files uploaded.</div>
             </div>
-          )}
-          {files.length && !props.singleFile ? (
-            <aside>
-              {props.writeChapter && (
-                <>
-                  <label className={`${props.writeChapter ? `mt-3` : ``}`}>
-                    Uploaded{" "}
-                    {props.singleFile || files.length === 1 ? "file" : "files"}
-                  </label>
-                  <hr className="w-100 m-0" />
-                </>
-              )}
-              <ul className="mb-0">
-                {files.map((file, index) => (
-                  <FileDescription
-                    key={index}
-                    {...props}
-                    deleteHandler={deleteHandler}
-                    index={index}
-                    onChange={onChange}
-                    file={file}
-                  />
-                ))}
-              </ul>
-            </aside>
-          ) : (
-            !props.writeChapter && (
-              <div className="text-secondary">
-                <i className="fal fa-file-times mr-2" />
-                <div className="d-inline">No files uploaded.</div>
-              </div>
-            )
-          )}
-        </section>
-      </div>
-    </>
+          )
+        )}
+      </section>
+    </div>
   );
 };

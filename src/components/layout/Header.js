@@ -1,17 +1,20 @@
 import React from "react";
 import { Navbar, Dropdown } from "react-bootstrap";
-import emblem from "images/trelleborg_emblem.png";
+import emblem from "images/emblem.png";
 import "styles/styles.css";
 import { LinkContainer } from "react-router-bootstrap";
-import { USER } from "../../constants";
+import { USER } from "constants.js";
+import { camelCaseToNormal } from "functions/general";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default () => {
   const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
+
   const NavLink = props => (
     <LinkContainer to={props.link} className="p-0">
       <Dropdown.Item>
         <div className="nav-link">
-          <i style={{ width: "1.7em" }} className={`fas fa-${props.icon}`} />
+          <FontAwesomeIcon icon={props.icon} style={{ width: "1.7em" }} />
           {props.title}
         </div>
       </Dropdown.Item>
@@ -24,24 +27,21 @@ export default () => {
       // sticky="top"
       bg="dark"
       variant="dark"
-      className="text-light mx-0 px-2 position-absolute w-100 shadow"
-      style={{ zIndex: 1 }}
+      className="text-light mx-0 px-1 w-100 shadow header"
+      style={{ height: 42 }}
+      fixed="top"
     >
       {/* Left */}
       <div className="w-100 mx-0 px-0 d-flex justify-content-start">
-        <Dropdown className="mx-0 px-0" id="dropdown-left">
-          <Dropdown.Toggle variant="dark" className="caret-off py-1">
-            <i className="fas fa-bars fa-lg mt-1" />
+        <Dropdown id="dropdown-left">
+          <Dropdown.Toggle variant="dark" className="caret-off py-1 px-2">
+            <div style={{ opacity: 1 }}>
+              <FontAwesomeIcon icon="bars" />
+              <div className="ml-2 d-inline">Menu</div>
+            </div>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <NavLink title="Home" link="/" icon="home" />
-            <NavLink title="Orders" link="/orders" icon="list" />
-            <NavLink title="Operator" link="/operator" icon="user-hard-hat" />
-            <NavLink
-              title="Lead Engineer"
-              link="/lead-engineer"
-              icon="user-cog"
-            />
           </Dropdown.Menu>
         </Dropdown>
       </div>
@@ -51,7 +51,7 @@ export default () => {
         <a href="/" className="m-0 p-0">
           <img
             src={emblem}
-            height="35"
+            height="25"
             className="d-inline-block align-top"
             alt="React Bootstrap logo"
           />
@@ -60,16 +60,29 @@ export default () => {
 
       {/* Right */}
       <div className="w-100 mx-0 px-0 d-flex justify-content-end">
-        <Dropdown className="">
-          <Dropdown.Toggle variant="dark" className="caret-off">
-            <div className="d-none d-sm-block">
-              {userInfo
-                ? `${userInfo.role} • ${userInfo.username}`
-                : "userRole • ID"}{" "}
-              <i className="fas fa-user ml-2" />
-            </div>
-            <div className="d-block d-sm-none">
-              ID <i className="fas fa-user ml-2" />
+        <Dropdown>
+          <Dropdown.Toggle variant="dark" className="caret-off py-1 px-2">
+            <div style={{ opacity: 1 }}>
+              {/* Large */}
+              <div className="d-none d-sm-block">
+                <div className="d-inline">
+                  {userInfo
+                    ? `${camelCaseToNormal(
+                        userInfo.username
+                      )} (${camelCaseToNormal(userInfo.role.toLowerCase())})`
+                    : "role • name"}
+                </div>
+                <FontAwesomeIcon icon="user" className="ml-2" />
+              </div>
+              {/* Small */}
+              <div className="d-block d-sm-none">
+                <div className="d-inline">
+                  {userInfo
+                    ? `${camelCaseToNormal(userInfo.role.toLowerCase())}`
+                    : "role • name"}
+                </div>
+                <FontAwesomeIcon icon="user" className="ml-2" />
+              </div>
             </div>
           </Dropdown.Toggle>
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ItemUpdate from "pages/ItemUpdate";
+import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 
 export default props => {
   const [show, setShow] = useState(false);

@@ -9,7 +9,7 @@ export default props => (
       height: "100rvh"
     }}
   >
-    <div className="m-0 h-100" style={{ paddingTop: 54 }}>
+    <div className="m-0 h-100" style={{ paddingTop: 42 }}>
       <div className="h-100 overflow-auto">
         <Container className="mt-sm-0 p-0 py-sm-3 h-100">
           {props.children}
