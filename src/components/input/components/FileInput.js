@@ -117,7 +117,7 @@ export default props => {
             <input {...getInputProps()} />
             <p className="mt-2">
               {files.length && props.singleFile
-                ? objectPath.get(documentDateContext.documentDate, props.path)
+                ? objectPath.get(documentDate, props.path)
                     .file
                 : `Drag 'n' drop ${
                     props.singleFile ? "file" : "files"
