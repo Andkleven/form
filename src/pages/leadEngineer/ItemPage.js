@@ -135,7 +135,7 @@ export default props => {
       });
       setNumberOfItems(countNumberOfItems);
     }
-  }, [counter, fixedData]);
+  }, [counter, fixedData, error, loading]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
