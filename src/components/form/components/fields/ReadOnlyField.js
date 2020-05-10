@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { DocumentDateContext, ChapterContext, FieldsContext } from "components/form/Form";
-import Math from "functions/math";
+import Math from "components/form/functions/math";
 import objectPath from "object-path";
 import ReadField from "components/form/components/fields/ReadField";
 
