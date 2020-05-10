@@ -31,6 +31,9 @@ export default props => {
             name={props.name}
             readOnly={props.readOnlyFields}
             options={options}
+            defaultValue={props.defaultValue
+              ? options.find(option => option.value === props.defaultValue)
+              : null}
             theme={theme => ({
               ...theme,
               colors: {
@@ -42,18 +45,17 @@ export default props => {
               }
             })}
             placeholder={props.placeholder || "Select or type..."}
-            value={
-              props.value
-                ? options.find(option => option.value === props.value)
-                : null
-            }
             onChange={props.onChangeSelect}
+            onBlur={props.onBlurSelect}
           />
         ) : (
           <Select
             className="w-100"
             options={options}
             name={props.name}
+            defaultValue={props.defaultValue
+              ? options.find(option => option.value === props.defaultValue)
+              : null}
             theme={theme => ({
               ...theme,
               colors: {
@@ -65,13 +67,9 @@ export default props => {
               }
             })}
             isSearchable={true}
-            value={
-              props.value
-                ? options.find(option => option.value === props.value)
-                : null
-            }
             placeholder={props.placeholder || "Select..."}
             onChange={props.onChangeSelect}
+            onBlur={props.onBlurSelect}
           />
         )}
         {/* <Duplicate {...props} /> */}

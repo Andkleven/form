@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import objectPath from "object-path";
-import FieldProperties from "components/form/fields/FieldProperties";
+import FieldProperties from "components/form/components/fields/FieldProperties";
 import Page from "components/form/components/Page";
 import { DocumentDateContext } from "components/form/Form";
 import Line from "components/layout/design/Line";
 import { findValue } from "functions/general";
 
 export default props => {
-  const documentDateContext = useContext(DocumentDateContext);
+  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   return props.fields.map((field, index) => {
     if (
       field.showFieldSpecPath &&
@@ -26,30 +26,28 @@ export default props => {
     } else if (field.page) {
       if (
         objectPath.get(
-          documentDateContext.documentDate,
+          documentDate,
           `${props.path}.${field.queryPath}`,
           null
         ) === null
       ) {
-        objectPath.set(
-          documentDateContext.documentDate,
-          `${props.path}.${field.queryPath}`,
-          []
-        );
+        documentDateDispatch({type: 'add', 
+        newState: [],
+        path: `${props.path}.${field.queryPath}`})
       }
       return (
         <Page
           {...field}
           key={index}
+          backendData={props.backendData}
           repeatStepList={props.repeatStepList}
           submitHandler={props.submitHandler}
           submitData={props.submitData}
           thisChapter={props.thisChapter}
           stopLoop={props.stopLoop}
-          mutation={props.mutation}
           readOnlyFields={props.readOnlyFields}
           showEditButton={false}
-          data={objectPath.get(props.data, field.queryPath, false)}
+          // data={props.data}
           path={`${props.path}.${field.queryPath}`}
         />
       );

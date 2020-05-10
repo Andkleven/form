@@ -226,8 +226,8 @@
           "delete": true,
           "addButton": "Add Step",
           "pageTitle": "Vulcanization",
-          "indexVariableFieldGroupRepeatTitle": true,
-          "fieldGroupRepeatTitle": "Step {}",
+          "indexVariablePageTitle": true,
+          "pageTitle": "Step {}",
           "fields": [
             {
               "fieldName": "vulcanizationOption",

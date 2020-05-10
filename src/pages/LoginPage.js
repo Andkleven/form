@@ -14,7 +14,7 @@ const LOGIN_MUTATION = gql`
     tokenAuth(username: $username, password: $password) {
       token
       user {
-        employee
+        role
       }
     }
   }

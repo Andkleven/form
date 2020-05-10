@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import {
-  getData,
   findValue,
   allRequiredSatisfied,
   createPath
@@ -52,7 +51,7 @@ export default props => {
             {...info}
             {...props}
             submitHandler={props.submitHandler}
-            data={getData(info, arrayIndex, props.data)}
+            // data={getData(info, arrayIndex, props.data)}
             path={createPath(info.queryPath, arrayIndex)}
             thisChapter={count + 1}
             stopLoop={stopLoop}
@@ -61,7 +60,6 @@ export default props => {
             index={index}
             lastChapter={temporaryLastChapter}
             submitData={props.submitData}
-            mutation={props.mutation}
             showSaveButton={showSaveButton}
             arrayIndex={arrayIndex}
           />
@@ -151,11 +149,11 @@ export default props => {
     : props.document.chapters.map(pageInfo => {
         return runChapter(pageInfo);
       });
-  useEffect(() => {
+
     if (chapterBasedOnJson[chapterBasedOnJson.length - 1]) {
       props.setLastSubmitButton(true);
     }
-  }, [chapterBasedOnJson]);
+
 
   return props.document.chapterByStage ? stageChapters() : chapterBasedOnJson;
 };

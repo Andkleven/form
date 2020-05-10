@@ -8,14 +8,14 @@ import LightLine from "components/layout/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 
 export default props => {
-  const fieldsContext = useContext(FieldsContext);
+  const {setIsSubmitted, setValidationPassed} = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
     // if (window.confirm("Are you sure you wish to edit?")) {
-    fieldsContext.setIsSubmitted(false);
+    setIsSubmitted(false);
     chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
-    fieldsContext.setValidationPassed({});
+    setValidationPassed({});
     // }
   };
 

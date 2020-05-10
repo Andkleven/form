@@ -33,12 +33,14 @@ const rejectStyle = {
 };
 
 export default props => {
-  const documentDateContext = useContext(DocumentDateContext);
+  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
+  
+  // test
   useEffect(() => {
     if (!props.singleFile) {
       let oldFiles = objectPath.get(
-        documentDateContext.documentDate,
+        documentDate,
         props.path
       );
       if (oldFiles) {
@@ -50,14 +52,11 @@ export default props => {
         );
       }
     }
-  }, []);
+  }, [props.path, props.singleFile, documentDate]);
 
   useEffect(() => {
-    documentDateContext.setDocumentDate(prevState => {
-      objectPath.set(prevState, props.path, files);
-      return { ...prevState };
-    });
-  }, [files]);
+    documentDateDispatch({type: 'add', path: props.path, newState: files});
+  }, [files, props.path, documentDateDispatch]);
 
   const {
     getRootProps,
@@ -70,7 +69,7 @@ export default props => {
     onDrop: acceptedFiles => {
       if (props.singleFile) {
         objectPath.set(
-          documentDateContext.documentDate,
+          documentDate,
           props.path,
           acceptedFiles[0]
         );
@@ -117,7 +116,7 @@ export default props => {
               <input {...getInputProps()} />
               <p className="mt-2">
                 {files.length && props.singleFile
-                  ? objectPath.get(documentDateContext.documentDate, props.path)
+                  ? objectPath.get(documentDate, props.path)
                       .file
                   : `Drag 'n' drop ${
                       props.singleFile ? "file" : "files"

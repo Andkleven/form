@@ -227,6 +227,7 @@ const mathToleranceMaxPercent = (values, repeatStepList, decimal) => {
   );
 };
 
+
 const Math = {
   mathCumulativeThickness,
   mathProposedThickness,

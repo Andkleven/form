@@ -25,7 +25,8 @@ function Datetime(props) {
           variant="light"
           className="border px-3"
           // onClick={date => setStartDate(new Date())}
-          onClick={date => props.onChangeDate(new Date())}
+          // onClick={date => props.onChangeDate(new Date())}
+          onnBlur={date => props.onnBlurDate(new Date())}
         >
           <i className="far fa-clock" style={{ width: "1.2em" }} />
           <div className="d-none d-sm-inline ml-1">{" Current time"}</div>
@@ -36,8 +37,9 @@ function Datetime(props) {
           style={{ position: "relative", zIndex: 0 }}
           variant="light"
           className="border px-3"
-          onClick={date => props.onChangeDate(null)}
           // onClick={date => setStartDate(null)}
+          // onClick={date => props.onChangeDate(null)}
+          onnBlur={date => props.onnBlurDate(new Date())}
         >
           <i className="far fa-times" style={{ width: "1.2em" }} />
         </Button>
@@ -59,9 +61,11 @@ function Datetime(props) {
         <DatePicker
           className="w-100"
           readOnly={props.readOnlyFields}
-          selected={isStringInstance(props.value) ? null : props.value}
-          onChange={date => props.onChangeDate(date)}
+          // selected={isStringInstance(props.value) ? null : props.value}
+          defaultValue={isStringInstance(props.defaultValue) ? null : props.defaultValue}
           // onChange={date => setStartDate(date)}
+          // onChange={date => props.onChangeDate(date)}
+          onnBlur={date => props.onnBlurDate(new Date())}
           customInput={<ExampleCustomInput />}
           showTimeSelect
           // showTimeInput

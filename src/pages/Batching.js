@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "graphql/leadEngineer/Query";
+import query from "graphql/Query";
 import allBatchingJson from "templates/Batching.json";
 import operatorCoatedItemJson from "templates/OperatorCoatedItem.json";
 import operatorMouldJson from "templates/OperatorMould.json";

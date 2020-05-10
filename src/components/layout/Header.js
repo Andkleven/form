@@ -64,7 +64,7 @@ export default () => {
           <Dropdown.Toggle variant="dark" className="caret-off">
             <div className="d-none d-sm-block">
               {userInfo
-                ? `${userInfo.employee} • ${userInfo.username}`
+                ? `${userInfo.role} • ${userInfo.username}`
                 : "userRole • ID"}{" "}
               <i className="fas fa-user ml-2" />
             </div>

@@ -28,7 +28,6 @@ const backgroundStyle = {
 
 export default () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
-
   return (
     <Div100vh className="bg-secondary">
       <div style={backgroundStyle}>

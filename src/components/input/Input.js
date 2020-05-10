@@ -14,7 +14,7 @@ import NativeInput from "components/input/components/NativeInput";
 import CheckInput from "components/input/components/CheckInput";
 import SelectInput from "components/input/components/SelectInput";
 import FileInput from "components/input/components/FileInput";
-import Duplicate from "components/input/widgets/Duplicate";
+// import Duplicate from "components/input/widgets/Duplicate";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 

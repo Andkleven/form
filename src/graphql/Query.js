@@ -286,10 +286,6 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
-        rubberCements {
-          id
-          data
-        }
         vulcanizationSteps {
           id
           data
@@ -301,6 +297,10 @@ const QUALITY_CONTROL = gql`
               data
             }
           }
+        }
+        rubberCements {
+          id
+          data
         }
       }
       operators {

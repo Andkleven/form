@@ -9,7 +9,7 @@
     ["coatingStep", "vulcanizationStep", "measurementPointStep"],
     "touchUp"
   ],
-  "coatedItem": {
+  "coateditem": {
     "steelPreparation1": { "queryPath": "" },
     "steelPreparation2": { "queryPath": "" },
     "primer1": {

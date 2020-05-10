@@ -17,9 +17,10 @@ function NativeInput(props) {
             id={`custom-${props.type}-${props.label}`}
             required={false}
             readOnly={props.readOnlyFields}
-            value={props.value}
+            defaultValue={props.defaultValue}
             name={props.name}
             onChange={props.onChange}
+            onBlur={props.onBlur}
             as={props.select}
             type={props.type}
             min={props.min}

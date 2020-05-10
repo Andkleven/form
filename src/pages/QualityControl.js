@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "graphql/leadEngineer/Query";
+import query from "graphql/Query";
 import operatorCoatedItemJson from "templates/OperatorCoatedItem.json";
 import operatorMouldJson from "templates/OperatorCoatedItem.json";
 import qualityControlCoatingItem from "templates/QualityControlCoatingItem.json";
@@ -34,7 +34,6 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[qualityControl.query], {
     variables: { id: itemId }
   });
-
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -59,7 +58,7 @@ export default pageInfo => {
           saveButton={true}
         />
         <Form
-          componentsId={"SingleItem"}
+          componentsId={"finalInspectionQualityControls"}
           document={qualityControl}
           reRender={() => setReRender(!reRender)}
           data={

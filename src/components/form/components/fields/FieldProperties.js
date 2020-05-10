@@ -1,7 +1,8 @@
-import React, { useContext, useCallback, useState, useEffect } from "react";
+import React, { useContext, useCallback, useEffect } from "react";
 import ReadField from "./ReadField";
-import WriteFieldGroupError from "./WriteFieldGroupError";
+import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
 import Input from "components/input/Input";
+import WriteField from "components/form/components/fields/WriteField";
 import objectPath from "object-path";
 import { DocumentDateContext, ChapterContext } from "components/form/Form";
 
@@ -13,77 +14,87 @@ import {
 } from "functions/general";
 
 export default props => {
-  const documentDateContext = useContext(DocumentDateContext);
-  const chapterContext = useContext(ChapterContext);
-  const [subtext, setSubtext] = useState("");
-  const [label, setLabel] = useState("");
-  const [min, setMin] = useState("");
-  const [max, setMax] = useState("");
-  useEffect(() => {
-    let { min, max } = calculateMaxMin(
-      props.min,
-      props.routeToSpecMin,
-      props.editRepeatStepListMin,
-      props.calculateMin,
-      props.max,
-      props.routeToSpecMax,
-      props.editRepeatStepListMax,
-      props.calculateMax,
-      props.repeatStepList,
-      props.specData,
-      props.allData
+  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
+  const {editChapter} = useContext(ChapterContext);
+    const getNewPath = useCallback(
+      () => {
+        return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
+      },
+      [props.path, props.fieldName]
     );
-    setMin(min);
-    setMax(max);
-  }, [props.specData]);
-
+    
   useEffect(() => {
-    setLabel(
-      props.queryVariableLabel || props.indexVariableLabel
+    let saveState = objectPath.get(props.backendData, getNewPath(), null)
+    if (saveState === null && !props.specValueList) {
+      saveState =  props.default !== undefined
+                    ? props.default
+                    : ["checkbox", "radio", "switch"].includes(props.type)
+                    ? false
+                    : props.default === "select"
+                    ? props.options[0]
+                    : ""
+        documentDateDispatch({type: 'add', 
+                              newState: saveState,
+                              path: getNewPath()})
+  } 
+  }, [
+    props.specValueList,
+    documentDateDispatch,
+    props.default,
+    props.type,
+    props.options,
+    props.fieldName,
+    getNewPath,
+    props.backendData
+  ]); 
+  
+  
+  let {min, max} = calculateMaxMin(
+    props.min,
+    props.routeToSpecMin,
+    props.editRepeatStepListMin,
+    props.calculateMin,
+    props.max,
+    props.routeToSpecMax,
+    props.editRepeatStepListMax,
+    props.calculateMax,
+    props.repeatStepList,
+    props.specData,
+    props.allData
+  );
+  let subtext = getSubtext(
+    props.subtext,
+    findValue(
+      props.specData,
+      props.specSubtextList,
+      props.repeatStepList,
+      props.editRepeatStepSubtextList
+    ),
+    props.max,
+    props.min,
+    props.maxInput,
+    props.minInput,
+    props.unit,
+    props.required,
+    props.subtextMathMin,
+    props.subtextMathMax,
+    props.repeatStepList,
+    props.allData
+  )
+
+  let label = props.queryVariableLabel || props.indexVariableLabel
         ? variableLabel(
             props.label,
             props.variableLabelSpec
               ? props.specData
-              : documentDateContext.documentDate,
+              : documentDate,
             props.queryVariableLabel,
             props.repeatStepList,
             props.editRepeatStepListVariableLabel,
             props.indexVariableLabel ? props.repeatStep : undefined
           )
         : props.label
-    );
-  }, [props.specData, documentDateContext.documentDate]);
 
-  useEffect(() => {
-    setSubtext(
-      getSubtext(
-        props.subtext,
-        findValue(
-          props.specData,
-          props.specSubtextList,
-          props.repeatStepList,
-          props.editRepeatStepSubtextList
-        ),
-        props.max,
-        props.min,
-        props.maxInput,
-        props.minInput,
-        props.unit,
-        props.required,
-        props.subtextMathMin,
-        props.subtextMathMax,
-        props.repeatStepList,
-        props.allData
-      )
-    );
-  }, [props.specData]);
-
-  const getNewPath = useCallback(
-    fieldName => {
-      return `${props.path ? props.path + ".data." : ""}${fieldName}`;
-    },
-    [props.path]
-  );
 
   if (props.specValueList) {
     return (
@@ -91,7 +102,7 @@ export default props => {
         {...props}
         key={`${props.indexId}-${props.index}`}
         readOnly={true}
-        path={getNewPath(props.fieldName)}
+        path={getNewPath()}
         subtext={subtext}
         value={findValue(
           props.specData,
@@ -104,18 +115,17 @@ export default props => {
     );
   } else if (
     props.math ||
-    props.setValueByIndex ||
-    props.writeChapter ||
-    `${props.repeatStepList}-${props.fieldName}` === chapterContext.editChapter
+    props.setValueByIndex
+    
   ) {
     return (
-      <WriteFieldGroupError
+      <ReadOnlyField
         {...props}
         key={`${props.indexId}-${props.index}`}
-        path={getNewPath(props.fieldName)}
+        path={getNewPath()}
         submitButton={
           `${props.repeatStepList}-${props.fieldName}` ===
-          chapterContext.editChapter
+          editChapter
             ? true
             : false
         }
@@ -123,17 +133,32 @@ export default props => {
         max={max}
         label={label}
         subtext={subtext}
-        value={objectPath.get(
-          documentDateContext.documentDate,
-          getNewPath(props.fieldName),
-          ""
-        )}
         file={props.type === "file" ? props.file : null}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}
       />
     );
-  } else if (props.type === "file") {
+  } else if (props.writeChapter ||
+    `${props.repeatStepList}-${props.fieldName}` === editChapter) {
+      return <WriteField 
+      {...props}
+        key={`${props.indexId}-${props.index}`}
+        path={getNewPath()}
+        submitButton={
+          `${props.repeatStepList}-${props.fieldName}` ===
+          editChapter
+            ? true
+            : false
+        }
+        min={min}
+        max={max}
+        label={label}
+        subtext={subtext}
+        file={props.type === "file" ? props.file : null}
+        indexId={`${props.indexId}-${props.index}`}
+        index={props.index}
+      />;
+    }else if (props.type === "file") {
     return (
       <Input
         {...props}
@@ -149,12 +174,12 @@ export default props => {
       <ReadField
         {...props}
         key={`${props.indexId}-${props.index}`}
-        path={getNewPath(props.fieldName)}
+        path={getNewPath()}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}
         value={objectPath.get(
-          documentDateContext.documentDate,
-          getNewPath(props.fieldName)
+          documentDate,
+          getNewPath()
         )}
         subtext={subtext}
         label={label}
