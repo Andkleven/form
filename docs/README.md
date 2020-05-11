@@ -7,8 +7,8 @@ WIP...
   - [General](#general)
   - [Frontend](#frontend)
   - [Backend](#backend)
-- [🚀 Quick Start](#-quick-start)
-- [Cross platform testing](#cross-platform-testing)
+- [🚀 Quick start](#-quick-start)
+- [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
   - [Local testing](#local-testing)
   - [Remote testing](#remote-testing)
 
@@ -36,7 +36,7 @@ WIP...
 - [PostgreSQL](https://www.postgresql.org/)
 - [GraphQL](https://graphql.org/)
 
-## 🚀 Quick Start
+## 🚀 Quick start
 
 1. Install [VSCode](https://code.visualstudio.com/)
 2. Install [Node](https://nodejs.org/en/download/)
@@ -114,7 +114,7 @@ WIP...
    npm start
    ```
 
-## 📱💻 Cross platform testing
+## 🧪 Cross platform and user testing
 
 ### Local testing
 
