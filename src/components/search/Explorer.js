@@ -3,13 +3,41 @@
  */
 
 import React from "react";
-import Filter from "components/search/components/Filter";
+import ExplorerView from "components/search/components/ExplorerView";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/leadEngineer/Query";
 import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
-import { getUser, getRole, decideSearchView } from "functions/user.ts";
+import { getUser, getRole, roles } from "functions/user.ts";
+
+function getFeatures(role, features) {
+  switch (role) {
+    case roles.admin:
+      return {
+        ...features,
+        specs: true,
+        items: true,
+        batch: true,
+        filter: true,
+        createProject: true
+      };
+    case roles.lead:
+      return {
+        ...features
+      };
+    case roles.operator:
+      return {
+        ...features
+      };
+    case roles.quality:
+      return {
+        ...features
+      };
+    default:
+      break;
+  }
+}
 
 export default ({
   defaultFilters,
@@ -26,6 +54,13 @@ export default ({
   rowStyle = {
     height: "2.5em"
   },
+  features = {
+    specs: false,
+    items: false,
+    batch: false,
+    filter: false,
+    createProject: false
+  },
   ...props
 }) => {
   let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
@@ -33,7 +68,8 @@ export default ({
 
   const user = getUser();
   const role = getRole(user);
-  const view = decideSearchView(role);
+
+  features = getFeatures(role, features);
 
   if (loading) {
     return LoadingAnimation;
@@ -41,13 +77,13 @@ export default ({
     return <ErrorMessage error={error} />;
   } else {
     return (
-      <Filter
+      <ExplorerView
         {...props}
         iconSize={iconSize}
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
-        view={view}
+        features={features}
       />
     );
   }

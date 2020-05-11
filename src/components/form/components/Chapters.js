@@ -7,7 +7,7 @@ import {
 } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage";
-import Title from "components/layout/design/fonts/Title";
+import Title from "components/design/fonts/Title";
 
 // import objectPath from "object-path";
 

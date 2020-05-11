@@ -8,7 +8,7 @@ import {
 import objectPath from "object-path";
 import Input from "components/input/Input";
 import TinyButton from "components/button/TinyButton";
-import LightLine from "components/layout/design/LightLine";
+import LightLine from "components/design/LightLine";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

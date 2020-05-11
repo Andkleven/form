@@ -5,7 +5,7 @@ import mutations from "graphql/leadEngineer/MutationToDatabase";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
-import Title from "components/layout/design/fonts/Title";
+import Title from "components/design/fonts/Title";
 import {
   allTrue,
   validateFieldWithValue,

@@ -1,6 +1,6 @@
 import React from "react";
-import Search from "components/search/Search.js";
+import Explorer from "components/search/Explorer";
 
 export default () => {
-  return <Search view="projectTree" />;
+  return <Explorer />;
 };
