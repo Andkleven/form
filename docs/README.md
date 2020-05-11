@@ -150,7 +150,7 @@ _Warning: This may not work on public networks (e.g. school and work)!_
 
 ### Remote testing
 
-We have two alternatives remote testing:
+We have two alternatives for remote testing:
 
 1. <a name="devServer"></a>TODO: Development server
 
