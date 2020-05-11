@@ -14,6 +14,7 @@ WIP...
 - [HTML and CSS](https://www.youtube.com/watch?v=vQWlgd7hV4A)
 - [Sass](https://www.youtube.com/watch?v=Zz6eOVaaelI)
 - [Javascript](https://www.youtube.com/playlist?list=PLDyQo7g0_nsX8_gZAB8KD1lL4j4halQBJ)
+- [Typescript](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
 - [React](https://www.youtube.com/watch?v=dGcsHMXbSOA)
   - [Router](https://www.youtube.com/watch?v=Law7wfdg_ls&t=1037s)
   - [State](https://www.youtube.com/watch?v=35lXWvCuM8o)
