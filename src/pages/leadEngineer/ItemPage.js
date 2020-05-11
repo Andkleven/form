@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
-import query from "graphql/leadEngineer/Query";
+import query from "graphql/Query";
 import objectPath from "object-path";
 import itemsJson from "templates/Order.json";
-import mutations from "graphql/leadEngineer/MutationToDatabase";
-import ItemList from "components/form/components/ItemList";
+import mutations from "graphql/Mutation";
+import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import { Button } from "react-bootstrap";
@@ -135,7 +135,7 @@ export default props => {
       });
       setNumberOfItems(countNumberOfItems);
     }
-  }, [counter, fixedData]);
+  }, [counter, fixedData, error, loading]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;

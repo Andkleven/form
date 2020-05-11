@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import query from "graphql/leadEngineer/Query";
+import query from "graphql/Query";
 import objectPath from "object-path";
 import itemsJson from "templates/Order.json";
-import mutations from "graphql/leadEngineer/MutationToDatabase";
+import mutations from "graphql/Mutation";
 import Input from "components/input/Input";
 import SubmitButton from "components/button/SubmitButton";
 

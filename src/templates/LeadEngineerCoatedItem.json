@@ -162,12 +162,12 @@
               "fieldName": "toleranceMinPercent",
               "label": "Tolerance Min in Percent",
               "unit": "%",
-              "math": "mathToleranceMinPercent",
               "type": "Number",
               "min": 2
             },
             {
               "fieldName": "toleranceMax",
+              "math": "mathToleranceMin",
               "label": "Tolerance Max",
               "prepend": "Max",
               "type": "number"
@@ -176,13 +176,13 @@
               "fieldName": "toleranceMaxPercent",
               "label": "Tolerance Max in Percent",
               "unit": "%",
-              "math": "mathToleranceMaxPercent",
               "type": "Number",
               "max": 6
             },
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
+              "math": "mathToleranceMax",
               "type": "Number",
               "maxInput": 22,
               "max": 22
@@ -226,8 +226,8 @@
           "delete": true,
           "addButton": "Add Step",
           "pageTitle": "Vulcanization",
-          "indexVariableFieldGroupRepeatTitle": true,
-          "fieldGroupRepeatTitle": "Step {}",
+          "indexVariablePageTitle": true,
+          "pageTitle": "Step {}",
           "fields": [
             {
               "fieldName": "vulcanizationOption",
@@ -292,6 +292,7 @@
                   "type": "Number",
                   "max": 15,
                   "min": 2,
+                  "default": 0,
                   "required": true
                 },
                 {

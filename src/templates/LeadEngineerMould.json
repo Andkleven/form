@@ -103,8 +103,8 @@
           "delete": true,
           "addButton": "Add Step",
           "pageTitle": "Vulcanization",
-          "indexVariableFieldGroupRepeatTitle": true,
-          "fieldGroupRepeatTitle": "Step {}",
+          "indexVariablePageTitle": true,
+          "pageTitle": "Step {}",
           "fields": [
             {
               "fieldName": "vulcanizationOption",
@@ -169,6 +169,7 @@
                   "type": "Number",
                   "max": 15,
                   "min": 2,
+                  "default": 0,
                   "required": true
                 },
                 {
@@ -185,23 +186,6 @@
                   "fieldName": "layersUnique",
                   "label": "Layers Unique",
                   "type": "checkbox"
-                },
-                {
-                  "page": true,
-                  "queryPath": "cumulativeThickness",
-                  "repeat": true,
-                  "notAddButton": true,
-                  "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
-                  "fields": [
-                    {
-                      "fieldName": "cumulativeThickness",
-                      "label": "Cumulative Thickness {}",
-                      "math": "mathCumulativeThickness",
-                      "indexVariableLabel": true,
-                      "decimal": 1,
-                      "type": "Number"
-                    }
-                  ]
                 }
               ]
             }

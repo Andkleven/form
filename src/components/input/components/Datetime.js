@@ -8,6 +8,7 @@ import DatePicker, {
 import "react-datepicker/dist/react-datepicker.css";
 import enGB from "date-fns/locale/en-GB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 registerLocale("enGB", enGB);
 
 function Datetime(props) {
@@ -37,8 +38,8 @@ function Datetime(props) {
           style={{ position: "relative", zIndex: 0 }}
           variant="light"
           className="border px-3"
-          onClick={date => props.onChangeDate(null)}
           // onClick={date => setStartDate(null)}
+          onClick={date => props.onChangeDate(null)}
         >
           <FontAwesomeIcon icon="times" style={{ width: "1.2em" }} />
         </Button>
@@ -61,8 +62,8 @@ function Datetime(props) {
           className="w-100"
           readOnly={props.readOnlyFields}
           selected={isStringInstance(props.value) ? null : props.value}
-          onChange={date => props.onChangeDate(date)}
           // onChange={date => setStartDate(date)}
+          onChange={date => props.onChangeDate(date)}
           customInput={<ExampleCustomInput />}
           showTimeSelect
           // showTimeInput

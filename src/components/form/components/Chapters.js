@@ -1,13 +1,9 @@
-import React, { Fragment, useEffect } from "react";
-import {
-  getData,
-  findValue,
-  allRequiredSatisfied,
-  createPath
-} from "functions/general";
+import React, { Fragment } from "react";
+import { findValue, allRequiredSatisfied, createPath } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage";
 import Title from "components/design/fonts/Title";
+import stagesJson from "components/form/stage/stages.json";
 
 // import objectPath from "object-path";
 
@@ -15,7 +11,7 @@ export default props => {
   let stopLoop = false; // Flips to true for last chapter with input
   let temporaryLastChapter = 0;
   let count = 0;
-  let stage = "steelPreparation1";
+  let stage = stagesJson["all"][0];
 
   const getNewChapter = (arrayIndex, pageInfo) => {
     let chapter; // new chapter to add to document
@@ -52,7 +48,7 @@ export default props => {
             {...info}
             {...props}
             submitHandler={props.submitHandler}
-            data={getData(info, arrayIndex, props.data)}
+            // data={getData(info, arrayIndex, props.data)}
             path={createPath(info.queryPath, arrayIndex)}
             thisChapter={count + 1}
             stopLoop={stopLoop}
@@ -61,7 +57,6 @@ export default props => {
             index={index}
             lastChapter={temporaryLastChapter}
             submitData={props.submitData}
-            mutation={props.mutation}
             showSaveButton={showSaveButton}
             arrayIndex={arrayIndex}
           />
@@ -97,7 +92,7 @@ export default props => {
           );
           newChapterArray.push(
             <Fragment key={count}>
-              {pageInfo.chapterTitle && !index ? (
+              {pageInfo.chapterTitle ? (
                 <Title title={pageInfo.chapterTitle} />
               ) : null}
               {newChapter}
@@ -124,6 +119,7 @@ export default props => {
     let stageSplit = [];
     let chapterBasedOnStage = [];
     while (stopLoop === false && i < 20) {
+      console.log(3);
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
@@ -151,11 +147,10 @@ export default props => {
     : props.document.chapters.map(pageInfo => {
         return runChapter(pageInfo);
       });
-  useEffect(() => {
-    if (chapterBasedOnJson[chapterBasedOnJson.length - 1]) {
-      props.setLastSubmitButton(true);
-    }
-  }, [chapterBasedOnJson]);
+
+  if (chapterBasedOnJson[chapterBasedOnJson.length - 1]) {
+    props.setLastSubmitButton(true);
+  }
 
   return props.document.chapterByStage ? stageChapters() : chapterBasedOnJson;
 };

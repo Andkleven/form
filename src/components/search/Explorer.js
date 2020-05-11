@@ -5,7 +5,7 @@
 import React from "react";
 import ExplorerView from "components/search/components/ExplorerView";
 import { useQuery } from "@apollo/react-hooks";
-import query from "graphql/leadEngineer/Query";
+import query from "graphql/Query";
 import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";

@@ -6,7 +6,10 @@ export default (specData, stage, geometry) => {
   let stageSplit = stage.split("Step");
   let newStage = stageSplit[1] ? stageSplit[0] + "Step" : stageSplit[0];
   const findNextStageInLoop = (indexStart, geometry, number, nextStage) => {
-    while (number < 5) {
+    let a =0
+    console.log(12)
+    while (number < 5 && a < 4) {
+      console.log(number, 4)
       for (index = indexStart; index < stagesJson.all[6].length; index++) {
         nextStage = stagesJson.all[6][index];
         if (findNextStage(geometry, nextStage, number)) {
@@ -15,8 +18,10 @@ export default (specData, stage, geometry) => {
           return "loop normal";
         }
       }
+      console.log(23)
+      a++
       index = 0;
-      number += 1;
+      number ++;
     }
   };
   const testForStage = indexStart => {

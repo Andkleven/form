@@ -482,7 +482,6 @@ export const getRepeatNumber = (
     repeatStepList,
     editRepeatStepListRepeat
   );
-
   if (Array.isArray(newValue)) {
     newValue = newValue.length;
   }
@@ -534,3 +533,12 @@ export const getStepFromStage = stage => {
   }
   return step;
 };
+
+
+export function getRepeatStepList(props, index)  {
+  return props.repeatStepList !== undefined
+  ? [...props.repeatStepList, index]
+  : props.arrayIndex
+  ? [...props.arrayIndex, index]
+  : [index]
+}

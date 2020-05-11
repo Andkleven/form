@@ -1,9 +1,9 @@
 import React, { useContext, Fragment } from "react";
-import SetFieldGroupData from "components/form/components/fields/SetFieldGroupData";
 import FieldGroup from "components/form/components/fields/FieldGroup";
 import objectPath from "object-path";
 import { DocumentDateContext } from "components/form/Form";
-import { getRepeatNumber } from "functions/general";
+import { getRepeatNumber, getRepeatStepList } from "functions/general";
+
 
 export default props => {
   const documentDateContext = useContext(DocumentDateContext);
@@ -18,19 +18,14 @@ export default props => {
         .map((itemsData, index) => {
           return (
             <Fragment key={index}>
-              <SetFieldGroupData
+              <FieldGroup
                 {...props}
-                repeatStepList={
-                  props.repeatStepList !== undefined
-                    ? [...props.repeatStepList, index]
-                    : props.arrayIndex
-                    ? [...props.arrayIndex, index]
-                    : [index]
-                }
+                repeatStepList={getRepeatStepList(props, index)}
                 repeatStep={index}
                 key={`${props.indexId}-${index}`}
-                data={itemsData}
+                // data={itemsData}
                 path={props.path ? `${props.path}.${index}` : null}
+                file={objectPath.get(props.data, props.path ? `${props.path}.${index}.data` : null) && objectPath.get(props.data, props.path ? `${props.path}.${index}.data` : null).file}
                 indexId={`${props.indexId}-${index}`}
               />
               {props.delete && props.writeChapter ? (
@@ -58,13 +53,7 @@ export default props => {
           <FieldGroup
             key={index}
             {...props}
-            repeatStepList={
-              props.repeatStepList !== undefined
-                ? [...props.repeatStepList, index]
-                : props.arrayIndex
-                ? [...props.arrayIndex, index]
-                : [index]
-            }
+            repeatStepList={getRepeatStepList(props, index)}
             repeatStep={index}
             path={props.path ? `${props.path}.${index}.data` : null}
             indexId={`${props.indexId}-${index}`}
@@ -81,16 +70,11 @@ export default props => {
     }
   } else {
     return (
-      <SetFieldGroupData
+      <FieldGroup
         {...props}
-        repeatStepList={
-          props.repeatStepList !== undefined
-            ? [...props.repeatStepList, 0]
-            : props.arrayIndex
-            ? [...props.arrayIndex, 0]
-            : [0]
-        }
-        data={props.data ? props.data[0] : props.data}
+        repeatStepList={getRepeatStepList(props, 0)}
+        file={objectPath.get(props.data, props.path + ".0.data") && objectPath.get(props.data, props.path + ".0.data").file}
+        // data={props.data ? props.data[0] : props.data}
         path={`${props.path}.0`}
         repeatStep={0}
         indexId={`${props.indexId}-0`}

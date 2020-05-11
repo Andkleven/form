@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "graphql/leadEngineer/Query";
+import query from "graphql/Query";
 import operatorJson from "templates/Operator.json";
 import SingleStageJson from "templates/SingleStage.json";
 import Form from "components/form/Form";

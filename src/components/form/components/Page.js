@@ -3,16 +3,17 @@ import React, {
   useContext,
   useState,
   useLayoutEffect,
-  useMemo
+  useMemo,
+  useCallback
 } from "react";
 import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
 import SubmitButton from "components/button/SubmitButton";
 import {
   ChapterContext,
   DocumentDateContext,
-  FieldsContext
+  FieldsContext,
 } from "components/form/Form";
-import { allTrue, getRepeatNumber } from "functions/general";
+import { variableString, allTrue, getRepeatNumber } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
 import Title from "components/design/fonts/Title";
@@ -22,82 +23,77 @@ import Line from "components/design/Line";
 import TabButton from "components/button/TabButton";
 
 export default props => {
-  const chapterContext = useContext(ChapterContext);
-  const documentDateContext = useContext(DocumentDateContext);
-  const fieldsContext = useContext(FieldsContext);
-  const [writeChapter, setWriteChapter] = useState(undefined);
+  const {setLastChapter, lastChapter, editChapter, setEditChapter} = useContext(ChapterContext);
+  const {documentDateDispatch, documentDate} = useContext(DocumentDateContext);
+  const {setIsSubmitted, isSubmitted ,setValidationPassed, validationPassed} = useContext(FieldsContext);
+  const [writeChapter, setWriteChapter] = useState();
   useLayoutEffect(() => {
-    if (props.lastChapter && props.lastChapter !== chapterContext.lastChapter) {
-      chapterContext.setLastChapter(props.lastChapter);
-    }
-  }, [props.lastChapter]);
 
-  const addData = pushOnIndex => {
-    documentDateContext.setDocumentDate(prevState => {
-      objectPath.set(prevState, `${props.path}.${pushOnIndex}`, {
-        data: {}
-      });
-      return {
-        ...prevState
-      };
-    });
-  };
+    if (props.lastChapter && props.lastChapter !== lastChapter) {
+      setLastChapter(props.lastChapter);
+    }
+  }, [props.lastChapter, setLastChapter, lastChapter]);
+
+  const addData = useCallback(pushOnIndex => {
+    documentDateDispatch({type: 'add', newState: {},
+                          fieldName: 'data',  path: `${props.path}.${pushOnIndex}`})
+  },[props.path, documentDateDispatch]);
+
   const addHandler = () => {
     addData(
-      objectPath.get(documentDateContext.documentDate, props.path).length
+      objectPath.get(documentDate, props.path).length
     );
   };
-  const deleteHandler = index => {
-    documentDateContext.setDocumentDate(prevState => {
-      objectPath.del(prevState, `${props.path}.${index}`);
-      return {
-        ...prevState
-      };
-    });
-  };
+  const deleteHandler = useCallback(index => {
+    documentDateDispatch({type: 'delete', path: `${props.path}.${index}`})
+  }, [props.path, documentDateDispatch]);
 
   // set repeatGroup
   useEffect(() => {
+
     if (props.allWaysShow) {
       setWriteChapter(true);
-    } else if (chapterContext.editChapter) {
-      if (props.thisChapter === chapterContext.editChapter) {
+    } else if (editChapter) {
+      if (props.thisChapter === editChapter) {
         setWriteChapter(true);
       } else {
         setWriteChapter(false);
       }
-    } else if (props.thisChapter === chapterContext.lastChapter) {
+    } else if (props.thisChapter === lastChapter) {
       setWriteChapter(true);
     } else {
       setWriteChapter(false);
     }
   }, [
     props.allWaysShow,
-    chapterContext.editChapter,
+    editChapter,
     props.thisChapter,
-    chapterContext.lastChapter
+    lastChapter
   ]);
 
   // If repeat group start with one group set repeatGroup to 1
-  useEffect(() => {
+  // useEffect(() => {
     if (
       props.repeatStartWithOneGroup &&
       writeChapter &&
-      (!props.data || props.data.length === 0) &&
+      (!objectPath.get(props.data, props.path) || objectPath.get(props.data, props.path).length === 0) &&
       Array.isArray(
-        objectPath.get(documentDateContext.documentDate, props.path)
+        objectPath.get(documentDate, props.path)
       ) &&
-      objectPath.get(documentDateContext.documentDate, props.path).length === 0
+      objectPath.get(documentDate, props.path).length === 0
     ) {
       addData(0);
     }
-  }, [
-    props.repeatStartWithOneGroup,
-    writeChapter,
-    props.data,
-    chapterContext.editChapter,
-    chapterContext.lastChapter
-  ]);
+  // }, [
+  //   // documentDate,
+  //   props.repeatStartWithOneGroup,
+  //   writeChapter,
+  //   props.data,
+  //   editChapter,
+  //   lastChapter,
+  //   props.path,
+  //   addData
+  // ]);
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
   useEffect(() => {
@@ -108,30 +104,39 @@ export default props => {
       // objectPath.get(documentDateContext.documentDate, props.path)
     ) {
       let newValue = getRepeatNumber(
-        documentDateContext.documentDate,
+        documentDate,
         props.repeatGroupWithQuery,
         props.repeatStepList,
         props.editRepeatStepListRepeat
-      );
-      let oldValue = objectPath.get(
-        documentDateContext.documentDate,
-        props.path,
-        false
-      );
-      let oldValueLength = oldValue ? oldValue.length : 0;
-      if (oldValueLength < newValue) {
-        for (let i = oldValueLength; i < newValue; i++) {
-          addData(i);
-        }
-      } else if (newValue < oldValueLength) {
+        );
+        let oldValue = objectPath.get(
+          documentDate,
+          props.path,
+          false
+          );
+          let oldValueLength = oldValue ? oldValue.length : 0;
+          if (oldValueLength < newValue) {
+            for (let i = oldValueLength; i < newValue; i++) {
+              addData(i);
+            }
+          } else if (newValue < oldValueLength) {
         for (let i = oldValueLength - 1; i > newValue - 1; i--) {
           deleteHandler(i);
         }
       }
     }
-  }, [documentDateContext.documentDate]);
+  }, [
+    documentDate,
+    addData,
+    props.repeatGroupWithQuery,
+    props.repeatStepList,
+    props.editRepeatStepListRepeat,
+    deleteHandler,
+    props.path,
+    props.repeatGroupWithQuerySpecData
+  ]);
 
-  useEffect(() => {
+
     if (
       props.repeatGroupWithQuery &&
       props.repeatGroupWithQuerySpecData &&
@@ -145,7 +150,7 @@ export default props => {
       );
       if (
         objectPath.get(
-          documentDateContext.documentDate,
+          documentDate,
           `${props.path}.${0}`,
           null
         ) === null
@@ -155,10 +160,10 @@ export default props => {
         }
       }
     }
-  }, []);
+
+
   const Components = useMemo(() => CustomComponents[props.customComponent], [
-    props.arrayIndex,
-    props.specData
+    props.customComponent
   ]);
 
   // Checks for conditional rendering
@@ -171,7 +176,12 @@ export default props => {
       <div className="d-flex justify-content-between align-items-end">
         {showTitleOrSubtitle ? (
           <Title key={`${props.thisChapter}-${props.index}-jja`}>
-            {props.pageTitle}
+            {props.indexVariablePageTitle !== undefined
+                ? variableString(
+                    props.arrayIndex[props.indexVariablePageTitle ? props.indexVariablePageTitle : 0] + 1,
+                    props.pageTitle
+                  )
+                : props.pageTitle}
           </Title>
         ) : (
           <Subtitle key={`${props.thisChapter}-${props.index}-jja`}>
@@ -185,12 +195,12 @@ export default props => {
               // size="sm"
               onClick={() => {
                 // if (window.confirm("Are you sure you wish to edit?")) {
-                fieldsContext.setIsSubmitted(false);
-                chapterContext.setEditChapter(props.thisChapter);
-                fieldsContext.setValidationPassed({});
+                setIsSubmitted(false);
+                setEditChapter(props.thisChapter);
+                setValidationPassed({});
                 // }
               }}
-              key={chapterContext.lastChapter}
+              key={lastChapter}
             >
               Edit all
             </TabButton>
@@ -206,6 +216,7 @@ export default props => {
             writeChapter={writeChapter}
             deleteHandler={deleteHandler}
             addHandler={addHandler}
+
           />
           {!props.notAddButton && props.repeat && writeChapter ? (
             <button type="button" onClick={() => addHandler()}>
@@ -217,13 +228,13 @@ export default props => {
         <Input {...props} writeChapter={writeChapter} />
       ) : null}
       {props.showSaveButton ? (
-        chapterContext.editChapter ? (
-          props.thisChapter === chapterContext.editChapter && (
+        editChapter ? (
+          props.thisChapter === editChapter && (
             <>
               <SubmitButton
                 key={props.thisChapter}
                 onClick={() =>
-                  props.submitHandler(documentDateContext.documentDate)
+                  props.submitHandler(documentDate)
                 }
               />
               {FieldsContext.isSubmitted && (
@@ -233,21 +244,21 @@ export default props => {
               )}
             </>
           )
-        ) : props.thisChapter === chapterContext.lastChapter ? (
+        ) : props.thisChapter === lastChapter ? (
           <>
             <SubmitButton
               key={props.thisChapter}
               onClick={() =>
-                props.submitHandler(documentDateContext.documentDate)
+                props.submitHandler(documentDate)
               }
               name={
                 props.saveButton &&
-                !Object.values(fieldsContext.validationPassed).every(allTrue)
+                !Object.values(validationPassed).every(allTrue)
                   ? "Save"
                   : null
               }
             />
-            {fieldsContext.isSubmitted && (
+            {isSubmitted && (
               <div style={{ fontSize: 12, color: "red" }}>
                 See Error Message
               </div>

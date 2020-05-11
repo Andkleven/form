@@ -1,7 +1,7 @@
-import React, { useState, createContext, useLayoutEffect } from "react";
+import React, { useState, createContext, useLayoutEffect, useReducer } from "react";
 import Chapters from "./components/Chapters";
-import query from "graphql/leadEngineer/Query";
-import mutations from "graphql/leadEngineer/MutationToDatabase";
+import query from "graphql/Query";
+import mutations from "graphql/Mutation";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
@@ -14,6 +14,32 @@ import {
 
 import FindNextStage from "components/form/stage/findNextStage";
 
+// import whyDidYouRender from "@welldone-software/why-did-you-render";
+
+// whyDidYouRender(React, {
+//   onlyLogs: true,
+//   titleColor: "green",
+//   diffNameColor: "darkturquoise"
+// });
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'setState':
+      return action.newState
+    case 'add':
+      objectPath.set(state, 
+        action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
+        action.newState  
+        );
+      return state
+    case 'delete':
+      return objectPath.del(state, action.path);
+    default:
+      throw new Error();
+  }
+}
+
+
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
 export const DocumentDateContext = createContext();
@@ -24,18 +50,20 @@ const cloneDeep = require("clone-deep");
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentDate, setDocumentDate] = useState(); // Store data for all document
+  const [documentDate, documentDateDispatch] = useReducer(reducer, {});
   const [nextStage, setNextStage] = useState(true);
   const [lastSubmitButton, setLastSubmitButton] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [validationPassed, setValidationPassed] = useState({});
   const [lastChapter, setLastChapter] = useState(0);
+  const [validationPassed, setValidationPassed] = useState({});
   // Set DocumentDate to empty dictionary if a new components calls Form
+  console.log(1)
   useLayoutEffect(() => {
     if (props.data) {
-      setDocumentDate(cloneDeep(props.data));
+      documentDateDispatch({type: 'setState', newState: cloneDeep(props.data)});
     }
   }, [props.componentsId, props.data]);
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -145,8 +173,8 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-
-  const submitData = data => {
+  
+  const submitData = (data) => {
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
       mutation({
@@ -166,7 +194,7 @@ export default props => {
     }
   };
 
-  const submitHandler = data => {
+  const submitHandler = (data) => {
     if (
       (props.saveButton && validateFieldWithValue(validationPassed)) ||
       Object.values(validationPassed).every(allTrue)
@@ -184,9 +212,16 @@ export default props => {
     }
   };
 
-  if (documentDate) {
+  const formSubmit = e => {
+    e.persist();
+    e.preventDefault();
+    submitHandler(documentDate);
+  }
+
+
+
     return (
-      <DocumentDateContext.Provider value={{ documentDate, setDocumentDate }}>
+      <DocumentDateContext.Provider value={{ documentDate, documentDateDispatch }}>
         <FieldsContext.Provider
           value={{
             validationPassed,
@@ -201,27 +236,25 @@ export default props => {
             <Title title={props.document.documentTitle} />
             <Form
               onSubmit={e => {
-                e.persist();
-                e.preventDefault();
-                submitHandler(documentDate);
-              }}
+                formSubmit(e)
+              }} 
             >
-              <Chapters
+            <Chapters
                 {...props}
+                backendData={props.data}
                 submitHandler={submitHandler}
                 submitData={submitData}
-                mutation={mutation}
                 setNextStage={setNextStage}
                 setLastSubmitButton={setLastSubmitButton}
               />
-              {loadingMutation && <p>Loading...</p>}
-              {errorMutation && <p>Error :( Please try again</p>}
-            </Form>
+               {loadingMutation && <p>Loading...</p>}
+              {errorMutation && <p>Error :( Please try again</p>} 
+             </Form> 
           </ChapterContext.Provider>
         </FieldsContext.Provider>
       </DocumentDateContext.Provider>
-    );
-  } else {
-    return null;
-  }
+      )
+      
+
 };
+// Form.whyDidYouRender = true;

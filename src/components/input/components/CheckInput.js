@@ -10,9 +10,10 @@ export default props => (
         readOnly={props.readOnlyFields}
         id={`custom-${props.type}-${props.label}`}
         label={props.label}
-        checked={props.value}
+        defaultValue={props.defaultValue}
         name={props.name}
         onChange={props.onChange}
+        onBlur={props.onBlur}
         className="mb-0 pb-0"
       />
       {props.TinyButtons}

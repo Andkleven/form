@@ -6,10 +6,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
 import enGB from "date-fns/locale/en-GB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 registerLocale("enGB", enGB);
 
 function Datetime(props) {
   // const [startDate, setStartDate] = useState(new Date());
+
 
   const ExampleCustomInput = ({ value, onClick }) => (
     <InputGroup>
