@@ -104,7 +104,7 @@ WIP...
    npm start
    ```
 
-## Cross platform testing
+## 📱💻 Cross platform testing
 
 ### Local testing
 
