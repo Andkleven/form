@@ -1,5 +1,5 @@
 import React from "react";
-import Explorer from "components/search/Explorer";
+import Explorer from "components/explorer/Explorer";
 
 export default () => {
   return <Explorer />;

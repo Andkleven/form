@@ -1,5 +1,5 @@
 import React from "react";
-import Tree from "components/search/components/Tree";
+import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 
 export default ({

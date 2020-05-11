@@ -1,5 +1,5 @@
 import React from "react";
-import Explorer from "components/search/Explorer";
+import Explorer from "components/explorer/Explorer";
 import Canvas from "components/layout/Canvas";
 import Paper from "components/layout/Paper";
 

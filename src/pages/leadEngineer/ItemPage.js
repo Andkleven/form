@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
-import query from "graphql/Query";
+import query from "graphql/query";
 import objectPath from "object-path";
-import itemsJson from "templates/Order.json";
-import mutations from "graphql/Mutation";
+import itemsJson from "templates/order.json";
+import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import ProjectPage from "pages/leadEngineer/ItemPage";
-import Explorer from "components/search/Explorer";
+import Explorer from "components/explorer/Explorer";
 import {
   ProjectContext,
   ProjectProvider
-} from "components/search/components/ProjectContext";
+} from "components/explorer/components/ProjectContext";
 
 const Content = () => {
   const [projectId] = useContext(ProjectContext);
