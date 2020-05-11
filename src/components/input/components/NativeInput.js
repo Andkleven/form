@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 
-import Duplicate from "../widgets/Duplicate";
+// import Duplicate from "../widgets/Duplicate";
 
 function NativeInput(props) {
   return (

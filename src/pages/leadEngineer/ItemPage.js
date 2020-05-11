@@ -43,6 +43,7 @@ export default props => {
     oldData.projects[0].descriptions[
       counter - 1
     ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
+      // eslint-disable-next-line
       item => item.id != deleted
     );
     cache.writeQuery({
@@ -204,6 +205,7 @@ export default props => {
       {counter < projectsData.numberOfDescriptions ? (
         <Button onClick={() => setState(counter + 1)}>Next</Button>
       ) : (
+        // eslint-disable-next-line
         numberOfItems == projectsData.totalNumberOfItems &&
         (fixedData.projects[0].leadEngineerDone ? (
           <h3>In Production</h3>

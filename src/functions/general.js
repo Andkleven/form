@@ -446,6 +446,7 @@ export const getDataToBatching = (
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
     let newData = fixedData["descriptions"][0]["items"].find(
+      // eslint-disable-next-line
       item => item.id == batchingListIds[0]
     )[Array.isArray(path) ? createPath(path, arrayIndex) : path];
     return { [key]: newData };
@@ -534,11 +535,10 @@ export const getStepFromStage = stage => {
   return step;
 };
 
-
-export function getRepeatStepList(props, index)  {
+export function getRepeatStepList(props, index) {
   return props.repeatStepList !== undefined
-  ? [...props.repeatStepList, index]
-  : props.arrayIndex
-  ? [...props.arrayIndex, index]
-  : [index]
+    ? [...props.repeatStepList, index]
+    : props.arrayIndex
+    ? [...props.arrayIndex, index]
+    : [index];
 }

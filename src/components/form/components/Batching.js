@@ -44,6 +44,7 @@ export default props => {
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
+    // eslint-disable-next-line
     props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
   };
   const handleClick = (e, item, batchingData) => {
@@ -86,6 +87,7 @@ export default props => {
                     onChange={e => handleClick(e, item, batchingData)}
                     id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
                     checked={
+                      // eslint-disable-next-line
                       props.batchingListIds.find(id => id == item.id)
                         ? true
                         : false
