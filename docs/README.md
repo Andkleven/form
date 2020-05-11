@@ -1,6 +1,16 @@
-# Digital Coating Report 2.0
+# Digital Coating Report 2.0 <!-- omit in toc -->
 
 WIP...
+
+## 📑 Table of Contents <!-- omit in toc -->
+- [🎓 Prerequisites](#-prerequisites)
+  - [General](#general)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+- [🚀 Quick Start](#-quick-start)
+- [Cross platform testing](#cross-platform-testing)
+  - [Local testing](#local-testing)
+  - [Remote testing](#remote-testing)
 
 ## 🎓 Prerequisites
 
