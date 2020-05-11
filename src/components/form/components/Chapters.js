@@ -7,6 +7,7 @@ import {
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage";
 import Title from "components/layout/design/fonts/Title";
+import stagesJson from "components/form/stage/stages.json";
 
 // import objectPath from "object-path";
 
@@ -14,7 +15,7 @@ export default props => {
   let stopLoop = false; // Flips to true for last chapter with input
   let temporaryLastChapter = 0;
   let count = 0;
-  let stage = "steelPreparation1";
+  let stage = stagesJson["all"][0];
 
   const getNewChapter = (arrayIndex, pageInfo) => {
     let chapter; // new chapter to add to document
@@ -122,6 +123,7 @@ export default props => {
     let stageSplit = [];
     let chapterBasedOnStage = [];
     while (stopLoop === false && i < 20) {
+      console.log(3)
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[

@@ -197,32 +197,6 @@
           ]
         },
         {
-          "repeat": true,
-          "notAddButton": true,
-          "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
-          "queryPath": [
-            "operators.0.vulcanizationOperators",
-            "coatingOperators",
-            "measurementPointOperators"
-          ],
-          "fields": [
-            {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point",
-              "specSubtextList": [
-                "leadEngineers.0.vulcanizationSteps",
-                "coatingLayers",
-                "cumulativeThickness",
-                "data.cumulativeThickness"
-              ],
-              "subtext": "Target cumulative thickness: {}mm",
-              "type": "number",
-              "required": true
-            }
-          ]
-        },
-        {
           "queryPath": [
             "operators.0.vulcanizationOperators",
             "coatingOperators",

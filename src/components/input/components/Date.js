@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 registerLocale("enGB", enGB);
 
 function Datetime(props) {
-  console.log(props.value)
   // const [startDate, setStartDate] = useState(new Date());
 
 

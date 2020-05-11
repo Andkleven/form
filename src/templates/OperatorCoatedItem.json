@@ -3,6 +3,30 @@
   "query": "GET_OPERATOR_BY_ITEM",
   "chapterByStage": true,
   "chapters": {
+    "actualSteelMeasurement": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Actual Steel OD",
+          "queryPath": "operators.0.measurementPointActualTdvs",
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "fieldName": "measurementPointActual",
+              "variableLabelSpec": true,
+              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "label": "Measurement Point Actual Steel {}",
+              "feedback": "Enter valid number.",
+              "subtext": "Accepts any value",
+              "type": "number"
+            }
+          ]
+        }
+      ]
+    },
     "steelPreparation1": {
       "queryPath": "operators",
       "pages": [
@@ -273,30 +297,6 @@
               "fieldName": "stopTimePriming2",
               "label": "Stop Time",
               "type": "datetime-local"
-            }
-          ]
-        }
-      ]
-    },
-    "actualSteelMeasurement": {
-      "queryPath": "operators",
-      "pages": [
-        {
-          "pageTitle": "Actual Steel OD",
-          "queryPath": "operators.0.measurementPointActualTdvs",
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
-          "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
-          "notAddButton": true,
-          "fields": [
-            {
-              "fieldName": "measurementPointActual",
-              "variableLabelSpec": true,
-              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
-              "label": "Measurement Point Actual Steel {}",
-              "feedback": "Enter valid number.",
-              "subtext": "Accepts any value",
-              "type": "number"
             }
           ]
         }

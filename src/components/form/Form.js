@@ -57,6 +57,7 @@ export default props => {
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
   // Set DocumentDate to empty dictionary if a new components calls Form
+  console.log(1)
   useLayoutEffect(() => {
     if (props.data) {
       documentDateDispatch({type: 'setState', newState: cloneDeep(props.data)});
