@@ -96,14 +96,15 @@ export default props => {
     }, [testPassedValidation, props.backendData, props.path])
   
 
-  const onBlurDate = data => {
-    testPassedValidation(data)
+  // const onBlurDate = data => {
+  //   testPassedValidation(data)
+  //   documentDateDispatch({type: 'add', newState: data, path: props.path})
+  // };
+  
+  const onChangeDate = data => {
+    console.log(2)
     documentDateDispatch({type: 'add', newState: data, path: props.path})
   };
-  
-  // const onChangeDate = data => {
-  //   props.setValue(data)
-  // };
   
   // const onChangeSelect = e => {
   //   props.setValue(e.value)
@@ -268,11 +269,16 @@ export default props => {
     <>
       <Input
         {...props}
-        // onChangeDate={onChangeDate}
+        onChangeDate={onChangeDate}
         // onChange={onChange}
         // onChangeSelect={onChangeSelect}
         defaultValue={defaultValue()}
-        onBlurDate={onBlurDate}
+        // onBlurDate={onBlurDate}
+        value={(props.type === "date" || props.type === "datetime-local") && new Date(objectPath.get(
+                documentDate,
+                props.path,
+                null
+              ))}
         onBlur={onBlur}
         onBlurSelect={onBlurSelect}
         label={props.label}

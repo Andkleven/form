@@ -10,7 +10,8 @@ import {
   getSubtext,
   findValue,
   calculateMaxMin,
-  variableLabel
+  variableLabel,
+  emptyField
 } from "functions/general";
 
 export default props => {
@@ -26,15 +27,20 @@ export default props => {
   useEffect(() => {
     let saveState = objectPath.get(props.backendData, getNewPath(), null)
     if (saveState === null && !props.specValueList) {
-      saveState =  props.default !== undefined
+      let newState
+      if (["date", "datetime-local"].includes(props.type)) {
+        newState = emptyField(saveState) ? null : new Date(saveState)
+      } else {
+        newState =  props.default !== undefined
                     ? props.default
                     : ["checkbox", "radio", "switch"].includes(props.type)
                     ? false
                     : props.default === "select"
                     ? props.options[0]
                     : ""
+      }
         documentDateDispatch({type: 'add', 
-                              newState: saveState,
+                              newState,
                               path: getNewPath()})
   } 
   }, [

@@ -95,7 +95,7 @@ export default props => {
           );
           newChapterArray.push(
             <Fragment key={count}>
-              {pageInfo.chapterTitle && !index ? (
+              {pageInfo.chapterTitle ? (
                 <Title title={pageInfo.chapterTitle} />
               ) : null}
               {newChapter}

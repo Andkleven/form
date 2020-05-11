@@ -176,9 +176,9 @@ export default props => {
       <div className="d-flex justify-content-between align-items-end">
         {showTitleOrSubtitle ? (
           <Title key={`${props.thisChapter}-${props.index}-jja`}>
-            {props.indexVariablePageTitle
+            {props.indexVariablePageTitle !== undefined
                 ? variableString(
-                    props.repeatStep + 1,
+                    props.arrayIndex[props.indexVariablePageTitle ? props.indexVariablePageTitle : 0] + 1,
                     props.pageTitle
                   )
                 : props.pageTitle}

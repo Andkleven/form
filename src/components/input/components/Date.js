@@ -6,10 +6,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
 import enGB from "date-fns/locale/en-GB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 registerLocale("enGB", enGB);
 
 function Datetime(props) {
+  console.log(props.value)
   // const [startDate, setStartDate] = useState(new Date());
+
 
   const ExampleCustomInput = ({ value, onClick }) => (
     <InputGroup>
@@ -25,8 +28,7 @@ function Datetime(props) {
           variant="light"
           className="border px-3"
           // onClick={date => setStartDate(new Date())}
-          // onClick={date => props.onChangeDate(new Date())}
-          onnBlur={date => props.onnBlurDate(new Date())}
+          onClick={date => props.onChangeDate(new Date())}
         >
           <FontAwesomeIcon icon="calendar" style={{ width: "1.2em" }} />
           <div className="d-none d-sm-inline ml-1">{" Today"}</div>
@@ -38,8 +40,7 @@ function Datetime(props) {
           variant="light"
           className="border px-3"
           // onClick={date => setStartDate(null)}
-          // onClick={date => props.onChangeDate(null)}
-          onnBlur={date => props.onnBlurDate(new Date())}
+          onClick={date => props.onChangeDate(null)}
         >
           <FontAwesomeIcon icon="times" style={{ width: "1.2em" }} />
         </Button>
@@ -61,11 +62,9 @@ function Datetime(props) {
         <DatePicker
           className="w-100"
           readOnly={props.readOnlyFields}
-          // selected={isStringInstance(props.value) ? null : props.value}
-          defaultValue={isStringInstance(props.defaultValue) ? null : props.defaultValue}
+          selected={isStringInstance(props.value) ? null : props.value}
           // onChange={date => setStartDate(date)}
-          // onChange={date => props.onChangeDate(date)}
-          onnBlur={date => props.onnBlurDate(new Date())}
+          onChange={date => props.onChangeDate(date)}
           customInput={<ExampleCustomInput />}
           dateFormat="dd/MM/yyyy"
           locale={enGB}

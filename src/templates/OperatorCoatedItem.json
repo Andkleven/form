@@ -335,9 +335,10 @@
         ""
       ],
       "lookUpBy": "layerApplied",
-      "chapterTitle": "Coating",
       "pages": [
         {
+          "pageTitle": "Coating {}",
+          "indexVariablePageTitle": 1,
           "customComponent": "CustomCoating"
         },
         {
