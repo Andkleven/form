@@ -1,12 +1,8 @@
 import React, { Fragment } from "react";
-import {
-  findValue,
-  allRequiredSatisfied,
-  createPath
-} from "functions/general";
+import { findValue, allRequiredSatisfied, createPath } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage";
-import Title from "components/layout/design/fonts/Title";
+import Title from "components/design/fonts/Title";
 import stagesJson from "components/form/stage/stages.json";
 
 // import objectPath from "object-path";
@@ -123,7 +119,7 @@ export default props => {
     let stageSplit = [];
     let chapterBasedOnStage = [];
     while (stopLoop === false && i < 20) {
-      console.log(3)
+      console.log(3);
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
@@ -152,10 +148,9 @@ export default props => {
         return runChapter(pageInfo);
       });
 
-    if (chapterBasedOnJson[chapterBasedOnJson.length - 1]) {
-      props.setLastSubmitButton(true);
-    }
-
+  if (chapterBasedOnJson[chapterBasedOnJson.length - 1]) {
+    props.setLastSubmitButton(true);
+  }
 
   return props.document.chapterByStage ? stageChapters() : chapterBasedOnJson;
 };

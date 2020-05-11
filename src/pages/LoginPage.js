@@ -7,7 +7,7 @@ import { Button, Form, Image } from "react-bootstrap";
 import styled from "styled-components";
 import history from "../functions/history";
 import emblem from "../images/emblem.png";
-import Copyright from "components/layout/design/Copyright";
+import Copyright from "components/design/Copyright";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LOGIN_MUTATION = gql`

@@ -16,10 +16,10 @@ import {
 import { variableString, allTrue, getRepeatNumber } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
-import Title from "components/layout/design/fonts/Title";
-import Subtitle from "components/layout/design/fonts/Subtitle";
+import Title from "components/design/fonts/Title";
+import Subtitle from "components/design/fonts/Subtitle";
 import CustomComponents from "components/form/components/CustomElement";
-import Line from "components/layout/design/Line";
+import Line from "components/design/Line";
 import TabButton from "components/button/TabButton";
 
 export default props => {

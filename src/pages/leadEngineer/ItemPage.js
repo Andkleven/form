@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
-import query from "graphql/Query";
+import query from "graphql/query";
 import objectPath from "object-path";
-import itemsJson from "templates/Order.json";
-import mutations from "graphql/Mutation";
+import itemsJson from "templates/order.json";
+import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
@@ -45,6 +45,11 @@ export default props => {
     oldData.projects[0].descriptions[
       counter - 1
     ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
+      /** WARNING: Non-strict comparison below
+       * For more info on strict vs non-strict comparisons:
+       * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+       */
+      // eslint-disable-next-line
       item => item.id != deleted
     );
     cache.writeQuery({
@@ -206,6 +211,11 @@ export default props => {
       {counter < projectsData.numberOfDescriptions ? (
         <Button onClick={() => setState(counter + 1)}>Next</Button>
       ) : (
+        /** WARNING: Non-strict comparison below
+         * For more info on strict vs non-strict comparisons:
+         * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+         */
+        // eslint-disable-next-line
         numberOfItems == projectsData.totalNumberOfItems &&
         (fixedData.projects[0].leadEngineerDone ? (
           <h3>In Production</h3>

@@ -1,6 +1,6 @@
 // const userInfo = JSON.parse(localStorage.getItem("user")); // Local user info
 
-const roles: {
+export const roles: {
   admin: string;
   lead: string;
   operator: string;
@@ -32,20 +32,5 @@ export function displayRole(role: string): string {
       return "Quality Control";
     default:
       return "None";
-  }
-}
-
-export function decideSearchView(role: string): string {
-  switch (role) {
-    case roles.admin:
-      return "all";
-    case roles.lead:
-      return "projects";
-    case roles.operator:
-      return "items";
-    case roles.quality:
-      return "items";
-    default:
-      return "items";
   }
 }

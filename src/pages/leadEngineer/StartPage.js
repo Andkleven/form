@@ -1,22 +1,22 @@
 import React, { useContext } from "react";
 import ProjectPage from "pages/leadEngineer/ItemPage";
-import Search from "components/search/Search.js";
+import Explorer from "components/explorer/Explorer";
 import {
   ProjectContext,
   ProjectProvider
-} from "components/search/components/ProjectContext";
+} from "components/explorer/components/ProjectContext";
 
 const Content = () => {
   const [projectId] = useContext(ProjectContext);
   return (
-    <Search view="projects">
+    <Explorer view="projects">
       {(typeof projectId === "string" || typeof projectId === "number") && (
         <>
           <div className="mt-n1 mt-sm-1" />
           <ProjectPage id={projectId} />
         </>
       )}
-    </Search>
+    </Explorer>
   );
 };
 

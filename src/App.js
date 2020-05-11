@@ -12,7 +12,7 @@ import Batching from "./pages/operator/Batching";
 import QualityControl from "./pages/qualityControl/QualityControl";
 import SingleItem from "./pages/operator/SingleItem";
 import ViewFile from "components/ViewFile";
-import { ProjectProvider } from "components/search/components/ProjectContext";
+import { ProjectProvider } from "components/explorer/components/ProjectContext";
 
 import "styles/icons";
 

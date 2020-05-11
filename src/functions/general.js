@@ -446,6 +446,11 @@ export const getDataToBatching = (
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
     let newData = fixedData["descriptions"][0]["items"].find(
+      /** WARNING: Non-strict comparison below
+       * For more info on strict vs non-strict comparisons:
+       * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+       */
+      // eslint-disable-next-line
       item => item.id == batchingListIds[0]
     )[Array.isArray(path) ? createPath(path, arrayIndex) : path];
     return { [key]: newData };
@@ -534,11 +539,10 @@ export const getStepFromStage = stage => {
   return step;
 };
 
-
-export function getRepeatStepList(props, index)  {
+export function getRepeatStepList(props, index) {
   return props.repeatStepList !== undefined
-  ? [...props.repeatStepList, index]
-  : props.arrayIndex
-  ? [...props.arrayIndex, index]
-  : [index]
+    ? [...props.repeatStepList, index]
+    : props.arrayIndex
+    ? [...props.arrayIndex, index]
+    : [index];
 }

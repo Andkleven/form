@@ -1,11 +1,16 @@
-import React, { useState, createContext, useLayoutEffect, useReducer } from "react";
+import React, {
+  useState,
+  createContext,
+  useLayoutEffect,
+  useReducer
+} from "react";
 import Chapters from "./components/Chapters";
-import query from "graphql/Query";
-import mutations from "graphql/Mutation";
+import query from "graphql/query";
+import mutations from "graphql/mutation";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
-import Title from "components/layout/design/fonts/Title";
+import Title from "components/design/fonts/Title";
 import {
   allTrue,
   validateFieldWithValue,
@@ -24,21 +29,21 @@ import FindNextStage from "components/form/stage/findNextStage";
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'setState':
-      return action.newState
-    case 'add':
-      objectPath.set(state, 
+    case "setState":
+      return action.newState;
+    case "add":
+      objectPath.set(
+        state,
         action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
-        action.newState  
-        );
-      return state
-    case 'delete':
+        action.newState
+      );
+      return state;
+    case "delete":
       return objectPath.del(state, action.path);
     default:
       throw new Error();
   }
 }
-
 
 export const ChapterContext = createContext();
 export const FilesContext = createContext();
@@ -57,10 +62,13 @@ export default props => {
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
   // Set DocumentDate to empty dictionary if a new components calls Form
-  console.log(1)
+  console.log(1);
   useLayoutEffect(() => {
     if (props.data) {
-      documentDateDispatch({type: 'setState', newState: cloneDeep(props.data)});
+      documentDateDispatch({
+        type: "setState",
+        newState: cloneDeep(props.data)
+      });
     }
   }, [props.componentsId, props.data]);
 
@@ -173,8 +181,8 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-  
-  const submitData = (data) => {
+
+  const submitData = data => {
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
       mutation({
@@ -194,7 +202,7 @@ export default props => {
     }
   };
 
-  const submitHandler = (data) => {
+  const submitHandler = data => {
     if (
       (props.saveButton && validateFieldWithValue(validationPassed)) ||
       Object.values(validationPassed).every(allTrue)
@@ -216,45 +224,43 @@ export default props => {
     e.persist();
     e.preventDefault();
     submitHandler(documentDate);
-  }
+  };
 
-
-
-    return (
-      <DocumentDateContext.Provider value={{ documentDate, documentDateDispatch }}>
-        <FieldsContext.Provider
-          value={{
-            validationPassed,
-            setValidationPassed,
-            isSubmitted,
-            setIsSubmitted
-          }}
+  return (
+    <DocumentDateContext.Provider
+      value={{ documentDate, documentDateDispatch }}
+    >
+      <FieldsContext.Provider
+        value={{
+          validationPassed,
+          setValidationPassed,
+          isSubmitted,
+          setIsSubmitted
+        }}
+      >
+        <ChapterContext.Provider
+          value={{ lastChapter, setLastChapter, editChapter, setEditChapter }}
         >
-          <ChapterContext.Provider
-            value={{ lastChapter, setLastChapter, editChapter, setEditChapter }}
+          <Title title={props.document.documentTitle} />
+          <Form
+            onSubmit={e => {
+              formSubmit(e);
+            }}
           >
-            <Title title={props.document.documentTitle} />
-            <Form
-              onSubmit={e => {
-                formSubmit(e)
-              }} 
-            >
             <Chapters
-                {...props}
-                backendData={props.data}
-                submitHandler={submitHandler}
-                submitData={submitData}
-                setNextStage={setNextStage}
-                setLastSubmitButton={setLastSubmitButton}
-              />
-               {loadingMutation && <p>Loading...</p>}
-              {errorMutation && <p>Error :( Please try again</p>} 
-             </Form> 
-          </ChapterContext.Provider>
-        </FieldsContext.Provider>
-      </DocumentDateContext.Provider>
-      )
-      
-
+              {...props}
+              backendData={props.data}
+              submitHandler={submitHandler}
+              submitData={submitData}
+              setNextStage={setNextStage}
+              setLastSubmitButton={setLastSubmitButton}
+            />
+            {loadingMutation && <p>Loading...</p>}
+            {errorMutation && <p>Error :( Please try again</p>}
+          </Form>
+        </ChapterContext.Provider>
+      </FieldsContext.Provider>
+    </DocumentDateContext.Provider>
+  );
 };
 // Form.whyDidYouRender = true;

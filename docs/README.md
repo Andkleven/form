@@ -1,6 +1,16 @@
-# Digital Coating Report 2.0
+# Digital Coating Report 2.0 <!-- omit in toc -->
 
 WIP...
+
+## 📑 Table of Contents <!-- omit in toc -->
+- [🎓 Prerequisites](#-prerequisites)
+  - [General](#general)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+- [<a name="quickStart"></a>🚀 Quick start](#-quick-start)
+- [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
+  - [Local testing](#local-testing)
+  - [Remote testing](#remote-testing)
 
 ## 🎓 Prerequisites
 
@@ -14,6 +24,7 @@ WIP...
 - [HTML and CSS](https://www.youtube.com/watch?v=vQWlgd7hV4A)
 - [Sass](https://www.youtube.com/watch?v=Zz6eOVaaelI)
 - [Javascript](https://www.youtube.com/playlist?list=PLDyQo7g0_nsX8_gZAB8KD1lL4j4halQBJ)
+- [Typescript](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
 - [React](https://www.youtube.com/watch?v=dGcsHMXbSOA)
   - [Router](https://www.youtube.com/watch?v=Law7wfdg_ls&t=1037s)
   - [State](https://www.youtube.com/watch?v=35lXWvCuM8o)
@@ -25,7 +36,7 @@ WIP...
 - [PostgreSQL](https://www.postgresql.org/)
 - [GraphQL](https://graphql.org/)
 
-## 🚀 Quick Start
+## <a name="quickStart"></a>🚀 Quick start
 
 1. Install [VSCode](https://code.visualstudio.com/)
 2. Install [Node](https://nodejs.org/en/download/)
@@ -34,7 +45,7 @@ WIP...
 5. Get access to the [repository](https://github.com/Andkleven/digital-coating-report-2.0) (will show 404 error if you do not have permission)
 6. TODO: GitHub login in VSCode/Computer?
 7. Open VSCode
-8. Clone the repository to your PC
+8. Clone the repository
 
    1. Press <kbd>F1</kbd>
    2. Type
@@ -103,11 +114,11 @@ WIP...
    npm start
    ```
 
-## Cross platform testing
+## 🧪 Cross platform and user testing
 
 ### Local testing
 
-Live server is already installed if Quick Start guide is followed, which enables devices on the same network to connect to the app.
+Live server is already installed if the [quick start](#quickStart) guide is followed, which enables devices on the same network to connect to the app.
 
 _Warning: This may not work on public networks (e.g. school and work)!_
 
@@ -135,7 +146,7 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    npm start
    ```
 
-3. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the ):
+3. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 
    ```console
    http://IPADDRESS:PORT/
@@ -149,7 +160,7 @@ _Warning: This may not work on public networks (e.g. school and work)!_
 
 ### Remote testing
 
-We have two alternatives remote testing:
+We have two alternatives for remote testing:
 
 1. <a name="devServer"></a>TODO: Development server
 

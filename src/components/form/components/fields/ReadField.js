@@ -4,7 +4,7 @@ import { Form, Row, Col } from "react-bootstrap";
 import ErrorMessage from "../ErrorMessage";
 import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
-import LightLine from "components/layout/design/LightLine";
+import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 
 export default props => {
