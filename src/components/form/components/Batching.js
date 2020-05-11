@@ -44,6 +44,10 @@ export default props => {
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
+    /** WARNING: Non-strict comparison below
+     * For more info on strict vs non-strict comparisons:
+     * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+     */
     // eslint-disable-next-line
     props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
   };
@@ -87,6 +91,10 @@ export default props => {
                     onChange={e => handleClick(e, item, batchingData)}
                     id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
                     checked={
+                      /** WARNING: Non-strict comparison below
+                       * For more info on strict vs non-strict comparisons:
+                       * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+                       */
                       // eslint-disable-next-line
                       props.batchingListIds.find(id => id == item.id)
                         ? true

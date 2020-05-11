@@ -43,6 +43,10 @@ export default props => {
     oldData.projects[0].descriptions[
       counter - 1
     ].items = oldData.projects[0].descriptions[counter - 1].items.filter(
+      /** WARNING: Non-strict comparison below
+       * For more info on strict vs non-strict comparisons:
+       * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+       */
       // eslint-disable-next-line
       item => item.id != deleted
     );
@@ -205,6 +209,10 @@ export default props => {
       {counter < projectsData.numberOfDescriptions ? (
         <Button onClick={() => setState(counter + 1)}>Next</Button>
       ) : (
+        /** WARNING: Non-strict comparison below
+         * For more info on strict vs non-strict comparisons:
+         * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+         */
         // eslint-disable-next-line
         numberOfItems == projectsData.totalNumberOfItems &&
         (fixedData.projects[0].leadEngineerDone ? (
