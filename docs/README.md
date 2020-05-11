@@ -35,7 +35,7 @@ WIP...
 5. Get access to the [repository](https://github.com/Andkleven/digital-coating-report-2.0) (will show 404 error if you do not have permission)
 6. TODO: GitHub login in VSCode/Computer?
 7. Open VSCode
-8. Clone the repository to your PC
+8. Clone the repository
 
    1. Press <kbd>F1</kbd>
    2. Type
