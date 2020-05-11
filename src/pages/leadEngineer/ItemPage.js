@@ -24,10 +24,12 @@ export default props => {
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[itemsJson.query], {
+  const { loading, error, data, refetch } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
-
+  useEffect(() => {
+    refetch()
+  }, [refetch, _id]);
   const deleteFromCache = (
     cache,
     {

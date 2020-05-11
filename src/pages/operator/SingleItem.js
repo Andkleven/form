@@ -22,9 +22,13 @@ export default pageInfo => {
     operatorMouldJson
   );
 
-  const { loading, error, data } = useQuery(query[operatorJson.query], {
+  const { loading, error, data, refetch } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
+  useEffect(() => {
+    refetch()
+  }, [refetch, itemId, geometry]);
+
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
