@@ -136,7 +136,7 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    npm start
    ```
 
-3. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the ):
+3. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 
    ```console
    http://IPADDRESS:PORT/
