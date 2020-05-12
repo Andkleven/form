@@ -28,7 +28,7 @@ export default hot(() => {
           {/* Home */}
           <Route exact path="/" component={Home} />
           {/* Lead Engineer: Create Project */}
-          <Route path="/order/item/:_id" component={Item} />
+          <Route path="/order/item/:id" component={Item} />
           {/* Lead Engineer: Create Items */}
           <Route
             path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"

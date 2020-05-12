@@ -5,8 +5,8 @@ import React, {
   useReducer
 } from "react";
 import Chapters from "./components/Chapters";
-import query from "graphql/query";
-import mutations from "graphql/mutation";
+import query from "graphql/query/query";
+import mutations from "graphql/mutation/mutation";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
@@ -62,7 +62,6 @@ export default props => {
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
   // Set DocumentDate to empty dictionary if a new components calls Form
-  console.log(1);
   useLayoutEffect(() => {
     if (props.data) {
       documentDateDispatch({

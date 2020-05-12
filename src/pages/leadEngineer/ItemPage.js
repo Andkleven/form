@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
-import query from "graphql/query";
+import query from "graphql/query/query";
 import objectPath from "object-path";
 import itemsJson from "templates/order.json";
-import mutations from "graphql/mutation";
+import mutations from "graphql/mutation/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
@@ -12,24 +12,22 @@ import { Button } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 
-export default props => {
-  const [_id, set_id] = useState(Number(props.id));
+export default pageInfo => {
+  console.log(pageInfo)
+  const [_id, set_id] = useState(Number(pageInfo.match.params.id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
   const [fixedData, setFixedData] = useState(null);
-
+  console.log(_id)
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data, refetch } = useQuery(query[itemsJson.query], {
+  const { loading, error, data } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
-  useEffect(() => {
-    refetch()
-  }, [refetch, _id]);
   const deleteFromCache = (
     cache,
     {
@@ -146,7 +144,6 @@ export default props => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  console.log(geometryData);
   return (
     <Paper>
       <Form

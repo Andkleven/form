@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import query from "graphql/query";
+import query from "graphql/query/query";
 import operatorCoatedItemJson from "templates/operatorCoatedItem.json";
 import operatorMouldJson from "templates/operatorMould.json";
 import Form from "components/form/Form";
@@ -22,12 +22,9 @@ export default pageInfo => {
     operatorMouldJson
   );
 
-  const { loading, error, data, refetch } = useQuery(query[operatorJson.query], {
+  const { loading, error, data } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
-  useEffect(() => {
-    refetch()
-  }, [refetch, itemId, geometry]);
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
