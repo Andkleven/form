@@ -7,7 +7,7 @@ WIP...
   - [General](#general)
   - [Frontend](#frontend)
   - [Backend](#backend)
-- [<a name="quickStart"></a>🚀 Quick start](#-quick-start)
+- [🚀 Quick start](#-quick-start)
 - [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
   - [Local testing](#local-testing)
   - [Remote testing](#remote-testing)
@@ -36,7 +36,7 @@ WIP...
 - [PostgreSQL](https://www.postgresql.org/)
 - [GraphQL](https://graphql.org/)
 
-## <a name="quickStart"></a>🚀 Quick start
+## 🚀 Quick start
 
 1. Install [VSCode](https://code.visualstudio.com/)
 2. Install [Node](https://nodejs.org/en/download/)
@@ -118,7 +118,7 @@ WIP...
 
 ### Local testing
 
-Live server is already installed if the [quick start](#quickStart) guide is followed, which enables devices on the same network to connect to the app.
+Live server is already installed if the [quick start](#-quick-tart) guide is followed, which enables devices on the same network to connect to the app.
 
 _Warning: This may not work on public networks (e.g. school and work)!_
 
