@@ -352,6 +352,25 @@ const QUALITY_CONTROL = gql`
   }
 `;
 
+
+const OFFSITE = gql`
+  query($role: [String]) {
+    userProfile(role: $role) {
+        id
+        name
+        role
+    }
+  }
+`;
+
+const DEFAULT = gql`
+  query($name: String) {
+    query(name: $name){
+      id
+    }      
+  }
+`;
+
 const query = {
   ALL,
   GET_ORDER_GEOMETRY,
@@ -361,6 +380,8 @@ const query = {
   GET_OPERATOR_BY_DESCRIPTION,
   GET_OPERATOR_BY_ITEM,
   OPERATOR_PROJECTS,
-  QUALITY_CONTROL
+  QUALITY_CONTROL,
+  OFFSITE,
+  DEFAULT
 };
 export default query;

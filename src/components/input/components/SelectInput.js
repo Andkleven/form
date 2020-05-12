@@ -6,13 +6,27 @@ import { camelCaseToNormal } from "functions/general";
 
 // import Duplicate from "./widgets/Duplicate";
 
+
 export default props => {
   let options = [];
-  props.options.forEach(element => {
-    options.push({
-      value: element
+
+  if (props.optionsData && props.userRole) {
+    props.optionsData.userProfile.forEach(element => {
+      if (props.userRole.includes(element.role.toLowerCase())) {
+        options.push({
+          value: element.name
+        });
+      }
+    }) 
+  } else if (props.options) {
+    props.options.forEach(element => {
+      options.push({
+        value: element
+      });
     });
-  });
+  } 
+
+    
 
   options.unshift({ value: null, label: "None" });
 
