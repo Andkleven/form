@@ -15,7 +15,14 @@ export default props => {
       });
     });
 
-  options.unshift({ value: null, label: "None" });
+  const placeholder = props.custom
+    ? props.placeholder || "Select or type..."
+    : props.placeholder || "Select...";
+
+  options.unshift({
+    value: null,
+    label: placeholder
+  });
 
   options.map(option => {
     let label = option.value;
@@ -41,7 +48,7 @@ export default props => {
       }
     }),
     isSearchable: true,
-    placeholder: props.placeholder || "Select...",
+    placeholder: placeholder,
     onChange: props.onChangeSelect,
     onBlur: props.onBlurSelect
   };
@@ -50,10 +57,7 @@ export default props => {
     <Form.Group className={props.tight && "mb-1"}>
       <div className="d-flex text-dark">
         {props.custom ? (
-          <Creatable
-            placeholder={props.placeholder || "Select or type..."}
-            {...selectProps}
-          />
+          <Creatable {...selectProps} />
         ) : (
           <Select {...selectProps} />
         )}
