@@ -1,11 +1,11 @@
 import React from "react";
 import ExplorerView from "components/explorer/components/ExplorerView";
 import { useQuery } from "@apollo/react-hooks";
+import query from "graphql/query/query";
 import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
 import { access } from "functions/user.ts";
-import query from "graphql/query";
 
 export default ({
   defaultFilters,
