@@ -1,35 +1,29 @@
 // const userInfo = JSON.parse(localStorage.getItem("user")); // Local user info
+import defaultRoleAccess from "config/userAccess.json";
 
-export const roles: {
-  admin: string;
-  lead: string;
-  operator: string;
-  quality: string;
-} = {
-  admin: "ADMIN",
-  lead: "LEAD_ENGINEER",
-  operator: "OPERATOR",
-  quality: "QUALITY_CONTROL"
-};
-
-export function getUser(): object {
-  return JSON.parse(localStorage.getItem("user") || "{}");
-}
-
-export function getRole(user: object): string {
-  return user["role"];
+export function access(customAccess: object): object {
+  const user: { role: string; username: string } = JSON.parse(
+    localStorage.getItem("user") || "{}"
+  );
+  const defaultAccess = defaultRoleAccess[user.role.toLowerCase()];
+  if (customAccess) {
+    return { ...defaultAccess, ...customAccess };
+  }
+  return defaultAccess;
 }
 
 export function displayRole(role: string): string {
   switch (role) {
-    case roles.admin:
+    case "admin":
       return "Administrator";
-    case roles.lead:
+    case "lead":
       return "Lead Engineer";
-    case roles.operator:
+    case "operator":
       return "Operator";
-    case roles.quality:
+    case "quality":
       return "Quality Control";
+    case "spectator":
+      return "Spectator";
     default:
       return "None";
   }

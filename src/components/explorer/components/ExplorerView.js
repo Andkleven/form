@@ -45,7 +45,7 @@ export default ({ view = "items", ...props }) => {
 
   return (
     <>
-      {props.features.filter && (
+      {props.access && props.access.filter && (
         <div className="mb-3">
           <h6 className="mb-3">Filters</h6>
           <form id="filterForm">
