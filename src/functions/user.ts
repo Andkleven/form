@@ -1,5 +1,5 @@
 // const userInfo = JSON.parse(localStorage.getItem("user")); // Local user info
-import defaultRoleAccess from "config/userAccess.json";
+import defaultRoleAccess from "config/access.json";
 
 export function access(customAccess: object): object {
   const user: { role: string; username: string } = JSON.parse(
