@@ -60,7 +60,8 @@
             {
               "fieldName": "qualityControl",
               "label": "Quality Control",
-              "default": "test"
+              "type": "select",
+              "userRole": ["quality"]
             },
             {
               "fieldName": "numberOfDescriptions",
