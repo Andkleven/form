@@ -3,7 +3,7 @@ import { isStringInstance } from "functions/general";
 /**
  * Converts date and datetime to correct string formats
  * @param {object}  datetime Date or datetime to convert
- * @param {string}  type     Type of object to convert, "date" or "datatime-local"
+ * @param {string}  type Type of object to convert, "date" or "datatime-local"
  * @return {string} Properly formatted initials.
  */
 export function convertDatetimeToString(datetime, type) {

@@ -13,7 +13,7 @@ export default ({
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
-      {props.features.createProject && (
+      {props.access && props.access.createProject && (
         <Link
           to={`#`}
           iconProps={{
@@ -33,14 +33,14 @@ export default ({
             iconSize={iconSize}
             iconStyle={iconStyle}
             rowStyle={rowStyle}
-            // defaultOpen
+            defaultOpen
             key={`project${indexProject}`}
             name={
               `${project.data.projectName}`
               // + `(${countProjectItems(project)} items)`
             }
           >
-            {props.features.specs && (
+            {props.access && props.access.specs && (
               <Link
                 to={`#`}
                 key={`project${indexProject}`}
@@ -62,25 +62,28 @@ export default ({
                   iconSize={iconSize}
                   iconStyle={iconStyle}
                   rowStyle={rowStyle}
-                  // defaultOpen
+                  defaultOpen
                   key={`project${indexProject}Description${indexDescription}`}
                   // name={description.data.geometry}
                   name={`Description ${indexDescription + 1}`}
                 >
-                  {props.features.batch && description.items.length > 1 && (
-                    <Link
-                      to={`/order/item/${description.data.description}`}
-                      iconProps={{
-                        icon: ["fad", "cubes"],
-                        size: iconSize,
-                        style: iconStyle
-                      }}
-                      style={rowStyle}
-                    >
-                      Batch items
-                    </Link>
-                  )}
-                  {props.features.items &&
+                  {props.access &&
+                    props.access.batch &&
+                    description.items.length > 1 && (
+                      <Link
+                        to={`/order/item/${description.data.description}`}
+                        iconProps={{
+                          icon: ["fad", "cubes"],
+                          size: iconSize,
+                          style: iconStyle
+                        }}
+                        style={rowStyle}
+                      >
+                        Batch items
+                      </Link>
+                    )}
+                  {props.access &&
+                    props.access.items &&
                     description.items &&
                     description.items.map((item, indexItem) => (
                       <Link

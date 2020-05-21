@@ -36,55 +36,39 @@ export default props => {
     return (option.label = label);
   });
 
+  const selectProps = {
+    className: "w-100",
+    name: props.name,
+    options: options,
+    defaultValue: props.defaultValue
+      ? options.find(option => option.value === props.defaultValue)
+      : null,
+    theme: theme => ({
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary25: "#FBECD6",
+        primary50: "#FBECD6",
+        primary75: "#FBECD6",
+        primary: "#f1b25b"
+      }
+    }),
+    isSearchable: true,
+    placeholder: props.placeholder || "Select...",
+    onChange: props.onChangeSelect,
+    onBlur: props.onBlurSelect
+  };
+
   return (
     <Form.Group className={props.tight && "mb-1"}>
       <div className="d-flex text-dark">
         {props.custom ? (
           <Creatable
-            className="w-100"
-            name={props.name}
-            readOnly={props.readOnlyFields}
-            options={options}
-            defaultValue={props.defaultValue
-              ? options.find(option => option.value === props.defaultValue)
-              : null}
-            theme={theme => ({
-              ...theme,
-              colors: {
-                ...theme.colors,
-                primary25: "#FBECD6",
-                primary50: "#FBECD6",
-                primary75: "#FBECD6",
-                primary: "#f1b25b"
-              }
-            })}
             placeholder={props.placeholder || "Select or type..."}
-            onChange={props.onChangeSelect}
-            onBlur={props.onBlurSelect}
+            {...selectProps}
           />
         ) : (
-          <Select
-            className="w-100"
-            options={options}
-            name={props.name}
-            defaultValue={props.defaultValue
-              ? options.find(option => option.value === props.defaultValue)
-              : null}
-            theme={theme => ({
-              ...theme,
-              colors: {
-                ...theme.colors,
-                primary25: "#FBECD6",
-                primary50: "#FBECD6",
-                primary75: "#FBECD6",
-                primary: "#f1b25b"
-              }
-            })}
-            isSearchable={true}
-            placeholder={props.placeholder || "Select..."}
-            onChange={props.onChangeSelect}
-            onBlur={props.onBlurSelect}
-          />
+          <Select {...selectProps} />
         )}
         {/* <Duplicate {...props} /> */}
       </div>

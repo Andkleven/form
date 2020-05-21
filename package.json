@@ -11,6 +11,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.13.0",
     "@fortawesome/pro-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
+    "@hot-loader/react-dom": "^16.13.0",
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
     "apollo-link-context": "1.0.19",
