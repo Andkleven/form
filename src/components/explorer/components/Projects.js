@@ -10,12 +10,13 @@ export default ({
   headline = "Projects",
   ...props
 }) => {
+  console.log("data", data);
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
-      {props.access && props.access.createProject && (
+      {props.access && props.access.specs && (
         <Link
-          to={`#`}
+          to={`/order/project/0`}
           iconProps={{
             icon: ["fad", "folder-plus"],
             size: iconSize,
@@ -42,7 +43,7 @@ export default ({
           >
             {props.access && props.access.specs && (
               <Link
-                to={`#`}
+                to={`/order/project/${project.id}`}
                 key={`project${indexProject}`}
                 iconProps={{
                   icon: ["fad", "file-invoice"],
@@ -67,7 +68,7 @@ export default ({
                   // name={description.data.geometry}
                   name={`Description ${indexDescription + 1}`}
                 >
-                  {props.access &&
+                  {/* {props.access &&
                     props.access.batch &&
                     description.items.length > 1 && (
                       <Link
@@ -81,13 +82,13 @@ export default ({
                       >
                         Batch items
                       </Link>
-                    )}
+                    )} */}
                   {props.access &&
                     props.access.items &&
                     description.items &&
                     description.items.map((item, indexItem) => (
                       <Link
-                        to={`/order/lead-engineer/1/${item.id}/1`}
+                        to={`/single-item/${item.id}/${description.data.geometry}`}
                         key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
                         iconProps={{
                           icon: ["fad", "cube"],

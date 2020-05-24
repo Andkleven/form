@@ -5,7 +5,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./functions/history";
 import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
-import Item from "./pages/leadEngineer/ItemPage";
+import Item from "./pages/leadEngineer/CreateProject";
 import LeadEngineerPage from "./pages/leadEngineer/LeadEngineerPage";
 import PartialBatching from "./pages/operator/PartialBatching";
 import Batching from "./pages/operator/Batching";
@@ -28,7 +28,7 @@ export default hot(() => {
           {/* Home */}
           <Route exact path="/" component={Home} />
           {/* Lead Engineer: Create Project */}
-          <Route path="/order/item/:id" component={Item} />
+          <Route path="/order/project/:id" component={Item} />
           {/* Lead Engineer: Create Items */}
           <Route
             path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"

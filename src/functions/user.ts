@@ -1,11 +1,11 @@
 // const userInfo = JSON.parse(localStorage.getItem("user")); // Local user info
-import defaultRoleAccess from "config/access.json";
+import defaultRoles from "config/access.json";
 
 export function access(customAccess: object): object {
   const user: { role: string; username: string } = JSON.parse(
     localStorage.getItem("user") || "{}"
   );
-  const defaultAccess = defaultRoleAccess[user.role.toLowerCase()];
+  const defaultAccess = defaultRoles[user.role.toLowerCase()];
   if (customAccess) {
     return { ...defaultAccess, ...customAccess };
   }
@@ -24,6 +24,8 @@ export function displayRole(role: string): string {
       return "Quality Control";
     case "spectator":
       return "Spectator";
+    case "offsite":
+      return "Offsite Responsible";
     default:
       return "None";
   }

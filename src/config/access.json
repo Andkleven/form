@@ -5,18 +5,16 @@
     "edit": true,
     "batch": true,
     "filter": true,
-    "createProject": true,
     "repair": true,
     "archive": true,
     "userConfig": true
   },
   "lead": {
-    "specs": false,
+    "specs": true,
     "items": true,
     "edit": false,
     "batch": false,
     "filter": true,
-    "createProject": false,
     "repair": true,
     "archive": true,
     "userConfig": false
@@ -27,7 +25,7 @@
     "edit": true,
     "batch": false,
     "filter": true,
-    "createProject": false,
+    "spec": false,
     "repair": true,
     "archive": true,
     "userConfig": false
@@ -38,7 +36,6 @@
     "edit": false,
     "batch": true,
     "filter": true,
-    "createProject": false,
     "repair": true,
     "archive": true,
     "userConfig": false
@@ -49,7 +46,6 @@
     "edit": true,
     "batch": true,
     "filter": true,
-    "createProject": false,
     "repair": true,
     "archive": true,
     "userConfig": false
@@ -60,7 +56,6 @@
     "edit": false,
     "batch": false,
     "filter": true,
-    "createProject": false,
     "repair": false,
     "archive": true,
     "userConfig": false

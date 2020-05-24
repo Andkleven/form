@@ -11,6 +11,7 @@ import Paper from "components/layout/Paper";
 import { Button } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
+import Canvas from "components/layout/Canvas";
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -143,96 +144,98 @@ export default pageInfo => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
-    <Paper>
-      <Form
-        componentsId={"itemsPage" + counter.toString()}
-        document={itemsJson}
-        reRender={() => setReRender(!reRender)}
-        data={fixedData}
-        arrayIndex={[counter - 1]}
-        getQueryBy={_id}
-        foreignKey={_id}
-      />
-      {geometryData && geometryData.items && geometryData.items.length ? (
-        <>
-          <ItemUpdate
-            foreignKey={geometryData.id}
-            getQueryBy={_id}
-            counter={counter - 1}
-          />
-          <Button
-            onClick={() =>
-              history.push(
-                `/order/lead-engineer/${geometryData.id}/${
-                  geometryData.items.find(item => item.different === false).id
-                }/0/${geometryData.data.geometry}`
-              )
-            }
-          >
-            Create all items
-          </Button>
-          <h3> Number of items: {geometryData.items.length}</h3>
-          <ItemList
-            getQueryBy={_id}
-            counter={counter - 1}
-            items={geometryData.items}
-            submitItem={item => {
-              if (!item.different) {
-                mutationDifferent({
-                  variables: {
-                    id: item.id,
-                    different: true
-                  }
-                });
+    <Canvas>
+      <Paper>
+        <Form
+          componentsId={"itemsPage" + counter.toString()}
+          document={itemsJson}
+          reRender={() => setReRender(!reRender)}
+          data={fixedData}
+          arrayIndex={[counter - 1]}
+          getQueryBy={_id}
+          foreignKey={_id}
+        />
+        {geometryData && geometryData.items && geometryData.items.length ? (
+          <>
+            <ItemUpdate
+              foreignKey={geometryData.id}
+              getQueryBy={_id}
+              counter={counter - 1}
+            />
+            <Button
+              onClick={() =>
+                history.push(
+                  `/order/lead-engineer/${geometryData.id}/${
+                    geometryData.items.find(item => item.different === false).id
+                  }/0/${geometryData.data.geometry}`
+                )
               }
-              history.push(
-                `/order/lead-engineer/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
-              );
-            }}
-            submitDelete={id => {
-              deleteItem({ variables: { id: id } });
-            }}
-          />
-        </>
-      ) : null}
-      {fixedData && fixedData.projects && fixedData.projects[0] ? (
-        <h4>
-          Geometry {counter}/{projectsData.numberOfDescriptions}
-        </h4>
-      ) : null}
-      {counter !== 1 && (
-        <Button onClick={() => setState(counter - 1)}>Back</Button>
-      )}
-      {counter < projectsData.numberOfDescriptions ? (
-        <Button onClick={() => setState(counter + 1)}>Next</Button>
-      ) : (
-        /** WARNING: Non-strict comparison below
-         * For more info on strict vs non-strict comparisons:
-         * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
-         */
-        // eslint-disable-next-line
-        numberOfItems == projectsData.totalNumberOfItems &&
-        (fixedData.projects[0].leadEngineerDone ? (
-          <h3>In Production</h3>
-        ) : (
-          <Button
-            onClick={() =>
-              LeadEngineerDoneMutation({
-                variables: {
-                  projects: [{ id: _id, leadEngineerDone: true }]
+            >
+              Create all items
+            </Button>
+            <h3> Number of items: {geometryData.items.length}</h3>
+            <ItemList
+              getQueryBy={_id}
+              counter={counter - 1}
+              items={geometryData.items}
+              submitItem={item => {
+                if (!item.different) {
+                  mutationDifferent({
+                    variables: {
+                      id: item.id,
+                      different: true
+                    }
+                  });
                 }
-              })
-            }
-          >
-            Send to Production
-          </Button>
-        ))
-      )}
+                history.push(
+                  `/order/lead-engineer/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
+                );
+              }}
+              submitDelete={id => {
+                deleteItem({ variables: { id: id } });
+              }}
+            />
+          </>
+        ) : null}
+        {fixedData && fixedData.projects && fixedData.projects[0] ? (
+          <h4>
+            Geometry {counter}/{projectsData.numberOfDescriptions}
+          </h4>
+        ) : null}
+        {counter !== 1 && (
+          <Button onClick={() => setState(counter - 1)}>Back</Button>
+        )}
+        {counter < projectsData.numberOfDescriptions ? (
+          <Button onClick={() => setState(counter + 1)}>Next</Button>
+        ) : (
+          /** WARNING: Non-strict comparison below
+           * For more info on strict vs non-strict comparisons:
+           * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+           */
+          // eslint-disable-next-line
+          numberOfItems == projectsData.totalNumberOfItems &&
+          (fixedData.projects[0].leadEngineerDone ? (
+            <h3>In Production</h3>
+          ) : (
+            <Button
+              onClick={() =>
+                LeadEngineerDoneMutation({
+                  variables: {
+                    projects: [{ id: _id, leadEngineerDone: true }]
+                  }
+                })
+              }
+            >
+              Send to Production
+            </Button>
+          ))
+        )}
 
-      {loadingMutation && <p>Loading...</p>}
-      {errorMutation && <p>Error :( Please try again</p>}
-      {loadingLeadEngineerDone && <p>Loading...</p>}
-      {errorLeadEngineerDone && <p>Error :( Please try again</p>}
-    </Paper>
+        {loadingMutation && <p>Loading...</p>}
+        {errorMutation && <p>Error :( Please try again</p>}
+        {loadingLeadEngineerDone && <p>Loading...</p>}
+        {errorLeadEngineerDone && <p>Error :( Please try again</p>}
+      </Paper>
+    </Canvas>
   );
 };
