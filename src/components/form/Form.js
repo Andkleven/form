@@ -5,11 +5,11 @@ import React, {
   useReducer
 } from "react";
 import Chapters from "./components/Chapters";
-import query from "graphql/query/query";
-import mutations from "graphql/mutation/mutation";
+import query from "graphql/query";
+import mutations from "graphql/mutation";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import {
   allTrue,
@@ -61,6 +61,13 @@ export default props => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
+  
+  const { loading, error, data: optionsData } = useQuery(props.document.userQuery ? query[props.document.userQuery] : query["DEFAULT"], {
+      variables: {},
+      skip: props.userQuery
+    });
+
+    console.log(optionsData)
   // Set DocumentDate to empty dictionary if a new components calls Form
   useLayoutEffect(() => {
     if (props.data) {
@@ -249,6 +256,7 @@ export default props => {
             <Chapters
               {...props}
               backendData={props.data}
+              optionsData={optionsData}
               submitHandler={submitHandler}
               submitData={submitData}
               setNextStage={setNextStage}

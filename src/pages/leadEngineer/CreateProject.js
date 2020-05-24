@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
-import query from "graphql/query/query";
+import query from "graphql/query";
 import objectPath from "object-path";
-import itemsJson from "templates/createProject.json";
-import mutations from "graphql/mutation/mutation";
+import itemsJson from "templates/order.json";
+import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
@@ -14,7 +14,6 @@ import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 
 export default pageInfo => {
-  console.log(pageInfo);
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
@@ -22,7 +21,6 @@ export default pageInfo => {
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
   const [fixedData, setFixedData] = useState(null);
-  console.log(_id);
   const setState = counter => {
     setCounter(counter);
   };

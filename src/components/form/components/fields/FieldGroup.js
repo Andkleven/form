@@ -39,6 +39,7 @@ export default props => {
         <Page
           {...field}
           key={index}
+          optionsData={props.optionsData}
           backendData={props.backendData}
           repeatStepList={props.repeatStepList}
           submitHandler={props.submitHandler}

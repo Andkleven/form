@@ -2,6 +2,7 @@
   "queryPath": "projects",
   "mutation": "ORDER",
   "query": "GET_ORDER_GEOMETRY",
+  "userQuery": "OFFSITE",
   "chapters": [
     {
       "pages": [
@@ -36,31 +37,31 @@
               "fieldName": "supervisor",
               "label": "Supervisor",
               "type": "select",
-              "options": ["Option 1", "Option 2", "Option 3"]
+              "userRole": ["supervisor"]
             },
             {
               "fieldName": "leadEngineer",
               "label": "Lead Engineer",
               "type": "select",
-              "options": ["Option 1", "Option 2", "Option 3"]
+              "userRole": ["lead"]
             },
             {
               "fieldName": "supervisingEngineer",
               "label": "Supervising Engineer",
               "type": "select",
-              "options": ["Option 1", "Option 2", "Option 3"]
+              "userRole": ["lead"]
             },
             {
               "fieldName": "offsiteResponsible",
               "label": "Offsite Responsible",
               "type": "select",
-              "queryOptions": "OFFSITE",
-              "searchOptions": ["operator", "supervisor"]
+              "userRole": ["supervisor", "operator"]
             },
             {
               "fieldName": "qualityControl",
               "label": "Quality Control",
-              "default": "test"
+              "type": "select",
+              "userRole": ["quality"]
             },
             {
               "fieldName": "numberOfDescriptions",

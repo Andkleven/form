@@ -6,14 +6,27 @@ import { camelCaseToNormal } from "functions/general";
 
 // import Duplicate from "./widgets/Duplicate";
 
+
 export default props => {
   let options = [];
-  props.options &&
+
+  if (props.optionsData && props.userRole) {
+    props.optionsData.userProfile.forEach(element => {
+      if (props.userRole.includes(element.role.toLowerCase())) {
+        options.push({
+          value: element.name
+        });
+      }
+    }) 
+  } else if (props.options) {
     props.options.forEach(element => {
       options.push({
         value: element
       });
     });
+  } 
+
+    
 
   const placeholder = props.custom
     ? props.placeholder || "Select or type..."
