@@ -11,12 +11,12 @@
     "userConfig": true
   },
   "lead": {
-    "specs": false,
+    "specs": true,
     "items": true,
     "edit": false,
     "batch": false,
     "filter": true,
-    "createProject": false,
+    "createProject": true,
     "repair": true,
     "archive": true,
     "userConfig": false
