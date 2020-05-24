@@ -371,7 +371,7 @@ export const chapterPages = (
       info,
       index,
       firstIndex + 1,
-      stopLoop,
+      stopLoop.current,
       showEditButton,
       lastChapter,
       showSaveButton

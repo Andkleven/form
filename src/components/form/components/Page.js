@@ -167,8 +167,8 @@ export default props => {
   ]);
 
   // Checks for conditional rendering
-  const showTitleOrSubtitle = !props.stopLoop && props.showEditButton;
-  const showEditAll = props.showEditButton && !props.stopLoop && !writeChapter;
+  const showTitleOrSubtitle = !props.stopLoop.current && props.showEditButton;
+  const showEditAll = props.showEditButton && !props.stopLoop.current && !writeChapter;
   const showLine = props.pageTitle && true;
 
   return (

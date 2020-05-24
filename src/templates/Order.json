@@ -2,7 +2,7 @@
   "queryPath": "projects",
   "mutation": "ORDER",
   "query": "GET_ORDER_GEOMETRY",
-  "userQuery": "OFFSITE",
+  "optionsQuery": "USERS",
   "chapters": [
     {
       "pages": [
@@ -52,8 +52,8 @@
               "userRole": ["lead"]
             },
             {
-              "fieldName": "offsiteResponsible",
-              "label": "Offsite Responsible",
+              "fieldName": "USERSResponsible",
+              "label": "USERS Responsible",
               "type": "select",
               "userRole": ["supervisor", "operator"]
             },

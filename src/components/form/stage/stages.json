@@ -1,12 +1,14 @@
 {
   "all": [
+    "actualSteelMeasurement",
     "steelPreparation1",
     "steelPreparation2",
     "primer1",
     "primer2",
     "rubberCementsBeforeCoating",
-    "actualSteelMeasurement",
-    ["coatingStep", "vulcanizationStep", "measurementPointStep"],
+    "coatingStep",
+    "vulcanizationStep",
+    "measurementPointStep",
     "touchUp"
   ],
   "coateditem": {
@@ -16,23 +18,25 @@
     "primer1": {
       "queryPath": "leadEngineers.0.data.primer1"
     },
-    
     "primer2": {
       "queryPath": "leadEngineers.0.data.primer2"
     },
-    
     "rubberCementsBeforeCoating": {
       "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
     },
     "coatingStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""]
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
+      "step": true
     },
     "vulcanizationStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""]
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
+      "step": true
     },
     "measurementPointStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
-      "editIndexList": { "0": 1 }
+      "editIndexList": { "0": 1 },
+      "crossroads": "coatingStep",
+      "step": true
     },
     "touchUp": { "queryPath": "" }
   },

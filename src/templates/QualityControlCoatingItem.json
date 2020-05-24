@@ -28,7 +28,6 @@
           ]
         },
         {
-          "pageTitle": "Final Inspection",
           "queryPath": "finalInspectionQualityControls",
           "fields": [
             {

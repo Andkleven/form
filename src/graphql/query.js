@@ -353,7 +353,7 @@ const QUALITY_CONTROL = gql`
 `;
 
 
-const OFFSITE = gql`
+const USERS = gql`
   query($role: [String]) {
     userProfile(role: $role) {
         id
@@ -381,7 +381,7 @@ const query = {
   GET_OPERATOR_BY_ITEM,
   OPERATOR_PROJECTS,
   QUALITY_CONTROL,
-  OFFSITE,
+  USERS,
   DEFAULT
 };
 export default query;

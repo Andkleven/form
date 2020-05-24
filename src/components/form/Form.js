@@ -46,11 +46,9 @@ function reducer(state, action) {
 }
 
 export const ChapterContext = createContext();
-export const FilesContext = createContext();
 export const DocumentDateContext = createContext();
 export const FieldsContext = createContext();
 
-// let document;
 const cloneDeep = require("clone-deep");
 
 export default props => {
@@ -62,12 +60,12 @@ export default props => {
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
   
-  const { loading, error, data: optionsData } = useQuery(props.document.userQuery ? query[props.document.userQuery] : query["DEFAULT"], {
+  const { data: optionsData } = useQuery(props.document.optionsQuery ? query[props.document.optionsQuery] : query["DEFAULT"], {
       variables: {},
-      skip: props.userQuery
+      skip: props.optionsQuery
     });
 
-    console.log(optionsData)
+    
   // Set DocumentDate to empty dictionary if a new components calls Form
   useLayoutEffect(() => {
     if (props.data) {
@@ -245,7 +243,11 @@ export default props => {
         }}
       >
         <ChapterContext.Provider
-          value={{ lastChapter, setLastChapter, editChapter, setEditChapter }}
+          value={{ lastChapter,
+            setLastChapter,
+            editChapter,
+            setEditChapter,
+            setLastSubmitButton }}
         >
           <Title title={props.document.documentTitle} />
           <Form

@@ -1,14 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useRef, useEffect } from "react";
 import { findValue, allRequiredSatisfied, createPath } from "functions/general";
 import Page from "components/form/components/Page";
-import findNextStage from "components/form/stage/findNextStage";
+import findNextStage from "components/form/stage/findNextStage.ts";
 import Title from "components/design/fonts/Title";
+import { ChapterContext } from "components/form/Form";
 import stagesJson from "components/form/stage/stages.json";
 
 // import objectPath from "object-path";
 
 export default props => {
-  let stopLoop = false; // Flips to true for last chapter with input
+  const {setLastSubmitButton} = useContext(ChapterContext);
+
+  const stopLoop = useRef(false) // Flips to true for last chapter with input
   let temporaryLastChapter = 0;
   let count = 0;
   let stage = stagesJson["all"][0];
@@ -22,7 +25,7 @@ export default props => {
     ) {
       temporaryLastChapter = count + 1;
     }
-    if (stopLoop) {
+    if (stopLoop.current) {
       chapter = null;
     } else {
       let allRequiredFieldSatisfied = props.data
@@ -64,7 +67,7 @@ export default props => {
       });
       // if now data in lookUpBy stop loop
       if (allRequiredFieldSatisfied) {
-        stopLoop = true;
+        stopLoop.current = true;
       }
     }
     count += 1;
@@ -118,8 +121,7 @@ export default props => {
     let i = 0;
     let stageSplit = [];
     let chapterBasedOnStage = [];
-    while (stopLoop === false && i < 20) {
-      console.log(3);
+    while (stopLoop.current === false && i < 20) {
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
@@ -137,9 +139,6 @@ export default props => {
       }
       i++;
     }
-    if (["Nei"].includes(stage)) {
-      props.setLastSubmitButton(true);
-    }
     return chapterBasedOnStage;
   };
   const chapterBasedOnJson = props.document.chapterByStage
@@ -147,10 +146,19 @@ export default props => {
     : props.document.chapters.map(pageInfo => {
         return runChapter(pageInfo);
       });
-
-  if (chapterBasedOnJson[chapterBasedOnJson.length - 1]) {
-    props.setLastSubmitButton(true);
-  }
+  
+  useEffect(() => {
+    return () => {
+      if (stopLoop.current === false) {
+        setLastSubmitButton(true);
+      }
+    }
+  }, [setLastSubmitButton])
+  useEffect(() => {
+    return () => {
+      stopLoop.current = false
+    }
+  })
 
   return props.document.chapterByStage ? stageChapters() : chapterBasedOnJson;
 };

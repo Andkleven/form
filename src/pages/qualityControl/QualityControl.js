@@ -57,6 +57,9 @@ export default pageInfo => {
           sendItemId={true}
           saveButton={true}
         />
+        </Paper>
+        <br></br>
+        <Paper>
         <Form
           componentsId={"finalInspectionQualityControls"}
           document={qualityControl}

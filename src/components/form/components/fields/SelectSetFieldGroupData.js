@@ -6,15 +6,15 @@ import { getRepeatNumber, getRepeatStepList } from "functions/general";
 
 
 export default props => {
-  const documentDateContext = useContext(DocumentDateContext);
+  const {documentDate} = useContext(DocumentDateContext);
   if (props.repeat) {
     if (
       Array.isArray(
-        objectPath.get(documentDateContext.documentDate, props.path)
+        objectPath.get(documentDate, props.path)
       )
     ) {
       return objectPath
-        .get(documentDateContext.documentDate, props.path)
+        .get(documentDate, props.path)
         .map((itemsData, index) => {
           return (
             <Fragment key={index}>
