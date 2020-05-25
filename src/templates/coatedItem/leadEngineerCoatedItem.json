@@ -225,7 +225,7 @@
           "repeatStartWithOneGroup": true,
           "delete": true,
           "addButton": "Add Step",
-          "indexVariablePageTitle": true,
+          "indexVariablePageTitle": 1,
           "pageTitle": "Step {}",
           "fields": [
             {

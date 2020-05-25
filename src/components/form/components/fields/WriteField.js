@@ -104,11 +104,8 @@ export default props => {
   };
  
   const onChangeSelect = e => {
-    console.log(e)
-    console.log(props.path)
     setShowMinMax(true);
     testPassedValidation(e.value)
-    console.log({type: 'add', newState: e.value, path: props.path})
     documentDateDispatch({type: 'add', newState: e.value, path: props.path})
   };
   

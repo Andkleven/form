@@ -65,7 +65,6 @@ export default props => {
       skip: props.optionsQuery
     });
 
-    console.log(documentDate)
   // Set DocumentDate to empty dictionary if a new components calls Form
   useLayoutEffect(() => {
     if (props.data) {
