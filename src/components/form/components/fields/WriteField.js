@@ -91,61 +91,26 @@ export default props => {
       props.writeChapter
     ])
 
+
+
     useEffect(() => {
       testPassedValidation(objectPath.get(props.backendData, props.path, null))
     }, [testPassedValidation, props.backendData, props.path])
   
-
-  // const onBlurDate = data => {
-  //   testPassedValidation(data)
-  //   documentDateDispatch({type: 'add', newState: data, path: props.path})
-  // };
-  
   const onChangeDate = data => {
-    console.log(2)
+    setShowMinMax(true);
+    testPassedValidation(data)
     documentDateDispatch({type: 'add', newState: data, path: props.path})
   };
-  
-  // const onChangeSelect = e => {
-  //   props.setValue(e.value)
-  // };
-
-  const onBlurSelect = e => {
+ 
+  const onChangeSelect = e => {
+    console.log(e)
+    console.log(props.path)
+    setShowMinMax(true);
     testPassedValidation(e.value)
+    console.log({type: 'add', newState: e.value, path: props.path})
     documentDateDispatch({type: 'add', newState: e.value, path: props.path})
   };
-  
-  // const onChange = e => {
-  //   setShowMinMax(true);
-  //   let { name, value, type, step, min, max } = e.target;
-  //   min = Number(min);
-  //   max = Number(max);
-  //     if (["checkbox", "radio", "switch"].includes(type)) {
-  //       let oldValue = objectPath.get(
-  //         documentDate,
-  //         props.path,
-  //         false
-  //       );
-  //   props.setValue(!oldValue)
-  // } else {
-  //       if (type === "number") {
-  //         let decimal = step
-  //           ? props.fields.find(x => x.fieldName === name).decimal
-  //           : 0;
-  //         let numberValue = value;
-  //         if (
-  //           numberValue.split(".")[1] &&
-  //           decimal < numberValue.split(".")[1].length
-  //         ) {
-  //           numberValue = props.state[name];
-  //         }
-  //         props.setValue(numberValue)
-  // } else {
-  //       props.setValue(value)
-  // }
-  //     }
-  // };
-
   
   const onBlur = e => {
     let { name, value, type, step, min, max } = e.target;
@@ -270,17 +235,14 @@ export default props => {
       <Input
         {...props}
         onChangeDate={onChangeDate}
-        // onChange={onChange}
-        // onChangeSelect={onChangeSelect}
         defaultValue={defaultValue()}
-        // onBlurDate={onBlurDate}
         value={(props.type === "date" || props.type === "datetime-local") && new Date(objectPath.get(
                 documentDate,
                 props.path,
                 null
               ))}
         onBlur={onBlur}
-        onBlurSelect={onBlurSelect}
+        onChangeSelect={onChangeSelect}
         label={props.label}
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}

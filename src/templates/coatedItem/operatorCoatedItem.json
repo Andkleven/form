@@ -71,6 +71,10 @@
               "required": true
             },
             {
+              "fieldName": "blastMediaBatchNumber",
+              "label": "Blast Media Batch Number"
+            },
+            {
               "fieldName": "equipmentIDMediaBlasting",
               "label": "Equipment ID",
               "specSubtextList": "leadEngineers.0.data.primer1"

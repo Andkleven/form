@@ -10,7 +10,6 @@ export default ({
   headline = "Projects",
   ...props
 }) => {
-  console.log("data", data);
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}

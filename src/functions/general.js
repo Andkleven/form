@@ -1,6 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
 import objectPath from "object-path";
-import { Fragment } from "react";
 import Math from "components/form/functions/math";
 
 export const stringToDictionary = data => {
@@ -9,7 +8,7 @@ export const stringToDictionary = data => {
   }
 };
 
-export const emptyField = field => [null, undefined, ""].includes(field);
+export const emptyField = field => [null, undefined, "", "None"].includes(field);
 
 export const isNumber = number => typeof number === "number";
 

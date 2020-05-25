@@ -65,7 +65,7 @@ export default props => {
       skip: props.optionsQuery
     });
 
-    
+    console.log(documentDate)
   // Set DocumentDate to empty dictionary if a new components calls Form
   useLayoutEffect(() => {
     if (props.data) {
@@ -215,9 +215,9 @@ export default props => {
       setIsSubmitted(false);
       setValidationPassed({});
       setNextStage(true);
-      if (lastSubmitButton && props.finalButton) {
-        props.finalButton();
-      }
+      // if (lastSubmitButton && props.finalButton) {
+      //   props.finalButton();
+      // }
       setEditChapter(0);
     } else {
       setIsSubmitted(true);

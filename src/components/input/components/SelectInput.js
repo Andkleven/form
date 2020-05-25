@@ -25,7 +25,6 @@ export default props => {
       });
     });
   } 
-
     
 
   const placeholder = props.custom
@@ -62,8 +61,7 @@ export default props => {
     }),
     isSearchable: true,
     placeholder: placeholder,
-    onChange: props.onChangeSelect,
-    onBlur: props.onBlurSelect
+    onChange: props.onChangeSelect
   };
 
   return (

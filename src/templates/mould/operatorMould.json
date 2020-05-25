@@ -57,6 +57,10 @@
               "unit": "C"
             },
             {
+              "fieldName": "blastMediaBatchNumber",
+              "label": "Blast Media Batch Number"
+            },
+            {
               "fieldName": "nextCalibrationDateMediaBlasting",
               "label": "Next Calibration Date",
               "type": "date"

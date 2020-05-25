@@ -1,8 +1,9 @@
 import stagesJson from "./stages.json";
-import { findValue, emptyField, isNumber } from "functions/general.js";
+import { findValue, emptyField, isNumber, removeSpace } from "functions/general.js";
 
 
 export default (specData: object, stage: string, geometry: string): string => {
+    geometry = removeSpace(geometry).toLowerCase()
     function nextStageFormat(index: number, step: number): string {
         nextStage = stagesJson.all[index + 1]
         if (stagesJson[geometry][nextStage]["step"]){
