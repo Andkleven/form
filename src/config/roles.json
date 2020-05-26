@@ -1,0 +1,86 @@
+{
+  "admin": {
+    "displayName": "Administrator",
+    "access": {
+      "specs": true,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": true,
+      "itemRepair": true,
+      "finalInspection": true,
+      "finished": true
+    }
+  },
+  "lead": {
+    "displayName": "Lead Engineer",
+    "access": {
+      "specs": true,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": false,
+      "itemRepair": true,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "supervisor": {
+    "displayName": "Supervisor",
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": true,
+      "itemRepair": true,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "operator": {
+    "displayName": "Operator",
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": false,
+      "itemRepair": true,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "quality": {
+    "displayName": "Quality Control",
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": true,
+      "itemRepair": true,
+      "finalInspection": true,
+      "finished": true
+    }
+  },
+  "offsite": {
+    "displayName": "Offsite Responsible",
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": false,
+      "itemRepair": false,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "spectator": {
+    "displayName": "Spectator",
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": false,
+      "itemEdit": false,
+      "itemRepair": false,
+      "finalInspection": false,
+      "finished": true
+    }
+  }
+}

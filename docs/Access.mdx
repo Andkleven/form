@@ -1,5 +1,47 @@
-import access from "../src/config/access.json";
+import Access from "../src/components/info/Access";
 
-# 123
+# User Access
 
-<div />
+This document describes features with limited access and who has permission to use them.
+
+_Note: All permission names are written in camelCase,
+as they are imported automatically from the source code and
+we want this to be readable for project administration as well as developers._
+
+## 📖 Definitions
+
+- **specs**  
+  Gives direct access to create and edit lead engineer's specifications for a project.
+  Legacy name from v1.0 is "Create Project".
+  These specs are available to most users through "Items"
+  as restrictions and guidelines in forms.
+- **itemRead**  
+  Makes items available in the explorer,
+  users can see the item's overview.  
+  Also gives read access to final inspection.
+- **itemWrite**  
+  Makes items available in the explorer,
+  users can see the item's overview and write new entries.
+- **itemEdit**  
+  Overwriting of earlier inputs.
+- **itemRepair**  
+  Sending an item for repair (moves item to an earlier stage).  
+  _Note: Does not delete any data_
+- **finalInspection**  
+  Write access to the final inspection form.
+- **finished**  
+  Ability to see finished projects in the explorer
+
+## 👥 Default user access
+
+<Access />
+
+## 💡 Notes
+
+Most user access is decided on a general level (above project level),
+with the exception of _offsite responsible_, which is decided on a project level.
+
+Here's an example of what that could entail:  
+An operator (without access to finished items) who is an offsite responsible
+for a single project, will be able to see only that project's finished items in
+the explorer and no other finished items.
