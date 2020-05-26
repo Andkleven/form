@@ -1,34 +1,35 @@
 // const userInfo = JSON.parse(localStorage.getItem("user")); // Local user info
-import defaultRoles from "config/roles.json";
+import roles from "config/roles.json";
 
-export function access(customAccess: object): object {
-  const user: { role: string; username: string } = JSON.parse(
-    localStorage.getItem("user") || "{}"
-  );
-  const defaultAccess = defaultRoles[user.role.toLowerCase()];
-  if (customAccess) {
-    return { ...defaultAccess, ...customAccess };
-  }
-  return defaultAccess;
+/**
+ * Returns user as an object.
+ * @return {object} User
+ */
+export function getUser(): object {
+  return JSON.parse(localStorage.getItem("user") || "{}");
 }
 
-export function displayRole(role: string): string {
-  switch (role) {
-    case "admin":
-      return "Administrator";
-    case "lead":
-      return "Lead Engineer";
-    case "supervisor":
-      return "Supervisor";
-    case "operator":
-      return "Operator";
-    case "quality":
-      return "Quality Control";
-    case "offsite":
-      return "Offsite Responsible";
-    case "spectator":
-      return "Spectator";
-    default:
-      return "None";
+/**
+ * Returns access as an object combined with an optional customAccess.
+ * @param {object} customAccess Custom permissions
+ * @return {object} Access
+ */
+export function getAccess(customAccess: object): object {
+  let access: object = {};
+
+  const user = getUser();
+
+  try {
+    const role = user["role"].toLowerCase();
+    const defaultAccess = roles[role]["access"];
+    if (customAccess) {
+      access = { ...defaultAccess, ...customAccess };
+    }
+  } catch (error) {
+    alert(
+      `User access failed with the following error:\n${error}\nPlease contact your administrator.`
+    );
   }
+
+  return access;
 }
