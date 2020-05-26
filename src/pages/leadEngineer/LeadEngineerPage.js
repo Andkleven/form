@@ -9,7 +9,7 @@ import Paper from "components/layout/Paper";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {
-  const { descriptionId, itemId, different, geometry } = pageInfo.match.params;
+  const { descriptionId, itemId, unique, geometry } = pageInfo.match.params;
 
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
@@ -38,7 +38,7 @@ export default pageInfo => {
           getQueryBy={itemId}
           descriptionId={descriptionId}
           itemId={itemId}
-          sendItemId={Number(different)}
+          sendItemId={Number(unique)}
           // finalButton={console.log("finalButton")}
         />
       </Paper>

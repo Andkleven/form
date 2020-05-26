@@ -236,6 +236,12 @@ export default props => {
                 onClick={() =>
                   props.submitHandler(documentDate)
                 }
+                name={
+                  props.saveButton &&
+                  !Object.values(validationPassed).every(allTrue)
+                    ? "Save"
+                    : null
+                }
               />
               {FieldsContext.isSubmitted && (
                 <div style={{ fontSize: 12, color: "red" }}>
@@ -247,7 +253,7 @@ export default props => {
         ) : props.thisChapter === lastChapter ? (
           <>
             <SubmitButton
-              key={props.thisChapter}
+            key={props.thisChapter}
               onClick={() =>
                 props.submitHandler(documentDate)
               }

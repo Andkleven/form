@@ -147,13 +147,13 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
           );
           if (Array.isArray(dataFields)) {
             dataFields.forEach(dataField => {
-              if (emptyField(dataField.data[field.fieldName]) && (dataField.data[field.fieldName+ignoreRequiredField])) {
+              if (emptyField(dataField.data[field.fieldName]) && !(dataField.data[field.fieldName+ignoreRequiredField])) {
                 returnValue = false;
               }
             });
           } else if (!dataFields || !dataFields.data) {
             returnValue = false;
-          } else if (emptyField(dataFields.data[field.fieldName])) {
+          } else if (emptyField(dataFields.data[field.fieldName]) && !(dataFields.data[field.fieldName+ignoreRequiredField])) {
             returnValue = false;
           }
         }

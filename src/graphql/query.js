@@ -12,7 +12,7 @@ const ALL = gql`
         items {
           id
           itemId
-          different
+          unique
           qrCode
           repair
           operatorDone
@@ -76,7 +76,7 @@ const GET_ORDER_GEOMETRY = gql`
         items {
           id
           itemId
-          different
+          unique
         }
         uploadFiles {
           id
@@ -269,7 +269,7 @@ const QUALITY_CONTROL = gql`
     items(id: $id) {
       id
       itemId
-      different
+      unique
       qrCode
       repair
       operatorDone
