@@ -35,9 +35,6 @@ export default (specData: object, stage: string, geometry: string): string => {
             }
         }
         thisStage = stages[index + 1]
-        if (index === stages.length - 1) {
-            return "qualityControl"
-        }
         if (emptyField(stagesJson[geometry][thisStage])) {
             index++
         } else if (emptyField(stagesJson[geometry][thisStage]["queryPath"])) {

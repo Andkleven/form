@@ -9,7 +9,8 @@
     "coatingStep",
     "vulcanizationStep",
     "measurementPointStep",
-    "touchUp"
+    "touchUp",
+    "qualityControl"
   ],
   "coateditem": {
     "actualSteelMeasurement": { "queryPath": "" },
@@ -38,9 +39,10 @@
       "crossroads": "coatingStep",
       "step": true
     },
-    "touchUp": { "queryPath": "" }
+    "touchUp": { "queryPath": "" },
+    "qualityControl": { "queryPath": "" }
   },
-
+  
   "mould": {
     "steelPreparation1": { "queryPath": "" },
     "rubberCementsBeforeCoating": {
@@ -56,6 +58,7 @@
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "editIndexList": { "0": 1 }
     },
-    "touchUp": { "queryPath": "" }
+    "touchUp": { "queryPath": "" },
+    "qualityControl": { "queryPath": "" }
   }
 }

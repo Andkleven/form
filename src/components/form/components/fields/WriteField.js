@@ -12,6 +12,7 @@ import LightLine from "components/design/LightLine";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {ignoreRequiredField} from "config/const";
 
 let initialValue = {
   min: "",
@@ -146,6 +147,21 @@ export default props => {
       }
     }
   };
+  const onBlurIgnoreRequired = e => {
+    let { name } = e.target;
+    setShowMinMax(false)
+    setError(initialValue)
+    setValidationPassed(prevState => ({
+      ...prevState,
+      [`${props.path}-${props.fieldName}`]: true
+    }));
+    let oldValue = objectPath.get(
+          documentDate,
+          props.path,
+          false
+        );
+    documentDateDispatch({type: 'add', newState: !oldValue, path: props.path+name})
+  };
 
   const cancelEdit = event => {
     event.persist();
@@ -216,11 +232,7 @@ export default props => {
   };
 
   const defaultValue =  useCallback(() => {
-    return objectPath.get(props.backendData, props.path)
-                      ? objectPath.get(props.backendData, props.path)
-                      : props.default !== undefined
-                      ? props.default
-                      : ""
+    return objectPath.get(props.backendData, props.path, props.default !== undefined ? props.default : "")
   }, [
     props.backendData,
     props.path,
@@ -249,6 +261,20 @@ export default props => {
         step={props.decimal ? "0.1" : "1"}
         tight={props.submitButton}
       />
+      {props.ignoreRequired && <Input
+        type={"checkbox"}
+        onBlur={onBlurIgnoreRequired}
+        defaultValue={objectPath.get(
+          documentDate,
+          props.path+ignoreRequiredField,
+          false
+        )}
+        label={`Ignore Required on ${props.label}`}
+        TinyButtons={TinyButtons()}
+        BigButtons={BigButtons()}
+        name={ignoreRequiredField}
+        tight={props.submitButton}
+      />}
       <ErrorMessage showMinMax={showMinMax} error={error} />
       {props.submitButton ? <LightLine /> : null}
     </>

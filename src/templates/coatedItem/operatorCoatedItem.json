@@ -20,6 +20,7 @@
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
               "feedback": "Enter valid number.",
+              "required": true,
               "subtext": "Accepts any value",
               "type": "number"
             }
@@ -36,15 +37,16 @@
           "fields": [
             {
               "specValueList": "leadEngineers.0.data.blastMedia",
+              "required": true,
               "label": "Blast Media"
             },
             { "line": true },
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
+              "required": true,
               "routeToSpecMax": "leadEngineers.0.data.relativeHumidity",
-              "unit": "%",
-              "required": true
+              "unit": "%"
             },
             {
               "fieldName": "airTemperature",
@@ -72,20 +74,24 @@
             },
             {
               "fieldName": "blastMediaBatchNumber",
+              "required": true,
               "label": "Blast Media Batch Number"
             },
             {
               "fieldName": "equipmentIDMediaBlasting",
+              "required": true,
               "label": "Equipment ID",
               "specSubtextList": "leadEngineers.0.data.primer1"
             },
             {
               "fieldName": "nextCalibrationDateMediaBlasting",
+              "required": true,
               "label": "Next Calibration Date",
               "type": "date"
             },
             {
               "fieldName": "mediaBlastingStarted",
+              "required": true,
               "label": "Media Blasting Started",
               "type": "datetime-local"
             }
@@ -121,6 +127,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "fieldName": "equipmentIDSolubleSaltLevel",
+              "required": true,
               "placeholder": "Equipment ID"
             },
             {
@@ -140,6 +147,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
               "specSubtextList": "leadEngineers.0.data.surfaceCleanliness",
               "subtext": "ISO 8501-1, Min. Sa {} (Rust grade A or B)",
+              "required": true,
               "unit": "Sa"
             },
             {
@@ -147,11 +155,13 @@
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
               "subtext": "ASTM D 4285, No oil and no water",
+              "required": true,
               "type": "checkbox"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "equipmentIdCompressedAirCheck",
+              "required": true,
               "placeholder": "Equipment ID"
             },
             {
@@ -168,12 +178,14 @@
               "fieldName": "uvTest",
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "label": "UV Test",
+              "required": true,
               "subtext": "No reflecting light",
               "type": "checkbox"
             },
             {
               "fieldName": "equipmentIDUvTest",
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "required": true,
               "placeholder": "Equipment ID"
             },
             {
@@ -192,11 +204,13 @@
               "label": "Blast Media Conductivity",
               "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
               "placeholder": "Result",
+              "required": true,
               "unit": "µS/cm",
               "type": "number"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "required": true,
               "fieldName": "equipmentIDBlastMediaConductivity",
               "placeholder": "Equipment ID"
             },
@@ -213,6 +227,7 @@
             {
               "fieldName": "surfaceProfileRoughness",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "required": true,
               "placeholder": "Result",
               "label": "Surface Profile (Roughness)",
               "subtext": "Between 50.0µm and 100.0µm",
@@ -221,6 +236,7 @@
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "required": true,
               "fieldName": "equipmentIDSurfaceProfileRoughness",
               "placeholder": "Equipment ID"
             },
@@ -232,6 +248,7 @@
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "required": true,
               "fieldName": "referencePlateId",
               "placeholder": "Reference Plate Id (Optional)"
             },
@@ -242,6 +259,7 @@
             {
               "fieldName": "dustTest",
               "label": "Dust Test",
+              "required": true,
               "placeholder": "Result",
               "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
               "type": "number"
@@ -249,6 +267,7 @@
             { "line": true },
             {
               "fieldName": "mediaBlastingTestsFinished",
+              "required": true,
               "label": "Media Blasting Tests Finished",
               "type": "datetime-local"
             }
@@ -269,11 +288,13 @@
             },
             {
               "fieldName": "startTimePriming1",
+              "required": true,
               "label": "Start Time",
               "type": "datetime-local"
             },
             {
               "fieldName": "stopTimePriming1",
+              "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
             }
@@ -294,11 +315,13 @@
             },
             {
               "fieldName": "startTimePriming2",
+              "required": true,
               "label": "Start Time",
               "type": "datetime-local"
             },
             {
               "fieldName": "stopTimePriming2",
+              "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
             }
@@ -319,11 +342,13 @@
             },
             {
               "fieldName": "startTimeRubberCement",
+              "required": true,
               "label": "Start Time",
               "type": "datetime-local"
             },
             {
               "fieldName": "stopTimeRubberCement",
+              "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
             }
@@ -375,6 +400,7 @@
           "fields": [
             {
               "fieldName": "mixDate1",
+              "required": true,
               "label": "Mix Date",
               "type": "date"
             },
@@ -416,8 +442,7 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators",
-            ""
+            "coatingOperators"
           ],
           "fields": [
             {
@@ -457,8 +482,7 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators",
-            ""
+            "coatingOperators"
           ],
           "fields": [
             {
@@ -494,16 +518,20 @@
             { "line": true },
             {
               "fieldName": "autoclaveNumber",
+              "required": true,
               "label": "Autoclave Number",
+              "ignoreRequired": true,
               "type": "number"
             },
             {
               "fieldName": "startTime",
+              "required": true,
               "label": "Start Time",
               "type": "datetime-local"
             },
             {
               "fieldName": "stopTime",
+              "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
             }
@@ -519,12 +547,14 @@
           "fields": [
             {
               "fieldName": "touchUp",
+              "required": true,
               "label": "Touch-Up",
               "type": "checkbox",
               "subtext": "Check if touch-up is performed"
             },
             {
               "fieldName": "touchUpPerformed",
+              "required": true,
               "label": "Touch Up Performed",
               "type": "datetime-local"
             }

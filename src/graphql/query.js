@@ -6,9 +6,6 @@ const ALL = gql`
       id
       data
       leadEngineerDone
-      operatorDone
-      qualityControlDone
-      operatorStarted
       descriptions {
         id
         data
@@ -250,8 +247,8 @@ const GET_OPERATOR_BY_ITEM = gql`
 `;
 
 const OPERATOR_PROJECTS = gql`
-  query($leadEngineerDone: Boolean, $operatorDone: Boolean) {
-    projects(leadEngineerDone: $leadEngineerDone, operatorDone: $operatorDone) {
+  query($leadEngineerDone: Boolean) {
+    projects(leadEngineerDone: $leadEngineerDone) {
       leadEngineerDone
       data
       id
@@ -260,8 +257,6 @@ const OPERATOR_PROJECTS = gql`
         items {
           stage
           id
-          operatorDone
-          qualityControlDone
           itemId
         }
       }
