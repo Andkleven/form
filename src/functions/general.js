@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
 import Math from "components/form/functions/math";
+import {ignoreRequiredField} from "config/const";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -146,7 +147,7 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
           );
           if (Array.isArray(dataFields)) {
             dataFields.forEach(dataField => {
-              if (emptyField(dataField.data[field.fieldName])) {
+              if (emptyField(dataField.data[field.fieldName]) && (dataField.data[field.fieldName+ignoreRequiredField])) {
                 returnValue = false;
               }
             });

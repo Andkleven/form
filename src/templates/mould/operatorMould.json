@@ -53,6 +53,7 @@
               "fieldName": "equipmentIDMediaBlasting",
               "label": "Equipment ID",
               "specSubtextList": "leadEngineers.0.data.primer1",
+              "required": true,
               "placeholder": "Placeholder",
               "unit": "C"
             },
@@ -62,12 +63,14 @@
             },
             {
               "fieldName": "nextCalibrationDateMediaBlasting",
+              "required": true,
               "label": "Next Calibration Date",
               "type": "date"
             },
             {
               "fieldName": "mediaBlastingStarted",
               "label": "Media Blasting Started",
+              "required": true,
               "type": "datetime-local"
             },
             {
@@ -80,6 +83,7 @@
             },
             {
               "fieldName": "mediaBlastingStarted",
+              "required": true,
               "label": "Media Blasting Started",
               "type": "datetime-local"
             },
@@ -94,6 +98,7 @@
             {
               "fieldName": "steelPreparationPerformed",
               "label": "Steel Preparation Performed",
+              "required": true,
               "type": "datetime-local"
             }
           ]
@@ -114,11 +119,13 @@
             { "line": true },
             {
               "fieldName": "startTimeRubberCement",
+              "required": true,
               "label": "Start Time",
               "type": "datetime-local"
             },
             {
               "fieldName": "stopTimeRubberCement",
+              "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
             }
@@ -134,6 +141,7 @@
         ""
       ],
       "lookUpBy": "layerApplied",
+
       "pages": [
         {
           "pageTitle": "Coating {}",
@@ -188,8 +196,7 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators",
-            ""
+            "coatingOperators"
           ],
           "fields": [
             {
@@ -203,8 +210,7 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators",
-            ""
+            "coatingOperators"
           ],
           "fields": [
             {
@@ -240,16 +246,20 @@
             { "line": true },
             {
               "fieldName": "autoclaveNumber",
+              "ignoreRequired": true,
               "label": "Autoclave Number",
+              "required": true,
               "type": "number"
             },
             {
               "fieldName": "startTime",
+              "required": true,
               "label": "Start Time",
               "type": "datetime-local"
             },
             {
               "fieldName": "stopTime",
+              "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
             }
@@ -265,12 +275,14 @@
           "fields": [
             {
               "fieldName": "touchUp",
+              "required": true,
               "label": "Touch-Up",
               "type": "checkbox",
               "subtext": "Check if touch-up is performed"
             },
             {
               "fieldName": "touchUpPerformed",
+              "required": true,
               "label": "Touch Up Performed",
               "type": "datetime-local"
             }

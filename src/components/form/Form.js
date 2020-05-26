@@ -65,15 +65,18 @@ export default props => {
       skip: props.optionsQuery
     });
 
-  // Set DocumentDate to empty dictionary if a new components calls Form
-  useLayoutEffect(() => {
-    if (props.data) {
-      documentDateDispatch({
-        type: "setState",
-        newState: cloneDeep(props.data)
-      });
-    }
-  }, [props.componentsId, props.data]);
+    
+    // Set DocumentDate to empty dictionary if a new components calls Form
+    useLayoutEffect(() => {
+      if (props.data) {
+        documentDateDispatch({
+          type: "setState",
+          newState: cloneDeep(props.data)
+        });
+      }
+    }, [props.componentsId, props.data]);
+    // console.log(documentDate)
+    // console.log(validationPassed)
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
@@ -198,8 +201,8 @@ export default props => {
           stage:
             props.saveButton &&
             nextStage &&
-            Object.values(validationPassed).every(allTrue) &&
-            FindNextStage(props.specData, props.stage, props.geometry)
+            Object.values(validationPassed).every(allTrue) ?
+            FindNextStage(props.specData, props.stage, props.geometry) : props.stage
         }
       });
     }

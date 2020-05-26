@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useRef, useEffect } from "react";
-import { findValue, allRequiredSatisfied, createPath } from "functions/general";
+import { findValue, allRequiredSatisfied, createPath, removeSpace } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import Title from "components/design/fonts/Title";
@@ -16,9 +16,8 @@ export default props => {
   let count = 0;
   let stage = stagesJson["all"][0];
 
-  const getNewChapter = (arrayIndex, pageInfo) => {
+  const getNewChapter = (arrayIndex, pageInfo, thisStage="") => {
     let chapter; // new chapter to add to document
-
     if (
       (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
       !temporaryLastChapter
@@ -29,15 +28,14 @@ export default props => {
       chapter = null;
     } else {
       let allRequiredFieldSatisfied = props.data
-        ? props.document.chapterByStage
-          ? props.stage === stage
-          : !allRequiredSatisfied(pageInfo, props.data, arrayIndex)
-        : false;
+      ? props.document.chapterByStage
+      ? thisStage === stage
+      : !allRequiredSatisfied(pageInfo, props.data, arrayIndex)
+      : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
         temporaryLastChapter = count + 1;
       }
-
       // Map through pages in this pages
       chapter = pageInfo.pages.map((info, index) => {
         let showEditButton = !props.notEditButton && !index ? true : false;
@@ -75,7 +73,7 @@ export default props => {
       <Fragment key={`${count}-canvas`}>{chapter}</Fragment>
     ) : null;
   };
-  const runChapter = (pageInfo, step = null) => {
+  const runChapter = (pageInfo, thisStage="", step = null) => {
     if (pageInfo.specChapter) {
       let numberOfChapters = findValue(
         props.specData,
@@ -91,7 +89,8 @@ export default props => {
               : props.arrayIndex
               ? [...props.arrayIndex, index]
               : [index],
-            pageInfo
+            pageInfo,
+            thisStage
           );
           newChapterArray.push(
             <Fragment key={count}>
@@ -112,7 +111,7 @@ export default props => {
       return (
         <Fragment key={count}>
           {" "}
-          {getNewChapter(props.arrayIndex, pageInfo)}{" "}
+          {getNewChapter(props.arrayIndex, pageInfo, thisStage)}{" "}
         </Fragment>
       );
     }
@@ -121,12 +120,17 @@ export default props => {
     let i = 0;
     let stageSplit = [];
     let chapterBasedOnStage = [];
+    let thisStage = props.stage
+    if (props.stage === "" && props.geometry){
+      thisStage = Object.keys(stagesJson[removeSpace(props.geometry.toLowerCase())])[0]
+    } 
     while (stopLoop.current === false && i < 20) {
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
             stageSplit[1] ? stageSplit[0] + "Step" : stage
           ],
+          thisStage,
           stageSplit[1] - 1
         )
       );

@@ -34,6 +34,7 @@
               "fieldName": "totalOd",
               "label": "Total OD (Pi-tape)",
               "type": "checkbox",
+              "required": true,
               "subtext": "APS. Final measurements are within tolerances."
             },
             {
@@ -41,6 +42,7 @@
               "label": "Visual Inspection",
               "type": "checkbox",
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted.",
+              "required": true,
               "showFieldSpecPath": "leadEngineers.0.data.visualInspection"
             },
             {
@@ -48,6 +50,7 @@
               "label": "Final Dimensions Check",
               "subtext": "APS. All parts in accordance to drawings.",
               "type": "checkbox",
+              "required": true,
               "showFieldSpecPath": "leadEngineers.0.data.finalDimensionsCheck"
             },
             {
@@ -55,6 +58,7 @@
               "label": "Spark Test",
               "subtext": "TR 2028. No Holidays.",
               "type": "checkbox",
+              "required": true,
               "showFieldSpecPath": "leadEngineers.0.data.sparkTest"
             },
             {
@@ -62,6 +66,7 @@
               "label": "Hammer Test",
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch.",
+              "required": true,
               "showFieldSpecPath": "leadEngineers.0.data.hammerTest"
             },
             {
@@ -69,12 +74,14 @@
               "label": "Identification Marking",
               "subtext": "ID matches 123.",
               "showFieldSpecPath": "leadEngineers.0.data.identificationMarking",
+              "required": true,
               "type": "checkbox"
             },
             {
               "fieldName": "numberOfHardnessOfOuterLayer",
               "label": "Number of Hardness of Outer Layer",
               "showFieldSpecPath": "leadEngineers.0.data.hardnessOfOuterLayer",
+              "required": true,
               "type": "number"
             }
           ]
@@ -88,6 +95,7 @@
             {
               "fieldName": "hardnessOfOuterLayer",
               "indexVariableLabel": true,
+              "required": true,
               "label": "Hardness Of Outer Layer: {}",
               "unit": "Shore A",
               "type": "number"
@@ -99,6 +107,7 @@
           "fields": [
             {
               "fieldName": "numberOfPeelTest",
+              "required": true,
               "label": "Number of Peel Test",
               "showFieldSpecPath": "leadEngineers.0.data.peelTest",
               "type": "number"
@@ -114,6 +123,7 @@
             {
               "fieldName": "peelTest",
               "indexVariableLabel": true,
+              "required": true,
               "label": "Peel Test: {}",
               "unit": "N/25mm",
               "type": "number"

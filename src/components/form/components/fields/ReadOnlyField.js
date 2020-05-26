@@ -26,7 +26,7 @@ export default props => {
       let passedValidation = true;
       if (props.required) {
         let testValue = JSON.stringify(props.value);
-        if (!testValue.trim() || !props.value) {
+        if (!testValue || !testValue.trim() || !props.value) {
           setError(prevState => ({
             ...prevState,
             required: "You forgot this field"

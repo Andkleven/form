@@ -19,7 +19,8 @@ export default props => {
         mutationHandle({
           variables: {
             id: props.id,
-            stage
+            stage,
+            repair: true
           }
         });
       };

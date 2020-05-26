@@ -14,6 +14,7 @@
               "label": "Steel",
               "subtext": "Subtext",
               "type": "select",
+              "required": true,
               "options": ["Carbon", "Duplex"]
             },
             {
@@ -21,11 +22,13 @@
               "label": "Blast Media",
               "subtext": "Subtext",
               "type": "select",
+              "required": true,
               "options": ["Garnet", "Grit", "Aluminum Oxide"]
             },
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
+              "required": true,
               "default": 85,
               "type": "Number"
             },
@@ -106,8 +109,7 @@
                 "Chemosil 231",
                 "Chemosil 360",
                 "Chemosil 411"
-              ],
-              "required": true
+              ]
             },
             {
               "fieldName": "primer2",
@@ -144,6 +146,7 @@
               "label": "TDV (Target Description Value)",
               "placeholder": "Min",
               "type": "select",
+              "required": true,
               "options": ["OD", "ID"]
             },
             {
@@ -156,36 +159,36 @@
               "fieldName": "toleranceMin",
               "label": "Tolerance Min",
               "prepend": "Min",
+              "required": true,
               "type": "number"
             },
             {
               "fieldName": "toleranceMinPercent",
               "label": "Tolerance Min in Percent",
               "unit": "%",
-              "type": "Number",
-              "min": 2
+              "type": "Number"
             },
             {
               "fieldName": "toleranceMax",
               "math": "mathToleranceMin",
               "label": "Tolerance Max",
               "prepend": "Max",
+              "required": true,
               "type": "number"
             },
             {
               "fieldName": "toleranceMaxPercent",
               "label": "Tolerance Max in Percent",
               "unit": "%",
-              "type": "Number",
-              "max": 6
+              "type": "Number"
             },
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
               "math": "mathToleranceMax",
               "type": "Number",
-              "maxInput": 22,
-              "max": 22
+              "required": true,
+              "maxInput": 22
             }
           ]
         },
@@ -200,6 +203,7 @@
               "fieldName": "measurementPointActual",
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
+              "required": true,
               "type": "number"
             }
           ]
@@ -232,6 +236,7 @@
               "fieldName": "vulcanizationOption",
               "label": "Vulcanization Option",
               "type": "select",
+              "required": true,
               "options": [
                 "Air Autoclave",
                 "Heating Blankets",
@@ -243,11 +248,13 @@
             {
               "fieldName": "programNumber",
               "label": "Program Number",
+              "required": true,
               "type": "Number"
             },
             {
               "fieldName": "numberOfLayers",
               "label": "Number of Layers",
+              "required": true,
               "type": "Number"
             },
             {
@@ -273,6 +280,7 @@
                   "fieldName": "compoundNumber",
                   "label": "Compound Number",
                   "type": "select",
+                  "required": true,
                   "options": [
                               "73165 3mm",
                               "73165 4mm",
@@ -356,8 +364,6 @@
                   "fieldName": "actualThickness",
                   "label": "Actual Thickness",
                   "type": "Number",
-                  "min": 2,
-                  "max": 4,
                   "unit": "mm",
                   "decimal": 2,
                   "required": true
@@ -366,18 +372,14 @@
                   "fieldName": "shrink",
                   "label": "Shrink",
                   "type": "Number",
-                  "max": 15,
-                  "min": 2,
-                  "default": 0,
-                  "required": true
+                  "default": 0
                 },
                 {
                   "fieldName": "proposedThickness",
                   "label": "Proposed Thickness",
                   "math": "mathProposedThickness",
-                  "min": 2,
-                  "max": 4,
                   "unit": "mm",
+                  "required": true,
                   "decimal": 1,
                   "type": "Number"
                 },

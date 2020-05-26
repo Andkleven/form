@@ -13,6 +13,7 @@
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
               "default": 85,
+              "required": true,
               "type": "Number"
             },
             {
@@ -64,15 +65,16 @@
               "fieldName": "toleranceMin",
               "label": "Tolerance Min",
               "prepend": "Min",
+              "required": true,
               "type": "number"
             },
             {
               "fieldName": "toleranceMinPercent",
               "label": "Tolerance Min in Percent",
+              "required": true,
               "unit": "%",
               "math": "mathToleranceMinPercent",
-              "type": "Number",
-              "min": 2
+              "type": "Number"
             },
             {
               "fieldName": "toleranceMax",
@@ -83,16 +85,16 @@
             {
               "fieldName": "toleranceMaxPercent",
               "label": "Tolerance Max in Percent",
+              "required": true,
               "unit": "%",
               "math": "mathToleranceMaxPercent",
-              "type": "Number",
-              "max": 6
+              "type": "Number"
             },
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
-              "maxInput": 22,
-              "max": 22
+              "required": true,
+              "maxInput": 22
             }
           ]
         },
@@ -108,6 +110,7 @@
             {
               "fieldName": "vulcanizationOption",
               "label": "Vulcanization Option",
+              "required": true,
               "type": "select",
               "options": [
                 "Air Autoclave",
@@ -119,11 +122,13 @@
             },
             {
               "fieldName": "programNumber",
+              "required": true,
               "label": "Program Number",
               "type": "Number"
             },
             {
               "fieldName": "numberOfLayers",
+              "required": true,
               "label": "Number of Layers",
               "type": "Number"
             },
@@ -148,6 +153,7 @@
                 { "line": true },
                 {
                   "fieldName": "compoundNumber",
+                  "required": true,
                   "label": "Compound Number",
                   "type": "select",
                   "options": [
@@ -233,8 +239,6 @@
                   "fieldName": "actualThickness",
                   "label": "Actual Thickness",
                   "type": "Number",
-                  "min": 2,
-                  "max": 4,
                   "unit": "mm",
                   "decimal": 2,
                   "required": true
@@ -243,17 +247,14 @@
                   "fieldName": "shrink",
                   "label": "Shrink",
                   "type": "Number",
-                  "max": 15,
-                  "min": 2,
                   "default": 0,
                   "required": true
                 },
                 {
                   "fieldName": "proposedThickness",
                   "label": "Proposed Thickness",
+                  "required": true,
                   "math": "mathProposedThickness",
-                  "min": 2,
-                  "max": 4,
                   "unit": "mm",
                   "decimal": 1,
                   "type": "Number"
@@ -276,6 +277,7 @@
                 {
                   "fieldName": "hardnessOfOuterLayer",
                   "label": "Hardness of Outer Layer",
+                  "required": true,
                   "unit": "Shore A"
                 },
                 {

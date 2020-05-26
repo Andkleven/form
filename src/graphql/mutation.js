@@ -13,7 +13,7 @@ const ORDER = gql`
           items {
             id
             itemId
-            different
+            unique
           }
           uploadFiles {
             id
@@ -38,34 +38,31 @@ const ITEM = gql`
   mutation item(
     $id: Int
     $itemId: String
-    $different: Boolean
+    $unique: Boolean
     $qrCode: String
     $repair: Boolean
-    $operatorDone: Boolean
-    $qualityControlDone: Boolean
     $stage: String
+    $seen: [String]
     $foreignKey: Int
   ) {
     item(
       id: $id
       itemId: $itemId
       stage: $stage
-      different: $different
+      unique: $unique
       qrCode: $qrCode
       repair: $repair
-      operatorDone: $operatorDone
-      qualityControlDone: $qualityControlDone
+      seen: $seen
       foreignKey: $foreignKey
     ) {
       new {
         id
         itemId
-        different
+        unique
         qrCode
         repair
-        operatorDone
-        qualityControlDone
         stage
+        seen
       }
     }
   }
