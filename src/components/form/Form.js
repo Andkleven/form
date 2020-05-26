@@ -199,7 +199,6 @@ export default props => {
           itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
-            props.saveButton &&
             nextStage &&
             Object.values(validationPassed).every(allTrue) ?
             FindNextStage(props.specData, props.stage, props.geometry) : props.stage
