@@ -90,7 +90,7 @@ export default pageInfo => {
     update: deleteFromCache
   });
   const [
-    mutationDifferent,
+    mutationunique,
     { loading: loadingMutation, error: errorMutation }
   ] = useMutation(mutations["ITEM"]);
 
@@ -166,7 +166,7 @@ export default pageInfo => {
               onClick={() =>
                 history.push(
                   `/order/lead-engineer/${geometryData.id}/${
-                    geometryData.items.find(item => item.different === false).id
+                    geometryData.items.find(item => item.unique === false).id
                   }/0/${geometryData.data.geometry}`
                 )
               }
@@ -179,11 +179,11 @@ export default pageInfo => {
               counter={counter - 1}
               items={geometryData.items}
               submitItem={item => {
-                if (!item.different) {
-                  mutationDifferent({
+                if (!item.unique) {
+                  mutationunique({
                     variables: {
                       id: item.id,
-                      different: true
+                      unique: true
                     }
                   });
                 }

@@ -31,7 +31,7 @@ export default hot(() => {
           <Route path="/order/project/:id" component={Item} />
           {/* Lead Engineer: Create Items */}
           <Route
-            path="/order/lead-engineer/:descriptionId/:itemId/:different/:geometry"
+            path="/order/lead-engineer/:descriptionId/:itemId/:unique/:geometry"
             component={LeadEngineerPage}
           />
           {/* Operator: Batching */}
