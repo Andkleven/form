@@ -36,7 +36,7 @@ const rejectStyle = {
 export default props => {
   const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
-  console.log(props.path, props.list)
+  const [placeholder, setPlaceholder] = useState("");
   // test
   useEffect(() => {
     if (!props.singleFile) {
@@ -69,11 +69,7 @@ export default props => {
     accept: "image/*",
     onDrop: acceptedFiles => {
       if (props.singleFile) {
-        objectPath.set(
-          documentDate,
-          props.path,
-          props.list ? [acceptedFiles[0]] : acceptedFiles[0]
-        );
+        documentDateDispatch({type: 'add', path: props.path, newState: props.list ? [acceptedFiles[0]] : acceptedFiles[0]})
       } else {
         setFiles(prevState => {
           acceptedFiles.forEach(file => {
@@ -108,30 +104,30 @@ export default props => {
       return [...prevState];
     });
   };
-  const placeholder = props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.` 
-  if ( objectPath.get(documentDate, props.path) ){
+  useEffect(() => {
+    console.log(234)
+    if (props.singleFile && objectPath.get(documentDate, props.path) && objectPath.get(documentDate, props.path).name && !props.list) {
+      console.log(2, objectPath.get(documentDate, props.path))
+      setPlaceholder(objectPath.get(documentDate, props.path).name)
+    } else {
+      console.log(3)
+      setPlaceholder(props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.`)
+    }
+  }, [props.placeholder, documentDate, props.path, props.list, props.singleFile])
 
-    console.log(objectPath.get(documentDate, props.path).name)
-  }
-  console.log(files)
+  console.log(placeholder)
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
         {props.writeChapter && (
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
-            <p className="mt-2">
-              {props.singleFile 
-               ? objectPath.get(documentDate, props.path)
-                ? props.list
-                 ? objectPath.get(documentDate, props.path).file
-                 : objectPath.get(documentDate, props.path).name 
-                : placeholder
-               : placeholder}
-            </p>
+                <p className="mt-2">
+                  {placeholder} 
+                </p>
           </div>
         )}
-        {files.length && !props.singleFile ? (
+        {files.length && props.list && !props.singleFile ? (
           <aside>
             {props.writeChapter && (
               <>
