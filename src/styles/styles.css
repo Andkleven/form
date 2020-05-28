@@ -84,7 +84,7 @@ footer {
   display: none;
 }
 
-/* Trelleborg button */
+/* Trelleborg button
 .btn-trelleborg {
   color: #ffffff;
   background-color: #f3a63a;
@@ -129,7 +129,7 @@ fieldset[disabled] .btn-trelleborg.active {
 .btn-trelleborg .badge {
   color: #f3a63a;
   background-color: #ffffff;
-}
+} */
 
 .nav-link {
   color: #343a40;

@@ -42,7 +42,7 @@
     "touchUp": { "queryPath": "" },
     "qualityControl": { "queryPath": "" }
   },
-  
+
   "mould": {
     "steelPreparation1": { "queryPath": "" },
     "rubberCementsBeforeCoating": {
