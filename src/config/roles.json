@@ -1,0 +1,93 @@
+{
+  "admin": {
+    "displayName": "Administrator",
+    "levels": ["general"],
+    "access": {
+      "specs": true,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": true,
+      "itemRepair": true,
+      "finalInspection": true,
+      "finished": true
+    }
+  },
+  "lead": {
+    "displayName": "Lead Engineer",
+    "levels": ["general"],
+    "access": {
+      "specs": true,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": false,
+      "itemRepair": true,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "supervisor": {
+    "displayName": "Supervisor",
+    "levels": ["general"],
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": true,
+      "itemRepair": true,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "operator": {
+    "displayName": "Operator",
+    "levels": ["general"],
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": false,
+      "itemRepair": true,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "quality": {
+    "displayName": "Quality Control",
+    "levels": ["general"],
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": true,
+      "itemRepair": true,
+      "finalInspection": true,
+      "finished": true
+    }
+  },
+  "offsite": {
+    "displayName": "Offsite Responsible",
+    "levels": ["project"],
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": true,
+      "itemEdit": false,
+      "itemRepair": false,
+      "finalInspection": false,
+      "finished": true
+    }
+  },
+  "spectator": {
+    "displayName": "Spectator",
+    "levels": ["general"],
+    "access": {
+      "specs": false,
+      "itemRead": true,
+      "itemWrite": false,
+      "itemEdit": false,
+      "itemRepair": false,
+      "finalInspection": false,
+      "finished": true
+    }
+  }
+}

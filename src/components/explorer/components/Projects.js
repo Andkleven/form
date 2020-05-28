@@ -67,23 +67,8 @@ export default ({
                   // name={description.data.geometry}
                   name={`Description ${indexDescription + 1}`}
                 >
-                  {/* {props.access &&
-                    props.access.batch &&
-                    description.items.length > 1 && (
-                      <Link
-                        to={`/order/item/${description.data.description}`}
-                        iconProps={{
-                          icon: ["fad", "cubes"],
-                          size: iconSize,
-                          style: iconStyle
-                        }}
-                        style={rowStyle}
-                      >
-                        Batch items
-                      </Link>
-                    )} */}
                   {props.access &&
-                    props.access.items &&
+                    (props.access.itemRead || props.access.itemWrite) &&
                     description.items &&
                     description.items.map((item, indexItem) => (
                       <Link

@@ -45,74 +45,72 @@ export default ({ view = "items", ...props }) => {
 
   return (
     <>
-      {props.access && props.access.filter && (
-        <div className="mb-3">
-          <h6 className="mb-3">Filters</h6>
-          <form id="filterForm">
-            <Input
-              key="stageTermInput"
-              placeholder="Stage"
-              type="select"
-              options={stages}
-              select="select"
-              tight
-              value={filters.stage}
-              onChangeSelect={e => {
-                if (e) {
-                  if (e.value) {
-                    setFilters({ ...filters, stage: e.value });
-                  } else {
-                    let tempFilters = { ...filters };
-                    delete tempFilters.stage;
-                    setFilters(tempFilters);
-                  }
+      <div className="mb-3">
+        <h6 className="mb-3">Filters</h6>
+        <form id="filterForm">
+          <Input
+            key="stageTermInput"
+            placeholder="Stage"
+            type="select"
+            options={stages}
+            select="select"
+            tight
+            value={filters.stage}
+            onChangeSelect={e => {
+              if (e) {
+                if (e.value) {
+                  setFilters({ ...filters, stage: e.value });
+                } else {
+                  let tempFilters = { ...filters };
+                  delete tempFilters.stage;
+                  setFilters(tempFilters);
                 }
-              }}
-            />
-            <Input
-              key="itemTermInput"
-              placeholder="Type of item"
-              type="select"
-              options={itemTypes}
-              select="select"
-              tight
-              value={filters.geometry}
-              onChangeSelect={e => {
-                if (e) {
-                  if (e.value) {
-                    setFilters({ ...filters, geometry: e.value });
-                  } else {
-                    let tempFilters = { ...filters };
-                    delete tempFilters.geometry;
-                    setFilters(tempFilters);
-                  }
-                }
-              }}
-            />
-            <Input
-              placeholder="Search item properties..."
-              tight
-              onChange={e => {
-                setSearchTerm(e.target.value);
-              }}
-              unit={
-                <FontAwesomeIcon
-                  icon="search"
-                  style={{ position: "relative", top: "0.09em" }}
-                />
               }
-            />
-            <DarkButton
-              onClick={() => {
-                clearAll();
-              }}
-            >
-              <FontAwesomeIcon icon={["fas", "trash-alt"]} className="mr-2" />
-              Clear all filters
-            </DarkButton>
-          </form>
-        </div>
-      )}
+            }}
+          />
+          <Input
+            key="itemTermInput"
+            placeholder="Type of item"
+            type="select"
+            options={itemTypes}
+            select="select"
+            tight
+            value={filters.geometry}
+            onChangeSelect={e => {
+              if (e) {
+                if (e.value) {
+                  setFilters({ ...filters, geometry: e.value });
+                } else {
+                  let tempFilters = { ...filters };
+                  delete tempFilters.geometry;
+                  setFilters(tempFilters);
+                }
+              }
+            }}
+          />
+          <Input
+            placeholder="Search item properties..."
+            tight
+            onChange={e => {
+              setSearchTerm(e.target.value);
+            }}
+            unit={
+              <FontAwesomeIcon
+                icon="search"
+                style={{ position: "relative", top: "0.09em" }}
+              />
+            }
+          />
+          <DarkButton
+            onClick={() => {
+              clearAll();
+            }}
+          >
+            <FontAwesomeIcon icon={["fas", "trash-alt"]} className="mr-2" />
+            Clear all filters
+          </DarkButton>
+        </form>
+      </div>
       <Projects {...props} data={results} />
     </>
   );

@@ -5,7 +5,7 @@ import query from "graphql/query";
 import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
-import { access } from "functions/user.ts";
+import { getAccess } from "functions/user.ts";
 
 export default ({
   defaultFilters,
@@ -39,7 +39,7 @@ export default ({
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
-        access={access()}
+        access={getAccess()}
       />
     );
   }
