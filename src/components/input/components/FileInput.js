@@ -34,17 +34,16 @@ const rejectStyle = {
 };
 
 export default props => {
-  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
+  const { documentDate, documentDateDispatch } = useContext(
+    DocumentDateContext
+  );
   const [files, setFiles] = useState([]);
   const [placeholder, setPlaceholder] = useState("");
   console.log(props.singleFile)
   // test
   useEffect(() => {
     if (!props.singleFile) {
-      let oldFiles = objectPath.get(
-        documentDate,
-        props.path
-      );
+      let oldFiles = objectPath.get(documentDate, props.path);
       if (oldFiles) {
         setFiles(
           oldFiles.map(oldFile => ({
@@ -126,9 +125,7 @@ export default props => {
         {props.writeChapter && (
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
-                <p className="mt-2">
-                  {placeholder} 
-                </p>
+            <p className="mt-2">{placeholder}</p>
           </div>
         )}
         {files.length && !props.singleFile ? (
@@ -142,7 +139,7 @@ export default props => {
                 <hr className="w-100 m-0" />
               </>
             )}
-            <ul className="mb-0">
+            <ul className="px-0 mb-0">
               {files.map((file, index) => (
                 <FileDescription
                   key={index}

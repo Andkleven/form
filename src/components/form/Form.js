@@ -212,7 +212,7 @@ export default props => {
 
   const submitHandler = data => {
     if (
-      (props.saveButton && validateFieldWithValue(validationPassed)) ||
+      (props.saveButton && validateFieldWithValue(validationPassed) && !editChapter) ||
       Object.values(validationPassed).every(allTrue)
     ) {
       submitData(data);

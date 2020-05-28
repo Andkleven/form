@@ -4,9 +4,9 @@ import query from "graphql/query";
 import leadEngineersCoatedItemJson from "templates/coatedItem/leadEngineerCoatedItem.json";
 import leadEngineersMouldJson from "templates/mould/leadEngineerMould.json";
 import Form from "components/form/Form";
-import PaperStack from "components/layout/PaperStack";
 import Paper from "components/layout/Paper";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
+import Canvas from "components/layout/Canvas";
 let leadEngineersJson = leadEngineersCoatedItemJson;
 export default pageInfo => {
   const { descriptionId, itemId, unique, geometry } = pageInfo.match.params;
@@ -28,8 +28,8 @@ export default pageInfo => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
-    <PaperStack>
-      <Paper>
+    <Canvas>
+      <Paper full>
         <Form
           componentsId={"leadEngineersPage"}
           document={leadEngineersJson}
@@ -42,6 +42,6 @@ export default pageInfo => {
           // finalButton={console.log("finalButton")}
         />
       </Paper>
-    </PaperStack>
+    </Canvas>
   );
 };

@@ -68,9 +68,9 @@ export default props => {
       <Input
         onChange={e => setState(e.target.value)}
         value={state}
-        label="Item Id"
+        label="Item ID"
       />
-      <SubmitButton onClick={handleSubmit} />
+      <SubmitButton onClick={handleSubmit}>Add item to project</SubmitButton>
       {loading && <p>Loading...</p>}
       {error && <p>Error :( Please try again</p>}
     </>

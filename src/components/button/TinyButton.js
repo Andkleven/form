@@ -15,11 +15,17 @@ export default props => {
           props.className
         }`}
         onClick={props.onClick}
-        style={{ minWidth: props.noPadding ? `` : `1.8em` }}
+        style={{ minWidth: props.noPadding ? `` : `1.8em`, ...props }}
       >
         <span className={`${props.color && `text-${props.color}`}`}>
-          {props.icon && <FontAwesomeIcon icon={props.icon} />}
-          {props.content && ` ${props.content}`}
+          {props.icon && (
+            <FontAwesomeIcon
+              icon={props.icon}
+              size={props.iconSize || ""}
+              style={props.iconStyle}
+            />
+          )}
+          <div className="ml-1 d-inline">{props.children}</div>
         </span>
       </Button>
     </OverlayTrigger>
