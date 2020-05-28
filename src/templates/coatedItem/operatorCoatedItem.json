@@ -255,7 +255,6 @@
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "required": true,
               "fieldName": "referencePlateId",
               "placeholder": "Reference Plate Id (Optional)"
             },
