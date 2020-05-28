@@ -157,9 +157,9 @@
             },
             {
               "fieldName": "toleranceMin",
+              "math": "mathToleranceMin",
               "label": "Tolerance Min",
               "prepend": "Min",
-              "required": true,
               "type": "number"
             },
             {
@@ -170,10 +170,9 @@
             },
             {
               "fieldName": "toleranceMax",
-              "math": "mathToleranceMin",
+              "math": "mathToleranceMax",
               "label": "Tolerance Max",
               "prepend": "Max",
-              "required": true,
               "type": "number"
             },
             {
@@ -185,7 +184,6 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
-              "math": "mathToleranceMax",
               "type": "Number",
               "required": true,
               "maxInput": 22
@@ -379,7 +377,6 @@
                   "label": "Proposed Thickness",
                   "math": "mathProposedThickness",
                   "unit": "mm",
-                  "required": true,
                   "decimal": 1,
                   "type": "Number"
                 },

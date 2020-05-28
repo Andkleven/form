@@ -65,6 +65,7 @@
               "fieldName": "toleranceMin",
               "label": "Tolerance Min",
               "prepend": "Min",
+              "math": "mathToleranceMin",
               "required": true,
               "type": "number"
             },
@@ -73,12 +74,12 @@
               "label": "Tolerance Min in Percent",
               "required": true,
               "unit": "%",
-              "math": "mathToleranceMinPercent",
               "type": "Number"
             },
             {
               "fieldName": "toleranceMax",
               "label": "Tolerance Max",
+              "math": "mathToleranceMax",
               "prepend": "Max",
               "type": "number"
             },
@@ -87,7 +88,6 @@
               "label": "Tolerance Max in Percent",
               "required": true,
               "unit": "%",
-              "math": "mathToleranceMaxPercent",
               "type": "Number"
             },
             {

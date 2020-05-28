@@ -109,6 +109,11 @@ export default props => {
     });
   };
   const placeholder = props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.` 
+  if ( objectPath.get(documentDate, props.path) ){
+
+    console.log(objectPath.get(documentDate, props.path).name)
+  }
+  console.log(files)
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
@@ -116,12 +121,13 @@ export default props => {
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
             <p className="mt-2">
-              {props.singleFile ? files[0]
-                ? objectPath.get(documentDate, props.path).file
-                 : files.file 
-                 ? objectPath.get(documentDate, props.path).name
-                 : placeholder
-                : placeholder}
+              {props.singleFile 
+               ? objectPath.get(documentDate, props.path)
+                ? props.list
+                 ? objectPath.get(documentDate, props.path).file
+                 : objectPath.get(documentDate, props.path).name 
+                : placeholder
+               : placeholder}
             </p>
           </div>
         )}
