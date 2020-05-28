@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 
 export default props => {
   const DefaultContent = () => {
-    return <>Submit</>;
+    return <>Cancel</>;
   };
 
   const DeviceButton = () => {
@@ -11,6 +11,7 @@ export default props => {
     return (
       <Button
         {...props}
+        variant="secondary"
         type="submit"
         onClick={props.onClick}
         className="w-100 py-2"

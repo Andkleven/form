@@ -1,6 +1,7 @@
 import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
+import ItemGrid from "components/layout/ItemGrid";
 
 export default ({
   data,
@@ -20,7 +21,6 @@ export default ({
             icon: ["fad", "folder-plus"],
             size: iconSize,
             style: iconStyle
-            // className: "text-primary"
           }}
           style={rowStyle}
         >
@@ -67,23 +67,26 @@ export default ({
                   // name={description.data.geometry}
                   name={`Description ${indexDescription + 1}`}
                 >
-                  {props.access &&
-                    (props.access.itemRead || props.access.itemWrite) &&
-                    description.items &&
-                    description.items.map((item, indexItem) => (
-                      <Link
-                        to={`/single-item/${item.id}/${description.data.geometry}`}
-                        key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
-                        iconProps={{
-                          icon: ["fad", "cube"],
-                          size: iconSize,
-                          style: iconStyle
-                        }}
-                        style={rowStyle}
-                      >
-                        {item.id}
-                      </Link>
-                    ))}
+                  <ItemGrid>
+                    {props.access &&
+                      (props.access.itemRead || props.access.itemWrite) &&
+                      description.items &&
+                      description.items.map((item, indexItem) => (
+                        <Link
+                          to={`/single-item/${item.id}/${description.data.geometry}`}
+                          key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
+                          iconProps={{
+                            icon: ["fad", "cube"],
+                            size: iconSize,
+                            style: iconStyle
+                          }}
+                          className="mr-5"
+                          style={{ rowStyle, iconStyle }}
+                        >
+                          {item.id}
+                        </Link>
+                      ))}
+                  </ItemGrid>
                 </Tree>
               ))}
           </Tree>

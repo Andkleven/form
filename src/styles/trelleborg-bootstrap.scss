@@ -1,6 +1,9 @@
 $theme-colors: (
-  "primary": #f19e29,
-  "secondary": #727b86,
+  // "primary": #f1b25b,
+    // "primary": #f19e29,
+    "primary": #f0a741,
+  // "primary": #ff7d00,
+    "secondary": #727b86,
   "success": #28a745,
   "info": #17a2b8,
   "warning": #ffc107,
@@ -9,5 +12,12 @@ $theme-colors: (
   "dark": #23272b,
   "darkLight": #2f343a
 );
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  color: #ffffff !important;
+}
 
 @import "~bootstrap/scss/bootstrap.scss";

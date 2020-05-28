@@ -8,7 +8,7 @@ import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 
 export default props => {
-  const {setIsSubmitted, setValidationPassed} = useContext(FieldsContext);
+  const { setIsSubmitted, setValidationPassed } = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
@@ -33,7 +33,8 @@ export default props => {
     <TinyButton
       {...props}
       onClick={() => flipToWrite()}
-      icon="pencil"
+      icon={["fas", "pen"]}
+      iconSize="sm"
       tooltip="Edit"
     />
   );
