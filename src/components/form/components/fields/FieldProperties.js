@@ -173,7 +173,7 @@ export default props => {
         {...props}
         key={`${props.indexId}-${props.index}`}
         subtext={subtext}
-        oneFile={true}
+        singleFile={true}
         path={`${props.path}.${props.fieldName}`}
         label={label}
       />

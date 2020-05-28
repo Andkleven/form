@@ -154,8 +154,7 @@
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "type": "file",
-              "singleFile": true
+              "type": "file"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
@@ -174,6 +173,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "nextCalibrationDateCompressedAirCheck",
+              "type": "date",
               "label": "Next Calibration Date",
               "required": true
             },
@@ -198,6 +198,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "fieldName": "nextCalibrationDateUvTest",
+              "type": "date",
               "label": "Next Calibration Date",
               "required": true
             },
@@ -224,6 +225,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
+              "type": "date",
               "label": "Next Calibration Date",
               "required": true
             },
@@ -250,6 +252,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
               "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
+              "type": "date",
               "label": "Next Calibration Date",
               "required": true
             },
@@ -273,7 +276,6 @@
             {
               "fieldName": "dustCheckImage",
               "placeholder": "Upload Image",
-              "singleFile": true,
               "type": "file"
             },
             { "line": true },

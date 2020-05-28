@@ -249,13 +249,14 @@ export default props => {
     props.path,
     props.default
   ])
-
   return (
     <>
       <Input
         {...props}
         onChangeDate={onChangeDate}
         defaultValue={defaultValue()}
+        singleFile={true}
+        a={true}
         value={(props.type === "date" || props.type === "datetime-local") && new Date(objectPath.get(
                 documentDate,
                 props.path,

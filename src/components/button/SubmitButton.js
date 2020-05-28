@@ -2,8 +2,8 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 
 export default props => {
-  const Content = () => {
-    return <>Submit</>;
+  const Content = props => {
+    return <>{props.name ? props.name : "Submit"}</>;
   };
 
   const DeviceButton = () => {
@@ -15,7 +15,7 @@ export default props => {
         onClick={props.onClick}
         className="w-100 text-light py-2"
       >
-        <Content />
+        <Content name={props.name}/>
       </Button>
     );
   };

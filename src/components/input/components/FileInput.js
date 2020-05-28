@@ -37,6 +37,7 @@ export default props => {
   const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
   const [placeholder, setPlaceholder] = useState("");
+  console.log(props.singleFile)
   // test
   useEffect(() => {
     if (!props.singleFile) {
@@ -56,8 +57,10 @@ export default props => {
   }, [props.path, props.singleFile, documentDate]);
 
   useEffect(() => {
-    documentDateDispatch({type: 'add', path: props.path, newState: files});
-  }, [files, props.path, documentDateDispatch]);
+    if (!props.singleFile) {
+      documentDateDispatch({type: 'add', path: props.path, newState: files});
+    }
+  }, [files, props.path, documentDateDispatch, props.singleFile]);
 
   const {
     getRootProps,
@@ -69,7 +72,7 @@ export default props => {
     accept: "image/*",
     onDrop: acceptedFiles => {
       if (props.singleFile) {
-        documentDateDispatch({type: 'add', path: props.path, newState: props.list ? [acceptedFiles[0]] : acceptedFiles[0]})
+        documentDateDispatch({type: 'add', path: props.path, newState: acceptedFiles[0]})
       } else {
         setFiles(prevState => {
           acceptedFiles.forEach(file => {
@@ -105,17 +108,18 @@ export default props => {
     });
   };
   useEffect(() => {
-    console.log(234)
-    if (props.singleFile && objectPath.get(documentDate, props.path) && objectPath.get(documentDate, props.path).name && !props.list) {
-      console.log(2, objectPath.get(documentDate, props.path))
-      setPlaceholder(objectPath.get(documentDate, props.path).name)
+    if (props.singleFile) {
+      let file = objectPath.get(documentDate, props.path)
+      if (file && file.name) {
+        setPlaceholder(file.name)
+      } else {
+        setPlaceholder(file)
+      }
     } else {
-      console.log(3)
       setPlaceholder(props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.`)
     }
-  }, [props.placeholder, documentDate, props.path, props.list, props.singleFile])
+  }, [props.placeholder, documentDate, props.path, props.singleFile])
 
-  console.log(placeholder)
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
@@ -127,13 +131,13 @@ export default props => {
                 </p>
           </div>
         )}
-        {files.length && props.list && !props.singleFile ? (
+        {files.length && !props.singleFile ? (
           <aside>
             {props.writeChapter && (
               <>
                 <label className={`${props.writeChapter ? `mt-3` : ``}`}>
                   Uploaded{" "}
-                  {props.singleFile || files.length === 1 ? "file" : "files"}
+                  files
                 </label>
                 <hr className="w-100 m-0" />
               </>

@@ -3,14 +3,15 @@ import { FieldsContext } from "components/form/Form";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);
-
   const [style, setStyle] = useState({ fontSize: 12, color: "red" });
+
   useEffect(() => {
     setStyle(prevState => ({
       ...prevState,
       color: fieldsContext.isSubmitted ? "red" : "orange"
     }));
   }, [props.showMinMax, fieldsContext.isSubmitted]);
+
   return (
     <>
       {(props.showMinMax || fieldsContext.isSubmitted) && (

@@ -187,9 +187,6 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-    console.log(props.saveButton,
-      nextStage,
-      Object.values(validationPassed).every(allTrue))
   const submitData = data => {
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
@@ -204,7 +201,10 @@ export default props => {
             props.saveButton &&
             nextStage &&
             Object.values(validationPassed).every(allTrue) ?
-            FindNextStage(props.specData, props.stage, props.geometry) : props.stage
+            editChapter 
+             ? FindNextStage(props.specData, props.stage, props.geometry) 
+             : props.stage
+            : props.stage 
         }
       });
     }

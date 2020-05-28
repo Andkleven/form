@@ -199,17 +199,17 @@ const mathProposedThickness = (values, repeatStepList, decimal) => {
 };
 
 const mathToleranceMin = (values, repeatStepList, decimal) => {
-  let toleranceMaxPercent = Number(
-    findValue(values, "leadEngineers.0.data.toleranceMaxPercent")
+  let toleranceMinPercent = Number(
+    findValue(values, "leadEngineers.0.data.toleranceMinPercent")
   );
 
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineers.0.data.orderedTotalRubberThickness")
   );
   return whatTooReturn(
-    (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+    orderedTotalRubberThickness - (orderedTotalRubberThickness * toleranceMinPercent) / 100,
     decimal,
-    [toleranceMaxPercent, orderedTotalRubberThickness]
+    [toleranceMinPercent, orderedTotalRubberThickness]
   );
 };
 
@@ -221,7 +221,7 @@ const mathToleranceMax = (values, repeatStepList, decimal) => {
     findValue(values, "leadEngineers.0.data.orderedTotalRubberThickness")
   );
   return whatTooReturn(
-    (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+    orderedTotalRubberThickness + (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
     decimal,
     [toleranceMaxPercent, orderedTotalRubberThickness]
   );
