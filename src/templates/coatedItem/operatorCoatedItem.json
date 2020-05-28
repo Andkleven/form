@@ -151,6 +151,13 @@
               "unit": "Sa"
             },
             {
+              "fieldName": "surfaceCleanlinessImage",
+              "placeholder": "Upload Image",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "type": "file",
+              "singleFile": true
+            },
+            {
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
@@ -263,6 +270,12 @@
               "placeholder": "Result",
               "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
               "type": "number"
+            },
+            {
+              "fieldName": "dustCheckImage",
+              "placeholder": "Upload Image",
+              "singleFile": true,
+              "type": "file"
             },
             { "line": true },
             {

@@ -154,6 +154,8 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
         operators {
           id
           data
+          surfaceCleanlinessImage
+          dustCheckImage
           measurementPointActualTdvs {
             id
             data
@@ -217,6 +219,8 @@ const GET_OPERATOR_BY_ITEM = gql`
       operators {
         id
         data
+        surfaceCleanlinessImage
+        dustCheckImage
         measurementPointActualTdvs {
           id
           data
@@ -272,8 +276,6 @@ const QUALITY_CONTROL = gql`
       unique
       qrCode
       repair
-      operatorDone
-      qualityControlDone
       leadEngineers {
         id
         data

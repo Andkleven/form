@@ -19,9 +19,12 @@ export default props => {
   const {editChapter} = useContext(ChapterContext);
     const getNewPath = useCallback(
       () => {
+        if (props.type === "file") {
+          return `${props.path}.${props.fieldName}`;
+        }
         return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
       },
-      [props.path, props.fieldName]
+      [props.path, props.fieldName, props.type]
     );
     
   useEffect(() => {

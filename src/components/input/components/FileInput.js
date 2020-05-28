@@ -36,7 +36,7 @@ const rejectStyle = {
 export default props => {
   const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   const [files, setFiles] = useState([]);
-  
+  console.log(props.path, props.list)
   // test
   useEffect(() => {
     if (!props.singleFile) {
@@ -72,7 +72,7 @@ export default props => {
         objectPath.set(
           documentDate,
           props.path,
-          acceptedFiles[0]
+          props.list ? [acceptedFiles[0]] : acceptedFiles[0]
         );
       } else {
         setFiles(prevState => {
@@ -108,7 +108,7 @@ export default props => {
       return [...prevState];
     });
   };
-
+  const placeholder = props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.` 
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
@@ -116,12 +116,12 @@ export default props => {
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
             <p className="mt-2">
-              {files.length && props.singleFile
-                ? objectPath.get(documentDate, props.path)
-                    .file
-                : `Drag 'n' drop ${
-                    props.singleFile ? "file" : "files"
-                  }, or click to upload.`}
+              {props.singleFile ? files[0]
+                ? objectPath.get(documentDate, props.path).file
+                 : files.file 
+                 ? objectPath.get(documentDate, props.path).name
+                 : placeholder
+                : placeholder}
             </p>
           </div>
         )}

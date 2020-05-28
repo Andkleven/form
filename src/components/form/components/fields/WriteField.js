@@ -12,7 +12,8 @@ import LightLine from "components/design/LightLine";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {ignoreRequiredField} from "config/const";
+import { ignoreRequiredField, userField } from "config/const";
+import { USER } from "constants.js";
 
 let initialValue = {
   min: "",
@@ -21,11 +22,17 @@ let initialValue = {
 };
 
 export default props => {
+  const userInfo = JSON.parse(localStorage.getItem(USER));
   const {editChapter, setEditChapter} = useContext(ChapterContext);
   const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message before submit
   const {setValidationPassed} = useContext(FieldsContext);
   const [error, setError] = useState(initialValue)
+  
+  const addUser = useCallback(() => {
+      documentDateDispatch({type: 'add', newState: userInfo.username, path: props.path + userField})
+    },[documentDateDispatch, props.path, userInfo.username])
+  
   
   const testPassedValidation = useCallback(data => {
     if (
@@ -99,12 +106,14 @@ export default props => {
     }, [testPassedValidation, props.backendData, props.path])
   
   const onChangeDate = data => {
+    addUser()
     setShowMinMax(true);
     testPassedValidation(data)
     documentDateDispatch({type: 'add', newState: data, path: props.path})
   };
  
   const onChangeSelect = e => {
+    addUser()
     setShowMinMax(true);
     testPassedValidation(e.value)
     documentDateDispatch({type: 'add', newState: e.value, path: props.path})
@@ -112,6 +121,7 @@ export default props => {
   
   const onBlur = e => {
     let { name, value, type, step, min, max } = e.target;
+    addUser()
     setShowMinMax(true);
     testPassedValidation(value)
     min = Number(min);
@@ -149,6 +159,7 @@ export default props => {
   };
   const onBlurIgnoreRequired = e => {
     let { name } = e.target;
+    addUser()
     setShowMinMax(false)
     setError(initialValue)
     setValidationPassed(prevState => ({

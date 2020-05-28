@@ -1,2 +1,2 @@
-export const ignoreRequiredField = "ignoreRequiredField"
-export const user = "user"
+export const ignoreRequiredField = "IgnoreRequiredField"
+export const userField = "UserField"
