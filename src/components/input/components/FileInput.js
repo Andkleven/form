@@ -34,16 +34,15 @@ const rejectStyle = {
 };
 
 export default props => {
-  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
+  const { documentDate, documentDateDispatch } = useContext(
+    DocumentDateContext
+  );
   const [files, setFiles] = useState([]);
-  console.log(props.path, props.list)
+  console.log(props.path, props.list);
   // test
   useEffect(() => {
     if (!props.singleFile) {
-      let oldFiles = objectPath.get(
-        documentDate,
-        props.path
-      );
+      let oldFiles = objectPath.get(documentDate, props.path);
       if (oldFiles) {
         setFiles(
           oldFiles.map(oldFile => ({
@@ -56,7 +55,7 @@ export default props => {
   }, [props.path, props.singleFile, documentDate]);
 
   useEffect(() => {
-    documentDateDispatch({type: 'add', path: props.path, newState: files});
+    documentDateDispatch({ type: "add", path: props.path, newState: files });
   }, [files, props.path, documentDateDispatch]);
 
   const {
@@ -108,7 +107,11 @@ export default props => {
       return [...prevState];
     });
   };
-  const placeholder = props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.` 
+  const placeholder = props.placeholder
+    ? props.placeholder
+    : `Drag 'n' drop ${
+        props.singleFile ? "file" : "files"
+      }, or click to upload.`;
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
@@ -116,11 +119,12 @@ export default props => {
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
             <p className="mt-2">
-              {props.singleFile ? files[0]
-                ? objectPath.get(documentDate, props.path).file
-                 : files.file 
-                 ? objectPath.get(documentDate, props.path).name
-                 : placeholder
+              {props.singleFile
+                ? files[0]
+                  ? objectPath.get(documentDate, props.path).file
+                  : files.file
+                  ? objectPath.get(documentDate, props.path).name
+                  : placeholder
                 : placeholder}
             </p>
           </div>
@@ -136,7 +140,7 @@ export default props => {
                 <hr className="w-100 m-0" />
               </>
             )}
-            <ul className="mb-0">
+            <ul className="px-0 mb-0">
               {files.map((file, index) => (
                 <FileDescription
                   key={index}

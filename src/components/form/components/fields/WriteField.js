@@ -23,36 +23,42 @@ let initialValue = {
 
 export default props => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
-  const {editChapter, setEditChapter} = useContext(ChapterContext);
-  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
+  const { editChapter, setEditChapter } = useContext(ChapterContext);
+  const { documentDate, documentDateDispatch } = useContext(
+    DocumentDateContext
+  );
   const [showMinMax, setShowMinMax] = useState(false); // if true show error message before submit
-  const {setValidationPassed} = useContext(FieldsContext);
-  const [error, setError] = useState(initialValue)
-  
+  const { setValidationPassed } = useContext(FieldsContext);
+  const [error, setError] = useState(initialValue);
+
   const addUser = useCallback(() => {
-      documentDateDispatch({type: 'add', newState: userInfo.username, path: props.path + userField})
-    },[documentDateDispatch, props.path, userInfo.username])
-  
-  
-  const testPassedValidation = useCallback(data => {
-    if (
-      editChapter ===
-        `${props.path}-${props.fieldName}` ||
-      props.writeChapter
-    ) {
-      let passedValidation = true;
-      if (props.required) {
-        if (!data) {
-          setError(prevState => ({
-            ...prevState,
-            required: "You forgot this field"
-          }));
-          passedValidation = false;
-        } else {
-          setError(prevState => ({
-            ...prevState,
-            required: ""
-          }));
+    documentDateDispatch({
+      type: "add",
+      newState: userInfo.username,
+      path: props.path + userField
+    });
+  }, [documentDateDispatch, props.path, userInfo.username]);
+
+  const testPassedValidation = useCallback(
+    data => {
+      if (
+        editChapter === `${props.path}-${props.fieldName}` ||
+        props.writeChapter
+      ) {
+        let passedValidation = true;
+        if (props.required) {
+          if (!data) {
+            setError(prevState => ({
+              ...prevState,
+              required: "You forgot this field"
+            }));
+            passedValidation = false;
+          } else {
+            setError(prevState => ({
+              ...prevState,
+              required: ""
+            }));
+          }
         }
         let min = props.min ? props.min : 0;
         if (data < min) {
@@ -105,14 +111,14 @@ export default props => {
   }, [testPassedValidation, props.backendData, props.path]);
 
   const onChangeDate = data => {
-    addUser()
+    addUser();
     setShowMinMax(true);
     testPassedValidation(data);
     documentDateDispatch({ type: "add", newState: data, path: props.path });
   };
 
   const onChangeSelect = e => {
-    addUser()
+    addUser();
     setShowMinMax(true);
     testPassedValidation(e.value);
     documentDateDispatch({ type: "add", newState: e.value, path: props.path });
@@ -120,7 +126,7 @@ export default props => {
 
   const onBlur = e => {
     let { name, value, type, step, min, max } = e.target;
-    addUser()
+    addUser();
     setShowMinMax(true);
     testPassedValidation(value);
     min = Number(min);
@@ -166,9 +172,9 @@ export default props => {
   };
   const onBlurIgnoreRequired = e => {
     let { name } = e.target;
-    addUser()
-    setShowMinMax(false)
-    setError(initialValue)
+    addUser();
+    setShowMinMax(false);
+    setError(initialValue);
     setValidationPassed(prevState => ({
       ...prevState,
       [`${props.path}-${props.fieldName}`]: true

@@ -52,8 +52,8 @@
               "userRole": ["lead"]
             },
             {
-              "fieldName": "USERSResponsible",
-              "label": "USERS Responsible",
+              "fieldName": "offsiteResponsible",
+              "label": "Offsite Responsible",
               "type": "select",
               "userRole": ["supervisor", "operator"]
             },
