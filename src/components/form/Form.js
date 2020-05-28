@@ -75,7 +75,7 @@ export default props => {
         });
       }
     }, [props.componentsId, props.data]);
-    // console.log(documentDate)
+    console.log(documentDate)
     // console.log(validationPassed)
 
   const update = (cache, { data }) => {
@@ -199,6 +199,7 @@ export default props => {
           itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
+            props.saveButton &&
             nextStage &&
             Object.values(validationPassed).every(allTrue) ?
             FindNextStage(props.specData, props.stage, props.geometry) : props.stage
