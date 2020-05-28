@@ -219,7 +219,7 @@ export default props => {
 
           />
           {!props.notAddButton && props.repeat && writeChapter ? (
-            <button type="button" onClick={() => addHandler()}>
+            <button type="button" onMouseDown={() => addHandler()}>
               {props.addButton ? props.addButton : "Add"}
             </button>
           ) : null}
@@ -233,7 +233,7 @@ export default props => {
             <>
               <SubmitButton
                 key={props.thisChapter}
-                onClick={() =>
+                onMouseDown={() =>
                   props.submitHandler(documentDate)
                 }
                 name={
@@ -254,7 +254,7 @@ export default props => {
           <>
             <SubmitButton
             key={props.thisChapter}
-              onClick={() =>
+              onMouseDown={() =>
                 props.submitHandler(documentDate)
               }
               name={

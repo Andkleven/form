@@ -196,11 +196,13 @@ export default pageInfo => {
               }}
             />
           </>
-        ) : geometryData ? <ItemUpdate
-        foreignKey={geometryData.id}
-        getQueryBy={_id}
-        counter={counter - 1}
-      />: null}
+        ) : geometryData ? 
+        <ItemUpdate
+          foreignKey={geometryData.id}
+          getQueryBy={_id}
+          counter={counter - 1}
+        /> 
+      : null}
         {fixedData && fixedData.projects && fixedData.projects[0] ? (
           <h4>
             Geometry {counter}/{projectsData.numberOfDescriptions}
