@@ -137,7 +137,7 @@ export default props => {
 
   console.log(placeholder);
   return (
-    <div className={`p-3 border rounded`}>
+    <div className={`p-3 border rounded mb-3`}>
       <section className="container px-0 mx-0">
         {props.writeChapter && (
           <div {...getRootProps({ style })}>

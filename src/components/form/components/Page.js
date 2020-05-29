@@ -254,7 +254,23 @@ export default props => {
               Edit all
             </TabButton>
           </>
-        ) : null}
+        ) : (
+          props.pageTitle && (
+            <>
+              <TabButton
+                // size="sm"
+                onClick={() => {
+                  // if (window.confirm("Are you sure you wish to edit?")) {
+                  cancel();
+                  // }
+                }}
+                key={lastChapter}
+              >
+                Cancel
+              </TabButton>
+            </>
+          )
+        )}
       </div>
       {showLine && <Line />}
       {Components ? <Components {...props} /> : null}

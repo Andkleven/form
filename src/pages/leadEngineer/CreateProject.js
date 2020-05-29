@@ -173,7 +173,7 @@ export default pageInfo => {
             >
               Create all items
             </Button>
-            <h3> Number of items: {geometryData.items.length}</h3>
+            <h3>Number of items: {geometryData.items.length}</h3>
             <ItemList
               getQueryBy={_id}
               counter={counter - 1}
@@ -196,11 +196,13 @@ export default pageInfo => {
               }}
             />
           </>
-        ) : geometryData ? <ItemUpdate
-        foreignKey={geometryData.id}
-        getQueryBy={_id}
-        counter={counter - 1}
-      />: null}
+        ) : geometryData ? (
+          <ItemUpdate
+            foreignKey={geometryData.id}
+            getQueryBy={_id}
+            counter={counter - 1}
+          />
+        ) : null}
         {fixedData && fixedData.projects && fixedData.projects[0] ? (
           <h4>
             Geometry {counter}/{projectsData.numberOfDescriptions}

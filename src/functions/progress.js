@@ -9,11 +9,8 @@ export function progress(item) {
     stages.all.includes(item.stage)
   ) {
     const position = stages.all.findIndex(stage => stage === item.stage);
-    console.log("progress -> position", position);
     const length = stages.all.length;
-    console.log("progress -> length", length);
     const percentage = Math.floor(100 * (position / length));
-    console.log("progress -> percentage", percentage);
     return percentage;
   }
   return 0;

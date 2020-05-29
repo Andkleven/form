@@ -90,13 +90,11 @@
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
-              "required": true,
               "options": ["Mould", "Coated Item"]
             },
             {
               "fieldName": "description",
-              "label": "Description",
-              "required": true
+              "label": "Description"
             },
             {
               "fieldName": "ifsActivityCodes",
@@ -104,7 +102,8 @@
             },
             {
               "fieldName": "CPS",
-              "label": "CPS"
+              "label": "CPS",
+              "required": true
             }
           ]
         },

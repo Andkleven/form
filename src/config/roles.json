@@ -34,7 +34,7 @@
       "itemWrite": true,
       "itemEdit": true,
       "itemRepair": true,
-      "finalInspection": false,
+      "finalInspection": true,
       "finished": true
     }
   },
@@ -47,7 +47,7 @@
       "itemWrite": true,
       "itemEdit": false,
       "itemRepair": true,
-      "finalInspection": false,
+      "finalInspection": true,
       "finished": true
     }
   },
@@ -73,7 +73,7 @@
       "itemWrite": true,
       "itemEdit": false,
       "itemRepair": false,
-      "finalInspection": false,
+      "finalInspection": true,
       "finished": true
     }
   },

@@ -3,7 +3,6 @@ import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
 import { Col, ProgressBar } from "react-bootstrap";
-import { camelCaseToNormal } from "functions/general";
 import { progress, displayStage } from "functions/progress";
 
 export default ({
@@ -92,19 +91,21 @@ export default ({
                               style: iconStyle
                             }}
                             style={{ zIndex: 1, ...rowStyle }}
-                            className="text-light text-wrap text-decoration-none"
+                            className="text-light text-wrap text-decoration-none w-100"
                           >
-                            <div className="d-inline w-100">
-                              {item.itemId ? (
-                                item.itemId
-                              ) : (
-                                <div className="text-secondary d-inline">
-                                  No Item ID (Index ID: {item.id})
-                                </div>
-                              )}
+                            <div className="d-inline">
+                              <div className="d-inline text-light">
+                                {item.itemId ? (
+                                  item.itemId
+                                ) : (
+                                  <div className="text-secondary d-inline">
+                                    No Item ID (Index ID: {item.id})
+                                  </div>
+                                )}
+                              </div>
                               <ProgressBar
                                 animated
-                                variant="info"
+                                variant="success"
                                 now={progress(item)}
                                 className="mt-2 shadow-sm w-100"
                                 style={{
@@ -118,7 +119,8 @@ export default ({
                                   position: "relative",
                                   bottom: "1.4em",
                                   height: 0,
-                                  zIndex: 0
+                                  zIndex: 0,
+                                  opacity: 0.75
                                 }}
                               >
                                 <small className="text-decoration-none">

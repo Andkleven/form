@@ -45,14 +45,22 @@ export default props => {
   //   </Button>
   // );
 
-  const Label = props => (
-    <div className={`d-flex justify-content-between align-items-start h-100`}>
-      <div className={showUnderBreakpoint()}>
-        <small className="text-secondary">{`${props.label}`}</small>
-      </div>
-      <div className={showAboveBreakpoint()}>{`${props.label}`}</div>
-    </div>
-  );
+  const Label = props => {
+    if (typeof props.label === "string") {
+      return (
+        <div
+          className={`d-flex justify-content-between align-items-start h-100`}
+        >
+          <div className={showUnderBreakpoint()}>
+            <small className="text-secondary">{`${props.label}`}</small>
+          </div>
+          <div className={showAboveBreakpoint()}>{`${props.label}`}</div>
+        </div>
+      );
+    } else if (typeof props.label === "object") {
+      return props.label;
+    }
+  };
 
   const showUnit = [undefined, null, "", false].includes(props.unit)
     ? ""
@@ -120,9 +128,11 @@ export default props => {
           {props.readOnly ? null : <TinyEditButton />}
         </div>
       </Col>
-      <Col xs="12">
-        <LightLine />
-      </Col>
+      {!props.noLine && (
+        <Col xs="12">
+          <LightLine />
+        </Col>
+      )}
       {props.subtext && props.writeChapter ? (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       ) : null}
