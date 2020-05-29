@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { DocumentDateContext, ChapterContext, FieldsContext } from "components/form/Form";
 import Math from "components/form/functions/math";
-import objectPath from "object-path";
 import ReadField from "components/form/components/fields/ReadField";
 
 import "styles/styles.css";
@@ -12,10 +11,12 @@ let initialValue = {
 };
 
 export default props => {
+  const newValue = useRef("")
   const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
   const {setValidationPassed} = useContext(FieldsContext);
   const {editChapter} = useContext(ChapterContext);
   const [error, setError] = useState(initialValue)
+  
   
   useEffect(() => {
     if (
@@ -84,25 +85,43 @@ export default props => {
     props.writeChapter
   ])
 
-  const temporaryValue = useMemo(() => props.setValueByIndex
-  ? props.repeatStep + 1
-  : Math[props.math](
-    documentDate,
-    props.repeatStepList,
-    props.decimal ? props.decimal : 0
-    ), [
-      props.setValueByIndex,
-      props.repeatStep,
-      documentDate,
-      props.repeatStepList,
-      props.decimal,
-      props.math
-    ])
+  // const temporaryValue = useMemo(() => props.setValueByIndex
+  // ? props.repeatStep + 1
+  // : Math[props.math](
+  //   documentDate,
+  //   props.repeatStepList,
+  //   props.decimal ? props.decimal : 0
+  //   ), [
+  //     props.setValueByIndex,
+  //     props.repeatStep,
+  //     documentDate,
+  //     props.repeatStepList,
+  //     props.decimal,
+  //     props.math
+  //   ])
 
-  // Test if value shall update when documentDate update
-  useEffect(() => {
-    documentDateDispatch({type: 'add', newState: temporaryValue, path: props.path})
-  }, [temporaryValue, documentDateDispatch, props.path]);
+    // Test if value shall update when documentDate update
+    useEffect(() => {
+      const getValueFromMath = props.setValueByIndex
+                ? props.repeatStep + 1
+                : Math[props.math](
+                  documentDate,
+                  props.repeatStepList,
+                  props.decimal ? props.decimal : 0)
+      if (newValue.current !== getValueFromMath) {
+        documentDateDispatch({type: 'add', newState: getValueFromMath, path: props.path})
+        newValue.current = getValueFromMath
+      }
+  }, [
+    documentDateDispatch,
+    props.path,
+    props.setValueByIndex,
+    props.repeatStep,
+    props.math,
+    props.decimal,
+    documentDate,
+    props.repeatStepList
+  ]);
 
   return (
     <ReadField
@@ -110,8 +129,13 @@ export default props => {
       key={props.indexId}
       error={error}
       readOnly={true}
-      value={objectPath.get(documentDate, props.path)}
-      showMinMax={temporaryValue !== null ? true : false}
+      value={props.setValueByIndex
+        ? props.repeatStep + 1
+        : Math[props.math](
+          documentDate,
+          props.repeatStepList,
+          props.decimal ? props.decimal : 0)}
+      // showMinMax={temporaryValue !== null ? true : false}
     />
   );
 };

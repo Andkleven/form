@@ -177,9 +177,9 @@ export default props => {
     return (
       <SubmitButton
         key={`${props.thisChapter}-submit`}
-        onClick={() => props.submitHandler(documentDate)}
+        onMouseDown={() => props.submitHandler(documentDate)}
         name={
-          props.saveButton && !Object.values(validationPassed).every(allTrue)
+          props.saveButton && !Object.values(validationPassed).every(allTrue) && !editChapter
             ? "Save"
             : null
         }
@@ -283,13 +283,13 @@ export default props => {
             addHandler={addHandler}
           />
           {!props.notAddButton && props.repeat && writeChapter ? (
-            <button type="button" onClick={() => addHandler()}>
+            <button type="button" onMouseDown={() => addHandler()}>
               {props.addButton ? props.addButton : "Add"}
             </button>
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <Input {...props} list={true} writeChapter={writeChapter} />
+        <Input {...props} writeChapter={writeChapter} />
       ) : null}
       {props.showSaveButton ? (
         editChapter ? (

@@ -45,7 +45,6 @@ const InputType = props => {
   const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
   const isDesktop = !isMobile;
   const useCustomDate = isDateRelated & hasBadCalendar & isDesktop;
-
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return <CheckInput {...props} />;
   } else if (useCustomDate) {
