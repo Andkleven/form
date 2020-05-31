@@ -84,7 +84,7 @@
         {
           "pageTitle": "Description",
           "pageName": "description",
-          "queryPath": ["projects.0.descriptions"],
+          "queryPath": "projects.0.descriptions",
           "fields": [
             {
               "fieldName": "geometry",

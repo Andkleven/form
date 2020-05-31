@@ -39,7 +39,6 @@ export default props => {
   );
   const [files, setFiles] = useState([]);
   const [placeholder, setPlaceholder] = useState("");
-  console.log(props.singleFile)
   // test
   useEffect(() => {
     if (!props.singleFile) {

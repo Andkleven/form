@@ -75,7 +75,7 @@ export default props => {
         });
       }
     }, [props.componentsId, props.data]);
-    console.log(documentDate)
+    // console.log(documentDate)
     // console.log(validationPassed)
 
   const update = (cache, { data }) => {
