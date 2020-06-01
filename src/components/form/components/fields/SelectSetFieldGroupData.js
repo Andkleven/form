@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from "react";
 import FieldGroup from "components/form/components/fields/FieldGroup";
 import objectPath from "object-path";
 import { DocumentDateContext } from "components/form/Form";
-import { getRepeatNumber, getRepeatStepList } from "functions/general";
+import { getRepeatNumber, getRepeatStepList, isLastCharacterNumber } from "functions/general";
 
 
 export default props => {
@@ -75,7 +75,7 @@ export default props => {
         repeatStepList={getRepeatStepList(props, 0)}
         file={objectPath.get(props.data, props.path + ".0.data") && objectPath.get(props.data, props.path + ".0.data").file}
         // data={props.data ? props.data[0] : props.data}
-        path={`${props.path}.0`}
+        path={isLastCharacterNumber(props.path) ? props.path : `${props.path}.0`}
         repeatStep={0}
         indexId={`${props.indexId}-0`}
       />

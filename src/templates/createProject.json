@@ -84,17 +84,19 @@
         {
           "pageTitle": "Description",
           "pageName": "description",
-          "queryPath": "projects.0.descriptions",
+          "queryPath": ["projects.0.descriptions", ""],
           "fields": [
             {
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
-              "options": ["Mould", "Coated Item"]
+              "options": ["Mould", "Coated Item"],
+              "required": true
             },
             {
               "fieldName": "description",
-              "label": "Description"
+              "label": "Description",
+              "required": true
             },
             {
               "fieldName": "ifsActivityCodes",
@@ -102,8 +104,7 @@
             },
             {
               "fieldName": "CPS",
-              "label": "CPS",
-              "required": true
+              "label": "CPS"
             }
           ]
         },

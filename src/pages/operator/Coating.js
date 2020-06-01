@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorJson from "templates/Operator.json";
+import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/mould/operatorMould.json";
 import SingleStageJson from "templates/singleStage.json";
 import Form from "components/form/Form";
 import PaperStack from "components/layout/PaperStack";
@@ -9,13 +10,20 @@ import Paper from "components/layout/Paper";
 import {
   objectifyQuery,
   formDataStructure,
-  reshapeStageSting
+  reshapeStageSting,
+  coatedItemOrMould
 } from "functions/general";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
+
+  let operatorJson = coatedItemOrMould(
+    geometry,
+    operatorCoatedItemJson,
+    operatorMouldJson
+  );
 
   const { loading, error, data } = useQuery(query[SingleStageJson.query], {
     variables: { id: itemId }
@@ -28,6 +36,7 @@ export default pageInfo => {
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (

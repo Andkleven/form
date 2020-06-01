@@ -23,6 +23,8 @@ export default pageInfo => {
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
   const [fixedData, setFixedData] = useState(null);
+  
+  
   const setState = counter => {
     setCounter(counter);
   };
@@ -92,7 +94,7 @@ export default pageInfo => {
     update: deleteFromCache
   });
   const [
-    mutationunique,
+    mutationUnique,
     { loading: loadingMutation, error: errorMutation }
   ] = useMutation(mutations["ITEM"]);
 
@@ -142,7 +144,6 @@ export default pageInfo => {
       setNumberOfItems(countNumberOfItems);
     }
   }, [counter, fixedData, error, loading]);
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
@@ -187,7 +188,7 @@ export default pageInfo => {
               items={geometryData.items}
               submitItem={item => {
                 if (!item.unique) {
-                  mutationunique({
+                  mutationUnique({
                     variables: {
                       id: item.id,
                       unique: true
@@ -211,9 +212,14 @@ export default pageInfo => {
           />
         ) : null}
         {fixedData && fixedData.projects && fixedData.projects[0] ? (
+          <>
           <h4>
-            Geometry {counter}/{projectsData.numberOfDescriptions}
+            Description {counter}/{projectsData.numberOfDescriptions}
           </h4>
+          <h4>
+            Items {numberOfItems}/{projectsData.totalNumberOfItems}
+          </h4>
+          </>
         ) : null}
         {counter !== 1 && (
           <Button onClick={() => setState(counter - 1)}>Back</Button>

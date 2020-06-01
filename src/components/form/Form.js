@@ -60,6 +60,8 @@ export default props => {
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
 
+  // console.log(props.componentsId)
+  // console.log(props.arrayIndex)
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
@@ -80,6 +82,7 @@ export default props => {
     }
   }, [props.componentsId, props.data]);
   // console.log(documentDate)
+  // console.log(lastChapter)
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {
