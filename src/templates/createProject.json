@@ -94,7 +94,7 @@
             },
             {
               "fieldName": "description",
-              "label": "Description"
+              "label": "Description Name"
             },
             {
               "fieldName": "ifsActivityCodes",

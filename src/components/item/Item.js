@@ -7,10 +7,10 @@ import GeneralButton from "components/button/GeneralButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
-  const [show, setShow] = useState(false);
+  const [showRename, setShowRename] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseRename = () => setShowRename(false);
+  const handleShowRename = () => setShowRename(true);
 
   return (
     <div className="h-100">
@@ -39,7 +39,7 @@ export default props => {
           // iconStyle={{ color: "red" }}
           // buttonSize="sm"
           className="btn h-100 text-primary"
-          onClick={handleShow}
+          onClick={handleShowRename}
         ></DepthButton>
         <DepthButton
           size="sm"
@@ -53,15 +53,15 @@ export default props => {
           onClick={props.submitDelete.bind(this, props.item.id)}
         ></DepthButton>
       </DepthButtonGroup>
-      <Modal centered show={show} onHide={handleClose}>
+      <Modal centered show={showRename} onHide={handleCloseRename}>
         <Modal.Body>
           <ItemUpdate
             {...props}
             edit
             id={props.item.id}
             value={props.item.itemId}
-            done={handleClose}
-            onCancel={handleClose}
+            onDone={handleCloseRename}
+            onCancel={handleCloseRename}
           />
         </Modal.Body>
       </Modal>

@@ -7,9 +7,11 @@ import mutations from "graphql/mutation";
 import Input from "components/input/Input";
 import SubmitButton from "components/button/SubmitButton";
 import CancelButton from "components/button/CancelButton";
-import GeneralButton from "components/button/GeneralButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButton from "components/button/DepthButton";
+import { Form } from "react-bootstrap";
+import ErrorMessage from "components/design/ErrorMessage";
+import LoadingAnimation from "components/explorer/components/LoadingAnimation";
 
 export default props => {
   const [state, setState] = useState(props.value ? props.value : "");
@@ -50,7 +52,10 @@ export default props => {
       data: { ...oldData }
     });
   };
-  const [mutation, { loading, error }] = useMutation(mutations["ITEM"], {
+  const [
+    mutation,
+    { loading: mutationLoading, error: mutationError }
+  ] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });
 
@@ -61,54 +66,73 @@ export default props => {
         itemId: state,
         foreignKey: props.foreignKey
       }
-    });
-    if (props.done) {
-      props.done();
-    }
+    })
+      .then(() => {
+        if (props.onDone) {
+          props.onDone();
+        }
+      })
+      .catch(e => {
+        // console.log(e);
+      });
   };
+
+  console.log(mutationError && mutationError.message);
 
   if (props.edit) {
     return (
-      <>
+      <Form
+        onSubmit={e => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
         <Input
           onChange={e => setState(e.target.value)}
-          value={state}
           label="Item ID"
+          defaultValue={props.item.itemId}
         />
         <div className="d-flex w-100">
-          <SubmitButton onClick={handleSubmit}>Rename</SubmitButton>
+          <SubmitButton>Save</SubmitButton>
           <div className="px-1"></div>
           <CancelButton onClick={props.onCancel} />
         </div>
-      </>
+        {mutationError && (
+          <ErrorMessage
+            className="w-100 mt-3"
+            error={String(mutationError.message)}
+            // align="center"
+          >
+            Error.
+          </ErrorMessage>
+        )}
+      </Form>
     );
   }
 
   return (
-    <>
-      <div>
-        <Input
-          tight
-          onChange={e => setState(e.target.value)}
-          value={state}
-          label="Item ID"
-          append={
-            <DepthButton onClick={handleSubmit}>
-              <FontAwesomeIcon
-                icon={["fal", "plus"]}
-                size="xs"
-                className="mr-2"
-              />
-              <FontAwesomeIcon
-                icon={["fas", "cube"]}
-                size="md"
-                className="mr-sm-2 text-secondary"
-              />
-              <div className="d-none d-sm-inline">Add item to project</div>
-            </DepthButton>
-          }
-        />
-      </div>
-    </>
+    <Form>
+      <Input
+        tight
+        onChange={e => setState(e.target.value)}
+        value={state}
+        // value={props.item.itemId}
+        label="Item ID"
+        append={
+          <DepthButton onClick={handleSubmit}>
+            {/* <FontAwesomeIcon
+              icon={["fal", "plus"]}
+              size="xs"
+              className="mr-1"
+            /> */}
+            <FontAwesomeIcon
+              icon={["fas", "cube"]}
+              className="mr-sm-2 text-secondary"
+            />
+            <div className="d-none d-sm-inline">Add item to project</div>
+          </DepthButton>
+        }
+      />
+    </Form>
   );
 };

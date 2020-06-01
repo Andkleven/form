@@ -212,7 +212,7 @@ export default pageInfo => {
         ) : null}
         {fixedData && fixedData.projects && fixedData.projects[0] ? (
           <h4>
-            Geometry {counter}/{projectsData.numberOfDescriptions}
+            Description {counter}/{projectsData.numberOfDescriptions}
           </h4>
         ) : null}
         {counter !== 1 && (
