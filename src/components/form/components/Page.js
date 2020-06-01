@@ -41,10 +41,10 @@ export default props => {
   } = useContext(FieldsContext);
   const [writeChapter, setWriteChapter] = useState();
   useLayoutEffect(() => {
-    if (props.lastChapter && props.lastChapter !== lastChapter) {
-      setLastChapter(props.lastChapter);
+    if (props.temporaryLastChapter && props.temporaryLastChapter !== lastChapter) {
+      setLastChapter(props.temporaryLastChapter);
     }
-  }, [props.lastChapter, setLastChapter, lastChapter]);
+  }, [props.temporaryLastChapter, setLastChapter, lastChapter]);
 
   const addData = useCallback(
     pushOnIndex => {
@@ -78,12 +78,12 @@ export default props => {
       } else {
         setWriteChapter(false);
       }
-    } else if (props.thisChapter === lastChapter) {
+    } else if (props.thisChapter === props.temporaryLastChapter) {
       setWriteChapter(true);
     } else {
       setWriteChapter(false);
     }
-  }, [props.allWaysShow, editChapter, props.thisChapter, lastChapter]);
+  }, [props.allWaysShow, editChapter, props.thisChapter, props.temporaryLastChapter, props.componentsId]);
 
   // If repeat group start with one group set repeatGroup to 1
   // useEffect(() => {
@@ -217,7 +217,7 @@ export default props => {
   };
 
   return (
-    <div className={`${!props.lastChapter && "mb-4"}`}>
+    <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
         {showTitleOrSubtitle ? (
           <Title key={`${props.thisChapter}-${props.index}-jja`}>

@@ -546,3 +546,7 @@ export function getRepeatStepList(props, index) {
     ? [...props.arrayIndex, index]
     : [index];
 }
+
+export function isLastCharacterNumber(str) {
+  return !isNaN(Number(str.slice(-1)))
+}
