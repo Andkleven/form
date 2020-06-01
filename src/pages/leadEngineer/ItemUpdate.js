@@ -6,6 +6,10 @@ import itemsJson from "templates/createProject.json";
 import mutations from "graphql/mutation";
 import Input from "components/input/Input";
 import SubmitButton from "components/button/SubmitButton";
+import CancelButton from "components/button/CancelButton";
+import GeneralButton from "components/button/GeneralButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DepthButton from "components/button/DepthButton";
 
 export default props => {
   const [state, setState] = useState(props.value ? props.value : "");
@@ -63,16 +67,48 @@ export default props => {
     }
   };
 
+  if (props.edit) {
+    return (
+      <>
+        <Input
+          onChange={e => setState(e.target.value)}
+          value={state}
+          label="Item ID"
+        />
+        <div className="d-flex w-100">
+          <SubmitButton onClick={handleSubmit}>Rename</SubmitButton>
+          <div className="px-1"></div>
+          <CancelButton onClick={props.onCancel} />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
-      <Input
-        onChange={e => setState(e.target.value)}
-        value={state}
-        label="Item ID"
-      />
-      <SubmitButton onClick={handleSubmit}>Add item to project</SubmitButton>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error :( Please try again</p>}
+      <div>
+        <Input
+          tight
+          onChange={e => setState(e.target.value)}
+          value={state}
+          label="Item ID"
+          append={
+            <DepthButton onClick={handleSubmit}>
+              <FontAwesomeIcon
+                icon={["fal", "plus"]}
+                size="xs"
+                className="mr-2"
+              />
+              <FontAwesomeIcon
+                icon={["fas", "cube"]}
+                size="md"
+                className="mr-sm-2 text-secondary"
+              />
+              <div className="d-none d-sm-inline">Add item to project</div>
+            </DepthButton>
+          }
+        />
+      </div>
     </>
   );
 };

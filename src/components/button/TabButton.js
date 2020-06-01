@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 export default props => {
   return (
     <Button
-      variant="light"
+      variant="superLight"
       style={{
         borderRadius: 0,
         top: "0.05em"

@@ -39,7 +39,7 @@ export default props => {
   );
   const [files, setFiles] = useState([]);
   const [placeholder, setPlaceholder] = useState("");
-  console.log(props.singleFile)
+  // console.log(props.singleFile)
   // test
   useEffect(() => {
     if (!props.singleFile) {
@@ -57,7 +57,7 @@ export default props => {
 
   useEffect(() => {
     if (!props.singleFile) {
-      documentDateDispatch({type: 'add', path: props.path, newState: files});
+      documentDateDispatch({ type: "add", path: props.path, newState: files });
     }
   }, [files, props.path, documentDateDispatch, props.singleFile]);
 
@@ -71,7 +71,11 @@ export default props => {
     accept: "image/*",
     onDrop: acceptedFiles => {
       if (props.singleFile) {
-        documentDateDispatch({type: 'add', path: props.path, newState: acceptedFiles[0]})
+        documentDateDispatch({
+          type: "add",
+          path: props.path,
+          newState: acceptedFiles[0]
+        });
       } else {
         setFiles(prevState => {
           acceptedFiles.forEach(file => {
@@ -108,16 +112,22 @@ export default props => {
   };
   useEffect(() => {
     if (props.singleFile) {
-      let file = objectPath.get(documentDate, props.path)
+      let file = objectPath.get(documentDate, props.path);
       if (file && file.name) {
-        setPlaceholder(file.name)
+        setPlaceholder(file.name);
       } else {
-        setPlaceholder(file)
+        setPlaceholder(file);
       }
     } else {
-      setPlaceholder(props.placeholder ? props.placeholder : `Drag 'n' drop ${props.singleFile ? "file" : "files"}, or click to upload.`)
+      setPlaceholder(
+        props.placeholder
+          ? props.placeholder
+          : `Drag 'n' drop ${
+              props.singleFile ? "file" : "files"
+            }, or click to upload.`
+      );
     }
-  }, [props.placeholder, documentDate, props.path, props.singleFile])
+  }, [props.placeholder, documentDate, props.path, props.singleFile]);
 
   return (
     <div className={`p-3 border rounded mb-3`}>
@@ -133,8 +143,7 @@ export default props => {
             {props.writeChapter && (
               <>
                 <label className={`${props.writeChapter ? `mt-3` : ``}`}>
-                  Uploaded{" "}
-                  files
+                  Uploaded files
                 </label>
                 <hr className="w-100 m-0" />
               </>

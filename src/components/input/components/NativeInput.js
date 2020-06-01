@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, InputGroup } from "react-bootstrap";
+import { Form, InputGroup, Button } from "react-bootstrap";
 
 // import Duplicate from "../widgets/Duplicate";
 
@@ -10,7 +10,9 @@ function NativeInput(props) {
         <InputGroup className="d-flex">
           {props.prepend ? (
             <InputGroup.Prepend>
-              <InputGroup.Text>{props.prepend}</InputGroup.Text>
+              <InputGroup.Text className="bg-white">
+                {props.prepend}
+              </InputGroup.Text>
             </InputGroup.Prepend>
           ) : null}
           <Form.Control
@@ -27,15 +29,21 @@ function NativeInput(props) {
             max={props.max}
             step={props.decimal}
             placeholder={props.placeholder}
+            // className={(!props.unit || !props.append) && "rounded"}
           >
             {props.options &&
               props.options.map((option, index) => {
                 return <option key={index}>{option}</option>;
               })}
           </Form.Control>
-          {props.unit && (
+          {(props.unit || props.append) && (
             <InputGroup.Append>
-              <InputGroup.Text>{props.unit}</InputGroup.Text>
+              {props.unit && (
+                <InputGroup.Text className="bg-white">
+                  {props.unit}
+                </InputGroup.Text>
+              )}
+              {props.append}
             </InputGroup.Append>
           )}
         </InputGroup>

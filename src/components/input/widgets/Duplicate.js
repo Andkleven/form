@@ -14,7 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   const DuplicateButton = (
-    <OverlayTrigger overlay={<Tooltip>Duplicate input field</Tooltip>}>
+    <OverlayTrigger
+      delay={{ show: 1000, hide: 0 }}
+      overlay={<Tooltip>Duplicate input field</Tooltip>}
+    >
       <Button
         variant="light"
         className="border ml-1"
@@ -29,7 +32,10 @@ export default props => {
   );
 
   const DeleteButton = (
-    <OverlayTrigger overlay={<Tooltip>Delete input field</Tooltip>}>
+    <OverlayTrigger
+      delay={{ show: 1000, hide: 0 }}
+      overlay={<Tooltip>Delete input field</Tooltip>}
+    >
       <Button
         variant="light"
         className="border"

@@ -59,24 +59,28 @@ export default props => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [lastChapter, setLastChapter] = useState(0);
   const [validationPassed, setValidationPassed] = useState({});
-  
-  const { data: optionsData } = useQuery(props.document.optionsQuery ? query[props.document.optionsQuery] : query["DEFAULT"], {
+
+  const { data: optionsData } = useQuery(
+    props.document.optionsQuery
+      ? query[props.document.optionsQuery]
+      : query["DEFAULT"],
+    {
       variables: {},
       skip: props.optionsQuery
-    });
+    }
+  );
 
-    
-    // Set DocumentDate to empty dictionary if a new components calls Form
-    useLayoutEffect(() => {
-      if (props.data) {
-        documentDateDispatch({
-          type: "setState",
-          newState: cloneDeep(props.data)
-        });
-      }
-    }, [props.componentsId, props.data]);
-    console.log(documentDate)
-    // console.log(validationPassed)
+  // Set DocumentDate to empty dictionary if a new components calls Form
+  useLayoutEffect(() => {
+    if (props.data) {
+      documentDateDispatch({
+        type: "setState",
+        newState: cloneDeep(props.data)
+      });
+    }
+  }, [props.componentsId, props.data]);
+  // console.log(documentDate)
+  // console.log(validationPassed)
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
@@ -200,11 +204,11 @@ export default props => {
           stage:
             props.saveButton &&
             nextStage &&
-            Object.values(validationPassed).every(allTrue) ?
-            editChapter 
-             ? FindNextStage(props.specData, props.stage, props.geometry) 
-             : props.stage
-            : props.stage 
+            Object.values(validationPassed).every(allTrue)
+              ? editChapter
+                ? FindNextStage(props.specData, props.stage, props.geometry)
+                : props.stage
+              : props.stage
         }
       });
     }
@@ -212,7 +216,9 @@ export default props => {
 
   const submitHandler = data => {
     if (
-      (props.saveButton && validateFieldWithValue(validationPassed) && !editChapter) ||
+      (props.saveButton &&
+        validateFieldWithValue(validationPassed) &&
+        !editChapter) ||
       Object.values(validationPassed).every(allTrue)
     ) {
       submitData(data);
@@ -247,11 +253,13 @@ export default props => {
         }}
       >
         <ChapterContext.Provider
-          value={{ lastChapter,
+          value={{
+            lastChapter,
             setLastChapter,
             editChapter,
             setEditChapter,
-            setLastSubmitButton }}
+            setLastSubmitButton
+          }}
         >
           <Title title={props.document.documentTitle} />
           <Form

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default props => {
   return (
     <OverlayTrigger
+      delay={{ show: 1000, hide: 0 }}
       overlay={
         <Tooltip hidden={props.tooltip ? false : true}>{props.tooltip}</Tooltip>
       }

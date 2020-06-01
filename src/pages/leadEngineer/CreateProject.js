@@ -12,6 +12,8 @@ import { Button } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import Canvas from "components/layout/Canvas";
+import GeneralButton from "components/button/GeneralButton";
+import DepthButton from "components/button/DepthButton";
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -162,7 +164,11 @@ export default pageInfo => {
               getQueryBy={_id}
               counter={counter - 1}
             />
-            <Button
+            <DepthButton
+              icon={["fas", "cubes"]}
+              iconSize="lg"
+              iconClassName="text-secondary"
+              className="text-center w-100"
               onClick={() =>
                 history.push(
                   `/order/lead-engineer/${geometryData.id}/${
@@ -170,11 +176,12 @@ export default pageInfo => {
                   }/0/${geometryData.data.geometry}`
                 )
               }
+              style={{ marginBottom: 2 }}
             >
-              Create all items
-            </Button>
-            <h3>Number of items: {geometryData.items.length}</h3>
+              Open all {geometryData.items.length} items
+            </DepthButton>
             <ItemList
+              className="pt-1"
               getQueryBy={_id}
               counter={counter - 1}
               items={geometryData.items}

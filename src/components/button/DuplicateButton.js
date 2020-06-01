@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ButtonShell = props => (
   <OverlayTrigger
+    delay={{ show: 1000, hide: 0 }}
     overlay={
       <Tooltip hidden={props.tooltip ? false : true}>{props.tooltip}</Tooltip>
     }
