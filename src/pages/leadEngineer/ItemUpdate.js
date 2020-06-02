@@ -10,11 +10,9 @@ import CancelButton from "components/button/CancelButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButton from "components/button/DepthButton";
 import { Form } from "react-bootstrap";
-import ErrorMessage from "components/design/ErrorMessage";
-import LoadingAnimation from "components/explorer/components/LoadingAnimation";
 
-export default props => {
-  const [state, setState] = useState(props.value ? props.value : "");
+export default ({ descriptionName = "description", ...props }) => {
+  const [state, setState] = useState(props.value ? props.value : null);
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
@@ -71,13 +69,16 @@ export default props => {
         if (props.onDone) {
           props.onDone();
         }
+        setValid(true);
       })
       .catch(e => {
         // console.log(e);
       });
   };
 
-  console.log(mutationError && mutationError.message);
+  const [valid, setValid] = useState();
+  const error =
+    mutationError && mutationError.message.replace("GraphQL error: ", "");
 
   if (props.edit) {
     return (
@@ -88,8 +89,15 @@ export default props => {
         }}
       >
         <Input
-          onChange={e => setState(e.target.value)}
+          onChange={e => {
+            setValid(false);
+            setState(e.target.value);
+          }}
           label="Item ID"
+          required
+          isValid={valid}
+          isInvalid={error}
+          feedback={error}
           defaultValue={props.item.itemId}
         />
         <div className="d-flex w-100">
@@ -97,39 +105,50 @@ export default props => {
           <div className="px-1"></div>
           <CancelButton onClick={props.onCancel} />
         </div>
-        {mutationError && (
-          <ErrorMessage
-            className="w-100 mt-3"
-            error={String(mutationError.message)}
-            // align="center"
-          >
-            Error.
-          </ErrorMessage>
-        )}
+        {/* {mutationError && (
+          <ErrorMessage className="w-100 mt-3" error={mutationError.message} />
+        )} */}
       </Form>
     );
   }
 
   return (
-    <Form>
+    <Form
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
       <Input
-        tight
-        onChange={e => setState(e.target.value)}
-        value={state}
+        onChange={e => {
+          setValid(false);
+          setState(e.target.value);
+        }}
+        // value={state}
         // value={props.item.itemId}
         label="Item ID"
+        required
+        isValid={valid}
+        isInvalid={error}
+        feedback={error}
         append={
-          <DepthButton onClick={handleSubmit}>
-            {/* <FontAwesomeIcon
+          <DepthButton
+            type="submit"
+            className="rounded-right"
+            style={{ borderLeft: "none", marginLeft: 1 }}
+          >
+            <FontAwesomeIcon
               icon={["fal", "plus"]}
               size="xs"
               className="mr-1"
-            /> */}
+            />
             <FontAwesomeIcon
               icon={["fas", "cube"]}
               className="mr-sm-2 text-secondary"
             />
-            <div className="d-none d-sm-inline">Add item to project</div>
+            <div className="d-none d-sm-inline">
+              Add item to {descriptionName}
+            </div>
           </DepthButton>
         }
       />

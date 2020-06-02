@@ -21,10 +21,7 @@ export default props => {
       >
         <DepthButton
           size="sm"
-          // icon={["fas", "cube"]}
           tooltip={`Open "${props.item.itemId}"`}
-          iconSize="sm"
-          // buttonSize="sm"
           className="btn d-flex justify-content-left align-items-center h-100 text-left text-truncate w-100"
           onClick={props.submitItem.bind(this, props.item)}
         >
@@ -34,10 +31,7 @@ export default props => {
           size="sm"
           tooltip="Rename"
           short
-          icon={["fas", "pen"]}
-          iconSize="sm"
-          // iconStyle={{ color: "red" }}
-          // buttonSize="sm"
+          iconProps={{ icon: ["fas", "pen"], size: "sm" }}
           className="btn h-100 text-primary"
           onClick={handleShowRename}
         ></DepthButton>
@@ -45,12 +39,13 @@ export default props => {
           size="sm"
           tooltip="Delete"
           short
-          icon={["fas", "trash"]}
-          iconSize="sm"
-          // iconStyle={{ color: "red" }}
-          // buttonSize="sm"
+          iconProps={{ icon: ["fas", "trash"], size: "sm" }}
           className="btn h-100 text-secondary"
-          onClick={props.submitDelete.bind(this, props.item.id)}
+          // onClick={props.submitDelete.bind(this, props.item.id)}
+          onClick={() => {
+            window.confirm("This is irreversible - are you sure?") &&
+              props.submitDelete(props.item.id);
+          }}
         ></DepthButton>
       </DepthButtonGroup>
       <Modal centered show={showRename} onHide={handleCloseRename}>

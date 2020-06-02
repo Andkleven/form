@@ -12,6 +12,7 @@ export default props => {
         className="text-center border rounded p-3 m-0 bg-danger w-100"
         style={{ maxWidth: 400 }}
       >
+        {props.children}
         {props.big && (
           <FontAwesomeIcon
             icon={["fad", "exclamation-triangle"]}

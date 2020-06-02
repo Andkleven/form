@@ -26,6 +26,14 @@ const ORDER = gql`
   }
 `;
 
+const DELETE_PROJECT = gql`
+  mutation projectDelete($id: Int) {
+    projectDelete(id: $id) {
+      deleted
+    }
+  }
+`;
+
 const DELETE_ITEM = gql`
   mutation itemDelete($id: Int) {
     itemDelete(id: $id) {
@@ -212,6 +220,7 @@ const OPERATOR = gql`
     }
   }
 `;
+
 const QUALITY_CONTROL = gql`
   mutation finalInspectionQualityControls(
     $finalInspectionQualityControls: [UnderCategoriesOfLeadEngineerInput]
@@ -250,6 +259,7 @@ const QUALITY_CONTROL = gql`
 
 const mutations = {
   ORDER,
+  DELETE_PROJECT,
   DELETE_ITEM,
   ITEM,
   LEAD_ENGINEER,
@@ -258,4 +268,5 @@ const mutations = {
   OPERATOR,
   QUALITY_CONTROL
 };
+
 export default mutations;

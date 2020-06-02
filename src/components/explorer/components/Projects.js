@@ -2,8 +2,11 @@ import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
-import { Col, ProgressBar } from "react-bootstrap";
+import { Col, ProgressBar, Button } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from "react-apollo";
+import mutations from "graphql/mutation";
 
 export default ({
   data,
@@ -13,6 +16,20 @@ export default ({
   headline = "Projects",
   ...props
 }) => {
+  const deleteProjectFromCache = (
+    cache,
+    {
+      data: {
+        projectDelete: { deleted }
+      }
+    }
+  ) => {};
+  const [deleteProject, { loading, error }] = useMutation(
+    mutations["DELETE_PROJECT"],
+    {
+      update: deleteProjectFromCache
+    }
+  );
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
@@ -43,20 +60,32 @@ export default ({
             }
           >
             {props.access && props.access.specs && (
-              <Link
-                to={`/order/project/${project.id}`}
-                key={`project${indexProject}`}
-                iconProps={{
-                  icon: ["fad", "file-invoice"],
-                  swapOpacity: true,
-                  size: iconSize,
-                  style: iconStyle
-                }}
-                style={rowStyle}
-              >
-                Specifications
-                {/* {project.data.projectName} */}
-              </Link>
+              <div className="d-flex align-items-center">
+                <Link
+                  to={`/order/project/${project.id}`}
+                  key={`project${indexProject}`}
+                  iconProps={{
+                    icon: ["fad", "file-invoice"],
+                    swapOpacity: true,
+                    size: iconSize,
+                    style: iconStyle
+                  }}
+                  style={{ marginRight: "1em", ...rowStyle }}
+                >
+                  Specifications
+                  {/* {project.data.projectName} */}
+                </Link>
+                <Button
+                  variant="danger"
+                  style={{ height: "2em", marginRight: "1em" }}
+                  className="d-flex align-items-center"
+                  onClick={() =>
+                    deleteProject({ variables: { id: project.id } })
+                  }
+                >
+                  <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
+                </Button>
+              </div>
             )}
             {project.descriptions &&
               project.descriptions.map((description, indexDescription) => (
