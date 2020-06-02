@@ -64,7 +64,7 @@ export default props => {
         if (data < min) {
           setError(prevState => ({
             ...prevState,
-            min: `Too small, ${props.label} have to be bigger than ${min}`
+            min: `${props.label} must be minimum ${min}`
           }));
           passedValidation = false;
         } else {
@@ -77,7 +77,7 @@ export default props => {
           if (data > props.max) {
             setError(prevState => ({
               ...prevState,
-              max: `Too big, ${props.label} have to be smaller than ${props.max}`
+              max: `${props.label} can not exceed ${props.max}`
             }));
             passedValidation = false;
           } else {

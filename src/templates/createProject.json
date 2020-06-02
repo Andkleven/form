@@ -7,7 +7,7 @@
     {
       "pages": [
         {
-          "pageTitle": "Order",
+          "pageTitle": "Project",
           "pageName": "project",
           "queryPath": "projects",
           "fields": [

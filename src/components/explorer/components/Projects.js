@@ -7,6 +7,7 @@ import { progress, displayStage } from "functions/progress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
+import query from "graphql/query";
 
 export default ({
   data,
@@ -23,13 +24,26 @@ export default ({
         projectDelete: { deleted }
       }
     }
-  ) => {};
+  ) => {
+    const oldData = cache.readQuery({
+      query: query["OPERATOR_PROJECTS"]
+    });
+    const newData = oldData.projects.filter(
+      project => String(project.id) !== String(deleted)
+    );
+    cache.writeQuery({
+      query: query["OPERATOR_PROJECTS"],
+      data: { projects: newData.projects }
+    });
+  };
+
   const [deleteProject, { loading, error }] = useMutation(
     mutations["DELETE_PROJECT"],
     {
       update: deleteProjectFromCache
     }
   );
+
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
@@ -79,9 +93,10 @@ export default ({
                   variant="danger"
                   style={{ height: "2em", marginRight: "1em" }}
                   className="d-flex align-items-center"
-                  onClick={() =>
-                    deleteProject({ variables: { id: project.id } })
-                  }
+                  onClick={() => {
+                    deleteProject({ variables: { id: project.id } });
+                    window.location.reload(false);
+                  }}
                 >
                   <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
                 </Button>

@@ -181,7 +181,7 @@ export default pageInfo => {
           className={`${textColor}`}
           label={`Items in project`}
           value={`${numberOfItems}/${projectsData.totalNumberOfItems}${
-            over && ", too many items!"
+            over ? ", too many items!" : ""
           }`}
           // noLine
         />
