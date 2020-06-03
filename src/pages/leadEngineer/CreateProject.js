@@ -152,9 +152,6 @@ export default pageInfo => {
   const projectExists =
     fixedData && fixedData.projects && fixedData.projects[0];
 
-  const sendToProduction = fixedData && fixedData.projects && fixedData.projects[0] && fixedData.projects[0].leadEngineerDone
-
-
   const ItemCounter = ({ className }) => {
     const percentage = numberOfItems / projectsData.totalNumberOfItems;
     const perfect = percentage === 1.0;
@@ -191,6 +188,15 @@ export default pageInfo => {
       </div>
     );
   };
+
+  const sent = projectExists && fixedData.projects[0].leadEngineerDone;
+
+  const sendable =
+    !sent &&
+    ((projectExists &&
+      fixedData.projects[0].descriptions.length !==
+        projectsData.numberOfDescriptions) ||
+      Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
 
   return (
     <Canvas>
@@ -290,7 +296,10 @@ export default pageInfo => {
               </DepthButton>
             </DepthButtonGroup>
             <DepthButton
-              iconProps={{ icon: ["fas", "share"], className: "text-primary" }}
+              iconProps={{
+                icon: ["fas", `${sent ? "thumbs-up" : "share"}`],
+                className: "text-primary"
+              }}
               className="text-center w-100 mt-1"
               onClick={() =>
                 LeadEngineerDoneMutation({
@@ -305,13 +314,10 @@ export default pageInfo => {
                  * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
                  */
                 // eslint-disable-next-line
-                fixedData.projects[0].descriptions.length !==
-                  projectsData.numberOfDescriptions ||
-                Number(numberOfItems) !==
-                  Number(projectsData.totalNumberOfItems)
+                sendable || sent
               }
             >
-              Send to Production
+              {sent ? "Sent to Production" : "Send to Production"}
             </DepthButton>
           </>
         )}

@@ -98,10 +98,7 @@ export default props => {
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
   useEffect(() => {
-    if (
-      props.repeatGroupWithQuery &&
-      !props.repeatGroupWithQuerySpecData
-    ) {
+    if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
       let newValue = getRepeatNumber(
         documentDate,
         props.repeatGroupWithQuery,
@@ -152,17 +149,6 @@ export default props => {
   const Components = useMemo(() => CustomComponents[props.customComponent], [
     props.customComponent
   ]);
-
-  // Checks for conditional rendering
-  const showEditAll =
-    props.showEditButton && !props.stopLoop && !writeChapter.current;
-  // && props.thisChapter !== lastChapter;
-  const showCancel =
-    !!editChapter && props.thisChapter !== lastChapter && props.pageTitle;
-  const showLine =
-    !!props.pageTitle &&
-    !["", " ", null, false, true].includes(props.pageTitle) &&
-    true;
 
   const SubmitButton = () => {
     return (
@@ -222,15 +208,22 @@ export default props => {
     );
   };
 
+  // Checks for conditional rendering
+  const showEditAll =
+    props.showEditButton && !props.stopLoop && !writeChapter.current;
+  // && props.thisChapter !== lastChapter;
+  const showCancel =
+    !!editChapter && props.thisChapter !== lastChapter && props.pageTitle;
+  const showLine = !!props.pageTitle && !["", " "].includes(props.pageTitle);
+  const showTitle =
+    !props.stopLoop &&
+    props.pageTitle &&
+    props.indexVariablePageTitle === undefined;
+
   return (
     <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
-        {!props.stopLoop &&
-        props.pageTitle &&
-        props.indexVariablePageTitle === undefined ? (
-          <Title>{props.pageTitle}</Title>
-        ) : null}
-
+        {showTitle ? <Title>{props.pageTitle}</Title> : null}
         {showEditAll ? (
           <TabButton
             onClick={() => {
@@ -264,15 +257,17 @@ export default props => {
             writeChapter={writeChapter.current}
             deleteHandler={deleteHandler}
           />
-          {!props.notAddButton && props.repeat && writeChapter.current ? (
-            <button
+          {!!props.addButton && props.repeat && writeChapter.current ? (
+            <DepthButton
+              iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}
               type="button"
               onClick={() => {
                 addHandler();
               }}
+              className="my-1 w-100"
             >
               {props.addButton ? props.addButton : "Add"}
-            </button>
+            </DepthButton>
           ) : null}
         </>
       ) : props.type === "file" ? (
