@@ -28,10 +28,10 @@ export default hot(() => {
           {/* Home */}
           <Route exact path="/" component={Home} />
           {/* Lead Engineer: Create Project */}
-          <Route path="/order/project/:id" component={Item} />
+          <Route path="/project/:id" component={Item} />
           {/* Lead Engineer: Create Items */}
           <Route
-            path="/order/lead-engineer/:descriptionId/:itemId/:unique/:geometry"
+            path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
             component={LeadEngineerPage}
           />
           {/* Operator: Batching */}

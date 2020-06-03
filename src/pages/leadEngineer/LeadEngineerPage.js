@@ -5,11 +5,14 @@ import leadEngineersCoatedItemJson from "templates/coatedItem/leadEngineerCoated
 import leadEngineersMouldJson from "templates/mould/leadEngineerMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
+import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
+
 let leadEngineersJson = leadEngineersCoatedItemJson;
+
 export default pageInfo => {
-  const { descriptionId, itemId, unique, geometry } = pageInfo.match.params;
+  const { projectId, descriptionId, itemId, unique, geometry } = pageInfo.match.params;
 
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
@@ -39,6 +42,7 @@ export default pageInfo => {
           descriptionId={descriptionId}
           itemId={itemId}
           sendItemId={Number(unique)}
+          backButton={() => history.push(`/project/${projectId}`)}
           // finalButton={console.log("finalButton")}
         />
       </Paper>
