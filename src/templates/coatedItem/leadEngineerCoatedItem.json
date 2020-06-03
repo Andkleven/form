@@ -417,7 +417,6 @@
             {
               "fieldName": "hardnessOfOuterLayer",
               "label": "Hardness of Outer Layer",
-              "required": true,
               "unit": "Shore A"
             },
             {
