@@ -7,7 +7,9 @@ import Line from "components/design/Line";
 import { findValue } from "functions/general";
 
 export default props => {
-  const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
+  const { documentDate, documentDateDispatch } = useContext(
+    DocumentDateContext
+  );
   return props.fields.map((field, index) => {
     if (
       field.showFieldSpecPath &&
@@ -31,9 +33,11 @@ export default props => {
           null
         ) === null
       ) {
-        documentDateDispatch({type: 'add', 
-        newState: [],
-        path: `${props.path}.${field.queryPath}`})
+        documentDateDispatch({
+          type: "add",
+          newState: [],
+          path: `${props.path}.${field.queryPath}`
+        });
       }
       return (
         <Page
