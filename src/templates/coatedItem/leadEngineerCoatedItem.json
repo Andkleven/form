@@ -12,17 +12,13 @@
             {
               "fieldName": "steel",
               "label": "Steel",
-              "subtext": "Subtext",
               "type": "select",
-              "required": true,
               "options": ["Carbon", "Duplex"]
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
-              "subtext": "Subtext",
               "type": "select",
-              "required": true,
               "options": ["Garnet", "Grit", "Aluminum Oxide"]
             },
             {
@@ -60,14 +56,14 @@
             },
             {
               "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile Min (Roughness)",
               "placeholder": "Min",
               "default": 50,
               "type": "Number"
             },
             {
               "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile Max (Roughness)",
               "placeholder": "Max",
               "default": 100,
               "type": "Number"

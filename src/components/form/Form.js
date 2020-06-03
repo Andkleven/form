@@ -38,6 +38,7 @@ function reducer(state, action) {
       );
       return {...state};
     case "delete":
+      console.log(action.path)
       objectPath.del(state, action.path);
       return {...state}
     default:

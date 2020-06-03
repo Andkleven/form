@@ -278,7 +278,6 @@ export default pageInfo => {
                 }
               ></DepthButton>
             </DepthButtonGroup>
-            {console.log(fixedData.projects[0].descriptions.length, projectsData.numberOfDescriptions)}
             <GeneralButton
               variant="primary"
               className="text-center w-100 mt-1"

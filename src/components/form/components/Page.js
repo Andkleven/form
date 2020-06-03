@@ -15,7 +15,6 @@ import Title from "components/design/fonts/Title";
 import { getRepeatNumber } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
-import Subtitle from "components/design/fonts/Subtitle";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
 import SubmitButton from "components/button/SubmitButton";
@@ -62,8 +61,10 @@ export default props => {
       path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
     });
   };
+  
   const deleteHandler = useCallback(
     index => {
+      console.log(index)
       documentDateDispatch({ type: "delete", path: `${props.path}.${index}` });
     },
     [props.path, documentDateDispatch]

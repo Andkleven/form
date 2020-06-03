@@ -70,6 +70,7 @@ function Datetime(props) {
           timeFormat="HH:mm"
           dateFormat="dd/MM/yyyy HH:mm"
           locale={enGB}
+          required={props.required}
           showMonthDropdown
           showYearDropdown
           // showWeekNumbers
