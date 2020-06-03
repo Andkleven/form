@@ -17,7 +17,7 @@ function NativeInput(props) {
           ) : null}
           <Form.Control
             id={`custom-${props.type}-${props.label}`}
-            required={false}
+            required={props.required}
             readOnly={props.readOnlyFields}
             defaultValue={props.defaultValue}
             name={props.name}
@@ -27,7 +27,7 @@ function NativeInput(props) {
             type={props.type}
             min={props.min}
             max={props.max}
-            step={props.decimal}
+            step={props.step}
             placeholder={props.placeholder}
             // className={(!props.unit || !props.append) && "rounded"}
           >

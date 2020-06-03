@@ -16,7 +16,7 @@ export default props => {
   let count = 0;
   let stage = stagesJson["all"][0];
 
-  const getNewChapter = (arrayIndex, pageInfo, thisStage="") => {
+  const getNewChapter = (repeatStepList, pageInfo, thisStage="") => {
     let chapter; // new chapter to add to document
     if (
       (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
@@ -30,7 +30,7 @@ export default props => {
       let allRequiredFieldSatisfied = props.data
       ? props.document.chapterByStage
         ? thisStage === stage
-        : !allRequiredSatisfied(pageInfo, props.data, arrayIndex)
+        : !allRequiredSatisfied(pageInfo, props.data, repeatStepList)
       : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -48,9 +48,8 @@ export default props => {
             key={`${index}-${count}-canvas`}
             {...info}
             {...props}
-            submitHandler={props.submitHandler}
-            // data={getData(info, arrayIndex, props.data)}
-            path={createPath(info.queryPath, arrayIndex)}
+            // data={getData(info, repeatStepList, props.data)}
+            path={createPath(info.queryPath, repeatStepList)}
             thisChapter={count + 1}
             stopLoop={stopLoop.current}
             showEditButton={showEditButton}
@@ -59,7 +58,7 @@ export default props => {
             temporaryLastChapter={temporaryLastChapter}
             submitData={props.submitData}
             showSaveButton={showSaveButton}
-            arrayIndex={arrayIndex}
+            repeatStepList={repeatStepList}
           />
         );
       });
@@ -78,7 +77,7 @@ export default props => {
       let numberOfChapters = findValue(
         props.specData,
         pageInfo.specChapter,
-        step === null ? props.arrayIndex : [step]
+        step === null ? props.repeatStepList : [step]
       );
       if (numberOfChapters && numberOfChapters.length) {
         let newChapterArray = [];
@@ -86,8 +85,8 @@ export default props => {
           let newChapter = getNewChapter(
             step !== null
               ? [step, index]
-              : props.arrayIndex
-              ? [...props.arrayIndex, index]
+              : props.repeatStepList
+              ? [...props.repeatStepList, index]
               : [index],
             pageInfo,
             thisStage
@@ -111,7 +110,7 @@ export default props => {
       return (
         <Fragment key={count}>
           {" "}
-          {getNewChapter(props.arrayIndex, pageInfo, thisStage)}{" "}
+          {getNewChapter(props.repeatStepList, pageInfo, thisStage)}{" "}
         </Fragment>
       );
     }

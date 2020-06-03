@@ -86,10 +86,10 @@ export default pageInfo => {
         setFinishedItem={setFinishedItem}
         finishedItem={finishedItem}
         stage={stage}
-        arrayIndex={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
       />
       <Form
-        arrayIndex={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={

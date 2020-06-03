@@ -136,7 +136,7 @@
     {
       "pages": [
         {
-          "pageTitle": "Coating and Vulcanization",
+          "chapterTitle": "Coating and Vulcanization",
           "query": "GET_LEAD_ENGINEER",
           "queryPath": "leadEngineers",
           "mutation": "LEAD_ENGINEER",
@@ -227,7 +227,7 @@
           "repeatStartWithOneGroup": true,
           "delete": true,
           "addButton": "Add Step",
-          "indexVariablePageTitle": 1,
+          "indexVariablePageTitle": 0,
           "pageTitle": "Step {}",
           "fields": [
             {

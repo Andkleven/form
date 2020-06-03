@@ -62,16 +62,22 @@
               "required": true
             },
             {
+              "fieldName": "toleranceMinPercent",
+              "label": "Tolerance Min in Percent",
+              "required": true,
+              "unit": "%",
+              "type": "Number"
+            },
+            {
               "fieldName": "toleranceMin",
               "label": "Tolerance Min",
               "prepend": "Min",
               "math": "mathToleranceMin",
-              "required": true,
               "type": "number"
             },
             {
-              "fieldName": "toleranceMinPercent",
-              "label": "Tolerance Min in Percent",
+              "fieldName": "toleranceMaxPercent",
+              "label": "Tolerance Max in Percent",
               "required": true,
               "unit": "%",
               "type": "Number"
@@ -82,13 +88,6 @@
               "math": "mathToleranceMax",
               "prepend": "Max",
               "type": "number"
-            },
-            {
-              "fieldName": "toleranceMaxPercent",
-              "label": "Tolerance Max in Percent",
-              "required": true,
-              "unit": "%",
-              "type": "Number"
             },
             {
               "fieldName": "measurementPoint",
@@ -104,7 +103,7 @@
           "repeatStartWithOneGroup": true,
           "delete": true,
           "addButton": "Add Step",
-          "indexVariablePageTitle": 1,
+          "indexVariablePageTitle": 0,
           "pageTitle": "Step {}",
           "fields": [
             {
@@ -134,7 +133,8 @@
             },
             {
               "page": true,
-              "pageTitle": "Coating",
+              "pageTitle": "Coating {}",
+              "indexVariablePageTitle": 0,
               "queryPath": "coatingLayers",
               "repeat": true,
               "notAddButton": true,
@@ -253,16 +253,10 @@
                 {
                   "fieldName": "proposedThickness",
                   "label": "Proposed Thickness",
-                  "required": true,
                   "math": "mathProposedThickness",
                   "unit": "mm",
                   "decimal": 1,
                   "type": "Number"
-                },
-                {
-                  "fieldName": "layersUnique",
-                  "label": "Layers Unique",
-                  "type": "checkbox"
                 }
               ]
             }

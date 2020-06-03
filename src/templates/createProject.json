@@ -7,7 +7,7 @@
     {
       "pages": [
         {
-          "pageTitle": "Order",
+          "chapterTitle": "Order",
           "pageName": "project",
           "queryPath": "projects",
           "fields": [
@@ -82,7 +82,7 @@
     {
       "pages": [
         {
-          "pageTitle": "Description",
+          "chapterTitle": "Description",
           "pageName": "description",
           "queryPath": ["projects.0.descriptions", ""],
           "fields": [

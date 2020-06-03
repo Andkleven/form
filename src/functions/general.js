@@ -9,7 +9,9 @@ export const stringToDictionary = data => {
   }
 };
 
-export const emptyField = field => [null, undefined, "", "None"].includes(field);
+export const emptyField = field => [null, undefined, "", "None", 0].includes(field);
+
+export const fieldNotFilledOut = field => [null, undefined, ""].includes(field);
 
 export const isNumber = number => typeof number === "number";
 
@@ -78,11 +80,11 @@ export const findValue = (
 };
 
 // Get data to Group or test if group have data in database
-export const getData = (info, arrayIndex, documentDate, isItData = false) => {
+export const getData = (info, repeatStepList, documentDate, isItData = false) => {
   if (!documentDate) {
     return null;
   }
-  let path = createPath(info.queryPath, arrayIndex);
+  let path = createPath(info.queryPath, repeatStepList);
   let data = objectPath.get(documentDate, path);
   if (isItData && Array.isArray(data)) {
     return data[data.length - 1];
@@ -147,13 +149,13 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
           );
           if (Array.isArray(dataFields)) {
             dataFields.forEach(dataField => {
-              if (emptyField(dataField.data[field.fieldName]) && !(dataField.data[field.fieldName+ignoreRequiredField])) {
+              if (fieldNotFilledOut(dataField.data[field.fieldName]) && !(dataField.data[field.fieldName+ignoreRequiredField])) {
                 returnValue = false;
               }
             });
           } else if (!dataFields || !dataFields.data) {
             returnValue = false;
-          } else if (emptyField(dataFields.data[field.fieldName]) && !(dataFields.data[field.fieldName+ignoreRequiredField])) {
+          } else if (fieldNotFilledOut(dataFields.data[field.fieldName]) && !(dataFields.data[field.fieldName+ignoreRequiredField])) {
             returnValue = false;
           }
         }
@@ -380,14 +382,14 @@ export const chapterPages = (
   });
 };
 
-// export const mergePath = (info, arrayIndex, oldPath = null) => {
+// export const mergePath = (info, repeatStepList, oldPath = null) => {
 //   let path = oldPath === null ? "" : `${oldPath}.`;
 //   if (info.firstQueryPath) {
-//     path = `${path}${info.firstQueryPath}.${arrayIndex}.${
+//     path = `${path}${info.firstQueryPath}.${repeatStepList}.${
 //       info.secondQueryPath
 //     }`;
 //   } else if (info.findByIndex) {
-//     path = `${path}${info.queryPath}.${arrayIndex}`;
+//     path = `${path}${info.queryPath}.${repeatStepList}`;
 //   } else if (info.queryPath) {
 //     path = `${path}${info.queryPath}`;
 //   } else {
@@ -441,7 +443,7 @@ export const getDataToBatching = (
   fixedData,
   batchingListIds,
   path,
-  arrayIndex
+  repeatStepList
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
@@ -452,7 +454,7 @@ export const getDataToBatching = (
        */
       // eslint-disable-next-line
       item => item.id == batchingListIds[0]
-    )[Array.isArray(path) ? createPath(path, arrayIndex) : path];
+    )[Array.isArray(path) ? createPath(path, repeatStepList) : path];
     return { [key]: newData };
   }
   return { [key]: [] };
@@ -542,8 +544,8 @@ export const getStepFromStage = stage => {
 export function getRepeatStepList(props, index) {
   return props.repeatStepList !== undefined
     ? [...props.repeatStepList, index]
-    : props.arrayIndex
-    ? [...props.arrayIndex, index]
+    : props.repeatStepList
+    ? [...props.repeatStepList, index]
     : [index];
 }
 

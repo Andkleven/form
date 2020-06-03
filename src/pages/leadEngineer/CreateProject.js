@@ -61,6 +61,7 @@ export default pageInfo => {
       }
     });
   };
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
@@ -93,6 +94,7 @@ export default pageInfo => {
   ] = useMutation(mutations["DELETE_ITEM"], {
     update: deleteFromCache
   });
+  
   const [
     mutationUnique,
     { loading: loadingMutation, error: errorMutation }
@@ -154,7 +156,7 @@ export default pageInfo => {
           document={itemsJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData}
-          arrayIndex={[counter - 1]}
+          repeatStepList={[counter - 1]}
           getQueryBy={_id}
           foreignKey={_id}
         />

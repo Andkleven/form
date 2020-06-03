@@ -1,21 +1,17 @@
 import React, { useContext } from "react";
-import { FieldsContext, ChapterContext } from "components/form/Form";
+import { ChapterContext } from "components/form/Form";
 import { Form, Row, Col } from "react-bootstrap";
-import ErrorMessage from "../ErrorMessage";
 import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 
 export default props => {
-  const { setIsSubmitted, setValidationPassed } = useContext(FieldsContext);
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
     // if (window.confirm("Are you sure you wish to edit?")) {
-    setIsSubmitted(false);
     chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
-    setValidationPassed({});
     // }
   };
 
@@ -135,9 +131,6 @@ export default props => {
       )}
       {props.subtext && props.writeChapter ? (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
-      ) : null}
-      {props.error ? (
-        <ErrorMessage showMinMax={props.showMinMax} error={props.error} />
       ) : null}
     </Row>
   );

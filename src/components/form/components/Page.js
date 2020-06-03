@@ -1,27 +1,28 @@
 import React, {
   useEffect,
   useContext,
-  useState,
   useLayoutEffect,
   useMemo,
-  useCallback
+  useCallback,
+  useRef
 } from "react";
 import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
 import {
   ChapterContext,
-  DocumentDateContext,
-  FieldsContext
+  DocumentDateContext
 } from "components/form/Form";
-import { variableString, allTrue, getRepeatNumber } from "functions/general";
+import { getRepeatNumber } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
-import Title from "components/design/fonts/Title";
 import Subtitle from "components/design/fonts/Subtitle";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
 import SubmitButton from "components/button/SubmitButton";
 import CancelButton from "components/button/CancelButton";
 import TabButton from "components/button/TabButton";
+
+const cloneDeep = require("clone-deep");
+
 
 export default props => {
   const {
@@ -33,13 +34,8 @@ export default props => {
   const { documentDateDispatch, documentDate } = useContext(
     DocumentDateContext
   );
-  const {
-    setIsSubmitted,
-    isSubmitted,
-    setValidationPassed,
-    validationPassed
-  } = useContext(FieldsContext);
-  const [writeChapter, setWriteChapter] = useState();
+
+  const writeChapter = useRef(false)
   useLayoutEffect(() => {
     if (props.temporaryLastChapter && props.temporaryLastChapter !== lastChapter) {
       setLastChapter(props.temporaryLastChapter);
@@ -59,7 +55,12 @@ export default props => {
   );
 
   const addHandler = () => {
-    addData(objectPath.get(documentDate, props.path).length);
+    documentDateDispatch({
+      type: "add",
+      newState: {},
+      fieldName: "data",
+      path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
+    });
   };
   const deleteHandler = useCallback(
     index => {
@@ -69,27 +70,27 @@ export default props => {
   );
 
   // set repeatGroup
-  useEffect(() => {
+  // useEffect(() => {
     if (props.allWaysShow) {
-      setWriteChapter(true);
+      writeChapter.current = true;
     } else if (editChapter) {
       if (props.thisChapter === editChapter) {
-        setWriteChapter(true);
+        writeChapter.current = true;
       } else {
-        setWriteChapter(false);
+        writeChapter.current = false;
       }
     } else if (props.thisChapter === props.temporaryLastChapter) {
-      setWriteChapter(true);
+      writeChapter.current = true;
     } else {
-      setWriteChapter(false);
+      writeChapter.current = false;
     }
-  }, [props.allWaysShow, editChapter, props.thisChapter, props.temporaryLastChapter, props.componentsId]);
-
+  // }, [props.allWaysShow, editChapter, props.thisChapter, props.temporaryLastChapter, props.componentsId]);
+  
   // If repeat group start with one group set repeatGroup to 1
   // useEffect(() => {
   if (
     props.repeatStartWithOneGroup &&
-    writeChapter &&
+    writeChapter.current &&
     (!objectPath.get(props.data, props.path) ||
       objectPath.get(props.data, props.path).length === 0) &&
     Array.isArray(objectPath.get(documentDate, props.path)) &&
@@ -100,7 +101,7 @@ export default props => {
   // }, [
   //   // documentDate,
   //   props.repeatStartWithOneGroup,
-  //   writeChapter,
+  //   writeChapter.current,
   //   props.data,
   //   editChapter,
   //   lastChapter,
@@ -168,27 +169,22 @@ export default props => {
   ]);
 
   // Checks for conditional rendering
-  const showTitleOrSubtitle = !props.stopLoop.current && props.showEditButton;
   const showEditAll =
-    props.showEditButton && !props.stopLoop.current && !writeChapter;
+    props.showEditButton && !props.stopLoop && !writeChapter.current;
   const showLine = props.pageTitle && true;
+
 
   const SubmitButtonFunctional = () => {
     return (
       <SubmitButton
         key={`${props.thisChapter}-submit`}
-        onMouseDown={() => props.submitHandler(documentDate)}
-        name={
-          props.saveButton && !Object.values(validationPassed).every(allTrue) && !editChapter
-            ? "Save"
-            : null
-        }
+        type="submit"
+        // onClick={() => props.submitHandler(documentDate)}
       />
     );
   };
 
   const cancel = e => {
-    setValidationPassed({});
     setEditChapter(0);
   };
 
@@ -203,40 +199,23 @@ export default props => {
 
   const SubmitAndCancel = () => {
     return (
-      <>
         <div className="w-100 d-flex">
           <SubmitButtonFunctional />
           <div className="px-1" />
           <CancelButtonFunctional />
         </div>
-        {FieldsContext.isSubmitted && (
-          <div style={{ fontSize: 12, color: "red" }}>See Error Message</div>
-        )}
-      </>
     );
   };
 
   return (
     <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
-        {showTitleOrSubtitle ? (
-          <Title key={`${props.thisChapter}-${props.index}-jja`}>
-            {props.indexVariablePageTitle !== undefined
-              ? variableString(
-                  props.arrayIndex[
-                    props.indexVariablePageTitle
-                      ? props.indexVariablePageTitle
-                      : 0
-                  ] + 1,
-                  props.pageTitle
-                )
-              : props.pageTitle}
-          </Title>
-        ) : (
-          <Subtitle key={`${props.thisChapter}-${props.index}-jja`}>
+        {!props.stopLoop && props.pageTitle && props.indexVariablePageTitle === undefined ? (
+          <Subtitle >
             {props.pageTitle}
           </Subtitle>
-        )}
+        ) : 
+        null}
 
         {showEditAll ? (
           <>
@@ -244,9 +223,11 @@ export default props => {
               // size="sm"
               onClick={() => {
                 // if (window.confirm("Are you sure you wish to edit?")) {
-                setIsSubmitted(false);
                 setEditChapter(props.thisChapter);
-                setValidationPassed({});
+                documentDateDispatch({
+                  type: "setState",
+                  newState: cloneDeep(props.backendData)
+                });
                 // }
               }}
               key={lastChapter}
@@ -278,24 +259,52 @@ export default props => {
         <>
           <SelectSetFieldGroupData
             {...props}
-            writeChapter={writeChapter}
+            writeChapter={writeChapter.current}
             deleteHandler={deleteHandler}
-            addHandler={addHandler}
           />
-          {!props.notAddButton && props.repeat && writeChapter ? (
-            <button type="button" onMouseDown={() => addHandler()}>
+          {!props.notAddButton && props.repeat && writeChapter.current ? (
+            <button type="button" onClick={() => {
+              addHandler()}}>
               {props.addButton ? props.addButton : "Add"}
             </button>
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <Input {...props} writeChapter={writeChapter} />
+        <Input {...props} writeChapter={writeChapter.current} />
       ) : null}
       {props.showSaveButton ? (
         editChapter ? (
-          props.thisChapter === editChapter && <SubmitAndCancel />
+          props.thisChapter === editChapter && (
+            <>
+          <SubmitAndCancel /> 
+          {props.saveButton && <SubmitButton
+            key={`${props.thisChapter}-submit`}
+            type="button"
+            onClick={(event) => {
+              event.persist();
+              event.preventDefault();
+              props.submitData(documentDate, false)
+            }}
+          >
+            save
+          </SubmitButton>}
+          </>
+          )
         ) : props.thisChapter === lastChapter ? (
-          <SubmitAndCancel />
+          <>
+        <SubmitAndCancel /> 
+        {props.saveButton && <SubmitButton
+          key={`${props.thisChapter}-submit`}
+          type="button"
+          onClick={(event) => {
+              event.persist();
+              event.preventDefault();
+              props.submitData(documentDate, false)
+          }}
+        >
+          save
+          </SubmitButton>}
+        </>
         ) : null
       ) : null}
     </div>

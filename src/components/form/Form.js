@@ -12,8 +12,6 @@ import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import {
-  allTrue,
-  validateFieldWithValue,
   stringifyQuery
 } from "functions/general";
 
@@ -37,9 +35,10 @@ function reducer(state, action) {
         action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
         action.newState
       );
-      return state;
+      return {...state};
     case "delete":
-      return objectPath.del(state, action.path);
+      objectPath.del(state, action.path);
+      return {...state}
     default:
       throw new Error();
   }
@@ -47,7 +46,6 @@ function reducer(state, action) {
 
 export const ChapterContext = createContext();
 export const DocumentDateContext = createContext();
-export const FieldsContext = createContext();
 
 const cloneDeep = require("clone-deep");
 
@@ -55,13 +53,8 @@ export default props => {
   const [editChapter, setEditChapter] = useState(0);
   const [documentDate, documentDateDispatch] = useReducer(reducer, {});
   const [nextStage, setNextStage] = useState(true);
-  const [lastSubmitButton, setLastSubmitButton] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [lastChapter, setLastChapter] = useState(0);
-  const [validationPassed, setValidationPassed] = useState({});
 
-  // console.log(props.componentsId)
-  // console.log(props.arrayIndex)
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
@@ -82,7 +75,6 @@ export default props => {
     }
   }, [props.componentsId, props.data]);
   // console.log(documentDate)
-  // console.log(lastChapter)
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {
@@ -116,7 +108,7 @@ export default props => {
     let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
     if (props.secondQueryPath.trim()) {
       newData = data[props.secondQueryPath.split(/[.]+/).pop()];
-      secondQueryPath = `.${props.arrayIndex}.${props.secondQueryPath}`;
+      secondQueryPath = `.${props.repeatStepList}.${props.secondQueryPath}`;
     }
     let array = objectPath.get(
       oldData,
@@ -166,7 +158,7 @@ export default props => {
     });
     objectPath.push(
       oldData,
-      `${props.firstQueryPath}.${props.arrayIndex}.${props.secondQueryPath}`,
+      `${props.firstQueryPath}.${props.repeatStepList}.${props.secondQueryPath}`,
       data[props.secondQueryPath.split(/[.]+/).pop()].new
     );
     let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
@@ -194,7 +186,8 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-  const submitData = data => {
+  const submitData = (data, submit) => {
+    setNextStage(true);
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
       mutation({
@@ -205,67 +198,37 @@ export default props => {
           itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
-            props.saveButton &&
-            nextStage &&
-            Object.values(validationPassed).every(allTrue)
-              ? editChapter
-                ? FindNextStage(props.specData, props.stage, props.geometry)
-                : props.stage
+            submit &&
+            nextStage && 
+            editChapter
+              ? FindNextStage(props.specData, props.stage, props.geometry)
               : props.stage
         }
       });
     }
   };
 
-  const submitHandler = data => {
-    if (
-      (props.saveButton &&
-        validateFieldWithValue(validationPassed) &&
-        !editChapter) ||
-      Object.values(validationPassed).every(allTrue)
-    ) {
-      submitData(data);
-      setIsSubmitted(false);
-      setValidationPassed({});
-      setNextStage(true);
-      // if (lastSubmitButton && props.finalButton) {
-      //   props.finalButton();
-      // }
-      setEditChapter(0);
-    } else {
-      setIsSubmitted(true);
-    }
-  };
 
   const formSubmit = e => {
     e.persist();
     e.preventDefault();
-    submitHandler(documentDate);
+    submitData(documentDate, true);
   };
 
   return (
     <DocumentDateContext.Provider
       value={{ documentDate, documentDateDispatch }}
     >
-      <FieldsContext.Provider
-        value={{
-          validationPassed,
-          setValidationPassed,
-          isSubmitted,
-          setIsSubmitted
-        }}
-      >
         <ChapterContext.Provider
           value={{
             lastChapter,
             setLastChapter,
             editChapter,
-            setEditChapter,
-            setLastSubmitButton
+            setEditChapter
           }}
         >
           <Title title={props.document.documentTitle} />
-          <Form
+          <Form 
             onSubmit={e => {
               formSubmit(e);
             }}
@@ -274,16 +237,13 @@ export default props => {
               {...props}
               backendData={props.data}
               optionsData={optionsData}
-              submitHandler={submitHandler}
               submitData={submitData}
               setNextStage={setNextStage}
-              setLastSubmitButton={setLastSubmitButton}
             />
             {loadingMutation && <p>Loading...</p>}
             {errorMutation && <p>Error :( Please try again</p>}
           </Form>
         </ChapterContext.Provider>
-      </FieldsContext.Provider>
     </DocumentDateContext.Provider>
   );
 };

@@ -83,10 +83,10 @@ export default pageInfo => {
         batchingListIds={batchingListIds}
         setBatchingListIds={setBatchingListIds}
         stage={stage}
-        arrayIndex={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
       />
       <Form
-        arrayIndex={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={

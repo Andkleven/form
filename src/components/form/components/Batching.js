@@ -12,7 +12,7 @@ export default props => {
           batchingData[field.fieldName] = findValue(
             itemData,
             field.specValueList,
-            props.arrayIndex
+            props.repeatStepList
           );
         } else if (field.fieldName && !props.partialBatching) {
           batchingData[field.fieldName] = findValue(
@@ -21,7 +21,7 @@ export default props => {
             Array.isArray(props.json.batching.dataPath)
               ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
               : [props.json.batching.dataPath, `data.${field.fieldName}`],
-            props.arrayIndex
+            props.repeatStepList
           );
         }
       });

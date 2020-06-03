@@ -12,6 +12,7 @@ export default props => {
     >
       <Button
         variant="link"
+        type={props.type ? props.type : "button"}
         className={`py-0 m-0 ${props.noPadding ? `px-0` : `px-1`} text-center ${
           props.className
         }`}

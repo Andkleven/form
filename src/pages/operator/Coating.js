@@ -52,7 +52,7 @@ export default pageInfo => {
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           geometry={geometry}
-          arrayIndex={
+          repeatStepList={
             data.items[0].stage &&
             data.items[0].stage.split("Step")[1] && [
               Number(data.items[0].stage.split("Step")[1]) - 1

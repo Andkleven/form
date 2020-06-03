@@ -5,7 +5,7 @@ import { sumFieldInObject } from "functions/general";
 
 const CustomCoating = props => {
   let layers = 0;
-  for (let i = 0; i < props.arrayIndex[0]; i++) {
+  for (let i = 0; i < props.repeatStepList[0]; i++) {
     layers += Number(
       objectPath.get(
         props.specData,
@@ -13,7 +13,7 @@ const CustomCoating = props => {
       )
     );
   }
-  layers += props.arrayIndex[1] + 1;
+  layers += props.repeatStepList[1] + 1;
 
   return (
     <>
@@ -21,7 +21,7 @@ const CustomCoating = props => {
         textCenter={true}
         readOnly={true}
         label={"Step"}
-        value={`${props.arrayIndex[0] + 1} of ${
+        value={`${props.repeatStepList[0] + 1} of ${
           objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
             .length
         }`}

@@ -4,7 +4,10 @@ const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
     return null;
   } else {
-    return value.toFixed(decimal);
+    if (decimal) {
+      return value.toFixed(decimal);
+    }
+    return value.toFixed(1)
   }
 };
 
