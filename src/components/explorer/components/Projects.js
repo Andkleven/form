@@ -49,7 +49,7 @@ export default ({
       {headline && <h6>{headline}</h6>}
       {props.access && props.access.specs && (
         <Link
-          to={`/order/project/0`}
+          to={`/project/0`}
           iconProps={{
             icon: ["fad", "folder-plus"],
             size: iconSize,
@@ -76,7 +76,7 @@ export default ({
             {props.access && props.access.specs && (
               <div className="d-flex align-items-center">
                 <Link
-                  to={`/order/project/${project.id}`}
+                  to={`/project/${project.id}`}
                   key={`project${indexProject}`}
                   iconProps={{
                     icon: ["fad", "file-invoice"],

@@ -11,6 +11,7 @@ import {
   ChapterContext,
   DocumentDateContext
 } from "components/form/Form";
+import Title from "components/design/fonts/Title";
 import { getRepeatNumber } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
@@ -21,7 +22,6 @@ import SubmitButton from "components/button/SubmitButton";
 import CancelButton from "components/button/CancelButton";
 import TabButton from "components/button/TabButton";
 
-const cloneDeep = require("clone-deep");
 
 
 export default props => {
@@ -185,6 +185,7 @@ export default props => {
   };
 
   const cancel = e => {
+    documentDateDispatch({ type: "setState", newState: props.backendData })
     setEditChapter(0);
   };
 
@@ -211,9 +212,9 @@ export default props => {
     <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
         {!props.stopLoop && props.pageTitle && props.indexVariablePageTitle === undefined ? (
-          <Subtitle >
+          <Title >
             {props.pageTitle}
-          </Subtitle>
+          </Title>
         ) : 
         null}
 
@@ -226,7 +227,7 @@ export default props => {
                 setEditChapter(props.thisChapter);
                 documentDateDispatch({
                   type: "setState",
-                  newState: cloneDeep(props.backendData)
+                  newState: props.backendData
                 });
                 // }
               }}

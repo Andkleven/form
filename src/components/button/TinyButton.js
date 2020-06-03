@@ -17,7 +17,6 @@ export default ({ iconProps, ...props }) => {
           props.className
         }`}
         onClick={props.onClick}
-        type={props.type}
         style={{ minWidth: props.noPadding ? `` : `1.8em`, ...props }}
       >
         <span className={`${props.color && `text-${props.color}`}`}>

@@ -9,7 +9,7 @@ export const stringToDictionary = data => {
   }
 };
 
-export const emptyField = field => [null, undefined, "", "None", 0].includes(field);
+export const emptyField = field => [null, undefined, "", "None", 0, false].includes(field);
 
 export const fieldNotFilledOut = field => [null, undefined, ""].includes(field);
 

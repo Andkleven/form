@@ -13,8 +13,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 
-// delay onClick in sec
-// const onChangeDelay = 2
+const decimalTooStep = {
+  0 : 0,
+  1: 0.1,
+  2: 0.01,
+  3: 0.001,
+  4: 0.0001,
+  5: 0.00001,
+  6: 0.000001,
+  7: 0.0000001,
+  8: 0.00000001,
+  9: 0.000000001,
+}
 
 export default props => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
@@ -72,8 +82,6 @@ export default props => {
       }
     }
   }
-
-
 
   const onChangeIgnoreRequired = e => {
     let { name } = e.target;
@@ -181,12 +189,10 @@ export default props => {
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}
         name={props.fieldName}
-        // min={props.minInput ? props.minInput : undefined}
-        // max={props.maxInput ? props.maxInput : undefined}
-        min={1}
-        max={7}
+        min={props.minInput ? props.minInput : undefined}
+        max={props.maxInput ? props.maxInput : undefined}
         required={props.ignoreRequired && objectPath.get( documentDate, props.path + ignoreRequiredField, false) ? false : props.required}
-        step={0.1}
+        step={props.decimal ? decimalTooStep[props.decimal] : 0}
         tight={props.submitButton}
       />
       {props.ignoreRequired && (

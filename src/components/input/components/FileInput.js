@@ -42,7 +42,7 @@ export default props => {
   // test
   useEffect(() => {
     if (!props.singleFile) {
-      let oldFiles = objectPath.get(documentDate, props.path);
+      let oldFiles = objectPath.get(props.backendData, props.path);
       if (oldFiles) {
         setFiles(
           oldFiles.map(oldFile => ({
@@ -52,7 +52,7 @@ export default props => {
         );
       }
     }
-  }, [props.path, props.singleFile, documentDate]);
+  }, [props.path, props.singleFile, props.backendData]);
 
   useEffect(() => {
     if (!props.singleFile) {

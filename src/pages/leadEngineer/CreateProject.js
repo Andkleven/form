@@ -8,14 +8,12 @@ import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
-import { Button, ButtonGroup } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import SubmitButton from "components/button/SubmitButton";
 import GeneralButton from "components/button/GeneralButton";
 
 export default pageInfo => {
@@ -220,7 +218,7 @@ export default pageInfo => {
               className="text-center w-100 mt-3"
               onClick={() =>
                 history.push(
-                  `/order/lead-engineer/${geometryData.id}/${
+                  `/lead-engineer/${_id}/${geometryData.id}/${
                     geometryData.items.find(item => item.unique === false).id
                   }/0/${geometryData.data.geometry}`
                 )
@@ -244,7 +242,7 @@ export default pageInfo => {
                   });
                 }
                 history.push(
-                  `/order/lead-engineer/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
+                  `/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
                 );
               }}
               submitDelete={id => {
