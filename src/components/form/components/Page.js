@@ -238,7 +238,6 @@ export default props => {
             </TabButton>
         ) : (
           showCancel && (
-            <>
               <TabButton
                 // size="sm"
                 onClick={() => {
