@@ -85,7 +85,6 @@ export default props => {
   // }, [props.allWaysShow, editChapter, props.thisChapter, props.temporaryLastChapter, props.componentsId]);
 
   // If repeat group start with one group set repeatGroup to 1
-  // useEffect(() => {
   if (
     props.repeatStartWithOneGroup &&
     writeChapter.current &&
@@ -96,16 +95,7 @@ export default props => {
   ) {
     addData(0);
   }
-  // }, [
-  //   // documentDate,
-  //   props.repeatStartWithOneGroup,
-  //   writeChapter.current,
-  //   props.data,
-  //   editChapter,
-  //   lastChapter,
-  //   props.path,
-  //   addData
-  // ]);
+
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
   useEffect(() => {
@@ -179,7 +169,6 @@ export default props => {
   const SubmitButtonFunctional = () => {
     return (
       <SubmitButton
-        key={`${props.thisChapter}-submit`}
         type="submit"
         // onClick={() => props.submitHandler(documentDate)}
       />
@@ -194,7 +183,6 @@ export default props => {
   const CancelButtonFunctional = () => {
     return (
       <CancelButton
-        key={`${props.thisChapter}-cancel`}
         onClick={e => cancel()}
       />
     );
@@ -210,6 +198,19 @@ export default props => {
     );
   };
 
+  const SaveButton = () => (
+    <SubmitButton
+      type="button"
+      onClick={(event) => {
+        event.persist();
+        event.preventDefault();
+        props.submitData(documentDate, false)
+      }}
+    >
+    save
+    </SubmitButton>
+    );
+
   return (
     <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
       <div className="d-flex justify-content-between align-items-end">
@@ -220,7 +221,6 @@ export default props => {
         ) : null}
 
         {showEditAll ? (
-          <>
             <TabButton
               // size="sm"
               onClick={() => {
@@ -232,11 +232,9 @@ export default props => {
                 });
                 // }
               }}
-              key={lastChapter}
             >
               Edit all
             </TabButton>
-          </>
         ) : (
           showCancel && (
             <>
@@ -247,11 +245,9 @@ export default props => {
                   cancel();
                   // }
                 }}
-                key={lastChapter}
               >
                 Cancel
               </TabButton>
-            </>
           )
         )}
       </div>
@@ -282,39 +278,15 @@ export default props => {
         editChapter ? (
           props.thisChapter === editChapter && (
             <>
-              <SubmitAndCancel />
-              {props.saveButton && (
-                <SubmitButton
-                  key={`${props.thisChapter}-submit`}
-                  type="button"
-                  onClick={event => {
-                    event.persist();
-                    event.preventDefault();
-                    props.submitData(documentDate, false);
-                  }}
-                >
-                  save
-                </SubmitButton>
-              )}
-            </>
-          )
-        ) : props.thisChapter === lastChapter ? (
-          <>
-            <SubmitAndCancel />
-            {props.saveButton && (
-              <SubmitButton
-                key={`${props.thisChapter}-submit`}
-                type="button"
-                onClick={event => {
-                  event.persist();
-                  event.preventDefault();
-                  props.submitData(documentDate, false);
-                }}
-              >
-                save
-              </SubmitButton>
-            )}
+          <SubmitAndCancel /> 
+          {props.saveButton && <SaveButton />}
           </>
+          )
+        ) : props.thisChapter === props.temporaryLastChapter ? (
+          <>
+        <SubmitAndCancel /> 
+        {props.saveButton && <SaveButton />}
+        </>
         ) : null
       ) : null}
     </div>

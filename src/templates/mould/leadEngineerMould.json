@@ -257,6 +257,11 @@
                   "unit": "mm",
                   "decimal": 1,
                   "type": "Number"
+                },
+                {
+                  "fieldName": "layersUnique",
+                  "label": "Layers Unique",
+                  "type": "checkbox"
                 }
               ]
             }

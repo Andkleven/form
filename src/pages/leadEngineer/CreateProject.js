@@ -278,6 +278,7 @@ export default pageInfo => {
                 }
               ></DepthButton>
             </DepthButtonGroup>
+            {console.log(fixedData.projects[0].descriptions.length, projectsData.numberOfDescriptions)}
             <GeneralButton
               variant="primary"
               className="text-center w-100 mt-1"
@@ -294,7 +295,8 @@ export default pageInfo => {
                  * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
                  */
                 // eslint-disable-next-line
-                numberOfItems != projectsData.totalNumberOfItems
+                fixedData.projects[0].descriptions.length !== projectsData.numberOfDescriptions ||
+                Number(numberOfItems) !== Number(projectsData.totalNumberOfItems)
               }
             >
               Send to Production
