@@ -28,7 +28,7 @@ import FindNextStage from "components/form/stage/findNextStage";
 function reducer(state, action) {
   switch (action.type) {
     case "setState":
-      return action.newState;
+      return {...cloneDeep(action.newState)};
     case "add":
       objectPath.set(
         state,
@@ -70,11 +70,11 @@ export default props => {
     if (props.data) {
       documentDateDispatch({
         type: "setState",
-        newState: cloneDeep(props.data)
+        newState: props.data
       });
     }
   }, [props.componentsId, props.data]);
-  // console.log(documentDate)
+  console.log(documentDate)
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {
@@ -188,6 +188,7 @@ export default props => {
   );
   const submitData = (data, submit) => {
     setNextStage(true);
+    setEditChapter(0)
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
       mutation({
@@ -198,6 +199,7 @@ export default props => {
           itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
+            props.stage &&
             submit &&
             nextStage && 
             editChapter

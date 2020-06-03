@@ -21,7 +21,7 @@ export default (props) => {
     <>
       {props.file}
       {props.description}
-      <button className="btn" onClick={handleDelete}>
+      <button className="btn" onClick={() => handleDelete}>
         Delete
       </button>
       {loading && <p>Loading...</p>}

@@ -82,7 +82,7 @@
     {
       "pages": [
         {
-          "chapterTitle": "Description",
+          "pageTitle": "Description",
           "pageName": "description",
           "queryPath": ["projects.0.descriptions", ""],
           "fields": [
