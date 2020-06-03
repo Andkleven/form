@@ -10,17 +10,19 @@ import {
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
+import DepthButton from "components/button/DepthButton";
 
 export default props => {
   const { documentDate } = useContext(DocumentDateContext);
   const DeleteButton = props => (
-    <button
-      type="button"
+    <DepthButton
+      iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
       key={props.index}
       onClick={() => props.deleteHandler(props.index)}
+      className="mt-n2 mb-3 w-100"
     >
-      {"❌"}
-    </button>
+      Remove
+    </DepthButton>
   );
 
   if (props.repeat) {

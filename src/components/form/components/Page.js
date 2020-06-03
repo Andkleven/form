@@ -264,6 +264,7 @@ export default props => {
               onClick={() => {
                 addHandler();
               }}
+              className="my-1 w-100"
             >
               {props.addButton ? props.addButton : "Add"}
             </DepthButton>

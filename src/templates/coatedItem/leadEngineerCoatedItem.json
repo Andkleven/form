@@ -185,7 +185,6 @@
           ]
         },
         {
-          "pageTitle": "Measurement Point Actual",
           "queryPath": "leadEngineers.0.measurementPointActualTdvs",
           "repeat": true,
           "notAddButton": true,
@@ -201,7 +200,6 @@
           ]
         },
         {
-          "pageTitle": "Rubber Cement",
           "queryPath": "leadEngineers.0.rubberCements",
           "repeat": true,
           "delete": true,
@@ -251,7 +249,6 @@
             },
             {
               "page": true,
-              "pageTitle": "Coating",
               "queryPath": "coatingLayers",
               "repeat": true,
               "notAddButton": true,
