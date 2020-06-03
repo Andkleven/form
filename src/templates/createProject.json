@@ -7,7 +7,7 @@
     {
       "pages": [
         {
-          "chapterTitle": "Order",
+          "pageTitle": "Project",
           "pageName": "project",
           "queryPath": "projects",
           "fields": [
@@ -87,15 +87,15 @@
           "queryPath": ["projects.0.descriptions", ""],
           "fields": [
             {
+              "fieldName": "description",
+              "label": "Description Name",
+              "required": true
+            },
+            {
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
               "options": ["Mould", "Coated Item"],
-              "required": true
-            },
-            {
-              "fieldName": "description",
-              "label": "Description",
               "required": true
             },
             {

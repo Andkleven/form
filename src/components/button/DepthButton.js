@@ -3,8 +3,9 @@ import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { tinyShadow } from "styles/styles";
 
-export default props => {
+export default ({ iconProps, ...props }) => {
   const styles = !props.buttonGroup && tinyShadow;
+
   return (
     <OverlayTrigger
       delay={{ show: 1000, hide: 0 }}
@@ -14,6 +15,7 @@ export default props => {
     >
       <Button
         variant="superLight"
+        type={props.type}
         className={`${
           !(
             props.variant ||
@@ -30,16 +32,17 @@ export default props => {
           border: "solid",
           borderWidth: 1,
           borderColor: "rgba(0, 0, 0, 0.1)",
+          zIndex: 0,
           ...styles,
           ...props.style
         }}
       >
-        {props.icon && (
+        {(props.icon || iconProps) && (
           <FontAwesomeIcon
-            icon={props.icon}
-            className={`${props.children && "mr-2"} ${props.iconClassName}`}
-            size={props.iconSize}
-            style={props.iconStyle}
+            {...iconProps}
+            className={`${props.children && "mr-2"} ${
+              iconProps && iconProps.className
+            }`}
           />
         )}
         {props.children}

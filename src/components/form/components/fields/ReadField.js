@@ -6,12 +6,19 @@ import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 
-export default props => {
+export default ({ display = false, readOnly, className, style, ...props }) => {
+  if (display) {
+    readOnly = true;
+  };
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
     // if (window.confirm("Are you sure you wish to edit?")) {
-    chapterContext.setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
+    if (!display) {
+      chapterContext.setEditChapter(
+        `${props.repeatStepList}-${props.fieldName}`
+      );
+    }
     // }
   };
 
@@ -81,7 +88,7 @@ export default props => {
             className={`d-flex justify-content-between align-items-start h-100`}
           >
             <div>{datetimeString}</div>
-            {props.readOnly ? null : (
+            {readOnly ? null : (
               <TinyEditButton className={showAboveBreakpoint()} />
             )}
           </div>
@@ -101,14 +108,12 @@ export default props => {
           (props.value === true &&
             props.type === "checkbox" &&
             `Performed`) || <EmptyValue />}
-        {props.readOnly ? null : (
-          <TinyEditButton className={showAboveBreakpoint()} />
-        )}
+        {readOnly ? null : <TinyEditButton className={showAboveBreakpoint()} />}
       </div>
     );
 
   return (
-    <Row>
+    <Row className={className} style={style}>
       <Col xs="12" sm="6" className={showAboveBreakpoint()}>
         <Label {...props} />
       </Col>
@@ -121,7 +126,7 @@ export default props => {
             <Label {...props} />
             <Value {...props} />
           </div>
-          {props.readOnly ? null : <TinyEditButton />}
+          {readOnly ? null : <TinyEditButton />}
         </div>
       </Col>
       {!props.noLine && (

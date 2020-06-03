@@ -2,7 +2,7 @@ import React from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default props => {
+export default ({ iconProps, ...props }) => {
   return (
     <OverlayTrigger
       delay={{ show: 1000, hide: 0 }}
@@ -17,6 +17,7 @@ export default props => {
           props.className
         }`}
         onClick={props.onClick}
+        type={props.type}
         style={{ minWidth: props.noPadding ? `` : `1.8em`, ...props }}
       >
         <span className={`${props.color && `text-${props.color}`}`}>
@@ -25,6 +26,7 @@ export default props => {
               icon={props.icon}
               size={props.iconSize || ""}
               style={props.iconStyle}
+              {...iconProps}
             />
           )}
           <div className="ml-1 d-inline">{props.children}</div>

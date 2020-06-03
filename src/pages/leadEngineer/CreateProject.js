@@ -8,12 +8,15 @@ import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
-import { Button } from "react-bootstrap";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { objectifyQuery } from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import Canvas from "components/layout/Canvas";
-import GeneralButton from "components/button/GeneralButton";
 import DepthButton from "components/button/DepthButton";
+import ReadField from "components/form/components/fields/ReadField";
+import DepthButtonGroup from "components/button/DepthButtonGroup";
+import SubmitButton from "components/button/SubmitButton";
+import GeneralButton from "components/button/GeneralButton";
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -23,8 +26,7 @@ export default pageInfo => {
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
   const [fixedData, setFixedData] = useState(null);
-  
-  
+
   const setState = counter => {
     setCounter(counter);
   };
@@ -148,6 +150,47 @@ export default pageInfo => {
   }, [counter, fixedData, error, loading]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
+  const projectExists =
+    fixedData && fixedData.projects && fixedData.projects[0];
+
+  const ItemCounter = ({ className }) => {
+    const percentage = numberOfItems / projectsData.totalNumberOfItems;
+    const perfect = percentage === 1.0;
+    const over = percentage > 1.0;
+    // const under = percentage < 1.0;
+
+    let textColor;
+
+    if (perfect) {
+      textColor = "success";
+    } else if (over) {
+      textColor = "danger";
+    }
+
+    textColor = "text-" + textColor;
+
+    return (
+      <div className={`${className}`}>
+        <ReadField
+          display
+          label={`Items in current description`}
+          value={`${geometryData.items.length}`}
+          // noLine
+        />
+        <ReadField
+          display
+          className={`${textColor}`}
+          label={`Items in project`}
+          value={`${numberOfItems}/${projectsData.totalNumberOfItems}${
+            over ? ", too many items!" : ""
+          }`}
+          // noLine
+        />
+      </div>
+    );
+  };
+
   return (
     <Canvas>
       <Paper>
@@ -167,11 +210,14 @@ export default pageInfo => {
               getQueryBy={_id}
               counter={counter - 1}
             />
+            {projectExists && <ItemCounter className="my-3" />}
             <DepthButton
-              icon={["fas", "cubes"]}
-              iconSize="lg"
-              iconClassName="text-secondary"
-              className="text-center w-100"
+              iconProps={{
+                icon: ["fas", "cubes"],
+                size: "lg",
+                className: "text-secondary"
+              }}
+              className="text-center w-100 mt-3"
               onClick={() =>
                 history.push(
                   `/order/lead-engineer/${geometryData.id}/${
@@ -181,7 +227,7 @@ export default pageInfo => {
               }
               style={{ marginBottom: 2 }}
             >
-              Open all {geometryData.items.length} items
+              Open all items in current description
             </DepthButton>
             <ItemList
               className="pt-1"
@@ -213,32 +259,30 @@ export default pageInfo => {
             counter={counter - 1}
           />
         ) : null}
-        {fixedData && fixedData.projects && fixedData.projects[0] ? (
+        {projectExists && (
           <>
-          <h4>
-            Description {counter}/{projectsData.numberOfDescriptions}
-          </h4>
-          <h4>
-            Items {numberOfItems}/{projectsData.totalNumberOfItems}
-          </h4>
-          </>
-        ) : null}
-        {counter !== 1 && (
-          <Button onClick={() => setState(counter - 1)}>Back</Button>
-        )}
-        {counter < projectsData.numberOfDescriptions ? (
-          <Button onClick={() => setState(counter + 1)}>Next</Button>
-        ) : (
-          /** WARNING: Non-strict comparison below
-           * For more info on strict vs non-strict comparisons:
-           * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
-           */
-          // eslint-disable-next-line
-          numberOfItems == projectsData.totalNumberOfItems &&
-          (fixedData.projects[0].leadEngineerDone ? (
-            <h3>In Production</h3>
-          ) : (
-            <Button
+            <DepthButtonGroup className="w-100 mt-3 pt-3">
+              <DepthButton
+                className="text-center w-50"
+                iconProps={{ icon: "arrow-to-left" }}
+                onClick={() => setState(counter - 1)}
+                disabled={counter !== 1 ? false : true}
+              ></DepthButton>
+              <DepthButton disabled className="text-center w-100">
+                Description {counter}/{projectsData.numberOfDescriptions}
+              </DepthButton>
+              <DepthButton
+                iconProps={{ icon: "arrow-to-right" }}
+                className="text-center w-50"
+                onClick={() => setState(counter + 1)}
+                disabled={
+                  counter < projectsData.numberOfDescriptions ? false : true
+                }
+              ></DepthButton>
+            </DepthButtonGroup>
+            <GeneralButton
+              variant="primary"
+              className="text-center w-100 mt-1"
               onClick={() =>
                 LeadEngineerDoneMutation({
                   variables: {
@@ -246,16 +290,23 @@ export default pageInfo => {
                   }
                 })
               }
+              disabled={
+                /** WARNING: Non-strict comparison below
+                 * For more info on strict vs non-strict comparisons:
+                 * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
+                 */
+                // eslint-disable-next-line
+                numberOfItems != projectsData.totalNumberOfItems
+              }
             >
               Send to Production
-            </Button>
-          ))
+            </GeneralButton>
+          </>
         )}
-
-        {loadingMutation && <p>Loading...</p>}
+        {/* {loadingMutation && <p>Loading...</p>}
         {errorMutation && <p>Error :( Please try again</p>}
         {loadingLeadEngineerDone && <p>Loading...</p>}
-        {errorLeadEngineerDone && <p>Error :( Please try again</p>}
+        {errorLeadEngineerDone && <p>Error :( Please try again</p>} */}
       </Paper>
     </Canvas>
   );

@@ -7,10 +7,10 @@ import GeneralButton from "components/button/GeneralButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
-  const [show, setShow] = useState(false);
+  const [showRename, setShowRename] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseRename = () => setShowRename(false);
+  const handleShowRename = () => setShowRename(true);
 
   return (
     <div className="h-100">
@@ -21,10 +21,7 @@ export default props => {
       >
         <DepthButton
           size="sm"
-          // icon={["fas", "cube"]}
           tooltip={`Open "${props.item.itemId}"`}
-          iconSize="sm"
-          // buttonSize="sm"
           className="btn d-flex justify-content-left align-items-center h-100 text-left text-truncate w-100"
           onClick={props.submitItem.bind(this, props.item)}
         >
@@ -34,34 +31,32 @@ export default props => {
           size="sm"
           tooltip="Rename"
           short
-          icon={["fas", "pen"]}
-          iconSize="sm"
-          // iconStyle={{ color: "red" }}
-          // buttonSize="sm"
+          iconProps={{ icon: ["fas", "pen"], size: "sm" }}
           className="btn h-100 text-primary"
-          onClick={handleShow}
+          onClick={handleShowRename}
         ></DepthButton>
         <DepthButton
           size="sm"
           tooltip="Delete"
           short
-          icon={["fas", "trash"]}
-          iconSize="sm"
-          // iconStyle={{ color: "red" }}
-          // buttonSize="sm"
+          iconProps={{ icon: ["fas", "trash"], size: "sm" }}
           className="btn h-100 text-secondary"
-          onClick={props.submitDelete.bind(this, props.item.id)}
+          // onClick={props.submitDelete.bind(this, props.item.id)}
+          onClick={() => {
+            window.confirm("This is irreversible - are you sure?") &&
+              props.submitDelete(props.item.id);
+          }}
         ></DepthButton>
       </DepthButtonGroup>
-      <Modal centered show={show} onHide={handleClose}>
+      <Modal centered show={showRename} onHide={handleCloseRename}>
         <Modal.Body>
           <ItemUpdate
             {...props}
             edit
             id={props.item.id}
             value={props.item.itemId}
-            done={handleClose}
-            onCancel={handleClose}
+            onDone={handleCloseRename}
+            onCancel={handleCloseRename}
           />
         </Modal.Body>
       </Modal>

@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import { objectifyQuery } from "functions/general";
 import LoadingAnimation from "./components/LoadingAnimation";
-import ErrorMessage from "./components/ErrorMessage";
+import ErrorMessage from "components/design/ErrorMessage";
 import { getAccess } from "functions/user.ts";
 
 export default ({
@@ -30,7 +30,7 @@ export default ({
   if (loading) {
     return LoadingAnimation;
   } else if (error) {
-    return <ErrorMessage error={error} />;
+    return <ErrorMessage big error={error} />;
   } else {
     return (
       <ExplorerView
