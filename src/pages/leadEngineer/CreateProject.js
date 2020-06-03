@@ -152,8 +152,6 @@ export default pageInfo => {
   const projectExists =
     fixedData && fixedData.projects && fixedData.projects[0];
 
-  const sendToProduction = fixedData && fixedData.projects && fixedData.projects[0] && fixedData.projects[0].leadEngineerDone
-
   const ItemCounter = ({ className }) => {
     const percentage = numberOfItems / projectsData.totalNumberOfItems;
     const perfect = percentage === 1.0;
@@ -191,11 +189,17 @@ export default pageInfo => {
     );
   };
 
-  const sent = false;
+  const sent =
+    fixedData &&
+    fixedData.projects &&
+    fixedData.projects[0] &&
+    fixedData.projects[0].leadEngineerDone;
 
   const sendable =
     !sent &&
     ((fixedData &&
+      fixedData.projects &&
+      fixedData.projects[0] &&
       fixedData.projects[0].descriptions.length !==
         projectsData.numberOfDescriptions) ||
       Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
