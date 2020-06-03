@@ -155,13 +155,14 @@ export default props => {
 
   // Checks for conditional rendering
   const showEditAll =
-    props.showEditButton &&
-    !props.stopLoop &&
-    !writeChapter.current &&
-    props.thisChapter !== lastChapter;
+    props.showEditButton && !props.stopLoop && !writeChapter.current;
+  // && props.thisChapter !== lastChapter;
   const showCancel =
     !!editChapter && props.thisChapter !== lastChapter && props.pageTitle;
-  const showLine = props.pageTitle && true;
+  const showLine =
+    !!props.pageTitle &&
+    !["", " ", null, false, true].includes(props.pageTitle) &&
+    true;
 
   const SubmitButton = () => {
     return (
