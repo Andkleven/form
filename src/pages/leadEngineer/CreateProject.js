@@ -189,17 +189,11 @@ export default pageInfo => {
     );
   };
 
-  const sent =
-    fixedData &&
-    fixedData.projects &&
-    fixedData.projects[0] &&
-    fixedData.projects[0].leadEngineerDone;
+  const sent = projectExists && fixedData.projects[0].leadEngineerDone;
 
   const sendable =
     !sent &&
-    ((fixedData &&
-      fixedData.projects &&
-      fixedData.projects[0] &&
+    ((projectExists &&
       fixedData.projects[0].descriptions.length !==
         projectsData.numberOfDescriptions) ||
       Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
