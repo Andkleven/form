@@ -94,7 +94,7 @@ export default pageInfo => {
   ] = useMutation(mutations["DELETE_ITEM"], {
     update: deleteFromCache
   });
-  
+
   const [
     mutationUnique,
     { loading: loadingMutation, error: errorMutation }
@@ -225,7 +225,7 @@ export default pageInfo => {
               }
               style={{ marginBottom: 2 }}
             >
-              Open all items in current description
+              Open all items
             </DepthButton>
             <ItemList
               className="pt-1"
@@ -251,11 +251,14 @@ export default pageInfo => {
             />
           </>
         ) : geometryData ? (
-          <ItemUpdate
-            foreignKey={geometryData.id}
-            getQueryBy={_id}
-            counter={counter - 1}
-          />
+          <>
+            <ItemUpdate
+              foreignKey={geometryData.id}
+              getQueryBy={_id}
+              counter={counter - 1}
+            />
+            {projectExists && <ItemCounter className="my-3" />}
+          </>
         ) : null}
         {projectExists && (
           <>
@@ -278,7 +281,6 @@ export default pageInfo => {
                 }
               ></DepthButton>
             </DepthButtonGroup>
-            {console.log(fixedData.projects[0].descriptions.length, projectsData.numberOfDescriptions)}
             <GeneralButton
               variant="primary"
               className="text-center w-100 mt-1"
@@ -295,8 +297,10 @@ export default pageInfo => {
                  * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
                  */
                 // eslint-disable-next-line
-                fixedData.projects[0].descriptions.length !== projectsData.numberOfDescriptions ||
-                Number(numberOfItems) !== Number(projectsData.totalNumberOfItems)
+                fixedData.projects[0].descriptions.length !==
+                  projectsData.numberOfDescriptions ||
+                Number(numberOfItems) !==
+                  Number(projectsData.totalNumberOfItems)
               }
             >
               Send to Production

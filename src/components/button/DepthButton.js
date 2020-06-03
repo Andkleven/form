@@ -23,9 +23,9 @@ export default ({ iconProps, ...props }) => {
           ) && `text-dark`
         } ${!props.variant && `border`} ${!props.short && "w-100"} d-flex 
         align-items-center ${
-          props.className &&
-          !props.className.includes("justify-content-") &&
-          "justify-content-center"
+          props.className && props.className.includes("justify-content-")
+            ? ""
+            : "justify-content-center"
         } ${props.className}`}
         {...props}
         style={{

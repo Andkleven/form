@@ -161,7 +161,7 @@ export default props => {
             </ul>
           </aside>
         ) : (
-          !props.writeChapter && (
+          (!props.writeChapter || true) && (
             <div className="text-secondary">
               <FontAwesomeIcon icon="file-times" className="mr-2" />
               <div className="d-inline">No files uploaded.</div>
