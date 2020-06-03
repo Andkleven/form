@@ -149,14 +149,7 @@ export default props => {
     : props.document.chapters.map(pageInfo => {
         return runChapter(pageInfo);
       });
-  
-  useEffect(() => {
-    return () => {
-      if (stopLoop.current === false) {
-        setLastSubmitButton(true);
-      }
-    }
-  }, [setLastSubmitButton])
+
   useEffect(() => {
     return () => {
       stopLoop.current = false
