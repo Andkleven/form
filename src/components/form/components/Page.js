@@ -167,7 +167,6 @@ export default props => {
   const SubmitButtonFunctional = () => {
     return (
       <SubmitButton
-        key={`${props.thisChapter}-submit`}
         type="submit"
         // onClick={() => props.submitHandler(documentDate)}
       />
@@ -182,7 +181,6 @@ export default props => {
   const CancelButtonFunctional = () => {
     return (
       <CancelButton
-        key={`${props.thisChapter}-cancel`}
         onClick={e => cancel()}
       />
     );
@@ -245,7 +243,6 @@ export default props => {
                   cancel();
                   // }
                 }}
-                key={lastChapter}
               >
                 Cancel
               </TabButton>
