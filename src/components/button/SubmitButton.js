@@ -20,9 +20,5 @@ export default props => {
     );
   };
 
-  return (
-    <div className="w-100 d-flex justify-content-center">
-      <DeviceButton />
-    </div>
-  );
+  return <DeviceButton />;
 };

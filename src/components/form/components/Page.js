@@ -14,9 +14,9 @@ import Input from "components/input/Input";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
-import SubmitButton from "components/button/SubmitButton";
-import CancelButton from "components/button/CancelButton";
 import TabButton from "components/button/TabButton";
+import DepthButton from "components/button/DepthButton";
+import DepthButtonGroup from "components/button/DepthButtonGroup";
 
 export default props => {
   const {
@@ -59,7 +59,7 @@ export default props => {
       path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
     });
   };
-  
+
   const deleteHandler = useCallback(
     index => {
       documentDateDispatch({ type: "delete", path: `${props.path}.${index}` });
@@ -95,7 +95,6 @@ export default props => {
   ) {
     addData(0);
   }
-
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
   useEffect(() => {
@@ -164,50 +163,63 @@ export default props => {
     !!editChapter && props.thisChapter !== lastChapter && props.pageTitle;
   const showLine = props.pageTitle && true;
 
-  const SubmitButtonFunctional = () => {
+  const SubmitButton = () => {
     return (
-      <SubmitButton
+      <DepthButton
+        iconProps={{ icon: ["fas", "check"], className: "text-primary" }}
+        short
         type="submit"
-        // onClick={() => props.submitHandler(documentDate)}
-      />
+      >
+        Submit
+      </DepthButton>
     );
   };
 
-  const cancel = e => {
+  const save = e => {
+    e.persist();
+    e.preventDefault();
+    props.submitData(documentDate, false);
+  };
+
+  const SaveButton = () => (
+    <DepthButton
+      iconProps={{ icon: ["fas", "save"], className: "text-info" }}
+      short
+      align="center"
+      onClick={e => {
+        save(e);
+      }}
+    >
+      Save
+    </DepthButton>
+  );
+
+  const cancel = () => {
     documentDateDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
   };
 
-  const CancelButtonFunctional = () => {
+  const CancelButton = () => {
     return (
-      <CancelButton
-        onClick={e => cancel()}
-      />
+      <DepthButton
+        iconProps={{ icon: ["fas", "times"], className: "text-secondary" }}
+        short
+        onClick={() => cancel()}
+      >
+        Cancel
+      </DepthButton>
     );
   };
 
   const SubmitAndCancel = () => {
     return (
-      <div className="w-100 d-flex">
-        <SubmitButtonFunctional />
-        <div className="px-1" />
-        <CancelButtonFunctional />
-      </div>
+      <DepthButtonGroup className="w-100 d-flex">
+        <SubmitButton />
+        {props.saveButton && <SaveButton />}
+        {showCancel && <CancelButton />}
+      </DepthButtonGroup>
     );
   };
-
-  const SaveButton = () => (
-    <SubmitButton
-      type="button"
-      onClick={(event) => {
-        event.persist();
-        event.preventDefault();
-        props.submitData(documentDate, false)
-      }}
-    >
-    save
-    </SubmitButton>
-    );
 
   return (
     <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
@@ -219,32 +231,26 @@ export default props => {
         ) : null}
 
         {showEditAll ? (
-            <TabButton
-              // size="sm"
-              onClick={() => {
-                // if (window.confirm("Are you sure you wish to edit?")) {
-                setEditChapter(props.thisChapter);
-                documentDateDispatch({
-                  type: "setState",
-                  newState: props.backendData
-                });
-                // }
-              }}
-            >
-              Edit all
-            </TabButton>
+          <TabButton
+            onClick={() => {
+              setEditChapter(props.thisChapter);
+              documentDateDispatch({
+                type: "setState",
+                newState: props.backendData
+              });
+            }}
+          >
+            Edit all
+          </TabButton>
         ) : (
           showCancel && (
-              <TabButton
-                // size="sm"
-                onClick={() => {
-                  // if (window.confirm("Are you sure you wish to edit?")) {
-                  cancel();
-                  // }
-                }}
-              >
-                Cancel
-              </TabButton>
+            <TabButton
+              onClick={() => {
+                cancel();
+              }}
+            >
+              Cancel
+            </TabButton>
           )
         )}
       </div>
@@ -273,17 +279,9 @@ export default props => {
       ) : null}
       {props.showSaveButton ? (
         editChapter ? (
-          props.thisChapter === editChapter && (
-            <>
-          <SubmitAndCancel /> 
-          {props.saveButton && <SaveButton />}
-          </>
-          )
+          props.thisChapter === editChapter && <SubmitAndCancel />
         ) : props.thisChapter === props.temporaryLastChapter ? (
-          <>
-        <SubmitAndCancel /> 
-        {props.saveButton && <SaveButton />}
-        </>
+          <SubmitAndCancel />
         ) : null
       ) : null}
     </div>

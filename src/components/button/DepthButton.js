@@ -3,8 +3,23 @@ import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { tinyShadow } from "styles/styles";
 
-export default ({ iconProps, ...props }) => {
+export default ({ iconLast = false, iconProps, ...props }) => {
   const styles = !props.buttonGroup && tinyShadow;
+
+  const Icon = () => {
+    if (!!props.icon || !!iconProps) {
+      return (
+        <FontAwesomeIcon
+          {...iconProps}
+          className={`${props.children && (iconLast ? "ml-2" : "mr-2")} ${
+            iconProps && iconProps.className
+          }`}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
 
   return (
     <OverlayTrigger
@@ -23,9 +38,9 @@ export default ({ iconProps, ...props }) => {
           ) && `text-dark`
         } ${!props.variant && `border`} ${!props.short && "w-100"} d-flex 
         align-items-center ${
-          props.className &&
-          !props.className.includes("justify-content-") &&
-          "justify-content-center"
+          props.className && props.className.includes("justify-content-")
+            ? ""
+            : "justify-content-center"
         } ${props.className}`}
         {...props}
         style={{
@@ -37,15 +52,9 @@ export default ({ iconProps, ...props }) => {
           ...props.style
         }}
       >
-        {(props.icon || iconProps) && (
-          <FontAwesomeIcon
-            {...iconProps}
-            className={`${props.children && "mr-2"} ${
-              iconProps && iconProps.className
-            }`}
-          />
-        )}
+        {!iconLast && <Icon />}
         {props.children}
+        {iconLast && <Icon />}
       </Button>
     </OverlayTrigger>
   );

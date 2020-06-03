@@ -9,7 +9,7 @@ export default props => {
     <div className="mb-1">
       <FontAwesomeIcon
         icon={["fad", "file-image"]}
-        className="text-primary text-center mr-2 shadow-sm"
+        className={`text-primary text-center shadow-sm mr-2`}
         swapOpacity
       />
       {props.file.file.name}

@@ -94,7 +94,7 @@ export default pageInfo => {
   ] = useMutation(mutations["DELETE_ITEM"], {
     update: deleteFromCache
   });
-  
+
   const [
     mutationUnique,
     { loading: loadingMutation, error: errorMutation }
@@ -225,7 +225,7 @@ export default pageInfo => {
               }
               style={{ marginBottom: 2 }}
             >
-              Open all items in current description
+              Open all items
             </DepthButton>
             <ItemList
               className="pt-1"
@@ -251,11 +251,14 @@ export default pageInfo => {
             />
           </>
         ) : geometryData ? (
-          <ItemUpdate
-            foreignKey={geometryData.id}
-            getQueryBy={_id}
-            counter={counter - 1}
-          />
+          <>
+            <ItemUpdate
+              foreignKey={geometryData.id}
+              getQueryBy={_id}
+              counter={counter - 1}
+            />
+            {projectExists && <ItemCounter className="my-3" />}
+          </>
         ) : null}
         {projectExists && (
           <>
@@ -265,21 +268,26 @@ export default pageInfo => {
                 iconProps={{ icon: "arrow-to-left" }}
                 onClick={() => setState(counter - 1)}
                 disabled={counter !== 1 ? false : true}
-              ></DepthButton>
+              >
+                <div className="d-none d-sm-inline">Previous</div>
+              </DepthButton>
               <DepthButton disabled className="text-center w-100">
                 Description {counter}/{projectsData.numberOfDescriptions}
               </DepthButton>
               <DepthButton
                 iconProps={{ icon: "arrow-to-right" }}
+                iconLast
                 className="text-center w-50"
                 onClick={() => setState(counter + 1)}
                 disabled={
                   counter < projectsData.numberOfDescriptions ? false : true
                 }
-              ></DepthButton>
+              >
+                <div className="d-none d-sm-inline">Next</div>
+              </DepthButton>
             </DepthButtonGroup>
-            <GeneralButton
-              variant="primary"
+            <DepthButton
+              iconProps={{ icon: ["fas", "share"], className: "text-primary" }}
               className="text-center w-100 mt-1"
               onClick={() =>
                 LeadEngineerDoneMutation({
@@ -294,12 +302,14 @@ export default pageInfo => {
                  * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
                  */
                 // eslint-disable-next-line
-                fixedData.projects[0].descriptions.length !== projectsData.numberOfDescriptions ||
-                Number(numberOfItems) !== Number(projectsData.totalNumberOfItems)
+                fixedData.projects[0].descriptions.length !==
+                  projectsData.numberOfDescriptions ||
+                Number(numberOfItems) !==
+                  Number(projectsData.totalNumberOfItems)
               }
             >
               Send to Production
-            </GeneralButton>
+            </DepthButton>
           </>
         )}
         {/* {loadingMutation && <p>Loading...</p>}
