@@ -14,7 +14,6 @@ export default props => {
     key={props.index}
     onClick={() => props.deleteHandler(props.index)}
     >
-    {console.log(props.index)}
       {"❌"}
     </button>)
 

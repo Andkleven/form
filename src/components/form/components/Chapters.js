@@ -116,7 +116,7 @@ export default props => {
     let i = 0;
     let stageSplit = [];
     let chapterBasedOnStage = [];
-    let thisStage = props.stage
+    let thisStage = props.stage ? props.stage : stage
     if (props.stage === "" && props.geometry){
       thisStage = Object.keys(stagesJson[removeSpace(props.geometry.toLowerCase())])[0]
     } 

@@ -123,8 +123,9 @@ export default props => {
       />
     );
   } else if (
-    props.math ||
-    props.setValueByIndex
+    props.writeChapter && 
+    (props.math ||
+    props.setValueByIndex)
     
   ) {
     return (
