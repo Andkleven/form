@@ -12,9 +12,7 @@ import SubmitButton from "components/button/SubmitButton";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
-import {
-  stringifyQuery
-} from "functions/general";
+import { stringifyQuery } from "functions/general";
 
 import FindNextStage from "components/form/stage/findNextStage";
 
@@ -31,12 +29,13 @@ function reducer(state, action) {
     case "setState":
       return {...cloneDeep(action.newState)};
     case "add":
-      objectPath.set(
+       objectPath.set(
         state,
         action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
         action.newState
       );
-      return {...state};
+      return {...state}
+      // return {...state};
     case "delete":
       objectPath.del(state, action.path);
       return {...state}
@@ -75,7 +74,7 @@ export default props => {
       });
     }
   }, [props.componentsId, props.data]);
-  // console.log(documentDate)
+  console.log(documentDate)
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {

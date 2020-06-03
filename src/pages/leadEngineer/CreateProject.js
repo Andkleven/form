@@ -154,6 +154,7 @@ export default pageInfo => {
 
   const sendToProduction = fixedData && fixedData.projects && fixedData.projects[0] && fixedData.projects[0].leadEngineerDone
 
+
   const ItemCounter = ({ className }) => {
     const percentage = numberOfItems / projectsData.totalNumberOfItems;
     const perfect = percentage === 1.0;
