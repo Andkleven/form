@@ -189,6 +189,15 @@ export default pageInfo => {
     );
   };
 
+  const sent = false;
+
+  const sendable =
+    !sent &&
+    ((fixedData &&
+      fixedData.projects[0].descriptions.length !==
+        projectsData.numberOfDescriptions) ||
+      Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
+
   return (
     <Canvas>
       <Paper>
@@ -287,7 +296,10 @@ export default pageInfo => {
               </DepthButton>
             </DepthButtonGroup>
             <DepthButton
-              iconProps={{ icon: ["fas", "share"], className: "text-primary" }}
+              iconProps={{
+                icon: ["fas", `${sent ? "thumbs-up" : "share"}`],
+                className: "text-primary"
+              }}
               className="text-center w-100 mt-1"
               onClick={() =>
                 LeadEngineerDoneMutation({
@@ -302,13 +314,10 @@ export default pageInfo => {
                  * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
                  */
                 // eslint-disable-next-line
-                fixedData.projects[0].descriptions.length !==
-                  projectsData.numberOfDescriptions ||
-                Number(numberOfItems) !==
-                  Number(projectsData.totalNumberOfItems)
+                sendable || sent
               }
             >
-              Send to Production
+              {sent ? "Sent to Production" : "Send to Production"}
             </DepthButton>
           </>
         )}
