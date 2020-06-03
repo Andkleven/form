@@ -117,7 +117,7 @@ export default props => {
         label={label}
       />
     );
-  } else if (props.math || props.setValueByIndex) {
+  } else if (props.writeChapter && (props.math || props.setValueByIndex)) {
     return (
       <small>
         <ReadOnlyField

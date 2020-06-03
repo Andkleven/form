@@ -142,11 +142,11 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
     let newPath = page.queryPath;
     page.fields &&
       page.fields.forEach(field => {
+        let dataFields = objectPath.get(
+          data,
+          Array.isArray(newPath) ? createPath(newPath, array) : `${newPath}.0`
+        );
         if (field.required) {
-          let dataFields = objectPath.get(
-            data,
-            Array.isArray(newPath) ? createPath(newPath, array) : `${newPath}.0`
-          );
           if (Array.isArray(dataFields)) {
             dataFields.forEach(dataField => {
               if (fieldNotFilledOut(dataField.data[field.fieldName]) && !(dataField.data[field.fieldName+ignoreRequiredField])) {
@@ -158,7 +158,9 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
           } else if (fieldNotFilledOut(dataFields.data[field.fieldName]) && !(dataFields.data[field.fieldName+ignoreRequiredField])) {
             returnValue = false;
           }
-        }
+        } else if (!Array.isArray(dataFields) && field.fieldName && (dataFields === undefined || dataFields.data === undefined || dataFields.data[field.fieldName] === undefined)) {
+          returnValue = false;
+        } 
       });
   });
   return returnValue;

@@ -38,7 +38,6 @@ function reducer(state, action) {
       );
       return {...state};
     case "delete":
-      console.log(action.path)
       objectPath.del(state, action.path);
       return {...state}
     default:
@@ -76,7 +75,7 @@ export default props => {
       });
     }
   }, [props.componentsId, props.data]);
-  // console.log(documentDate)
+  console.log(documentDate)
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {

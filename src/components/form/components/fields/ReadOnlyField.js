@@ -8,7 +8,7 @@ import "styles/styles.css";
 export default props => {
   const newValue = useRef("")
   const {documentDate, documentDateDispatch} = useContext(DocumentDateContext);
-
+  console.log(3)
     // Test if value shall update when documentDate update
     useEffect(() => {
       const getValueFromMath = props.setValueByIndex

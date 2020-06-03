@@ -62,7 +62,6 @@ export default props => {
 
   const deleteHandler = useCallback(
     index => {
-      console.log(index);
       documentDateDispatch({ type: "delete", path: `${props.path}.${index}` });
     },
     [props.path, documentDateDispatch]
@@ -102,8 +101,6 @@ export default props => {
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData
-      // &&
-      // objectPath.get(documentDateContext.documentDate, props.path)
     ) {
       let newValue = getRepeatNumber(
         documentDate,

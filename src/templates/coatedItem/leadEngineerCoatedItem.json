@@ -140,7 +140,6 @@
             {
               "fieldName": "targetDescriptionValue",
               "label": "TDV (Target Description Value)",
-              "placeholder": "Min",
               "type": "select",
               "required": true,
               "options": ["OD", "ID"]
@@ -181,8 +180,7 @@
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
               "type": "Number",
-              "required": true,
-              "maxInput": 22
+              "required": true
             }
           ]
         },
