@@ -141,6 +141,7 @@ export default props => {
     }
     return chapterBasedOnStage;
   };
+  
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {

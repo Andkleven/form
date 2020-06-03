@@ -2,8 +2,6 @@ import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 // import Duplicate from "../widgets/Duplicate";
 function NativeInput(props) {
-
-
   return (
     <>
       <Form.Group className={props.tight && "mb-1"}>
@@ -19,7 +17,7 @@ function NativeInput(props) {
             <Form.Control
               isValid={props.isValid}
               isInvalid={props.isInvalid}
-              id={`custom-${props.type}-${props.label}`}
+              id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
               required={props.required}
               readOnly={props.readOnlyFields}
               defaultValue={props.defaultValue}

@@ -10,12 +10,13 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   };
-  const chapterContext = useContext(ChapterContext);
+
+  const {setEditChapter} = useContext(ChapterContext);
 
   const flipToWrite = () => {
     // if (window.confirm("Are you sure you wish to edit?")) {
     if (!display) {
-      chapterContext.setEditChapter(
+      setEditChapter(
         `${props.repeatStepList}-${props.fieldName}`
       );
     }
