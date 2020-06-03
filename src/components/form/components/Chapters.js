@@ -1,16 +1,13 @@
-import React, { Fragment, useContext, useRef, useEffect } from "react";
+import React, { Fragment, useRef, useEffect } from "react";
 import { findValue, allRequiredSatisfied, createPath, removeSpace } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import Title from "components/design/fonts/Title";
-import { ChapterContext } from "components/form/Form";
 import stagesJson from "components/form/stage/stages.json";
 
 // import objectPath from "object-path";
 
 export default props => {
-  const {setLastSubmitButton} = useContext(ChapterContext);
-
   const stopLoop = useRef(false) // Flips to true for last chapter with input
   let temporaryLastChapter = 0;
   let count = 0;

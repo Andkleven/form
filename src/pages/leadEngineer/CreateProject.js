@@ -268,21 +268,26 @@ export default pageInfo => {
                 iconProps={{ icon: "arrow-to-left" }}
                 onClick={() => setState(counter - 1)}
                 disabled={counter !== 1 ? false : true}
-              ></DepthButton>
+              >
+                <div className="d-none d-sm-inline">Previous</div>
+              </DepthButton>
               <DepthButton disabled className="text-center w-100">
                 Description {counter}/{projectsData.numberOfDescriptions}
               </DepthButton>
               <DepthButton
                 iconProps={{ icon: "arrow-to-right" }}
+                iconLast
                 className="text-center w-50"
                 onClick={() => setState(counter + 1)}
                 disabled={
                   counter < projectsData.numberOfDescriptions ? false : true
                 }
-              ></DepthButton>
+              >
+                <div className="d-none d-sm-inline">Next</div>
+              </DepthButton>
             </DepthButtonGroup>
-            <GeneralButton
-              variant="primary"
+            <DepthButton
+              iconProps={{ icon: ["fas", "share"], className: "text-primary" }}
               className="text-center w-100 mt-1"
               onClick={() =>
                 LeadEngineerDoneMutation({
@@ -304,7 +309,7 @@ export default pageInfo => {
               }
             >
               Send to Production
-            </GeneralButton>
+            </DepthButton>
           </>
         )}
         {/* {loadingMutation && <p>Loading...</p>}

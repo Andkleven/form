@@ -59,8 +59,10 @@ export default props => {
       path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
     });
   };
+
   const deleteHandler = useCallback(
     index => {
+      console.log(index);
       documentDateDispatch({ type: "delete", path: `${props.path}.${index}` });
     },
     [props.path, documentDateDispatch]
@@ -164,13 +166,12 @@ export default props => {
     !!editChapter && props.thisChapter !== lastChapter && props.pageTitle;
   const showLine = props.pageTitle && true;
 
-  const SubmitButtonFunctional = () => {
+  const SubmitButton = () => {
     return (
       <DepthButton
         iconProps={{ icon: ["fas", "check"], className: "text-primary" }}
         short
         type="submit"
-        // onClick={() => props.submitHandler(documentDate)}
       >
         Submit
       </DepthButton>
@@ -201,7 +202,7 @@ export default props => {
     setEditChapter(0);
   };
 
-  const CancelButtonFunctional = () => {
+  const CancelButton = () => {
     return (
       <DepthButton
         iconProps={{ icon: ["fas", "times"], className: "text-secondary" }}
@@ -216,9 +217,9 @@ export default props => {
   const SubmitAndCancel = () => {
     return (
       <DepthButtonGroup className="w-100 d-flex">
-        <SubmitButtonFunctional />
-        {props.saveButton || (true && <SaveButton />)}
-        <CancelButtonFunctional />
+        <SubmitButton />
+        {props.saveButton && <SaveButton />}
+        {showCancel && <CancelButton />}
       </DepthButtonGroup>
     );
   };

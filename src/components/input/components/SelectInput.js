@@ -65,7 +65,7 @@ export default props => {
   };
 
   return (
-    <Form.Group className={props.tight && "mb-1"}>
+    <Form.Group className={props.tight && "mb-1"} >
       <div className="d-flex text-dark">
         {props.custom ? (
           <Creatable {...selectProps} />
@@ -74,6 +74,7 @@ export default props => {
         )}
         {/* <Duplicate {...props} /> */}
       </div>
+      
       {props.subtext && (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       )}

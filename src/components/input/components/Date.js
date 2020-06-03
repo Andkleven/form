@@ -66,6 +66,7 @@ function Datetime(props) {
           onChange={date => props.onChangeDate(date)}
           customInput={<ExampleCustomInput />}
           dateFormat="dd/MM/yyyy"
+          required={props.required}
           locale={enGB}
           showMonthDropdown
           showYearDropdown
