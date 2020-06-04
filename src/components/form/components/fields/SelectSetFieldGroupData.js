@@ -19,7 +19,8 @@ export default props => {
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
       key={props.index}
       onClick={() => props.deleteHandler(props.index)}
-      className="mt-n2 mb-3 w-100"
+      className="w-100 mt-1 mb-3"
+      // style={{ position: "relative", bottom: ".9em" }}
     >
       Remove
     </DepthButton>
@@ -58,6 +59,11 @@ export default props => {
                   ).file
                 }
                 indexId={`${props.indexId}-${index}`}
+                indent={
+                  // props.pageTitle &&
+                  // props.indexVariablePageTitle !== undefined
+                  props.writeChapter && props.repeat && props.addButton
+                }
               />
               {props.delete && props.writeChapter ? (
                 props.repeatStartWithOneGroup ? (

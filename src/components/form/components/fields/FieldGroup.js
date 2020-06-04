@@ -54,6 +54,8 @@ export default props => {
           showEditButton={false}
           // data={props.data}
           path={`${props.path}.${field.queryPath}`}
+          noLine
+          className={`${props.indent && "ml-3 ml-sm-5"}`}
         />
       );
     } else {

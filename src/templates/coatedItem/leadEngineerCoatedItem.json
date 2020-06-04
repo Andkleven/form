@@ -203,7 +203,7 @@
           "queryPath": "leadEngineers.0.rubberCements",
           "repeat": true,
           "delete": true,
-          "addButton": "Add Rubber Cement",
+          "addButton": "Add rubber cement",
           "fields": [
             {
               "fieldName": "rubberCement",
@@ -218,7 +218,7 @@
           "repeat": true,
           "repeatStartWithOneGroup": true,
           "delete": true,
-          "addButton": "Add Step",
+          "addButton": "Add step",
           "indexVariablePageTitle": 0,
           "pageTitle": "Step {}",
           "fields": [
@@ -373,7 +373,7 @@
                 },
                 {
                   "fieldName": "layersUnique",
-                  "label": "Layers Unique",
+                  "label": "Exclude layer from calculations",
                   "type": "checkbox"
                 },
                 {

@@ -260,7 +260,7 @@
                 },
                 {
                   "fieldName": "layersUnique",
-                  "label": "Layers Unique",
+                  "label": "Exclude layer from calculations",
                   "type": "checkbox"
                 }
               ]

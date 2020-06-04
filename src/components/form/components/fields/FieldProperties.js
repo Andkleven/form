@@ -13,6 +13,7 @@ import {
   variableLabel,
   emptyField
 } from "functions/general";
+import Subtitle from "components/design/fonts/Subtitle";
 
 export default props => {
   const { documentDate, documentDateDispatch } = useContext(
@@ -118,29 +119,37 @@ export default props => {
       />
     );
   } else if (props.writeChapter && (props.math || props.setValueByIndex)) {
-    return (
-      <small>
-        <ReadOnlyField
-          {...props}
-          key={`${props.indexId}-${props.index}`}
-          path={getNewPath()}
-          submitButton={
-            `${props.repeatStepList}-${props.fieldName}` === editChapter
-              ? true
-              : false
-          }
-          min={min}
-          max={max}
-          label={label}
-          subtext={subtext}
-          file={props.type === "file" ? props.file : null}
-          indexId={`${props.indexId}-${props.index}`}
-          index={props.index}
-          className="mt-n3 mb-3"
-          noLine
-        />
-      </small>
-    );
+    const commonProps = {
+      ...props,
+      key: `${props.indexId}-${props.index}`,
+      path: getNewPath(),
+      submitButton:
+        `${props.repeatStepList}-${props.fieldName}` === editChapter
+          ? true
+          : false,
+      min: min,
+      max: max,
+      label: label,
+      subtext: subtext,
+      file: props.type === "file" ? props.file : null,
+      indexId: `${props.indexId}-${props.index}`,
+      index: props.index
+    };
+    if (props.math) {
+      return (
+        <small>
+          <ReadOnlyField {...commonProps} noLine className="mt-n3 mb-3" />
+        </small>
+      );
+    } else {
+      return (
+        <>
+          <Subtitle small>{`${label} ${props.repeatStep + 1}`}</Subtitle>
+          {/* Hidden ReadOnlyField */}
+          {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
+        </>
+      );
+    }
   } else if (
     props.writeChapter ||
     `${props.repeatStepList}-${props.fieldName}` === editChapter
