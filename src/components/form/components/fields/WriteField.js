@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useRef } from "react";
 import {
   DocumentDateContext,
   ChapterContext
@@ -11,7 +11,6 @@ import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
-import { isStringInstance } from "functions/general";
 import { USER } from "constants.js";
 
 const decimalTooStep = {
@@ -33,6 +32,7 @@ export default props => {
   const { documentDate, documentDateDispatch } = useContext(
     DocumentDateContext
   );
+  // const time = useRef(0)
   
 
   const addUser = useCallback(() => {
