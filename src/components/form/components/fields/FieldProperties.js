@@ -101,103 +101,111 @@ export default props => {
         )
       : props.label;
 
-  const Field = useCallback(props => 
-  {if (props.specValueList) {
-    return (
-      <ReadField
-      {...props}
-      key={`${props.indexId}-${props.index}`}
-      readOnly={true}
-      path={getNewPath()}
-      subtext={subtext}
-      value={findValue(
-        props.specData,
-        props.specValueList,
-        props.repeatStepList,
-        props.editRepeatStepValueList
-      )}
-      label={label}
-    />
-    );
-  } else if (props.writeChapter && (props.math || props.setValueByIndex)) {
-    const commonProps = {
-      ...props,
-      key: `${props.indexId}-${props.index}`,
-      path: getNewPath(),
-      submitButton:
-        `${props.repeatStepList}-${props.fieldName}` === editChapter
-          ? true
-          : false,
-      min: min,
-      max: max,
-      label: label,
-      subtext: subtext,
-      file: props.type === "file" ? props.file : null,
-      indexId: `${props.indexId}-${props.index}`,
-      index: props.index
-    };
-    if (props.math) {
-      return (
-        <small>
-          <ReadOnlyField {...commonProps} noLine className="mt-n3 mb-3" />
-        </small>
-      );
-    } else {
-      return (
-        <>
-          <Subtitle small>{`${label} ${props.repeatStep + 1}`}</Subtitle>
-          {/* Hidden ReadOnlyField */}
-          {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
-        </>
-      );
-    }
-  } else if (
-    props.writeChapter ||
-    `${props.repeatStepList}-${props.fieldName}` === editChapter
-  ) {
-    return (
-      <WriteField
-        {...props}
-        key={`${props.indexId}-${props.index}`}
-        path={getNewPath()}
-        submitButton={
-          `${props.repeatStepList}-${props.fieldName}` === editChapter
-            ? true
-            : false
+  const Field = useCallback(
+    props => {
+      if (props.specValueList) {
+        return (
+          <ReadField
+            {...props}
+            key={`${props.indexId}-${props.index}`}
+            readOnly={true}
+            path={getNewPath()}
+            subtext={subtext}
+            value={findValue(
+              props.specData,
+              props.specValueList,
+              props.repeatStepList,
+              props.editRepeatStepValueList
+            )}
+            label={label}
+          />
+        );
+      } else if (props.writeChapter && (props.math || props.setValueByIndex)) {
+        const commonProps = {
+          ...props,
+          key: `${props.indexId}-${props.index}`,
+          path: getNewPath(),
+          submitButton:
+            `${props.repeatStepList}-${props.fieldName}` === editChapter
+              ? true
+              : false,
+          min: min,
+          max: max,
+          label: label,
+          subtext: subtext,
+          file: props.type === "file" ? props.file : null,
+          indexId: `${props.indexId}-${props.index}`,
+          index: props.index
+        };
+        if (props.math) {
+          return (
+            <small>
+              <ReadOnlyField
+                {...commonProps}
+                noLine
+                className="mt-n3 mb-3 pt-1"
+              />
+            </small>
+          );
+        } else {
+          return (
+            <>
+              <Subtitle small>{`${label} ${props.repeatStep + 1}`}</Subtitle>
+              {/* Hidden ReadOnlyField */}
+              {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
+            </>
+          );
         }
-        min={min}
-        max={max}
-        label={label}
-        subtext={subtext}
-        file={props.type === "file" ? props.file : null}
-        indexId={`${props.indexId}-${props.index}`}
-        index={props.index}
-      />
-    );
-  } else if (props.type === "file") {
-    return (
-      <Input
-        {...props}
-        key={`${props.indexId}-${props.index}`}
-        subtext={subtext}
-        singleFile={true}
-        path={`${props.path}.${props.fieldName}`}
-        label={label}
-      />
-    );
-  } else {
-    return (
-      <ReadField
-      {...props}
-      key={`${props.indexId}-${props.index}`}
-      path={getNewPath()}
-      indexId={`${props.indexId}-${props.index}`}
-      index={props.index}
-      value={objectPath.get(props.backendData, getNewPath())}
-      subtext={subtext}
-      label={label}
-    />
-    );
-  }}, [editChapter, getNewPath, label, max, min, subtext])
-  return <Field {...props} />
+      } else if (
+        props.writeChapter ||
+        `${props.repeatStepList}-${props.fieldName}` === editChapter
+      ) {
+        return (
+          <WriteField
+            {...props}
+            key={`${props.indexId}-${props.index}`}
+            path={getNewPath()}
+            submitButton={
+              `${props.repeatStepList}-${props.fieldName}` === editChapter
+                ? true
+                : false
+            }
+            min={min}
+            max={max}
+            label={label}
+            subtext={subtext}
+            file={props.type === "file" ? props.file : null}
+            indexId={`${props.indexId}-${props.index}`}
+            index={props.index}
+          />
+        );
+      } else if (props.type === "file") {
+        return (
+          <Input
+            {...props}
+            key={`${props.indexId}-${props.index}`}
+            subtext={subtext}
+            singleFile={true}
+            path={`${props.path}.${props.fieldName}`}
+            label={label}
+          />
+        );
+      } else {
+        return (
+          <ReadField
+            {...props}
+            key={`${props.indexId}-${props.index}`}
+            path={getNewPath()}
+            indexId={`${props.indexId}-${props.index}`}
+            index={props.index}
+            value={objectPath.get(props.backendData, getNewPath())}
+            subtext={subtext}
+            label={label}
+          />
+        );
+      }
+    },
+    [editChapter, getNewPath, label, max, min, subtext]
+  );
+  return <Field {...props} />;
 };

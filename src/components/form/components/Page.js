@@ -221,7 +221,8 @@ export default props => {
     !props.noLine &&
     !!props.pageTitle &&
     !["", " "].includes(props.pageTitle);
-  const showCancel =
+  const showCancel = !!editChapter;
+  const showCancelTab =
     showLine &&
     !!editChapter &&
     props.thisChapter !== lastChapter &&
@@ -246,7 +247,7 @@ export default props => {
             Edit all
           </TabButton>
         ) : (
-          showCancel && (
+          showCancelTab && (
             <TabButton
               onClick={() => {
                 cancel();
@@ -273,7 +274,7 @@ export default props => {
               onClick={() => {
                 addHandler();
               }}
-              className="my-1 w-100"
+              className="mb-3 w-100"
             >
               {props.addButton ? props.addButton : "Add"}
             </DepthButton>
@@ -281,7 +282,7 @@ export default props => {
         </>
       ) : props.type === "file" ? (
         <>
-        <Input {...props} writeChapter={writeChapter.current} />
+          <Input {...props} writeChapter={writeChapter.current} />
         </>
       ) : null}
       {props.showSaveButton ? (

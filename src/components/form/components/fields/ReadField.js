@@ -9,16 +9,14 @@ import { convertDatetimeToString } from "functions/datetime";
 export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
-  };
+  }
 
-  const {setEditChapter} = useContext(ChapterContext);
+  // const { setEditChapter } = useContext(ChapterContext);
 
   const flipToWrite = () => {
     // if (window.confirm("Are you sure you wish to edit?")) {
     if (!display) {
-      setEditChapter(
-        `${props.repeatStepList}-${props.fieldName}`
-      );
+      // setEditChapter(`${props.repeatStepList}-${props.fieldName}`);
     }
     // }
   };
@@ -106,9 +104,9 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           ![null, false, "null", undefined, ""].includes(props.value) &&
           `${props.value}${showUnit}`) ||
           (props.value === false && `Not performed`) ||
-          (props.value === true &&
-            props.type === "checkbox" &&
-            `Performed`) || <EmptyValue />}
+          (props.value === true && props.type === "checkbox" && `✓`) || (
+            <EmptyValue />
+          )}
         {readOnly ? null : <TinyEditButton className={showAboveBreakpoint()} />}
       </div>
     );
