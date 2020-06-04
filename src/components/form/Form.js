@@ -14,7 +14,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import { stringifyQuery } from "functions/general";
 
-import FindNextStage from "components/form/stage/findNextStage";
+import FindNextStage from "components/form/stage/findNextStage.ts";
 
 // import whyDidYouRender from "@welldone-software/why-did-you-render";
 
@@ -27,18 +27,18 @@ import FindNextStage from "components/form/stage/findNextStage";
 function reducer(state, action) {
   switch (action.type) {
     case "setState":
-      return {...cloneDeep(action.newState)};
+      return { ...cloneDeep(action.newState) };
     case "add":
-       objectPath.set(
+      objectPath.set(
         state,
         action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
         action.newState
       );
-      return {...state}
-      // return {...state};
+      return { ...state };
+    // return {...state};
     case "delete":
       objectPath.del(state, action.path);
-      return {...state}
+      return { ...state };
     default:
       throw new Error();
   }
@@ -74,7 +74,7 @@ export default props => {
       });
     }
   }, [props.componentsId, props.data]);
-  console.log(documentDate)
+  // console.log(documentDate);
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {
@@ -188,8 +188,8 @@ export default props => {
   );
   const submitData = (data, submit) => {
     setNextStage(true);
-    setEditChapter(0)
-    setLastChapter(0)
+    setEditChapter(0);
+    setLastChapter(0);
 
     if (data) {
       let variables = stringifyQuery(cloneDeep(data));
@@ -201,10 +201,7 @@ export default props => {
           itemId: props.sendItemId ? Number(props.itemId) : undefined,
           itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
           stage:
-            props.stage &&
-            submit &&
-            nextStage && 
-            editChapter
+            props.stage && submit && nextStage && editChapter
               ? FindNextStage(props.specData, props.stage, props.geometry)
               : props.stage
         }
@@ -222,40 +219,36 @@ export default props => {
     <DocumentDateContext.Provider
       value={{ documentDate, documentDateDispatch }}
     >
-        <ChapterContext.Provider
-          value={{
-            lastChapter,
-            setLastChapter,
-            editChapter,
-            setEditChapter
+      <ChapterContext.Provider
+        value={{
+          lastChapter,
+          setLastChapter,
+          editChapter,
+          setEditChapter
+        }}
+      >
+        <Title title={props.document.documentTitle} />
+        <Form
+          onSubmit={e => {
+            formSubmit(e);
           }}
         >
-          <Title title={props.document.documentTitle} />
-          <Form 
-            onSubmit={e => {
-              formSubmit(e);
-            }}
-          >
-            <Chapters
-              {...props}
-              backendData={props.data}
-              optionsData={optionsData}
-              submitData={submitData}
-              setNextStage={setNextStage}
-            />
-            {loadingMutation && <p>Loading...</p>}
-            {errorMutation && <p>Error :( Please try again</p>}
-          </Form>
-          {!editChapter && !lastChapter && props.backButton ?
-          <SubmitButton
-            type="button"
-            onClick={props.backButton}
-          >
+          <Chapters
+            {...props}
+            backendData={props.data}
+            optionsData={optionsData}
+            submitData={submitData}
+            setNextStage={setNextStage}
+          />
+          {loadingMutation && <p>Loading...</p>}
+          {errorMutation && <p>Error :( Please try again</p>}
+        </Form>
+        {!editChapter && !lastChapter && !!props.backButton ? (
+          <SubmitButton type="button" onClick={props.backButton}>
             Back
-          </SubmitButton> 
-          : null
-        }
-        </ChapterContext.Provider>
+          </SubmitButton>
+        ) : null}
+      </ChapterContext.Provider>
     </DocumentDateContext.Provider>
   );
 };

@@ -212,16 +212,26 @@ export default props => {
   const showEditAll =
     props.showEditButton && !props.stopLoop && !writeChapter.current;
   // && props.thisChapter !== lastChapter;
-  const showCancel =
-    !!editChapter && props.thisChapter !== lastChapter && props.pageTitle;
-  const showLine = !!props.pageTitle && !["", " "].includes(props.pageTitle);
   const showTitle =
     !props.stopLoop &&
     props.pageTitle &&
     props.indexVariablePageTitle === undefined;
+  const showLine =
+    showTitle &&
+    !props.noLine &&
+    !!props.pageTitle &&
+    !["", " "].includes(props.pageTitle);
+  const showCancel = !!editChapter;
+  const showCancelTab =
+    showLine &&
+    !!editChapter &&
+    props.thisChapter !== lastChapter &&
+    props.pageTitle;
 
   return (
-    <div className={`${!props.temporaryLastChapter && "mb-4"}`}>
+    <div
+      className={`${!props.temporaryLastChapter && "mb-4"} ${props.className}`}
+    >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? <Title>{props.pageTitle}</Title> : null}
         {showEditAll ? (
@@ -237,7 +247,7 @@ export default props => {
             Edit all
           </TabButton>
         ) : (
-          showCancel && (
+          showCancelTab && (
             <TabButton
               onClick={() => {
                 cancel();
@@ -264,7 +274,7 @@ export default props => {
               onClick={() => {
                 addHandler();
               }}
-              className="my-1 w-100"
+              className="mb-3 w-100"
             >
               {props.addButton ? props.addButton : "Add"}
             </DepthButton>
@@ -272,7 +282,7 @@ export default props => {
         </>
       ) : props.type === "file" ? (
         <>
-        <Input {...props} writeChapter={writeChapter.current} />
+          <Input {...props} writeChapter={writeChapter.current} />
         </>
       ) : null}
       {props.showSaveButton ? (

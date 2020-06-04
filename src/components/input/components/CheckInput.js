@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 export default props => (
-  <Form.Group className={props.tight && "mb-0"}>
+  <Form.Group className={props.tight ? "mb-0" : "mb-3"}>
     <div className="d-flex justify-content-between">
       <Form.Check
         custom

@@ -74,7 +74,8 @@ export default ({
             }
           >
             {props.access && props.access.specs && (
-              <div className="d-flex align-items-center">
+              <>
+                {/* <div className="d-flex align-items-center"> */}
                 <Link
                   to={`/project/${project.id}`}
                   key={`project${indexProject}`}
@@ -84,14 +85,39 @@ export default ({
                     size: iconSize,
                     style: iconStyle
                   }}
-                  style={{ marginRight: "1em", ...rowStyle }}
+                  style={{ marginRight: "2em", ...rowStyle }}
                 >
                   Specifications
                   {/* {project.data.projectName} */}
                 </Link>
-                <Button
+                <Link
+                  to={`#`}
+                  key={`project${indexProject}DeleteLinkButton`}
+                  iconProps={{
+                    icon: ["fad", "trash-alt"],
+                    swapOpacity: true,
+                    size: iconSize,
+                    style: iconStyle,
+                    className: "text-danger"
+                  }}
+                  style={{ marginRight: "1em", ...rowStyle }}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "To delete a project is irreversible - are you sure?"
+                      )
+                    ) {
+                      deleteProject({ variables: { id: project.id } });
+                      window.location.reload(false);
+                    }
+                  }}
+                >
+                  Delete
+                </Link>
+                {/* <Button
                   variant="danger"
                   style={{ height: "2em", marginRight: "1em" }}
+                  key={`project${indexProject}Delete`}
                   className="d-flex align-items-center"
                   onClick={() => {
                     deleteProject({ variables: { id: project.id } });
@@ -99,8 +125,9 @@ export default ({
                   }}
                 >
                   <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
-                </Button>
-              </div>
+                </Button> */}
+                {/* </div> */}
+              </>
             )}
             {project.descriptions &&
               project.descriptions.map((description, indexDescription) => (

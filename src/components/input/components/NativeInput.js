@@ -9,7 +9,7 @@ function NativeInput(props) {
           <InputGroup className="d-flex">
             {props.prepend ? (
               <InputGroup.Prepend>
-                <InputGroup.Text className="bg-white">
+                <InputGroup.Text className="bg-light text-secondary">
                   {props.prepend}
                 </InputGroup.Text>
               </InputGroup.Prepend>
@@ -40,7 +40,7 @@ function NativeInput(props) {
             {(props.unit || props.append) && (
               <InputGroup.Append>
                 {props.unit && (
-                  <InputGroup.Text className="bg-white">
+                  <InputGroup.Text className="bg-light text-secondary">
                     {props.unit}
                   </InputGroup.Text>
                 )}

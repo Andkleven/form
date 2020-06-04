@@ -21,21 +21,27 @@
               "label": "Air Temperature",
               "default": 15,
               "unit": "°C",
-              "type": "Number"
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4"
             },
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
               "default": 15,
               "unit": "°C",
-              "type": "Number"
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4"
             },
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
               "default": 3,
               "unit": "°C",
-              "type": "Number"
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature"
             },
             {
               "fieldName": "rubberCementsBeforeCoating",
@@ -59,41 +65,44 @@
               "fieldName": "orderedTotalRubberThickness",
               "label": "Ordered Total Rubber Thickness",
               "type": "number",
-              "required": true
+              "required": true,
+              "unit": "mm"
             },
             {
               "fieldName": "toleranceMinPercent",
-              "label": "Tolerance Min in Percent",
-              "required": true,
+              "label": "Minimum Tolerance Percentage",
+              "prepend": "Min",
               "unit": "%",
               "type": "Number"
             },
             {
               "fieldName": "toleranceMin",
-              "label": "Tolerance Min",
-              "prepend": "Min",
+              "label": "Tolerated Minimum",
+              "unit": "mm",
               "math": "mathToleranceMin",
               "type": "number"
             },
             {
               "fieldName": "toleranceMaxPercent",
-              "label": "Tolerance Max in Percent",
-              "required": true,
+              "label": "Maximum Tolerance Percentage",
+              "prepend": "Max",
               "unit": "%",
               "type": "Number"
             },
             {
               "fieldName": "toleranceMax",
-              "label": "Tolerance Max",
               "math": "mathToleranceMax",
+              "label": "Tolerated Maximum",
+              "unit": "mm",
               "prepend": "Max",
               "type": "number"
             },
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
-              "required": true,
-              "maxInput": 22
+              "type": "Number",
+              "subtext": "Pre-Coating",
+              "required": true
             }
           ]
         },
@@ -133,7 +142,6 @@
             },
             {
               "page": true,
-              "pageTitle": "Coating {}",
               "indexVariablePageTitle": 0,
               "queryPath": "coatingLayers",
               "repeat": true,
@@ -246,9 +254,9 @@
                 {
                   "fieldName": "shrink",
                   "label": "Shrink",
+                  "unit": "%",
                   "type": "Number",
-                  "default": 0,
-                  "required": true
+                  "default": 0
                 },
                 {
                   "fieldName": "proposedThickness",
@@ -260,7 +268,7 @@
                 },
                 {
                   "fieldName": "layersUnique",
-                  "label": "Layers Unique",
+                  "label": "Exclude layer from calculations",
                   "type": "checkbox"
                 }
               ]
@@ -278,7 +286,8 @@
             {
               "fieldName": "hardnessOfOuterLayer",
               "label": "Hardness of Outer Layer",
-              "unit": "Shore A"
+              "unit": "Shore A",
+              "prepend": "Min"
             },
             {
               "fieldName": "identificationMarking",
@@ -287,32 +296,39 @@
             {
               "fieldName": "peelTest",
               "label": "Peel Test",
-              "type": "N/25mm"
+              "unit": "N/25mm",
+              "prepend": "Min",
+              "subtext": "ISO 813 bS6374-5"
             },
             {
               "fieldName": "totalCoatingThickness",
               "label": "Total Coating Thickness",
-              "type": "checkbox"
+              "type": "checkbox",
+              "subtext": "APS. Final measurments are within tolerances."
             },
             {
               "fieldName": "visualInspection",
               "label": "Visual Inspection",
-              "type": "checkbox"
+              "type": "checkbox",
+              "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
             },
             {
               "fieldName": "finalDimensionsCheck",
               "label": "Final Dimensions Check",
-              "type": "checkbox"
+              "type": "checkbox",
+              "subtext": "APS. All parts in accordance to drawings."
             },
             {
               "fieldName": "sparkTest",
               "label": "Spark Test",
-              "type": "checkbox"
+              "type": "checkbox",
+              "subtext": "TR 2028. No Holidays."
             },
             {
               "fieldName": "hammerTest",
               "label": "Hammer Test",
-              "type": "checkbox"
+              "type": "checkbox",
+              "subtext": "TR 2028. No change in audible pitch."
             }
           ]
         }

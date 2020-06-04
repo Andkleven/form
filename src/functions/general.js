@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
 import Math from "components/form/functions/math";
-import {ignoreRequiredField} from "config/const";
+import { ignoreRequiredField } from "config/const";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -9,7 +9,8 @@ export const stringToDictionary = data => {
   }
 };
 
-export const emptyField = field => [null, undefined, "", "None", 0, false].includes(field);
+export const emptyField = field =>
+  [null, undefined, "", "None", 0, false].includes(field);
 
 export const fieldNotFilledOut = field => [null, undefined, ""].includes(field);
 
@@ -80,7 +81,12 @@ export const findValue = (
 };
 
 // Get data to Group or test if group have data in database
-export const getData = (info, repeatStepList, documentDate, isItData = false) => {
+export const getData = (
+  info,
+  repeatStepList,
+  documentDate,
+  isItData = false
+) => {
   if (!documentDate) {
     return null;
   }
@@ -149,18 +155,30 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
         if (field.required) {
           if (Array.isArray(dataFields)) {
             dataFields.forEach(dataField => {
-              if (fieldNotFilledOut(dataField.data[field.fieldName]) && !(dataField.data[field.fieldName+ignoreRequiredField])) {
+              if (
+                fieldNotFilledOut(dataField.data[field.fieldName]) &&
+                !dataField.data[field.fieldName + ignoreRequiredField]
+              ) {
                 returnValue = false;
               }
             });
           } else if (!dataFields || !dataFields.data) {
             returnValue = false;
-          } else if (fieldNotFilledOut(dataFields.data[field.fieldName]) && !(dataFields.data[field.fieldName+ignoreRequiredField])) {
+          } else if (
+            fieldNotFilledOut(dataFields.data[field.fieldName]) &&
+            !dataFields.data[field.fieldName + ignoreRequiredField]
+          ) {
             returnValue = false;
           }
-        } else if (!Array.isArray(dataFields) && field.fieldName && (dataFields === undefined || dataFields.data === undefined || dataFields.data[field.fieldName] === undefined)) {
+        } else if (
+          !Array.isArray(dataFields) &&
+          field.fieldName &&
+          (dataFields === undefined ||
+            dataFields.data === undefined ||
+            dataFields.data[field.fieldName] === undefined)
+        ) {
           returnValue = false;
-        } 
+        }
       });
   });
   return returnValue;
@@ -235,13 +253,6 @@ export const getSubtext = (
   repeatStepList,
   allData
 ) => {
-  if (subtext) {
-    if (specSubtext) {
-      return variableString(specSubtext, subtext);
-    }
-    return variableString("", subtext);
-  }
-
   let minLocal = subtextMathMin
     ? Math[subtextMathMin](allData, repeatStepList)
     : min
@@ -266,6 +277,19 @@ export const getSubtext = (
   maxString = maxString ? maxString + unitString : "";
 
   let requiredString = required ? "Required" : "";
+
+  if (subtext) {
+    if (specSubtext) {
+      return variableString(
+        specSubtext,
+        subtext + `${requiredString && `, ${requiredString}`}`
+      );
+    }
+    return variableString(
+      "",
+      subtext + `${requiredString && `, ${requiredString}`}`
+    );
+  }
 
   return minString + maxString + requiredString;
 };
@@ -552,5 +576,5 @@ export function getRepeatStepList(props, index) {
 }
 
 export function isLastCharacterNumber(str) {
-  return !isNaN(Number(str.slice(-1)))
+  return !isNaN(Number(str.slice(-1)));
 }
