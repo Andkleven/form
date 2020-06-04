@@ -101,22 +101,23 @@ export default props => {
         )
       : props.label;
 
-  if (props.specValueList) {
+  const Field = useCallback(props => 
+  {if (props.specValueList) {
     return (
       <ReadField
-        {...props}
-        key={`${props.indexId}-${props.index}`}
-        readOnly={true}
-        path={getNewPath()}
-        subtext={subtext}
-        value={findValue(
-          props.specData,
-          props.specValueList,
-          props.repeatStepList,
-          props.editRepeatStepValueList
-        )}
-        label={label}
-      />
+      {...props}
+      key={`${props.indexId}-${props.index}`}
+      readOnly={true}
+      path={getNewPath()}
+      subtext={subtext}
+      value={findValue(
+        props.specData,
+        props.specValueList,
+        props.repeatStepList,
+        props.editRepeatStepValueList
+      )}
+      label={label}
+    />
     );
   } else if (props.writeChapter && (props.math || props.setValueByIndex)) {
     const commonProps = {
@@ -187,15 +188,16 @@ export default props => {
   } else {
     return (
       <ReadField
-        {...props}
-        key={`${props.indexId}-${props.index}`}
-        path={getNewPath()}
-        indexId={`${props.indexId}-${props.index}`}
-        index={props.index}
-        value={objectPath.get(documentDate, getNewPath())}
-        subtext={subtext}
-        label={label}
-      />
+      {...props}
+      key={`${props.indexId}-${props.index}`}
+      path={getNewPath()}
+      indexId={`${props.indexId}-${props.index}`}
+      index={props.index}
+      value={objectPath.get(props.backendData, getNewPath())}
+      subtext={subtext}
+      label={label}
+    />
     );
-  }
+  }}, [editChapter, getNewPath, label, max, min, subtext])
+  return <Field {...props} />
 };

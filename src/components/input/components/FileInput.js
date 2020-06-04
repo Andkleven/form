@@ -39,6 +39,11 @@ export default props => {
   );
   const [files, setFiles] = useState([]);
   const [placeholder, setPlaceholder] = useState("");
+
+  useEffect(() => {
+    setFiles([])
+  }, [props.componentsId, setFiles])
+  
   // test
   useEffect(() => {
     if (!props.singleFile) {
@@ -161,7 +166,7 @@ export default props => {
             </ul>
           </aside>
         ) : (
-          (!props.writeChapter || true) && (
+          !props.writeChapter && (
             <div className="text-secondary">
               <FontAwesomeIcon icon="file-times" className="mr-2" />
               <div className="d-inline">No files uploaded.</div>

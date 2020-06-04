@@ -20,7 +20,7 @@ export default props => {
       <FileName className="mb-1" />
       <Input
         placeholder={`Description or comment...`}
-        value={props.file.fileDescription}
+        defaultValue={props.file.fileDescription}
         onChange={e => props.onChange(e.target, props.index)}
       />
     </div>

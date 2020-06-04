@@ -8,6 +8,7 @@ import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
+import { isStringInstance } from "functions/general";
 import { USER } from "constants.js";
 
 const decimalTooStep = {
@@ -29,6 +30,8 @@ export default props => {
   const { documentDate, documentDateDispatch } = useContext(
     DocumentDateContext
   );
+  
+
   const addUser = useCallback(() => {
     documentDateDispatch({
       type: "add",
@@ -167,7 +170,6 @@ export default props => {
       props.default !== undefined ? props.default : ""
     );
   }, [props.backendData, props.path, props.default]);
-
   return (
     <>
       <Input
