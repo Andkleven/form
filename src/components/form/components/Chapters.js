@@ -1,13 +1,16 @@
-import React, { Fragment, useRef, useEffect } from "react";
+import React, { Fragment, useRef, useEffect, useContext } from "react";
 import { findValue, allRequiredSatisfied, createPath, removeSpace } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import Title from "components/design/fonts/Title";
 import stagesJson from "components/form/stage/stages.json";
+import { ChapterContext } from "components/form/Form";
+import SubmitButton from "components/button/SubmitButton";
 
 // import objectPath from "object-path";
 
 export default props => {
+  const { editChapter } = useContext(ChapterContext);
   const stopLoop = useRef(false) // Flips to true for last chapter with input
   let temporaryLastChapter = 0;
   let count = 0;
@@ -154,5 +157,12 @@ export default props => {
     }
   })
 
-  return props.document.chapterByStage ? stageChapters() : chapterBasedOnJson;
+  return (
+    <>
+    {props.document.chapterByStage ? stageChapters() : chapterBasedOnJson} {!editChapter && !temporaryLastChapter && !!props.backButton ? (
+    <SubmitButton type="button" onClick={props.backButton}>
+      Back
+    </SubmitButton>
+  ) : null}
+  </>);
 };

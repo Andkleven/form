@@ -8,7 +8,6 @@ import Chapters from "./components/Chapters";
 import query from "graphql/query";
 import mutations from "graphql/mutation";
 import objectPath from "object-path";
-import SubmitButton from "components/button/SubmitButton";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
@@ -243,11 +242,6 @@ export default props => {
           {loadingMutation && <p>Loading...</p>}
           {errorMutation && <p>Error :( Please try again</p>}
         </Form>
-        {!editChapter && !lastChapter && !!props.backButton ? (
-          <SubmitButton type="button" onClick={props.backButton}>
-            Back
-          </SubmitButton>
-        ) : null}
       </ChapterContext.Provider>
     </DocumentDateContext.Provider>
   );
