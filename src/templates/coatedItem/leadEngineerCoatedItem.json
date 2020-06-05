@@ -24,7 +24,6 @@
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
-              "required": true,
               "default": 85,
               "type": "Number",
               "prepend": "Max",
@@ -92,6 +91,13 @@
               "prepend": "Max",
               "unit": "mg/m²",
               "subtext": "ISO 8502-5/9"
+            },
+            {
+              "fieldName": "dustTest",
+              "label": "Dust Test",
+              "type": "Number",
+              "prepend": "Max",
+              "subtext": "ISO 8502-3, Whole number between 1-5"
             },
             {
               "fieldName": "inspectionOfSteelSurface",

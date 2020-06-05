@@ -2,7 +2,9 @@ import React, {
   useState,
   createContext,
   useLayoutEffect,
-  useReducer
+  useReducer,
+  useCallback,
+  useRef
 } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/query";
@@ -12,6 +14,7 @@ import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import { stringifyQuery } from "functions/general";
+import { delayOnHandler } from "config/const";
 
 import FindNextStage from "components/form/stage/findNextStage.ts";
 
@@ -53,14 +56,15 @@ export default props => {
   const [documentDate, documentDateDispatch] = useReducer(reducer, {});
   const [nextStage, setNextStage] = useState(true);
   const [lastChapter, setLastChapter] = useState(0);
-
+  const timer = useRef()
+  
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
       : query["DEFAULT"],
     {
       variables: {},
-      skip: props.optionsQuery
+      skip: !props.optionsQuery
     }
   );
 
@@ -185,28 +189,32 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-  const submitData = (data, submit) => {
-    setNextStage(true);
-    setEditChapter(0);
-    setLastChapter(0);
+  const submitData = useCallback((data, submit) => {
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
+      setNextStage(true);
+      setEditChapter(0);
+      setLastChapter(0);
 
-    if (data) {
-      let variables = stringifyQuery(cloneDeep(data));
-      mutation({
-        variables: {
-          ...variables,
-          descriptionId:
-            props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
-          itemId: props.sendItemId ? Number(props.itemId) : undefined,
-          itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
-          stage:
-            props.stage && submit && nextStage && editChapter
-              ? FindNextStage(props.specData, props.stage, props.geometry)
-              : props.stage
-        }
-      });
-    }
-  };
+      if (data) {
+        let variables = stringifyQuery(cloneDeep(data));
+        mutation({
+          variables: {
+            ...variables,
+            descriptionId:
+              props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
+            itemId: props.sendItemId ? Number(props.itemId) : undefined,
+            itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
+            stage:
+              props.stage && submit && nextStage && editChapter
+                ? FindNextStage(props.specData, props.stage, props.geometry)
+                : props.stage
+          }
+        });
+      }
+    }, delayOnHandler)
+
+  }, [editChapter, mutation, nextStage, props.batchingListIds, props.descriptionId, props.geometry, props.itemId, props.sendItemId, props.specData, props.stage]);
 
   const formSubmit = e => {
     e.persist();

@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useEffect, useRef } from "react";
 import { DocumentDateContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import Input from "components/input/Input";
@@ -7,7 +7,7 @@ import LightLine from "components/design/LightLine";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ignoreRequiredField, userField } from "config/const";
+import { delayOnHandler, ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 
 const decimalTooStep = {
@@ -23,14 +23,20 @@ const decimalTooStep = {
   9: 0.000000001
 };
 
+
 export default props => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const { setEditChapter } = useContext(ChapterContext);
+  const timer = useRef()
+
   const { documentDate, documentDateDispatch } = useContext(
     DocumentDateContext
   );
   // const time = useRef(0)
   
+  useEffect(() => {
+    return () => clearTimeout(timer.current);
+  });
 
   const addUser = useCallback(() => {
     documentDateDispatch({
@@ -52,6 +58,8 @@ export default props => {
 
   const onChange = e => {
     let { value, type } = e.target;
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
     addUser();
     if (["checkbox", "radio", "switch"].includes(type)) {
       let oldValue = objectPath.get(documentDate, props.path, false);
@@ -78,7 +86,8 @@ export default props => {
           path: props.path
         });
       }
-    }
+    }}, delayOnHandler)
+
   };
 
   const onChangeIgnoreRequired = e => {

@@ -2,9 +2,8 @@ import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
-import { Col, ProgressBar, Button } from "react-bootstrap";
+import { Col, ProgressBar } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
@@ -37,7 +36,7 @@ export default ({
     });
   };
 
-  const [deleteProject, { loading, error }] = useMutation(
+  const [deleteProject] = useMutation(
     mutations["DELETE_PROJECT"],
     {
       update: deleteProjectFromCache
