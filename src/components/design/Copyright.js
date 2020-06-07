@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => (
-  <span>
+  <div {...props}>
     <FontAwesomeIcon icon="copyright" />
     {` ${new Date().getFullYear()} `}
     {props.link ? (
@@ -12,5 +12,5 @@ export default props => (
     ) : (
       "Trelleborg"
     )}
-  </span>
+  </div>
 );

@@ -122,7 +122,21 @@ Live server is already installed if the [quick start](#-quick-tart) guide is fol
 
 _Warning: This may not work on public networks (e.g. school and work)!_
 
-1. Find your computer's local IP address
+1. Start the server
+
+   ```console
+   npm start
+   ```
+
+2. Find your computer's local IP address
+
+   The terminal should give you the local address like so:
+
+   ```
+   On Your Network:  http://IPADDRESS:PORT/
+   ```
+
+   If not, try the following:
 
    - Windows
 
@@ -136,15 +150,9 @@ _Warning: This may not work on public networks (e.g. school and work)!_
      ifconfig
      ```
    
-   Copy paste the IPv4 address.
+   Copy paste the IPv4 address of your computer.
 
    Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section *How to find your internal IP address* if you are having trouble.
-
-2. Start the server
-
-   ```console
-   npm start
-   ```
 
 3. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 

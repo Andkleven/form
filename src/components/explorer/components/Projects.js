@@ -14,6 +14,7 @@ export default ({
   iconStyle,
   rowStyle,
   headline = "Projects",
+  refetch,
   ...props
 }) => {
   const deleteProjectFromCache = (
@@ -36,12 +37,9 @@ export default ({
     });
   };
 
-  const [deleteProject] = useMutation(
-    mutations["DELETE_PROJECT"],
-    {
-      update: deleteProjectFromCache
-    }
-  );
+  const [deleteProject] = useMutation(mutations["DELETE_PROJECT"], {
+    update: deleteProjectFromCache
+  });
 
   return (
     <div className={props.className}>
@@ -105,7 +103,8 @@ export default ({
                         )
                       ) {
                         deleteProject({ variables: { id: project.id } });
-                        window.location.reload(false);
+                        // window.location.reload(false);
+                        refetch();
                       }
                     }}
                   >
