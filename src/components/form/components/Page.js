@@ -33,7 +33,6 @@ export default React.memo(props => {
   const [resetState, setResetState] = useState(false)
   const [addOrRemove, setAddOrRemove] = useState(0)
   const writeChapter = useRef(false);
-  console.log(documentDate)
   useEffect(() => {
     if (props.repeat) {
       setAddOrRemove(prevState => prevState + 1)

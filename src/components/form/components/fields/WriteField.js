@@ -189,8 +189,6 @@ export default ({setResetState, setState, ...props}) => {
       });
     }, [props.path, documentDateDispatch, defaultValue])
     
-    console.log(documentDate)
-
   return (
     <>
       <Input
