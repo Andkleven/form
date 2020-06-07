@@ -5,7 +5,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./functions/history";
 import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
-import Item from "./pages/leadEngineer/CreateProject";
+import CreateProject from "./pages/leadEngineer/CreateProject";
 import LeadEngineerPage from "./pages/leadEngineer/LeadEngineerPage";
 import PartialBatching from "./pages/operator/PartialBatching";
 import Batching from "./pages/operator/Batching";
@@ -18,6 +18,7 @@ import "styles/icons";
 
 export default hot(() => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
+
   return (
     <ProjectProvider>
       <Router history={history}>
@@ -25,25 +26,34 @@ export default hot(() => {
           {/* Login */}
           <Route exact path="/login" component={Login} />
           {!authToken && <Redirect to="/login" exact />}
+
           {/* Home */}
-          <Route exact path="/" component={Home} />
-          {/* Lead Engineer: Create Project */}
-          <Route path="/project/:id" component={Item} />
-          {/* Lead Engineer: Create Items */}
+          <Route exact path="/">
+            <Home />
+          </Route>
+
+          {/* Create Project (Lead Engineer) */}
+          <Route path="/project/:id" component={CreateProject} />
+
+          {/* Create Items (Lead Engineer) */}
           <Route
             path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
             component={LeadEngineerPage}
           />
-          {/* Operator: Batching */}
+
+          {/* Batching (Operator) */}
           <Route path="/batching/:stage/:descriptionId" component={Batching} />
-          {/* Operator: Partial Batching */}
+
+          {/* Partial Batching (Operator) */}
           <Route
             path="/partial-batching/:stage/:descriptionId"
             component={PartialBatching}
           />
-          {/* Operator: Single Item */}
+
+          {/* Single Item (Operator) */}
           <Route path="/single-item/:itemId/:geometry" component={SingleItem} />
-          {/* Quality Control: Final Inspection */}
+
+          {/* Final Inspection (Quality Control) */}
           <Route
             path="/quality-control/:itemId/:geometry"
             component={QualityControl}

@@ -9,6 +9,7 @@ import history from "../functions/history";
 import emblem from "../images/emblem.png";
 import Copyright from "components/design/Copyright";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($username: String!, $password: String!) {
@@ -78,7 +79,7 @@ export default () => {
               <Image
                 src={emblem}
                 className="mb-3 py-2 mx-auto"
-                style={{ width: "8em", height: "100%" }}
+                style={{ width: "5em", height: "100%" }}
               />
             </div>
             <Form
@@ -88,7 +89,7 @@ export default () => {
                   variables: { username, password }
                 })
                   .then(response => {
-                    // console.log(response);
+                    return <Redirect to="/" />;
                   })
                   .catch(e => {
                     console.log(e);
@@ -110,7 +111,7 @@ export default () => {
                   type="password"
                   placeholder="Password"
                   value={password}
-                  autoComplete="new-password"
+                  // autoComplete="new-password"
                   onChange={e => setPassword(e.target.value)}
                 />
               </Form.Group>
@@ -128,16 +129,15 @@ export default () => {
                 type="submit"
               >
                 <FontAwesomeIcon
-                  icon="sign-in"
-                  className="position-relative"
-                  style={{ fontSize: "1.5em", top: 2 }}
+                  icon={["fal", "sign-in"]}
+                  size="lg"
+                  className="position-relative mr-2"
+                  // style={{ fontSize: "1.5em", top: 2 }}
                 />
+                Login
               </Button>
-
-              <p align="center" className="mb-0 text-muted">
-                <Copyright />
-              </p>
             </Form>
+            <Copyright align="center" className="text-muted" />
           </div>
         </div>
       </OuterLogin>

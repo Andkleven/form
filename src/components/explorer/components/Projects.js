@@ -14,6 +14,7 @@ export default ({
   iconStyle,
   rowStyle,
   headline = "Projects",
+  refetch,
   ...props
 }) => {
   const deleteProjectFromCache = (
@@ -36,12 +37,9 @@ export default ({
     });
   };
 
-  const [deleteProject] = useMutation(
-    mutations["DELETE_PROJECT"],
-    {
-      update: deleteProjectFromCache
-    }
-  );
+  const [deleteProject] = useMutation(mutations["DELETE_PROJECT"], {
+    update: deleteProjectFromCache
+  });
 
   return (
     <div className={props.className}>
@@ -74,46 +72,45 @@ export default ({
           >
             {props.access && props.access.specs && (
               <>
-                {/* <div className="d-flex align-items-center"> */}
-                <Link
-                  to={`/project/${project.id}`}
-                  key={`project${indexProject}`}
-                  iconProps={{
-                    icon: ["fad", "file-invoice"],
-                    swapOpacity: true,
-                    size: iconSize,
-                    style: iconStyle
-                  }}
-                  style={{ marginRight: "2em", ...rowStyle }}
-                >
-                  Specifications
-                  {/* {project.data.projectName} */}
-                </Link>
-                <Link
-                  to={`#`}
-                  key={`project${indexProject}DeleteLinkButton`}
-                  iconProps={{
-                    icon: ["fad", "trash-alt"],
-                    swapOpacity: true,
-                    size: iconSize,
-                    style: iconStyle,
-                    className: "text-danger"
-                  }}
-                  style={{ marginRight: "1em", ...rowStyle }}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "To delete a project is irreversible - are you sure?"
-                      )
-                    ) {
-                      deleteProject({ variables: { id: project.id } });
-                      window.location.reload(false);
-                    }
-                  }}
-                >
-                  Delete
-                </Link>
-                {/* <Button
+                <div className="d-flex align-items-center">
+                  <Link
+                    to={`/project/${project.id}`}
+                    key={`project${indexProject}`}
+                    iconProps={{
+                      icon: ["fad", "file-invoice"],
+                      swapOpacity: true,
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: "2em", ...rowStyle }}
+                  >
+                    Specifications
+                  </Link>
+                  <Link
+                    tooltip="Delete project"
+                    to={`#`}
+                    className="text-danger m-0 p-0"
+                    key={`project${indexProject}DeleteLinkButton`}
+                    iconProps={{
+                      icon: ["fas", "trash-alt"],
+                      size: iconSize
+                    }}
+                    style={{ ...rowStyle }}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "To delete a project is irreversible - are you sure?"
+                        )
+                      ) {
+                        deleteProject({ variables: { id: project.id } });
+                        // window.location.reload(false);
+                        refetch();
+                      }
+                    }}
+                  >
+                    {/* Delete */}
+                  </Link>
+                  {/* <Button
                   variant="danger"
                   style={{ height: "2em", marginRight: "1em" }}
                   key={`project${indexProject}Delete`}
@@ -125,7 +122,7 @@ export default ({
                 >
                   <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
                 </Button> */}
-                {/* </div> */}
+                </div>
               </>
             )}
             {project.descriptions &&

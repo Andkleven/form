@@ -67,13 +67,15 @@
               "fieldName": "numberOfDescriptions",
               "label": "Number of Descriptions",
               "type": "Number",
-              "required": true
+              "required": true,
+              "min": 1
             },
             {
               "fieldName": "totalNumberOfItems",
               "label": "Total Number of Items",
               "type": "Number",
-              "required": true
+              "required": true,
+              "min": 1
             }
           ]
         }

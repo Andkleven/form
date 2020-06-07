@@ -24,8 +24,12 @@ export default ({
   },
   ...props
 }) => {
-  let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
+  let { loading, error, data, refetch } = useQuery(query["OPERATOR_PROJECTS"], {
+    // options: { pollInterval: 1000, fetchPolicy: "cache-and-network" }
+  });
   data = objectifyQuery(data);
+
+  refetch();
 
   if (loading) {
     return LoadingAnimation;
@@ -39,6 +43,7 @@ export default ({
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
+        refetch={refetch}
         access={getAccess()}
       />
     );
