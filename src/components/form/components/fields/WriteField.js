@@ -188,7 +188,6 @@ export default ({setResetState, setState, ...props}) => {
         path: props.path
       });
     }, [props.path, documentDateDispatch, defaultValue])
-    
   return (
     <>
       <Input
@@ -200,14 +199,15 @@ export default ({setResetState, setState, ...props}) => {
           (props.type === "date" || props.type === "datetime-local") &&
           new Date(objectPath.get(documentDate, props.path, null)) 
         }
+        readOnly={props.readOnly}
         onChange={onChange}
         onChangeSelect={onChangeSelect}
         label={props.label}
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}
         name={props.fieldName}
-        min={props.minInput ? props.minInput : undefined}
-        max={props.maxInput ? props.maxInput : undefined}
+        min={props.min ? props.min : undefined}
+        max={props.max ? props.max : undefined}
         required={
           props.ignoreRequired && ignoreRequired ? false : props.required
         }

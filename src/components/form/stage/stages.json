@@ -14,8 +14,8 @@
   ],
   "coateditem": {
     "actualSteelMeasurement": { "queryPath": "" },
-    "steelPreparation1": { "queryPath": "" },
-    "steelPreparation2": { "queryPath": "" },
+    "steelPreparation1": { "queryPath": "leadEngineers.0.data.mediaBlasting" },
+    "steelPreparation2": { "queryPath": "leadEngineers.0.data.additionalTests" },
     "primer1": {
       "queryPath": "leadEngineers.0.data.primer1"
     },
@@ -44,7 +44,14 @@
   },
 
   "mould": {
-    "steelPreparation1": { "queryPath": "" },
+    "steelPreparation1": { "queryPath":  "leadEngineers.0.data.mediaBlasting" },
+    "steelPreparation2": { "queryPath":  "leadEngineers.0.data.additionalTests" },
+    "primer1": {
+      "queryPath": "leadEngineers.0.data.primer1"
+    },
+    "primer2": {
+      "queryPath": "leadEngineers.0.data.primer2"
+    },
     "rubberCementsBeforeCoating": {
       "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
     },

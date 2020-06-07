@@ -1,4 +1,5 @@
 import { allZeroOrNaN, findValue } from "../../../functions/general";
+import objectPath from "object-path";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
@@ -111,7 +112,7 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {
     const sumProposedThickness = data => {
-      previousLayers += Number(data.data.actualThickness);
+      previousLayers += Number(data.data.shrinkThickness);
     };
     for (let i = 0; i < repeatStepList[0]; i++) {
       let coatingLayers = findValue(
@@ -141,10 +142,10 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
     );
   }
 
-  let proposedThickness = Number(
+  let appliedThickness = Number(
     findValue(
       values,
-      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.proposedThickness`
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
     )
   );
   let layersUnique = findValue(
@@ -156,27 +157,27 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
 
   let cumulativeThickness = 0;
   if (layersUnique) {
-    proposedThickness = 0;
+    appliedThickness = 0;
   }
 
   if (tvd === "OD") {
     cumulativeThickness =
-      previousCumulativeThickness + (previousLayers + proposedThickness) * 2;
+      previousCumulativeThickness + (previousLayers + appliedThickness) * 2;
   } else if (tvd === "ID") {
     cumulativeThickness =
-      previousCumulativeThickness - (previousLayers + proposedThickness) * 2;
+      previousCumulativeThickness - (previousLayers + appliedThickness) * 2;
   } else {
     cumulativeThickness =
-      previousCumulativeThickness + previousLayers + proposedThickness;
+      previousCumulativeThickness + previousLayers + appliedThickness;
   }
   return whatTooReturn(cumulativeThickness, decimal, [
     previousCumulativeThickness,
-    proposedThickness,
+    appliedThickness,
     layersUnique
   ]);
 };
 
-const mathProposedThickness = (values, repeatStepList, decimal) => {
+const mathShrinkThickness = (values, repeatStepList, decimal) => {
   let partOfNumber = 0;
   let shrink = Number(
     findValue(
@@ -184,20 +185,20 @@ const mathProposedThickness = (values, repeatStepList, decimal) => {
       `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.shrink`
     )
   );
-  let actualThickness = Number(
+  let shrinkThickness = Number(
     findValue(
       values,
-      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.actualThickness`
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
     )
   );
 
   if (shrink) {
-    partOfNumber = (shrink * actualThickness) / 100;
+    partOfNumber = (shrink * shrinkThickness) / 100;
   }
 
-  return whatTooReturn(actualThickness + partOfNumber, decimal, [
+  return whatTooReturn(shrinkThickness - partOfNumber, decimal, [
     shrink,
-    actualThickness
+    shrinkThickness
   ]);
 };
 
@@ -230,16 +231,26 @@ const mathToleranceMax = (values, repeatStepList, decimal) => {
   );
 };
 
+const layer = (values, repeatStepList, decimal) => {
+  let layers = 0
+  for (let index = 0; index < repeatStepList[0]; index++) {
+    layers = objectPath.get(values, `leadEngineers.0.vulcanizationSteps.${index}.coatingLayers`).length
+  }
+  layers += repeatStepList[1] + 1
+  return layers
+}
+
 
 const Math = {
   mathCumulativeThickness,
-  mathProposedThickness,
+  mathShrinkThickness,
   mathToleranceMin,
   mathToleranceMax,
   qualityControlMeasurementPointCoatingItemMin,
   qualityControlMeasurementPointCoatingItemMax,
   qualityControlMeasurementPointMouldMin,
-  qualityControlMeasurementPointMouldMax
+  qualityControlMeasurementPointMouldMax,
+  layer
 };
 
 export default Math;

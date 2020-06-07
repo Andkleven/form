@@ -10,10 +10,34 @@
           "queryPath": "leadEngineers",
           "fields": [
             {
+              "fieldName": "mediaBlasting",
+              "label": "Media Blasting",
+              "type": "checkbox",
+              "default": true
+            },
+            {
+              "fieldName": "steel",
+              "label": "Steel",
+              "type": "select",
+              "options": ["Carbon", "Duplex"],
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "blastMedia",
+              "label": "Blast Media",
+              "type": "select",
+              "options": ["Garnet", "Grit", "Aluminum Oxide"],
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
               "default": 85,
-              "type": "Number"
+              "type": "Number",
+              "prepend": "Max",
+              "unit": "%",
+              "subtext": "ISO 8502-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "airTemperature",
@@ -22,7 +46,8 @@
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
-              "subtext": "ISO 8502-4"
+              "subtext": "ISO 8502-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "steelTemperature",
@@ -31,7 +56,8 @@
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
-              "subtext": "ISO 8502-4"
+              "subtext": "ISO 8502-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "temperatureOverDewPoint",
@@ -40,11 +66,141 @@
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
-              "subtext": "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature"
+              "subtext": "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "additionalTests",
+              "label": "Additional Tests",
+              "type": "checkbox",
+              "default": false
+            },
+            {
+              "fieldName": "blastMediaConductivity",
+              "label": "Blast Media Conductivity",
+              "type": "Number",
+              "prepend": "Max",
+              "unit": "µS/cm",
+              "subtext": "ISO 8502-9",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceProfileMin",
+              "label": "Surface Profile Min (Roughness)",
+              "prepend": "Min",
+              "unit": "µm",
+              "default": 50,
+              "type": "Number",
+              "subtext": "ISO 8503-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceProfileMax",
+              "label": "Surface Profile Max (Roughness)",
+              "prepend": "Max",
+              "unit": "µm",
+              "default": 100,
+              "type": "Number",
+              "subtext": "ISO 8503-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "solubleSaltLevel",
+              "label": "Soluble Salt Level",
+              "default": 20,
+              "type": "Number",
+              "prepend": "Max",
+              "unit": "mg/m²",
+              "subtext": "ISO 8502-5/9",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "dustTest",
+              "label": "Dust Test",
+              "type": "Number",
+              "prepend": "Max",
+              "subtext": "ISO 8502-3, Whole number between 1-5",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "inspectionOfSteelSurface",
+              "label": "Inspection of Steel Surface",
+              "type": "checkbox",
+              "subtext": "ISO 8501-3, Welds to be grade P3",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "compressedAirCheck",
+              "label": "Compressed Air Check",
+              "placeholder": "Min",
+              "type": "checkbox",
+              "subtext": "ASTM D 4285, No oil and no water",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceCleanliness",
+              "label": "Surface Cleanliness",
+              "placeholder": "Max",
+              "type": "checkbox",
+              "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "uvTest",
+              "label": "UV Test",
+              "type": "checkbox",
+              "subtext": "No reflecting light",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.additionalCustomTests",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Additional Custom Test",
+          "fields": [
+            {
+              "fieldName": "name",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "label": "Name"
+            },
+            {
+              "fieldName": "criteria",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "label": "Criteria"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers",
+          "fields": [
+            {
+              "fieldName": "primer1",
+              "label": "Primer 1",
+              "type": "select",
+              "options": [
+                "Chemosil 211",
+                "Chemosil 231",
+                "Chemosil 360",
+                "Chemosil 411"
+              ]
+            },
+            {
+              "fieldName": "primer2",
+              "label": "Primer 2",
+              "type": "select",
+              "options": [
+                "Chemosil 211",
+                "Chemosil 231",
+                "Chemosil 360",
+                "Chemosil 411"
+              ]
             },
             {
               "fieldName": "rubberCementsBeforeCoating",
-              "label": "Release Agent",
+              "label": "Rubber Cement Before Coating",
+
               "type": "select",
               "options": ["75051", "Soap"]
             }
@@ -106,6 +262,20 @@
           ]
         },
         {
+          "queryPath": "leadEngineers.0.rubberCements",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Add rubber cement",
+          "fields": [
+            {
+              "fieldName": "rubberCement",
+              "label": "Rubber Cement",
+              "notLabel": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
           "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
           "repeatStartWithOneGroup": true,
@@ -153,11 +323,9 @@
                 {
                   "fieldName": "layer",
                   "label": "Layer",
-                  "setValueByIndex": true,
                   "type": "Number",
-                  "textCenter": true
+                  "math": "layer"
                 },
-                { "line": true },
                 {
                   "fieldName": "compoundNumber",
                   "required": true,
@@ -243,12 +411,11 @@
                   ]
                 },
                 {
-                  "fieldName": "actualThickness",
-                  "label": "Actual Thickness",
-                  "type": "Number",
+                  "fieldName": "appliedThickness",
+                  "label": "Applied Thickness",
                   "unit": "mm",
-                  "decimal": 2,
-                  "required": true
+                  "decimal": 1,
+                  "type": "Number"
                 },
                 {
                   "fieldName": "shrink",
@@ -258,12 +425,13 @@
                   "default": 0
                 },
                 {
-                  "fieldName": "proposedThickness",
-                  "label": "Proposed Thickness",
-                  "math": "mathProposedThickness",
+                  "fieldName": "shrinkThickness",
+                  "label": "Shrink Thickness",
+                  "math": "mathShrinkThickness",
+                  "type": "Number",
                   "unit": "mm",
                   "decimal": 1,
-                  "type": "Number"
+                  "required": true
                 },
                 {
                   "fieldName": "layersUnique",
@@ -289,6 +457,11 @@
               "prepend": "Min"
             },
             {
+              "fieldName": "numberOfHardnessOfOuterLayer",
+              "label": "Number of Hardness of Outer Layer",
+              "type": "number"
+            },
+            {
               "fieldName": "identificationMarking",
               "label": "Identification Marking"
             },
@@ -298,6 +471,11 @@
               "unit": "N/25mm",
               "prepend": "Min",
               "subtext": "ISO 813 bS6374-5"
+            },
+            {
+              "fieldName": "numberOfPeelTest",
+              "label": "Number of Peel Test",
+              "type": "number"
             },
             {
               "fieldName": "totalCoatingThickness",
@@ -328,6 +506,22 @@
               "label": "Hammer Test",
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch."
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.finalInspectionCustomTests",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Final Inspection Custom Test",
+          "fields": [
+            {
+              "fieldName": "name",
+              "label": "Name"
+            },
+            {
+              "fieldName": "criteria",
+              "label": "Criteria"
             }
           ]
         }

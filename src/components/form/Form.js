@@ -12,7 +12,7 @@ import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
-import { stringifyQuery } from "functions/general";
+import { stringifyQuery, isStringInstance } from "functions/general";
 
 import FindNextStage from "components/form/stage/findNextStage.ts";
 
@@ -39,6 +39,7 @@ function useDispatch(init) {
         state.current =  { ...state.current };
         break
       case "delete":
+        objectPath.del(state.current, action.path);
         state.current =  { ...state.current };
         break
       default:
@@ -205,7 +206,7 @@ export default props => {
             itemId: props.sendItemId ? Number(props.itemId) : undefined,
             itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
             stage:
-              props.stage && submit && nextStage && editChapter
+            isStringInstance(props.stage) && submit && nextStage && !editChapter
                 ? FindNextStage(props.specData, props.stage, props.geometry)
                 : props.stage
           }

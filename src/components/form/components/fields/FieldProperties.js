@@ -21,6 +21,7 @@ export default ({resetState, ...props}) => {
   const { editChapter } = useContext(ChapterContext);
 
   const [state, setState] = useState("")
+  const [readOnly, setReadOnly] = useState(false)
   const [label, setLabel] = useState("")
 
   
@@ -36,37 +37,36 @@ export default ({resetState, ...props}) => {
     setState(objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, getNewPath(), null))
   }, [resetState, props.backendData, setState, getNewPath, documentDate])
 
+  const updateReadOnly = useCallback(() => {
+    setReadOnly(!objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.readOnlyFieldIf, false))
+  }, [setReadOnly, props.backendData, props.readOnlyFieldIf, documentDate])
 
-  // useEffect(() => {
-  //   let saveState = objectPath.get(props.backendData, getNewPath(), null);
-  //   if (saveState === null && !props.specValueList) {
-  //     let newState;
-  //     if (["date", "datetime-local"].includes(props.type)) {
-  //       newState = emptyField(saveState) ? null : new Date(saveState);
-  //     } else {
-  //       newState =
-  //         props.default !== undefined
-  //           ? props.default
-  //           : ["checkbox", "radio", "switch"].includes(props.type)
-  //           ? false
-  //           : props.default === "select"
-  //           ? props.options[0]
-  //           : "";
-  //     }
-  //     setState(objectPath.get(props.backendData, getNewPath(), null))
-  //     documentDateDispatch({ type: "add", newState, path: getNewPath() });
-  //   }
-  // }, [
-  //   props.specValueList,
-  //   documentDateDispatch,
-  //   props.default,
-  //   props.type,
-  //   props.options,
-  //   props.fieldName,
-  //   getNewPath,
-  //   props.backendData,
-  //   setState
-  // ]);
+  useEffect(() => {
+    if (props.readOnlyFieldIf) {
+      func[`${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`] = updateReadOnly;
+    }
+    return () => {
+      if (props.readOnlyFieldIf) {
+        delete func[`${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`]
+      }
+    }
+  },[
+    props.readOnlyFieldIf,
+    updateReadOnly, 
+    props.label,  
+    func,
+    props.repeatStepList
+  ])
+
+  useEffect(() => {
+    if (props.readOnlyFieldIf) {
+      updateReadOnly();
+    }
+  },[
+    props.readOnlyFieldIf,
+    updateReadOnly
+  ])
+  
 
   const { min, max } = useMemo(() => (calculateMaxMin(
     props.min,
@@ -244,6 +244,7 @@ export default ({resetState, ...props}) => {
                 ? true
                 : false
             }
+            readOnly={readOnly}
             setState={setState}
             state={state}
             min={min}
@@ -271,6 +272,7 @@ export default ({resetState, ...props}) => {
           <ReadField
             {...props}
             key={`${props.indexId}-${props.index}`}
+            readOnly={readOnly}
             path={getNewPath()}
             indexId={`${props.indexId}-${props.index}`}
             index={props.index}

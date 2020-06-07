@@ -96,6 +96,14 @@ const LEAD_ENGINEER = gql`
           id
           data
         }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
+          id
+          data
+        }
         rubberCements {
           id
           data
@@ -154,6 +162,10 @@ const OPERATOR_BATCHING = gql`
               id
               data
             }
+            additionalCustomTestOperators {
+              id
+              data
+            }
             vulcanizationOperators {
               id
               data
@@ -192,6 +204,10 @@ const OPERATOR = gql`
         id
         data
         measurementPointActualTdvs {
+          id
+          data
+        }
+        additionalCustomTestOperators {
           id
           data
         }
@@ -244,6 +260,10 @@ const QUALITY_CONTROL = gql`
           data
         }
         peelTestQualityControls {
+          id
+          data
+        }
+        finalInspectionCustomTestQualityControls {
           id
           data
         }

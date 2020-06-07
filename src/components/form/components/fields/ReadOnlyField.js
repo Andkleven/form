@@ -11,11 +11,11 @@ export default ({resetState, backendData, ...props}) => {
   const {documentDate, documentDateDispatch, func} = useContext(DocumentDateContext);
   
   const math = useCallback(
-    () => {
+    (data=documentDate) => {
       const getValueFromMath = props.setValueByIndex
                   ? props.repeatStep + 1
                   : Math[props.math](
-                    documentDate,
+                    data,
                     props.repeatStepList,
                     props.decimal ? props.decimal : 0)
     documentDateDispatch({type: 'add', newState: getValueFromMath, path: props.path})
@@ -45,8 +45,8 @@ export default ({resetState, backendData, ...props}) => {
   ])
 
   useEffect(() => {
-    setValue(objectPath.get(Object.keys(documentDate).length === 0 ? backendData : documentDate, props.path, null))
-  }, [resetState, setValue, props.path, backendData, documentDate])
+    math(Object.keys(documentDate).length === 0 ? backendData : documentDate)
+  }, [math, backendData, documentDate])
 
   return (
     <ReadField

@@ -20,7 +20,7 @@ function NativeInput(props) {
               isInvalid={props.isInvalid}
               id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
               required={props.required}
-              readOnly={props.readOnlyFields}
+              readOnly={props.readOnlyFields ? props.readOnlyFields : props.readOnly}
               defaultValue={props.defaultValue}
               name={props.name}
               onChange={props.onChange}

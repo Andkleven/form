@@ -62,11 +62,12 @@ export default props => {
     isSearchable: true,
     placeholder: placeholder,
     onChange: props.onChangeSelect,
-    autoFocus: props.focus
+    autoFocus: props.focus,
+    isDisabled: props.readOnlyFields ? props.readOnlyFields : props.readOnly
   };
 
   return (
-    <Form.Group className={props.tight && "mb-1"} >
+    <Form.Group className={props.tight && "mb-1"} readOnly={true}>
       <div className="d-flex text-dark">
         {props.custom ? (
           <Creatable {...selectProps} />

@@ -16,7 +16,6 @@
               "specValueList": "leadEngineers.0.data.blastMedia",
               "label": "Blast Media"
             },
-            { "line": true },
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
@@ -105,6 +104,216 @@
         }
       ]
     },
+    "steelPreparation2": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Media Blasting",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "fieldName": "inspectionOfSteelSurface",
+              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
+              "label": "Inspection of Steel Surface",
+              "subtext": "ISO 8501-3, Welds to be grade P3",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "solubleSaltLevel",
+              "label": "Soluble Salt Level",
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
+              "routeToSpecMax": "leadEngineers.0.data.solubleSaltLevel",
+              "placeholder": "Result",
+              "unit": "mg/m2",
+              "required": true,
+              "type": "number"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
+              "fieldName": "equipmentIDSolubleSaltLevel",
+              "required": true,
+              "placeholder": "Equipment ID"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
+              "fieldName": "nextCalibrationDateSolubleSaltLevel",
+              "label": "Next Calibration Date",
+              "type": "date",
+              "required": true
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
+              "line": true
+            },
+            {
+              "fieldName": "surfaceCleanliness",
+              "label": "Surface Cleanliness",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "specSubtextList": "leadEngineers.0.data.surfaceCleanliness",
+              "subtext": "ISO 8501-1, Min. Sa {} (Rust grade A or B)",
+              "required": true,
+              "unit": "Sa"
+            },
+            {
+              "fieldName": "surfaceCleanlinessImage",
+              "placeholder": "Upload Image",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "type": "file"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "fieldName": "compressedAirCheck",
+              "label": "Compressed Air Check",
+              "subtext": "ASTM D 4285, No oil and no water",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "fieldName": "equipmentIdCompressedAirCheck",
+              "required": true,
+              "placeholder": "Equipment ID"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "fieldName": "nextCalibrationDateCompressedAirCheck",
+              "type": "date",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "line": true
+            },
+            {
+              "fieldName": "uvTest",
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "label": "UV Test",
+              "required": true,
+              "subtext": "No reflecting light",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "equipmentIDUvTest",
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "required": true,
+              "placeholder": "Equipment ID"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "fieldName": "nextCalibrationDateUvTest",
+              "type": "date",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "line": true
+            },
+            {
+              "fieldName": "blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "label": "Blast Media Conductivity",
+              "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
+              "placeholder": "Result",
+              "required": true,
+              "unit": "µS/cm",
+              "type": "number"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "required": true,
+              "fieldName": "equipmentIDBlastMediaConductivity",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "fieldName": "nextCalibrationDateBlastMediaConductivity",
+              "type": "date",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "line": true
+            },
+            {
+              "fieldName": "surfaceProfileRoughness",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "required": true,
+              "placeholder": "Result",
+              "label": "Surface Profile (Roughness)",
+              "subtext": "Between 50.0µm and 100.0µm",
+              "unit": "µm",
+              "type": "number"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "required": true,
+              "fieldName": "equipmentIDSurfaceProfileRoughness",
+              "placeholder": "Equipment ID"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
+              "type": "date",
+              "label": "Next Calibration Date",
+              "required": true
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "fieldName": "referencePlateId",
+              "placeholder": "Reference Plate Id (Optional)"
+            },
+            {
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "line": true
+            },
+            {
+              "fieldName": "dustTest",
+              "label": "Dust Test",
+              "required": true,
+              "placeholder": "Result",
+              "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
+              "type": "number"
+            },
+            {
+              "fieldName": "dustCheckImage",
+              "placeholder": "Upload Image",
+              "type": "file"
+            },
+            {
+              "fieldName": "mediaBlastingTestsFinished",
+              "required": true,
+              "label": "Media Blasting Tests Finished",
+              "type": "datetime-local"
+            }
+          ]
+        },
+        {
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.additionalCustomTests",
+          "queryPath": "finalInspectionQualityControls.0.additionalCustomTestOperators",
+          "fields": [
+            {
+              "specValueList": ["leadEngineers.0.additionalCustomTests", "data.name"],
+              "label": "Custom Test Name"
+            },
+            {
+              "specValueList": ["leadEngineers.0.additionalCustomTests", "data.criteria"],
+              "label": "Custom Test Criteria"
+            },
+            {
+              "fieldName": "test",
+              "label": "Test"
+            }
+          ]
+        }
+      ]
+    },
     "rubberCementsBeforeCoating": {
       "queryPath": "operators",
       "pages": [
@@ -116,7 +325,6 @@
               "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
               "label": "Rubber Cement:"
             },
-            { "line": true },
             {
               "fieldName": "startTimeRubberCement",
               "required": true,
@@ -179,7 +387,7 @@
               "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.actualThickness"
+                "data.shrinkThickness"
               ],
               "label": "Actual Rubber Thickness"
             },
@@ -187,7 +395,7 @@
               "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.proposedThickness"
+                "data.appliedThickness"
               ],
               "label": "Proposed Rubber Thickness"
             }
@@ -243,7 +451,6 @@
               ],
               "label": "Program Number"
             },
-            { "line": true },
             {
               "fieldName": "autoclaveNumber",
               "ignoreRequired": true,

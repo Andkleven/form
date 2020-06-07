@@ -3,7 +3,6 @@ import objectPath from "object-path";
 import FieldProperties from "components/form/components/fields/FieldProperties";
 import Page from "components/form/components/Page";
 import { DocumentDateContext } from "components/form/Form";
-import Line from "components/design/Line";
 import { findValue } from "functions/general";
 
 export default props => {
@@ -23,8 +22,6 @@ export default props => {
       )
     ) {
       return null;
-    } else if (field.line) {
-      return <Line key={`${props.indexId}-${index}`} />;
     } else if (field.page) {
       if (
         objectPath.get(

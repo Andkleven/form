@@ -76,13 +76,6 @@
               "showFieldSpecPath": "leadEngineers.0.data.identificationMarking",
               "required": true,
               "type": "checkbox"
-            },
-            {
-              "fieldName": "numberOfHardnessOfOuterLayer",
-              "label": "Number of Hardness of Outer Layer",
-              "showFieldSpecPath": "leadEngineers.0.data.hardnessOfOuterLayer",
-              "required": true,
-              "type": "number"
             }
           ]
         },
@@ -90,7 +83,8 @@
           "queryPath": "finalInspectionQualityControls.0.hardnessQualityControls",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfHardnessOfOuterLayer",
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.numberOfHardnessOfOuterLayer",
           "fields": [
             {
               "fieldName": "hardnessOfOuterLayer",
@@ -103,22 +97,11 @@
           ]
         },
         {
-          "queryPath": "finalInspectionQualityControls",
-          "fields": [
-            {
-              "fieldName": "numberOfPeelTest",
-              "required": true,
-              "label": "Number of Peel Test",
-              "showFieldSpecPath": "leadEngineers.0.data.peelTest",
-              "type": "number"
-            }
-          ]
-        },
-        {
           "queryPath": "finalInspectionQualityControls.0.peelTestQualityControls",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithQuery": "finalInspectionQualityControls.0.data.numberOfPeelTest",
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.numberOfPeelTest",
           "fields": [
             {
               "fieldName": "peelTest",
@@ -127,6 +110,27 @@
               "label": "Peel Test: {}",
               "unit": "N/25mm",
               "type": "number"
+            }
+          ]
+        },
+        {
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.finalInspectionCustomTests",
+          "queryPath": "finalInspectionQualityControls.0.finalInspectionCustomTestQualityControls",
+          "fields": [
+            {
+              "specValueList": ["leadEngineers.0.finalInspectionCustomTests", "data.name"],
+              "label": "Custom Test Name"
+            },
+            {
+              "specValueList": ["leadEngineers.0.finalInspectionCustomTests", "data.criteria"],
+              "label": "Custom Test Criteria"
+            },
+            {
+              "fieldName": "test",
+              "label": "Test"
             }
           ]
         },

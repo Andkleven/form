@@ -24,6 +24,14 @@ const ALL = gql`
               id
               data
             }
+            additionalCustomTests {
+              id
+              data
+            }
+            finalInspectionCustomTests {
+              id
+              data
+            }
             rubberCements {
               id
               data
@@ -114,6 +122,14 @@ const GET_LEAD_ENGINEER = gql`
         id
         data
       }
+      additionalCustomTests {
+        id
+        data
+      }
+      finalInspectionCustomTests {
+        id
+        data
+      }
     }
   }
 `;
@@ -135,6 +151,14 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             data
           }
           rubberCements {
+            id
+            data
+          }
+          additionalCustomTests {
+            id
+            data
+          }
+          finalInspectionCustomTests {
             id
             data
           }
@@ -200,6 +224,14 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
         rubberCements {
+          id
+          data
+        }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
           id
           data
         }
@@ -299,6 +331,14 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
+          id
+          data
+        }
       }
       operators {
         id
@@ -336,6 +376,10 @@ const QUALITY_CONTROL = gql`
           data
         }
         peelTestQualityControls {
+          id
+          data
+        }
+        finalInspectionCustomTestQualityControls {
           id
           data
         }

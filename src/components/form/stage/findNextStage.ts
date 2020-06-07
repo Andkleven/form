@@ -3,6 +3,7 @@ import { findValue, emptyField, isNumber, removeSpace } from "functions/general.
 
 
 export default (specData: object, stage: string, geometry: string): string => {
+    stage = stage ? stage : stagesJson.all[0]
     geometry = removeSpace(geometry).toLowerCase()
     function nextStageFormat(index: number, step: number): string {
         nextStage = stagesJson.all[index + 1]

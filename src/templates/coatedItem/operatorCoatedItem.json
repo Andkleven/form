@@ -40,7 +40,6 @@
               "required": true,
               "label": "Blast Media"
             },
-            { "line": true },
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
@@ -278,12 +277,32 @@
               "placeholder": "Upload Image",
               "type": "file"
             },
-            { "line": true },
             {
               "fieldName": "mediaBlastingTestsFinished",
               "required": true,
               "label": "Media Blasting Tests Finished",
               "type": "datetime-local"
+            }
+          ]
+        },
+        {
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.additionalCustomTests",
+          "queryPath": "finalInspectionQualityControls.0.additionalCustomTestOperators",
+          "fields": [
+            {
+              "specValueList": ["leadEngineers.0.additionalCustomTests", "data.name"],
+              "label": "Custom Test Name"
+            },
+            {
+              "specValueList": ["leadEngineers.0.additionalCustomTests", "data.criteria"],
+              "label": "Custom Test Criteria"
+            },
+            {
+              "fieldName": "test",
+              "label": "Test"
             }
           ]
         }
@@ -439,7 +458,7 @@
               "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.actualThickness"
+                "data.shrinkThickness"
               ],
               "label": "Actual Rubber Thickness"
             },
@@ -447,7 +466,7 @@
               "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.proposedThickness"
+                "data.appliedThickness"
               ],
               "label": "Proposed Rubber Thickness"
             }
@@ -529,7 +548,6 @@
               ],
               "label": "Program Number"
             },
-            { "line": true },
             {
               "fieldName": "autoclaveNumber",
               "required": true,

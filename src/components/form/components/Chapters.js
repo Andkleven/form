@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect, useContext, useMemo } from "react";
+import React, { Fragment, useRef, useEffect, useContext } from "react";
 import { findValue, allRequiredSatisfied, createPath, removeSpace } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -9,92 +9,59 @@ import SubmitButton from "components/button/SubmitButton";
 
 // import objectPath from "object-path";
 
-export default ({
-                componentsId,
-                document,
-                reRender,
-                data,
-                getQueryBy,
-                descriptionId,
-                itemId,
-                sendItemId,
-                backButton,
-                backendData,
-                optionsData,
-                submitData,
-                setNextStage,
-                chapterAlwaysInWrite,
-                notEditButton,
-                notSubmitButton,
-                specData,
-                repeatStepList,
-                geometry
-              }) => {
+export default props => {
   const { editChapter } = useContext(ChapterContext);
-
   const stopLoop = useRef(false) // Flips to true for last chapter with input
-  const temporaryLastChapter = useRef(0) 
-  const Chapter = useMemo(
-    () => {
+  let temporaryLastChapter = 0;
   let count = 0;
   let stage = stagesJson["all"][0];
 
   const getNewChapter = (repeatStepList, pageInfo, thisStage="") => {
     let chapter; // new chapter to add to document
     if (
-      (pageInfo.chapterAlwaysInWrite || chapterAlwaysInWrite) &&
-      !temporaryLastChapter.current
+      (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
+      !temporaryLastChapter
     ) {
-      temporaryLastChapter.current = count + 1;
+      temporaryLastChapter = count + 1;
     }
     if (stopLoop.current) {
       chapter = null;
     } else {
-      let allRequiredFieldSatisfied = data
-      ? document.chapterByStage
+      let allRequiredFieldSatisfied = props.data
+      ? props.document.chapterByStage
         ? thisStage === stage
-        : !allRequiredSatisfied(pageInfo, data, repeatStepList)
+        : !allRequiredSatisfied(pageInfo, props.data, repeatStepList)
       : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
-        temporaryLastChapter.current = count + 1;
+        temporaryLastChapter = count + 1;
       }
       // Map through pages in this pages
       chapter = pageInfo.pages.map((info, index) => {
-        let showEditButton = !notEditButton && !index ? true : false;
+        let showEditButton = !props.notEditButton && !index ? true : false;
         let showSaveButton =
-          index === pageInfo.pages.length - 1 && !notSubmitButton
+          index === pageInfo.pages.length - 1 && !props.notSubmitButton
             ? true
             : false;
         return (
           <Page
             key={`${index}-${count}-canvas`}
             {...info}
-            componentsId={componentsId}
-            document={document}
-            reRender={reRender}
-            data={data}
-            getQueryBy={getQueryBy}
-            descriptionId={descriptionId}
-            itemId={itemId}
-            sendItemId={sendItemId}
-            backButton={backButton}
-            backendData={backendData}
-            optionsData={optionsData}
-            submitData={submitData}
-            setNextStage={setNextStage}
+            {...props}
+            // data={getData(info, repeatStepList, props.data)}
             path={createPath(info.queryPath, repeatStepList)}
             thisChapter={count + 1}
             stopLoop={stopLoop.current}
             showEditButton={showEditButton}
             indexId={`${count + 1}-${index}`}
             index={index}
-            temporaryLastChapter={temporaryLastChapter.current}
+            temporaryLastChapter={temporaryLastChapter}
+            submitData={props.submitData}
             showSaveButton={showSaveButton}
             repeatStepList={repeatStepList}
           />
-        )
-      })
+        );
+      });
       // if now data in lookUpBy stop loop
       if (allRequiredFieldSatisfied) {
         stopLoop.current = true;
@@ -108,9 +75,9 @@ export default ({
   const runChapter = (pageInfo, thisStage="", step = null) => {
     if (pageInfo.specChapter) {
       let numberOfChapters = findValue(
-        specData,
+        props.specData,
         pageInfo.specChapter,
-        step === null ? repeatStepList : [step]
+        step === null ? props.repeatStepList : [step]
       );
       if (numberOfChapters && numberOfChapters.length) {
         let newChapterArray = [];
@@ -118,8 +85,8 @@ export default ({
           let newChapter = getNewChapter(
             step !== null
               ? [step, index]
-              : repeatStepList
-              ? [...repeatStepList, index]
+              : props.repeatStepList
+              ? [...props.repeatStepList, index]
               : [index],
             pageInfo,
             thisStage
@@ -134,7 +101,7 @@ export default ({
           );
         }
         if (newChapterArray[newChapterArray.length - 1] === null) {
-          setNextStage(false);
+          props.setNextStage(false);
         }
         return newChapterArray;
       }
@@ -143,7 +110,7 @@ export default ({
       return (
         <Fragment key={count}>
           {" "}
-          {getNewChapter(repeatStepList, pageInfo, thisStage)}{" "}
+          {getNewChapter(props.repeatStepList, pageInfo, thisStage)}{" "}
         </Fragment>
       );
     }
@@ -152,24 +119,24 @@ export default ({
     let i = 0;
     let stageSplit = [];
     let chapterBasedOnStage = [];
-    let thisStage = stage ? stage : stage
-    if (stage === "" && geometry){
-      thisStage = Object.keys(stagesJson[removeSpace(geometry.toLowerCase())])[0]
+    let thisStage = props.stage ? props.stage : stage
+    if (props.stage === "" && props.geometry){
+      thisStage = Object.keys(stagesJson[removeSpace(props.geometry.toLowerCase())])[0]
     } 
     while (stopLoop.current === false && i < 20) {
       chapterBasedOnStage.push(
         runChapter(
-          document.chapters[
+          props.document.chapters[
             stageSplit[1] ? stageSplit[0] + "Step" : stage
           ],
           thisStage,
           stageSplit[1] - 1
         )
       );
-      stage = findNextStage(specData, stage, geometry);
+      stage = findNextStage(props.specData, stage, props.geometry);
       stageSplit = stage.split("Step");
       if (
-        !document.chapters[stageSplit[1] ? stageSplit[0] + "Step" : stage]
+        !props.document.chapters[stageSplit[1] ? stageSplit[0] + "Step" : stage]
       ) {
         break;
       }
@@ -178,48 +145,24 @@ export default ({
     return chapterBasedOnStage;
   };
   
-  const chapterBasedOnJson = document.chapterByStage
+  const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
-    : document.chapters.map(pageInfo => {
+    : props.document.chapters.map(pageInfo => {
         return runChapter(pageInfo);
       });
 
-      return (
-        <>
-        {document.chapterByStage ? stageChapters() : chapterBasedOnJson} {!editChapter && !temporaryLastChapter.current && !!backButton ? (
-        <SubmitButton type="button" onClick={backButton}>
-          Back
-        </SubmitButton>
-      ) : null}
-      </>);
-},[
-  editChapter,
-  componentsId,
-  document,
-  reRender,
-  data,
-  getQueryBy,
-  descriptionId,
-  itemId,
-  sendItemId,
-  backButton,
-  backendData,
-  optionsData,
-  submitData,
-  setNextStage,
-  chapterAlwaysInWrite,
-  geometry,
-  notEditButton,
-  notSubmitButton,
-  repeatStepList,
-  specData
-  ])
   useEffect(() => {
     return () => {
       stopLoop.current = false
-      temporaryLastChapter.current = 0
     }
   })
 
-  return (<> {Chapter} </>)
+  return (
+    <>
+    {props.document.chapterByStage ? stageChapters() : chapterBasedOnJson} {!editChapter && !temporaryLastChapter && !!props.backButton ? (
+    <SubmitButton type="button" onClick={props.backButton}>
+      Back
+    </SubmitButton>
+  ) : null}
+  </>);
 };
