@@ -2,9 +2,8 @@ import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
-import { Col, ProgressBar, Button } from "react-bootstrap";
+import { Col, ProgressBar } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
@@ -75,46 +74,44 @@ export default ({
           >
             {props.access && props.access.specs && (
               <>
-                {/* <div className="d-flex align-items-center"> */}
-                <Link
-                  to={`/project/${project.id}`}
-                  key={`project${indexProject}`}
-                  iconProps={{
-                    icon: ["fad", "file-invoice"],
-                    swapOpacity: true,
-                    size: iconSize,
-                    style: iconStyle
-                  }}
-                  style={{ marginRight: "2em", ...rowStyle }}
-                >
-                  Specifications
-                  {/* {project.data.projectName} */}
-                </Link>
-                <Link
-                  to={`#`}
-                  key={`project${indexProject}DeleteLinkButton`}
-                  iconProps={{
-                    icon: ["fad", "trash-alt"],
-                    swapOpacity: true,
-                    size: iconSize,
-                    style: iconStyle,
-                    className: "text-danger"
-                  }}
-                  style={{ marginRight: "1em", ...rowStyle }}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "To delete a project is irreversible - are you sure?"
-                      )
-                    ) {
-                      deleteProject({ variables: { id: project.id } });
-                      window.location.reload(false);
-                    }
-                  }}
-                >
-                  Delete
-                </Link>
-                {/* <Button
+                <div className="d-flex align-items-center">
+                  <Link
+                    to={`/project/${project.id}`}
+                    key={`project${indexProject}`}
+                    iconProps={{
+                      icon: ["fad", "file-invoice"],
+                      swapOpacity: true,
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: "2em", ...rowStyle }}
+                  >
+                    Specifications
+                  </Link>
+                  <Link
+                    tooltip="Delete project"
+                    to={`#`}
+                    className="text-danger m-0 p-0"
+                    key={`project${indexProject}DeleteLinkButton`}
+                    iconProps={{
+                      icon: ["fas", "trash-alt"],
+                      size: iconSize
+                    }}
+                    style={{ ...rowStyle }}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "To delete a project is irreversible - are you sure?"
+                        )
+                      ) {
+                        deleteProject({ variables: { id: project.id } });
+                        window.location.reload(false);
+                      }
+                    }}
+                  >
+                    {/* Delete */}
+                  </Link>
+                  {/* <Button
                   variant="danger"
                   style={{ height: "2em", marginRight: "1em" }}
                   key={`project${indexProject}Delete`}
@@ -126,7 +123,7 @@ export default ({
                 >
                   <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
                 </Button> */}
-                {/* </div> */}
+                </div>
               </>
             )}
             {project.descriptions &&

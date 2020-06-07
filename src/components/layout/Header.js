@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { USER } from "constants.js";
 import { camelCaseToNormal } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 export default () => {
   const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
@@ -48,14 +49,14 @@ export default () => {
 
       {/* Center */}
       <div className="col-4 text-center mx-0 px-0">
-        <a href="/" className="m-0 p-0">
+        <Link to="/" className="m-0 p-0">
           <img
             src={emblem}
             height="25"
             className="d-inline-block align-top"
             alt="React Bootstrap logo"
           />
-        </a>
+        </Link>
       </div>
 
       {/* Right */}
