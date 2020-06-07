@@ -2,7 +2,8 @@ import React, {
   useState,
   createContext,
   useLayoutEffect,
-  useReducer
+  useCallback,
+  useRef
 } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/query";
@@ -22,27 +23,30 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 //   titleColor: "green",
 //   diffNameColor: "darkturquoise"
 // });
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "setState":
-      return { ...cloneDeep(action.newState) };
-    case "add":
-      objectPath.set(
-        state,
-        action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
-        action.newState
-      );
-      return { ...state };
-    // return {...state};
-    case "delete":
-      objectPath.del(state, action.path);
-      return { ...state };
-    default:
-      throw new Error();
-  }
+function useDispatch(init) {
+  const state = useRef(init);
+  const reducer = useCallback(action => {
+    switch (action.type) {
+      case "setState":
+        state.current =  cloneDeep(action.newState);
+        break
+      case "add":
+        objectPath.set(
+          state.current,
+          action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
+          action.newState
+        );
+        state.current =  { ...state.current };
+        break
+      case "delete":
+        state.current =  { ...state.current };
+        break
+      default:
+        throw new Error();
+    }
+  },[state])
+  return [state.current, reducer]
 }
-
 export const ChapterContext = createContext();
 export const DocumentDateContext = createContext();
 
@@ -50,9 +54,10 @@ const cloneDeep = require("clone-deep");
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentDate, documentDateDispatch] = useReducer(reducer, {});
+  const [documentDate, documentDateDispatch] = useDispatch({});
   const [nextStage, setNextStage] = useState(true);
   const [lastChapter, setLastChapter] = useState(0);
+  const {current: func} = useRef({})
 
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -60,10 +65,9 @@ export default props => {
       : query["DEFAULT"],
     {
       variables: {},
-      skip: props.optionsQuery
+      skip: !props.optionsQuery
     }
   );
-
   // Set DocumentDate to empty dictionary if a new components calls Form
   useLayoutEffect(() => {
     if (props.data) {
@@ -72,7 +76,7 @@ export default props => {
         newState: props.data
       });
     }
-  }, [props.componentsId, props.data]);
+  }, [props.componentsId, documentDateDispatch, props.data]);
   // console.log(documentDate);
   // console.log(validationPassed)
 
@@ -185,28 +189,31 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-  const submitData = (data, submit) => {
-    setNextStage(true);
-    setEditChapter(0);
-    setLastChapter(0);
+  const submitData = useCallback((data, submit) => {
+    // clearTimeout(timer.current)
+    // timer.current = setTimeout(() => {
+      setNextStage(true);
+      setEditChapter(0);
+      setLastChapter(0);
+      if (data) {
+        let variables = stringifyQuery(cloneDeep(data));
+        mutation({
+          variables: {
+            ...variables,
+            descriptionId:
+              props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
+            itemId: props.sendItemId ? Number(props.itemId) : undefined,
+            itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
+            stage:
+              props.stage && submit && nextStage && editChapter
+                ? FindNextStage(props.specData, props.stage, props.geometry)
+                : props.stage
+          }
+        });
+      }
+    // }, delayOnHandler)
 
-    if (data) {
-      let variables = stringifyQuery(cloneDeep(data));
-      mutation({
-        variables: {
-          ...variables,
-          descriptionId:
-            props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
-          itemId: props.sendItemId ? Number(props.itemId) : undefined,
-          itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
-          stage:
-            props.stage && submit && nextStage && editChapter
-              ? FindNextStage(props.specData, props.stage, props.geometry)
-              : props.stage
-        }
-      });
-    }
-  };
+  }, [editChapter, mutation, nextStage, props.batchingListIds, props.descriptionId, props.geometry, props.itemId, props.sendItemId, props.specData, props.stage]);
 
   const formSubmit = e => {
     e.persist();
@@ -216,7 +223,7 @@ export default props => {
 
   return (
     <DocumentDateContext.Provider
-      value={{ documentDate, documentDateDispatch }}
+      value={{ documentDate, documentDateDispatch, func }}
     >
       <ChapterContext.Provider
         value={{

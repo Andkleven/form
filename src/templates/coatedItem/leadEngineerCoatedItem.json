@@ -24,7 +24,6 @@
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
-              "required": true,
               "default": 85,
               "type": "Number",
               "prepend": "Max",
@@ -94,6 +93,13 @@
               "subtext": "ISO 8502-5/9"
             },
             {
+              "fieldName": "dustTest",
+              "label": "Dust Test",
+              "type": "Number",
+              "prepend": "Max",
+              "subtext": "ISO 8502-3, Whole number between 1-5"
+            },
+            {
               "fieldName": "inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "type": "checkbox",
@@ -161,13 +167,6 @@
           "mutation": "LEAD_ENGINEER",
           "fields": [
             {
-              "fieldName": "targetDescriptionValue",
-              "label": "TDV (Target Description Value)",
-              "type": "select",
-              "required": true,
-              "options": ["OD", "ID"]
-            },
-            {
               "fieldName": "orderedTotalRubberThickness",
               "label": "Ordered Total Rubber Thickness",
               "type": "number",
@@ -202,6 +201,13 @@
               "unit": "mm",
               "prepend": "Max",
               "type": "number"
+            },
+            {
+              "fieldName": "targetDescriptionValue",
+              "label": "TDV (Target Description Value)",
+              "type": "select",
+              "required": true,
+              "options": ["OD", "ID"]
             },
             {
               "fieldName": "measurementPoint",

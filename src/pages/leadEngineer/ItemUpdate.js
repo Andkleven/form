@@ -52,7 +52,7 @@ export default ({ descriptionName = "description", ...props }) => {
   };
   const [
     mutation,
-    { loading: mutationLoading, error: mutationError }
+    { error: mutationError }
   ] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });

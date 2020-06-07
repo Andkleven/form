@@ -36,7 +36,7 @@ export default ({
     });
   };
 
-  const [deleteProject, { loading, error }] = useMutation(
+  const [deleteProject] = useMutation(
     mutations["DELETE_PROJECT"],
     {
       update: deleteProjectFromCache

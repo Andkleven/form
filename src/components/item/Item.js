@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
-import { Button, ButtonGroup, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import GeneralButton from "components/button/GeneralButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   const [showRename, setShowRename] = useState(false);

@@ -12,8 +12,9 @@ import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 import DepthButton from "components/button/DepthButton";
 
-export default props => {
+export default ({addOrRemove, ...props}) => {
   const { documentDate } = useContext(DocumentDateContext);
+
   const DeleteButton = props => (
     <DepthButton
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
@@ -26,11 +27,11 @@ export default props => {
     </DepthButton>
   );
 
-  if (props.repeat) {
-    if (Array.isArray(objectPath.get(documentDate, props.path))) {
-      return objectPath
-        .get(documentDate, props.path)
-        .map((itemsData, index) => {
+    if (props.repeat) {
+      if (Array.isArray(objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.path))) {
+        return objectPath
+        .get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.path)
+        .map((v, index) => {
           return (
             <Fragment key={index}>
               {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
@@ -46,7 +47,6 @@ export default props => {
                 repeatStepList={getRepeatStepList(props, index)}
                 repeatStep={index}
                 key={`${props.indexId}-${index}`}
-                // data={itemsData}
                 path={props.path ? `${props.path}.${index}` : null}
                 file={
                   objectPath.get(
@@ -84,6 +84,7 @@ export default props => {
           );
         });
     } else if (!props.queryPath) {
+      console.error("Anders")
       let arraySetFieldGroupData = [];
       let repeatNumber = getRepeatNumber(
         props.specData,
@@ -129,4 +130,4 @@ export default props => {
       />
     );
   }
-};
+}
