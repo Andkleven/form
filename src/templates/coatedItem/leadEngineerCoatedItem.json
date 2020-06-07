@@ -167,13 +167,6 @@
           "mutation": "LEAD_ENGINEER",
           "fields": [
             {
-              "fieldName": "targetDescriptionValue",
-              "label": "TDV (Target Description Value)",
-              "type": "select",
-              "required": true,
-              "options": ["OD", "ID"]
-            },
-            {
               "fieldName": "orderedTotalRubberThickness",
               "label": "Ordered Total Rubber Thickness",
               "type": "number",
@@ -208,6 +201,13 @@
               "unit": "mm",
               "prepend": "Max",
               "type": "number"
+            },
+            {
+              "fieldName": "targetDescriptionValue",
+              "label": "TDV (Target Description Value)",
+              "type": "select",
+              "required": true,
+              "options": ["OD", "ID"]
             },
             {
               "fieldName": "measurementPoint",

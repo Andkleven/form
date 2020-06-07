@@ -66,6 +66,7 @@ function Datetime(props) {
           onChange={date => props.onChangeDate(date)}
           customInput={<ExampleCustomInput />}
           showTimeSelect
+          autoFocus={props.focus}
           // showTimeInput
           timeFormat="HH:mm"
           dateFormat="dd/MM/yyyy HH:mm"

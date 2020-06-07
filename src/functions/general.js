@@ -12,7 +12,7 @@ export const stringToDictionary = data => {
 export const emptyField = field =>
   [null, undefined, "", "None", 0, false].includes(field);
 
-export const fieldNotFilledOut = field => [null, undefined, ""].includes(field);
+export const fieldNotFilledOut = field => [null, undefined].includes(field);
 
 export const isNumber = number => typeof number === "number";
 
@@ -144,13 +144,14 @@ export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
 
 export const allRequiredSatisfied = (pageInfo, data, array) => {
   let returnValue = true;
-  pageInfo.pages.forEach(page => {
+  pageInfo.pages.forEach((page, index) => {
     let newPath = page.queryPath;
+    let allFieldMissing = []
     page.fields &&
       page.fields.forEach(field => {
         let dataFields = objectPath.get(
           data,
-          Array.isArray(newPath) ? createPath(newPath, array) : `${newPath}.0`
+          Array.isArray(newPath) ? createPath(newPath, array) : index === 0 ? `${newPath}.0` : newPath
         );
         if (field.required) {
           if (Array.isArray(dataFields)) {
@@ -177,9 +178,14 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
             dataFields.data === undefined ||
             dataFields.data[field.fieldName] === undefined)
         ) {
-          returnValue = false;
+          allFieldMissing.push(false)
+        } else {
+          allFieldMissing.push(true)
         }
       });
+      if (allFieldMissing.every(allFalse) && allFieldMissing.length !== 0) {
+        returnValue = false;
+      }
   });
   return returnValue;
 };

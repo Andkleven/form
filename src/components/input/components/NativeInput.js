@@ -4,9 +4,9 @@ import { Form, InputGroup } from "react-bootstrap";
 function NativeInput(props) {
   return (
     <>
-      <Form.Group className={props.tight && "mb-1"}>
+      <Form.Group className={props.tight && "mb-1"} >
         <div className="d-flex">
-          <InputGroup className="d-flex">
+          <InputGroup className="d-flex" >
             {props.prepend ? (
               <InputGroup.Prepend>
                 <InputGroup.Text className="bg-light text-secondary">
@@ -15,6 +15,7 @@ function NativeInput(props) {
               </InputGroup.Prepend>
             ) : null}
             <Form.Control
+              // autoFocus={props.focus}
               isValid={props.isValid}
               isInvalid={props.isInvalid}
               id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}

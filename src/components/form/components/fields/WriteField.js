@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect, useRef } from "react";
+import React, { useContext, useCallback, useEffect, useState } from "react";
 import { DocumentDateContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import Input from "components/input/Input";
@@ -7,8 +7,9 @@ import LightLine from "components/design/LightLine";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { delayOnHandler, ignoreRequiredField, userField } from "config/const";
+import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
+import {isStringInstance} from "functions/general"
 
 const decimalTooStep = {
   0: 0,
@@ -24,20 +25,13 @@ const decimalTooStep = {
 };
 
 
-export default props => {
+export default ({setResetState, setState, ...props}) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
-  const { setEditChapter } = useContext(ChapterContext);
-  const timer = useRef()
-
-  const { documentDate, documentDateDispatch } = useContext(
+  const [ignoreRequired, setIgnoreRequired] = useState("")
+  const { editChapter, setEditChapter } = useContext(ChapterContext);  
+  const { documentDate, documentDateDispatch, func } = useContext(
     DocumentDateContext
-  );
-  // const time = useRef(0)
-  
-  useEffect(() => {
-    return () => clearTimeout(timer.current);
-  });
-
+    );
   const addUser = useCallback(() => {
     documentDateDispatch({
       type: "add",
@@ -46,54 +40,52 @@ export default props => {
     });
   }, [documentDateDispatch, props.path, userInfo.username]);
 
+  const runFunc = useCallback(() => {
+    Object.values(func).reverse().forEach(a => {
+      a();
+    });
+  }, [func])
+
   const onChangeDate = data => {
     addUser();
     documentDateDispatch({ type: "add", newState: data, path: props.path });
+    runFunc()
   };
 
   const onChangeSelect = e => {
     addUser();
     documentDateDispatch({ type: "add", newState: e.value, path: props.path });
+    runFunc()
   };
 
   const onChange = e => {
     let { value, type } = e.target;
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => {
     addUser();
+    let newValue = value
     if (["checkbox", "radio", "switch"].includes(type)) {
-      let oldValue = objectPath.get(documentDate, props.path, false);
-      documentDateDispatch({
-        type: "add",
-        newState: !oldValue,
-        path: props.path
-      });
+      newValue = !objectPath.get(documentDate, props.path, false);
     } else {
       if (type === "number") {
-        let numberValue = Number(value);
+        newValue = Number(value);
         if (props.decimal) {
-          numberValue.toFixed(props.decimal);
+          newValue.toFixed(props.decimal);
         }
-        documentDateDispatch({
-          type: "add",
-          newState: numberValue,
-          path: props.path
-        });
-      } else {
-        documentDateDispatch({
-          type: "add",
-          newState: value,
-          path: props.path
-        });
       }
-    }}, delayOnHandler)
-
+    }
+    documentDateDispatch({
+      type: "add",
+      newState: newValue,
+      path: props.path
+    });
+    setState(newValue)
+    runFunc()
   };
 
   const onChangeIgnoreRequired = e => {
     let { name } = e.target;
     addUser();
     let oldValue = objectPath.get(documentDate, props.path, false);
+    setIgnoreRequired(oldValue)
     documentDateDispatch({
       type: "add",
       newState: !oldValue,
@@ -110,6 +102,7 @@ export default props => {
       path: props.path
     });
     setEditChapter(0);
+    setResetState(prevState => !prevState)
   };
 
   // const submitEdit = (event, data) => {
@@ -171,23 +164,43 @@ export default props => {
       );
     }
   };
-
+  
   const defaultValue = useCallback(() => {
     return objectPath.get(
       props.backendData,
       props.path,
       props.default !== undefined ? props.default : ""
-    );
-  }, [props.backendData, props.path, props.default]);
+      );
+    }, [props.backendData, props.path, props.default]);
+    
+    useEffect(() => {
+      setIgnoreRequired(objectPath.get(
+        documentDate,
+        props.path + ignoreRequiredField,
+        false
+      ))
+    }, [defaultValue, setIgnoreRequired, documentDate, props.path])
+    
+    useEffect(() => {
+      documentDateDispatch({
+        type: "add",
+        newState: defaultValue(),
+        path: props.path
+      });
+    }, [props.path, documentDateDispatch, defaultValue])
+    
+    console.log(documentDate)
+
   return (
     <>
       <Input
         {...props}
+        focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
         defaultValue={defaultValue()}
         value={
           (props.type === "date" || props.type === "datetime-local") &&
-          new Date(objectPath.get(documentDate, props.path, null))
+          new Date(objectPath.get(documentDate, props.path, null)) 
         }
         onChange={onChange}
         onChangeSelect={onChangeSelect}
@@ -198,10 +211,7 @@ export default props => {
         min={props.minInput ? props.minInput : undefined}
         max={props.maxInput ? props.maxInput : undefined}
         required={
-          props.ignoreRequired &&
-          objectPath.get(documentDate, props.path + ignoreRequiredField, false)
-            ? false
-            : props.required
+          props.ignoreRequired && ignoreRequired ? false : props.required
         }
         step={props.decimal ? decimalTooStep[props.decimal] : 0}
         tight={props.submitButton}

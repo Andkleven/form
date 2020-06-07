@@ -31,6 +31,11 @@ export default props => {
           documentDate,
           `${props.path}.${field.queryPath}`,
           null
+        ) === null &&
+        objectPath.get(
+          props.backendData,
+          `${props.path}.${field.queryPath}`,
+          null
         ) === null
       ) {
         documentDateDispatch({
@@ -39,6 +44,7 @@ export default props => {
           path: `${props.path}.${field.queryPath}`
         });
       }
+      // console.log(2)
       return (
         <Page
           {...field}

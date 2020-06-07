@@ -61,6 +61,7 @@ function Datetime(props) {
         <DatePicker
           className="w-100"
           readOnly={props.readOnlyFields}
+          autoFocus={props.focus}
           selected={isStringInstance(props.value) ? null : props.value}
           // onChange={date => setStartDate(date)}
           onChange={date => props.onChangeDate(date)}

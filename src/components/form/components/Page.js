@@ -4,7 +4,8 @@ import React, {
   useLayoutEffect,
   useMemo,
   useCallback,
-  useRef
+  useRef,
+  useState
 } from "react";
 import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
 import { ChapterContext, DocumentDateContext } from "components/form/Form";
@@ -18,18 +19,27 @@ import TabButton from "components/button/TabButton";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 
-export default props => {
+ 
+export default React.memo(props => {
   const {
     setLastChapter,
     lastChapter,
     editChapter,
     setEditChapter
   } = useContext(ChapterContext);
-  const { documentDateDispatch, documentDate } = useContext(
+  const { documentDateDispatch, documentDate, func } = useContext(
     DocumentDateContext
   );
-
+  const [resetState, setResetState] = useState(false)
+  const [addOrRemove, setAddOrRemove] = useState(0)
   const writeChapter = useRef(false);
+  console.log(documentDate)
+  useEffect(() => {
+    if (props.repeat) {
+      setAddOrRemove(prevState => prevState + 1)
+    }
+  }, [props.backendData, props.path, props.repeat])
+  
   useLayoutEffect(() => {
     if (
       props.temporaryLastChapter &&
@@ -47,24 +57,27 @@ export default props => {
         fieldName: "data",
         path: `${props.path}.${pushOnIndex}`
       });
+      setAddOrRemove(prevState => prevState + 1)
     },
-    [props.path, documentDateDispatch]
+      [props.path, documentDateDispatch, setAddOrRemove]
   );
 
-  const addHandler = () => {
+  const addHandler = useCallback(() => {
     documentDateDispatch({
       type: "add",
       newState: {},
       fieldName: "data",
       path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
     });
-  };
+      setAddOrRemove(prevState => prevState + 1)
+    },[documentDateDispatch, props.path, documentDate, setAddOrRemove]);
 
   const deleteHandler = useCallback(
     index => {
       documentDateDispatch({ type: "delete", path: `${props.path}.${index}` });
+      setAddOrRemove(prevState => prevState + 1)
     },
-    [props.path, documentDateDispatch]
+    [props.path, documentDateDispatch, setAddOrRemove]
   );
 
   // set repeatGroup
@@ -97,26 +110,43 @@ export default props => {
   }
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
-  useEffect(() => {
-    if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-      let newValue = getRepeatNumber(
-        documentDate,
-        props.repeatGroupWithQuery,
-        props.repeatStepList,
-        props.editRepeatStepListRepeat
-      );
-      let oldValue = objectPath.get(documentDate, props.path, false);
-      let oldValueLength = oldValue ? oldValue.length : 0;
-      if (oldValueLength < newValue) {
-        for (let i = oldValueLength; i < newValue; i++) {
-          addData(i);
-        }
-      } else if (newValue < oldValueLength) {
-        for (let i = oldValueLength - 1; i > newValue - 1; i--) {
-          deleteHandler(i);
-        }
+  const autoRepeat = useCallback((data = documentDate) => {
+    let newValue = getRepeatNumber(
+      data,
+      props.repeatGroupWithQuery,
+      props.repeatStepList,
+      props.editRepeatStepListRepeat
+    );
+    let oldValue = objectPath.get(data, props.path, false);
+    let oldValueLength = oldValue ? oldValue.length : 0;
+    if (oldValueLength < newValue) {
+      for (let i = oldValueLength; i < newValue; i++) {
+        addData(i);
+      }
+    } else if (newValue < oldValueLength) {
+      for (let i = oldValueLength - 1; i > newValue - 1; i--) {
+        deleteHandler(i);
       }
     }
+  }, [
+    documentDate,
+    props.repeatGroupWithQuery,
+    props.repeatStepList,
+    props.editRepeatStepListRepeat,
+    props.path,
+    addData,
+    deleteHandler
+  ])
+
+  useEffect(() => {
+    if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+      func[`${props.repeatStepList}-Page`] = autoRepeat
+    }
+      return () => {
+        if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+          delete func[`${props.repeatStepList}-Page`]
+        }
+      }
   }, [
     documentDate,
     addData,
@@ -125,26 +155,34 @@ export default props => {
     props.editRepeatStepListRepeat,
     deleteHandler,
     props.path,
-    props.repeatGroupWithQuerySpecData
+    props.repeatGroupWithQuerySpecData,
+    autoRepeat,
+    func
   ]);
 
-  if (
-    props.repeatGroupWithQuery &&
-    props.repeatGroupWithQuerySpecData &&
-    props.queryPath
-  ) {
-    let newValue = getRepeatNumber(
-      props.specData,
-      props.repeatGroupWithQuery,
-      props.repeatStepList,
-      props.editRepeatStepListRepeat
-    );
-    if (objectPath.get(documentDate, `${props.path}.${0}`, null) === null) {
-      for (let i = 0; i < newValue; i++) {
-        addData(i);
-      }
+  useEffect(() => {
+    if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+    autoRepeat(props.backendData)
     }
-  }
+  }, [props.backendData, autoRepeat, props.repeatGroupWithQuery, props.repeatGroupWithQuerySpecData])
+
+  // if (
+  //   props.repeatGroupWithQuery &&
+  //   props.repeatGroupWithQuerySpecData &&
+  //   props.queryPath
+  // ) {
+  //   let newValue = getRepeatNumber(
+  //     props.specData,
+  //     props.repeatGroupWithQuery,
+  //     props.repeatStepList,
+  //     props.editRepeatStepListRepeat
+  //   );
+  //   if (objectPath.get(documentDate, `${props.path}.${0}`, null) === null) {
+  //     for (let i = 0; i < newValue; i++) {
+  //       addData(i);
+  //     }
+  //   }
+  // }
 
   const Components = useMemo(() => CustomComponents[props.customComponent], [
     props.customComponent
@@ -184,6 +222,7 @@ export default props => {
   const cancel = () => {
     documentDateDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
+    setResetState(prevState => !prevState)
   };
 
   const CancelButton = () => {
@@ -266,14 +305,15 @@ export default props => {
             {...props}
             writeChapter={writeChapter.current}
             deleteHandler={deleteHandler}
+            resetState={resetState}
+            setResetState={setResetState}
+            addOrRemove={addOrRemove}
           />
           {!!props.addButton && props.repeat && writeChapter.current ? (
             <DepthButton
               iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}
               type="button"
-              onClick={() => {
-                addHandler();
-              }}
+              onClick={() => addHandler()}
               className="mb-3 w-100"
             >
               {props.addButton ? props.addButton : "Add"}
@@ -281,9 +321,7 @@ export default props => {
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <>
           <Input {...props} writeChapter={writeChapter.current} />
-        </>
       ) : null}
       {props.showSaveButton ? (
         editChapter ? (
@@ -294,4 +332,6 @@ export default props => {
       ) : null}
     </div>
   );
-};
+}
+);
+

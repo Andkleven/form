@@ -61,7 +61,8 @@ export default props => {
     }),
     isSearchable: true,
     placeholder: placeholder,
-    onChange: props.onChangeSelect
+    onChange: props.onChangeSelect,
+    autoFocus: props.focus
   };
 
   return (

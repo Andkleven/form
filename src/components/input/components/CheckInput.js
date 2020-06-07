@@ -6,6 +6,7 @@ export default props => (
     <div className="d-flex justify-content-between">
       <Form.Check
         custom
+        autoFocus={props.focus}
         type={props.type}
         required={props.required}
         readOnly={props.readOnlyFields}

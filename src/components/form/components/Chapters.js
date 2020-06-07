@@ -83,8 +83,6 @@ export default ({
             optionsData={optionsData}
             submitData={submitData}
             setNextStage={setNextStage}
-    
-            // data={getData(info, repeatStepList, data)}
             path={createPath(info.queryPath, repeatStepList)}
             thisChapter={count + 1}
             stopLoop={stopLoop.current}
@@ -95,8 +93,8 @@ export default ({
             showSaveButton={showSaveButton}
             repeatStepList={repeatStepList}
           />
-        );
-      });
+        )
+      })
       // if now data in lookUpBy stop loop
       if (allRequiredFieldSatisfied) {
         stopLoop.current = true;
