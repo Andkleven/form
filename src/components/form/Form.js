@@ -25,28 +25,32 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 // });
 function useDispatch(init) {
   const state = useRef(init);
-  const reducer = useCallback(action => {
-    switch (action.type) {
-      case "setState":
-        state.current =  cloneDeep(action.newState);
-        break
-      case "add":
-        objectPath.set(
-          state.current,
-          action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
-          action.newState
-        );
-        state.current =  { ...state.current };
-        break
-      case "delete":
-        objectPath.del(state.current, action.path);
-        state.current =  { ...state.current };
-        break
-      default:
-        throw new Error();
-    }
-  },[state])
-  return [state.current, reducer]
+  const reducer = useCallback(
+    action => {
+      switch (action.type) {
+        case "setState":
+          state.current = cloneDeep(action.newState);
+          break;
+        case "add":
+          objectPath.set(
+            state.current,
+            action.fieldName
+              ? `${action.path}.${action.fieldName}`
+              : action.path,
+            action.newState
+          );
+          state.current = { ...state.current };
+          break;
+        case "delete":
+          state.current = { ...state.current };
+          break;
+        default:
+          throw new Error();
+      }
+    },
+    [state]
+  );
+  return [state.current, reducer];
 }
 export const ChapterContext = createContext();
 export const DocumentDateContext = createContext();
@@ -58,7 +62,7 @@ export default props => {
   const [documentDate, documentDateDispatch] = useDispatch({});
   const [nextStage, setNextStage] = useState(true);
   const [lastChapter, setLastChapter] = useState(0);
-  const {current: func} = useRef({})
+  const { current: func } = useRef({});
 
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -190,9 +194,10 @@ export default props => {
       onCompleted: props.reRender
     }
   );
-  const submitData = useCallback((data, submit) => {
-    // clearTimeout(timer.current)
-    // timer.current = setTimeout(() => {
+  const submitData = useCallback(
+    (data, submit) => {
+      // clearTimeout(timer.current)
+      // timer.current = setTimeout(() => {
       setNextStage(true);
       setEditChapter(0);
       setLastChapter(0);
@@ -204,17 +209,34 @@ export default props => {
             descriptionId:
               props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
             itemId: props.sendItemId ? Number(props.itemId) : undefined,
-            itemIdList: props.batchingListIds ? props.batchingListIds : undefined,
+            itemIdList: props.batchingListIds
+              ? props.batchingListIds
+              : undefined,
             stage:
-            isStringInstance(props.stage) && submit && nextStage && !editChapter
+              isStringInstance(props.stage) &&
+              submit &&
+              nextStage &&
+              !editChapter
                 ? FindNextStage(props.specData, props.stage, props.geometry)
                 : props.stage
           }
         });
       }
-    // }, delayOnHandler)
-
-  }, [editChapter, mutation, nextStage, props.batchingListIds, props.descriptionId, props.geometry, props.itemId, props.sendItemId, props.specData, props.stage]);
+      // }, delayOnHandler)
+    },
+    [
+      editChapter,
+      mutation,
+      nextStage,
+      props.batchingListIds,
+      props.descriptionId,
+      props.geometry,
+      props.itemId,
+      props.sendItemId,
+      props.specData,
+      props.stage
+    ]
+  );
 
   const formSubmit = e => {
     e.persist();

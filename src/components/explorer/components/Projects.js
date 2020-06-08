@@ -46,13 +46,14 @@ export default ({
       {headline && <h6>{headline}</h6>}
       {props.access && props.access.specs && (
         <Link
-          to={`/project/0`}
+          to="/project/0"
           iconProps={{
             icon: ["fad", "folder-plus"],
             size: iconSize,
             style: iconStyle
           }}
           style={rowStyle}
+          force
         >
           Create new project
         </Link>
@@ -89,26 +90,39 @@ export default ({
                   <Link
                     tooltip="Delete project"
                     to={`#`}
-                    className="text-danger m-0 p-0"
+                    color="danger"
                     key={`project${indexProject}DeleteLinkButton`}
                     iconProps={{
                       icon: ["fas", "trash-alt"],
-                      size: iconSize
+                      size: iconSize,
+                      style: iconStyle
                     }}
                     style={{ ...rowStyle }}
                     onClick={() => {
+                      const confirmation = window.prompt(
+                        "To delete a project is irreversible. Enter the project name to confirm deletion:",
+                        ""
+                      );
                       if (
+                        confirmation === project.data.projectName &&
                         window.confirm(
-                          "To delete a project is irreversible - are you sure?"
+                          `Are you sure? The project "${project.data.projectName}" will be gone forever.`
                         )
                       ) {
                         deleteProject({ variables: { id: project.id } });
                         // window.location.reload(false);
                         refetch();
+                      } else if (
+                        confirmation !== project.data.projectName &&
+                        confirmation !== null
+                      ) {
+                        alert(
+                          "Entered name doesn't match. Project not deleted."
+                        );
                       }
                     }}
                   >
-                    {/* Delete */}
+                    Delete project
                   </Link>
                   {/* <Button
                   variant="danger"
@@ -134,9 +148,16 @@ export default ({
                   defaultOpen
                   key={`project${indexProject}Description${indexDescription}`}
                   // name={description.data.geometry}
-                  name={`${description.data.description}`}
+                  name={
+                    <div className="text-wrap">
+                      {description.data.description}
+                      <div className="d-inline text-secondary">
+                        {` ∙ ${description.data.geometry} ∙ ${description.items.length}/??`}
+                      </div>
+                    </div>
+                  }
                 >
-                  <ItemGrid>
+                  <ItemGrid className="mb-n4">
                     {props.access &&
                       (props.access.itemRead || props.access.itemWrite) &&
                       description.items &&

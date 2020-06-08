@@ -3,7 +3,11 @@ import { Row } from "react-bootstrap";
 
 export default props => {
   return (
-    <Row className="no-gutters" style={props.style} {...props}>
+    <Row
+      style={props.style}
+      {...props}
+      className={`no-gutters ${props.className}`}
+    >
       {props.children}
     </Row>
   );

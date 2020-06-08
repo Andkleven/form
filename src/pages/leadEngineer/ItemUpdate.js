@@ -50,10 +50,7 @@ export default ({ descriptionName = "description", ...props }) => {
       data: { ...oldData }
     });
   };
-  const [
-    mutation,
-    { error: mutationError }
-  ] = useMutation(mutations["ITEM"], {
+  const [mutation, { error: mutationError }] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });
 
@@ -141,11 +138,9 @@ export default ({ descriptionName = "description", ...props }) => {
               icon={["fal", "plus"]}
               size="xs"
               className="mr-1"
+              style={{ position: "relative", bottom: "0.2em" }}
             />
-            <FontAwesomeIcon
-              icon={["fas", "cube"]}
-              className="mr-sm-2 text-secondary"
-            />
+            <FontAwesomeIcon icon={["fas", "cube"]} className="mr-sm-2" />
             <div className="d-none d-sm-inline">
               Add item to {descriptionName}
             </div>

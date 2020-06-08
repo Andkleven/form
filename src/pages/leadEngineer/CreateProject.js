@@ -14,6 +14,7 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
+import { useLocation, Redirect, useHistory } from "react-router-dom";
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -27,7 +28,7 @@ export default pageInfo => {
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[itemsJson.query], {
+  const { loading, error, data, refetch } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
   const deleteFromCache = (
@@ -197,6 +198,15 @@ export default pageInfo => {
         projectsData.numberOfDescriptions) ||
       Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
 
+  // useEffect(() => {
+  // const currentId = data.projects[0] && data.projects[0].id;
+  // let history = useHistory();
+  // if (_id === 0 && currentId) {
+  //   refetch();
+  //   history.push(`${currentId}`);
+  // }
+  // }, [_id, data]);
+
   return (
     <Canvas>
       <Paper>
@@ -220,8 +230,8 @@ export default pageInfo => {
             <DepthButton
               iconProps={{
                 icon: ["fas", "cubes"],
-                size: "lg",
-                className: "text-secondary"
+                size: "lg"
+                // className: "text-secondary"
               }}
               className="text-center w-100 mt-3"
               onClick={() =>

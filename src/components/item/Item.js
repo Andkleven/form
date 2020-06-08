@@ -38,7 +38,7 @@ export default props => {
           tooltip="Delete"
           short
           iconProps={{ icon: ["fas", "trash"], size: "sm" }}
-          className="btn h-100 text-secondary"
+          className="btn h-100 text-danger"
           // onClick={props.submitDelete.bind(this, props.item.id)}
           onClick={() => {
             window.confirm("This is irreversible - are you sure?") &&
