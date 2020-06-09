@@ -201,38 +201,45 @@ const OPERATOR = gql`
   ) {
     operators(operators: $operators, stage: $stage, itemId: $itemId) {
       new {
-        id
-        data
-        measurementPointActualTdvs {
+        item {
           id
-          data
-        }
-        additionalCustomTestOperators {
-          id
-          data
-        }
-        vulcanizationOperators {
-          id
-          data
+          itemId
+          stage
+          operators {
+            id
+            data
+            measurementPointActualTdvs {
+              id
+              data
+            }
+            additionalCustomTestOperators {
+              id
+              data
+            }
+            vulcanizationOperators {
+              id
+              data
 
-          coatingOperators {
-            id
-            data
-            mixDates {
-              id
-              data
+              coatingOperators {
+                id
+                data
+                mixDates {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
+              measurementPointOperators {
+                id
+                data
+              }
             }
-            measurementPointOperators {
-              id
-              data
-            }
-          }
-          measurementPointOperators {
-            id
-            data
           }
         }
-      }
+      } 
     }
   }
 `;

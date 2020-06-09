@@ -43,7 +43,7 @@ const CustomCoating = props => {
 
 
 const CustomLead = props => {
-  const { documentDate, func } = useContext(
+  const { documentDate, renderFunction } = useContext(
     DocumentDateContext
   );
   const [style, setStyle] = useState({ fontSize: 20, color: "orange" });
@@ -53,46 +53,62 @@ const CustomLead = props => {
 
   const thickness = useCallback(
     (data=documentDate) => {
-      let toleranceMin = objectPath.get(data, "leadEngineers.0.data.toleranceMin", 0)
-      let toleranceMax = objectPath.get(data, "leadEngineers.0.data.toleranceMax", 0)
-      let layersThickness = 0
+      let toleranceMinTemporary = objectPath.get(data, "leadEngineers.0.data.toleranceMin", 0)
+      let toleranceMaxTemporary = objectPath.get(data, "leadEngineers.0.data.toleranceMax", 0)
+      let layersThicknessTemporary = 0
       let steps = objectPath.get(data, "leadEngineers.0.vulcanizationSteps")
       if (Array.isArray(steps)) {
         steps.forEach(step => {
-          step.coatingLayers.forEach(coatingLayer => {
-            layersThickness += Number(coatingLayer.data.shrinkThickness)
-          })
+          if (Array.isArray(step)) {
+            step && step.coatingLayers.forEach(coatingLayer => {
+              if (coatingLayer && coatingLayer.data.shrinkThickness) {
+                layersThicknessTemporary += Number(coatingLayer.data.shrinkThickness)
+              }
+            })
+          }
         })
       }
-      layersThickness = layersThickness*2
+      layersThicknessTemporary = layersThicknessTemporary*2
       setStyle(prevState => ({
         ...prevState,
-        color: (toleranceMin <= layersThickness && layersThickness <= toleranceMax) ? "green" : "orange"
+        color: (toleranceMinTemporary <= layersThicknessTemporary && layersThicknessTemporary <= toleranceMaxTemporary) ? "green" : "orange"
       }));
-      console.log(toleranceMin)
-      console.log(toleranceMax)
-      setToleranceMin(toleranceMin)
-      setToleranceMax(toleranceMax)
-      setLayersThickness(layersThickness)
+      if (toleranceMinTemporary !==  toleranceMin) {
+        setToleranceMin(toleranceMinTemporary)
+      }
+      if (toleranceMaxTemporary !== toleranceMax) {
+        setToleranceMax(toleranceMaxTemporary)
+      }
+      if (layersThicknessTemporary !== layersThickness) {
+        setLayersThickness(layersThicknessTemporary)
+      }
     },
-    [documentDate, setStyle, setToleranceMin, setToleranceMax, setLayersThickness],
-  )
+    [
+     documentDate,
+     setStyle,
+     setToleranceMin,
+     setToleranceMax,
+     setLayersThickness,
+     toleranceMin,
+     toleranceMax,
+     layersThickness
+    ])
 
 
 
   useEffect(() => {
-    func[`${props.repeatStepList}-CustomLead`] = thickness;
+    renderFunction[`${props.repeatStepList}-CustomLead`] = thickness;
     return () => {
-      delete func[`${props.repeatStepList}-CustomLead`]
+      delete renderFunction[`${props.repeatStepList}-CustomLead`]
     }
-  }, [thickness, props.repeatStepList, func]);
+  }, [thickness, props.repeatStepList, renderFunction]);
 
   useEffect(() => {
     thickness(props.backendData)
   }, [thickness, props.backendData])
   
   
-  if (props.writeChapter) {
+  if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (
       <div style={style}>
         {`Ordered Total Rubber Thickness is between ${toleranceMin} and ${toleranceMax}`}

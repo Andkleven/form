@@ -15,7 +15,7 @@ import {
 import Subtitle from "components/design/fonts/Subtitle";
 
 export default ({resetState, ...props}) => {
-  const { documentDate, func } = useContext(
+  const { documentDate, renderFunction } = useContext(
     DocumentDateContext
   );
   const { editChapter } = useContext(ChapterContext);
@@ -31,11 +31,15 @@ export default ({resetState, ...props}) => {
     }
     return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
   }, [props.path, props.fieldName, props.type]);
-  
 
   useEffect(() => {
-    setState(objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, getNewPath(), null))
-  }, [resetState, props.backendData, setState, getNewPath, documentDate])
+    let backendDate = objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, getNewPath(), null)
+    if (props.type === "date" || props.type === "datetime-local") {
+      setState(backendDate ? new Date(backendDate) : new Date())
+    } else {
+      setState(backendDate)
+    }
+  }, [resetState, props.backendData, setState, getNewPath, documentDate, props.type])
 
   const updateReadOnly = useCallback(() => {
     setReadOnly(!objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.readOnlyFieldIf, false))
@@ -43,18 +47,18 @@ export default ({resetState, ...props}) => {
 
   useEffect(() => {
     if (props.readOnlyFieldIf) {
-      func[`${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`] = updateReadOnly;
+      renderFunction[`${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`] = updateReadOnly;
     }
     return () => {
       if (props.readOnlyFieldIf) {
-        delete func[`${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`]
+        delete renderFunction[`${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`]
       }
     }
   },[
     props.readOnlyFieldIf,
     updateReadOnly, 
     props.label,  
-    func,
+    renderFunction,
     props.repeatStepList
   ])
 
@@ -152,13 +156,13 @@ export default ({resetState, ...props}) => {
 
   useEffect(() => {
     if (props.queryVariableLabel || props.indexVariableLabel) {
-      func[`${props.label}-${props.repeatStepList}-FieldProperties`] = getLabel;
+      renderFunction[`${props.label}-${props.repeatStepList}-FieldProperties`] = getLabel;
     } else {
       setLabel(props.label)
     }
     return () => {
       if (props.queryVariableLabel || props.indexVariableLabel) {
-        delete func[`${props.label}-${props.repeatStepList}-FieldProperties`]
+        delete renderFunction[`${props.label}-${props.repeatStepList}-FieldProperties`]
       }
     }
   },[
@@ -167,7 +171,7 @@ export default ({resetState, ...props}) => {
     setLabel, 
     props.label, 
     getLabel, 
-    func,
+    renderFunction,
     props.repeatStepList
   ])
 

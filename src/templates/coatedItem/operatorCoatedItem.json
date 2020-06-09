@@ -37,7 +37,6 @@
           "fields": [
             {
               "specValueList": "leadEngineers.0.data.blastMedia",
-              "required": true,
               "label": "Blast Media"
             },
             {
@@ -45,6 +44,7 @@
               "label": "Relative Humidity",
               "required": true,
               "routeToSpecMax": "leadEngineers.0.data.relativeHumidity",
+              "type": "number",
               "unit": "%"
             },
             {

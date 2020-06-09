@@ -23,8 +23,9 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 //   titleColor: "green",
 //   diffNameColor: "darkturquoise"
 // });
-function useDispatch(init) {
+function useStore(init) {
   const state = useRef(init);
+  const {current: renderFunction} = useRef({})
   const reducer = useCallback(action => {
     switch (action.type) {
       case "setState":
@@ -45,8 +46,13 @@ function useDispatch(init) {
       default:
         throw new Error();
     }
-  },[state])
-  return [state.current, reducer]
+    if (!action.notReRender) {
+      Object.values(renderFunction).reverse().forEach(func => {
+        func();
+      });
+    }
+  },[state, renderFunction])
+  return [state.current, reducer, renderFunction]
 }
 export const ChapterContext = createContext();
 export const DocumentDateContext = createContext();
@@ -55,10 +61,9 @@ const cloneDeep = require("clone-deep");
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentDate, documentDateDispatch] = useDispatch({});
+  const [documentDate, documentDateDispatch, renderFunction] = useStore({});
   const [nextStage, setNextStage] = useState(true);
   const [lastChapter, setLastChapter] = useState(0);
-  const {current: func} = useRef({})
 
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -224,7 +229,7 @@ export default props => {
 
   return (
     <DocumentDateContext.Provider
-      value={{ documentDate, documentDateDispatch, func }}
+      value={{ documentDate, documentDateDispatch, renderFunction }}
     >
       <ChapterContext.Provider
         value={{

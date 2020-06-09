@@ -27,12 +27,13 @@ export default React.memo(props => {
     editChapter,
     setEditChapter
   } = useContext(ChapterContext);
-  const { documentDateDispatch, documentDate, func } = useContext(
+  const { documentDateDispatch, documentDate, renderFunction } = useContext(
     DocumentDateContext
   );
   const [resetState, setResetState] = useState(false)
   const [addOrRemove, setAddOrRemove] = useState(0)
   const writeChapter = useRef(false);
+  
   useEffect(() => {
     if (props.repeat) {
       setAddOrRemove(prevState => prevState + 1)
@@ -139,11 +140,11 @@ export default React.memo(props => {
 
   useEffect(() => {
     if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-      func[`${props.repeatStepList}-Page`] = autoRepeat
+      renderFunction[`${props.repeatStepList}-Page`] = autoRepeat
     }
       return () => {
         if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-          delete func[`${props.repeatStepList}-Page`]
+          delete renderFunction[`${props.repeatStepList}-Page`]
         }
       }
   }, [
@@ -156,7 +157,7 @@ export default React.memo(props => {
     props.path,
     props.repeatGroupWithQuerySpecData,
     autoRepeat,
-    func
+    renderFunction
   ]);
 
   useEffect(() => {
@@ -165,27 +166,26 @@ export default React.memo(props => {
     }
   }, [props.backendData, autoRepeat, props.repeatGroupWithQuery, props.repeatGroupWithQuerySpecData])
 
-  // if (
-  //   props.repeatGroupWithQuery &&
-  //   props.repeatGroupWithQuerySpecData &&
-  //   props.queryPath
-  // ) {
-  //   let newValue = getRepeatNumber(
-  //     props.specData,
-  //     props.repeatGroupWithQuery,
-  //     props.repeatStepList,
-  //     props.editRepeatStepListRepeat
-  //   );
-  //   if (objectPath.get(documentDate, `${props.path}.${0}`, null) === null) {
-  //     for (let i = 0; i < newValue; i++) {
-  //       addData(i);
-  //     }
-  //   }
-  // }
+  if (
+    objectPath.get(
+      documentDate,
+      props.path,
+      null
+    ) === null &&
+    objectPath.get(
+      props.backendData,
+      props.path,
+      null
+    ) === null
+  ) {
+    documentDateDispatch({
+      type: "add",
+      newState: [],
+      path: props.path
+    });
+  }
 
-  const Components = useMemo(() => CustomComponents[props.customComponent], [
-    props.customComponent
-  ]);
+  const Components = CustomComponents[props.customComponent]
 
   const SubmitButton = () => {
     return (
@@ -297,7 +297,7 @@ export default React.memo(props => {
         )}
       </div>
       {showLine && <Line />}
-      {Components ? <Components {...props} writeChapter={writeChapter.current} /> : null}
+      {props.customComponent ? <Components {...props} writeChapter={writeChapter.current} /> : null}
       {props.fields ? (
         <>
           <SelectSetFieldGroupData

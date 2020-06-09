@@ -8,18 +8,20 @@ import "styles/styles.css";
 
 export default ({resetState, backendData, ...props}) => {
   const [value, setValue] = useState("")
-  const {documentDate, documentDateDispatch, func} = useContext(DocumentDateContext);
+  const {documentDate, documentDateDispatch, renderFunction} = useContext(DocumentDateContext);
   
   const math = useCallback(
-    (data=documentDate) => {
+    (data=documentDate, firstRender=false) => {
       const getValueFromMath = props.setValueByIndex
                   ? props.repeatStep + 1
                   : Math[props.math](
                     data,
                     props.repeatStepList,
                     props.decimal ? props.decimal : 0)
-    documentDateDispatch({type: 'add', newState: getValueFromMath, path: props.path})
-    setValue(getValueFromMath)
+      if (objectPath.get(documentDate, props.path) !== getValueFromMath || firstRender) {
+        documentDateDispatch({type: 'add', newState: getValueFromMath, path: props.path, notReRender: true})
+        setValue(getValueFromMath)
+      }
     },
     [
       props.setValueByIndex,
@@ -33,19 +35,19 @@ export default ({resetState, backendData, ...props}) => {
     ])
 
   useEffect(() => {
-      func[`${props.label}-${props.repeatStepList}-ReadOnly`] = math
+      renderFunction[`${props.label}-${props.repeatStepList}-ReadOnly`] = math
     return () => {
-        delete func[`${props.label}-${props.repeatStepList}-ReadOnly`]
+        delete renderFunction[`${props.label}-${props.repeatStepList}-ReadOnly`]
     }
   },[
     math,
-    func,
+    renderFunction,
     props.label,
     props.repeatStepList
   ])
 
   useEffect(() => {
-    math(Object.keys(documentDate).length === 0 ? backendData : documentDate)
+    math(Object.keys(documentDate).length === 0 ? backendData : documentDate, true)
   }, [math, backendData, documentDate])
 
   return (
