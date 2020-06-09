@@ -297,7 +297,7 @@ export default React.memo(props => {
         )}
       </div>
       {showLine && <Line />}
-      {Components ? <Components {...props} /> : null}
+      {Components ? <Components {...props} writeChapter={writeChapter.current} /> : null}
       {props.fields ? (
         <>
           <SelectSetFieldGroupData

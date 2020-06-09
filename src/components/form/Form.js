@@ -35,7 +35,7 @@ function useDispatch(init) {
           state.current,
           action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
           action.newState
-        );
+          );
         state.current =  { ...state.current };
         break
       case "delete":
