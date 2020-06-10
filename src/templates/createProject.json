@@ -52,12 +52,6 @@
               "userRole": ["lead"]
             },
             {
-              "fieldName": "offsiteResponsible",
-              "label": "Offsite Responsible",
-              "type": "select",
-              "userRole": ["supervisor", "operator"]
-            },
-            {
               "fieldName": "qualityControl",
               "label": "Quality Control",
               "type": "select",

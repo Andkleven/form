@@ -2,7 +2,6 @@ import React, {
   useEffect,
   useContext,
   useLayoutEffect,
-  useMemo,
   useCallback,
   useRef,
   useState

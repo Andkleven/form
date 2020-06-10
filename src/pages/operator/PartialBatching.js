@@ -30,9 +30,9 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  let batchingJson = (allBatchingJson[
-    reshapeStageSting(stage)
-  ].document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]]);
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)]
+  batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
+
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -109,6 +109,7 @@ export default pageInfo => {
         }}
         data={getDataToBatching(
           fixedData,
+          batchingJson.batching.itemPath,
           [finishedItem],
           batchingJson.document.queryPath
           // step
@@ -116,6 +117,7 @@ export default pageInfo => {
         stage={finishedItem ? stage : null}
         specData={getDataToBatching(
           fixedData,
+          batchingJson.batching.itemPath,
           batchingListIds,
           batchingJson.document.specQueryPath
           // step

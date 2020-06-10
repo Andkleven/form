@@ -106,8 +106,8 @@ export default ({resetState, ...props}) => {
       props.repeatStepList,
       props.editRepeatStepSubtextList
     ),
-    props.max,
-    props.min,
+    max,
+    min,
     props.maxInput,
     props.minInput,
     props.unit,
@@ -117,8 +117,8 @@ export default ({resetState, ...props}) => {
     props.repeatStepList,
     props.allData
   )),[
-    props.max,
-    props.min,
+    max,
+    min,
     props.maxInput,
     props.minInput,
     props.unit,

@@ -9,8 +9,6 @@ import Paper from "components/layout/Paper";
 import objectPath from "object-path";
 import Batching from "components/form/components/Batching";
 import {
-  findValue,
-  removeSpace,
   objectifyQuery,
   getDataToBatching,
   reshapeStageSting,
@@ -19,29 +17,33 @@ import {
 } from "functions/general";
 
 export default pageInfo => {
-  const { stage, descriptionId, geometry } = pageInfo.match.params;
+  const { stage, projectId, descriptionId, geometry } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
   const [fixedData, setFixedData] = useState(null);
+  const [indexItemList, setIndexItemList] = useState(0);
   const [reRender, setReRender] = useState(false);
   let operatorJson = coatedItemOrMould(
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  let batchingJson = (allBatchingJson[
-    reshapeStageSting(stage)
-  ].document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]]);
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)]
+  batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
     {
-      variables: { id: descriptionId }
+      variables: { id: projectId }
     }
   );
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
+
+  useEffect(() => {
+    setIndexItemList(Number(descriptionId))
+  }, [setIndexItemList, descriptionId])
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -49,7 +51,7 @@ export default pageInfo => {
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[batchingJson.document.query],
-      variables: { id: descriptionId }
+      variables: { id: projectId }
     });
     let array = objectPath.get(oldData, batchingJson.document.queryPath);
     let index = array.findIndex(
@@ -67,14 +69,14 @@ export default pageInfo => {
       .splice(0, 1)[0];
     cache.writeQuery({
       query: query[batchingJson.document.query],
-      variables: { id: descriptionId },
+      variables: { id: projectId },
       data: { [saveData]: oldData[saveData] }
     });
   };
 
   return (
     <Paper>
-      <h3 className={"text-center"}>Batching</h3>
+      <h3 className="text-center">Batching</h3>
       <Batching
         data={fixedData}
         json={batchingJson}
@@ -83,19 +85,16 @@ export default pageInfo => {
         batchingListIds={batchingListIds}
         setBatchingListIds={setBatchingListIds}
         stage={stage}
-        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        repeatStepList={getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]}
+        descriptionId={descriptionId}
+        indexItemList={indexItemList}
+        setIndexItemList={setIndexItemList}
       />
       <Form
-        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        repeatStepList={getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]}
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
-        geometry={
-          fixedData &&
-          findValue(fixedData, "descriptions.0.data.geometry") &&
-          removeSpace(
-            findValue(fixedData, "descriptions.0.data.geometry")
-          ).toLowerCase()
-        }
+        geometry={geometry}
         notSubmitButton={batchingListIds.length ? false : true}
         document={batchingJson.document}
         reRender={() => {
@@ -105,14 +104,18 @@ export default pageInfo => {
         }}
         data={getDataToBatching(
           fixedData,
+          batchingJson.batching.itemPath,
           batchingListIds,
-          batchingJson.document.queryPath
+          batchingJson.document.queryPath,
+          indexItemList
         )}
         stage={stage}
         specData={getDataToBatching(
           fixedData,
+          batchingJson.batching.itemPath,
           batchingListIds,
-          batchingJson.document.specQueryPath
+          batchingJson.document.specQueryPath,
+          indexItemList
         )}
         updateCache={() => update}
         saveButton={true}

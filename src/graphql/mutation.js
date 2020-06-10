@@ -151,43 +151,47 @@ const OPERATOR_BATCHING = gql`
       batching {
         id
         data
-        items {
+        descriptions {
           id
-          itemId
-          stage
-          operators {
+          data
+          items {
             id
-            data
-            measurementPointActualTdvs {
+            itemId
+            stage
+            operators {
               id
               data
-            }
-            additionalCustomTestOperators {
-              id
-              data
-            }
-            vulcanizationOperators {
-              id
-              data
-              coatingOperators {
+              measurementPointActualTdvs {
                 id
                 data
-                mixDates {
+              }
+              additionalCustomTestOperators {
+                id
+                data
+              }
+              vulcanizationOperators {
+                id
+                data
+                coatingOperators {
                   id
                   data
+                  mixDates {
+                    id
+                    data
+                  }
+                  measurementPointOperators {
+                    id
+                    data
+                  }
                 }
                 measurementPointOperators {
                   id
                   data
                 }
               }
-              measurementPointOperators {
-                id
-                data
-              }
             }
           }
-        }
+        }  
       }
     }
   }
