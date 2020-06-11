@@ -25,7 +25,7 @@ const qualityControlMeasurementPointMould = (allData, tolerance, decimal) => {
   ]);
 };
 
-const qualityControlMeasurementPointMouldMin = (allData, repeatStepList) => {
+const qualityControlMeasurementPointMouldMin = (allData, data, repeatStepList) => {
   let toleranceMin = Number(
     findValue(allData, `items.0.leadEngineers.0.data.toleranceMin`)
   );
@@ -36,7 +36,7 @@ const qualityControlMeasurementPointMouldMin = (allData, repeatStepList) => {
     1
   );
 };
-const qualityControlMeasurementPointMouldMax = (allData, repeatStepList) => {
+const qualityControlMeasurementPointMouldMax = (allData, data, repeatStepList) => {
   let toleranceMax = Number(
     findValue(allData, `items.0.leadEngineers.0.data.toleranceMax`)
   );
@@ -80,6 +80,7 @@ const qualityControlMeasurementPointCoatingItem = (
 
 const qualityControlMeasurementPointCoatingItemMin = (
   allData,
+  data,
   repeatStepList
 ) => {
   let toleranceMin = Number(
@@ -94,6 +95,7 @@ const qualityControlMeasurementPointCoatingItemMin = (
 };
 const qualityControlMeasurementPointCoatingItemMax = (
   allData,
+  data,
   repeatStepList
 ) => {
   let toleranceMax = Number(
@@ -231,13 +233,38 @@ const mathToleranceMax = (values, repeatStepList, decimal) => {
   );
 };
 
-const layer = (values, repeatStepList, decimal) => {
+const mathLayer = (values, repeatStepList, decimal) => {
   let layers = 0
   for (let index = 0; index < repeatStepList[0]; index++) {
-    layers = objectPath.get(values, `leadEngineers.0.vulcanizationSteps.${index}.coatingLayers`).length
+    layers += objectPath.get(values, `leadEngineers.0.vulcanizationSteps.${index}.coatingLayers`).length
   }
   layers += repeatStepList[1] + 1
   return layers
+}
+
+const mathMeasurementPoint = (data, repeatStepList) => {
+  let layerThickness = 0
+  const coatingLayers = index => {
+    objectPath.get(data, `leadEngineers.0.vulcanizationSteps.${index}.coatingLayers`).forEach(coatingLayer => {
+      layerThickness += coatingLayer.data.shrinkThickness
+    })
+  }
+  for (let index = 0; index < repeatStepList[0]; index++) {
+    coatingLayers(index)
+  }
+  return layerThickness
+}
+
+const mathMeasurementPointMin = (allData, data, repeatStepList) => {
+  let layerThickness = mathMeasurementPoint(data, repeatStepList)
+  let toleranceMinPercent = objectPath.get(data, `leadEngineers.0.data.toleranceMinPercent`)
+  return layerThickness - (layerThickness * toleranceMinPercent) / 100
+}
+
+const mathMeasurementPointMax = (allData, data, repeatStepList) => {
+  let layerThickness = mathMeasurementPoint(data, repeatStepList)
+  let toleranceMaxPercent = objectPath.get(data, `leadEngineers.0.data.toleranceMaxPercent`)
+  return layerThickness + (layerThickness * toleranceMaxPercent) / 100
 }
 
 
@@ -250,7 +277,9 @@ const Math = {
   qualityControlMeasurementPointCoatingItemMax,
   qualityControlMeasurementPointMouldMin,
   qualityControlMeasurementPointMouldMax,
-  layer
+  mathLayer,
+  mathMeasurementPointMin,
+  mathMeasurementPointMax
 };
 
 export default Math;

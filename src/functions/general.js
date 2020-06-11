@@ -365,7 +365,7 @@ export const calculateMaxMin = (
       editRepeatStepListMin
     );
   } else if (calculateMin) {
-    min = Math[calculateMin](allData);
+    min = Math[calculateMin](allData, data, repeatStepList);
   } else {
     newMin = min;
   }
@@ -377,7 +377,7 @@ export const calculateMaxMin = (
       editRepeatStepListMax
     );
   } else if (calculateMax) {
-    max = Math[calculateMax](allData);
+    max = Math[calculateMax](allData, data, repeatStepList);
   } else {
     newMax = max;
   }

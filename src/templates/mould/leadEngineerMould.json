@@ -324,7 +324,7 @@
                   "fieldName": "layer",
                   "label": "Layer",
                   "type": "Number",
-                  "math": "layer"
+                  "math": "mathLayer"
                 },
                 {
                   "fieldName": "compoundNumber",

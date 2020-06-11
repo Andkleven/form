@@ -571,6 +571,32 @@
         }
       ]
     },
+    "measurementPointStep": {
+      "pages": [
+        {
+          "pageTitle": "Measurement after Vulcanization",
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            "measurementPointOperators"
+          ],
+          "fields": [
+            {
+              "fieldName": "measurementPoint",
+              "label": "Measurement Point",
+              "calculateMin": "mathMeasurementPointMin",
+              "calculateMax": "mathMeasurementPointMax",
+              "type": "number",
+              "required": true,
+              "unit": "mm"
+            }
+          ]
+        }
+      ]
+    },
     "touchUp": {
       "pages": [
         {
