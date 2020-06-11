@@ -104,7 +104,6 @@ export default pageInfo => {
         }}
         data={getDataToBatching(
           fixedData,
-          batchingJson.batching.itemPath,
           batchingListIds,
           batchingJson.document.queryPath,
           indexItemList
@@ -112,7 +111,6 @@ export default pageInfo => {
         stage={stage}
         specData={getDataToBatching(
           fixedData,
-          batchingJson.batching.itemPath,
           batchingListIds,
           batchingJson.document.specQueryPath,
           indexItemList

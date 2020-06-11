@@ -1,7 +1,6 @@
 {
   "steelPreparation1": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
       "dataPath": "operators"
     },
     "document": {
@@ -14,7 +13,6 @@
   },
   "steelPreparation2": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
       "dataPath": "operators"
     },
     "document": {
@@ -27,7 +25,6 @@
   },
   "primer1": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
       "dataPath": "operators"
     },
     "document": {
@@ -40,7 +37,6 @@
   },
   "primer2": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
       "dataPath": "operators"
     },
     "document": {
@@ -53,7 +49,6 @@
   },
   "rubberCementsBeforeCoating": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
       "dataPath": "operators"
     },
     "document": {
@@ -66,8 +61,7 @@
   },
   "vulcanizationStep": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
-      "dataPath": "operators"
+      "dataPath": "operators.0.vulcanizationOperators"
     },
     "document": {
       "queryPath": ["operators.0.vulcanizationOperators", ""],
@@ -79,7 +73,6 @@
   },
   "touchUp": {
     "batching": {
-      "itemPath": ["projects.0.descriptions", "items"],
       "dataPath": "operators"
     },
     "document": {

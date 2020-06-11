@@ -473,7 +473,6 @@ export const batchingKey = path => {
 
 export const getDataToBatching = (
   fixedData,
-  itemPath,
   batchingListIds,
   path,
   indexItemPath,

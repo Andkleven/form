@@ -19,11 +19,12 @@ import {
 } from "functions/general";
 
 export default pageInfo => {
-  const { stage, descriptionId, geometry } = pageInfo.match.params;
+  const { stage, projectId, descriptionId, geometry } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [finishedItem, setFinishedItem] = useState(0);
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(false);
+  const [indexItemList, setIndexItemList] = useState(0);
   const [batchingListIds, setBatchingListIds] = useState([]);
   let operatorJson = coatedItemOrMould(
     geometry,
@@ -37,19 +38,23 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
     {
-      variables: { id: descriptionId }
+      variables: { id: projectId }
     }
   );
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
+  useEffect(() => {
+    setIndexItemList(Number(descriptionId))
+  }, [setIndexItemList, descriptionId])
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[batchingJson.document.query],
-      variables: { id: descriptionId }
+      variables: { id: projectId }
     });
     let array = objectPath.get(oldData, batchingJson.document.queryPath);
     let index = array.findIndex(
@@ -67,7 +72,7 @@ export default pageInfo => {
       .splice(0, 1)[0];
     cache.writeQuery({
       query: query[batchingJson.document.query],
-      variables: { id: descriptionId },
+      variables: { id: projectId },
       data: { [saveData]: oldData[saveData] }
     });
   };
@@ -87,6 +92,9 @@ export default pageInfo => {
         finishedItem={finishedItem}
         stage={stage}
         repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
+        descriptionId={descriptionId}
+        indexItemList={indexItemList}
+        setIndexItemList={setIndexItemList}
       />
       <Form
         repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
@@ -109,7 +117,6 @@ export default pageInfo => {
         }}
         data={getDataToBatching(
           fixedData,
-          batchingJson.batching.itemPath,
           [finishedItem],
           batchingJson.document.queryPath
           // step
@@ -117,7 +124,6 @@ export default pageInfo => {
         stage={finishedItem ? stage : null}
         specData={getDataToBatching(
           fixedData,
-          batchingJson.batching.itemPath,
           batchingListIds,
           batchingJson.document.specQueryPath
           // step

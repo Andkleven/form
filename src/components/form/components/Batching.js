@@ -60,7 +60,7 @@ export default props => {
 
   const Item = ({description}) => {
     return objectPath
-    .get(description, props.json.batching.itemPath[1])
+    .get(description, "items")
       .map((item, index) => {
         let batchingData = allFields(props.json.document.chapters[0], item);
         if (
@@ -118,7 +118,7 @@ export default props => {
     <>
       {props.data &&
         objectPath
-          .get(props.data, props.json.batching.itemPath[0])
+          .get(props.data, "projects.0.descriptions")
           .map((description, index) => {
             if ((props.descriptionId && Number(description.id) === Number(props.descriptionId)) || Number(props.descriptionId) === 0) {
               return (

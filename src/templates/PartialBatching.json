@@ -1,13 +1,12 @@
-{
-  "batching": {
-    "itemPath": "descriptions.0.items",
-    "dataPath": "leadEngineers"
+{"steelPreparation2": 
+  {"batching": {
+    "dataPath": "operators"
   },
   "document": {
     "queryPath": "operators",
     "specQueryPath": "leadEngineers",
     "mutation": "OPERATOR_BATCHING",
     "query": "GET_OPERATOR_BY_DESCRIPTION",
-    "chapters": "steelPreparation1"
-  }
+    "chapters": ""
+  }}
 }
