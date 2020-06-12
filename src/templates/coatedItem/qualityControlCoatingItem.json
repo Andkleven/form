@@ -19,8 +19,8 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Point",
-              "subtextMathMin": "qualityControlMeasurementPointCoatingItemMin",
-              "subtextMathMax": "qualityControlMeasurementPointCoatingItemMax",
+              "calculateMin": "qualityControlMeasurementPointCoatingItemMin",
+              "calculateMax": "qualityControlMeasurementPointCoatingItemMax",
               "type": "number",
               "required": true,
               "unit": "mm"

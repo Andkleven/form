@@ -17,7 +17,6 @@ export default props => {
         } else if (field.fieldName && !props.partialBatching) {
           batchingData[field.fieldName] = findValue(
             itemData,
-
             Array.isArray(props.json.batching.dataPath)
               ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
               : [props.json.batching.dataPath, `data.${field.fieldName}`],
@@ -26,12 +25,16 @@ export default props => {
         }
       });
     });
+    return batchingData
   };
 
-  const add = (item, batchingData) => {
+  const add = (item, description, batchingData) => {
     props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
     if (!props.batchingData) {
       props.setBatchingData({ ...batchingData });
+    }
+    if (!props.indexItemList) {
+      props.setIndexItemList(Number(description.id))
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
@@ -40,79 +43,95 @@ export default props => {
   const remove = item => {
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
+      props.setIndexItemList(0)
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
-    /** WARNING: Non-strict comparison below
-     * For more info on strict vs non-strict comparisons:
-     * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
-     */
-    // eslint-disable-next-line
-    props.setBatchingListIds(props.batchingListIds.filter(id => id != item.id));
+    props.setBatchingListIds(props.batchingListIds.filter(id => Number(id) !== Number(item.id)));
   };
-  const handleClick = (e, item, batchingData) => {
+  const handleClick = (e, item, description, batchingData) => {
     if (e.target.checked) {
-      add(item, batchingData);
+      add(item, description, batchingData);
     } else {
       remove(item);
     }
   };
+
+  const Item = ({description}) => {
+    return objectPath
+    .get(description, "items")
+      .map((item, index) => {
+        let batchingData = allFields(props.json.document.chapters[0], item);
+        if (
+          item.stage === props.stage &&
+          (!props.batchingData ||
+            JSON.stringify(batchingData) ===
+              JSON.stringify(props.batchingData))
+        ) {
+          return (
+            <Fragment key={`${index}-fragment`}>
+              {props.partialBatching ? (
+                <button
+                  key={`${index}-button`}
+                  onClick={() => {
+                    props.setFinishedItem(Number(item.id));
+                    props.setBatchingListIds([Number(item.id)]);
+                  }}
+                >
+                  {" "}
+                  Finished
+                </button>
+              ) : null}
+              <Form.Check
+                key={`${index}-check`}
+                className="text-success"
+                onChange={e => handleClick(e, item, description, batchingData)}
+                id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
+                checked={props.batchingListIds.find(id => Number(id) === Number(item.id))
+                    ? true
+                    : false
+                }
+                label={item.itemId}
+              />
+            </Fragment>
+          );
+        } else if (item.stage === props.stage) {
+          // samme stage, men forskjellig data
+          return (
+            <div key={`${index}-text`} className="text-danger">
+              {item.itemId}
+            </div>
+          );
+        } else {
+          //  På et annet stage
+          return (
+            <div key={`${index}-text`} className="text-danger">
+              {item.itemId}
+            </div>
+          );
+        }
+      })
+  }
+
   return (
     <>
       {props.data &&
         objectPath
-          .get(props.data, props.json.batching.itemPath)
-          .map((item, index) => {
-            let batchingData = allFields(props.json.document.chapters, item);
-            if (
-              item.stage === props.stage &&
-              (!props.batchingData ||
-                JSON.stringify(batchingData) ===
-                  JSON.stringify(props.batchingData))
-            ) {
+          .get(props.data, "projects.0.descriptions")
+          .map((description, index) => {
+            if ((props.descriptionId && Number(description.id) === Number(props.descriptionId)) || Number(props.descriptionId) === 0) {
               return (
-                <Fragment key={`${index}-fragment`}>
-                  {props.partialBatching ? (
-                    <button
-                      key={`${index}-button`}
-                      onClick={() => {
-                        props.setFinishedItem(Number(item.id));
-                        props.setBatchingListIds([Number(item.id)]);
-                      }}
-                    >
-                      {" "}
-                      Finished
-                    </button>
-                  ) : null}
-                  <Form.Check
-                    key={`${index}-check`}
-                    className="text-success"
-                    onChange={e => handleClick(e, item, batchingData)}
-                    id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-                    checked={
-                      /** WARNING: Non-strict comparison below
-                       * For more info on strict vs non-strict comparisons:
-                       * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
-                       */
-                      // eslint-disable-next-line
-                      props.batchingListIds.find(id => id == item.id)
-                        ? true
-                        : false
-                    }
-                    label={item.itemId}
-                  />
+                <Fragment key={index}>
+               <h5>{description.data.description} - {description.data.geometry} </h5>
+                <Item description={description} />
                 </Fragment>
-              );
+                )
             } else {
-              //  fade out check box?
-              return (
-                <div key={`${index}-text`} className="text-danger">
-                  {item.itemId}
-                </div>
-              );
+              return null
             }
-          })}
-    </>
-  );
+            })
+          }
+        </>
+      )
 };

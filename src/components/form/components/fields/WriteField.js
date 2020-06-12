@@ -25,11 +25,11 @@ const decimalTooStep = {
 };
 
 
-export default ({setResetState, setState, ...props}) => {
+export default ({setResetState, setState, state, ...props}) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState("")
   const { editChapter, setEditChapter } = useContext(ChapterContext);  
-  const { documentDate, documentDateDispatch, func } = useContext(
+  const { documentDate, documentDateDispatch } = useContext(
     DocumentDateContext
     );
   const addUser = useCallback(() => {
@@ -40,22 +40,18 @@ export default ({setResetState, setState, ...props}) => {
     });
   }, [documentDateDispatch, props.path, userInfo.username]);
 
-  const runFunc = useCallback(() => {
-    Object.values(func).reverse().forEach(a => {
-      a();
-    });
-  }, [func])
+    
 
   const onChangeDate = data => {
     addUser();
     documentDateDispatch({ type: "add", newState: data, path: props.path });
-    runFunc()
+    setState(data)
   };
 
   const onChangeSelect = e => {
     addUser();
     documentDateDispatch({ type: "add", newState: e.value, path: props.path });
-    runFunc()
+    setState(e.value)
   };
 
   const onChange = e => {
@@ -78,7 +74,6 @@ export default ({setResetState, setState, ...props}) => {
       path: props.path
     });
     setState(newValue)
-    runFunc()
   };
 
   const onChangeIgnoreRequired = e => {
@@ -164,7 +159,7 @@ export default ({setResetState, setState, ...props}) => {
       );
     }
   };
-  
+ 
   const defaultValue = useCallback(() => {
     return objectPath.get(
       props.backendData,
@@ -188,6 +183,7 @@ export default ({setResetState, setState, ...props}) => {
         path: props.path
       });
     }, [props.path, documentDateDispatch, defaultValue])
+
   return (
     <>
       <Input
@@ -195,10 +191,7 @@ export default ({setResetState, setState, ...props}) => {
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
         defaultValue={defaultValue()}
-        value={
-          (props.type === "date" || props.type === "datetime-local") &&
-          new Date(objectPath.get(documentDate, props.path, null)) 
-        }
+        value={state}
         readOnly={props.readOnly}
         onChange={onChange}
         onChangeSelect={onChangeSelect}

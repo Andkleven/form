@@ -15,8 +15,7 @@ const ALL = gql`
           unique
           qrCode
           repair
-          operatorDone
-          qualityControlDone
+          stage
           leadEngineers {
             id
             data
@@ -48,6 +47,40 @@ const ALL = gql`
                 }
               }
             }
+          }
+          operators {
+            id
+            data
+            surfaceCleanlinessImage
+            dustCheckImage
+            measurementPointActualTdvs {
+              id
+              data
+            }
+            vulcanizationOperators {
+              id
+              data
+              coatingOperators {
+                id
+                data
+                mixDates {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
+              measurementPointOperators {
+                id
+                data
+              }
+            }
+                additionalCustomTestOperators {
+                  id
+                  data
+                }
           }
         }
       }
@@ -276,6 +309,10 @@ const GET_OPERATOR_BY_ITEM = gql`
             id
             data
           }
+          additionalCustomTestOperators {
+            id
+            data
+          }
         }
       }
     }
@@ -363,6 +400,10 @@ const QUALITY_CONTROL = gql`
             data
           }
         }
+            additionalCustomTestOperators {
+              id
+              data
+            }
       }
       finalInspectionQualityControls {
         id

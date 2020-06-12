@@ -151,7 +151,61 @@ const OPERATOR_BATCHING = gql`
       batching {
         id
         data
-        items {
+        descriptions {
+          id
+          data
+          items {
+            id
+            itemId
+            stage
+            operators {
+              id
+              data
+              measurementPointActualTdvs {
+                id
+                data
+              }
+              additionalCustomTestOperators {
+                id
+                data
+              }
+              vulcanizationOperators {
+                id
+                data
+                coatingOperators {
+                  id
+                  data
+                  mixDates {
+                    id
+                    data
+                  }
+                  measurementPointOperators {
+                    id
+                    data
+                  }
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
+            }
+          }
+        }  
+      }
+    }
+  }
+`;
+
+const OPERATOR = gql`
+  mutation operators(
+    $operators: [OperatorInput]
+    $stage: String
+    $itemId: Int
+  ) {
+    operators(operators: $operators, stage: $stage, itemId: $itemId) {
+      new {
+        item {
           id
           itemId
           stage
@@ -169,6 +223,7 @@ const OPERATOR_BATCHING = gql`
             vulcanizationOperators {
               id
               data
+
               coatingOperators {
                 id
                 data
@@ -188,51 +243,7 @@ const OPERATOR_BATCHING = gql`
             }
           }
         }
-      }
-    }
-  }
-`;
-
-const OPERATOR = gql`
-  mutation operators(
-    $operators: [OperatorInput]
-    $stage: String
-    $itemId: Int
-  ) {
-    operators(operators: $operators, stage: $stage, itemId: $itemId) {
-      new {
-        id
-        data
-        measurementPointActualTdvs {
-          id
-          data
-        }
-        additionalCustomTestOperators {
-          id
-          data
-        }
-        vulcanizationOperators {
-          id
-          data
-
-          coatingOperators {
-            id
-            data
-            mixDates {
-              id
-              data
-            }
-            measurementPointOperators {
-              id
-              data
-            }
-          }
-          measurementPointOperators {
-            id
-            data
-          }
-        }
-      }
+      } 
     }
   }
 `;

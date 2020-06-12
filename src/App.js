@@ -42,11 +42,11 @@ export default hot(() => {
           />
 
           {/* Batching (Operator) */}
-          <Route path="/batching/:stage/:descriptionId" component={Batching} />
+          <Route path="/batching/:stage/:projectId/:descriptionId/:geometry" component={Batching} />
 
           {/* Partial Batching (Operator) */}
           <Route
-            path="/partial-batching/:stage/:descriptionId"
+            path="/partial-batching/:stage/:descriptionId/:geometry"
             component={PartialBatching}
           />
 

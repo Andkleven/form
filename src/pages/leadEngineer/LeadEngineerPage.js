@@ -17,7 +17,7 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   leadEngineersJson = coatedItemOrMould(
-    geometry.toString(),
+    geometry,
     leadEngineersCoatedItemJson,
     leadEngineersMouldJson
   );

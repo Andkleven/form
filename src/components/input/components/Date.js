@@ -1,9 +1,8 @@
 import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { isStringInstance } from "functions/general";
-import DatePicker, { CalendarContainer } from "react-datepicker";
+import DatePicker, { CalendarContainer, registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale } from "react-datepicker";
 import enGB from "date-fns/locale/en-GB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -46,6 +45,7 @@ function Datetime(props) {
       </InputGroup.Append>
     </InputGroup>
   );
+
   const MyContainer = ({ className, children }) => {
     return (
       <div style={{ position: "relative" }}>
@@ -55,6 +55,7 @@ function Datetime(props) {
       </div>
     );
   };
+
   return (
     <Form.Group>
       <div>

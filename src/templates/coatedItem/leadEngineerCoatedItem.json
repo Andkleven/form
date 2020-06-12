@@ -349,7 +349,7 @@
                 {
                   "fieldName": "layer",
                   "label": "Layer",
-                  "math": "layer"
+                  "math": "mathLayer"
                 },
                 {
                   "fieldName": "compoundNumber",
@@ -483,6 +483,9 @@
               ]
             }
           ]
+        }, 
+        {
+          "customComponent": "CustomLead"
         }
       ]
     },

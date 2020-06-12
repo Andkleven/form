@@ -365,7 +365,7 @@ export const calculateMaxMin = (
       editRepeatStepListMin
     );
   } else if (calculateMin) {
-    min = Math[calculateMin](allData);
+    min = Math[calculateMin](allData, data, repeatStepList);
   } else {
     newMin = min;
   }
@@ -377,7 +377,7 @@ export const calculateMaxMin = (
       editRepeatStepListMax
     );
   } else if (calculateMax) {
-    max = Math[calculateMax](allData);
+    max = Math[calculateMax](allData, data, repeatStepList);
   } else {
     newMax = max;
   }
@@ -475,18 +475,18 @@ export const getDataToBatching = (
   fixedData,
   batchingListIds,
   path,
+  indexItemPath,
   repeatStepList
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
-    let newData = fixedData["descriptions"][0]["items"].find(
-      /** WARNING: Non-strict comparison below
-       * For more info on strict vs non-strict comparisons:
-       * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
-       */
-      // eslint-disable-next-line
-      item => item.id == batchingListIds[0]
-    )[Array.isArray(path) ? createPath(path, repeatStepList) : path];
+    let newData = fixedData.projects[0].descriptions.find(
+      description => Number(description.id) === Number(indexItemPath)
+    ).items.find(
+      item => Number(item.id) === Number(batchingListIds[0])
+    )
+    newData = objectPath.get(newData, Array.isArray(path) ? createPath(path, repeatStepList) : path)
+    
     return { [key]: newData };
   }
   return { [key]: [] };
@@ -557,9 +557,9 @@ export const coatedItemOrMould = (
   leadEngineersMouldJson
 ) => {
   let leadEngineersJson;
-  if (removeSpace(category).toLowerCase() === "coateditem") {
+  if (removeSpace(category.toString()).toLowerCase() === "coateditem") {
     leadEngineersJson = leadEngineersCoatedItemJson;
-  } else if (removeSpace(category).toLowerCase() === "mould") {
+  } else if (removeSpace(category.toString()).toLowerCase() === "mould") {
     leadEngineersJson = leadEngineersMouldJson;
   }
   return leadEngineersJson;
@@ -573,11 +573,11 @@ export const getStepFromStage = stage => {
   return step;
 };
 
-export function getRepeatStepList(props, index) {
-  return props.repeatStepList !== undefined
-    ? [...props.repeatStepList, index]
-    : props.repeatStepList
-    ? [...props.repeatStepList, index]
+export function getRepeatStepList(repeatStepList, index) {
+  return repeatStepList !== undefined && repeatStepList !== null
+    ? [...repeatStepList, index]
+    : repeatStepList
+    ? [...repeatStepList, index]
     : [index];
 }
 

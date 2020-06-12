@@ -44,7 +44,7 @@ export default ({addOrRemove, ...props}) => {
               ) : null}
               <FieldGroup
                 {...props}
-                repeatStepList={getRepeatStepList(props, index)}
+                repeatStepList={getRepeatStepList(props.repeatStepList, index)}
                 repeatStep={index}
                 key={`${props.indexId}-${index}`}
                 path={props.path ? `${props.path}.${index}` : null}
@@ -97,7 +97,7 @@ export default ({addOrRemove, ...props}) => {
           <FieldGroup
             key={index}
             {...props}
-            repeatStepList={getRepeatStepList(props, index)}
+            repeatStepList={getRepeatStepList(props.repeatStepList, index)}
             repeatStep={index}
             path={props.path ? `${props.path}.${index}.data` : null}
             indexId={`${props.indexId}-${index}`}
@@ -116,7 +116,7 @@ export default ({addOrRemove, ...props}) => {
     return (
       <FieldGroup
         {...props}
-        repeatStepList={getRepeatStepList(props, 0)}
+        repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
         file={
           objectPath.get(props.data, props.path + ".0.data") &&
           objectPath.get(props.data, props.path + ".0.data").file

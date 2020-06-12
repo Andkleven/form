@@ -1,14 +1,9 @@
-import React, { useContext } from "react";
-import objectPath from "object-path";
+import React from "react";
 import FieldProperties from "components/form/components/fields/FieldProperties";
 import Page from "components/form/components/Page";
-import { DocumentDateContext } from "components/form/Form";
 import { findValue } from "functions/general";
 
 export default props => {
-  const { documentDate, documentDateDispatch } = useContext(
-    DocumentDateContext
-  );
   return props.fields.map((field, index) => {
     if (
       field.showFieldSpecPath &&
@@ -23,25 +18,6 @@ export default props => {
     ) {
       return null;
     } else if (field.page) {
-      if (
-        objectPath.get(
-          documentDate,
-          `${props.path}.${field.queryPath}`,
-          null
-        ) === null &&
-        objectPath.get(
-          props.backendData,
-          `${props.path}.${field.queryPath}`,
-          null
-        ) === null
-      ) {
-        documentDateDispatch({
-          type: "add",
-          newState: [],
-          path: `${props.path}.${field.queryPath}`
-        });
-      }
-      // console.log(2)
       return (
         <Page
           {...field}
@@ -55,7 +31,6 @@ export default props => {
           stopLoop={props.stopLoop}
           readOnlyFields={props.readOnlyFields}
           showEditButton={false}
-          // data={props.data}
           path={`${props.path}.${field.queryPath}`}
           noLine
           className={`${props.indent && "ml-3 ml-sm-5"}`}

@@ -1,92 +1,85 @@
 {
   "steelPreparation1": {
     "batching": {
-      "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
     "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   },
   "steelPreparation2": {
     "batching": {
-      "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
     "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   },
   "primer1": {
     "batching": {
-      "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
     "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   },
   "primer2": {
     "batching": {
-      "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
     "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   },
   "rubberCementsBeforeCoating": {
     "batching": {
-      "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
     "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   },
   "vulcanizationStep": {
     "batching": {
-      "itemPath": "descriptions.0.items",
-      "dataPath": "operators"
+      "dataPath": "operators.0.vulcanizationOperators"
     },
     "document": {
       "queryPath": ["operators.0.vulcanizationOperators", ""],
       "specQueryPath": ["leadEngineers.0.vulcanizationOperators", ""],
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   },
   "touchUp": {
     "batching": {
-      "itemPath": "descriptions.0.items",
       "dataPath": "operators"
     },
     "document": {
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "GET_OPERATOR_BY_DESCRIPTION",
+      "query": "ALL",
       "chapters": ""
     }
   }
