@@ -119,6 +119,8 @@
               "label": "Dust Test",
               "type": "Number",
               "prepend": "Max",
+              "min": 1,
+              "max": 5,
               "subtext": "ISO 8502-3, Whole number between 1-5",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
             },

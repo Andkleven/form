@@ -122,10 +122,10 @@ export default props => {
           .map((description, index) => {
             if ((props.descriptionId && Number(description.id) === Number(props.descriptionId)) || Number(props.descriptionId) === 0) {
               return (
-                <Fragment key={index}>
-               <h5>{description.data.description} - {description.data.geometry} </h5>
-                <Item description={description} />
-                </Fragment>
+                <div className="text-center" key={index}>
+                  <h5>{description.data.description} - {description.data.geometry} </h5>
+                  <Item description={description} />
+                </div>
                 )
             } else {
               return null

@@ -51,6 +51,9 @@ function useStore(init) {
         func();
       });
     }
+    console.log(state)
+    console.log(action.path)
+    console.log(action)
   },[state, renderFunction])
   return [state.current, reducer, renderFunction]
 }
@@ -201,8 +204,9 @@ export default props => {
       setNextStage(true);
       setEditChapter(0);
       setLastChapter(0);
-      if (data) {
-        let variables = stringifyQuery(cloneDeep(data));
+      console.log("nei")
+      if (documentDate) {
+        let variables = stringifyQuery(cloneDeep(documentDate));
         mutation({
           variables: {
             ...variables,
@@ -219,7 +223,19 @@ export default props => {
       }
     // }, delayOnHandler)
 
-  }, [editChapter, mutation, nextStage, props.batchingListIds, props.descriptionId, props.geometry, props.itemId, props.sendItemId, props.specData, props.stage]);
+  }, [
+    documentDate,
+    editChapter,
+    mutation,
+    nextStage,
+    props.batchingListIds,
+    props.descriptionId,
+    props.geometry,
+    props.itemId,
+    props.sendItemId,
+    props.specData,
+    props.stage
+    ]);
 
   const formSubmit = e => {
     e.persist();

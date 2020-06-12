@@ -9,7 +9,7 @@ import React, {
 import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
 import { ChapterContext, DocumentDateContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
-import { getRepeatNumber } from "functions/general";
+import { getRepeatNumber, isNumber } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
@@ -62,18 +62,28 @@ export default React.memo(props => {
   );
 
   const addHandler = useCallback(() => {
-    documentDateDispatch({
-      type: "add",
-      newState: {},
-      fieldName: "data",
-      path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
-    });
+    console.log(documentDate, props.path)
+    if (objectPath.get(documentDate, props.path) === undefined) {
+      documentDateDispatch({
+        type: "add",
+        newState: {},
+        fieldName: "data",
+        path: `${props.path}.0`
+      });
+    } else {
+      documentDateDispatch({
+        type: "add",
+        newState: {},
+        fieldName: "data",
+        path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
+      });
+    }
       setAddOrRemove(prevState => prevState + 1)
     },[documentDateDispatch, props.path, documentDate, setAddOrRemove]);
 
   const deleteHandler = useCallback(
     index => {
-      documentDateDispatch({ type: "delete", path: `${props.path}.${index}` });
+      documentDateDispatch({ type: "delete", path: `${props.path}.${index}`, notReRender: true });
       setAddOrRemove(prevState => prevState + 1)
     },
     [props.path, documentDateDispatch, setAddOrRemove]
@@ -175,7 +185,8 @@ export default React.memo(props => {
       props.backendData,
       props.path,
       null
-    ) === null
+    ) === null &&
+    !isNumber(Number(props.path.split(".")[props.path.split(".").length-1]))
   ) {
     documentDateDispatch({
       type: "add",
@@ -264,7 +275,6 @@ export default React.memo(props => {
     !!editChapter &&
     props.thisChapter !== lastChapter &&
     props.pageTitle;
-
   return (
     <div
       className={`${!props.temporaryLastChapter && "mb-4"} ${props.className}`}
