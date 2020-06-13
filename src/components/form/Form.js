@@ -214,7 +214,7 @@ export default props => {
       setLastChapter(0);
       // console.log("nei");
       if (documentDate) {
-        let variables = stringifyQuery(cloneDeep(documentDate));
+        let variables = stringifyQuery(cloneDeep(documentDate), props.removeEmptyField);
         mutation({
           variables: {
             ...variables,
@@ -237,6 +237,7 @@ export default props => {
       // }, delayOnHandler)
     },
     [
+      props.removeEmptyField,
       documentDate,
       editChapter,
       mutation,

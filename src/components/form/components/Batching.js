@@ -60,58 +60,58 @@ export default props => {
 
   const Item = ({description}) => {
     return objectPath
-    .get(description, "items")
-      .map((item, index) => {
-        let batchingData = allFields(props.json.document.chapters[0], item);
-        if (
-          item.stage === props.stage &&
-          (!props.batchingData ||
-            JSON.stringify(batchingData) ===
-              JSON.stringify(props.batchingData))
-        ) {
-          return (
-            <Fragment key={`${index}-fragment`}>
-              {props.partialBatching ? (
-                <button
-                  key={`${index}-button`}
-                  onClick={() => {
-                    props.setFinishedItem(Number(item.id));
-                    props.setBatchingListIds([Number(item.id)]);
-                  }}
-                >
-                  {" "}
-                  Finished
-                </button>
-              ) : null}
-              <Form.Check
-                key={`${index}-check`}
-                className="text-success"
-                onChange={e => handleClick(e, item, description, batchingData)}
-                id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-                checked={props.batchingListIds.find(id => Number(id) === Number(item.id))
-                    ? true
-                    : false
+            .get(description, "items")
+              .map((item, index) => {
+                let batchingData = allFields(props.json.document.chapters[0], item);
+                if (
+                  item.stage === props.stage &&
+                  (!props.batchingData ||
+                    JSON.stringify(batchingData) ===
+                      JSON.stringify(props.batchingData))
+                ) {
+                  return (
+                    <Fragment key={`${index}-fragment`}>
+                      {props.partialBatching ? (
+                        <button
+                          key={`${index}-button`}
+                          onClick={() => {
+                            props.setFinishedItem(Number(item.id));
+                            props.setBatchingListIds([Number(item.id)]);
+                          }}
+                        >
+                          {" "}
+                          Finished
+                        </button>
+                      ) : null}
+                      <Form.Check
+                        key={`${index}-check`}
+                        className="text-success"
+                        onChange={e => handleClick(e, item, description, batchingData)}
+                        id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
+                        checked={props.batchingListIds.find(id => Number(id) === Number(item.id))
+                            ? true
+                            : false
+                        }
+                        label={item.itemId}
+                      />
+                    </Fragment>
+                  );
+                } else if (item.stage === props.stage) {
+                  // samme stage, men forskjellig data
+                  return (
+                    <div key={`${index}-text`} className="text-danger">
+                      {item.itemId}
+                    </div>
+                  );
+                } else {
+                  //  På et annet stage
+                  return (
+                    <div key={`${index}-text`} className="text-danger">
+                      {item.itemId}
+                    </div>
+                  );
                 }
-                label={item.itemId}
-              />
-            </Fragment>
-          );
-        } else if (item.stage === props.stage) {
-          // samme stage, men forskjellig data
-          return (
-            <div key={`${index}-text`} className="text-danger">
-              {item.itemId}
-            </div>
-          );
-        } else {
-          //  På et annet stage
-          return (
-            <div key={`${index}-text`} className="text-danger">
-              {item.itemId}
-            </div>
-          );
-        }
-      })
+              })
   }
 
   return (

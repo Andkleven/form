@@ -312,16 +312,18 @@ export const objectifyQuery = query => {
             objectifyEntries(value, path + "." + index.toString());
           });
         } else if (key === "data") {
+          let isData;
           if (isStringInstance(query[key])) {
-            let isData;
             if (!query[key].trim()) {
               isData = {};
             } else {
               isData = stringToDictionary(query[key]);
             }
-            if (isData) {
-              objectPath.set(newObject, path, isData);
-            }
+          } else if (query[key] === null || query[key] === undefined) {
+            isData = {};
+          }
+          if (isData) {
+            objectPath.set(newObject, path, isData);
           }
         } else if (key === "__typename") {
           objectPath.del(newObject, path);
@@ -414,23 +416,8 @@ export const chapterPages = (
   });
 };
 
-// export const mergePath = (info, repeatStepList, oldPath = null) => {
-//   let path = oldPath === null ? "" : `${oldPath}.`;
-//   if (info.firstQueryPath) {
-//     path = `${path}${info.firstQueryPath}.${repeatStepList}.${
-//       info.secondQueryPath
-//     }`;
-//   } else if (info.findByIndex) {
-//     path = `${path}${info.queryPath}.${repeatStepList}`;
-//   } else if (info.queryPath) {
-//     path = `${path}${info.queryPath}`;
-//   } else {
-//     return null;
-//   }
-//   return path;
-// };
 
-export const stringifyQuery = query => {
+export const stringifyQuery = (query, removeEmptyField=false) => {
   let newObject = { ...query };
   const loopThroughQuery = (query, oldPath = null) => {
     let path;
@@ -441,7 +428,11 @@ export const stringifyQuery = query => {
           loopThroughQuery(value, path + "." + index.toString());
         });
       } else if (key === "data") {
-        let isData = JSON.stringify(query[key]);
+        let object = query[key]
+        if (removeEmptyField) {
+          removeEmptyValueFromObject(object)
+        } 
+        let isData = JSON.stringify(object);
         if (isData) {
           objectPath.set(newObject, path, isData);
         }
@@ -553,16 +544,16 @@ export const reshapeStageSting = stage => {
 
 export const coatedItemOrMould = (
   category,
-  leadEngineersCoatedItemJson,
-  leadEngineersMouldJson
+  coatedItemJson,
+  mouldJson
 ) => {
-  let leadEngineersJson;
+  let json;
   if (removeSpace(category.toString()).toLowerCase() === "coateditem") {
-    leadEngineersJson = leadEngineersCoatedItemJson;
+    json = coatedItemJson;
   } else if (removeSpace(category.toString()).toLowerCase() === "mould") {
-    leadEngineersJson = leadEngineersMouldJson;
+    json = mouldJson;
   }
-  return leadEngineersJson;
+  return json;
 };
 
 export const getStepFromStage = stage => {

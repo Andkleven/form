@@ -74,6 +74,12 @@ export default pageInfo => {
     });
   };
 
+  console.log(getDataToBatching(
+    fixedData,
+    batchingListIds,
+    batchingJson.document.queryPath,
+    indexItemList
+  ))
   return (
     <Paper>
       <h3 className="text-center">Batching</h3>
