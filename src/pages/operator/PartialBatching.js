@@ -22,21 +22,19 @@ export default pageInfo => {
   const { stage, projectId, descriptionId, geometry } = pageInfo.match.params;
   const [batchingData, setBatchingData] = useState(false);
   const [finishedItem, setFinishedItem] = useState(0);
-  const [fixedData, setFixedData] = useState(null);
+  const [fixedData, setFixedData] = useState(false);
   const [reRender, setReRender] = useState(false);
-  const [indexItemList, setIndexItemList] = useState(0);
+  const [newDescriptionId, setNewDescriptionId] = useState(0);
   const [batchingListIds, setBatchingListIds] = useState([]);
   let operatorJson = coatedItemOrMould(
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  console.log(operatorJson)
-  console.log(allBatchingJson)
-  console.log(reshapeStageSting(stage))
-  let batchingJson = allBatchingJson[reshapeStageSting(stage)]
-  console.log(batchingJson)
-  batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
+  batchingJson.document.chapters = [
+    operatorJson.chapters[reshapeStageSting(stage)]
+  ];
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -49,8 +47,8 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
-    setIndexItemList(Number(descriptionId))
-  }, [setIndexItemList, descriptionId])
+    setNewDescriptionId(Number(descriptionId));
+  }, [setNewDescriptionId, descriptionId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -79,7 +77,7 @@ export default pageInfo => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-
+  console.log(!!finishedItem);
   return (
     <Paper>
       <h3 className={"text-center"}>Partial Batching</h3>
@@ -96,8 +94,8 @@ export default pageInfo => {
         stage={stage}
         repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
         descriptionId={descriptionId}
-        indexItemList={indexItemList}
-        setIndexItemList={setIndexItemList}
+        newDescriptionId={newDescriptionId}
+        setNewDescriptionId={setNewDescriptionId}
       />
       <Form
         repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
@@ -111,8 +109,8 @@ export default pageInfo => {
         }
         document={batchingJson.document}
         removeEmptyField={true}
-        saveButton={true}
-        notSubmitButton={batchingListIds.length ? false : true}
+        saveButton={!finishedItem}
+        notSubmitButton={!finishedItem}
         reRender={() => {
           setBatchingListIds([]);
           setBatchingData(false);
@@ -120,15 +118,17 @@ export default pageInfo => {
         }}
         data={getDataToBatching(
           fixedData,
-          [finishedItem],
-          batchingJson.document.queryPath
+          batchingListIds,
+          batchingJson.document.queryPath,
+          newDescriptionId
           // step
         )}
         stage={finishedItem ? stage : null}
         specData={getDataToBatching(
           fixedData,
           batchingListIds,
-          batchingJson.document.specQueryPath
+          batchingJson.document.specQueryPath,
+          newDescriptionId
           // step
         )}
         updateCache={() => update}

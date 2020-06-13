@@ -252,7 +252,7 @@ export default React.memo(props => {
   const SubmitAndCancel = () => {
     return (
       <DepthButtonGroup className="w-100 d-flex">
-        <SubmitButton />
+        {!props.notSubmitButton && <SubmitButton />}
         {props.saveButton && <SaveButton />}
         {showCancel && <CancelButton />}
       </DepthButtonGroup>

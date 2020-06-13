@@ -21,15 +21,17 @@ export default pageInfo => {
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
   const [fixedData, setFixedData] = useState(null);
-  const [indexItemList, setIndexItemList] = useState(0);
+  const [newDescriptionId, setNewDescriptionId] = useState(0);
   const [reRender, setReRender] = useState(false);
   let operatorJson = coatedItemOrMould(
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  let batchingJson = allBatchingJson[reshapeStageSting(stage)]
-  batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
+  batchingJson.document.chapters = [
+    operatorJson.chapters[reshapeStageSting(stage)]
+  ];
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -42,8 +44,8 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
-    setIndexItemList(Number(descriptionId))
-  }, [setIndexItemList, descriptionId])
+    setNewDescriptionId(Number(descriptionId));
+  }, [setNewDescriptionId, descriptionId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -74,12 +76,14 @@ export default pageInfo => {
     });
   };
 
-  console.log(getDataToBatching(
-    fixedData,
-    batchingListIds,
-    batchingJson.document.queryPath,
-    indexItemList
-  ))
+  console.log(
+    getDataToBatching(
+      fixedData,
+      batchingListIds,
+      batchingJson.document.queryPath,
+      newDescriptionId
+    )
+  );
   return (
     <Paper>
       <h3 className="text-center">Batching</h3>
@@ -91,13 +95,17 @@ export default pageInfo => {
         batchingListIds={batchingListIds}
         setBatchingListIds={setBatchingListIds}
         stage={stage}
-        repeatStepList={getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]}
+        repeatStepList={
+          getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+        }
         descriptionId={descriptionId}
-        indexItemList={indexItemList}
-        setIndexItemList={setIndexItemList}
+        newDescriptionId={newDescriptionId}
+        setNewDescriptionId={setNewDescriptionId}
       />
       <Form
-        repeatStepList={getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]}
+        repeatStepList={
+          getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+        }
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={geometry}
@@ -112,14 +120,14 @@ export default pageInfo => {
           fixedData,
           batchingListIds,
           batchingJson.document.queryPath,
-          indexItemList
+          newDescriptionId
         )}
         stage={stage}
         specData={getDataToBatching(
           fixedData,
           batchingListIds,
           batchingJson.document.specQueryPath,
-          indexItemList
+          newDescriptionId
         )}
         updateCache={() => update}
         saveButton={true}
