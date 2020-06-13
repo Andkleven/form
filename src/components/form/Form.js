@@ -56,6 +56,9 @@ function useStore(init) {
             func();
           });
       }
+      console.log(state);
+      console.log(action.path);
+      console.log(action);
     },
     [state, renderFunction]
   );
@@ -209,8 +212,9 @@ export default props => {
       setNextStage(true);
       setEditChapter(0);
       setLastChapter(0);
-      if (data) {
-        let variables = stringifyQuery(cloneDeep(data));
+      console.log("nei");
+      if (documentDate) {
+        let variables = stringifyQuery(cloneDeep(documentDate));
         mutation({
           variables: {
             ...variables,
@@ -233,6 +237,7 @@ export default props => {
       // }, delayOnHandler)
     },
     [
+      documentDate,
       editChapter,
       mutation,
       nextStage,

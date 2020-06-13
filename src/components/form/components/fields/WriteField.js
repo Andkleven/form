@@ -159,7 +159,14 @@ export default ({setResetState, setState, state, ...props}) => {
       );
     }
   };
- 
+  useEffect(() => {
+    if (props.type === "date" || props.type === "datetime-local") {
+      let backendDate = objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.path, null)
+      let newSate = backendDate ? new Date(backendDate) : new Date()
+      setState(newSate)
+    }
+  }, [setState, props.type, props.backendData, props.path, documentDate])
+  
   const defaultValue = useCallback(() => {
     return objectPath.get(
       props.backendData,

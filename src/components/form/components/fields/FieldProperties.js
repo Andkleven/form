@@ -179,7 +179,6 @@ export default ({resetState, ...props}) => {
     getLabel(props.backendData)
   }, [props.backendData, getLabel])
 
-  
       if (props.specValueList) {
         return (
           <ReadField

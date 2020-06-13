@@ -492,11 +492,20 @@
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [
-            "operators.0.vulcanizationOperators",
+            "leadEngineers.0.vulcanizationOperators",
             "coatingOperators",
             "measurementPointOperators"
           ],
           "fields": [
+            {
+              "specValueList": [
+                "",
+                "",
+                "leadEngineers.0.measurementPointActualTdvs",
+                "data.referencePoint"
+              ],
+              "label": "Reference Point"
+            },
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Point",

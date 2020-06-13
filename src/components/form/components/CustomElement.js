@@ -59,13 +59,11 @@ const CustomLead = props => {
       let steps = objectPath.get(data, "leadEngineers.0.vulcanizationSteps")
       if (Array.isArray(steps)) {
         steps.forEach(step => {
-          if (Array.isArray(step)) {
-            step && step.coatingLayers.forEach(coatingLayer => {
+            step.coatingLayers && step.coatingLayers.forEach(coatingLayer => {
               if (coatingLayer && coatingLayer.data.shrinkThickness) {
                 layersThicknessTemporary += Number(coatingLayer.data.shrinkThickness)
               }
             })
-          }
         })
       }
       layersThicknessTemporary = layersThicknessTemporary*2
@@ -103,10 +101,9 @@ const CustomLead = props => {
     }
   }, [thickness, props.repeatStepList, renderFunction]);
 
-  useEffect(() => {
-    thickness(props.backendData)
-  }, [thickness, props.backendData])
-  
+  // useEffect(() => {
+  //   thickness(props.backendData)
+  // }, [])
   
   if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (
