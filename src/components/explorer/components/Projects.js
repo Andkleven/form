@@ -88,7 +88,7 @@ export default ({
           >
             {props.access && props.access.specs && (
               <>
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center flex-wrap">
                   <Link
                     to={`/project/${project.id}`}
                     key={`project${indexProject}`}
