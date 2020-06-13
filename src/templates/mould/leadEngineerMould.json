@@ -425,8 +425,8 @@
                   "default": 0
                 },
                 {
-                  "fieldName": "shrinkThickness",
-                  "label": "Shrink Thickness",
+                  "fieldName": "shrunkThickness",
+                  "label": "Shrunk Thickness",
                   "math": "mathShrinkThickness",
                   "type": "Number",
                   "unit": "mm",
@@ -441,7 +441,7 @@
               ]
             }
           ]
-        }, 
+        },
         {
           "customComponent": "CustomLead"
         }

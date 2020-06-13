@@ -39,13 +39,10 @@ export default React.memo(props => {
   }, [props.backendData, props.path, props.repeat]);
 
   useLayoutEffect(() => {
-    if (
-      props.temporaryLastChapter &&
-      props.temporaryLastChapter !== lastChapter
-    ) {
-      setLastChapter(props.temporaryLastChapter);
+    if (props.finalChapter && props.finalChapter !== lastChapter) {
+      setLastChapter(props.finalChapter);
     }
-  }, [props.temporaryLastChapter, setLastChapter, lastChapter]);
+  }, [props.finalChapter, setLastChapter, lastChapter]);
 
   const addData = useCallback(
     pushOnIndex => {
@@ -102,12 +99,12 @@ export default React.memo(props => {
     } else {
       writeChapter.current = false;
     }
-  } else if (props.thisChapter === props.temporaryLastChapter) {
+  } else if (props.thisChapter === props.finalChapter) {
     writeChapter.current = true;
   } else {
     writeChapter.current = false;
   }
-  // }, [props.allWaysShow, editChapter, props.thisChapter, props.temporaryLastChapter, props.componentsId]);
+  // }, [props.allWaysShow, editChapter, props.thisChapter, props.finalChapter, props.componentsId]);
 
   // If repeat group start with one group set repeatGroup to 1
   if (
@@ -278,9 +275,18 @@ export default React.memo(props => {
     !!editChapter &&
     props.thisChapter !== lastChapter &&
     props.pageTitle;
+  const editAllActive =
+    props.showSaveButton && editChapter && props.thisChapter === editChapter;
+  const finalChapterActive =
+    props.showSaveButton &&
+    !editChapter &&
+    props.thisChapter === props.finalChapter;
+  const finalPage = props.showSaveButton;
+
   return (
     <div
-      className={`${!props.temporaryLastChapter && "mb-4"} ${props.className}`}
+      className={`${finalPage && "mb-4"} ${props.className}`}
+      // className={`${!props.finalChapter && ""} ${props.className}`}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? <Title>{props.pageTitle}</Title> : null}
@@ -336,13 +342,7 @@ export default React.memo(props => {
       ) : props.type === "file" ? (
         <Input {...props} writeChapter={writeChapter.current} />
       ) : null}
-      {props.showSaveButton ? (
-        editChapter ? (
-          props.thisChapter === editChapter && <SubmitAndCancel />
-        ) : props.thisChapter === props.temporaryLastChapter ? (
-          <SubmitAndCancel />
-        ) : null
-      ) : null}
+      {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );
 });

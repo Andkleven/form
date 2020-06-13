@@ -207,7 +207,7 @@
               "options": ["75051", "Soap"]
             }
           ]
-        }        
+        }
       ]
     },
     {
@@ -453,7 +453,7 @@
                 },
                 {
                   "fieldName": "shrinkThickness",
-                  "label": "Shrink Thickness",
+                  "label": "Shrunk Thickness",
                   "math": "mathShrinkThickness",
                   "type": "Number",
                   "unit": "mm",
@@ -485,7 +485,7 @@
               ]
             }
           ]
-        }, 
+        },
         {
           "customComponent": "CustomLead"
         }

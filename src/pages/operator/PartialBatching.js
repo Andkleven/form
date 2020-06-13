@@ -31,12 +31,14 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  console.log(operatorJson)
-  console.log(allBatchingJson)
-  console.log(reshapeStageSting(stage))
-  let batchingJson = allBatchingJson[reshapeStageSting(stage)]
-  console.log(batchingJson)
-  batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
+  // console.log(operatorJson)
+  // console.log(allBatchingJson)
+  // console.log(reshapeStageSting(stage))
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
+  // console.log(batchingJson)
+  batchingJson.document.chapters = [
+    operatorJson.chapters[reshapeStageSting(stage)]
+  ];
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -49,8 +51,8 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
-    setIndexItemList(Number(descriptionId))
-  }, [setIndexItemList, descriptionId])
+    setIndexItemList(Number(descriptionId));
+  }, [setIndexItemList, descriptionId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;

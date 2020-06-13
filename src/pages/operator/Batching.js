@@ -28,8 +28,10 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson
   );
-  let batchingJson = allBatchingJson[reshapeStageSting(stage)]
-  batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
+  batchingJson.document.chapters = [
+    operatorJson.chapters[reshapeStageSting(stage)]
+  ];
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -42,8 +44,8 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
-    setIndexItemList(Number(descriptionId))
-  }, [setIndexItemList, descriptionId])
+    setIndexItemList(Number(descriptionId));
+  }, [setIndexItemList, descriptionId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -74,12 +76,12 @@ export default pageInfo => {
     });
   };
 
-  console.log(getDataToBatching(
-    fixedData,
-    batchingListIds,
-    batchingJson.document.queryPath,
-    indexItemList
-  ))
+  // console.log(getDataToBatching(
+  //   fixedData,
+  //   batchingListIds,
+  //   batchingJson.document.queryPath,
+  //   indexItemList
+  // ))
   return (
     <Paper>
       <h3 className="text-center">Batching</h3>
@@ -91,13 +93,17 @@ export default pageInfo => {
         batchingListIds={batchingListIds}
         setBatchingListIds={setBatchingListIds}
         stage={stage}
-        repeatStepList={getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]}
+        repeatStepList={
+          getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+        }
         descriptionId={descriptionId}
         indexItemList={indexItemList}
         setIndexItemList={setIndexItemList}
       />
       <Form
-        repeatStepList={getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]}
+        repeatStepList={
+          getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+        }
         chapterAlwaysInWrite={true}
         componentsId={"leadEngineersPage"}
         geometry={geometry}

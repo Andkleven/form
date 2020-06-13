@@ -66,9 +66,9 @@ const CustomLead = props => {
         steps.forEach(step => {
           step.coatingLayers &&
             step.coatingLayers.forEach(coatingLayer => {
-              if (coatingLayer && coatingLayer.data.shrinkThickness) {
+              if (coatingLayer && coatingLayer.data.shrunkThickness) {
                 layersThicknessTemporary += Number(
-                  coatingLayer.data.shrinkThickness
+                  coatingLayer.data.shrunkThickness
                 );
               }
             });
@@ -116,7 +116,7 @@ const CustomLead = props => {
 
   if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (
-      <Alert variant={status}>
+      <Alert variant={status} className="">
         <Alert.Heading>
           {status === "warning" && "Uh-oh 😨"}
           {status === "success" && "Nice 😄"}

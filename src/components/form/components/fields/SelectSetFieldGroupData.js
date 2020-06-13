@@ -12,7 +12,7 @@ import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 import DepthButton from "components/button/DepthButton";
 
-export default ({addOrRemove, ...props}) => {
+export default ({ addOrRemove, ...props }) => {
   const { documentDate } = useContext(DocumentDateContext);
 
   const DeleteButton = props => (
@@ -27,16 +27,30 @@ export default ({addOrRemove, ...props}) => {
     </DepthButton>
   );
 
-    if (props.repeat) {
-      if (Array.isArray(objectPath.get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.path))) {
-        return objectPath
-        .get(Object.keys(documentDate).length === 0 ? props.backendData : documentDate, props.path)
+  if (props.repeat) {
+    if (
+      Array.isArray(
+        objectPath.get(
+          Object.keys(documentDate).length === 0
+            ? props.backendData
+            : documentDate,
+          props.path
+        )
+      )
+    ) {
+      return objectPath
+        .get(
+          Object.keys(documentDate).length === 0
+            ? props.backendData
+            : documentDate,
+          props.path
+        )
         .map((v, index) => {
           return (
             <Fragment key={index}>
               {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
                 <>
-                  <Subtitle>
+                  <Subtitle className={!props.writeChapter && "mt-3"}>
                     {variableString(index + 1, props.pageTitle)}
                   </Subtitle>
                   <Line></Line>
@@ -84,7 +98,7 @@ export default ({addOrRemove, ...props}) => {
           );
         });
     } else if (!props.queryPath) {
-      console.error("Anders")
+      console.error("Anders");
       let arraySetFieldGroupData = [];
       let repeatNumber = getRepeatNumber(
         props.specData,
@@ -130,4 +144,4 @@ export default ({addOrRemove, ...props}) => {
       />
     );
   }
-}
+};
