@@ -15,6 +15,7 @@ import Title from "components/design/fonts/Title";
 import { stringifyQuery, isStringInstance } from "functions/general";
 
 import FindNextStage from "components/form/stage/findNextStage.ts";
+const cloneDeep = require("clone-deep");
 
 // import whyDidYouRender from "@welldone-software/why-did-you-render";
 
@@ -26,48 +27,37 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 function useStore(init) {
   const state = useRef(init);
   const { current: renderFunction } = useRef({});
-  const reducer = useCallback(
-    action => {
-      switch (action.type) {
-        case "setState":
-          state.current = cloneDeep(action.newState);
-          break;
-        case "add":
-          objectPath.set(
-            state.current,
-            action.fieldName
-              ? `${action.path}.${action.fieldName}`
-              : action.path,
-            action.newState
-          );
-          state.current = { ...state.current };
-          break;
-        case "delete":
-          objectPath.del(state.current, action.path);
-          state.current = { ...state.current };
-          break;
-        default:
-          throw new Error();
-      }
-      if (!action.notReRender) {
-        Object.values(renderFunction)
-          .reverse()
-          .forEach(func => {
-            func();
-          });
-      }
-      // console.log(state);
-      // console.log(action.path);
-      // console.log(action);
-    },
-    [state, renderFunction]
-  );
-  return [state.current, reducer, renderFunction];
+  const reducer = action => {
+    switch (action.type) {
+      case "setState":
+        state.current = cloneDeep(action.newState);
+        break;
+      case "add":
+        objectPath.set(
+          state.current,
+          action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
+          action.newState
+        );
+        break;
+      case "delete":
+        objectPath.del(state.current, action.path);
+        break;
+      default:
+        throw new Error();
+    }
+    if (!action.notReRender) {
+      Object.values(renderFunction)
+        .reverse()
+        .forEach(func => {
+          func();
+        });
+    }
+    return state.current;
+  };
+  return [state, reducer, renderFunction];
 }
 export const ChapterContext = createContext();
 export const DocumentDateContext = createContext();
-
-const cloneDeep = require("clone-deep");
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
@@ -213,8 +203,11 @@ export default props => {
       setEditChapter(0);
       setLastChapter(0);
       // console.log("nei");
-      if (documentDate) {
-        let variables = stringifyQuery(cloneDeep(documentDate), props.removeEmptyField);
+      if (documentDate.current) {
+        let variables = stringifyQuery(
+          cloneDeep(documentDate.current),
+          props.removeEmptyField
+        );
         mutation({
           variables: {
             ...variables,
@@ -255,7 +248,7 @@ export default props => {
   const formSubmit = e => {
     e.persist();
     e.preventDefault();
-    submitData(documentDate, true);
+    submitData(documentDate.current, true);
   };
 
   return (

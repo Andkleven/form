@@ -49,7 +49,7 @@ const CustomLead = props => {
   const [layersThickness, setLayersThickness] = useState(0);
 
   const thickness = useCallback(
-    (data = documentDate) => {
+    (data = documentDate.current) => {
       let toleranceMinTemporary = objectPath.get(
         data,
         "leadEngineers.0.data.toleranceMin",

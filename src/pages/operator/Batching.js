@@ -7,31 +7,43 @@ import operatorMouldJson from "templates/mould/operatorMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
+import Canvas from "components/layout/Canvas";
 import Batching from "components/form/components/Batching";
 import {
+  getBatchingJson,
   objectifyQuery,
   getDataToBatching,
-  reshapeStageSting,
-  coatedItemOrMould,
   getStepFromStage
 } from "functions/general";
 
 export default pageInfo => {
-  const { stage, projectId, descriptionId, geometry } = pageInfo.match.params;
+  const {
+    stage,
+    projectId,
+    descriptionId,
+    geometryDefault
+  } = pageInfo.match.params;
+
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
   const [fixedData, setFixedData] = useState(null);
-  const [newDescriptionId, setNewDescriptionId] = useState(0);
+  const [newDescriptionId, setNewDescriptionId] = useState([]);
   const [reRender, setReRender] = useState(false);
-  let operatorJson = coatedItemOrMould(
+  const [geometry, setGeometry] = useState("coateditem");
+
+  useEffect(() => {
+    if (geometryDefault) {
+      setGeometry(geometryDefault);
+    }
+  }, [geometryDefault]);
+
+  let batchingJson = getBatchingJson(
     geometry,
     operatorCoatedItemJson,
-    operatorMouldJson
+    operatorMouldJson,
+    allBatchingJson,
+    stage
   );
-  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
-  batchingJson.document.chapters = [
-    operatorJson.chapters[reshapeStageSting(stage)]
-  ];
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -44,7 +56,9 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
-    setNewDescriptionId(Number(descriptionId));
+    if (Number(descriptionId)) {
+      setNewDescriptionId([Number(descriptionId)]);
+    }
   }, [setNewDescriptionId, descriptionId]);
 
   if (loading) return <p>Loading...</p>;
@@ -77,55 +91,72 @@ export default pageInfo => {
   };
 
   return (
-    <Paper>
-      <h3 className="text-center">Batching</h3>
-      <Batching
-        data={fixedData}
-        json={batchingJson}
-        setBatchingData={setBatchingData}
-        batchingData={batchingData}
-        batchingListIds={batchingListIds}
-        setBatchingListIds={setBatchingListIds}
-        stage={stage}
-        repeatStepList={
-          getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
-        }
-        descriptionId={descriptionId}
-        newDescriptionId={newDescriptionId}
-        setNewDescriptionId={setNewDescriptionId}
-      />
-      <Form
-        repeatStepList={
-          getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
-        }
-        chapterAlwaysInWrite={true}
-        componentsId={"leadEngineersPage"}
-        geometry={geometry}
-        notSubmitButton={batchingListIds.length ? false : true}
-        document={batchingJson.document}
-        reRender={() => {
-          setBatchingListIds([]);
-          setBatchingData(false);
-          setReRender(!reRender);
-        }}
-        data={getDataToBatching(
-          fixedData,
-          batchingListIds,
-          batchingJson.document.queryPath,
-          newDescriptionId
-        )}
-        stage={stage}
-        specData={getDataToBatching(
-          fixedData,
-          batchingListIds,
-          batchingJson.document.specQueryPath,
-          newDescriptionId
-        )}
-        updateCache={() => update}
-        saveButton={true}
-        readOnlyFields={!batchingListIds[0]}
-        batchingListIds={batchingListIds}
-      />
-    </Paper>
+    <Canvas>
+      <Paper>
+        <h3 className="text-center">Batching</h3>
+        <Batching
+          data={fixedData}
+          json={
+            newDescriptionId[0]
+              ? getBatchingJson(
+                  objectPath
+                    .get(fixedData, "projects.0.descriptions")
+                    .find(
+                      description =>
+                        Number(description.id) === Number(newDescriptionId[0])
+                    )["data"]["geometry"],
+                  operatorCoatedItemJson,
+                  operatorMouldJson,
+                  allBatchingJson,
+                  stage
+                )
+              : batchingJson
+          }
+          setBatchingData={setBatchingData}
+          batchingData={batchingData}
+          batchingListIds={batchingListIds}
+          setBatchingListIds={setBatchingListIds}
+          stage={stage}
+          repeatStepList={
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+          }
+          descriptionId={descriptionId}
+          newDescriptionId={newDescriptionId[0]}
+          setNewDescriptionId={setNewDescriptionId}
+        />
+        <Form
+          repeatStepList={
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+          }
+          chapterAlwaysInWrite={true}
+          componentsId={"leadEngineersPage"}
+          geometry={geometry}
+          notSubmitButton={!batchingListIds.length}
+          document={batchingJson.document}
+          reRender={() => {
+            setBatchingListIds([]);
+            setBatchingData(false);
+            setReRender(!reRender);
+          }}
+          data={getDataToBatching(
+            fixedData,
+            batchingListIds,
+            batchingJson.document.queryPath,
+            newDescriptionId[0]
+          )}
+          stage={stage}
+          specData={getDataToBatching(
+            fixedData,
+            batchingListIds,
+            batchingJson.document.specQueryPath,
+            newDescriptionId[0]
+          )}
+          updateCache={() => update}
+          saveButton={!!batchingListIds.length}
+          readOnlyFields={!batchingListIds[0]}
+          batchingListIds={batchingListIds}
+        />
+      </Paper>
+    </Canvas>
   );
 };

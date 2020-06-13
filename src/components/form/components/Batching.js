@@ -8,12 +8,11 @@ export default props => {
     let batchingData = {};
     chapter.pages.forEach(page => {
       page.fields.forEach(field => {
-        if (field.specValueList) {
-          batchingData[field.fieldName] = findValue(
-            itemData,
-            field.specValueList,
-            props.repeatStepList
-          );
+        let specValueList = field.specValueList;
+        if (specValueList) {
+          batchingData[
+            specValueList.split(".")[specValueList.split(".").length - 1]
+          ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
           batchingData[field.fieldName] = findValue(
             itemData,
@@ -29,21 +28,23 @@ export default props => {
   };
 
   const add = (item, description, batchingData) => {
+    console.log(description);
     props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
+    props.setNewDescriptionId(prevState => [
+      ...prevState,
+      Number(description.id)
+    ]);
     if (!props.batchingData) {
       props.setBatchingData({ ...batchingData });
-    }
-    if (!props.newDescriptionId) {
-      props.setNewDescriptionId(Number(description.id));
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
   };
-  const remove = item => {
+  const remove = (item, description) => {
+    console.log(props.batchingListIds, props.batchingListIds.length);
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
-      props.setNewDescriptionId(0);
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
@@ -51,12 +52,15 @@ export default props => {
     props.setBatchingListIds(
       props.batchingListIds.filter(id => Number(id) !== Number(item.id))
     );
+    props.setNewDescriptionId(
+      props.newDescriptionId.filter(id => Number(id) !== Number(description.id))
+    );
   };
   const handleClick = (e, item, description, batchingData) => {
     if (e.target.checked) {
       add(item, description, batchingData);
     } else {
-      remove(item);
+      remove(item, description);
     }
   };
 
@@ -76,9 +80,7 @@ export default props => {
                 onClick={() => {
                   props.setFinishedItem(Number(item.id));
                   props.setBatchingListIds([Number(item.id)]);
-                  if (!props.newDescriptionId) {
-                    props.setNewDescriptionId(Number(description.id));
-                  }
+                  props.setNewDescriptionId([Number(description.id)]);
                 }}
               >
                 {" "}
@@ -126,6 +128,7 @@ export default props => {
             if (
               (props.descriptionId &&
                 Number(description.id) === Number(props.descriptionId)) ||
+              !props.descriptionId ||
               Number(props.descriptionId) === 0
             ) {
               return (

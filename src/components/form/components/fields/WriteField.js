@@ -56,7 +56,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     addUser();
     let newValue = value;
     if (["checkbox", "radio", "switch"].includes(type)) {
-      newValue = !objectPath.get(documentDate, props.path, false);
+      newValue = !objectPath.get(documentDate.current, props.path, false);
     } else {
       if (type === "number") {
         newValue = Number(value);
@@ -76,7 +76,7 @@ export default ({ setResetState, setState, state, ...props }) => {
   const onChangeIgnoreRequired = e => {
     let { name } = e.target;
     addUser();
-    let oldValue = objectPath.get(documentDate, props.path, false);
+    let oldValue = objectPath.get(documentDate.current, props.path, false);
     setIgnoreRequired(oldValue);
     documentDateDispatch({
       type: "add",
@@ -112,17 +112,11 @@ export default ({ setResetState, setState, state, ...props }) => {
           !props.label && " w-100 text-right"
         }`}
       >
-        <TinyButton
-          icon="check"
-          type="submit"
-          // onClick={event => submitEdit(event, documentDate)}
-          tooltip="Submit"
-        />
+        <TinyButton icon="check" type="submit" tooltip="Submit" />
         <TinyButton
           icon="times"
           onClick={event => cancelEdit(event)}
           tooltip="Cancel"
-          // color="secondary"
         />
       </div>
     ) : null;
@@ -137,7 +131,6 @@ export default ({ setResetState, setState, state, ...props }) => {
               className="w-100 m-0 px-0 text-light"
               variant="primary"
               type="submit"
-              // onClick={event => submitEdit(event, documentDate)}
             >
               <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
               Submit
@@ -159,9 +152,9 @@ export default ({ setResetState, setState, state, ...props }) => {
   useEffect(() => {
     if (props.type === "date" || props.type === "datetime-local") {
       let backendDate = objectPath.get(
-        Object.keys(documentDate).length === 0
+        Object.keys(documentDate.current).length === 0
           ? props.backendData
-          : documentDate,
+          : documentDate.current,
         props.path,
         null
       );
@@ -180,7 +173,11 @@ export default ({ setResetState, setState, state, ...props }) => {
 
   useEffect(() => {
     setIgnoreRequired(
-      objectPath.get(documentDate, props.path + ignoreRequiredField, false)
+      objectPath.get(
+        documentDate.current,
+        props.path + ignoreRequiredField,
+        false
+      )
     );
   }, [defaultValue, setIgnoreRequired, documentDate, props.path]);
 
@@ -219,7 +216,7 @@ export default ({ setResetState, setState, state, ...props }) => {
           type={"checkbox"}
           onChange={onChangeIgnoreRequired}
           defaultValue={objectPath.get(
-            documentDate,
+            documentDate.current,
             props.path + ignoreRequiredField,
             false
           )}

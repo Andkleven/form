@@ -87,11 +87,11 @@ export const getData = (
   documentDate,
   isItData = false
 ) => {
-  if (!documentDate) {
+  if (!documentDate.current) {
     return null;
   }
   let path = createPath(info.queryPath, repeatStepList);
-  let data = objectPath.get(documentDate, path);
+  let data = objectPath.get(documentDate.current, path);
   if (isItData && Array.isArray(data)) {
     return data[data.length - 1];
   }
@@ -469,13 +469,13 @@ export const getDataToBatching = (
   fixedData,
   batchingListIds,
   path,
-  indexItemPath,
+  descriptionId,
   repeatStepList
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
     let newData = fixedData.projects[0].descriptions
-      .find(description => Number(description.id) === Number(indexItemPath))
+      .find(description => Number(description.id) === Number(descriptionId))
       .items.find(item => Number(item.id) === Number(batchingListIds[0]));
     newData = objectPath.get(
       newData,
@@ -574,4 +574,23 @@ export function getRepeatStepList(repeatStepList, index) {
 
 export function isLastCharacterNumber(str) {
   return !isNaN(Number(str.slice(-1)));
+}
+
+export function getBatchingJson(
+  geometry,
+  operatorCoatedItemJson,
+  operatorMouldJson,
+  allBatchingJson,
+  stage
+) {
+  let operatorJson = coatedItemOrMould(
+    geometry,
+    operatorCoatedItemJson,
+    operatorMouldJson
+  );
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
+  batchingJson.document.chapters = [
+    operatorJson.chapters[reshapeStageSting(stage)]
+  ];
+  return batchingJson;
 }
