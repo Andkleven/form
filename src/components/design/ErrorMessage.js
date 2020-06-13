@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
-  const error = props.error.message;
+  const error = !!props.error && props.error.message;
 
   return (
     <div
@@ -21,22 +21,23 @@ export default props => {
           />
         )}
         {props.big && <h6>Something went wrong!</h6>}
-        {typeof error === "string" ? (
-          <>
-            <div className="text-center">{error}</div>
-          </>
-        ) : (
-          <>
-            <div className="mb-2">
-              Sadly, no error message was received from the server, so we don't
-              know why.
-            </div>
-            <div className="mb-0">
-              The server might be unavailable or this computer may be
-              disconnected from the internet.
-            </div>
-          </>
-        )}
+        {!!error &&
+          (typeof error === "string" ? (
+            <>
+              <div className="text-center">{error}</div>
+            </>
+          ) : (
+            <>
+              <div className="mb-2">
+                Sadly, no error message was received from the server, so we
+                don't know why.
+              </div>
+              <div className="mb-0">
+                The server might be unavailable or this computer may be
+                disconnected from the internet.
+              </div>
+            </>
+          ))}
       </div>
     </div>
   );

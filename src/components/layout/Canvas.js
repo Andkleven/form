@@ -8,7 +8,7 @@ export default props => {
     <div className="content">
       <Header />
       <Container className="p-0 mt-n3 mt-sm-0">{props.children}</Container>
-      <Footer className="d-none d-md-inline" />
+      <Footer className="d-none d-sm-inline" />
     </div>
   );
 };
