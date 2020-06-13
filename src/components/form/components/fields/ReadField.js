@@ -50,7 +50,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   // );
 
   const Label = props => {
-    
     if (typeof props.label === "string") {
       return (
         <div
@@ -65,7 +64,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     } else if (typeof props.label === "object") {
       return props.label;
     }
-    return null
+    return null;
   };
 
   const showUnit = [undefined, null, "", false].includes(props.unit)
