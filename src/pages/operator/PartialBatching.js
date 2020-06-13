@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import allBatchingJson from "templates/partialBatching.json";
+import allBatchingJson from "templates/batching.json";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 import operatorMouldJson from "templates/mould/operatorMould.json";
 import Form from "components/form/Form";
@@ -31,9 +31,12 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson
   );
+  console.log(operatorJson)
+  console.log(allBatchingJson)
+  console.log(reshapeStageSting(stage))
   let batchingJson = allBatchingJson[reshapeStageSting(stage)]
+  console.log(batchingJson)
   batchingJson.document.chapters = [operatorJson.chapters[reshapeStageSting(stage)]];
-
 
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -107,7 +110,7 @@ export default pageInfo => {
           ).toLowerCase()
         }
         document={batchingJson.document}
-        partialBatching={true}
+        removeEmptyField={true}
         saveButton={true}
         notSubmitButton={batchingListIds.length ? false : true}
         reRender={() => {

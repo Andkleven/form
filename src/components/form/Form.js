@@ -51,9 +51,6 @@ function useStore(init) {
         func();
       });
     }
-    console.log(state)
-    console.log(action.path)
-    console.log(action)
   },[state, renderFunction])
   return [state.current, reducer, renderFunction]
 }
@@ -204,9 +201,8 @@ export default props => {
       setNextStage(true);
       setEditChapter(0);
       setLastChapter(0);
-      console.log("nei")
       if (documentDate) {
-        let variables = stringifyQuery(cloneDeep(documentDate));
+        let variables = stringifyQuery(cloneDeep(documentDate), props.removeEmptyField);
         mutation({
           variables: {
             ...variables,
@@ -224,6 +220,7 @@ export default props => {
     // }, delayOnHandler)
 
   }, [
+    props.removeEmptyField,
     documentDate,
     editChapter,
     mutation,

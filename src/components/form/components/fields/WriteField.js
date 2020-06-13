@@ -184,6 +184,8 @@ export default ({setResetState, setState, state, ...props}) => {
     }, [defaultValue, setIgnoreRequired, documentDate, props.path])
     
     useEffect(() => {
+      console.log(defaultValue())
+      console.log(props.path)
       documentDateDispatch({
         type: "add",
         newState: defaultValue(),
