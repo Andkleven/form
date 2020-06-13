@@ -17,6 +17,7 @@ export default ({
   rowStyle,
   headline = "Projects",
   refetch,
+  stage = false,
   ...props
 }) => {
   // Delete projects
@@ -184,7 +185,38 @@ export default ({
                     </div>
                   }
                 >
-                  <ItemGrid className="mb-n4">
+                  {!!stage && (
+                    <div className="d-flex align-items-center flex-wrap mb-2">
+                      <Link
+                        // to={`/project/${project.id}`}
+                        to={`/batching/${stage}/${project.id}/${description.data.description}/${description.data.geometry}`}
+                        key={`project${indexProject}`}
+                        iconProps={{
+                          icon: ["fad", "cubes"],
+                          size: iconSize,
+                          style: iconStyle
+                        }}
+                        style={{ marginRight: "2em", ...rowStyle }}
+                      >
+                        Batching
+                      </Link>
+                      <Link
+                        // to={`/project/${project.id}`}
+                        to={`/partial-batching/${stage}/${description.data.description}/${description.data.geometry}`}
+                        key={`project${indexProject}`}
+                        iconProps={{
+                          icon: ["far", "cubes"],
+                          size: iconSize,
+                          style: iconStyle,
+                          className: "text-secondary"
+                        }}
+                        style={{ marginRight: "2em", ...rowStyle }}
+                      >
+                        Partial batching
+                      </Link>
+                    </div>
+                  )}
+                  <ItemGrid className="mb-n3">
                     {props.access &&
                       (props.access.itemRead || props.access.itemWrite) &&
                       description.items &&
@@ -194,7 +226,7 @@ export default ({
                           xs="12"
                           md="6"
                           lg="4"
-                          className="text-truncate pr-5 mb-4"
+                          className="text-truncate pr-5 mb-3"
                         >
                           <Link
                             to={`/single-item/${item.id}/${description.data.geometry}`}

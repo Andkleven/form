@@ -111,7 +111,12 @@ export default ({ view = "items", ...props }) => {
           </DarkButton>
         </form>
       </div>
-      <Projects {...props} results={results} data={props.data} />
+      <Projects
+        {...props}
+        results={results}
+        data={props.data}
+        stage={filters.stage}
+      />
     </>
   );
 };
