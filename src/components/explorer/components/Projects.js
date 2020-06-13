@@ -7,9 +7,11 @@ import { progress, displayStage } from "functions/progress";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
+import { numberOfChildren } from "../functions/data.js";
 
 export default ({
-  data,
+  results, // Search results (JSON-object)
+  data, // Original (JSON-object)
   iconSize,
   iconStyle,
   rowStyle,
@@ -17,6 +19,7 @@ export default ({
   refetch,
   ...props
 }) => {
+  // Delete projects
   const deleteProjectFromCache = (
     cache,
     {
@@ -36,7 +39,6 @@ export default ({
       data: { projects: newData.projects }
     });
   };
-
   const [deleteProject] = useMutation(mutations["DELETE_PROJECT"], {
     update: deleteProjectFromCache
   });
@@ -58,8 +60,8 @@ export default ({
           Create new project
         </Link>
       )}
-      {data && data.length > 0 ? (
-        data.map((project, indexProject) => (
+      {results && results.length > 0 ? (
+        results.map((project, indexProject) => (
           <Tree
             iconSize={iconSize}
             iconStyle={iconStyle}
@@ -67,7 +69,20 @@ export default ({
             defaultOpen
             key={`project${indexProject}`}
             name={
-              `${project.data.projectName}`
+              <div className="text-wrap">
+                {project.data.projectName}
+
+                <div className="d-inline text-secondary">
+                  {`${
+                    (numberOfChildren(data, project.data.projectName) &&
+                      ` ∙ ${project.descriptions.length}/${numberOfChildren(
+                        data,
+                        project.data.projectName
+                      )} Descriptions`) ||
+                    " ∙ No descriptions"
+                  }`}
+                </div>
+              </div>
               // + `(${countProjectItems(project)} items)`
             }
           >
@@ -152,7 +167,19 @@ export default ({
                     <div className="text-wrap">
                       {description.data.description}
                       <div className="d-inline text-secondary">
-                        {` ∙ ${description.data.geometry} ∙ ${description.items.length}/??`}
+                        {` ∙ ${description.data.geometry}${
+                          (numberOfChildren(
+                            data,
+                            project.data.projectName,
+                            description.data.description
+                          ) &&
+                            ` ∙ ${description.items.length}/${numberOfChildren(
+                              data,
+                              project.data.projectName,
+                              description.data.description
+                            )} Items`) ||
+                          " ∙ No items"
+                        }`}
                       </div>
                     </div>
                   }
@@ -163,6 +190,7 @@ export default ({
                       description.items &&
                       description.items.map((item, indexItem) => (
                         <Col
+                          key={`itemContainer${indexItem}`}
                           xs="12"
                           md="6"
                           lg="4"
