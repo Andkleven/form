@@ -3,7 +3,7 @@ import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { tinyShadow } from "styles/styles";
 
-export default ({ iconLast = false, iconProps, ...props }) => {
+export default ({ iconLast = false, iconProps, short = false, ...props }) => {
   const styles = !props.buttonGroup && tinyShadow;
 
   const Icon = () => {
@@ -36,7 +36,7 @@ export default ({ iconLast = false, iconProps, ...props }) => {
             props.variant ||
             (props.className && props.className.includes("text-"))
           ) && `text-dark`
-        } ${!props.variant && `border`} ${!props.short && "w-100"} d-flex 
+        } ${!props.variant && `border`} ${!short && "w-100"} d-flex 
         align-items-center ${
           props.className && props.className.includes("justify-content-")
             ? ""

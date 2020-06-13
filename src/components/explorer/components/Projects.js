@@ -7,16 +7,20 @@ import { progress, displayStage } from "functions/progress";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
+import { numberOfChildren } from "../functions/data.js";
 
 export default ({
-  data,
+  results, // Search results (JSON-object)
+  data, // Original (JSON-object)
   iconSize,
   iconStyle,
   rowStyle,
   headline = "Projects",
   refetch,
+  stage = false,
   ...props
 }) => {
+  // Delete projects
   const deleteProjectFromCache = (
     cache,
     {
@@ -36,7 +40,6 @@ export default ({
       data: { projects: newData.projects }
     });
   };
-
   const [deleteProject] = useMutation(mutations["DELETE_PROJECT"], {
     update: deleteProjectFromCache
   });
@@ -46,33 +49,47 @@ export default ({
       {headline && <h6>{headline}</h6>}
       {props.access && props.access.specs && (
         <Link
-          to={`/project/0`}
+          to="/project/0"
           iconProps={{
             icon: ["fad", "folder-plus"],
             size: iconSize,
             style: iconStyle
           }}
           style={rowStyle}
+          force
         >
           Create new project
         </Link>
       )}
-      {data && data.length > 0 ? (
-        data.map((project, indexProject) => (
+      {results && results.length > 0 ? (
+        results.map((project, indexProject) => (
           <Tree
             iconSize={iconSize}
             iconStyle={iconStyle}
             rowStyle={rowStyle}
             defaultOpen
-            key={`project${indexProject}`}
+            key={`${project.data.projectName}${indexProject}`}
             name={
-              `${project.data.projectName}`
+              <div className="text-wrap">
+                {project.data.projectName}
+
+                <div className="d-inline text-secondary">
+                  {`${
+                    (numberOfChildren(data, project.data.projectName) &&
+                      ` ∙ ${project.descriptions.length}/${numberOfChildren(
+                        data,
+                        project.data.projectName
+                      )} Descriptions`) ||
+                    " ∙ No descriptions"
+                  }`}
+                </div>
+              </div>
               // + `(${countProjectItems(project)} items)`
             }
           >
             {props.access && props.access.specs && (
               <>
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center flex-wrap">
                   <Link
                     to={`/project/${project.id}`}
                     key={`project${indexProject}`}
@@ -89,26 +106,39 @@ export default ({
                   <Link
                     tooltip="Delete project"
                     to={`#`}
-                    className="text-danger m-0 p-0"
+                    color="danger"
                     key={`project${indexProject}DeleteLinkButton`}
                     iconProps={{
                       icon: ["fas", "trash-alt"],
-                      size: iconSize
+                      size: iconSize,
+                      style: iconStyle
                     }}
                     style={{ ...rowStyle }}
                     onClick={() => {
+                      const confirmation = window.prompt(
+                        "To delete a project is irreversible. Enter the project name to confirm deletion:",
+                        ""
+                      );
                       if (
+                        confirmation === project.data.projectName &&
                         window.confirm(
-                          "To delete a project is irreversible - are you sure?"
+                          `Are you sure? The project "${project.data.projectName}" will be gone forever.\nTip: You may need to refresh the browser to see the changes.`
                         )
                       ) {
                         deleteProject({ variables: { id: project.id } });
                         // window.location.reload(false);
                         refetch();
+                      } else if (
+                        confirmation !== project.data.projectName &&
+                        confirmation !== null
+                      ) {
+                        alert(
+                          "Entered name doesn't match. Project not deleted."
+                        );
                       }
                     }}
                   >
-                    {/* Delete */}
+                    Delete project
                   </Link>
                   {/* <Button
                   variant="danger"
@@ -134,18 +164,70 @@ export default ({
                   defaultOpen
                   key={`project${indexProject}Description${indexDescription}`}
                   // name={description.data.geometry}
-                  name={`${description.data.description}`}
+                  name={
+                    <div className="text-wrap">
+                      {description.data.description}
+                      <div className="d-inline text-secondary">
+                        {` ∙ ${description.data.geometry}${
+                          (numberOfChildren(
+                            data,
+                            project.data.projectName,
+                            description.data.description
+                          ) &&
+                            ` ∙ ${description.items.length}/${numberOfChildren(
+                              data,
+                              project.data.projectName,
+                              description.data.description
+                            )} Items`) ||
+                          " ∙ No items"
+                        }`}
+                      </div>
+                    </div>
+                  }
                 >
-                  <ItemGrid>
+                  {!!stage &&
+                    !["leadEngineer", "qualityControl"].includes(stage) && (
+                      <div className="d-flex align-items-center flex-wrap mb-2">
+                        <Link
+                          // to={`/project/${project.id}`}
+                          to={`/batching/${stage}/${project.id}/${description.data.description}/${description.data.geometry}`}
+                          key={`project${indexProject}`}
+                          iconProps={{
+                            icon: ["fad", "cubes"],
+                            size: iconSize,
+                            style: iconStyle
+                          }}
+                          style={{ marginRight: "2em", ...rowStyle }}
+                        >
+                          Batching
+                        </Link>
+                        <Link
+                          // to={`/project/${project.id}`}
+                          to={`/partial-batching/${stage}/${description.data.description}/${description.data.geometry}`}
+                          key={`project${indexProject}`}
+                          iconProps={{
+                            icon: ["far", "cubes"],
+                            size: iconSize,
+                            style: iconStyle,
+                            className: "text-secondary"
+                          }}
+                          style={{ marginRight: "2em", ...rowStyle }}
+                        >
+                          Partial batching
+                        </Link>
+                      </div>
+                    )}
+                  <ItemGrid className="mb-n3">
                     {props.access &&
                       (props.access.itemRead || props.access.itemWrite) &&
                       description.items &&
                       description.items.map((item, indexItem) => (
                         <Col
+                          key={`itemContainer${indexItem}`}
                           xs="12"
                           md="6"
                           lg="4"
-                          className="text-truncate pr-5 mb-4"
+                          className="text-truncate pr-5 mb-3"
                         >
                           <Link
                             to={`/single-item/${item.id}/${description.data.geometry}`}

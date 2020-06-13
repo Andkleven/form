@@ -3,8 +3,9 @@ import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import { Modal } from "react-bootstrap";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default props => {
+export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
   const [showRename, setShowRename] = useState(false);
 
   const handleCloseRename = () => setShowRename(false);
@@ -13,17 +14,27 @@ export default props => {
   return (
     <div className="h-100">
       <DepthButtonGroup
-        key={props.id}
+        key={item.itemId}
         className="w-100 h-100"
         style={{ padding: "2px 2px" }}
       >
         <DepthButton
           size="sm"
-          tooltip={`Open "${props.item.itemId}"`}
+          tooltip={`Open "${item.itemId}"`}
           className="btn d-flex justify-content-left align-items-center h-100 text-left text-truncate w-100"
-          onClick={props.submitItem.bind(this, props.item)}
+          onClick={submitItem.bind(this, item)}
         >
-          {props.item.itemId || <i className="text-secondary">Unnamed</i>}
+          <div className="d-flex justify-content-between w-100">
+            <div>
+              {item.itemId || <i className="text-secondary">Unnamed</i>}
+            </div>
+            {item.unique && (
+              <div className="text-secondary">
+                <FontAwesomeIcon icon={["fas", "fingerprint"]} />
+                <i className="ml-2 d-none d-sm-inline">Unique</i>
+              </div>
+            )}
+          </div>
         </DepthButton>
         <DepthButton
           size="sm"
@@ -38,11 +49,11 @@ export default props => {
           tooltip="Delete"
           short
           iconProps={{ icon: ["fas", "trash"], size: "sm" }}
-          className="btn h-100 text-secondary"
-          // onClick={props.submitDelete.bind(this, props.item.id)}
+          className="btn h-100 text-danger"
+          // onClick={submitDelete.bind(this, item.id)}
           onClick={() => {
             window.confirm("This is irreversible - are you sure?") &&
-              props.submitDelete(props.item.id);
+              submitDelete(item.id);
           }}
         ></DepthButton>
       </DepthButtonGroup>
@@ -51,8 +62,8 @@ export default props => {
           <ItemUpdate
             {...props}
             edit
-            id={props.item.id}
-            value={props.item.itemId}
+            id={item.id}
+            value={item.itemId}
             onDone={handleCloseRename}
             onCancel={handleCloseRename}
           />

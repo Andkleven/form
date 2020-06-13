@@ -197,6 +197,15 @@ export default pageInfo => {
         projectsData.numberOfDescriptions) ||
       Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
 
+  // useEffect(() => {
+  // const currentId = data.projects[0] && data.projects[0].id;
+  // let history = useHistory();
+  // if (_id === 0 && currentId) {
+  //   refetch();
+  //   history.push(`${currentId}`);
+  // }
+  // }, [_id, data]);
+
   return (
     <Canvas>
       <Paper>
@@ -220,8 +229,8 @@ export default pageInfo => {
             <DepthButton
               iconProps={{
                 icon: ["fas", "cubes"],
-                size: "lg",
-                className: "text-secondary"
+                size: "lg"
+                // className: "text-secondary"
               }}
               className="text-center w-100 mt-3"
               onClick={() =>

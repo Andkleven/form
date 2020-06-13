@@ -6,7 +6,7 @@ import { Col } from "react-bootstrap";
 export default props => {
   const items = props.items.map((item, index) => {
     return (
-      <Col sm="12" md="6" lg="4" xl="3">
+      <Col sm="12" md="6" lg="4" xl="3" key={`${item.itemId}Container`}>
         <Item
           {...props}
           key={index}

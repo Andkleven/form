@@ -9,6 +9,8 @@ export default ({
   children,
   iconProps,
   tooltip,
+  color,
+  force,
   ...props
 }) => {
   return (
@@ -16,18 +18,37 @@ export default ({
       delay={{ show: 1000, hide: 0 }}
       overlay={<Tooltip hidden={tooltip ? false : true}>{tooltip}</Tooltip>}
     >
-      <Link
-        className={`d-flex not-selectable text-light text-decoration-none ${props.className}`}
-        to={to}
-        onClick={onClick}
-        {...props}
-        style={props.style}
-      >
-        <div className="pb-1 pt-2 not-selectable">
-          <FontAwesomeIcon {...iconProps} />
-          {children}
-        </div>
-      </Link>
+      {force ? (
+        <a
+          className={`d-flex not-selectable text-${
+            color || "light"
+          } text-decoration-none ${props.className}`}
+          href={to}
+          onClick={onClick}
+          {...props}
+          style={props.style}
+        >
+          <div className="pb-1 pt-2 not-selectable">
+            <FontAwesomeIcon {...iconProps} />
+            {children}
+          </div>
+        </a>
+      ) : (
+        <Link
+          className={`d-flex not-selectable text-${
+            color || "light"
+          } text-decoration-none ${props.className}`}
+          to={to}
+          onClick={onClick}
+          {...props}
+          style={props.style}
+        >
+          <div className="pb-1 pt-2 not-selectable">
+            <FontAwesomeIcon {...iconProps} />
+            {children}
+          </div>
+        </Link>
+      )}
     </OverlayTrigger>
   );
 };
