@@ -4,9 +4,9 @@ import ReadField from "components/form/components/fields/ReadField";
 import TinyButton from "components/button/TinyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default props => {
+export default ({ ...props }) => {
   const FileName = () => (
-    <div className={props.writeChapter && "mb-2"}>
+    <div className={(props.writeChapter && "mb-2") || ""}>
       <FontAwesomeIcon
         icon={["fad", "file-image"]}
         className={`text-primary text-center shadow-sm mr-2`}
@@ -17,7 +17,7 @@ export default props => {
   );
   return props.description && props.writeChapter ? (
     <div className="mt-2">
-      <div className={props.writeChapter && "pt-2"}>
+      <div className={(props.writeChapter && "pt-2") || ""}>
         <div className="d-flex justify-content-between">
           <FileName />
           {props.writeChapter && (

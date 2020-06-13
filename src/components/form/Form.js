@@ -56,9 +56,9 @@ function useStore(init) {
             func();
           });
       }
-      console.log(state);
-      console.log(action.path);
-      console.log(action);
+      // console.log(state);
+      // console.log(action.path);
+      // console.log(action);
     },
     [state, renderFunction]
   );
@@ -212,7 +212,7 @@ export default props => {
       setNextStage(true);
       setEditChapter(0);
       setLastChapter(0);
-      console.log("nei");
+      // console.log("nei");
       if (documentDate) {
         let variables = stringifyQuery(cloneDeep(documentDate));
         mutation({

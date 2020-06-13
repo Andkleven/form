@@ -185,37 +185,38 @@ export default ({
                     </div>
                   }
                 >
-                  {!!stage && (
-                    <div className="d-flex align-items-center flex-wrap mb-2">
-                      <Link
-                        // to={`/project/${project.id}`}
-                        to={`/batching/${stage}/${project.id}/${description.data.description}/${description.data.geometry}`}
-                        key={`project${indexProject}`}
-                        iconProps={{
-                          icon: ["fad", "cubes"],
-                          size: iconSize,
-                          style: iconStyle
-                        }}
-                        style={{ marginRight: "2em", ...rowStyle }}
-                      >
-                        Batching
-                      </Link>
-                      <Link
-                        // to={`/project/${project.id}`}
-                        to={`/partial-batching/${stage}/${description.data.description}/${description.data.geometry}`}
-                        key={`project${indexProject}`}
-                        iconProps={{
-                          icon: ["far", "cubes"],
-                          size: iconSize,
-                          style: iconStyle,
-                          className: "text-secondary"
-                        }}
-                        style={{ marginRight: "2em", ...rowStyle }}
-                      >
-                        Partial batching
-                      </Link>
-                    </div>
-                  )}
+                  {!!stage &&
+                    !["leadEngineer", "qualityControl"].includes(stage) && (
+                      <div className="d-flex align-items-center flex-wrap mb-2">
+                        <Link
+                          // to={`/project/${project.id}`}
+                          to={`/batching/${stage}/${project.id}/${description.data.description}/${description.data.geometry}`}
+                          key={`project${indexProject}`}
+                          iconProps={{
+                            icon: ["fad", "cubes"],
+                            size: iconSize,
+                            style: iconStyle
+                          }}
+                          style={{ marginRight: "2em", ...rowStyle }}
+                        >
+                          Batching
+                        </Link>
+                        <Link
+                          // to={`/project/${project.id}`}
+                          to={`/partial-batching/${stage}/${description.data.description}/${description.data.geometry}`}
+                          key={`project${indexProject}`}
+                          iconProps={{
+                            icon: ["far", "cubes"],
+                            size: iconSize,
+                            style: iconStyle,
+                            className: "text-secondary"
+                          }}
+                          style={{ marginRight: "2em", ...rowStyle }}
+                        >
+                          Partial batching
+                        </Link>
+                      </div>
+                    )}
                   <ItemGrid className="mb-n3">
                     {props.access &&
                       (props.access.itemRead || props.access.itemWrite) &&

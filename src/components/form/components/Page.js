@@ -18,7 +18,6 @@ import TabButton from "components/button/TabButton";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 
- 
 export default React.memo(props => {
   const {
     setLastChapter,
@@ -29,16 +28,16 @@ export default React.memo(props => {
   const { documentDateDispatch, documentDate, renderFunction } = useContext(
     DocumentDateContext
   );
-  const [resetState, setResetState] = useState(false)
-  const [addOrRemove, setAddOrRemove] = useState(0)
+  const [resetState, setResetState] = useState(false);
+  const [addOrRemove, setAddOrRemove] = useState(0);
   const writeChapter = useRef(false);
-  
+
   useEffect(() => {
     if (props.repeat) {
-      setAddOrRemove(prevState => prevState + 1)
+      setAddOrRemove(prevState => prevState + 1);
     }
-  }, [props.backendData, props.path, props.repeat])
-  
+  }, [props.backendData, props.path, props.repeat]);
+
   useLayoutEffect(() => {
     if (
       props.temporaryLastChapter &&
@@ -56,13 +55,13 @@ export default React.memo(props => {
         fieldName: "data",
         path: `${props.path}.${pushOnIndex}`
       });
-      setAddOrRemove(prevState => prevState + 1)
+      setAddOrRemove(prevState => prevState + 1);
     },
-      [props.path, documentDateDispatch, setAddOrRemove]
+    [props.path, documentDateDispatch, setAddOrRemove]
   );
 
   const addHandler = useCallback(() => {
-    console.log(documentDate, props.path)
+    // console.log(documentDate, props.path)
     if (objectPath.get(documentDate, props.path) === undefined) {
       documentDateDispatch({
         type: "add",
@@ -78,13 +77,17 @@ export default React.memo(props => {
         path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
       });
     }
-      setAddOrRemove(prevState => prevState + 1)
-    },[documentDateDispatch, props.path, documentDate, setAddOrRemove]);
+    setAddOrRemove(prevState => prevState + 1);
+  }, [documentDateDispatch, props.path, documentDate, setAddOrRemove]);
 
   const deleteHandler = useCallback(
     index => {
-      documentDateDispatch({ type: "delete", path: `${props.path}.${index}`, notReRender: true });
-      setAddOrRemove(prevState => prevState + 1)
+      documentDateDispatch({
+        type: "delete",
+        path: `${props.path}.${index}`,
+        notReRender: true
+      });
+      setAddOrRemove(prevState => prevState + 1);
     },
     [props.path, documentDateDispatch, setAddOrRemove]
   );
@@ -119,43 +122,46 @@ export default React.memo(props => {
   }
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
-  const autoRepeat = useCallback((data = documentDate) => {
-    let newValue = getRepeatNumber(
-      data,
+  const autoRepeat = useCallback(
+    (data = documentDate) => {
+      let newValue = getRepeatNumber(
+        data,
+        props.repeatGroupWithQuery,
+        props.repeatStepList,
+        props.editRepeatStepListRepeat
+      );
+      let oldValue = objectPath.get(data, props.path, false);
+      let oldValueLength = oldValue ? oldValue.length : 0;
+      if (oldValueLength < newValue) {
+        for (let i = oldValueLength; i < newValue; i++) {
+          addData(i);
+        }
+      } else if (newValue < oldValueLength) {
+        for (let i = oldValueLength - 1; i > newValue - 1; i--) {
+          deleteHandler(i);
+        }
+      }
+    },
+    [
+      documentDate,
       props.repeatGroupWithQuery,
       props.repeatStepList,
-      props.editRepeatStepListRepeat
-    );
-    let oldValue = objectPath.get(data, props.path, false);
-    let oldValueLength = oldValue ? oldValue.length : 0;
-    if (oldValueLength < newValue) {
-      for (let i = oldValueLength; i < newValue; i++) {
-        addData(i);
-      }
-    } else if (newValue < oldValueLength) {
-      for (let i = oldValueLength - 1; i > newValue - 1; i--) {
-        deleteHandler(i);
-      }
-    }
-  }, [
-    documentDate,
-    props.repeatGroupWithQuery,
-    props.repeatStepList,
-    props.editRepeatStepListRepeat,
-    props.path,
-    addData,
-    deleteHandler
-  ])
+      props.editRepeatStepListRepeat,
+      props.path,
+      addData,
+      deleteHandler
+    ]
+  );
 
   useEffect(() => {
     if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-      renderFunction[`${props.repeatStepList}-Page`] = autoRepeat
+      renderFunction[`${props.repeatStepList}-Page`] = autoRepeat;
     }
-      return () => {
-        if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-          delete renderFunction[`${props.repeatStepList}-Page`]
-        }
+    return () => {
+      if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+        delete renderFunction[`${props.repeatStepList}-Page`];
       }
+    };
   }, [
     documentDate,
     addData,
@@ -171,22 +177,19 @@ export default React.memo(props => {
 
   useEffect(() => {
     if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-    autoRepeat(props.backendData)
+      autoRepeat(props.backendData);
     }
-  }, [props.backendData, autoRepeat, props.repeatGroupWithQuery, props.repeatGroupWithQuerySpecData])
+  }, [
+    props.backendData,
+    autoRepeat,
+    props.repeatGroupWithQuery,
+    props.repeatGroupWithQuerySpecData
+  ]);
 
   if (
-    objectPath.get(
-      documentDate,
-      props.path,
-      null
-    ) === null &&
-    objectPath.get(
-      props.backendData,
-      props.path,
-      null
-    ) === null &&
-    !isNumber(Number(props.path.split(".")[props.path.split(".").length-1]))
+    objectPath.get(documentDate, props.path, null) === null &&
+    objectPath.get(props.backendData, props.path, null) === null &&
+    !isNumber(Number(props.path.split(".")[props.path.split(".").length - 1]))
   ) {
     documentDateDispatch({
       type: "add",
@@ -195,7 +198,7 @@ export default React.memo(props => {
     });
   }
 
-  const Components = CustomComponents[props.customComponent]
+  const Components = CustomComponents[props.customComponent];
 
   const SubmitButton = () => {
     return (
@@ -231,7 +234,7 @@ export default React.memo(props => {
   const cancel = () => {
     documentDateDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
-    setResetState(prevState => !prevState)
+    setResetState(prevState => !prevState);
   };
 
   const CancelButton = () => {
@@ -306,7 +309,9 @@ export default React.memo(props => {
         )}
       </div>
       {showLine && <Line />}
-      {props.customComponent ? <Components {...props} writeChapter={writeChapter.current} /> : null}
+      {props.customComponent ? (
+        <Components {...props} writeChapter={writeChapter.current} />
+      ) : null}
       {props.fields ? (
         <>
           <SelectSetFieldGroupData
@@ -329,7 +334,7 @@ export default React.memo(props => {
           ) : null}
         </>
       ) : props.type === "file" ? (
-          <Input {...props} writeChapter={writeChapter.current} />
+        <Input {...props} writeChapter={writeChapter.current} />
       ) : null}
       {props.showSaveButton ? (
         editChapter ? (
@@ -340,6 +345,4 @@ export default React.memo(props => {
       ) : null}
     </div>
   );
-}
-);
-
+});
