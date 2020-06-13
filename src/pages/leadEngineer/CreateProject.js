@@ -14,7 +14,6 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import { useLocation, Redirect, useHistory } from "react-router-dom";
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -28,7 +27,7 @@ export default pageInfo => {
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data, refetch } = useQuery(query[itemsJson.query], {
+  const { loading, error, data } = useQuery(query[itemsJson.query], {
     variables: { id: _id }
   });
   const deleteFromCache = (

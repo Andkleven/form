@@ -8,7 +8,7 @@ export default props => {
       className={`text-light py-3 ${props.className}`}
       align="center"
     >
-      <Copyright link />
+      <Copyright showLink />
     </footer>
   );
 };

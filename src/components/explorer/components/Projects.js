@@ -68,7 +68,7 @@ export default ({
             iconStyle={iconStyle}
             rowStyle={rowStyle}
             defaultOpen
-            key={`project${indexProject}`}
+            key={`${project.data.projectName}${indexProject}`}
             name={
               <div className="text-wrap">
                 {project.data.projectName}
