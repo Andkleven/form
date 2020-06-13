@@ -44,8 +44,13 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
+<<<<<<< HEAD
     setNewDescriptionId(Number(descriptionId));
   }, [setNewDescriptionId, descriptionId]);
+=======
+    setIndexItemList(Number(descriptionId));
+  }, [setIndexItemList, descriptionId]);
+>>>>>>> f84cfaf7e094c168ee69b0c8b6f6920a88d0a2ec
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -76,14 +81,6 @@ export default pageInfo => {
     });
   };
 
-  console.log(
-    getDataToBatching(
-      fixedData,
-      batchingListIds,
-      batchingJson.document.queryPath,
-      newDescriptionId
-    )
-  );
   return (
     <Paper>
       <h3 className="text-center">Batching</h3>

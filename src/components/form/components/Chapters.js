@@ -17,7 +17,7 @@ import SubmitButton from "components/button/SubmitButton";
 export default props => {
   const { editChapter } = useContext(ChapterContext);
   const stopLoop = useRef(false); // Flips to true for last chapter with input
-  let temporaryLastChapter = 0;
+  let finalChapter = 0;
   let count = 0;
   let stage = stagesJson["all"][0];
 
@@ -25,9 +25,9 @@ export default props => {
     let chapter; // new chapter to add to document
     if (
       (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
-      !temporaryLastChapter
+      !finalChapter
     ) {
-      temporaryLastChapter = count + 1;
+      finalChapter = count + 1;
     }
     if (stopLoop.current) {
       chapter = null;
@@ -39,7 +39,7 @@ export default props => {
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
-        temporaryLastChapter = count + 1;
+        finalChapter = count + 1;
       }
       // Map through pages in this pages
       chapter = pageInfo.pages.map((info, index) => {
@@ -57,7 +57,7 @@ export default props => {
             showEditButton={showEditButton}
             indexId={`${count + 1}-${index}`}
             index={index}
-            temporaryLastChapter={temporaryLastChapter}
+            finalChapter={finalChapter}
             submitData={props.submitData}
             showSaveButton={showSaveButton}
             repeatStepList={repeatStepList}
@@ -164,7 +164,7 @@ export default props => {
   return (
     <>
       {props.document.chapterByStage ? stageChapters() : chapterBasedOnJson}{" "}
-      {!editChapter && !temporaryLastChapter && !!props.backButton ? (
+      {!editChapter && !finalChapter && !!props.backButton ? (
         <SubmitButton type="button" onClick={props.backButton}>
           Back
         </SubmitButton>

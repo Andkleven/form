@@ -60,29 +60,27 @@ const CustomLead = props => {
         "leadEngineers.0.data.toleranceMax",
         0
       );
-      let layersThicknessTemporary = 0;
+      let layersThicknessTemporary = 0.0;
       let steps = objectPath.get(data, "leadEngineers.0.vulcanizationSteps");
       if (Array.isArray(steps)) {
         steps.forEach(step => {
           step.coatingLayers &&
             step.coatingLayers.forEach(coatingLayer => {
-              if (coatingLayer && coatingLayer.data.shrinkThickness) {
+              if (coatingLayer && coatingLayer.data.shrunkThickness) {
                 layersThicknessTemporary += Number(
-                  coatingLayer.data.shrinkThickness
+                  coatingLayer.data.shrunkThickness
                 );
               }
             });
         });
       }
-      layersThicknessTemporary = layersThicknessTemporary * 2;
-      setStatus(prevState => ({
-        ...prevState,
-        color:
-          toleranceMinTemporary <= layersThicknessTemporary &&
-          layersThicknessTemporary <= toleranceMaxTemporary
-            ? "warning"
-            : "success"
-      }));
+      layersThicknessTemporary = layersThicknessTemporary * 2.0;
+      setStatus(() =>
+        toleranceMinTemporary <= layersThicknessTemporary &&
+        layersThicknessTemporary <= toleranceMaxTemporary
+          ? "success"
+          : "warning"
+      );
       if (toleranceMinTemporary !== toleranceMin) {
         setToleranceMin(toleranceMinTemporary);
       }
@@ -118,12 +116,16 @@ const CustomLead = props => {
 
   if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (
-      <Alert variant={"warning"}>
-        <Alert.Heading>Warning</Alert.Heading>
+      <Alert variant={status} className="">
+        <Alert.Heading>
+          {status === "warning" && "Uh-oh 😨"}
+          {status === "success" && "Nice 😄"}
+        </Alert.Heading>
         <div>
-          {`Ordered Total Rubber Thickness is between ${toleranceMin} and ${toleranceMax}`}
+          Tolerated total rubber thickness is between <b>{toleranceMin}</b> and{" "}
+          <b>{toleranceMax}</b>, and the sum of all layer thicknesses is{" "}
+          <b>{layersThickness.toFixed(1)}</b>.
         </div>
-        <div>{`Layers Thickness is ${layersThickness}`}</div>
       </Alert>
     );
   } else {

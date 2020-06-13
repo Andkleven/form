@@ -14,6 +14,7 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
+import stages from "components/form/stage/stages.json";
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -205,6 +206,33 @@ export default pageInfo => {
   //   history.push(`${currentId}`);
   // }
   // }, [_id, data]);
+
+  const setInitialStages = data => {
+    data.projects.forEach((project, projectIndex) => {
+      project.descriptions.forEach((description, descriptionIndex) => {
+        const geometry = JSON.parse(description.data).geometry;
+        description.items.forEach((item, itemIndex) => {
+          let stage = undefined;
+          switch (geometry) {
+            case "Coated Item":
+              stage = Object.keys(stages["coateditem"])[0];
+              break;
+            case "Mould":
+              stage = Object.keys(stages["mould"])[0];
+              break;
+            default:
+              break;
+          }
+          data["projects"][projectIndex]["descriptions"][descriptionIndex][
+            "items"
+          ][itemIndex]["stage"] = stage;
+        });
+      });
+    });
+    console.log(data);
+  };
+
+  setInitialStages(data);
 
   return (
     <Canvas>

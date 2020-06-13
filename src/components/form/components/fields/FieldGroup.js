@@ -22,7 +22,7 @@ export default props => {
         <Page
           {...field}
           key={index}
-          temporaryLastChapter={props.temporaryLastChapter}
+          finalChapter={props.finalChapter}
           optionsData={props.optionsData}
           backendData={props.backendData}
           repeatStepList={props.repeatStepList}
@@ -32,7 +32,7 @@ export default props => {
           readOnlyFields={props.readOnlyFields}
           showEditButton={false}
           path={`${props.path}.${field.queryPath}`}
-          noLine
+          // noLine
           className={`${props.indent && "ml-3 ml-sm-5"}`}
         />
       );

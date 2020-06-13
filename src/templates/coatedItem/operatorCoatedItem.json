@@ -293,11 +293,17 @@
           "queryPath": "finalInspectionQualityControls.0.additionalCustomTestOperators",
           "fields": [
             {
-              "specValueList": ["leadEngineers.0.additionalCustomTests", "data.name"],
+              "specValueList": [
+                "leadEngineers.0.additionalCustomTests",
+                "data.name"
+              ],
               "label": "Custom Test Name"
             },
             {
-              "specValueList": ["leadEngineers.0.additionalCustomTests", "data.criteria"],
+              "specValueList": [
+                "leadEngineers.0.additionalCustomTests",
+                "data.criteria"
+              ],
               "label": "Custom Test Criteria"
             },
             {
@@ -458,7 +464,7 @@
               "specValueList": [
                 "leadEngineers.0.vulcanizationSteps",
                 "coatingLayers",
-                "data.shrinkThickness"
+                "data.shrunkThickness"
               ],
               "label": "Actual Rubber Thickness"
             },
