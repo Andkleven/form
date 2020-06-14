@@ -104,6 +104,33 @@ export default ({
                     Specifications
                   </Link>
                   <Link
+                    // to={`/project/${project.id}`}
+                    to={`/batching/${stage}/${project.id}/`}
+                    key={`project${indexProject}`}
+                    iconProps={{
+                      icon: ["fad", "cubes"],
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: "2em", ...rowStyle }}
+                  >
+                    Batching
+                  </Link>
+                  <Link
+                    // to={`/project/${project.id}`}
+                    to={`/partial-batching/${stage}/${project.id}/`}
+                    key={`project${indexProject}`}
+                    iconProps={{
+                      icon: ["far", "cubes"],
+                      size: iconSize,
+                      style: iconStyle,
+                      className: "text-secondary"
+                    }}
+                    style={{ marginRight: "2em", ...rowStyle }}
+                  >
+                    Partial batching
+                  </Link>
+                  <Link
                     tooltip="Delete project"
                     to={`#`}
                     color="danger"
@@ -113,7 +140,7 @@ export default ({
                       size: iconSize,
                       style: iconStyle
                     }}
-                    style={{ ...rowStyle }}
+                    style={{ marginRight: "2em", ...rowStyle }}
                     onClick={() => {
                       const confirmation = window.prompt(
                         "To delete a project is irreversible. Enter the project name to confirm deletion:",
