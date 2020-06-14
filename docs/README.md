@@ -43,9 +43,8 @@ WIP...
 3. Install [Git](https://git-scm.com/)
 4. [Create a GitHub user](https://github.com/join)
 5. Get access to the [repository](https://github.com/Andkleven/digital-coating-report-2.0) (will show 404 error if you do not have permission)
-6. TODO: GitHub login in VSCode/Computer?
-7. Open VSCode
-8. Clone the repository
+6. Open VSCode
+7. Clone the repository
 
    1. Press <kbd>F1</kbd>
    2. Type
@@ -64,9 +63,9 @@ WIP...
    5. Follow instructions
    6. Press "yes" to open repository, or open manually
 
-9. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
+8. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
    - Tip: The norwegian keyboard shortcut is <kbd>CTRL</kbd> + <kbd>Ø</kbd>
-10. Install extensions:
+9. Install extensions:
 
       Windows
 
@@ -104,13 +103,13 @@ WIP...
          
       All extensions used in the project are listed in `.vscode/extensions.txt`, so you can try [another method](https://stackoverflow.com/questions/35773299/how-can-you-export-the-visual-studio-code-extension-list) or install them manually.
 
-11.  Install all node packages:
+10.  Install all node packages:
 
    ```console
    npm install
    ```
 
-12. Start app:
+11. Start app:
 
    ```console
    npm start
