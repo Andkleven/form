@@ -16,7 +16,8 @@ export const search = (data, filters, search) => {
   const activeItemFilters =
     (filters.stage && filters.stage !== "leadEngineer" && 1) || 0;
   const activeDescriptionFilters = (filters.geometry && 1) || 0;
-  const activeProjectFilters = (["leadEngineer"].includes(filters.stage) && 1) || 0;
+  const activeProjectFilters =
+    (["leadEngineer"].includes(filters.stage) && 1) || 0;
   // const activeFilters = filters && Object.keys(filters).length;
   const activeFilters =
     activeItemFilters + activeDescriptionFilters + activeProjectFilters;
@@ -131,6 +132,8 @@ export const search = (data, filters, search) => {
       if (results && elementHasChildren(results)) {
         if (!activeProjectFilters || matchesProjectFilters(project)) {
           results.data = project.data;
+          results.id = project.id;
+          results.leadEngineerDone = project.leadEngineerDone;
           matches.push(results);
         }
       }
