@@ -110,9 +110,7 @@ const CustomLead = props => {
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 
-  // useEffect(() => {
-  //   thickness(props.backendData)
-  // }, [])
+  console.log(props.writeChapter, toleranceMin, toleranceMax, layersThickness);
 
   if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (

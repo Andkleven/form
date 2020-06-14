@@ -39,7 +39,6 @@ export default props => {
     label = camelCaseToNormal(label);
     return (option.label = label);
   });
-  console.log(props.value);
   const selectProps = {
     className: "w-100",
     name: props.name,
