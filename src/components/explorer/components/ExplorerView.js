@@ -43,6 +43,10 @@ export default ({ view = "items", ...props }) => {
     setSearchTerm("");
   };
 
+  // console.log("data", props.data);
+  // console.log("results", results);
+  // console.log("stage", filters["stage"]);
+
   return (
     <>
       <div className="mb-3">

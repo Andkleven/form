@@ -47,7 +47,7 @@ WIP...
 7. Clone the repository
 
    1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
-   2. Type
+   2. Enter
 
       ```console
       Git: Clone
@@ -126,6 +126,8 @@ WIP...
    ```console
    npm start
    ```
+
+12. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
 
 ## 🧪 Cross platform and user testing
 

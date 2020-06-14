@@ -45,6 +45,7 @@ export const search = (data, filters, search) => {
   const matchesItemFilters = (key, value) => {
     if (key === "stage") {
       if (typeof value === "string" && value === filters.stage) {
+        console.log("matchesItemFilters!");
         return true;
       }
     }
