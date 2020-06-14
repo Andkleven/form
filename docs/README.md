@@ -61,6 +61,7 @@ WIP...
       ```
 
    4. Select a place to store the project
+   5. Follow instructions
 
 9. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
    - Tip: The norwegian keyboard shortcut is <kbd>CTRL</kbd> + <kbd>Ø</kbd>
