@@ -280,35 +280,6 @@ export default ({
                       ))}
                   </ItemGrid>
                 </Tree>
-                // <Tree
-                //   iconSize={iconSize}
-                //   iconStyle={iconStyle}
-                //   rowStyle={rowStyle}
-                //   defaultOpen
-                //   key={`project${indexProject}Description${indexDescription}`}
-                //   // name={description.data.geometry}
-                //   name={`Description ${indexDescription + 1}`}
-                // >
-                //   <ItemGrid>
-                //     {props.access &&
-                //       (props.access.itemRead || props.access.itemWrite) &&
-                //       description.items &&
-                //       description.items.map((item, indexItem) => (
-                //         <Link
-                //           to={`/single-item/${item.id}/${description.data.geometry}`}
-                //           key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
-                //           iconProps={{
-                //             icon: ["fad", "cube"],
-                //             size: iconSize,
-                //             style: iconStyle
-                //           }}
-                //           style={rowStyle}
-                //         >
-                //           {item.id}
-                //         </Link>
-                //       ))}
-                //   </ItemGrid>
-                // </Tree>
               ))}
           </Tree>
         ))
