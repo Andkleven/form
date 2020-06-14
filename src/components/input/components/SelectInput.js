@@ -39,7 +39,6 @@ export default props => {
     label = camelCaseToNormal(label);
     return (option.label = label);
   });
-  // console.log(props.value);
   const selectProps = {
     className: "w-100",
     name: props.name,
@@ -57,7 +56,7 @@ export default props => {
         primary: "#f1b25b"
       }
     }),
-    value: props.value,
+    selected: props.value,
     isSearchable: true,
     placeholder: placeholder,
     onChange: props.onChangeSelect,

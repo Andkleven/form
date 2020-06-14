@@ -110,10 +110,6 @@ const CustomLead = props => {
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 
-  // useEffect(() => {
-  //   thickness(props.backendData)
-  // }, [])
-
   if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (
       <Alert variant={status} className="">

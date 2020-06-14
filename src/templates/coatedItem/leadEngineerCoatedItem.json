@@ -452,7 +452,7 @@
                   "default": 0
                 },
                 {
-                  "fieldName": "shrinkThickness",
+                  "fieldName": "shrunkThickness",
                   "label": "Shrunk Thickness",
                   "math": "mathShrinkThickness",
                   "type": "Number",
