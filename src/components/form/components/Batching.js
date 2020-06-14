@@ -2,7 +2,11 @@ import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { useMutation } from "@apollo/react-hooks";
 import { Form } from "react-bootstrap";
-import { findValue, coatedItemOrMould } from "functions/general";
+import {
+  findValue,
+  coatedItemOrMould,
+  reshapeStageSting
+} from "functions/general";
 import mutations from "graphql/mutation";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 import operatorMouldJson from "templates/mould/operatorMould.json";
@@ -65,19 +69,25 @@ export default props => {
       props.setFinishedItem(0);
     }
   };
-  const remove = (item, description) => {
+  const remove = item => {
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
-    props.setBatchingListIds(
-      props.batchingListIds.filter(id => Number(id) !== Number(item.id))
-    );
-    props.setNewDescriptionId(
-      props.newDescriptionId.filter(id => Number(id) !== Number(description.id))
-    );
+
+    let index = props.batchingListIds.indexOf(Number(item.id));
+    if (-1 < index) {
+      props.setBatchingListIds(prevState => {
+        prevState.splice(index, 1);
+        return [...prevState];
+      });
+      props.setNewDescriptionId(prevState => {
+        prevState.splice(index, 1);
+        return [...prevState];
+      });
+    }
   };
   const handleClick = (e, item, description, batchingData) => {
     if (e.target.checked) {
@@ -133,7 +143,7 @@ export default props => {
         operatorCoatedItemJson,
         operatorMouldJson
       );
-      let chapter = itemJson["chapters"][props.stage];
+      let chapter = itemJson["chapters"][reshapeStageSting(props.stage)];
       let batchingData = allFields(chapter, item);
       if (
         item.stage === props.stage &&
@@ -185,17 +195,14 @@ export default props => {
         );
       } else {
         //  På et annet stage
-        return (
-          <div key={`${index}-text`} className="text-danger">
-            {item.itemId}
-          </div>
-        );
+        return null;
       }
     });
   };
 
   return (
-    <>
+    <div className="text-center">
+      <h4>Stage: {props.stage}</h4>
       {props.data &&
         objectPath
           .get(props.data, "projects.0.descriptions")
@@ -207,17 +214,17 @@ export default props => {
               Number(props.descriptionId) === 0
             ) {
               return (
-                <div className="text-center" key={index}>
+                <Fragment key={index}>
                   <h5>
                     {description.data.description} - {description.data.geometry}{" "}
                   </h5>
                   <Item description={description} />
-                </div>
+                </Fragment>
               );
             } else {
               return null;
             }
           })}
-    </>
+    </div>
   );
 };

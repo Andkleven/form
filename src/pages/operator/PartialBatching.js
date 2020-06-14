@@ -15,7 +15,8 @@ import {
   removeSpace,
   objectifyQuery,
   getDataToBatching,
-  getStepFromStage
+  getStepFromStage,
+  reshapeStageSting
 } from "functions/general";
 
 export default pageInfo => {
@@ -45,7 +46,7 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson,
     allBatchingJson,
-    stage
+    reshapeStageSting(stage)
   );
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
@@ -90,6 +91,7 @@ export default pageInfo => {
       data: { [saveData]: oldData[saveData] }
     });
   };
+  console.log(newDescriptionId, batchingListIds);
   return (
     <Canvas>
       <Paper>
@@ -108,7 +110,7 @@ export default pageInfo => {
                   operatorCoatedItemJson,
                   operatorMouldJson,
                   allBatchingJson,
-                  stage
+                  reshapeStageSting(stage)
                 )
               : batchingJson
           }

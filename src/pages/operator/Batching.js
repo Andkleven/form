@@ -117,7 +117,7 @@ export default pageInfo => {
           batchingData={batchingData}
           batchingListIds={batchingListIds}
           setBatchingListIds={setBatchingListIds}
-          stage={reshapeStageSting(stage)}
+          stage={stage}
           repeatStepList={
             getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
           }
