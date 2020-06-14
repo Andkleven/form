@@ -110,8 +110,6 @@ const CustomLead = props => {
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 
-  console.log(props.writeChapter, toleranceMin, toleranceMax, layersThickness);
-
   if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
     return (
       <Alert variant={status} className="">
