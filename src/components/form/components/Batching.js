@@ -5,12 +5,16 @@ import { Form } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,
-  reshapeStageSting
+  reshapeStageSting,
+  camelCaseToNormal
 } from "functions/general";
 import mutations from "graphql/mutation";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 import operatorMouldJson from "templates/mould/operatorMould.json";
 import FindNextStage from "components/form/stage/findNextStage.ts";
+import Line from "components/design/Line";
+import CheckInput from "components/input/components/CheckInput";
+import LightLine from "components/design/LightLine";
 
 export default props => {
   const [submitStage] = useMutation(mutations["ITEM"]);
@@ -136,7 +140,7 @@ export default props => {
     return allRequiredFulfilled;
   };
 
-  const Item = ({ description }) => {
+  const Items = ({ description }) => {
     return objectPath.get(description, "items").map((item, index) => {
       let itemJson = coatedItemOrMould(
         description.data.geometry,
@@ -172,7 +176,19 @@ export default props => {
                 Finished
               </button>
             ) : null}
-            <Form.Check
+            <CheckInput
+              key={`${index}-check`}
+              onChange={e => handleClick(e, item, description, batchingData)}
+              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
+              checked={
+                props.batchingListIds.find(id => Number(id) === Number(item.id))
+                  ? true
+                  : false
+              }
+              label={item.itemId}
+              // tight
+            ></CheckInput>
+            {/* <Form.Check
               key={`${index}-check`}
               className="text-success"
               onChange={e => handleClick(e, item, description, batchingData)}
@@ -183,7 +199,7 @@ export default props => {
                   : false
               }
               label={item.itemId}
-            />
+            /> */}
           </Fragment>
         );
       } else if (item.stage === props.stage) {
@@ -201,8 +217,12 @@ export default props => {
   };
 
   return (
-    <div className="text-center">
-      <h4>Stage: {props.stage}</h4>
+    <div>
+      <h3 style={{ position: "relative", top: ".15em" }}>
+        Batching for {camelCaseToNormal(props.stage)}
+      </h3>
+      <Line></Line>
+      <p>Pick what items to batch below:</p>
       {props.data &&
         objectPath
           .get(props.data, "projects.0.descriptions")
@@ -214,11 +234,22 @@ export default props => {
               Number(props.descriptionId) === 0
             ) {
               return (
-                <Fragment key={index}>
-                  <h5>
-                    {description.data.description} - {description.data.geometry}{" "}
-                  </h5>
-                  <Item description={description} />
+                <Fragment key={`${index}`}>
+                  {!!description &&
+                    !Items({ description }).every(
+                      element => element === null
+                    ) && (
+                      <>
+                        <div>
+                          {description.data.description}{" "}
+                          <div className="text-secondary d-inline">
+                            ({description.data.geometry})
+                          </div>
+                        </div>
+                        <LightLine></LightLine>
+                        <Items description={description} />
+                      </>
+                    )}
                 </Fragment>
               );
             } else {

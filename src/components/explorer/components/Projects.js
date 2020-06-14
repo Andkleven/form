@@ -86,8 +86,8 @@ export default ({
               // + `(${countProjectItems(project)} items)`
             }
           >
-            {props.access && props.access.specs && (
-              <div className="d-flex align-items-center flex-wrap">
+            <div className="d-flex align-items-center flex-wrap">
+              {props.access && props.access.specs && (
                 <Link
                   to={`/project/${project["id"]}`}
                   key={`projectSpecs${indexProject}`}
@@ -101,38 +101,39 @@ export default ({
                 >
                   Specifications
                 </Link>
-                {!!stage &&
-                  !["leadEngineer", "qualityControl"].includes(stage) && (
-                    <>
-                      <Link
-                        // to={`/project/${project["id"]}`}
-                        to={`/batching/${stage}/${project["id"]}`}
-                        key={`projectBatching${indexProject}`}
-                        iconProps={{
-                          icon: ["fad", "cubes"],
-                          size: iconSize,
-                          style: iconStyle
-                        }}
-                        style={{ marginRight: "2em", ...rowStyle }}
-                      >
-                        Batching
-                      </Link>
-                      <Link
-                        // to={`/project/${project["id"]}`}
-                        to={`/partial-batching/${stage}/${project["id"]}`}
-                        key={`projectPartialBatching${indexProject}`}
-                        iconProps={{
-                          icon: ["far", "cubes"],
-                          size: iconSize,
-                          style: iconStyle,
-                          className: "text-secondary"
-                        }}
-                        style={{ marginRight: "2em", ...rowStyle }}
-                      >
-                        Partial batching
-                      </Link>
-                    </>
-                  )}
+              )}
+              {!!stage && !["leadEngineer", "qualityControl"].includes(stage) && (
+                <>
+                  <Link
+                    // to={`/project/${project["id"]}`}
+                    to={`/batching/${stage}/${project["id"]}`}
+                    key={`projectBatching${indexProject}`}
+                    iconProps={{
+                      icon: ["fad", "cubes"],
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: "2em", ...rowStyle }}
+                  >
+                    Batching
+                  </Link>
+                  <Link
+                    // to={`/project/${project["id"]}`}
+                    to={`/partial-batching/${stage}/${project["id"]}`}
+                    key={`projectPartialBatching${indexProject}`}
+                    iconProps={{
+                      icon: ["far", "cubes"],
+                      size: iconSize,
+                      style: iconStyle,
+                      className: "text-secondary"
+                    }}
+                    style={{ marginRight: "2em", ...rowStyle }}
+                  >
+                    Partial batching
+                  </Link>
+                </>
+              )}
+              {props.access && props.access.specs && (
                 <Link
                   tooltip="Delete project"
                   to={`#`}
@@ -168,7 +169,8 @@ export default ({
                 >
                   Delete project
                 </Link>
-                {/* <Button
+              )}
+              {/* <Button
                   variant="danger"
                   style={{ height: "2em", marginRight: "1em" }}
                   key={`project${indexProject}Delete`}
@@ -180,8 +182,7 @@ export default ({
                 >
                   <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
                 </Button> */}
-              </div>
-            )}
+            </div>
             {project.descriptions &&
               project.descriptions.map((description, indexDescription) => (
                 <Tree
