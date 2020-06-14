@@ -33,7 +33,7 @@ export default ({
       query: query["OPERATOR_PROJECTS"]
     });
     const newData = oldData.projects.filter(
-      project => String(project.id) !== String(deleted)
+      project => String(project["id"]) !== String(deleted)
     );
     cache.writeQuery({
       query: query["OPERATOR_PROJECTS"],
@@ -72,7 +72,6 @@ export default ({
             name={
               <div className="text-wrap">
                 {project.data.projectName}
-
                 <div className="d-inline text-secondary">
                   {`${
                     (numberOfChildren(data, project.data.projectName) &&
@@ -88,72 +87,100 @@ export default ({
             }
           >
             {props.access && props.access.specs && (
-              <>
-                <div className="d-flex align-items-center flex-wrap">
-                  <Link
-                    to={`/project/${project.id}`}
-                    key={`project${indexProject}`}
-                    iconProps={{
-                      icon: ["fad", "file-invoice"],
-                      swapOpacity: true,
-                      size: iconSize,
-                      style: iconStyle
-                    }}
-                    style={{ marginRight: "2em", ...rowStyle }}
-                  >
-                    Specifications
-                  </Link>
-                  <Link
-                    tooltip="Delete project"
-                    to={`#`}
-                    color="danger"
-                    key={`project${indexProject}DeleteLinkButton`}
-                    iconProps={{
-                      icon: ["fas", "trash-alt"],
-                      size: iconSize,
-                      style: iconStyle
-                    }}
-                    style={{ ...rowStyle }}
-                    onClick={() => {
-                      const confirmation = window.prompt(
-                        "To delete a project is irreversible. Enter the project name to confirm deletion:",
-                        ""
-                      );
-                      if (
-                        confirmation === project.data.projectName &&
-                        window.confirm(
-                          `Are you sure? The project "${project.data.projectName}" will be gone forever.\nTip: You may need to refresh the browser to see the changes.`
-                        )
-                      ) {
-                        deleteProject({ variables: { id: project.id } });
-                        // window.location.reload(false);
-                        refetch();
-                      } else if (
-                        confirmation !== project.data.projectName &&
-                        confirmation !== null
-                      ) {
-                        alert(
-                          "Entered name doesn't match. Project not deleted."
-                        );
-                      }
-                    }}
-                  >
-                    Delete project
-                  </Link>
-                  {/* <Button
+              <div className="d-flex align-items-center flex-wrap">
+                <Link
+                  to={`/project/${project["id"]}`}
+                  key={`projectSpecs${indexProject}`}
+                  iconProps={{
+                    icon: ["fad", "file-invoice"],
+                    swapOpacity: true,
+                    size: iconSize,
+                    style: iconStyle
+                  }}
+                  style={{ marginRight: "2em", ...rowStyle }}
+                >
+                  Specifications
+                </Link>
+                {!!stage &&
+                  !["leadEngineer", "qualityControl"].includes(stage) && (
+                    <>
+                      <Link
+                        // to={`/project/${project["id"]}`}
+                        to={`/batching/${stage}/${project["id"]}`}
+                        key={`projectBatching${indexProject}`}
+                        iconProps={{
+                          icon: ["fad", "cubes"],
+                          size: iconSize,
+                          style: iconStyle
+                        }}
+                        style={{ marginRight: "2em", ...rowStyle }}
+                      >
+                        Batching
+                      </Link>
+                      <Link
+                        // to={`/project/${project["id"]}`}
+                        to={`/partial-batching/${stage}/${project["id"]}`}
+                        key={`projectPartialBatching${indexProject}`}
+                        iconProps={{
+                          icon: ["far", "cubes"],
+                          size: iconSize,
+                          style: iconStyle,
+                          className: "text-secondary"
+                        }}
+                        style={{ marginRight: "2em", ...rowStyle }}
+                      >
+                        Partial batching
+                      </Link>
+                    </>
+                  )}
+                <Link
+                  tooltip="Delete project"
+                  to={`#`}
+                  color="danger"
+                  key={`project${indexProject}DeleteLinkButton`}
+                  iconProps={{
+                    icon: ["fas", "trash-alt"],
+                    size: iconSize,
+                    style: iconStyle
+                  }}
+                  style={{ marginRight: "2em", ...rowStyle }}
+                  onClick={() => {
+                    const confirmation = window.prompt(
+                      "To delete a project is irreversible. Enter the project name to confirm deletion:",
+                      ""
+                    );
+                    if (
+                      confirmation === project.data.projectName &&
+                      window.confirm(
+                        `Are you sure? The project "${project.data.projectName}" will be gone forever.\nTip: You may need to refresh the browser to see the changes.`
+                      )
+                    ) {
+                      deleteProject({ variables: { id: project["id"] } });
+                      // window.location.reload(false);
+                      refetch();
+                    } else if (
+                      confirmation !== project.data.projectName &&
+                      confirmation !== null
+                    ) {
+                      alert("Entered name doesn't match. Project not deleted.");
+                    }
+                  }}
+                >
+                  Delete project
+                </Link>
+                {/* <Button
                   variant="danger"
                   style={{ height: "2em", marginRight: "1em" }}
                   key={`project${indexProject}Delete`}
                   className="d-flex align-items-center"
                   onClick={() => {
-                    deleteProject({ variables: { id: project.id } });
+                    deleteProject({ variables: { id: project["id"] } });
                     window.location.reload(false);
                   }}
                 >
                   <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
                 </Button> */}
-                </div>
-              </>
+              </div>
             )}
             {project.descriptions &&
               project.descriptions.map((description, indexDescription) => (
@@ -185,12 +212,12 @@ export default ({
                     </div>
                   }
                 >
-                  {!!stage &&
+                  {/* {!!stage &&
                     !["leadEngineer", "qualityControl"].includes(stage) && (
                       <div className="d-flex align-items-center flex-wrap mb-2">
                         <Link
-                          // to={`/project/${project.id}`}
-                          to={`/batching/${stage}/${project.id}/${description.data.description}/${description.data.geometry}`}
+                          // to={`/project/${project["id"]}`}
+                          to={`/batching/${stage}/${project["id"]}/${description.data.description}/${description.data.geometry}`}
                           key={`project${indexProject}`}
                           iconProps={{
                             icon: ["fad", "cubes"],
@@ -202,7 +229,7 @@ export default ({
                           Batching
                         </Link>
                         <Link
-                          // to={`/project/${project.id}`}
+                          // to={`/project/${project["id"]}`}
                           to={`/partial-batching/${stage}/${description.data.description}/${description.data.geometry}`}
                           key={`project${indexProject}`}
                           iconProps={{
@@ -216,7 +243,7 @@ export default ({
                           Partial batching
                         </Link>
                       </div>
-                    )}
+                    )} */}
                   <ItemGrid className="mb-n3">
                     {props.access &&
                       (props.access.itemRead || props.access.itemWrite) &&
