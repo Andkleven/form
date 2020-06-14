@@ -37,7 +37,9 @@ export default ({ resetState, ...props }) => {
 
   useEffect(() => {
     let backendDate = objectPath.get(
-      Object.keys(documentDate).length === 0 ? props.backendData : documentDate,
+      Object.keys(documentDate.current).length === 0
+        ? props.backendData
+        : documentDate.current,
       getNewPath(),
       null
     );
@@ -58,9 +60,9 @@ export default ({ resetState, ...props }) => {
   const updateReadOnly = useCallback(() => {
     setReadOnly(
       !objectPath.get(
-        Object.keys(documentDate).length === 0
+        Object.keys(documentDate.current).length === 0
           ? props.backendData
-          : documentDate,
+          : documentDate.current,
         props.readOnlyFieldIf,
         false
       )
@@ -164,7 +166,7 @@ export default ({ resetState, ...props }) => {
   );
 
   const getLabel = useCallback(
-    (data = documentDate) => {
+    (data = documentDate.current) => {
       setLabel(
         variableLabel(
           props.label,

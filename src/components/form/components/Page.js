@@ -58,8 +58,7 @@ export default React.memo(props => {
   );
 
   const addHandler = useCallback(() => {
-    // console.log(documentDate, props.path)
-    if (objectPath.get(documentDate, props.path) === undefined) {
+    if (objectPath.get(documentDate.current, props.path) === undefined) {
       documentDateDispatch({
         type: "add",
         newState: {},
@@ -71,7 +70,9 @@ export default React.memo(props => {
         type: "add",
         newState: {},
         fieldName: "data",
-        path: `${props.path}.${objectPath.get(documentDate, props.path).length}`
+        path: `${props.path}.${
+          objectPath.get(documentDate.current, props.path).length
+        }`
       });
     }
     setAddOrRemove(prevState => prevState + 1);
@@ -112,15 +113,15 @@ export default React.memo(props => {
     writeChapter.current &&
     (!objectPath.get(props.data, props.path) ||
       objectPath.get(props.data, props.path).length === 0) &&
-    Array.isArray(objectPath.get(documentDate, props.path)) &&
-    objectPath.get(documentDate, props.path).length === 0
+    Array.isArray(objectPath.get(documentDate.current, props.path)) &&
+    objectPath.get(documentDate.current, props.path).length === 0
   ) {
     addData(0);
   }
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
   const autoRepeat = useCallback(
-    (data = documentDate) => {
+    (data = documentDate.current) => {
       let newValue = getRepeatNumber(
         data,
         props.repeatGroupWithQuery,
@@ -184,7 +185,7 @@ export default React.memo(props => {
   ]);
 
   if (
-    objectPath.get(documentDate, props.path, null) === null &&
+    objectPath.get(documentDate.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
     !isNumber(Number(props.path.split(".")[props.path.split(".").length - 1]))
   ) {
@@ -212,7 +213,7 @@ export default React.memo(props => {
   const save = e => {
     e.persist();
     e.preventDefault();
-    props.submitData(documentDate, false);
+    props.submitData(documentDate.current, false);
   };
 
   const SaveButton = () => (
@@ -249,7 +250,7 @@ export default React.memo(props => {
   const SubmitAndCancel = () => {
     return (
       <DepthButtonGroup className="w-100 d-flex">
-        <SubmitButton />
+        {!props.notSubmitButton && <SubmitButton />}
         {props.saveButton && <SaveButton />}
         {showCancel && <CancelButton />}
       </DepthButtonGroup>

@@ -137,7 +137,7 @@ const LEAD_ENGINEER_DONE = gql`
 
 const OPERATOR_BATCHING = gql`
   mutation operatorsBaching(
-    $operators: [UnderCategoriesOfLeadEngineerInput]
+    $operators: [OperatorBachingInput]
     $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
     $itemIdList: [Int]!
     $stage: String
@@ -161,10 +161,6 @@ const OPERATOR_BATCHING = gql`
             operators {
               id
               data
-              measurementPointActualTdvs {
-                id
-                data
-              }
               additionalCustomTestOperators {
                 id
                 data
@@ -172,26 +168,10 @@ const OPERATOR_BATCHING = gql`
               vulcanizationOperators {
                 id
                 data
-                coatingOperators {
-                  id
-                  data
-                  mixDates {
-                    id
-                    data
-                  }
-                  measurementPointOperators {
-                    id
-                    data
-                  }
-                }
-                measurementPointOperators {
-                  id
-                  data
-                }
               }
             }
           }
-        }  
+        }
       }
     }
   }
@@ -212,6 +192,8 @@ const OPERATOR = gql`
           operators {
             id
             data
+            dustCheckImage
+            surfaceCleanlinessImage
             measurementPointActualTdvs {
               id
               data
@@ -243,7 +225,7 @@ const OPERATOR = gql`
             }
           }
         }
-      } 
+      }
     }
   }
 `;

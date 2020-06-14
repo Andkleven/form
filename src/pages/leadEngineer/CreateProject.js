@@ -8,13 +8,14 @@ import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
-import { objectifyQuery } from "functions/general";
+import { objectifyQuery, stringifyQuery } from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import stages from "components/form/stage/stages.json";
+const cloneDeep = require("clone-deep");
 
 export default pageInfo => {
   const [_id, set_id] = useState(Number(pageInfo.match.params.id));
@@ -210,10 +211,9 @@ export default pageInfo => {
   const setInitialStages = data => {
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {
-        const geometry = JSON.parse(description.data).geometry;
         description.items.forEach((item, itemIndex) => {
           let stage = undefined;
-          switch (geometry) {
+          switch (description.data.geometry) {
             case "Coated Item":
               stage = Object.keys(stages["coateditem"])[0];
               break;
@@ -229,9 +229,7 @@ export default pageInfo => {
         });
       });
     });
-    console.log(data);
   };
-
   return (
     <Canvas>
       <Paper>
@@ -335,21 +333,16 @@ export default pageInfo => {
                 className: "text-primary"
               }}
               className="text-center w-100 mt-1"
-              onClick={() =>
+              onClick={() => {
+                let newData = cloneDeep(fixedData);
+                setInitialStages(newData);
+                newData["projects"][0]["leadEngineerDone"] = true;
+                stringifyQuery(newData);
                 LeadEngineerDoneMutation({
-                  variables: {
-                    projects: [{ id: _id, leadEngineerDone: true }]
-                  }
-                })
-              }
-              disabled={
-                /** WARNING: Non-strict comparison below
-                 * For more info on strict vs non-strict comparisons:
-                 * https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a
-                 */
-                // eslint-disable-next-line
-                sendable || sent
-              }
+                  variables: newData
+                });
+              }}
+              disabled={sendable || sent}
             >
               {sent ? "Sent to Production" : "Send to Production"}
             </DepthButton>

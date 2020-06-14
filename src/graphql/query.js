@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const ALL = gql`
+const BATCHING_OPERATOR = gql`
   query($id: Int) {
     projects(id: $id) {
       id
@@ -51,36 +51,70 @@ const ALL = gql`
           operators {
             id
             data
-            surfaceCleanlinessImage
-            dustCheckImage
+            additionalCustomTestOperators {
+              id
+              data
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const BATCHING_VULCANIZATION = gql`
+  query($id: Int) {
+    projects(id: $id) {
+      id
+      data
+      leadEngineerDone
+      descriptions {
+        id
+        data
+        items {
+          id
+          itemId
+          unique
+          qrCode
+          repair
+          stage
+          leadEngineers {
+            id
+            data
             measurementPointActualTdvs {
               id
               data
             }
-            vulcanizationOperators {
+            additionalCustomTests {
               id
               data
-              coatingOperators {
+            }
+            finalInspectionCustomTests {
+              id
+              data
+            }
+            rubberCements {
+              id
+              data
+            }
+            vulcanizationSteps {
+              id
+              data
+              coatingLayers {
                 id
                 data
-                mixDates {
+                cumulativeThickness {
                   id
                   data
                 }
-                measurementPointOperators {
-                  id
-                  data
-                }
-              }
-              measurementPointOperators {
-                id
-                data
               }
             }
-                additionalCustomTestOperators {
-                  id
-                  data
-                }
+          }
+          operators {
+            vulcanizationSteps {
+              id
+              data
+            }
           }
         }
       }
@@ -400,10 +434,10 @@ const QUALITY_CONTROL = gql`
             data
           }
         }
-            additionalCustomTestOperators {
-              id
-              data
-            }
+        additionalCustomTestOperators {
+          id
+          data
+        }
       }
       finalInspectionQualityControls {
         id
@@ -434,27 +468,27 @@ const QUALITY_CONTROL = gql`
   }
 `;
 
-
 const USERS = gql`
   query($role: [String]) {
     userProfile(role: $role) {
-        id
-        name
-        role
+      id
+      name
+      role
     }
   }
 `;
 
 const DEFAULT = gql`
   query($name: String) {
-    query(name: $name){
+    query(name: $name) {
       id
-    }      
+    }
   }
 `;
 
 const query = {
-  ALL,
+  BATCHING_OPERATOR,
+  BATCHING_VULCANIZATION,
   GET_ORDER_GEOMETRY,
   GET_LEAD_ENGINEER,
   GET_GEOMETRY,

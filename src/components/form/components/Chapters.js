@@ -44,10 +44,7 @@ export default props => {
       // Map through pages in this pages
       chapter = pageInfo.pages.map((info, index) => {
         let showEditButton = !props.notEditButton && !index ? true : false;
-        let showSaveButton =
-          index === pageInfo.pages.length - 1 && !props.notSubmitButton
-            ? true
-            : false;
+        let showSaveButton = index === pageInfo.pages.length - 1 ? true : false;
         return (
           <Page
             key={`${index}-${count}-canvas`}

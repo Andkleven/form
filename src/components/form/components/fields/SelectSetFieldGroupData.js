@@ -31,18 +31,18 @@ export default ({ addOrRemove, ...props }) => {
     if (
       Array.isArray(
         objectPath.get(
-          Object.keys(documentDate).length === 0
+          Object.keys(documentDate.current).length === 0
             ? props.backendData
-            : documentDate,
+            : documentDate.current,
           props.path
         )
       )
     ) {
       return objectPath
         .get(
-          Object.keys(documentDate).length === 0
+          Object.keys(documentDate.current).length === 0
             ? props.backendData
-            : documentDate,
+            : documentDate.current,
           props.path
         )
         .map((v, index) => {

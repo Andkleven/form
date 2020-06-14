@@ -7,7 +7,7 @@
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_OPERATOR",
       "chapters": ""
     }
   },
@@ -19,7 +19,7 @@
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_OPERATOR",
       "chapters": ""
     }
   },
@@ -31,7 +31,7 @@
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_OPERATOR",
       "chapters": ""
     }
   },
@@ -43,7 +43,7 @@
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_OPERATOR",
       "chapters": ""
     }
   },
@@ -55,7 +55,7 @@
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_OPERATOR",
       "chapters": ""
     }
   },
@@ -67,7 +67,7 @@
       "queryPath": ["operators.0.vulcanizationOperators", ""],
       "specQueryPath": ["leadEngineers.0.vulcanizationOperators", ""],
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_VULCANIZATION",
       "chapters": ""
     }
   },
@@ -79,7 +79,7 @@
       "queryPath": "operators",
       "specQueryPath": "leadEngineers",
       "mutation": "OPERATOR_BATCHING",
-      "query": "ALL",
+      "query": "BATCHING_OPERATOR",
       "chapters": ""
     }
   }

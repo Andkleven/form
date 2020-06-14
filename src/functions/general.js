@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import objectPath from "object-path";
 import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
@@ -87,11 +87,11 @@ export const getData = (
   documentDate,
   isItData = false
 ) => {
-  if (!documentDate) {
+  if (!documentDate.current) {
     return null;
   }
   let path = createPath(info.queryPath, repeatStepList);
-  let data = objectPath.get(documentDate, path);
+  let data = objectPath.get(documentDate.current, path);
   if (isItData && Array.isArray(data)) {
     return data[data.length - 1];
   }
@@ -146,12 +146,16 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
   let returnValue = true;
   pageInfo.pages.forEach((page, index) => {
     let newPath = page.queryPath;
-    let allFieldMissing = []
+    let allFieldMissing = [];
     page.fields &&
       page.fields.forEach(field => {
         let dataFields = objectPath.get(
           data,
-          Array.isArray(newPath) ? createPath(newPath, array) : index === 0 ? `${newPath}.0` : newPath
+          Array.isArray(newPath)
+            ? createPath(newPath, array)
+            : index === 0
+            ? `${newPath}.0`
+            : newPath
         );
         if (field.required) {
           if (Array.isArray(dataFields)) {
@@ -178,14 +182,14 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
             dataFields.data === undefined ||
             dataFields.data[field.fieldName] === undefined)
         ) {
-          allFieldMissing.push(false)
+          allFieldMissing.push(false);
         } else {
-          allFieldMissing.push(true)
+          allFieldMissing.push(true);
         }
       });
-      if (allFieldMissing.every(allFalse) && allFieldMissing.length !== 0) {
-        returnValue = false;
-      }
+    if (allFieldMissing.every(allFalse) && allFieldMissing.length !== 0) {
+      returnValue = false;
+    }
   });
   return returnValue;
 };
@@ -386,38 +390,37 @@ export const calculateMaxMin = (
   return { min: newMin, max: newMax };
 };
 
-export const chapterPages = (
-  props,
-  view,
-  firstIndex,
-  stopLoop,
-  editField,
-  pageInfo,
-  lastChapter
-) => {
-  return pageInfo.pages.map((info, index) => {
-    let showEditButton = !props.notEditButton && !index ? true : false;
-    let showSaveButton =
-      index === pageInfo.pages.length - 1 &&
-      !editField &&
-      !props.notSubmitButton
-        ? true
-        : false;
-    let page = view(
-      info,
-      index,
-      firstIndex + 1,
-      stopLoop.current,
-      showEditButton,
-      lastChapter,
-      showSaveButton
-    );
-    return <Fragment key={`${index}-${firstIndex}-canvas`}>{page}</Fragment>;
-  });
-};
+// export const chapterPages = (
+//   props,
+//   view,
+//   firstIndex,
+//   stopLoop,
+//   editField,
+//   pageInfo,
+//   lastChapter
+// ) => {
+//   return pageInfo.pages.map((info, index) => {
+//     let showEditButton = !props.notEditButton && !index ? true : false;
+//     let showSaveButton =
+//       index === pageInfo.pages.length - 1 &&
+//       !editField &&
+//       !props.notSubmitButton
+//         ? true
+//         : false;
+//     let page = view(
+//       info,
+//       index,
+//       firstIndex + 1,
+//       stopLoop.current,
+//       showEditButton,
+//       lastChapter,
+//       showSaveButton
+//     );
+//     return <Fragment key={`${index}-${firstIndex}-canvas`}>{page}</Fragment>;
+//   });
+// };
 
-
-export const stringifyQuery = (query, removeEmptyField=false) => {
+export const stringifyQuery = (query, removeEmptyField = false) => {
   let newObject = { ...query };
   const loopThroughQuery = (query, oldPath = null) => {
     let path;
@@ -428,10 +431,10 @@ export const stringifyQuery = (query, removeEmptyField=false) => {
           loopThroughQuery(value, path + "." + index.toString());
         });
       } else if (key === "data") {
-        let object = query[key]
+        let object = query[key];
         if (removeEmptyField) {
-          removeEmptyValueFromObject(object)
-        } 
+          removeEmptyValueFromObject(object);
+        }
         let isData = JSON.stringify(object);
         if (isData) {
           objectPath.set(newObject, path, isData);
@@ -466,18 +469,19 @@ export const getDataToBatching = (
   fixedData,
   batchingListIds,
   path,
-  indexItemPath,
+  descriptionId,
   repeatStepList
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
-    let newData = fixedData.projects[0].descriptions.find(
-      description => Number(description.id) === Number(indexItemPath)
-    ).items.find(
-      item => Number(item.id) === Number(batchingListIds[0])
-    )
-    newData = objectPath.get(newData, Array.isArray(path) ? createPath(path, repeatStepList) : path)
-    
+    let newData = fixedData.projects[0].descriptions
+      .find(description => Number(description.id) === Number(descriptionId))
+      .items.find(item => Number(item.id) === Number(batchingListIds[0]));
+    newData = objectPath.get(
+      newData,
+      Array.isArray(path) ? createPath(path, repeatStepList) : path
+    );
+
     return { [key]: newData };
   }
   return { [key]: [] };
@@ -542,11 +546,7 @@ export const reshapeStageSting = stage => {
   return newStage;
 };
 
-export const coatedItemOrMould = (
-  category,
-  coatedItemJson,
-  mouldJson
-) => {
+export const coatedItemOrMould = (category, coatedItemJson, mouldJson) => {
   let json;
   if (removeSpace(category.toString()).toLowerCase() === "coateditem") {
     json = coatedItemJson;
@@ -574,4 +574,23 @@ export function getRepeatStepList(repeatStepList, index) {
 
 export function isLastCharacterNumber(str) {
   return !isNaN(Number(str.slice(-1)));
+}
+
+export function getBatchingJson(
+  geometry,
+  operatorCoatedItemJson,
+  operatorMouldJson,
+  allBatchingJson,
+  stage
+) {
+  let operatorJson = coatedItemOrMould(
+    geometry,
+    operatorCoatedItemJson,
+    operatorMouldJson
+  );
+  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
+  batchingJson.document.chapters = [
+    operatorJson.chapters[reshapeStageSting(stage)]
+  ];
+  return batchingJson;
 }

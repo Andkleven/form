@@ -6,40 +6,47 @@ import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json
 import operatorMouldJson from "templates/mould/operatorMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
+import Canvas from "components/layout/Canvas";
 import objectPath from "object-path";
 import Batching from "components/form/components/Batching";
 import {
+  getBatchingJson,
   getDataFromQuery,
   removeSpace,
   objectifyQuery,
   getDataToBatching,
-  reshapeStageSting,
-  coatedItemOrMould,
   getStepFromStage
 } from "functions/general";
 
 export default pageInfo => {
-  const { stage, projectId, descriptionId, geometry } = pageInfo.match.params;
+  const {
+    stage,
+    projectId,
+    descriptionId,
+    geometryDefault
+  } = pageInfo.match.params;
+
   const [batchingData, setBatchingData] = useState(false);
   const [finishedItem, setFinishedItem] = useState(0);
-  const [fixedData, setFixedData] = useState(null);
+  const [fixedData, setFixedData] = useState(false);
   const [reRender, setReRender] = useState(false);
-  const [indexItemList, setIndexItemList] = useState(0);
+  const [newDescriptionId, setNewDescriptionId] = useState([]);
   const [batchingListIds, setBatchingListIds] = useState([]);
-  let operatorJson = coatedItemOrMould(
+  const [geometry, setGeometry] = useState("coateditem");
+
+  useEffect(() => {
+    if (geometryDefault) {
+      setGeometry(geometryDefault);
+    }
+  }, [geometryDefault]);
+
+  let batchingJson = getBatchingJson(
     geometry,
     operatorCoatedItemJson,
-    operatorMouldJson
+    operatorMouldJson,
+    allBatchingJson,
+    stage
   );
-  // console.log(operatorJson)
-  // console.log(allBatchingJson)
-  // console.log(reshapeStageSting(stage))
-  let batchingJson = allBatchingJson[reshapeStageSting(stage)];
-  // console.log(batchingJson)
-  batchingJson.document.chapters = [
-    operatorJson.chapters[reshapeStageSting(stage)]
-  ];
-
   const { loading, error, data } = useQuery(
     query[batchingJson.document.query],
     {
@@ -51,8 +58,10 @@ export default pageInfo => {
   }, [loading, error, data, reRender]);
 
   useEffect(() => {
-    setIndexItemList(Number(descriptionId));
-  }, [setIndexItemList, descriptionId]);
+    if (Number(descriptionId)) {
+      setNewDescriptionId([Number(descriptionId)]);
+    }
+  }, [setNewDescriptionId, descriptionId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -81,62 +90,81 @@ export default pageInfo => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-
   return (
-    <Paper>
-      <h3 className={"text-center"}>Partial Batching</h3>
-      <Batching
-        data={fixedData}
-        json={batchingJson}
-        setBatchingData={setBatchingData}
-        batchingData={batchingData}
-        partialBatching={true}
-        batchingListIds={batchingListIds}
-        setBatchingListIds={setBatchingListIds}
-        setFinishedItem={setFinishedItem}
-        finishedItem={finishedItem}
-        stage={stage}
-        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
-        descriptionId={descriptionId}
-        indexItemList={indexItemList}
-        setIndexItemList={setIndexItemList}
-      />
-      <Form
-        repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
-        chapterAlwaysInWrite={true}
-        componentsId={"leadEngineersPage"}
-        geometry={
-          getDataFromQuery(data, "descriptions.0", "geometry") &&
-          removeSpace(
-            getDataFromQuery(data, "descriptions.0", "geometry")
-          ).toLowerCase()
-        }
-        document={batchingJson.document}
-        removeEmptyField={true}
-        saveButton={true}
-        notSubmitButton={batchingListIds.length ? false : true}
-        reRender={() => {
-          setBatchingListIds([]);
-          setBatchingData(false);
-          setReRender(!reRender);
-        }}
-        data={getDataToBatching(
-          fixedData,
-          [finishedItem],
-          batchingJson.document.queryPath
-          // step
-        )}
-        stage={finishedItem ? stage : null}
-        specData={getDataToBatching(
-          fixedData,
-          batchingListIds,
-          batchingJson.document.specQueryPath
-          // step
-        )}
-        updateCache={() => update}
-        readOnlyFields={!batchingListIds[0]}
-        batchingListIds={batchingListIds}
-      />
-    </Paper>
+    <Canvas>
+      <Paper>
+        <h3 className={"text-center"}>Partial Batching</h3>
+        <Batching
+          data={fixedData}
+          json={
+            fixedData && newDescriptionId[0]
+              ? getBatchingJson(
+                  objectPath
+                    .get(fixedData, "projects.0.descriptions")
+                    .find(
+                      description =>
+                        Number(description.id) === Number(newDescriptionId[0])
+                    )["data"]["geometry"],
+                  operatorCoatedItemJson,
+                  operatorMouldJson,
+                  allBatchingJson,
+                  stage
+                )
+              : batchingJson
+          }
+          setBatchingData={setBatchingData}
+          batchingData={batchingData}
+          partialBatching={true}
+          batchingListIds={batchingListIds}
+          setBatchingListIds={setBatchingListIds}
+          setFinishedItem={setFinishedItem}
+          finishedItem={finishedItem}
+          stage={stage}
+          repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
+          descriptionId={descriptionId}
+          newDescriptionId={newDescriptionId}
+          setNewDescriptionId={setNewDescriptionId}
+        />
+        <Form
+          repeatStepList={getStepFromStage(stage) && [getStepFromStage(stage)]}
+          chapterAlwaysInWrite={true}
+          componentsId={"leadEngineersPage"}
+          geometry={
+            getDataFromQuery(data, "descriptions.0", "geometry") &&
+            removeSpace(
+              getDataFromQuery(data, "descriptions.0", "geometry")
+            ).toLowerCase()
+          }
+          document={batchingJson.document}
+          removeEmptyField={true}
+          saveButton={!finishedItem}
+          notSubmitButton={!finishedItem}
+          reRender={() => {
+            setBatchingListIds([]);
+            setBatchingData(false);
+            setFinishedItem(0);
+            setReRender(!reRender);
+          }}
+          data={getDataToBatching(
+            fixedData,
+            [finishedItem],
+            batchingJson.document.queryPath,
+            newDescriptionId[0]
+            // step
+          )}
+          stage={finishedItem ? stage : null}
+          specData={getDataToBatching(
+            fixedData,
+            batchingListIds,
+            batchingJson.document.specQueryPath,
+            newDescriptionId[0]
+            // step
+          )}
+          updateCache={() => update}
+          readOnlyFields={!batchingListIds[0]}
+          batchingListIds={batchingListIds}
+        />
+      </Paper>
+    </Canvas>
   );
 };

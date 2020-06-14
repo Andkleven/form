@@ -6,59 +6,57 @@ import objectPath from "object-path";
 
 import "styles/styles.css";
 
-export default ({resetState, backendData, ...props}) => {
-  const [value, setValue] = useState("")
-  const {documentDate, documentDateDispatch, renderFunction} = useContext(DocumentDateContext);
-  
+export default ({ resetState, backendData, ...props }) => {
+  const [value, setValue] = useState("");
+  const { documentDate, documentDateDispatch, renderFunction } = useContext(
+    DocumentDateContext
+  );
+
   const math = useCallback(
-    (data=documentDate) => {
+    (data = documentDate.current) => {
       const getValueFromMath = props.setValueByIndex
-                  ? props.repeatStep + 1
-                  : Math[props.math](
-                    data,
-                    props.repeatStepList,
-                    props.decimal ? props.decimal : 0)
-      if (objectPath.get(documentDate, props.path) !== getValueFromMath) {
-        documentDateDispatch({type: 'add', newState: getValueFromMath, path: props.path, notReRender: true})
-        setValue(getValueFromMath)
+        ? props.repeatStep + 1
+        : Math[props.math](
+            data,
+            props.repeatStepList,
+            props.decimal ? props.decimal : 0
+          );
+      if (
+        objectPath.get(documentDate.current, props.path) !== getValueFromMath
+      ) {
+        documentDateDispatch({
+          type: "add",
+          newState: getValueFromMath,
+          path: props.path,
+          notReRender: true
+        });
+        setValue(getValueFromMath);
       }
     },
     [
       props.setValueByIndex,
-      documentDate, 
-      documentDateDispatch, 
-      props.decimal, 
-      props.math, 
-      props.path, 
-      props.repeatStep, 
+      documentDate,
+      documentDateDispatch,
+      props.decimal,
+      props.math,
+      props.path,
+      props.repeatStep,
       props.repeatStepList
-    ])
+    ]
+  );
 
   useEffect(() => {
-      renderFunction[`${props.label}-${props.repeatStepList}-ReadOnly`] = math
+    renderFunction[`${props.label}-${props.repeatStepList}-ReadOnly`] = math;
     return () => {
-        delete renderFunction[`${props.label}-${props.repeatStepList}-ReadOnly`]
-    }
-  },[
-    math,
-    renderFunction,
-    props.label,
-    props.repeatStepList
-  ])
+      delete renderFunction[`${props.label}-${props.repeatStepList}-ReadOnly`];
+    };
+  }, [math, renderFunction, props.label, props.repeatStepList]);
 
   useEffect(() => {
-      setValue(objectPath.get(backendData, props.path))
-  }, [
-    backendData,
-    props.path
-  ])
+    setValue(objectPath.get(backendData, props.path));
+  }, [backendData, props.path]);
 
   return (
-    <ReadField
-      {...props}
-      key={props.indexId}
-      readOnly={true}
-      value={value}
-    />
+    <ReadField {...props} key={props.indexId} readOnly={true} value={value} />
   );
 };

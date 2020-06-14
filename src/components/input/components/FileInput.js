@@ -41,9 +41,9 @@ export default props => {
   const [placeholder, setPlaceholder] = useState("");
 
   useEffect(() => {
-    setFiles([])
-  }, [props.componentsId, setFiles])
-  
+    setFiles([]);
+  }, [props.componentsId, setFiles]);
+
   // test
   useEffect(() => {
     if (!props.singleFile) {
@@ -116,7 +116,7 @@ export default props => {
   };
   useEffect(() => {
     if (props.singleFile) {
-      let file = objectPath.get(documentDate, props.path);
+      let file = objectPath.get(documentDate.current, props.path);
       if (file && file.name) {
         setPlaceholder(file.name);
       } else {
