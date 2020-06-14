@@ -63,31 +63,9 @@
             },
             {
               "fieldName": "mediaBlastingStarted",
-              "label": "Media Blasting Started",
-              "required": true,
-              "type": "datetime-local"
-            },
-            {
-              "fieldName": "inspectionOfSteelSurface",
-              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
-              "label": "Inspection of Steel Surface",
-              "subtext": "ISO 8501-3, Welds to be grade P3",
-              "required": true,
-              "type": "checkbox"
-            },
-            {
-              "fieldName": "mediaBlastingStarted",
               "required": true,
               "label": "Media Blasting Started",
               "type": "datetime-local"
-            },
-            {
-              "fieldName": "inspectionOfSteelSurface",
-              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
-              "label": "Inspection of Steel Surface",
-              "subtext": "ISO 8501-3, Welds to be grade P3",
-              "required": true,
-              "type": "checkbox"
             },
             {
               "fieldName": "steelPreparationPerformed",

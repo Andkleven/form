@@ -27,7 +27,6 @@ export default ({ resetState, ...props }) => {
   const [state, setState] = useState("");
   const [readOnly, setReadOnly] = useState(false);
   const [label, setLabel] = useState("");
-
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
       return `${props.path}.${props.fieldName}`;

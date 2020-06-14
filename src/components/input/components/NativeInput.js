@@ -4,9 +4,9 @@ import { Form, InputGroup } from "react-bootstrap";
 function NativeInput(props) {
   return (
     <>
-      <Form.Group className={props.tight && "mb-1"} >
+      <Form.Group className={props.tight && "mb-1"}>
         <div className="d-flex">
-          <InputGroup className="d-flex" >
+          <InputGroup className="d-flex">
             {props.prepend ? (
               <InputGroup.Prepend>
                 <InputGroup.Text className="bg-light text-secondary">
@@ -20,9 +20,12 @@ function NativeInput(props) {
               isInvalid={props.isInvalid}
               id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
               required={props.required}
-              readOnly={props.readOnlyFields ? props.readOnlyFields : props.readOnly}
+              readOnly={
+                props.readOnlyFields ? props.readOnlyFields : props.readOnly
+              }
               defaultValue={props.defaultValue}
               name={props.name}
+              value={props.value}
               onChange={props.onChange}
               onBlur={props.onBlur}
               as={props.select}

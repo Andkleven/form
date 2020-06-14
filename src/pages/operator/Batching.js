@@ -13,7 +13,8 @@ import {
   getBatchingJson,
   objectifyQuery,
   getDataToBatching,
-  getStepFromStage
+  getStepFromStage,
+  reshapeStageSting
 } from "functions/general";
 
 export default pageInfo => {
@@ -42,7 +43,7 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson,
     allBatchingJson,
-    stage
+    reshapeStageSting(stage)
   );
 
   const { loading, error, data } = useQuery(
@@ -108,7 +109,7 @@ export default pageInfo => {
                   operatorCoatedItemJson,
                   operatorMouldJson,
                   allBatchingJson,
-                  stage
+                  reshapeStageSting(stage)
                 )
               : batchingJson
           }
@@ -116,12 +117,12 @@ export default pageInfo => {
           batchingData={batchingData}
           batchingListIds={batchingListIds}
           setBatchingListIds={setBatchingListIds}
-          stage={stage}
+          stage={reshapeStageSting(stage)}
           repeatStepList={
             getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
           }
           descriptionId={descriptionId}
-          newDescriptionId={newDescriptionId[0]}
+          newDescriptionId={newDescriptionId}
           setNewDescriptionId={setNewDescriptionId}
         />
         <Form

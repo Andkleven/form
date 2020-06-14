@@ -1,9 +1,16 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
+import { useMutation } from "@apollo/react-hooks";
 import { Form } from "react-bootstrap";
-import { findValue } from "functions/general";
+import { findValue, coatedItemOrMould } from "functions/general";
+import mutations from "graphql/mutation";
+import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/mould/operatorMould.json";
+import FindNextStage from "components/form/stage/findNextStage.ts";
 
 export default props => {
+  const [submitStage] = useMutation(mutations["ITEM"]);
+
   const allFields = (chapter, itemData) => {
     let batchingData = {};
     chapter.pages.forEach(page => {
@@ -22,13 +29,30 @@ export default props => {
             props.repeatStepList
           );
         }
+        if (field.max) {
+          batchingData[field.fieldName + "max"] = field.max;
+        }
+        if (field.min) {
+          batchingData[field.fieldName + "min"] = field.min;
+        }
+        if (field.routeToSpecMax) {
+          batchingData[field.fieldName + "routeToSpecMax"] = objectPath.get(
+            itemData,
+            field.routeToSpecMax
+          );
+        }
+        if (field.routeToSpecMin) {
+          batchingData[field.fieldName + "routeToSpecMin"] = objectPath.get(
+            itemData,
+            field.routeToSpecMin
+          );
+        }
       });
     });
     return batchingData;
   };
 
   const add = (item, description, batchingData) => {
-    console.log(description);
     props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
     props.setNewDescriptionId(prevState => [
       ...prevState,
@@ -42,7 +66,6 @@ export default props => {
     }
   };
   const remove = (item, description) => {
-    console.log(props.batchingListIds, props.batchingListIds.length);
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
     }
@@ -64,9 +87,54 @@ export default props => {
     }
   };
 
+  const allRequiredSatisfied = (itemData, chapter) => {
+    let allRequiredFulfilled = true;
+    chapter.pages.forEach(page => {
+      page.fields.forEach(field => {
+        if (field.fieldName && field.required && !field.specValueList) {
+          let value = findValue(
+            itemData,
+            Array.isArray(props.json.batching.dataPath)
+              ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
+              : [props.json.batching.dataPath, `data.${field.fieldName}`],
+            props.repeatStepList
+          );
+          if ([null, undefined, "", false].includes(value)) {
+            allRequiredFulfilled = false;
+          }
+          let min;
+          let max;
+          if (field.routeToSpecMin) {
+            min = objectPath.get(itemData, field.routeToSpecMin);
+          } else if (field.min) {
+            min = field.min;
+          }
+          if (field.routeToSpecMax) {
+            max = objectPath.get(itemData, field.routeToSpecMax);
+          } else if (field.max) {
+            max = field.max;
+          }
+          if (min !== undefined && value < min) {
+            allRequiredFulfilled = false;
+          }
+          if (max !== undefined && max < value) {
+            allRequiredFulfilled = false;
+          }
+        }
+      });
+    });
+    return allRequiredFulfilled;
+  };
+
   const Item = ({ description }) => {
     return objectPath.get(description, "items").map((item, index) => {
-      let batchingData = allFields(props.json.document.chapters[0], item);
+      let itemJson = coatedItemOrMould(
+        description.data.geometry,
+        operatorCoatedItemJson,
+        operatorMouldJson
+      );
+      let chapter = itemJson["chapters"][props.stage];
+      let batchingData = allFields(chapter, item);
       if (
         item.stage === props.stage &&
         (!props.batchingData ||
@@ -74,13 +142,20 @@ export default props => {
       ) {
         return (
           <Fragment key={`${index}-fragment`}>
-            {props.partialBatching ? (
+            {props.partialBatching && allRequiredSatisfied(item, chapter) ? (
               <button
                 key={`${index}-button`}
                 onClick={() => {
-                  props.setFinishedItem(Number(item.id));
-                  props.setBatchingListIds([Number(item.id)]);
-                  props.setNewDescriptionId([Number(description.id)]);
+                  submitStage({
+                    variables: {
+                      stage: FindNextStage(
+                        item,
+                        props.stage,
+                        description.data.geometry
+                      ),
+                      id: item.id
+                    }
+                  });
                 }}
               >
                 {" "}

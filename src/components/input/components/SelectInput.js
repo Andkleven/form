@@ -6,7 +6,6 @@ import { camelCaseToNormal } from "functions/general";
 
 // import Duplicate from "./widgets/Duplicate";
 
-
 export default props => {
   let options = [];
 
@@ -17,15 +16,14 @@ export default props => {
           value: element.name
         });
       }
-    }) 
+    });
   } else if (props.options) {
     props.options.forEach(element => {
       options.push({
         value: element
       });
     });
-  } 
-    
+  }
 
   const placeholder = props.custom
     ? props.placeholder || "Select or type..."
@@ -41,7 +39,7 @@ export default props => {
     label = camelCaseToNormal(label);
     return (option.label = label);
   });
-
+  console.log(props.value);
   const selectProps = {
     className: "w-100",
     name: props.name,
@@ -59,6 +57,7 @@ export default props => {
         primary: "#f1b25b"
       }
     }),
+    value: props.value,
     isSearchable: true,
     placeholder: placeholder,
     onChange: props.onChangeSelect,
@@ -76,7 +75,7 @@ export default props => {
         )}
         {/* <Duplicate {...props} /> */}
       </div>
-      
+
       {props.subtext && (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       )}

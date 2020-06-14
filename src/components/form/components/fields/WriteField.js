@@ -149,19 +149,6 @@ export default ({ setResetState, setState, state, ...props }) => {
       );
     }
   };
-  useEffect(() => {
-    if (props.type === "date" || props.type === "datetime-local") {
-      let backendDate = objectPath.get(
-        Object.keys(documentDate.current).length === 0
-          ? props.backendData
-          : documentDate.current,
-        props.path,
-        null
-      );
-      let newSate = backendDate ? new Date(backendDate) : new Date();
-      setState(newSate);
-    }
-  }, [setState, props.type, props.backendData, props.path, documentDate]);
 
   const defaultValue = useCallback(() => {
     return objectPath.get(
@@ -182,12 +169,25 @@ export default ({ setResetState, setState, state, ...props }) => {
   }, [defaultValue, setIgnoreRequired, documentDate, props.path]);
 
   useEffect(() => {
+    let newSate;
+    if (props.type === "date" || props.type === "datetime-local") {
+      let backendDate = objectPath.get(props.backendData, props.path, null);
+      newSate = backendDate ? new Date(backendDate) : new Date();
+    } else {
+      newSate = defaultValue();
+    }
     documentDateDispatch({
       type: "add",
-      newState: defaultValue(),
+      newState: newSate,
       path: props.path
     });
-  }, [props.path, documentDateDispatch, defaultValue]);
+  }, [
+    props.path,
+    documentDateDispatch,
+    defaultValue,
+    props.backendData,
+    props.type
+  ]);
   return (
     <>
       <Input
@@ -203,8 +203,6 @@ export default ({ setResetState, setState, state, ...props }) => {
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}
         name={props.fieldName}
-        min={props.min ? props.min : undefined}
-        max={props.max ? props.max : undefined}
         required={
           props.ignoreRequired && ignoreRequired ? false : props.required
         }
