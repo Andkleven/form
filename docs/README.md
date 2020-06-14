@@ -46,7 +46,7 @@ WIP...
 6. Open VSCode
 7. Clone the repository
 
-   1. Press <kbd>F1</kbd>
+   1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
    2. Type
 
       ```console
@@ -102,6 +102,18 @@ WIP...
       Other (or failed installation)
          
       All extensions used in the project are listed in `.vscode/extensions.txt`, so you can try [another method](https://stackoverflow.com/questions/35773299/how-can-you-export-the-visual-studio-code-extension-list) or install them manually.
+      
+      Optional
+      
+     1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
+
+     2. Enter `Material Icons: Activate Icons`
+     
+     3. Open the command palette
+     
+     4. Enter `Preferences: Color Theme`
+     
+     5. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
 
 10.  Install all node packages:
 
