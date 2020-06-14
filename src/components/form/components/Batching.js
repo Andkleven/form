@@ -1,9 +1,20 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
+import { useMutation } from "@apollo/react-hooks";
 import { Form } from "react-bootstrap";
-import { findValue } from "functions/general";
+import {
+  findValue,
+  coatedItemOrMould,
+  reshapeStageSting
+} from "functions/general";
+import mutations from "graphql/mutation";
+import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/mould/operatorMould.json";
+import FindNextStage from "components/form/stage/findNextStage.ts";
 
 export default props => {
+  const [submitStage] = useMutation(mutations["ITEM"]);
+
   const allFields = (chapter, itemData) => {
     let batchingData = {};
     chapter.pages.forEach(page => {
@@ -22,13 +33,30 @@ export default props => {
             props.repeatStepList
           );
         }
+        if (field.max) {
+          batchingData[field.fieldName + "max"] = field.max;
+        }
+        if (field.min) {
+          batchingData[field.fieldName + "min"] = field.min;
+        }
+        if (field.routeToSpecMax) {
+          batchingData[field.fieldName + "routeToSpecMax"] = objectPath.get(
+            itemData,
+            field.routeToSpecMax
+          );
+        }
+        if (field.routeToSpecMin) {
+          batchingData[field.fieldName + "routeToSpecMin"] = objectPath.get(
+            itemData,
+            field.routeToSpecMin
+          );
+        }
       });
     });
     return batchingData;
   };
 
   const add = (item, description, batchingData) => {
-    console.log(description);
     props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
     props.setNewDescriptionId(prevState => [
       ...prevState,
@@ -41,20 +69,25 @@ export default props => {
       props.setFinishedItem(0);
     }
   };
-  const remove = (item, description) => {
-    console.log(props.batchingListIds, props.batchingListIds.length);
+  const remove = item => {
     if (props.batchingListIds.length === 1) {
       props.setBatchingData(false);
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
-    props.setBatchingListIds(
-      props.batchingListIds.filter(id => Number(id) !== Number(item.id))
-    );
-    props.setNewDescriptionId(
-      props.newDescriptionId.filter(id => Number(id) !== Number(description.id))
-    );
+
+    let index = props.batchingListIds.indexOf(Number(item.id));
+    if (-1 < index) {
+      props.setBatchingListIds(prevState => {
+        prevState.splice(index, 1);
+        return [...prevState];
+      });
+      props.setNewDescriptionId(prevState => {
+        prevState.splice(index, 1);
+        return [...prevState];
+      });
+    }
   };
   const handleClick = (e, item, description, batchingData) => {
     if (e.target.checked) {
@@ -64,9 +97,54 @@ export default props => {
     }
   };
 
+  const allRequiredSatisfied = (itemData, chapter) => {
+    let allRequiredFulfilled = true;
+    chapter.pages.forEach(page => {
+      page.fields.forEach(field => {
+        if (field.fieldName && field.required && !field.specValueList) {
+          let value = findValue(
+            itemData,
+            Array.isArray(props.json.batching.dataPath)
+              ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
+              : [props.json.batching.dataPath, `data.${field.fieldName}`],
+            props.repeatStepList
+          );
+          if ([null, undefined, "", false].includes(value)) {
+            allRequiredFulfilled = false;
+          }
+          let min;
+          let max;
+          if (field.routeToSpecMin) {
+            min = objectPath.get(itemData, field.routeToSpecMin);
+          } else if (field.min) {
+            min = field.min;
+          }
+          if (field.routeToSpecMax) {
+            max = objectPath.get(itemData, field.routeToSpecMax);
+          } else if (field.max) {
+            max = field.max;
+          }
+          if (min !== undefined && value < min) {
+            allRequiredFulfilled = false;
+          }
+          if (max !== undefined && max < value) {
+            allRequiredFulfilled = false;
+          }
+        }
+      });
+    });
+    return allRequiredFulfilled;
+  };
+
   const Item = ({ description }) => {
     return objectPath.get(description, "items").map((item, index) => {
-      let batchingData = allFields(props.json.document.chapters[0], item);
+      let itemJson = coatedItemOrMould(
+        description.data.geometry,
+        operatorCoatedItemJson,
+        operatorMouldJson
+      );
+      let chapter = itemJson["chapters"][reshapeStageSting(props.stage)];
+      let batchingData = allFields(chapter, item);
       if (
         item.stage === props.stage &&
         (!props.batchingData ||
@@ -74,13 +152,20 @@ export default props => {
       ) {
         return (
           <Fragment key={`${index}-fragment`}>
-            {props.partialBatching ? (
+            {props.partialBatching && allRequiredSatisfied(item, chapter) ? (
               <button
                 key={`${index}-button`}
                 onClick={() => {
-                  props.setFinishedItem(Number(item.id));
-                  props.setBatchingListIds([Number(item.id)]);
-                  props.setNewDescriptionId([Number(description.id)]);
+                  submitStage({
+                    variables: {
+                      stage: FindNextStage(
+                        item,
+                        props.stage,
+                        description.data.geometry
+                      ),
+                      id: item.id
+                    }
+                  });
                 }}
               >
                 {" "}
@@ -110,17 +195,14 @@ export default props => {
         );
       } else {
         //  På et annet stage
-        return (
-          <div key={`${index}-text`} className="text-danger">
-            {item.itemId}
-          </div>
-        );
+        return null;
       }
     });
   };
 
   return (
-    <>
+    <div className="text-center">
+      <h4>Stage: {props.stage}</h4>
       {props.data &&
         objectPath
           .get(props.data, "projects.0.descriptions")
@@ -132,17 +214,17 @@ export default props => {
               Number(props.descriptionId) === 0
             ) {
               return (
-                <div className="text-center" key={index}>
+                <Fragment key={index}>
                   <h5>
                     {description.data.description} - {description.data.geometry}{" "}
                   </h5>
                   <Item description={description} />
-                </div>
+                </Fragment>
               );
             } else {
               return null;
             }
           })}
-    </>
+    </div>
   );
 };

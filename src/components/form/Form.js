@@ -13,8 +13,8 @@ import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import { stringifyQuery, isStringInstance } from "functions/general";
-
 import FindNextStage from "components/form/stage/findNextStage.ts";
+
 const cloneDeep = require("clone-deep");
 
 // import whyDidYouRender from "@welldone-software/why-did-you-render";
@@ -244,7 +244,6 @@ export default props => {
       props.stage
     ]
   );
-
   const formSubmit = e => {
     e.persist();
     e.preventDefault();

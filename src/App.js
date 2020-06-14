@@ -1,4 +1,3 @@
-import { hot } from "react-hot-loader/root";
 import React from "react";
 import { AUTH_TOKEN } from "./constants";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
@@ -16,7 +15,7 @@ import { ProjectProvider } from "components/explorer/components/ProjectContext";
 
 import "styles/icons";
 
-export default hot(() => {
+export default () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
   return (
@@ -71,4 +70,4 @@ export default hot(() => {
       </Router>
     </ProjectProvider>
   );
-});
+};
