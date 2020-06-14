@@ -232,8 +232,6 @@ export default pageInfo => {
     console.log(data);
   };
 
-  setInitialStages(data);
-
   return (
     <Canvas>
       <Paper>
