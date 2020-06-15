@@ -554,12 +554,12 @@
               "fieldName": "simpleFinalDimensionsCheck",
               "label": "Simple Final Dimensions Check",
               "type": "checkbox",
-              "subtext": "APS. All parts in accordance to drawings (no references)."
+              "subtext": "APS. All parts in accordance to drawings (no references or min-max)."
             }
           ]
         },
         {
-          "queryPath": "leadEngineers",
+          "queryPath": "leadEngineers.0.finalInspectionDimensionsChecks",
           "repeat": true,
           "delete": true,
           "addButton": "Advanced Final Dimensions Check",
