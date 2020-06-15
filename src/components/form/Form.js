@@ -262,7 +262,7 @@ export default props => {
           setEditChapter
         }}
       >
-        <Title title={props.document.documentTitle} />
+        <Title>{props.document.documentTitle}</Title>
         <Form
           onSubmit={e => {
             formSubmit(e);
