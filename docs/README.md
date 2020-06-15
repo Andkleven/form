@@ -115,13 +115,22 @@ WIP...
      
      5. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
 
-10.  Install all node packages:
+10.  Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
+
+```
+FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
+REACT_APP_BACKEND=https://versjon2.herokuapp.com/graphql/
+```
+
+
+
+11.  Install all node packages:
 
    ```console
    npm install
    ```
 
-11. Start app:
+12. Start app:
 
    ```console
    npm start

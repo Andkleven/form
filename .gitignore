@@ -3,3 +3,4 @@ package-lock.json
 # .vscode
 react-app-env.d.ts
 .codesandbox
+.env.development
