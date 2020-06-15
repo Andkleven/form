@@ -93,6 +93,12 @@
               "required": true,
               "label": "Media Blasting Started",
               "type": "datetime-local"
+            },
+            {
+              "fieldName": "steelPreparationPerformed",
+              "label": "Steel Preparation Performed",
+              "required": true,
+              "type": "datetime-local"
             }
           ]
         }

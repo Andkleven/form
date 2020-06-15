@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { useMutation } from "@apollo/react-hooks";
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,
@@ -15,7 +15,6 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
 import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
-import Link from "components/design/fonts/Link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
@@ -171,38 +170,33 @@ export default props => {
               labelAppend={
                 props.partialBatching &&
                 allRequiredSatisfied(item, chapter) && (
-                  <>
-                    <div className="d-flex align-items-center">
-                      <div className="d-inline text-secondary">(Done)</div>
-                      {props.partialBatching &&
-                      allRequiredSatisfied(item, chapter) ? (
-                        <Button
-                          variant="link"
-                          className="p-0 m-0 ml-2"
-                          style={{ height: "1.5em" }}
-                          key={`${index}-button`}
-                          onClick={() => {
-                            submitStage({
-                              variables: {
-                                stage: FindNextStage(
-                                  item,
-                                  props.stage,
-                                  description.data.geometry
-                                ),
-                                id: item.id
-                              }
-                            });
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            icon={["fas", "arrow-square-right"]}
-                            className="mr-2"
-                          />
-                          Send to next stage
-                        </Button>
-                      ) : null}
-                    </div>
-                  </>
+                  <div className="d-flex align-items-center">
+                    <div className="d-inline text-secondary">(Done)</div>
+                    <Button
+                      variant="link"
+                      className="p-0 m-0 ml-2"
+                      style={{ height: "1.5em" }}
+                      key={`${index}-button`}
+                      onClick={() => {
+                        submitStage({
+                          variables: {
+                            stage: FindNextStage(
+                              item,
+                              props.stage,
+                              description.data.geometry
+                            ),
+                            id: item.id
+                          }
+                        });
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={["fas", "arrow-square-right"]}
+                        className="mr-2"
+                      />
+                      Send to next stage
+                    </Button>
+                  </div>
                 )
               }
               // tight
@@ -225,13 +219,24 @@ export default props => {
       } else if (item.stage === props.stage) {
         // samme stage, men forskjellig data
         return (
-          <div key={`${index}-text`} className="text-danger">
+          <div className="d-flex align-items-center">
             {item.itemId}
+            <div className="d-inline text-secondary">
+              {props.partialBatching
+                ? "(Different speck data)"
+                : "(Different speck data or data)"}
+            </div>
           </div>
         );
       } else {
         //  På et annet stage
         return null;
+        // (
+        // <div className="d-flex align-items-center">
+        //   <div className="d-inline text-secondary">(Different stage)</div>
+        //   {item.itemId}
+        // </div>
+        // );
       }
     });
   };
