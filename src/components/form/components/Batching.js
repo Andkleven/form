@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { useMutation } from "@apollo/react-hooks";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,
@@ -15,6 +15,8 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
 import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
+import Link from "components/design/fonts/Link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   const [submitStage] = useMutation(mutations["ITEM"]);
@@ -156,26 +158,6 @@ export default props => {
       ) {
         return (
           <Fragment key={`${index}-fragment`}>
-            {props.partialBatching && allRequiredSatisfied(item, chapter) ? (
-              <button
-                key={`${index}-button`}
-                onClick={() => {
-                  submitStage({
-                    variables: {
-                      stage: FindNextStage(
-                        item,
-                        props.stage,
-                        description.data.geometry
-                      ),
-                      id: item.id
-                    }
-                  });
-                }}
-              >
-                {" "}
-                Finished
-              </button>
-            ) : null}
             <CheckInput
               key={`${index}-check`}
               onChange={e => handleClick(e, item, description, batchingData)}
@@ -185,9 +167,47 @@ export default props => {
                   ? true
                   : false
               }
-              label={item.itemId}
+              label={`${item.itemId}`}
+              labelAppend={
+                props.partialBatching &&
+                allRequiredSatisfied(item, chapter) && (
+                  <>
+                    <div className="d-flex align-items-center">
+                      <div className="d-inline text-secondary">(Done)</div>
+                      {props.partialBatching &&
+                      allRequiredSatisfied(item, chapter) ? (
+                        <Button
+                          variant="link"
+                          className="p-0 m-0 ml-2"
+                          style={{ height: "1.5em" }}
+                          key={`${index}-button`}
+                          onClick={() => {
+                            submitStage({
+                              variables: {
+                                stage: FindNextStage(
+                                  item,
+                                  props.stage,
+                                  description.data.geometry
+                                ),
+                                id: item.id
+                              }
+                            });
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={["fas", "arrow-square-right"]}
+                            className="mr-2"
+                          />
+                          Send to next stage
+                        </Button>
+                      ) : null}
+                    </div>
+                  </>
+                )
+              }
               // tight
             ></CheckInput>
+
             {/* <Form.Check
               key={`${index}-check`}
               className="text-success"
@@ -219,7 +239,8 @@ export default props => {
   return (
     <div>
       <h3 style={{ position: "relative", top: ".15em" }}>
-        Batching for {camelCaseToNormal(props.stage)}
+        {props.partialBatching && "Partial"} Batching for{" "}
+        {camelCaseToNormal(props.stage)}
       </h3>
       <Line></Line>
       <p>Pick what items to batch below:</p>

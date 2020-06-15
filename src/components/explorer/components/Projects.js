@@ -102,37 +102,39 @@ export default ({
                   Specifications
                 </Link>
               )}
-              {!!stage && !["leadEngineer", "qualityControl"].includes(stage) && (
-                <>
-                  <Link
-                    // to={`/project/${project["id"]}`}
-                    to={`/batching/${stage}/${project["id"]}`}
-                    key={`projectBatching${indexProject}`}
-                    iconProps={{
-                      icon: ["fad", "cubes"],
-                      size: iconSize,
-                      style: iconStyle
-                    }}
-                    style={{ marginRight: "2em", ...rowStyle }}
-                  >
-                    Batching
-                  </Link>
-                  <Link
-                    // to={`/project/${project["id"]}`}
-                    to={`/partial-batching/${stage}/${project["id"]}`}
-                    key={`projectPartialBatching${indexProject}`}
-                    iconProps={{
-                      icon: ["far", "cubes"],
-                      size: iconSize,
-                      style: iconStyle,
-                      className: "text-secondary"
-                    }}
-                    style={{ marginRight: "2em", ...rowStyle }}
-                  >
-                    Partial batching
-                  </Link>
-                </>
-              )}
+              {!!stage &&
+                // Array of stages with batching here
+                ["steelPreparation1", "steelPreparation2"].includes(stage) && (
+                  <>
+                    <Link
+                      // to={`/project/${project["id"]}`}
+                      to={`/batching/${stage}/${project["id"]}`}
+                      key={`projectBatching${indexProject}`}
+                      iconProps={{
+                        icon: ["fad", "cubes"],
+                        size: iconSize,
+                        style: iconStyle
+                      }}
+                      style={{ marginRight: "2em", ...rowStyle }}
+                    >
+                      Batching
+                    </Link>
+                    <Link
+                      // to={`/project/${project["id"]}`}
+                      to={`/partial-batching/${stage}/${project["id"]}`}
+                      key={`projectPartialBatching${indexProject}`}
+                      iconProps={{
+                        icon: ["far", "cubes"],
+                        size: iconSize,
+                        style: iconStyle,
+                        className: "text-secondary"
+                      }}
+                      style={{ marginRight: "2em", ...rowStyle }}
+                    >
+                      Partial batching
+                    </Link>
+                  </>
+                )}
               {props.access && props.access.specs && (
                 <Link
                   tooltip="Delete project"
@@ -313,7 +315,7 @@ export default ({
         ))
       ) : (
         <div className="pt-1 text-secondary">
-          <em>No projects found.</em>
+          <em>No items found.</em>
         </div>
       )}
     </div>
