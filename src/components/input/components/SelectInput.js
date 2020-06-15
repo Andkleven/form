@@ -67,11 +67,12 @@ export default props => {
   return (
     <Form.Group className={props.tight && "mb-1"} readOnly={true}>
       <div className="d-flex text-dark">
-        {props.custom ? (
+        <Creatable {...selectProps} />
+        {/* {props.custom ? (
           <Creatable {...selectProps} />
         ) : (
           <Select {...selectProps} />
-        )}
+        )} */}
         {/* <Duplicate {...props} /> */}
       </div>
 
