@@ -31,6 +31,10 @@ const BATCHING_OPERATOR = gql`
               id
               data
             }
+            finalInspectionDimensionsChecks {
+              id
+              data
+            }
             rubberCements {
               id
               data
@@ -90,6 +94,10 @@ const BATCHING_VULCANIZATION = gql`
               data
             }
             finalInspectionCustomTests {
+              id
+              data
+            }
+            finalInspectionDimensionsChecks {
               id
               data
             }
@@ -197,6 +205,10 @@ const GET_LEAD_ENGINEER = gql`
         id
         data
       }
+      finalInspectionDimensionsChecks {
+        id
+        data
+      }
     }
   }
 `;
@@ -226,6 +238,10 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             data
           }
           finalInspectionCustomTests {
+            id
+            data
+          }
+          finalInspectionDimensionsChecks {
             id
             data
           }
@@ -299,6 +315,10 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
         finalInspectionCustomTests {
+          id
+          data
+        }
+        finalInspectionDimensionsChecks {
           id
           data
         }
@@ -410,6 +430,10 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
+        finalInspectionDimensionsChecks {
+          id
+          data
+        }
       }
       operators {
         id
@@ -455,6 +479,10 @@ const QUALITY_CONTROL = gql`
           data
         }
         finalInspectionCustomTestQualityControls {
+          id
+          data
+        }
+        finalInspectionDimensionsCheckQualityControls {
           id
           data
         }

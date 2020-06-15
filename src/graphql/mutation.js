@@ -104,6 +104,10 @@ const LEAD_ENGINEER = gql`
           id
           data
         }
+        finalInspectionDimensionsChecks {
+          id
+          data
+        }
         rubberCements {
           id
           data
@@ -257,6 +261,10 @@ const QUALITY_CONTROL = gql`
           data
         }
         finalInspectionCustomTestQualityControls {
+          id
+          data
+        }
+        finalInspectionDimensionsCheckQualityControls {
           id
           data
         }
