@@ -56,9 +56,13 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           className={`d-flex justify-content-between align-items-start h-100`}
         >
           <div className={showUnderBreakpoint()}>
-            <small className="text-secondary">{`${props.label}`}</small>
+            <small className="text-secondary">
+              {props.label || <div className="ml-3">{props.prepend}</div>}
+            </small>
           </div>
-          <div className={showAboveBreakpoint()}>{`${props.label}`}</div>
+          <div className={showAboveBreakpoint()}>
+            {props.label || <div className="ml-3">{props.prepend}</div>}
+          </div>
         </div>
       );
     } else if (typeof props.label === "object") {
@@ -102,7 +106,11 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
 
   const Value = props =>
     DateValue() || (
-      <div className={`d-flex justify-content-between align-items-start h-100`}>
+      <div
+        className={`d-flex justify-content-between align-items-start h-100 ${
+          !props.label && "ml-3 ml-sm-0"
+        }`}
+      >
         {(props.type !== "checkbox" &&
           ![null, false, "null", undefined, ""].includes(props.value) &&
           `${props.value}${showUnit}`) ||

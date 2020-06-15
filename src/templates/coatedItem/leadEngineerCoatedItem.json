@@ -160,17 +160,18 @@
           "queryPath": "leadEngineers.0.additionalCustomTests",
           "repeat": true,
           "delete": true,
-          "addButton": "Additional Custom Test",
+          "addButton": "Custom Test",
           "fields": [
             {
               "fieldName": "name",
+              "prepend": "Name",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
-              "label": "Name"
+              "label": "Custom Test"
             },
             {
               "fieldName": "criteria",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
-              "label": "Criteria"
+              "prepend": "Criteria"
             }
           ]
         },
@@ -496,6 +497,7 @@
         {
           "pageTitle": "Final Inspection",
           "queryPath": "leadEngineers",
+          "repeat": true,
           "fields": [
             {
               "fieldName": "hardnessOfOuterLayer",
@@ -537,17 +539,6 @@
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
             },
             {
-              "fieldName": "finalDimensionsCheck",
-              "label": "Final Dimensions Check",
-              "type": "checkbox",
-              "subtext": "APS. All parts in accordance to drawings."
-            },
-            {
-              "fieldName": "finalDimensionsCheckReferences",
-              "label": "Final Dimensions Check References",
-              "readOnlyFieldIf": "leadEngineers.0.data.finalDimensionsCheck"
-            },
-            {
               "fieldName": "sparkTest",
               "label": "Spark Test",
               "type": "checkbox",
@@ -558,6 +549,36 @@
               "label": "Hammer Test",
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch."
+            },
+            {
+              "fieldName": "simpleFinalDimensionsCheck",
+              "label": "Simple Final Dimensions Check",
+              "type": "checkbox",
+              "subtext": "APS. All parts in accordance to drawings (no references)."
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Advanced Final Dimensions Check",
+          "fields": [
+            {
+              "fieldName": "finalDimensionsReference",
+              "label": "Final Dimensions Reference"
+            },
+            {
+              "fieldName": "finalDimensionsMin",
+              "prepend": "Min",
+              "unit": "mm",
+              "type": "Number"
+            },
+            {
+              "fieldName": "finalDimensionsMax",
+              "prepend": "Max",
+              "unit": "mm",
+              "type": "Number"
             }
           ]
         },
@@ -565,15 +586,16 @@
           "queryPath": "leadEngineers.0.finalInspectionCustomTests",
           "repeat": true,
           "delete": true,
-          "addButton": "Final Inspection Custom Test",
+          "addButton": "Custom Test",
           "fields": [
             {
               "fieldName": "name",
-              "label": "Name"
+              "label": "Custom Test",
+              "prepend": "Name"
             },
             {
               "fieldName": "criteria",
-              "label": "Criteria"
+              "prepend": "Criteria"
             }
           ]
         }
