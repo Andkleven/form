@@ -106,7 +106,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         {(props.type !== "checkbox" &&
           ![null, false, "null", undefined, ""].includes(props.value) &&
           `${props.value}${showUnit}`) ||
-          (props.value === false && `Not performed`) ||
+          (props.value === false && `―`) ||
           (props.value === true && props.type === "checkbox" && `✓`) || (
             <EmptyValue />
           )}

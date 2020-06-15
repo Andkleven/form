@@ -543,6 +543,11 @@
               "subtext": "APS. All parts in accordance to drawings."
             },
             {
+              "fieldName": "finalDimensionsCheckReferences",
+              "label": "Final Dimensions Check References",
+              "readOnlyFieldIf": "leadEngineers.0.data.finalDimensionsCheck"
+            },
+            {
               "fieldName": "sparkTest",
               "label": "Spark Test",
               "type": "checkbox",
