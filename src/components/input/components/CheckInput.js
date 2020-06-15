@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 export default props => (
-  <Form.Group className={props.tight ? "mb-0" : "mb-3"}>
+  <Form.Group className="mb-0">
     <div className="d-flex justify-content-between">
       <div className="d-flex align-items-center flex-wrap">
         <Form.Check

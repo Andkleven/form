@@ -4,7 +4,7 @@ import { Form, InputGroup } from "react-bootstrap";
 function NativeInput(props) {
   return (
     <>
-      <Form.Group className={props.tight && "mb-1"}>
+      <Form.Group className="mb-0">
         <div className="d-flex">
           <InputGroup className="d-flex">
             {props.prepend ? (
@@ -51,16 +51,13 @@ function NativeInput(props) {
                 {props.append}
               </InputGroup.Append>
             )}
-            {props.feedback && (
+            {/* {props.feedback && (
               <>
-                {/* <Form.Control.Feedback type="valid">
-              {props.feedback}
-            </Form.Control.Feedback> */}
                 <Form.Control.Feedback type="invalid">
                   {props.feedback}
                 </Form.Control.Feedback>
               </>
-            )}
+            )} */}
           </InputGroup>
           {/* <Duplicate {...props} /> */}
         </div>

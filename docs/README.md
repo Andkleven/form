@@ -122,8 +122,6 @@ FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
 REACT_APP_BACKEND=https://versjon2.herokuapp.com/graphql/
 ```
 
-
-
 11.  Install all node packages:
 
    ```console
