@@ -65,7 +65,8 @@ export default props => {
   };
 
   return (
-    <Form.Group className={props.tight && "mb-1"} readOnly={true}>
+    <>
+      {/* <Form.Group className="mb-0" readOnly={true}> */}
       <div className="d-flex text-dark">
         <Creatable {...selectProps} />
         {/* {props.custom ? (
@@ -79,11 +80,12 @@ export default props => {
       {props.subtext && (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       )}
-      {props.feedback && (
+      {/* {props.feedback && (
         <Form.Control.Feedback type="invalid">
           {props.feedback}
         </Form.Control.Feedback>
-      )}
-    </Form.Group>
+      )} */}
+      {/* </Form.Group> */}
+    </>
   );
 };

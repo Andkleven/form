@@ -24,19 +24,19 @@ const InputShell = props => {
   };
 
   return !customLabelTypes.includes(props.type) ? (
-    <>
+    <div className={props.tight ? "mb-0" : "mb-3"}>
       <div className="d-flex justify-content-between">
         {props.label && <Form.Label>{props.label}</Form.Label>}
         {props.TinyButtons}
       </div>
       {props.children}
       <BottomPart {...props} />
-    </>
+    </div>
   ) : (
-    <>
+    <div className={props.tight ? "mb-0" : "mb-3"}>
       {props.children}
       <BottomPart {...props} />
-    </>
+    </div>
   );
 };
 
@@ -65,6 +65,12 @@ const InputType = props => {
 export default props => (
   <InputShell {...props}>
     <InputType {...props} />
+    {props.feedback || (
+      <small>
+        {props.feedback}
+        Feedback
+      </small>
+    )}
     {/* {props.repeat && props.repeatStartWithOneGroup && <Duplicate {...props} />} */}
   </InputShell>
 );

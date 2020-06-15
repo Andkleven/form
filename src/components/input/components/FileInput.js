@@ -134,7 +134,7 @@ export default props => {
   }, [props.placeholder, documentDate, props.path, props.singleFile]);
 
   return (
-    <div className={`p-3 border rounded mb-3`}>
+    <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
         {props.writeChapter && (
           <div {...getRootProps({ style })}>
