@@ -91,11 +91,10 @@ export default pageInfo => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-  console.log(newDescriptionId, batchingListIds);
+  // console.log(newDescriptionId, batchingListIds);
   return (
     <Canvas>
       <Paper>
-        <h3 className={"text-center"}>Partial Batching</h3>
         <Batching
           data={fixedData}
           json={

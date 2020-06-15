@@ -94,7 +94,6 @@ export default pageInfo => {
   return (
     <Canvas>
       <Paper>
-        <h3 className="text-center">Batching</h3>
         <Batching
           data={fixedData}
           json={

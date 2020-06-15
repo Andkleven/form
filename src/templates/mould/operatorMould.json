@@ -27,29 +27,31 @@
               "fieldName": "airTemperature",
               "label": "Air Temperature",
               "routeToSpecMin": "leadEngineers.0.data.airTemperature",
-              "unit": "C",
+              "unit": "°C",
+              "type": "number",
               "required": true
             },
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
               "routeToSpecMin": "leadEngineers.0.data.steelTemperature",
-              "unit": "C",
+              "unit": "°C",
+              "type": "number",
               "required": true
             },
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
               "routeToSpecMin": "leadEngineers.0.data.temperatureOverDewPoint",
-              "unit": "C",
+              "unit": "°C",
+              "type": "number",
               "required": true
             },
             {
               "fieldName": "equipmentIDMediaBlasting",
               "label": "Equipment ID",
               "specSubtextList": "leadEngineers.0.data.primer1",
-              "required": true,
-              "unit": "C"
+              "required": true
             },
             {
               "fieldName": "blastMediaBatchNumber",
