@@ -98,7 +98,7 @@ export default pageInfo => {
         <Batching
           data={fixedData}
           json={
-            newDescriptionId[0]
+            newDescriptionId[0] && fixedData
               ? getBatchingJson(
                   objectPath
                     .get(fixedData, "projects.0.descriptions")
