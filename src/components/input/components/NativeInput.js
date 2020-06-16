@@ -1,69 +1,73 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 // import Duplicate from "../widgets/Duplicate";
-function NativeInput(props) {
+function NativeInput({
+  type,
+  label,
+  name,
+  value,
+  defaultValue,
+  placeholder,
+  unit,
+  prepend,
+  append,
+  subtext,
+  feedback,
+  isValid,
+  isInvalid,
+  required,
+  min,
+  max,
+  onChange,
+  onBlur,
+  repeatStepList,
+  readOnlyFields,
+  readOnly,
+  step,
+  ...props
+}) {
   return (
     <>
       <Form.Group className="mb-0">
         <div className="d-flex">
           <InputGroup className="d-flex">
-            {props.prepend ? (
+            {prepend ? (
               <InputGroup.Prepend>
                 <InputGroup.Text className="bg-light text-secondary">
-                  {props.prepend}
+                  {prepend}
                 </InputGroup.Text>
               </InputGroup.Prepend>
             ) : null}
             <Form.Control
-              // autoFocus={props.focus}
-              isValid={props.isValid}
-              isInvalid={props.isInvalid}
-              id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
-              required={props.required}
-              readOnly={
-                props.readOnlyFields ? props.readOnlyFields : props.readOnly
-              }
-              defaultValue={props.defaultValue}
-              name={props.name}
-              value={props.value}
-              onChange={props.onChange}
-              onBlur={props.onBlur}
-              as={props.select}
-              type={props.type}
-              min={props.min}
-              max={props.max}
-              step={props.step}
-              placeholder={props.placeholder}
-              // className={(!props.unit || !props.append) && "rounded"}
-            >
-              {props.options &&
-                props.options.map((option, index) => {
-                  return <option key={index}>{option}</option>;
-                })}
-            </Form.Control>
-            {(props.unit || props.append) && (
+              isValid={isValid}
+              isInvalid={isInvalid}
+              id={`custom-${type}-${label}-${repeatStepList}`}
+              required={required}
+              readOnly={readOnlyFields ? readOnlyFields : readOnly}
+              defaultValue={defaultValue}
+              name={name}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              type={type}
+              min={min}
+              max={max}
+              step={step}
+              placeholder={placeholder}
+            ></Form.Control>
+            {(unit || append) && (
               <InputGroup.Append>
-                {props.unit && (
+                {unit && (
                   <InputGroup.Text className="bg-light text-secondary">
-                    {props.unit}
+                    {unit}
                   </InputGroup.Text>
                 )}
-                {props.append}
+                {append}
               </InputGroup.Append>
             )}
-            {/* {props.feedback && (
-              <>
-                <Form.Control.Feedback type="invalid">
-                  {props.feedback}
-                </Form.Control.Feedback>
-              </>
-            )} */}
           </InputGroup>
-          {/* <Duplicate {...props} /> */}
         </div>
-        {props.subtext && (
-          <Form.Text className="text-muted">{props.subtext}</Form.Text>
-        )}
+        {subtext && <Form.Text className="text-muted">{subtext}</Form.Text>}
       </Form.Group>
     </>
   );

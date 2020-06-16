@@ -158,17 +158,18 @@
           "queryPath": "leadEngineers.0.additionalCustomTests",
           "repeat": true,
           "delete": true,
-          "addButton": "Additional Custom Test",
+          "addButton": "Custom Test",
           "fields": [
             {
               "fieldName": "name",
+              "prepend": "Name",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
-              "label": "Name"
+              "label": "Custom Test"
             },
             {
               "fieldName": "criteria",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
-              "label": "Criteria"
+              "prepend": "Criteria"
             }
           ]
         },
@@ -225,31 +226,30 @@
             },
             {
               "fieldName": "toleranceMinPercent",
-              "label": "Minimum Tolerance Percentage",
-              "prepend": "Min",
+              "prepend": "Lower Deviation",
               "unit": "%",
-              "type": "Number"
+              "type": "Number",
+              "min": 0
             },
             {
               "fieldName": "toleranceMin",
-              "label": "Tolerated Minimum",
+              "prepend": "Tolerated Minimum",
               "unit": "mm",
               "math": "mathToleranceMin",
               "type": "number"
             },
             {
               "fieldName": "toleranceMaxPercent",
-              "label": "Maximum Tolerance Percentage",
-              "prepend": "Max",
+              "prepend": "Upper Deviation",
               "unit": "%",
-              "type": "Number"
+              "type": "Number",
+              "min": 0
             },
             {
               "fieldName": "toleranceMax",
               "math": "mathToleranceMax",
-              "label": "Tolerated Maximum",
+              "prepend": "Tolerated Maximum",
               "unit": "mm",
-              "prepend": "Max",
               "type": "number"
             },
             {

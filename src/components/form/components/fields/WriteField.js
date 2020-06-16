@@ -59,8 +59,12 @@ export default ({ setResetState, setState, state, ...props }) => {
       newValue = !objectPath.get(documentDate.current, props.path, false);
     } else {
       if (type === "number") {
-        newValue = Number(value);
-        if (props.decimal) {
+        if (value === "") {
+          // newValue = undefined;
+        } else {
+          newValue = Number(value);
+        }
+        if (props.decimal && typeof newValue === "number") {
           newValue.toFixed(props.decimal);
         }
       }
@@ -188,9 +192,11 @@ export default ({ setResetState, setState, state, ...props }) => {
     props.backendData,
     props.type
   ]);
+
   return (
     <>
       <Input
+        className={!props.label && "ml-3"}
         {...props}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}

@@ -228,7 +228,6 @@
             },
             {
               "fieldName": "toleranceMinPercent",
-              "label": "Minimum Tolerance Percentage",
               "prepend": "Min",
               "unit": "%",
               "type": "Number"
@@ -242,7 +241,6 @@
             },
             {
               "fieldName": "toleranceMaxPercent",
-              "label": "Maximum Tolerance Percentage",
               "prepend": "Max",
               "unit": "%",
               "type": "Number"

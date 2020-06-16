@@ -53,6 +53,7 @@ export default ({ view = "items", ...props }) => {
         <h6 className="mb-3">Filters</h6>
         <form id="filterForm">
           <Input
+            className="mb-1"
             key="stageTermInput"
             placeholder="Stage"
             type="select"
@@ -73,6 +74,7 @@ export default ({ view = "items", ...props }) => {
             }}
           />
           <Input
+            className="mb-1"
             key="itemTermInput"
             placeholder="Type of item"
             type="select"
@@ -93,6 +95,7 @@ export default ({ view = "items", ...props }) => {
             }}
           />
           <Input
+            className="mb-1"
             placeholder="Search item properties..."
             tight
             onChange={e => {
