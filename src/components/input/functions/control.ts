@@ -28,12 +28,11 @@ export function control({ value, min, max, unit = "" }: Control): any | null {
         fails += 1;
         feedbacks.push(minMaxFeedback);
       }
-
-      if (fails === 0) {
-        valid = true;
-      } else {
-        valid = false;
-      }
+    }
+    if (fails === 0) {
+      valid = true;
+    } else {
+      valid = false;
     }
   }
 
