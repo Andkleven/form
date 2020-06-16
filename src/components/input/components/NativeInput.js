@@ -21,7 +21,7 @@ function NativeInput({
   onChange,
   onBlur,
   repeatStepList,
-  readOnlyFields,
+  // readOnlyFields,
   readOnly,
   step,
   ...props
@@ -43,7 +43,8 @@ function NativeInput({
               isInvalid={isInvalid}
               id={`custom-${type}-${label}-${repeatStepList}`}
               required={required}
-              readOnly={readOnlyFields ? readOnlyFields : readOnly}
+              // readOnly={readOnlyFields ? readOnlyFields : readOnly}
+              readOnly={readOnly}
               defaultValue={defaultValue}
               name={name}
               value={value}

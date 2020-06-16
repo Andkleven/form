@@ -49,20 +49,22 @@ const InputType = props => {
   const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
   const isDesktop = !isMobile;
   const useCustomDate = isDateRelated & hasBadCalendar & isDesktop;
+  const readOnly = props.readOnlyFields ? props.readOnlyFields : props.readOnly;
+  const disabled = readOnly;
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return <CheckInput {...props} />;
   } else if (useCustomDate) {
     if (props.type === "date") {
       return <Date {...props} />;
     } else if (props.type === "datetime-local") {
-      return <Datetime {...props} />;
+      return <Datetime {...props} readOnly={readOnly} />;
     }
   } else if (props.type === "select") {
-    return <SelectInput {...props} />;
+    return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {
-    return <FileInput {...props} />;
+    return <FileInput {...props} readOnly={readOnly} />;
   } else {
-    return <NativeInput {...props} />;
+    return <NativeInput {...props} readOnly={readOnly} />;
   }
 };
 
