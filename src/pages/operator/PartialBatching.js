@@ -154,16 +154,16 @@ export default pageInfo => {
             fixedData,
             [finishedItem],
             batchingJson.document.queryPath,
-            newDescriptionId[0]
-            // step
+            newDescriptionId[0],
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : null
           )}
           stage={finishedItem ? stage : null}
           specData={getDataToBatching(
             fixedData,
             batchingListIds,
             batchingJson.document.specQueryPath,
-            newDescriptionId[0]
-            // step
+            newDescriptionId[0],
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : null
           )}
           updateCache={() => update}
           readOnlyFields={!batchingListIds[0]}

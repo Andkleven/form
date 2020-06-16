@@ -31,7 +31,7 @@ const qualityControlMeasurementPointMouldMin = (
   repeatStepList
 ) => {
   let toleranceMin = Number(
-    findValue(allData, `items.0.leadEngineers.0.data.toleranceMin`)
+    mathToleranceMin(allData["items"][0], repeatStepList, 0)
   );
   return qualityControlMeasurementPointMould(
     allData,
@@ -46,7 +46,7 @@ const qualityControlMeasurementPointMouldMax = (
   repeatStepList
 ) => {
   let toleranceMax = Number(
-    findValue(allData, `items.0.leadEngineers.0.data.toleranceMax`)
+    mathToleranceMax(allData["items"][0], repeatStepList, 0)
   );
   return qualityControlMeasurementPointMould(
     allData,
@@ -92,7 +92,7 @@ const qualityControlMeasurementPointCoatingItemMin = (
   repeatStepList
 ) => {
   let toleranceMin = Number(
-    findValue(allData, `items.0.leadEngineers.0.data.toleranceMin`)
+    mathToleranceMin(allData["items"][0], repeatStepList, 0)
   );
   return qualityControlMeasurementPointCoatingItem(
     allData,
@@ -107,7 +107,7 @@ const qualityControlMeasurementPointCoatingItemMax = (
   repeatStepList
 ) => {
   let toleranceMax = Number(
-    findValue(allData, `items.0.leadEngineers.0.data.toleranceMax`)
+    mathToleranceMax(allData["items"][0], repeatStepList, 0)
   );
   return qualityControlMeasurementPointCoatingItem(
     allData,
@@ -121,28 +121,27 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
   let previousCumulativeThickness = 0;
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {
-    const sumProposedThickness = data => {
-      previousLayers += Number(data.data.shrunkThickness);
+    const sumProposedThickness = stepList => {
+      previousLayers += Number(mathShrinkThickness(values, stepList, 0));
     };
     for (let i = 0; i < repeatStepList[0]; i++) {
       let coatingLayers = findValue(
         values,
         `leadEngineers.0.vulcanizationSteps.${i}.coatingLayers`
       );
-      coatingLayers.forEach(data => sumProposedThickness(data));
+      coatingLayers.forEach((data, index) => sumProposedThickness([i, index]));
     }
   }
   if (repeatStepList[1]) {
-    previousCumulativeThickness = Number(
-      findValue(
-        values,
-        `leadEngineers.0.vulcanizationSteps.${
-          repeatStepList[0]
-        }.coatingLayers.${repeatStepList[1] - 1}.cumulativeThickness.${
+    for (let i = 0; i < repeatStepList[1]; i++) {
+      previousCumulativeThickness += Number(
+        mathCumulativeThickness(values, [
+          repeatStepList[0],
+          i,
           repeatStepList[2]
-        }.data.cumulativeThickness`
-      )
-    );
+        ])
+      );
+    }
   } else {
     previousCumulativeThickness = Number(
       findValue(
@@ -260,8 +259,8 @@ const mathMeasurementPoint = (data, repeatStepList) => {
   const coatingLayers = index => {
     objectPath
       .get(data, `leadEngineers.0.vulcanizationSteps.${index}.coatingLayers`)
-      .forEach(coatingLayer => {
-        layerThickness += coatingLayer.data.shrunkThickness;
+      .forEach((coatingLayer, index2) => {
+        layerThickness += mathShrinkThickness(data, [index, index2], 0);
       });
   };
   for (let index = 0; index < repeatStepList[0]; index++) {

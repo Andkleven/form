@@ -21,17 +21,14 @@ export default pageInfo => {
     operatorCoatedItemJson,
     operatorMouldJson
   );
-
   const { loading, error, data } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
-
+  console.log(222);
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
   return (
     <Canvas>
       <Paper>

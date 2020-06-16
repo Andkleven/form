@@ -64,7 +64,6 @@ export default props => {
   const [documentDate, documentDateDispatch, renderFunction] = useStore({});
   const [nextStage, setNextStage] = useState(true);
   const [lastChapter, setLastChapter] = useState(0);
-
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]

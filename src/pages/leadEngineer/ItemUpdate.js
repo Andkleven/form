@@ -10,6 +10,7 @@ import CancelButton from "components/button/CancelButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButton from "components/button/DepthButton";
 import { Form } from "react-bootstrap";
+import { getStartStage } from "functions/general";
 
 export default ({ descriptionName = "description", ...props }) => {
   const [state, setState] = useState(props.value ? props.value : null);
@@ -54,11 +55,12 @@ export default ({ descriptionName = "description", ...props }) => {
     update: props.id ? update : create
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (stage = undefined) => {
     mutation({
       variables: {
         id: props.id,
         itemId: state,
+        stage,
         foreignKey: props.foreignKey
       }
     })
@@ -72,7 +74,6 @@ export default ({ descriptionName = "description", ...props }) => {
         // console.log(e);
       });
   };
-
   const [valid, setValid] = useState();
   const error =
     mutationError && mutationError.message.replace("GraphQL error: ", "");
@@ -113,7 +114,9 @@ export default ({ descriptionName = "description", ...props }) => {
     <Form
       onSubmit={e => {
         e.preventDefault();
-        handleSubmit();
+        handleSubmit(
+          props.setStage ? getStartStage(props.geometry) : undefined
+        );
       }}
     >
       <Input

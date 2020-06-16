@@ -50,7 +50,6 @@
             {
               "fieldName": "equipmentIDMediaBlasting",
               "label": "Equipment ID",
-              "specSubtextList": "leadEngineers.0.data.primer1",
               "required": true
             },
             {

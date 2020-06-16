@@ -142,14 +142,16 @@ export default pageInfo => {
             fixedData,
             batchingListIds,
             batchingJson.document.queryPath,
-            newDescriptionId[0]
+            newDescriptionId[0],
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : null
           )}
           stage={stage}
           specData={getDataToBatching(
             fixedData,
             batchingListIds,
             batchingJson.document.specQueryPath,
-            newDescriptionId[0]
+            newDescriptionId[0],
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : null
           )}
           updateCache={() => update}
           saveButton={!!batchingListIds.length}

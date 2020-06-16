@@ -344,6 +344,10 @@ const GET_OPERATOR_BY_ITEM = gql`
           id
           data
         }
+        additionalCustomTestOperators {
+          id
+          data
+        }
         vulcanizationOperators {
           id
           data
@@ -360,10 +364,6 @@ const GET_OPERATOR_BY_ITEM = gql`
             }
           }
           measurementPointOperators {
-            id
-            data
-          }
-          additionalCustomTestOperators {
             id
             data
           }

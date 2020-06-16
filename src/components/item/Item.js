@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
   const [showRename, setShowRename] = useState(false);
-
   const handleCloseRename = () => setShowRename(false);
   const handleShowRename = () => setShowRename(true);
 
@@ -22,7 +21,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
           size="sm"
           tooltip={`Open "${item.itemId}"`}
           className="btn d-flex justify-content-left align-items-center h-100 text-left text-truncate w-100"
-          onClick={submitItem.bind(this, item)}
+          onClick={() => submitItem(item)}
         >
           <div className="d-flex justify-content-between w-100">
             <div>

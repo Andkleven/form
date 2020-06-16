@@ -2,6 +2,7 @@ import React from "react";
 import objectPath from "object-path";
 import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
+import stages from "components/form/stage/stages.json";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -593,4 +594,19 @@ export function getBatchingJson(
     operatorJson.chapters[reshapeStageSting(stage)]
   ];
   return batchingJson;
+}
+
+export function getStartStage(geometry) {
+  let stage = undefined;
+  switch (geometry) {
+    case "Coated Item":
+      stage = Object.keys(stages["coateditem"])[0];
+      break;
+    case "Mould":
+      stage = Object.keys(stages["mould"])[0];
+      break;
+    default:
+      break;
+  }
+  return stage;
 }

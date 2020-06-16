@@ -8,13 +8,16 @@ import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
-import { objectifyQuery, stringifyQuery } from "functions/general";
+import {
+  objectifyQuery,
+  stringifyQuery,
+  getStartStage
+} from "functions/general";
 import ItemUpdate from "pages/leadEngineer/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import stages from "components/form/stage/stages.json";
 const cloneDeep = require("clone-deep");
 
 export default pageInfo => {
@@ -212,17 +215,7 @@ export default pageInfo => {
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {
         description.items.forEach((item, itemIndex) => {
-          let stage = undefined;
-          switch (description.data.geometry) {
-            case "Coated Item":
-              stage = Object.keys(stages["coateditem"])[0];
-              break;
-            case "Mould":
-              stage = Object.keys(stages["mould"])[0];
-              break;
-            default:
-              break;
-          }
+          let stage = getStartStage(description.data.geometry);
           data["projects"][projectIndex]["descriptions"][descriptionIndex][
             "items"
           ][itemIndex]["stage"] = stage;
@@ -248,6 +241,8 @@ export default pageInfo => {
               foreignKey={geometryData.id}
               getQueryBy={_id}
               counter={counter - 1}
+              geometry={geometryData.data.geometry}
+              setStage={fixedData["projects"][0]["leadEngineerDone"]}
             />
             {projectExists && <ItemCounter className="my-3" />}
             <DepthButton
@@ -297,6 +292,8 @@ export default pageInfo => {
               foreignKey={geometryData.id}
               getQueryBy={_id}
               counter={counter - 1}
+              geometry={geometryData.data.geometry}
+              setStage={fixedData["projects"][0]["leadEngineerDone"]}
             />
             {projectExists && <ItemCounter className="my-3" />}
           </>

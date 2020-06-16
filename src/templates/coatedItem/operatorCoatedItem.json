@@ -79,8 +79,7 @@
             {
               "fieldName": "equipmentIDMediaBlasting",
               "required": true,
-              "label": "Equipment ID",
-              "specSubtextList": "leadEngineers.0.data.primer1"
+              "label": "Equipment ID"
             },
             {
               "fieldName": "nextCalibrationDateMediaBlasting",
@@ -467,11 +466,8 @@
               "label": "Compound Number"
             },
             {
-              "specValueList": [
-                "leadEngineers.0.vulcanizationSteps",
-                "coatingLayers",
-                "data.shrunkThickness"
-              ],
+              "specValueList": true,
+              "mathSpec": "mathShrinkThickness",
               "label": "Actual Rubber Thickness"
             },
             {
@@ -521,12 +517,7 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Point",
-              "specSubtextList": [
-                "leadEngineers.0.vulcanizationSteps",
-                "coatingLayers",
-                "cumulativeThickness",
-                "data.cumulativeThickness"
-              ],
+              "mathSubtext": "mathCumulativeThickness",
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
               "required": true

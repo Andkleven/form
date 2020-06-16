@@ -19,12 +19,6 @@
             {
               "fieldName": "measurementPoint",
               "label": "Measurement Point",
-              "specSubtextList": [
-                "leadEngineers.0.vulcanizationSteps",
-                "coatingLayers",
-                "cumulativeThickness",
-                "data.cumulativeThickness"
-              ],
               "calculateMin": "qualityControlMeasurementPointMouldMin",
               "calculateMax": "qualityControlMeasurementPointMouldMax",
               "type": "number",
@@ -126,11 +120,17 @@
           "queryPath": "finalInspectionQualityControls.0.finalInspectionCustomTestQualityControls",
           "fields": [
             {
-              "specValueList": ["leadEngineers.0.finalInspectionCustomTests", "data.name"],
+              "specValueList": [
+                "leadEngineers.0.finalInspectionCustomTests",
+                "data.name"
+              ],
               "label": "Custom Test Name"
             },
             {
-              "specValueList": ["leadEngineers.0.finalInspectionCustomTests", "data.criteria"],
+              "specValueList": [
+                "leadEngineers.0.finalInspectionCustomTests",
+                "data.criteria"
+              ],
               "label": "Custom Test Criteria"
             },
             {

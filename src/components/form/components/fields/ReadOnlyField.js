@@ -8,9 +8,7 @@ import "styles/styles.css";
 
 export default ({ resetState, backendData, ...props }) => {
   const [value, setValue] = useState("");
-  const { documentDate, documentDateDispatch, renderFunction } = useContext(
-    DocumentDateContext
-  );
+  const { documentDate, renderFunction } = useContext(DocumentDateContext);
 
   const math = useCallback(
     (data = documentDate.current) => {
@@ -24,19 +22,12 @@ export default ({ resetState, backendData, ...props }) => {
       if (
         objectPath.get(documentDate.current, props.path) !== getValueFromMath
       ) {
-        documentDateDispatch({
-          type: "add",
-          newState: getValueFromMath,
-          path: props.path,
-          notReRender: true
-        });
         setValue(getValueFromMath);
       }
     },
     [
       props.setValueByIndex,
       documentDate,
-      documentDateDispatch,
       props.decimal,
       props.math,
       props.path,

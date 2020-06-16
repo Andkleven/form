@@ -11,7 +11,7 @@ import Input from "components/input/Input";
 import WriteField from "components/form/components/fields/WriteField";
 import objectPath from "object-path";
 import { DocumentDateContext, ChapterContext } from "components/form/Form";
-
+import Math from "components/form/functions/math";
 import {
   getSubtext,
   findValue,
@@ -129,12 +129,20 @@ export default ({ resetState, ...props }) => {
     () =>
       getSubtext(
         props.subtext,
-        findValue(
-          props.specData,
-          props.specSubtextList,
-          props.repeatStepList,
-          props.editRepeatStepSubtextList
-        ),
+        props.specSubtextList
+          ? findValue(
+              props.specData,
+              props.specSubtextList,
+              props.repeatStepList,
+              props.editRepeatStepSubtextList
+            )
+          : props.mathSubtext
+          ? Math[props.mathSubtext](
+              props.specData,
+              props.repeatStepList,
+              props.decimal ? props.decimal : 0
+            )
+          : null,
         max,
         min,
         props.maxInput,
@@ -149,6 +157,7 @@ export default ({ resetState, ...props }) => {
     [
       max,
       min,
+      props.mathSubtext,
       props.maxInput,
       props.minInput,
       props.unit,
@@ -160,7 +169,8 @@ export default ({ resetState, ...props }) => {
       props.specData,
       props.specSubtextList,
       props.editRepeatStepSubtextList,
-      props.subtext
+      props.subtext,
+      props.decimal
     ]
   );
 
@@ -236,6 +246,22 @@ export default ({ resetState, ...props }) => {
         label={label}
       />
     );
+  } else if (props.mathSpec) {
+    return (
+      <ReadField
+        {...props}
+        key={`${props.indexId}-${props.index}`}
+        readOnly={true}
+        path={getNewPath()}
+        subtext={subtext}
+        value={Math[props.mathSpec](
+          props.specData,
+          props.repeatStepList,
+          props.decimal ? props.decimal : 0
+        )}
+        label={label}
+      />
+    );
   } else if (props.math || props.setValueByIndex) {
     const commonProps = {
       ...props,
@@ -245,8 +271,6 @@ export default ({ resetState, ...props }) => {
         `${props.repeatStepList}-${props.fieldName}` === editChapter
           ? true
           : false,
-      min: min,
-      max: max,
       label: label,
       subtext: subtext,
       file: props.type === "file" ? props.file : null,
