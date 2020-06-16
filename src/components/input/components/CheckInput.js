@@ -10,9 +10,7 @@ export default props => (
           autoFocus={props.focus}
           type={props.type}
           required={props.required}
-          disabled={
-            props.readOnlyFields ? props.readOnlyFields : props.readOnly
-          }
+          disabled={props.disabled}
           id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
           label={props.label}
           defaultChecked={props.defaultValue}
