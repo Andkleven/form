@@ -38,14 +38,16 @@ export function control({
         feedbacks.push(minMaxFeedback);
       }
     }
+
+    if ([69, "69", "tiss", "bæsj", "promp"].includes(value)) {
+      valid = true;
+      feedbacks.push("Tihi 😉");
+    }
+
     if (fails === 0) {
       // valid = true;
     } else {
       valid = false;
-    }
-    if ([69, "69", "tiss", "bæsj", "promp"].includes(value)) {
-      valid = true;
-      feedbacks.push("Tihi");
     }
   }
 
