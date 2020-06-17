@@ -16,14 +16,14 @@ export function control({
   readOnly
 }: Control): any | null {
   let fails: number = 0;
-  let valid: boolean = null;
+  let valid: boolean | null = null;
   let feedbacks: Array<string> = [];
 
   const valueEntered = value || (typeof value === "number" && value === 0);
 
   if (valueEntered && !disabled && !readOnly) {
     if (typeof min === "number" || typeof max === "number") {
-      let minMaxFeedback: string;
+      let minMaxFeedback: string = "";
 
       if (typeof min === "number" && typeof max === "number") {
         minMaxFeedback = `${value} is outside range ${min}-${max}${unit}`;
@@ -33,7 +33,7 @@ export function control({
         minMaxFeedback = `${value} is greater than maximum ${max}${unit}`;
       }
 
-      if (value < min || value > max) {
+      if ((min && value < min) || (max && value > max)) {
         fails += 1;
         feedbacks.push(minMaxFeedback);
       }
@@ -51,7 +51,7 @@ export function control({
     }
   }
 
-  let feedback: string;
+  let feedback: string | null = null;
 
   feedbacks.forEach((string, index) => {
     if ((index = 1)) {
