@@ -196,7 +196,6 @@ const OPERATOR = gql`
           operators {
             id
             data
-            dustCheckImage
             surfaceCleanlinessImage
             measurementPointActualTdvs {
               id

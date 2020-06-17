@@ -262,7 +262,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
           id
           data
           surfaceCleanlinessImage
-          dustCheckImage
           measurementPointActualTdvs {
             id
             data
@@ -339,7 +338,6 @@ const GET_OPERATOR_BY_ITEM = gql`
         id
         data
         surfaceCleanlinessImage
-        dustCheckImage
         measurementPointActualTdvs {
           id
           data

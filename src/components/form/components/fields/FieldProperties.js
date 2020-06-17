@@ -69,14 +69,15 @@ export default ({ resetState, ...props }) => {
   }, [setReadOnly, props.backendData, props.readOnlyFieldIf, documentDate]);
 
   useEffect(() => {
+    let effectsRenderFunction = renderFunction.current;
     if (props.readOnlyFieldIf) {
-      renderFunction[
+      effectsRenderFunction[
         `${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`
       ] = updateReadOnly;
     }
     return () => {
       if (props.readOnlyFieldIf) {
-        delete renderFunction[
+        delete effectsRenderFunction[
           `${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`
         ];
       }
@@ -201,8 +202,9 @@ export default ({ resetState, ...props }) => {
   );
 
   useEffect(() => {
+    let effectsRenderFunction = renderFunction.current;
     if (props.queryVariableLabel || props.indexVariableLabel) {
-      renderFunction[
+      effectsRenderFunction[
         `${props.label}-${props.repeatStepList}-FieldProperties`
       ] = getLabel;
     } else {
@@ -210,7 +212,7 @@ export default ({ resetState, ...props }) => {
     }
     return () => {
       if (props.queryVariableLabel || props.indexVariableLabel) {
-        delete renderFunction[
+        delete effectsRenderFunction[
           `${props.label}-${props.repeatStepList}-FieldProperties`
         ];
       }
@@ -262,7 +264,7 @@ export default ({ resetState, ...props }) => {
         label={label}
       />
     );
-  } else if (props.math || props.setValueByIndex) {
+  } else if (props.math) {
     const commonProps = {
       ...props,
       key: `${props.indexId}-${props.index}`,

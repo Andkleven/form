@@ -104,9 +104,10 @@ const CustomLead = props => {
   );
 
   useEffect(() => {
-    renderFunction[`${props.repeatStepList}-CustomLead`] = thickness;
+    let effectsRenderFunction = renderFunction.current;
+    effectsRenderFunction[`${props.repeatStepList}-CustomLead`] = thickness;
     return () => {
-      delete renderFunction[`${props.repeatStepList}-CustomLead`];
+      delete effectsRenderFunction[`${props.repeatStepList}-CustomLead`];
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 

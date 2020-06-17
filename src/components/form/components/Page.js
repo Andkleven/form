@@ -152,12 +152,13 @@ export default React.memo(props => {
   );
 
   useEffect(() => {
+    let effectsRenderFunction = renderFunction.current;
     if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-      renderFunction[`${props.repeatStepList}-Page`] = autoRepeat;
+      effectsRenderFunction[`${props.repeatStepList}-Page`] = autoRepeat;
     }
     return () => {
       if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
-        delete renderFunction[`${props.repeatStepList}-Page`];
+        delete effectsRenderFunction[`${props.repeatStepList}-Page`];
       }
     };
   }, [
@@ -294,11 +295,12 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              setEditChapter(props.thisChapter);
               documentDateDispatch({
                 type: "setState",
                 newState: props.backendData
               });
+              setEditChapter(props.thisChapter);
+              setResetState(prevState => !prevState);
             }}
           >
             Edit all

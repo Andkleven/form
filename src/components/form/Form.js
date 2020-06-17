@@ -26,7 +26,7 @@ const cloneDeep = require("clone-deep");
 // });
 function useStore(init) {
   const state = useRef(init);
-  const { current: renderFunction } = useRef({});
+  const renderFunction = useRef({});
   const reducer = action => {
     switch (action.type) {
       case "setState":
@@ -46,7 +46,7 @@ function useStore(init) {
         throw new Error();
     }
     if (!action.notReRender) {
-      Object.values(renderFunction)
+      Object.values(renderFunction.current)
         .reverse()
         .forEach(func => {
           func();

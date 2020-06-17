@@ -253,11 +253,6 @@
               "type": "number"
             },
             {
-              "fieldName": "dustCheckImage",
-              "placeholder": "Upload Image",
-              "type": "file"
-            },
-            {
               "fieldName": "mediaBlastingTestsFinished",
               "required": true,
               "label": "Media Blasting Tests Finished",

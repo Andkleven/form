@@ -134,7 +134,7 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
   }
   if (repeatStepList[1]) {
     for (let i = 0; i < repeatStepList[1]; i++) {
-      previousCumulativeThickness += Number(
+      previousCumulativeThickness = Number(
         mathCumulativeThickness(values, [
           repeatStepList[0],
           i,
@@ -164,6 +164,12 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
 
   let tvd = findValue(values, `leadEngineers.0.data.targetDescriptionValue`);
 
+  // console.log(
+  //   repeatStepList[1],
+  //   appliedThickness,
+  //   previousCumulativeThickness,
+  //   previousLayers
+  // );
   let cumulativeThickness = 0;
   if (layersUnique) {
     appliedThickness = 0;
