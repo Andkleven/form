@@ -28,7 +28,6 @@ function useStore(init) {
   const state = useRef(init);
   const renderFunction = useRef({});
   const reducer = action => {
-    console.log(state.current);
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
