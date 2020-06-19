@@ -12,14 +12,6 @@ const {
   focus
 } = require("taiko");
 
-function fillArray(value, len) {
-  if (len === 0) return [];
-  var a = [value];
-  while (a.length * 2 <= len) a = a.concat(a);
-  if (a.length < len) a = a.concat(a.slice(0, len - a.length));
-  return a;
-}
-
 (async () => {
   try {
     // Login
@@ -30,9 +22,11 @@ function fillArray(value, len) {
     await press("Tab");
     await write("admin");
     await press("Enter");
+    await waitFor(5000);
     await goto("http://localhost:3000/");
 
     // Create Project
+    await waitFor("Create new project");
     await click("Create new project");
     try {
       await write("Test Project", into(textBox({ name: "projectName" })));

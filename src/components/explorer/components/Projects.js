@@ -155,7 +155,7 @@ export default ({
                     if (
                       confirmation === project.data.projectName &&
                       window.confirm(
-                        `Are you sure? The project "${project.data.projectName}" will be gone forever.\nTip: You may need to refresh the browser to see the changes.`
+                        `Are you sure? The project "${project.data.projectName}" will be gone forever. Tip: You may need to refresh the browser to see the changes.`
                       )
                     ) {
                       deleteProject({ variables: { id: project["id"] } });

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 
 export default ({
   to = "#",
@@ -20,7 +20,8 @@ export default ({
     >
       {force ? (
         <a
-          className={`d-flex not-selectable text-${
+          variant="link"
+          className={`d-flex m-0 p-0 text-${
             color || "light"
           } text-decoration-none ${props.className}`}
           href={to}
