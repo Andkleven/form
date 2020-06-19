@@ -9,8 +9,9 @@ WIP...
   - [Backend](#backend)
 - [🚀 Quick start](#-quick-start)
 - [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
-  - [Local testing](#local-testing)
-  - [Remote testing](#remote-testing)
+  - [Local manual testing](#local-manual-testing)
+  - [Remote manual testing](#remote-manual-testing)
+  - [E2E](#e2e)
 
 ## 🎓 Prerequisites
 
@@ -138,7 +139,7 @@ REACT_APP_BACKEND=https://versjon2.herokuapp.com/graphql/
 
 ## 🧪 Cross platform and user testing
 
-### Local testing
+### Local manual testing
 
 Live server is already installed if the [quick start](#-quick-tart) guide is followed, which enables devices on the same network to connect to the app.
 
@@ -188,14 +189,15 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    http://192.168.0.36:5500/
    ```
 
-### Remote testing
+### Remote manual testing
 
 We have two alternatives for remote testing:
 
 1. <a name="devServer"></a>TODO: Development server
 
-2. [CodeSandbox](https://codesandbox.io/)  
-   Note: You will need [CodeSandbox Pro](https://codesandbox.io/pricing) for this.  
+2. [CodeSandbox](https://codesandbox.io/)   
+   Warning: As of 19.06.2020, this doesn't work anymore  
+   Note: You will need [CodeSandbox Pro](https://codesandbox.io/pricing) for this, because of privacy settings.  
    
    1. Open the repository in CodeSandbox  
       We recommend using chrome with this [extension](https://chrome.google.com/webstore/detail/open-in-codesandbox/jkhbnhagngalpojoeijaleemepfpefmp?hl=en).  
@@ -216,4 +218,23 @@ We have two alternatives for remote testing:
    4. Test away!
 
    If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)). 
+
+### E2E
+
+[Taiko](https://docs.taiko.dev/) is used to perform end-to-end testing.
+
+Windows:
+
+To enable scripts on your system, you first have to ease up on some security.
+[Open up PowerShell as an administrator](https://www.howtoedge.com/open-powershell-as-administrator-in-windows-10/), and run the following:
+
+```console
+Set-ExecutionPolicy RemoteSigned
+```
+
+Feel free to tighten up your security settings when done:
+
+```console
+Set-ExecutionPolicy Restricted
+```
 
