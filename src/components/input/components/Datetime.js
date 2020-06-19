@@ -46,7 +46,7 @@ function Datetime(props) {
       </InputGroup.Append>
     </InputGroup>
   );
-  
+
   const MyContainer = ({ className, children }) => {
     return (
       <div style={{ position: "relative" }}>
@@ -61,7 +61,9 @@ function Datetime(props) {
       <div>
         <DatePicker
           className="w-100"
-          readOnly={props.readOnlyFields ? props.readOnlyFields : props.readOnly}
+          readOnly={
+            props.readOnlyFields ? props.readOnlyFields : props.readOnly
+          }
           selected={isStringInstance(props.value) ? null : props.value}
           // onChange={date => setStartDate(date)}
           onChange={date => props.onChangeDate(date)}

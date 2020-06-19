@@ -255,10 +255,7 @@ export const getSubtext = (
   specSubtext,
   max,
   min,
-  maxInput,
-  minInput,
   unit,
-  required,
   subtextMathMin,
   subtextMathMax,
   repeatStepList,
@@ -268,15 +265,11 @@ export const getSubtext = (
     ? Math[subtextMathMin](allData, repeatStepList)
     : min
     ? min
-    : minInput
-    ? minInput
     : "";
   let maxLocal = subtextMathMax
     ? Math[subtextMathMax](allData, repeatStepList)
     : max
     ? max
-    : maxInput
-    ? maxInput
     : "";
 
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
@@ -287,22 +280,13 @@ export const getSubtext = (
   minString = minString ? minString + unitString : "";
   maxString = maxString ? maxString + unitString : "";
 
-  let requiredString = required ? "Required" : "";
-
   if (subtext) {
     if (specSubtext) {
-      return variableString(
-        specSubtext,
-        subtext + `${requiredString && `, ${requiredString}`}`
-      );
+      subtext = variableString(specSubtext, subtext);
     }
-    return variableString(
-      "",
-      subtext + `${requiredString && `, ${requiredString}`}`
-    );
+    subtext = variableString("", subtext);
   }
-
-  return minString + maxString + requiredString;
+  return minString + maxString + subtext ? subtext : "";
 };
 
 export const objectifyQuery = query => {

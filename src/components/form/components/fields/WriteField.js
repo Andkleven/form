@@ -176,7 +176,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     let newSate;
     if (props.type === "date" || props.type === "datetime-local") {
       let backendDate = objectPath.get(props.backendData, props.path, null);
-      newSate = backendDate ? new Date(backendDate) : new Date();
+      newSate = backendDate ? new Date(backendDate) : null;
     } else {
       newSate = defaultValue();
     }

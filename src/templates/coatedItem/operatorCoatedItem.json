@@ -142,10 +142,6 @@
               "required": true
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
-              "line": true
-            },
-            {
               "fieldName": "surfaceCleanliness",
               "label": "Surface Cleanliness",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
@@ -182,10 +178,6 @@
               "required": true
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
-              "line": true
-            },
-            {
               "fieldName": "uvTest",
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "label": "UV Test",
@@ -205,10 +197,6 @@
               "type": "date",
               "label": "Next Calibration Date",
               "required": true
-            },
-            {
-              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
-              "line": true
             },
             {
               "fieldName": "blastMediaConductivity",
@@ -234,47 +222,41 @@
               "required": true
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
-              "line": true
-            },
-            {
               "fieldName": "surfaceProfileRoughness",
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMax",
               "required": true,
               "placeholder": "Result",
               "label": "Surface Profile (Roughness)",
-              "subtext": "Between 50.0µm and 100.0µm",
+              "routeToSpecMin": "leadEngineers.0.data.surfaceProfileMin",
+              "routeToSpecMax": "leadEngineers.0.data.surfaceProfileMax",
               "unit": "µm",
               "type": "number"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
               "required": true,
               "fieldName": "equipmentIDSurfaceProfileRoughness",
               "placeholder": "Equipment ID"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
               "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
               "type": "date",
               "label": "Next Calibration Date",
               "required": true
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
               "fieldName": "referencePlateId",
               "placeholder": "Reference Plate Id (Optional)"
-            },
-            {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "line": true
             },
             {
               "fieldName": "dustTest",
               "label": "Dust Test",
               "required": true,
               "placeholder": "Result",
-              "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.0.data.dustTest",
+              "routeToSpecMax": "leadEngineers.0.data.dustTest",
               "type": "number"
             },
             {
@@ -290,7 +272,7 @@
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.additionalCustomTests",
-          "queryPath": "finalInspectionQualityControls.0.additionalCustomTestOperators",
+          "queryPath": "operators.0.additionalCustomTestOperators",
           "fields": [
             {
               "specValueList": [
@@ -308,7 +290,8 @@
             },
             {
               "fieldName": "test",
-              "label": "Test"
+              "label": "Test",
+              "required": true
             }
           ]
         }
@@ -396,6 +379,7 @@
       ]
     },
     "coatingStep": {
+      "chapterTitle": "Coating",
       "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",
@@ -461,7 +445,6 @@
               "label": "Compound Number"
             },
             {
-              "specValueList": true,
               "mathSpec": "mathShrinkThickness",
               "label": "Actual Rubber Thickness"
             },
@@ -478,7 +461,8 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators"
+            "coatingOperators",
+            ""
           ],
           "fields": [
             {
@@ -495,23 +479,21 @@
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [
-            "leadEngineers.0.vulcanizationOperators",
+            "operators.0.vulcanizationOperators",
             "coatingOperators",
             "measurementPointOperators"
           ],
           "fields": [
             {
-              "specValueList": [
+              "fieldName": "measurementPoint",
+              "variableLabelSpec": true,
+              "queryVariableLabel": [
                 "",
                 "",
                 "leadEngineers.0.measurementPointActualTdvs",
                 "data.referencePoint"
               ],
-              "label": "Reference Point"
-            },
-            {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point",
+              "label": "Measurement Point Reference: {}",
               "mathSubtext": "mathCumulativeThickness",
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
@@ -522,7 +504,8 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators"
+            "coatingOperators",
+            ""
           ],
           "fields": [
             {

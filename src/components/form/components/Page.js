@@ -162,13 +162,9 @@ export default React.memo(props => {
       }
     };
   }, [
-    documentDate,
-    addData,
     props.repeatGroupWithQuery,
     props.repeatStepList,
     props.editRepeatStepListRepeat,
-    deleteHandler,
-    props.path,
     props.repeatGroupWithQuerySpecData,
     autoRepeat,
     renderFunction
@@ -182,6 +178,17 @@ export default React.memo(props => {
     props.backendData,
     autoRepeat,
     props.repeatGroupWithQuery,
+    props.repeatGroupWithQuerySpecData
+  ]);
+
+  useEffect(() => {
+    if (props.repeatGroupWithQuery && props.repeatGroupWithQuerySpecData) {
+      autoRepeat(props.specData);
+    }
+  }, [
+    props.specData,
+    props.repeatGroupWithQuery,
+    autoRepeat,
     props.repeatGroupWithQuerySpecData
   ]);
 

@@ -43,7 +43,7 @@ export default ({ resetState, ...props }) => {
       null
     );
     if (props.type === "date" || props.type === "datetime-local") {
-      setState(backendDate ? new Date(backendDate) : new Date());
+      setState(backendDate ? new Date(backendDate) : null);
     } else {
       setState(backendDate);
     }
@@ -146,10 +146,7 @@ export default ({ resetState, ...props }) => {
           : null,
         max,
         min,
-        props.maxInput,
-        props.minInput,
         props.unit,
-        props.required,
         props.subtextMathMin,
         props.subtextMathMax,
         props.repeatStepList,
@@ -159,10 +156,7 @@ export default ({ resetState, ...props }) => {
       max,
       min,
       props.mathSubtext,
-      props.maxInput,
-      props.minInput,
       props.unit,
-      props.required,
       props.subtextMathMin,
       props.subtextMathMax,
       props.repeatStepList,

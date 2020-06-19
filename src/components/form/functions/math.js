@@ -164,12 +164,6 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
 
   let tvd = findValue(values, `leadEngineers.0.data.targetDescriptionValue`);
 
-  // console.log(
-  //   repeatStepList[1],
-  //   appliedThickness,
-  //   previousCumulativeThickness,
-  //   previousLayers
-  // );
   let cumulativeThickness = 0;
   if (layersUnique) {
     appliedThickness = 0;
@@ -210,7 +204,6 @@ const mathShrinkThickness = (values, repeatStepList, decimal) => {
   if (shrink) {
     partOfNumber = (shrink * shrunkThickness) / 100;
   }
-
   return whatTooReturn(shrunkThickness - partOfNumber, decimal, [
     shrink,
     shrunkThickness

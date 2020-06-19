@@ -98,7 +98,6 @@ export default ({ addOrRemove, ...props }) => {
           );
         });
     } else if (!props.queryPath) {
-      console.error("Anders");
       let arraySetFieldGroupData = [];
       let repeatNumber = getRepeatNumber(
         props.specData,
@@ -137,7 +136,11 @@ export default ({ addOrRemove, ...props }) => {
         }
         // data={props.data ? props.data[0] : props.data}
         path={
-          isLastCharacterNumber(props.path) ? props.path : `${props.path}.0`
+          props.path
+            ? isLastCharacterNumber(props.path)
+              ? props.path
+              : `${props.path}.0`
+            : null
         }
         repeatStep={0}
         indexId={`${props.indexId}-0`}

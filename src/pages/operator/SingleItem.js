@@ -24,7 +24,6 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
-  console.log(222);
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);

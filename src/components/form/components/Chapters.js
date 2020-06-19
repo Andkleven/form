@@ -7,6 +7,7 @@ import {
 } from "functions/general";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
+import Line from "components/design/Line";
 import Title from "components/design/fonts/Title";
 import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext } from "components/form/Form";
@@ -93,19 +94,20 @@ export default props => {
             pageInfo,
             thisStage
           );
-          newChapterArray.push(
-            <Fragment key={count}>
-              {pageInfo.chapterTitle ? (
-                <Title>{pageInfo.chapterTitle}</Title>
-              ) : null}
-              {newChapter}
-            </Fragment>
-          );
+          newChapterArray.push(<Fragment key={count}>{newChapter}</Fragment>);
         }
         if (newChapterArray[newChapterArray.length - 1] === null) {
-          props.setNextStage(false);
+          props.nextStage.current = false;
         }
-        return newChapterArray;
+        return pageInfo.chapterTitle ? (
+          <>
+            <Title>{pageInfo.chapterTitle}</Title>
+            <Line />
+            {newChapterArray}
+          </>
+        ) : (
+          newChapterArray
+        );
       }
       return null;
     } else {

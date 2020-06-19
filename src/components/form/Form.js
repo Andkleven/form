@@ -28,6 +28,7 @@ function useStore(init) {
   const state = useRef(init);
   const renderFunction = useRef({});
   const reducer = action => {
+    console.log(state.current);
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
@@ -62,7 +63,8 @@ export const DocumentDateContext = createContext();
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
   const [documentDate, documentDateDispatch, renderFunction] = useStore({});
-  const [nextStage, setNextStage] = useState(true);
+  const nextStage = useRef(true);
+  // const [nextStage, setNextStage] = useState(true);
   const [lastChapter, setLastChapter] = useState(0);
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -198,7 +200,6 @@ export default props => {
     (data, submit) => {
       // clearTimeout(timer.current)
       // timer.current = setTimeout(() => {
-      setNextStage(true);
       setEditChapter(0);
       setLastChapter(0);
       // console.log("nei");
@@ -219,7 +220,7 @@ export default props => {
             stage:
               isStringInstance(props.stage) &&
               submit &&
-              nextStage &&
+              nextStage.current &&
               !editChapter
                 ? FindNextStage(props.specData, props.stage, props.geometry)
                 : props.stage
@@ -272,7 +273,7 @@ export default props => {
             backendData={props.data}
             optionsData={optionsData}
             submitData={submitData}
-            setNextStage={setNextStage}
+            nextStage={nextStage}
           />
           {loadingMutation && <p>Loading...</p>}
           {errorMutation && <p>Error :( Please try again</p>}

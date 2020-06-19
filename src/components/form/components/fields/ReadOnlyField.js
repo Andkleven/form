@@ -8,15 +8,6 @@ import "styles/styles.css";
 export default ({ resetState, backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { documentDate, renderFunction } = useContext(DocumentDateContext);
-  console.log(
-    Math[props.math](
-      Object.keys(documentDate.current).length === 0
-        ? backendData
-        : documentDate.current,
-      props.repeatStepList,
-      props.decimal ? props.decimal : 0
-    )
-  );
   const math = useCallback(() => {
     const getValueFromMath = Math[props.math](
       Object.keys(documentDate.current).length === 0
@@ -37,14 +28,20 @@ export default ({ resetState, backendData, ...props }) => {
   useEffect(() => {
     let effectsRenderFunction = renderFunction.current;
     effectsRenderFunction[
-      `${props.label}-${props.repeatStepList}-ReadOnly`
+      `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
     ] = math;
     return () => {
       delete effectsRenderFunction[
-        `${props.label}-${props.repeatStepList}-ReadOnly`
+        `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
       ];
     };
-  }, [math, renderFunction, props.label, props.repeatStepList]);
+  }, [
+    math,
+    renderFunction,
+    props.label,
+    props.repeatStepList,
+    props.fieldName
+  ]);
 
   useEffect(() => {
     math();
