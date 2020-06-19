@@ -45,21 +45,17 @@ const {
     await write("IFS123", into(textBox({ name: "ifsActivityCodes" })));
     await write("CPS123", into(textBox({ name: "CPS" })));
 
-    try {
-      await attach(
-        "./dummies/dummy.png",
-        to(
-          fileField(
-            { id: "File Upload" },
-            {
-              selectHiddenElements: true
-            }
-          )
+    await attach(
+      "./dummies/dummy.png",
+      to(
+        fileField(
+          { id: "File Upload" },
+          {
+            selectHiddenElements: true
+          }
         )
-      );
-    } catch (error) {
-      console.log(error);
-    }
+      )
+    );
 
     await click("Submit");
 
