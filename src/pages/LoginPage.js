@@ -88,7 +88,7 @@ export default () => {
                 login({
                   variables: { username, password }
                 })
-                  .then(response => {
+                  .then(() => {
                     return <Redirect to="/" />;
                   })
                   .catch(e => {

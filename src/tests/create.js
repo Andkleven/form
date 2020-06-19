@@ -9,30 +9,30 @@ const {
   into,
   waitFor,
   clear,
-  focus
+  focus,
+  attach,
+  to,
+  fileField,
+  below
 } = require("taiko");
 
 (async () => {
   try {
     // Login
-    await openBrowser({ headless: false, observe: false });
+    await openBrowser({ headless: false });
     await goto("http://localhost:3000/");
     await press("Tab");
-    await write("admin");
+    await write("lead");
     await press("Tab");
-    await write("admin");
+    await write("lead");
     await press("Enter");
-    await waitFor(5000);
+    await waitFor(3000);
     await goto("http://localhost:3000/");
 
     // Create Project
     await waitFor("Create new project");
     await click("Create new project");
-    try {
-      await write("Test Project", into(textBox({ name: "projectName" })));
-    } catch (error) {
-      console.log("error", error);
-    }
+    await write("Test Project", into(textBox({ name: "projectName" })));
     await write("2", into(textBox({ name: "numberOfDescriptions" })));
     await write("5", into(textBox({ name: "totalNumberOfItems" })));
     await click("Submit");
@@ -44,6 +44,23 @@ const {
     await press("Enter");
     await write("IFS123", into(textBox({ name: "ifsActivityCodes" })));
     await write("CPS123", into(textBox({ name: "CPS" })));
+
+    try {
+      await attach(
+        "./dummies/dummy.png",
+        to(
+          fileField(
+            { id: "File Upload" },
+            {
+              selectHiddenElements: true
+            }
+          )
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
     await click("Submit");
 
     // Add items
@@ -76,6 +93,6 @@ const {
   } catch (error) {
     console.error(error);
   } finally {
-    // await closeBrowser();
+    await closeBrowser();
   }
 })();
