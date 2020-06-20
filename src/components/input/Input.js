@@ -27,7 +27,14 @@ const InputShell = ({ ...props }) => {
     <div className={props.className} style={props.style}>
       <div className={props.tight ? "mb-0" : "mb-3"}>
         <div className="d-flex justify-content-between">
-          {props.label && <Form.Label>{props.label}</Form.Label>}
+          {(props.label || props.prepend) && (
+            <label
+              htmlFor={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
+              hidden={!!props.prepend && !props.label}
+            >
+              {props.label}
+            </label>
+          )}
           {props.TinyButtons}
         </div>
         {props.children}

@@ -57,11 +57,17 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         >
           <div className={showUnderBreakpoint()}>
             <small className="text-secondary">
-              {props.label || <div className="ml-3">{props.prepend}</div>}
+              {
+                // (props.math && <div className="ml-3">{props.label}</div>) ||
+                props.label || <div className="ml-3">{props.prepend}</div>
+              }
             </small>
           </div>
           <div className={showAboveBreakpoint()}>
-            {props.label || <div className="ml-3">{props.prepend}</div>}
+            {
+              // (props.math && <div className="ml-3">{props.label}</div>) ||
+              props.label || <div className="ml-3">{props.prepend}</div>
+            }
           </div>
         </div>
       );
@@ -111,13 +117,23 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           !props.label && "ml-3 ml-sm-0"
         }`}
       >
-        {(props.type !== "checkbox" &&
-          ![null, false, "null", undefined, ""].includes(props.value) &&
-          `${props.value}${showUnit}`) ||
-          (props.value === false && `―`) ||
-          (props.value === true && props.type === "checkbox" && `✓`) || (
-            <EmptyValue />
-          )}
+        <div>
+          {(props.type !== "checkbox" &&
+            ![null, false, "null", undefined, ""].includes(props.value) &&
+            `${props.value}${showUnit}`) ||
+            (props.value === false && `―`) ||
+            (props.value === true && props.type === "checkbox" && `✓`) || (
+              <EmptyValue />
+            )}
+          <small>
+            {props.value && props.max ? (
+              <div className="text-muted">Max: {props.max}</div>
+            ) : null}
+            {props.value && props.min ? (
+              <div className="text-muted">Min: {props.min}</div>
+            ) : null}
+          </small>
+        </div>
         {readOnly ? null : <TinyEditButton className={showAboveBreakpoint()} />}
       </div>
     );

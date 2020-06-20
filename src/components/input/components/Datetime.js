@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 registerLocale("enGB", enGB);
 
-function Datetime(props) {
+function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
   // const [startDate, setStartDate] = useState(new Date());
   const ExampleCustomInput = ({ value, onClick }) => (
     <InputGroup>
@@ -59,6 +59,13 @@ function Datetime(props) {
   return (
     <Form.Group>
       <div>
+        <div className="text-secondary">
+          {prepend && !label && (
+            <label htmlFor={`custom-${type}-${label}-${repeatStepList}`}>
+              {prepend}
+            </label>
+          )}
+        </div>
         <DatePicker
           className="w-100"
           readOnly={
@@ -81,6 +88,8 @@ function Datetime(props) {
           calendarContainer={MyContainer}
           timeIntervals={15}
           // withPortal
+          id={`custom-${type}-${label}-${repeatStepList}`}
+          name={name}
         />
       </div>
       <Form.Text className="text-muted">{props.subtext}</Form.Text>

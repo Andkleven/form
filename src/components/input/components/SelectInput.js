@@ -42,6 +42,7 @@ export default props => {
   const selectProps = {
     className: "w-100",
     name: props.name,
+    id: `custom-${props.type}-${props.label}-${props.repeatStepList}`,
     options: options,
     defaultValue: props.defaultValue
       ? options.find(option => option.value === props.defaultValue)

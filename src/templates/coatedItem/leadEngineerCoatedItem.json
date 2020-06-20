@@ -234,7 +234,7 @@
             },
             {
               "fieldName": "toleranceMin",
-              "label": "Tolerated Minimum",
+              "prepend": "Tolerated Minimum",
               "unit": "mm",
               "math": "mathToleranceMin",
               "type": "number"
@@ -248,9 +248,8 @@
             {
               "fieldName": "toleranceMax",
               "math": "mathToleranceMax",
-              "label": "Tolerated Maximum",
+              "prepend": "Tolerated Maximum",
               "unit": "mm",
-              "prepend": "Max",
               "type": "number"
             },
             {

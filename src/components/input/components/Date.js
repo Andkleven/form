@@ -1,16 +1,18 @@
 import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { isStringInstance } from "functions/general";
-import DatePicker, { CalendarContainer, registerLocale } from "react-datepicker";
+import DatePicker, {
+  CalendarContainer,
+  registerLocale
+} from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import enGB from "date-fns/locale/en-GB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 registerLocale("enGB", enGB);
 
-function Datetime(props) {
+function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
   // const [startDate, setStartDate] = useState(new Date());
-
 
   const ExampleCustomInput = ({ value, onClick }) => (
     <InputGroup>
@@ -58,10 +60,17 @@ function Datetime(props) {
 
   return (
     <Form.Group>
+      {props.prepend && !props.label && (
+        <label htmlFor={`custom-${type}-${label}-${repeatStepList}`}>
+          {props.prepend}
+        </label>
+      )}
       <div>
         <DatePicker
           className="w-100"
-          readOnly={props.readOnlyFields ? props.readOnlyFields : props.readOnly}
+          readOnly={
+            props.readOnlyFields ? props.readOnlyFields : props.readOnly
+          }
           autoFocus={props.focus}
           selected={isStringInstance(props.value) ? null : props.value}
           // onChange={date => setStartDate(date)}
@@ -73,6 +82,8 @@ function Datetime(props) {
           showMonthDropdown
           showYearDropdown
           calendarContainer={MyContainer}
+          id={`custom-${type}-${label}-${repeatStepList}`}
+          name={name}
         />
       </div>
       <Form.Text className="text-muted">{props.subtext}</Form.Text>
