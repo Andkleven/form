@@ -7,7 +7,7 @@ import React, {
   useState
 } from "react";
 import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
-import { ChapterContext, DocumentDateContext } from "components/form/Form";
+import { ChapterContext, documentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
 import { getRepeatNumber, isNumberAndNotNaN } from "functions/general";
 import Input from "components/input/Input";
@@ -20,13 +20,13 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 
 export default React.memo(props => {
   const {
-    setLastChapter,
-    lastChapter,
+    setFinalChapter,
+    finalChapter,
     editChapter,
     setEditChapter
   } = useContext(ChapterContext);
-  const { documentDateDispatch, documentDate, renderFunction } = useContext(
-    DocumentDateContext
+  const { documentDataDispatch, documentData, renderFunction } = useContext(
+    documentDataContext
   );
   const [resetState, setResetState] = useState(false);
   const [addOrRemove, setAddOrRemove] = useState(0);
@@ -39,14 +39,14 @@ export default React.memo(props => {
   }, [props.backendData, props.path, props.repeat]);
 
   useLayoutEffect(() => {
-    if (props.finalChapter && props.finalChapter !== lastChapter) {
-      setLastChapter(props.finalChapter);
+    if (props.finalChapter && props.finalChapter !== finalChapter) {
+      setFinalChapter(props.finalChapter);
     }
-  }, [props.finalChapter, setLastChapter, lastChapter]);
+  }, [props.finalChapter, setFinalChapter, finalChapter]);
 
   const addData = useCallback(
     pushOnIndex => {
-      documentDateDispatch({
+      documentDataDispatch({
         type: "add",
         newState: {},
         fieldName: "data",
@@ -54,40 +54,40 @@ export default React.memo(props => {
       });
       setAddOrRemove(prevState => prevState + 1);
     },
-    [props.path, documentDateDispatch, setAddOrRemove]
+    [props.path, documentDataDispatch, setAddOrRemove]
   );
 
   const addHandler = useCallback(() => {
-    if (objectPath.get(documentDate.current, props.path) === undefined) {
-      documentDateDispatch({
+    if (objectPath.get(documentData.current, props.path) === undefined) {
+      documentDataDispatch({
         type: "add",
         newState: {},
         fieldName: "data",
         path: `${props.path}.0`
       });
     } else {
-      documentDateDispatch({
+      documentDataDispatch({
         type: "add",
         newState: {},
         fieldName: "data",
         path: `${props.path}.${
-          objectPath.get(documentDate.current, props.path).length
+          objectPath.get(documentData.current, props.path).length
         }`
       });
     }
     setAddOrRemove(prevState => prevState + 1);
-  }, [documentDateDispatch, props.path, documentDate, setAddOrRemove]);
+  }, [documentDataDispatch, props.path, documentData, setAddOrRemove]);
 
   const deleteHandler = useCallback(
     index => {
-      documentDateDispatch({
+      documentDataDispatch({
         type: "delete",
         path: `${props.path}.${index}`,
         notReRender: true
       });
       setAddOrRemove(prevState => prevState + 1);
     },
-    [props.path, documentDateDispatch, setAddOrRemove]
+    [props.path, documentDataDispatch, setAddOrRemove]
   );
 
   // set repeatGroup
@@ -109,9 +109,9 @@ export default React.memo(props => {
 
   // If repeat group start with one group set repeatGroup to 1
 
-  // If number of repeat group decides by a another field, it's sets repeatGroup
+  // If number of repeat group decided by a another field, it sets repeatGroup
   const autoRepeat = useCallback(
-    (data = documentDate.current) => {
+    (data = documentData.current) => {
       let newValue = getRepeatNumber(
         data,
         props.repeatGroupWithQuery,
@@ -131,7 +131,7 @@ export default React.memo(props => {
       }
     },
     [
-      documentDate,
+      documentData,
       props.repeatGroupWithQuery,
       props.repeatStepList,
       props.editRepeatStepListRepeat,
@@ -183,13 +183,13 @@ export default React.memo(props => {
   ]);
 
   if (
-    objectPath.get(documentDate.current, props.path, null) === null &&
+    objectPath.get(documentData.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
     !isNumberAndNotNaN(
       Number(props.path.split(".")[props.path.split(".").length - 1])
     )
   ) {
-    documentDateDispatch({
+    documentDataDispatch({
       type: "add",
       newState: [],
       path: props.path
@@ -201,8 +201,8 @@ export default React.memo(props => {
     writeChapter.current &&
     (!objectPath.get(props.data, props.path) ||
       objectPath.get(props.data, props.path).length === 0) &&
-    Array.isArray(objectPath.get(documentDate.current, props.path)) &&
-    objectPath.get(documentDate.current, props.path).length === 0
+    Array.isArray(objectPath.get(documentData.current, props.path)) &&
+    objectPath.get(documentData.current, props.path).length === 0
   ) {
     addData(0);
   }
@@ -224,7 +224,7 @@ export default React.memo(props => {
   const save = e => {
     e.persist();
     e.preventDefault();
-    props.submitData(documentDate.current, false);
+    props.submitData(documentData.current, false);
   };
 
   const SaveButton = () => (
@@ -241,7 +241,7 @@ export default React.memo(props => {
   );
 
   const cancel = () => {
-    documentDateDispatch({ type: "setState", newState: props.backendData });
+    documentDataDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
     setResetState(prevState => !prevState);
   };
@@ -271,7 +271,7 @@ export default React.memo(props => {
   // Checks for conditional rendering
   const showEditAll =
     props.showEditButton && !props.stopLoop && !writeChapter.current;
-  // && props.thisChapter !== lastChapter;
+  // && props.thisChapter !== finalChapter;
   const showTitle =
     !props.stopLoop &&
     props.pageTitle &&
@@ -285,7 +285,7 @@ export default React.memo(props => {
   const showCancelTab =
     showLine &&
     !!editChapter &&
-    props.thisChapter !== lastChapter &&
+    props.thisChapter !== finalChapter &&
     props.pageTitle;
   const editAllActive =
     props.showSaveButton && editChapter && props.thisChapter === editChapter;
@@ -305,7 +305,7 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              documentDateDispatch({
+              documentDataDispatch({
                 type: "setState",
                 newState: props.backendData
               });

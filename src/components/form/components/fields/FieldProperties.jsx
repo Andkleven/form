@@ -10,7 +10,7 @@ import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
 import Input from "components/input/Input";
 import WriteField from "components/form/components/fields/WriteField";
 import objectPath from "object-path";
-import { DocumentDateContext, ChapterContext } from "components/form/Form";
+import { documentDataContext, ChapterContext } from "components/form/Form";
 import Math from "components/form/functions/math";
 import {
   getSubtext,
@@ -23,7 +23,7 @@ import LightLine from "components/design/LightLine";
 import Line from "components/design/Line";
 
 export default ({ resetState, ...props }) => {
-  const { documentDate, renderFunction } = useContext(DocumentDateContext);
+  const { documentData, renderFunction } = useContext(documentDataContext);
   const { editChapter } = useContext(ChapterContext);
 
   const [state, setState] = useState("");
@@ -38,9 +38,9 @@ export default ({ resetState, ...props }) => {
 
   useEffect(() => {
     let backendDate = objectPath.get(
-      Object.keys(documentDate.current).length === 0
+      Object.keys(documentData.current).length === 0
         ? props.backendData
-        : documentDate.current,
+        : documentData.current,
       getNewPath(),
       null
     );
@@ -54,21 +54,21 @@ export default ({ resetState, ...props }) => {
     props.backendData,
     setState,
     getNewPath,
-    documentDate,
+    documentData,
     props.type
   ]);
 
   const updateReadOnly = useCallback(() => {
     setReadOnly(
       !objectPath.get(
-        Object.keys(documentDate.current).length === 0
+        Object.keys(documentData.current).length === 0
           ? props.backendData
-          : documentDate.current,
+          : documentData.current,
         props.readOnlyFieldIf,
         false
       )
     );
-  }, [setReadOnly, props.backendData, props.readOnlyFieldIf, documentDate]);
+  }, [setReadOnly, props.backendData, props.readOnlyFieldIf, documentData]);
 
   useEffect(() => {
     let effectsRenderFunction = renderFunction.current;
@@ -172,7 +172,7 @@ export default ({ resetState, ...props }) => {
   );
 
   const getLabel = useCallback(
-    (data = documentDate.current) => {
+    (data = documentData.current) => {
       setLabel(
         variableLabel(
           props.label,
@@ -193,7 +193,7 @@ export default ({ resetState, ...props }) => {
       props.editRepeatStepListVariableLabel,
       props.indexVariableLabel,
       props.repeatStep,
-      documentDate
+      documentData
     ]
   );
 

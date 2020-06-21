@@ -85,14 +85,14 @@ export const findValue = (
 export const getData = (
   info,
   repeatStepList,
-  documentDate,
+  documentData,
   isItData = false
 ) => {
-  if (!documentDate.current) {
+  if (!documentData.current) {
     return null;
   }
   let path = createPath(info.queryPath, repeatStepList);
-  let data = objectPath.get(documentDate.current, path);
+  let data = objectPath.get(documentData.current, path);
   if (isItData && Array.isArray(data)) {
     return data[data.length - 1];
   }
@@ -382,7 +382,7 @@ export const calculateMaxMin = (
 //   stopLoop,
 //   editField,
 //   pageInfo,
-//   lastChapter
+//   finalChapter
 // ) => {
 //   return pageInfo.pages.map((info, index) => {
 //     let showEditButton = !props.notEditButton && !index ? true : false;
@@ -398,7 +398,7 @@ export const calculateMaxMin = (
 //       firstIndex + 1,
 //       stopLoop.current,
 //       showEditButton,
-//       lastChapter,
+//       finalChapter,
 //       showSaveButton
 //     );
 //     return <Fragment key={`${index}-${firstIndex}-canvas`}>{page}</Fragment>;

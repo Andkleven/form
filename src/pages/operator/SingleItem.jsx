@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
@@ -11,6 +11,7 @@ import {
   coatedItemOrMould
 } from "functions/general";
 import Canvas from "components/layout/Canvas";
+import { ItemContext } from "components/contexts/ItemContext";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
@@ -28,6 +29,16 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
+  const stage = fixedData && fixedData.items && fixedData.items[0].stage;
+
+  const { item, setItem } = useContext(ItemContext);
+
+  useEffect(() => {
+    if (item.id === null) {
+      setItem({ id: itemId, stage: stage });
+    }
+  });
+
   return (
     <Canvas>
       <Paper>
@@ -39,7 +50,7 @@ export default pageInfo => {
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
-          stage={fixedData && fixedData.items && fixedData.items[0].stage}
+          stage={stage}
           geometry={geometry}
           getQueryBy={itemId}
           itemId={itemId}

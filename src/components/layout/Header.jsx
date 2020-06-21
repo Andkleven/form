@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Navbar, Dropdown } from "react-bootstrap";
 import emblem from "images/emblem.png";
 import "styles/styles.css";
@@ -7,9 +7,14 @@ import { USER } from "constants.js";
 import { camelCaseToNormal } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { ItemContext } from "components/contexts/ItemContext";
+import Repair from "components/repair/Repair";
 
 export default () => {
   const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
+  const { item } = useContext(ItemContext);
+
+  const [showRepair, setShowRepair] = useState(false);
 
   const NavLink = ({ title, link, icon, disabled, hidden }) => (
     <LinkContainer to={link} className="p-0">
@@ -56,12 +61,14 @@ export default () => {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <NavLink title="Home" link="/" icon="home" />
-            <NavButton
-              title="Repair"
-              onClick={() => alert("Yo")}
-              icon="tools"
-              hidden
-            />
+            <Repair id={item.id} show={showRepair} setShow={setShowRepair}>
+              <NavButton
+                title={`Repair`}
+                onClick={() => setShowRepair(true)}
+                icon="tools"
+                // hidden
+              />
+            </Repair>
           </Dropdown.Menu>
         </Dropdown>
       </div>

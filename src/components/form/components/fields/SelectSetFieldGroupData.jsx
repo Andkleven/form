@@ -1,7 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import FieldGroup from "components/form/components/fields/FieldGroup";
 import objectPath from "object-path";
-import { DocumentDateContext } from "components/form/Form";
+import { documentDataContext } from "components/form/Form";
 import {
   getRepeatNumber,
   getRepeatStepList,
@@ -13,7 +13,7 @@ import Line from "components/design/Line";
 import DepthButton from "components/button/DepthButton";
 
 export default ({ addOrRemove, ...props }) => {
-  const { documentDate } = useContext(DocumentDateContext);
+  const { documentData } = useContext(documentDataContext);
 
   const DeleteButton = props => (
     <DepthButton
@@ -31,18 +31,18 @@ export default ({ addOrRemove, ...props }) => {
     if (
       Array.isArray(
         objectPath.get(
-          Object.keys(documentDate.current).length === 0
+          Object.keys(documentData.current).length === 0
             ? props.backendData
-            : documentDate.current,
+            : documentData.current,
           props.path
         )
       )
     ) {
       return objectPath
         .get(
-          Object.keys(documentDate.current).length === 0
+          Object.keys(documentData.current).length === 0
             ? props.backendData
-            : documentDate.current,
+            : documentData.current,
           props.path
         )
         .map((v, index) => {

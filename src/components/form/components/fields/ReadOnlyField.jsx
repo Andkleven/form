@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-import { DocumentDateContext } from "components/form/Form";
+import { documentDataContext } from "components/form/Form";
 import Math from "components/form/functions/math";
 import ReadField from "components/form/components/fields/ReadField";
 
@@ -7,18 +7,18 @@ import "styles/styles.css";
 
 export default ({ resetState, backendData, ...props }) => {
   const [value, setValue] = useState("");
-  const { documentDate, renderFunction } = useContext(DocumentDateContext);
+  const { documentData, renderFunction } = useContext(documentDataContext);
   const math = useCallback(() => {
     const getValueFromMath = Math[props.math](
-      Object.keys(documentDate.current).length === 0
+      Object.keys(documentData.current).length === 0
         ? backendData
-        : documentDate.current,
+        : documentData.current,
       props.repeatStepList,
       props.decimal ? props.decimal : 0
     );
     setValue(getValueFromMath);
   }, [
-    documentDate,
+    documentData,
     props.decimal,
     props.math,
     backendData,

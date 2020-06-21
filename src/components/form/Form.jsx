@@ -57,14 +57,14 @@ function useStore(init) {
   return [state, reducer, renderFunction];
 }
 export const ChapterContext = createContext();
-export const DocumentDateContext = createContext();
+export const documentDataContext = createContext();
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentDate, documentDateDispatch, renderFunction] = useStore({});
+  const [documentData, documentDataDispatch, renderFunction] = useStore({});
   const nextStage = useRef(true);
   // const [nextStage, setNextStage] = useState(true);
-  const [lastChapter, setLastChapter] = useState(0);
+  const [finalChapter, setFinalChapter] = useState(0);
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
@@ -74,16 +74,16 @@ export default props => {
       skip: !props.optionsQuery
     }
   );
-  // Set DocumentDate to empty dictionary if a new component calls Form
+  // Set documentData to empty dictionary if a new component calls Form
   useLayoutEffect(() => {
     if (props.data) {
-      documentDateDispatch({
+      documentDataDispatch({
         type: "setState",
         newState: props.data
       });
     }
-  }, [props.componentsId, documentDateDispatch, props.data]);
-  // console.log(documentDate);
+  }, [props.componentsId, documentDataDispatch, props.data]);
+  // console.log(documentData);
   // console.log(validationPassed)
 
   const update = (cache, { data }) => {
@@ -202,11 +202,11 @@ export default props => {
       // clearTimeout(timer.current)
       // timer.current = setTimeout(() => {
       setEditChapter(0);
-      setLastChapter(0);
+      setFinalChapter(0);
       // console.log("nei");
-      if (documentDate.current) {
+      if (documentData.current) {
         let variables = stringifyQuery(
-          cloneDeep(documentDate.current),
+          cloneDeep(documentData.current),
           props.removeEmptyField
         );
         mutation({
@@ -232,7 +232,7 @@ export default props => {
     },
     [
       props.removeEmptyField,
-      documentDate,
+      documentData,
       editChapter,
       mutation,
       nextStage,
@@ -249,17 +249,17 @@ export default props => {
   const formSubmit = e => {
     e.persist();
     e.preventDefault();
-    submitData(documentDate.current, true);
+    submitData(documentData.current, true);
   };
 
   return (
-    <DocumentDateContext.Provider
-      value={{ documentDate, documentDateDispatch, renderFunction }}
+    <documentDataContext.Provider
+      value={{ documentData, documentDataDispatch, renderFunction }}
     >
       <ChapterContext.Provider
         value={{
-          lastChapter,
-          setLastChapter,
+          finalChapter,
+          setFinalChapter,
           editChapter,
           setEditChapter
         }}
@@ -281,7 +281,7 @@ export default props => {
           {errorMutation && <p>Error :( Please try again</p>}
         </Form>
       </ChapterContext.Provider>
-    </DocumentDateContext.Provider>
+    </documentDataContext.Provider>
   );
 };
 // Form.whyDidYouRender = true;
