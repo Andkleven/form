@@ -1,6 +1,5 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
-import Button from "react-bootstrap/Button";
 import mutation from "graphql/mutation.js";
 import { Modal } from "react-bootstrap";
 import DepthButtonGroup from "components/button/DepthButtonGroup";

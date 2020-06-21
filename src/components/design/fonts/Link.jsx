@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default ({
   to = "#",
