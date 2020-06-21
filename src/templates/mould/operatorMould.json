@@ -327,8 +327,6 @@
 
       "pages": [
         {
-          "pageTitle": "Coating {}",
-          "indexVariablePageTitle": 1,
           "customComponent": "CustomCoating"
         },
         {
@@ -379,13 +377,24 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators"
+            "coatingOperators",
+            "layers"
           ],
+          "repeat": true,
+          "repeatStartWithOneGroup": true,
+          "delete": true,
+          "addButton": "Extra Layer",
           "fields": [
             {
               "fieldName": "rubberThickness",
               "label": "Rubber Thickness",
               "type": "Number",
+              "required": true
+            },
+            {
+              "fieldName": "mixDate",
+              "label": "Mix Date",
+              "type": "date",
               "required": true
             }
           ]

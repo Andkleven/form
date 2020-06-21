@@ -121,7 +121,11 @@ export default props => {
         <Fragment key={count}>
           {" "}
           {getNewChapter(
-            props.repeatStepList,
+            step !== null
+              ? props.repeatStepList
+                ? [...props.repeatStepList, step]
+                : [step]
+              : props.repeatStepList,
             pageInfo,
             props.document.chapterByStage,
             thisStage
@@ -132,9 +136,9 @@ export default props => {
   };
   const stageChapters = () => {
     let i = 0;
-    let stageSplit = [];
     let chapterBasedOnStage = [];
     let thisStage = props.stage ? props.stage : stage;
+    let stageSplit = stage.split("Step");
     if (props.stage === "" && props.geometry) {
       thisStage = Object.keys(
         stagesJson[removeSpace(props.geometry.toLowerCase())]
@@ -147,7 +151,7 @@ export default props => {
             stageSplit[1] ? stageSplit[0] + "Step" : stage
           ],
           thisStage,
-          stageSplit[1] - 1
+          Number(stageSplit[1]) - 1
         )
       );
       stage = findNextStage(props.specData, stage, props.geometry);

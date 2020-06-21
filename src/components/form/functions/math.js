@@ -259,10 +259,10 @@ const mathMeasurementPoint = (data, repeatStepList) => {
     objectPath
       .get(data, `leadEngineers.0.vulcanizationSteps.${index}.coatingLayers`)
       .forEach((coatingLayer, index2) => {
-        layerThickness += mathShrinkThickness(data, [index, index2], 0);
+        layerThickness += Number(mathShrinkThickness(data, [index, index2], 0));
       });
   };
-  for (let index = 0; index < repeatStepList[0]; index++) {
+  for (let index = 0; index <= repeatStepList[0]; index++) {
     coatingLayers(index);
   }
   return layerThickness;
@@ -270,18 +270,16 @@ const mathMeasurementPoint = (data, repeatStepList) => {
 
 const mathMeasurementPointMin = (allData, data, repeatStepList) => {
   let layerThickness = mathMeasurementPoint(data, repeatStepList);
-  let toleranceMinPercent = objectPath.get(
-    data,
-    `leadEngineers.0.data.toleranceMinPercent`
+  let toleranceMinPercent = Number(
+    objectPath.get(data, `leadEngineers.0.data.toleranceMinPercent`)
   );
   return layerThickness - (layerThickness * toleranceMinPercent) / 100;
 };
 
 const mathMeasurementPointMax = (allData, data, repeatStepList) => {
   let layerThickness = mathMeasurementPoint(data, repeatStepList);
-  let toleranceMaxPercent = objectPath.get(
-    data,
-    `leadEngineers.0.data.toleranceMaxPercent`
+  let toleranceMaxPercent = Number(
+    objectPath.get(data, `leadEngineers.0.data.toleranceMaxPercent`)
   );
   return layerThickness + (layerThickness * toleranceMaxPercent) / 100;
 };

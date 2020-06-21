@@ -572,6 +572,13 @@
     "measurementPointStep": {
       "pages": [
         {
+          "variableLabelSpec": true,
+          "queryVariableLabel": [
+            "",
+            "leadEngineers.0.measurementPointActualTdvs",
+            "data.referencePoint"
+          ],
+          "label": "Measurement Point Reference: {}",
           "pageTitle": "Measurement after Vulcanization",
           "repeat": true,
           "notAddButton": true,

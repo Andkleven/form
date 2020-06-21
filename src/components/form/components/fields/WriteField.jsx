@@ -26,7 +26,7 @@ const decimalTooStep = {
 
 export default ({ setResetState, setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
-  const [ignoreRequired, setIgnoreRequired] = useState("");
+  const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   const { documentData, documentDataDispatch } = useContext(
     documentDataContext
@@ -81,7 +81,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     let { name } = e.target;
     addUser();
     let oldValue = objectPath.get(documentData.current, props.path, false);
-    setIgnoreRequired(oldValue);
+    setIgnoreRequired(!oldValue);
     documentDataDispatch({
       type: "add",
       newState: !oldValue,
@@ -218,9 +218,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}
         name={props.fieldName}
-        required={
-          props.ignoreRequired && ignoreRequired ? false : props.required
-        }
+        required={ignoreRequired ? false : props.required}
         step={props.decimal ? decimalTooStep[props.decimal] : 0}
         tight={props.submitButton}
       />

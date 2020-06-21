@@ -286,7 +286,7 @@ export const getSubtext = (
     }
     subtext = variableString("", subtext);
   }
-  return minString + maxString + subtext ? subtext : "";
+  return minString + maxString + (subtext ? subtext : "");
 };
 
 export const objectifyQuery = query => {
@@ -356,7 +356,7 @@ export const calculateMaxMin = (
       editRepeatStepListMin
     );
   } else if (calculateMin) {
-    min = Math[calculateMin](allData, data, repeatStepList);
+    newMin = Math[calculateMin](allData, data, repeatStepList);
   } else {
     newMin = min;
   }
@@ -368,7 +368,7 @@ export const calculateMaxMin = (
       editRepeatStepListMax
     );
   } else if (calculateMax) {
-    max = Math[calculateMax](allData, data, repeatStepList);
+    newMax = Math[calculateMax](allData, data, repeatStepList);
   } else {
     newMax = max;
   }
