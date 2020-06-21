@@ -3,7 +3,8 @@ import {
   findValue,
   allRequiredSatisfied,
   createPath,
-  removeSpace
+  removeSpace,
+  reshapeStageSting
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -40,7 +41,7 @@ export default props => {
     } else {
       let allRequiredFieldSatisfied = props.data
         ? byStage
-          ? thisStage === stage
+          ? thisStage === reshapeStageSting(stage)
           : !allRequiredSatisfied(pageInfo, props.data, repeatStepList)
         : false;
       // if now data in lookUpBy this is last chapter
@@ -150,7 +151,7 @@ export default props => {
           props.document.chapters[
             stageSplit[1] ? stageSplit[0] + "Step" : stage
           ],
-          thisStage,
+          reshapeStageSting(thisStage),
           Number(stageSplit[1]) - 1
         )
       );

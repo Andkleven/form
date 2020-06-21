@@ -46,7 +46,6 @@ export default React.memo(props => {
 
   const addData = useCallback(
     pushOnIndex => {
-      console.log(2);
       documentDataDispatch({
         type: "add",
         newState: {},

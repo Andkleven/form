@@ -111,7 +111,12 @@ const CustomLead = props => {
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 
-  if (props.writeChapter && toleranceMin && toleranceMax && layersThickness) {
+  if (
+    props.writeChapter.current &&
+    toleranceMin &&
+    toleranceMax &&
+    layersThickness
+  ) {
     return (
       <Alert variant={status} className="">
         <Alert.Heading>

@@ -28,21 +28,16 @@ export default (specData: object, stage: string, geometry: string): string => {
   let index = stages.indexOf(thisStage);
   let nextStage;
   while (nextStage === undefined) {
-    if (stagesJson[geometry][thisStage]["crossroads"]) {
+    let crossroads = stagesJson[geometry][thisStage]["crossroads"];
+    if (crossroads) {
       query = findValue(
         specData,
-        stagesJson[geometry][stagesJson[geometry][thisStage]["crossroads"]][
-          "queryPath"
-        ],
+        stagesJson[geometry][crossroads]["queryPath"],
         isNumber(step) ? [step] : [],
-        stagesJson[geometry][stagesJson[geometry][thisStage]["crossroads"]][
-          "editIndexList"
-        ]
+        stagesJson[geometry][crossroads]["editIndexList"]
       );
       if (!emptyField(query)) {
-        return `${
-          stagesJson[geometry][stagesJson[geometry][thisStage]["crossroads"]]
-        }${step + 1}`;
+        return `${crossroads}${step + 1}`;
       }
     }
     thisStage = stages[index + 1];
