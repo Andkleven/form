@@ -20,8 +20,8 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 
 export default React.memo(props => {
   const {
-    setLastChapter,
-    lastChapter,
+    setFinalChapter,
+    finalChapter,
     editChapter,
     setEditChapter
   } = useContext(ChapterContext);
@@ -39,10 +39,10 @@ export default React.memo(props => {
   }, [props.backendData, props.path, props.repeat]);
 
   useLayoutEffect(() => {
-    if (props.finalChapter && props.finalChapter !== lastChapter) {
-      setLastChapter(props.finalChapter);
+    if (props.finalChapter && props.finalChapter !== finalChapter) {
+      setFinalChapter(props.finalChapter);
     }
-  }, [props.finalChapter, setLastChapter, lastChapter]);
+  }, [props.finalChapter, setFinalChapter, finalChapter]);
 
   const addData = useCallback(
     pushOnIndex => {
@@ -119,7 +119,7 @@ export default React.memo(props => {
     addData(0);
   }
 
-  // If number of repeat group decides by a another field, it's sets repeatGroup
+  // If number of repeat group decided by a another field, it sets repeatGroup
   const autoRepeat = useCallback(
     (data = documentData.current) => {
       let newValue = getRepeatNumber(
@@ -268,7 +268,7 @@ export default React.memo(props => {
   // Checks for conditional rendering
   const showEditAll =
     props.showEditButton && !props.stopLoop && !writeChapter.current;
-  // && props.thisChapter !== lastChapter;
+  // && props.thisChapter !== finalChapter;
   const showTitle =
     !props.stopLoop &&
     props.pageTitle &&
@@ -282,7 +282,7 @@ export default React.memo(props => {
   const showCancelTab =
     showLine &&
     !!editChapter &&
-    props.thisChapter !== lastChapter &&
+    props.thisChapter !== finalChapter &&
     props.pageTitle;
   const editAllActive =
     props.showSaveButton && editChapter && props.thisChapter === editChapter;

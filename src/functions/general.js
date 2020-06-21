@@ -382,7 +382,7 @@ export const calculateMaxMin = (
 //   stopLoop,
 //   editField,
 //   pageInfo,
-//   lastChapter
+//   finalChapter
 // ) => {
 //   return pageInfo.pages.map((info, index) => {
 //     let showEditButton = !props.notEditButton && !index ? true : false;
@@ -398,7 +398,7 @@ export const calculateMaxMin = (
 //       firstIndex + 1,
 //       stopLoop.current,
 //       showEditButton,
-//       lastChapter,
+//       finalChapter,
 //       showSaveButton
 //     );
 //     return <Fragment key={`${index}-${firstIndex}-canvas`}>{page}</Fragment>;

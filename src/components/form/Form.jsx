@@ -64,7 +64,7 @@ export default props => {
   const [documentData, documentDataDispatch, renderFunction] = useStore({});
   const nextStage = useRef(true);
   // const [nextStage, setNextStage] = useState(true);
-  const [lastChapter, setLastChapter] = useState(0);
+  const [finalChapter, setFinalChapter] = useState(0);
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
@@ -202,7 +202,7 @@ export default props => {
       // clearTimeout(timer.current)
       // timer.current = setTimeout(() => {
       setEditChapter(0);
-      setLastChapter(0);
+      setFinalChapter(0);
       // console.log("nei");
       if (documentData.current) {
         let variables = stringifyQuery(
@@ -258,8 +258,8 @@ export default props => {
     >
       <ChapterContext.Provider
         value={{
-          lastChapter,
-          setLastChapter,
+          finalChapter,
+          setFinalChapter,
           editChapter,
           setEditChapter
         }}

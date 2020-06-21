@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { AUTH_TOKEN } from "./constants";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./functions/history";
@@ -18,10 +18,15 @@ import "styles/icons";
 
 export default () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
+  const [item, setItem] = useState({ id: null, stage: null });
+  const itemValue = useMemo(() => ({ item, setItem }), [item, setItem]);
 
   return (
     <ProjectProvider>
-      <ItemContext.Provider value={{ id: null }}>
+      <ItemContext.Provider
+        // value={{ item, setItem }}
+        value={itemValue}
+      >
         <Router history={history}>
           <Switch>
             {/* Login */}

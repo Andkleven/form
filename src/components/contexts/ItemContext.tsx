@@ -5,4 +5,4 @@ import React from "react";
 //   stage?: string;
 // }
 
-export const ItemContext = React.createContext(null);
+export const ItemContext = React.createContext({ id: null, stage: null });

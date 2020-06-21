@@ -12,7 +12,7 @@ import Repair from "components/repair/Repair";
 
 export default () => {
   const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
-  const item = useContext(ItemContext);
+  const { item } = useContext(ItemContext);
 
   const [showRepair, setShowRepair] = useState(false);
 
