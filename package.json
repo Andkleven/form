@@ -54,7 +54,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "taiko": "taiko"
+    "taiko": "taiko",
+    "createProject": "taiko ./src/auto/tasks/testing/coating.js"
   },
   "browserslist": [
     "defaults"
