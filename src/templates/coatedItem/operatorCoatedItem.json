@@ -389,8 +389,6 @@
       "lookUpBy": "layerApplied",
       "pages": [
         {
-          "pageTitle": "Coating {}",
-          "indexVariablePageTitle": 1,
           "customComponent": "CustomCoating"
         },
         {
@@ -462,13 +460,23 @@
           "queryPath": [
             "operators.0.vulcanizationOperators",
             "coatingOperators",
-            ""
+            "layers"
           ],
+          "repeat": true,
+          "repeatStartWithOneGroup": true,
+          "delete": true,
+          "addButton": "Extra Layer",
           "fields": [
             {
               "fieldName": "rubberThickness",
               "label": "Rubber Thickness",
               "type": "Number",
+              "required": true
+            },
+            {
+              "fieldName": "mixData",
+              "label": "Mix Data",
+              "type": "data",
               "required": true
             }
           ]

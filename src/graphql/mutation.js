@@ -216,6 +216,10 @@ const OPERATOR = gql`
                   id
                   data
                 }
+                layers {
+                  id
+                  data
+                }
                 measurementPointOperators {
                   id
                   data

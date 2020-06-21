@@ -9,7 +9,7 @@ import React, {
 import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
 import { ChapterContext, DocumentDateContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
-import { getRepeatNumber, isNumber } from "functions/general";
+import { getRepeatNumber, isNumberAndNotNaN } from "functions/general";
 import Input from "components/input/Input";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
@@ -108,16 +108,6 @@ export default React.memo(props => {
   // }, [props.allWaysShow, editChapter, props.thisChapter, props.finalChapter, props.componentsId]);
 
   // If repeat group start with one group set repeatGroup to 1
-  if (
-    props.repeatStartWithOneGroup &&
-    writeChapter.current &&
-    (!objectPath.get(props.data, props.path) ||
-      objectPath.get(props.data, props.path).length === 0) &&
-    Array.isArray(objectPath.get(documentDate.current, props.path)) &&
-    objectPath.get(documentDate.current, props.path).length === 0
-  ) {
-    addData(0);
-  }
 
   // If number of repeat group decides by a another field, it's sets repeatGroup
   const autoRepeat = useCallback(
@@ -195,13 +185,26 @@ export default React.memo(props => {
   if (
     objectPath.get(documentDate.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
-    !isNumber(Number(props.path.split(".")[props.path.split(".").length - 1]))
+    !isNumberAndNotNaN(
+      Number(props.path.split(".")[props.path.split(".").length - 1])
+    )
   ) {
     documentDateDispatch({
       type: "add",
       newState: [],
       path: props.path
     });
+  }
+
+  if (
+    props.repeatStartWithOneGroup &&
+    writeChapter.current &&
+    (!objectPath.get(props.data, props.path) ||
+      objectPath.get(props.data, props.path).length === 0) &&
+    Array.isArray(objectPath.get(documentDate.current, props.path)) &&
+    objectPath.get(documentDate.current, props.path).length === 0
+  ) {
+    addData(0);
   }
 
   const Components = CustomComponents[props.customComponent];
