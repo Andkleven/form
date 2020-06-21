@@ -474,9 +474,9 @@
               "required": true
             },
             {
-              "fieldName": "mixData",
-              "label": "Mix Data",
-              "type": "data",
+              "fieldName": "mixDate",
+              "label": "Mix Date",
+              "type": "date",
               "required": true
             }
           ]
