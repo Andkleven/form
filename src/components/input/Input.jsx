@@ -6,7 +6,6 @@ import {
   isChrome,
   isFirefox
 } from "react-device-detect";
-import { Form } from "react-bootstrap";
 import Date from "components/input/components/Date";
 import Datetime from "components/input/components/Datetime";
 import NativeInput from "components/input/components/NativeInput";

@@ -19,7 +19,6 @@ import {
   variableLabel
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
-import LightLine from "components/design/LightLine";
 import Line from "components/design/Line";
 
 export default ({ resetState, ...props }) => {

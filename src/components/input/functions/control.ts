@@ -26,11 +26,11 @@ export function control({
       let minMaxFeedback: string = "";
 
       if (typeof min === "number" && typeof max === "number") {
-        minMaxFeedback = `${value} is outside range ${min}-${max}${unit}`;
+        minMaxFeedback = `${value}${unit} is outside range ${min}-${max}${unit}`;
       } else if (typeof min === "number") {
-        minMaxFeedback = `${value} is less than minimum ${min}${unit}`;
+        minMaxFeedback = `${value}${unit} is less than minimum ${min}${unit}`;
       } else if (typeof max === "number") {
-        minMaxFeedback = `${value} is greater than maximum ${max}${unit}`;
+        minMaxFeedback = `${value}${unit} is greater than maximum ${max}${unit}`;
       }
 
       if ((min && value < min) || (max && value > max)) {
