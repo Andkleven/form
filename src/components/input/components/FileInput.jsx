@@ -126,7 +126,7 @@ export default props => {
       setPlaceholder(
         props.placeholder
           ? props.placeholder
-          : `Drag 'n' drop ${
+          : `Drag and drop ${
               props.singleFile ? "file" : "files"
             }, or click to upload.`
       );
@@ -138,8 +138,15 @@ export default props => {
       <section className="container px-0 mx-0">
         {props.writeChapter && (
           <div {...getRootProps({ style })}>
-            <input {...getInputProps()} />
-            <p className="mt-2">{placeholder}</p>
+            <label htmlFor={props.label || props.prepend}>{placeholder}</label>
+            <input
+              {...getInputProps()}
+              id={props.label || props.prepend}
+              name={props.label || props.prepend}
+              type="file"
+              style={{}}
+              hidden
+            />
           </div>
         )}
         {files.length && !props.singleFile ? (

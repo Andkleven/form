@@ -150,14 +150,18 @@ export default props => {
       );
       let chapter = itemJson["chapters"][reshapeStageSting(props.stage)];
       let batchingData = allFields(chapter, item);
-      if (
-        item.stage === props.stage &&
-        (!props.batchingData ||
-          JSON.stringify(batchingData) === JSON.stringify(props.batchingData))
-      ) {
+      if (item.stage === props.stage) {
+        const disabled =
+          item.stage === props.stage &&
+          !(
+            !props.batchingData ||
+            JSON.stringify(batchingData) === JSON.stringify(props.batchingData)
+          );
         return (
           <Fragment key={`${index}-fragment`}>
             <CheckInput
+              className="mt-3"
+              disabled={disabled}
               key={`${index}-check`}
               onChange={e => handleClick(e, item, description, batchingData)}
               id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
@@ -219,13 +223,19 @@ export default props => {
       } else if (item.stage === props.stage) {
         // samme stage, men forskjellig data
         return (
-          <div className="d-flex align-items-center">
-            {item.itemId}
-            <div className="d-inline text-secondary">
-              {props.partialBatching
-                ? "(Different speck data)"
-                : "(Different speck data or data)"}
-            </div>
+          <div>
+            <s className="text-muted">
+              {item.itemId}
+              {/* <div className="d-inline text-secondary">
+              {props.partialBatching ? (
+                <div className="ml-1">(Different specifications)</div>
+              ) : (
+                <div className="ml-1">
+                  (Different specifications or data already entered)
+                </div>
+              )}
+            </div> */}
+            </s>
           </div>
         );
       } else {
@@ -260,7 +270,7 @@ export default props => {
               Number(props.descriptionId) === 0
             ) {
               return (
-                <Fragment key={`${index}`}>
+                <div key={`${index}`} className="mb-3">
                   {!!description &&
                     !Items({ description }).every(
                       element => element === null
@@ -276,7 +286,7 @@ export default props => {
                         <Items description={description} />
                       </>
                     )}
-                </Fragment>
+                </div>
               );
             } else {
               return null;

@@ -11,15 +11,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 registerLocale("enGB", enGB);
 
-function Datetime(props) {
+function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
   // const [startDate, setStartDate] = useState(new Date());
+
   const ExampleCustomInput = ({ value, onClick }) => (
     <InputGroup>
       <Form.Control
         value={value}
         onClick={onClick}
         readOnly
-        placeholder="Press to pick time"
+        placeholder="Press to pick date"
       />
       <InputGroup.Append>
         <Button
@@ -29,8 +30,8 @@ function Datetime(props) {
           // onClick={date => setStartDate(new Date())}
           onClick={date => props.onChangeDate(new Date())}
         >
-          <FontAwesomeIcon icon="clock" style={{ width: "1.2em" }} />
-          <div className="d-none d-sm-inline ml-1">{" Current time"}</div>
+          <FontAwesomeIcon icon="calendar" style={{ width: "1.2em" }} />
+          <div className="d-none d-sm-inline ml-1">{" Today"}</div>
         </Button>
       </InputGroup.Append>
       <InputGroup.Append>
@@ -56,31 +57,33 @@ function Datetime(props) {
       </div>
     );
   };
+
   return (
     <Form.Group>
+      {props.prepend && !props.label && (
+        <label htmlFor={`custom-${type}-${label}-${repeatStepList}`}>
+          {props.prepend}
+        </label>
+      )}
       <div>
         <DatePicker
           className="w-100"
           readOnly={
             props.readOnlyFields ? props.readOnlyFields : props.readOnly
           }
+          autoFocus={props.focus}
           selected={isStringInstance(props.value) ? null : props.value}
           // onChange={date => setStartDate(date)}
           onChange={date => props.onChangeDate(date)}
           customInput={<ExampleCustomInput />}
-          showTimeSelect
-          autoFocus={props.focus}
-          // showTimeInput
-          timeFormat="HH:mm"
-          dateFormat="dd/MM/yyyy HH:mm"
-          locale={enGB}
+          dateFormat="dd/MM/yyyy"
           required={props.required}
+          locale={enGB}
           showMonthDropdown
           showYearDropdown
-          // showWeekNumbers
           calendarContainer={MyContainer}
-          timeIntervals={15}
-          // withPortal
+          id={`custom-${type}-${label}-${repeatStepList}`}
+          name={name}
         />
       </div>
       <Form.Text className="text-muted">{props.subtext}</Form.Text>

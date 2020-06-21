@@ -73,11 +73,11 @@ export default ({ addOrRemove, ...props }) => {
                   ).file
                 }
                 indexId={`${props.indexId}-${index}`}
-                indent={
-                  // props.pageTitle &&
-                  // props.indexVariablePageTitle !== undefined
-                  props.writeChapter && props.repeat && props.addButton
-                }
+                // indent={
+                //   // props.pageTitle &&
+                //   // props.indexVariablePageTitle !== undefined
+                //   props.writeChapter && props.repeat && props.addButton
+                // }
               />
               {props.delete && props.writeChapter ? (
                 props.repeatStartWithOneGroup ? (

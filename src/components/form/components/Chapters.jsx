@@ -4,7 +4,7 @@ import {
   allRequiredSatisfied,
   createPath,
   removeSpace
-} from "functions/general";
+} from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";

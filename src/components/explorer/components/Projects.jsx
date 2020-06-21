@@ -8,6 +8,7 @@ import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
 import { numberOfChildren } from "../functions/data.js";
+import batching from "templates/batching.json";
 
 export default ({
   results, // Search results (JSON-object)
@@ -43,6 +44,10 @@ export default ({
   const [deleteProject] = useMutation(mutations["DELETE_PROJECT"], {
     update: deleteProjectFromCache
   });
+
+  // Batching stages
+  const batchingStages = Object.keys(batching);
+  console.log(batchingStages);
 
   return (
     <div className={props.className}>
@@ -104,7 +109,7 @@ export default ({
               )}
               {!!stage &&
                 // Array of stages with batching here
-                ["steelPreparation1", "steelPreparation2"].includes(stage) && (
+                batchingStages.includes(stage) && (
                   <>
                     <Link
                       // to={`/project/${project["id"]}`}
@@ -155,7 +160,7 @@ export default ({
                     if (
                       confirmation === project.data.projectName &&
                       window.confirm(
-                        `Are you sure? The project "${project.data.projectName}" will be gone forever.\nTip: You may need to refresh the browser to see the changes.`
+                        `Are you sure? The project "${project.data.projectName}" will be gone forever. Tip: You may need to refresh the browser to see the changes.`
                       )
                     ) {
                       deleteProject({ variables: { id: project["id"] } });
@@ -172,18 +177,6 @@ export default ({
                   Delete project
                 </Link>
               )}
-              {/* <Button
-                  variant="danger"
-                  style={{ height: "2em", marginRight: "1em" }}
-                  key={`project${indexProject}Delete`}
-                  className="d-flex align-items-center"
-                  onClick={() => {
-                    deleteProject({ variables: { id: project["id"] } });
-                    window.location.reload(false);
-                  }}
-                >
-                  <FontAwesomeIcon icon="trash-alt" className="mr-2" /> Delete
-                </Button> */}
             </div>
             {project.descriptions &&
               project.descriptions.map((description, indexDescription) => (
@@ -215,38 +208,6 @@ export default ({
                     </div>
                   }
                 >
-                  {/* {!!stage &&
-                    !["leadEngineer", "qualityControl"].includes(stage) && (
-                      <div className="d-flex align-items-center flex-wrap mb-2">
-                        <Link
-                          // to={`/project/${project["id"]}`}
-                          to={`/batching/${stage}/${project["id"]}/${description.data.description}/${description.data.geometry}`}
-                          key={`project${indexProject}`}
-                          iconProps={{
-                            icon: ["fad", "cubes"],
-                            size: iconSize,
-                            style: iconStyle
-                          }}
-                          style={{ marginRight: "2em", ...rowStyle }}
-                        >
-                          Batching
-                        </Link>
-                        <Link
-                          // to={`/project/${project["id"]}`}
-                          to={`/partial-batching/${stage}/${description.data.description}/${description.data.geometry}`}
-                          key={`project${indexProject}`}
-                          iconProps={{
-                            icon: ["far", "cubes"],
-                            size: iconSize,
-                            style: iconStyle,
-                            className: "text-secondary"
-                          }}
-                          style={{ marginRight: "2em", ...rowStyle }}
-                        >
-                          Partial batching
-                        </Link>
-                      </div>
-                    )} */}
                   <ItemGrid className="mb-n3">
                     {props.access &&
                       (props.access.itemRead || props.access.itemWrite) &&

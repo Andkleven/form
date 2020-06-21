@@ -42,11 +42,11 @@ function NativeInput({
               isValid={isValid}
               isInvalid={isInvalid}
               id={`custom-${type}-${label}-${repeatStepList}`}
+              name={name}
               required={required}
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
               readOnly={readOnly}
               defaultValue={defaultValue}
-              name={name}
               value={value}
               onChange={onChange}
               onBlur={onBlur}

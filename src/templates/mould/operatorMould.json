@@ -293,12 +293,12 @@
       "queryPath": "operators",
       "pages": [
         {
-          "pageTitle": "Rubber Cement",
+          "pageTitle": "Rubber Agent",
           "queryPath": "operators",
           "fields": [
             {
               "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
-              "label": "Rubber Cement:"
+              "label": "Rubber Agent:"
             },
             {
               "fieldName": "startTimeRubberCement",
@@ -344,7 +344,7 @@
                 "leadEngineers.0.rubberCements",
                 "data.rubberCement"
               ],
-              "label": "Rubber Cement"
+              "label": "Rubber Agent"
             }
           ]
         },
