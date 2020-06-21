@@ -46,6 +46,7 @@ export default React.memo(props => {
 
   const addData = useCallback(
     pushOnIndex => {
+      console.log(2);
       documentDataDispatch({
         type: "add",
         newState: {},
@@ -143,11 +144,19 @@ export default React.memo(props => {
 
   useEffect(() => {
     let effectsRenderFunction = renderFunction.current;
-    if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+    if (
+      props.repeatGroupWithQuery &&
+      !props.repeatGroupWithQuerySpecData &&
+      writeChapter.current
+    ) {
       effectsRenderFunction[`${props.repeatStepList}-Page`] = autoRepeat;
     }
     return () => {
-      if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+      if (
+        props.repeatGroupWithQuery &&
+        !props.repeatGroupWithQuerySpecData &&
+        writeChapter.current
+      ) {
         delete effectsRenderFunction[`${props.repeatStepList}-Page`];
       }
     };
@@ -161,7 +170,11 @@ export default React.memo(props => {
   ]);
 
   useEffect(() => {
-    if (props.repeatGroupWithQuery && !props.repeatGroupWithQuerySpecData) {
+    if (
+      props.repeatGroupWithQuery &&
+      !props.repeatGroupWithQuerySpecData &&
+      writeChapter.current
+    ) {
       autoRepeat(props.backendData);
     }
   }, [
@@ -172,7 +185,11 @@ export default React.memo(props => {
   ]);
 
   useEffect(() => {
-    if (props.repeatGroupWithQuery && props.repeatGroupWithQuerySpecData) {
+    if (
+      props.repeatGroupWithQuery &&
+      props.repeatGroupWithQuerySpecData &&
+      writeChapter.current
+    ) {
       autoRepeat(props.specData);
     }
   }, [
