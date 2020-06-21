@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import ReadField from "components/form/components/fields/ReadField";
 import objectPath from "object-path";
 import { sumFieldInObject } from "functions/general";
-import { DocumentDateContext } from "components/form/Form";
+import { documentDataContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 
 const CustomCoating = props => {
@@ -42,14 +42,14 @@ const CustomCoating = props => {
 };
 
 const CustomLead = props => {
-  const { documentDate, renderFunction } = useContext(DocumentDateContext);
+  const { documentData, renderFunction } = useContext(documentDataContext);
   const [status, setStatus] = useState("danger");
   const [toleranceMin, setToleranceMin] = useState(0);
   const [toleranceMax, setToleranceMax] = useState(0);
   const [layersThickness, setLayersThickness] = useState(0);
 
   const thickness = useCallback(
-    (data = documentDate.current) => {
+    (data = documentData.current) => {
       let toleranceMinTemporary = objectPath.get(
         data,
         "leadEngineers.0.data.toleranceMin",
@@ -92,7 +92,7 @@ const CustomLead = props => {
       }
     },
     [
-      documentDate,
+      documentData,
       setStatus,
       setToleranceMin,
       setToleranceMax,

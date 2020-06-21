@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
-import { DocumentDateContext } from "components/form/Form";
+import { documentDataContext } from "components/form/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const baseStyle = {
@@ -34,8 +34,8 @@ const rejectStyle = {
 };
 
 export default props => {
-  const { documentDate, documentDateDispatch } = useContext(
-    DocumentDateContext
+  const { documentData, documentDataDispatch } = useContext(
+    documentDataContext
   );
   const [files, setFiles] = useState([]);
   const [placeholder, setPlaceholder] = useState("");
@@ -61,9 +61,9 @@ export default props => {
 
   useEffect(() => {
     if (!props.singleFile) {
-      documentDateDispatch({ type: "add", path: props.path, newState: files });
+      documentDataDispatch({ type: "add", path: props.path, newState: files });
     }
-  }, [files, props.path, documentDateDispatch, props.singleFile]);
+  }, [files, props.path, documentDataDispatch, props.singleFile]);
 
   const {
     getRootProps,
@@ -75,7 +75,7 @@ export default props => {
     accept: "image/*",
     onDrop: acceptedFiles => {
       if (props.singleFile) {
-        documentDateDispatch({
+        documentDataDispatch({
           type: "add",
           path: props.path,
           newState: acceptedFiles[0]
@@ -116,7 +116,7 @@ export default props => {
   };
   useEffect(() => {
     if (props.singleFile) {
-      let file = objectPath.get(documentDate.current, props.path);
+      let file = objectPath.get(documentData.current, props.path);
       if (file && file.name) {
         setPlaceholder(file.name);
       } else {
@@ -131,7 +131,7 @@ export default props => {
             }, or click to upload.`
       );
     }
-  }, [props.placeholder, documentDate, props.path, props.singleFile]);
+  }, [props.placeholder, documentData, props.path, props.singleFile]);
 
   return (
     <div className={`p-3 border rounded`}>

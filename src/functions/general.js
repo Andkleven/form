@@ -85,14 +85,14 @@ export const findValue = (
 export const getData = (
   info,
   repeatStepList,
-  documentDate,
+  documentData,
   isItData = false
 ) => {
-  if (!documentDate.current) {
+  if (!documentData.current) {
     return null;
   }
   let path = createPath(info.queryPath, repeatStepList);
-  let data = objectPath.get(documentDate.current, path);
+  let data = objectPath.get(documentData.current, path);
   if (isItData && Array.isArray(data)) {
     return data[data.length - 1];
   }

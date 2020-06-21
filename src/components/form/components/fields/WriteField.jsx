@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useEffect, useState } from "react";
-import { DocumentDateContext, ChapterContext } from "components/form/Form";
+import { documentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import Input from "components/input/Input";
 import TinyButton from "components/button/TinyButton";
@@ -28,26 +28,26 @@ export default ({ setResetState, setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState("");
   const { editChapter, setEditChapter } = useContext(ChapterContext);
-  const { documentDate, documentDateDispatch } = useContext(
-    DocumentDateContext
+  const { documentData, documentDataDispatch } = useContext(
+    documentDataContext
   );
   const addUser = useCallback(() => {
-    documentDateDispatch({
+    documentDataDispatch({
       type: "add",
       newState: userInfo.username,
       path: props.path + userField
     });
-  }, [documentDateDispatch, props.path, userInfo.username]);
+  }, [documentDataDispatch, props.path, userInfo.username]);
 
   const onChangeDate = data => {
     addUser();
-    documentDateDispatch({ type: "add", newState: data, path: props.path });
+    documentDataDispatch({ type: "add", newState: data, path: props.path });
     setState(data);
   };
 
   const onChangeSelect = e => {
     addUser();
-    documentDateDispatch({ type: "add", newState: e.value, path: props.path });
+    documentDataDispatch({ type: "add", newState: e.value, path: props.path });
     setState(e.value);
   };
 
@@ -56,7 +56,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     addUser();
     let newValue = value;
     if (["checkbox", "radio", "switch"].includes(type)) {
-      newValue = !objectPath.get(documentDate.current, props.path, false);
+      newValue = !objectPath.get(documentData.current, props.path, false);
     } else {
       if (type === "number") {
         if (value === "") {
@@ -69,7 +69,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         }
       }
     }
-    documentDateDispatch({
+    documentDataDispatch({
       type: "add",
       newState: newValue,
       path: props.path
@@ -80,9 +80,9 @@ export default ({ setResetState, setState, state, ...props }) => {
   const onChangeIgnoreRequired = e => {
     let { name } = e.target;
     addUser();
-    let oldValue = objectPath.get(documentDate.current, props.path, false);
+    let oldValue = objectPath.get(documentData.current, props.path, false);
     setIgnoreRequired(oldValue);
-    documentDateDispatch({
+    documentDataDispatch({
       type: "add",
       newState: !oldValue,
       path: props.path + name
@@ -92,7 +92,7 @@ export default ({ setResetState, setState, state, ...props }) => {
   const cancelEdit = event => {
     event.persist();
     event.preventDefault();
-    documentDateDispatch({
+    documentDataDispatch({
       type: "add",
       newState: objectPath.get(props.data, props.path),
       path: props.path
@@ -165,12 +165,12 @@ export default ({ setResetState, setState, state, ...props }) => {
   useEffect(() => {
     setIgnoreRequired(
       objectPath.get(
-        documentDate.current,
+        documentData.current,
         props.path + ignoreRequiredField,
         false
       )
     );
-  }, [defaultValue, setIgnoreRequired, documentDate, props.path]);
+  }, [defaultValue, setIgnoreRequired, documentData, props.path]);
 
   useEffect(() => {
     let newSate;
@@ -180,14 +180,14 @@ export default ({ setResetState, setState, state, ...props }) => {
     } else {
       newSate = defaultValue();
     }
-    documentDateDispatch({
+    documentDataDispatch({
       type: "add",
       newState: newSate,
       path: props.path
     });
   }, [
     props.path,
-    documentDateDispatch,
+    documentDataDispatch,
     defaultValue,
     props.backendData,
     props.type
@@ -229,7 +229,7 @@ export default ({ setResetState, setState, state, ...props }) => {
           type={"checkbox"}
           onChange={onChangeIgnoreRequired}
           defaultValue={objectPath.get(
-            documentDate.current,
+            documentData.current,
             props.path + ignoreRequiredField,
             false
           )}

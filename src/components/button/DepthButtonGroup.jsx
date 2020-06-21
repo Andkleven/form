@@ -4,7 +4,7 @@ import { tinyShadow } from "styles/styles";
 
 export default props => {
   return (
-    <div style={props.style}>
+    <div style={props.style} className="w-100">
       <ButtonGroup
         {...props}
         // buttonGroup={buttonGroup}
