@@ -202,7 +202,7 @@
             },
             {
               "fieldName": "rubberCementsBeforeCoating",
-              "label": "Rubber Cement Before Coating",
+              "label": "Item Rubber Cement Before Coating",
 
               "type": "select",
               "options": ["75051", "Soap"]
@@ -292,11 +292,11 @@
           "queryPath": "leadEngineers.0.rubberCements",
           "repeat": true,
           "delete": true,
-          "addButton": "Add rubber cement",
+          "addButton": "Add Item Rubber Cement",
           "fields": [
             {
               "fieldName": "rubberCement",
-              "label": "Rubber Cement",
+              "label": "Item Rubber Cement",
               "notLabel": true,
               "type": "number"
             }
@@ -349,7 +349,9 @@
                 {
                   "fieldName": "layer",
                   "label": "Layer",
-                  "math": "mathLayer"
+                  "math": "mathLayer",
+                  "isSubtitle": true,
+                  "indent": "true"
                 },
                 {
                   "fieldName": "compoundNumber",
@@ -433,21 +435,24 @@
                     "9752 4mm",
                     "9752 6mm",
                     "9752 Strips"
-                  ]
+                  ],
+                  "indent": "true"
                 },
                 {
                   "fieldName": "appliedThickness",
                   "label": "Applied Thickness",
                   "unit": "mm",
                   "decimal": 1,
-                  "type": "Number"
+                  "type": "Number",
+                  "indent": "true"
                 },
                 {
                   "fieldName": "shrink",
                   "label": "Shrink",
                   "unit": "%",
                   "type": "Number",
-                  "default": 0
+                  "default": 0,
+                  "indent": "true"
                 },
                 {
                   "fieldName": "shrunkThickness",
@@ -456,12 +461,14 @@
                   "type": "Number",
                   "unit": "mm",
                   "decimal": 1,
-                  "required": true
+                  "required": true,
+                  "indent": "true"
                 },
                 {
                   "fieldName": "layersUnique",
                   "label": "Exclude layer from calculations",
-                  "type": "checkbox"
+                  "type": "checkbox",
+                  "indent": "true"
                 },
                 {
                   "page": true,
@@ -476,7 +483,9 @@
                       "math": "mathCumulativeThickness",
                       "indexVariableLabel": true,
                       "decimal": 1,
-                      "type": "Number"
+                      "type": "Number",
+                      "indent": "true",
+                      "size": "md"
                     }
                   ]
                 }

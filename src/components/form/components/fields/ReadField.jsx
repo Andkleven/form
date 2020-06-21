@@ -49,24 +49,29 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   //   </Button>
   // );
 
+  const indent =
+    (!props.label && props.prepend && props.indent !== false) || props.indent;
+
   const Label = props => {
     if (typeof props.label === "string") {
       return (
         <div
-          className={`d-flex justify-content-between align-items-start h-100`}
+          className={`d-flex justify-content-between align-items-start h-100 ${
+            indent && `ml-3`
+          }`}
         >
-          <div className={showUnderBreakpoint()}>
-            <small className="text-secondary">
+          <div className={`${showUnderBreakpoint()}`}>
+            <small className={`text-secondary`}>
               {
                 // (props.math && <div className="ml-3">{props.label}</div>) ||
-                props.label || <div className="ml-3">{props.prepend}</div>
+                props.label || props.prepend
               }
             </small>
           </div>
           <div className={showAboveBreakpoint()}>
             {
               // (props.math && <div className="ml-3">{props.label}</div>) ||
-              props.label || <div className="ml-3">{props.prepend}</div>
+              props.label || props.prepend
             }
           </div>
         </div>
@@ -114,7 +119,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     DateValue() || (
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
-          !props.label && "ml-3 ml-sm-0"
+          (!props.label && "ml-3 ml-sm-0") || (props.indent && "ml-3")
         }`}
       >
         <div>
@@ -139,30 +144,32 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     );
 
   return (
-    <Row className={className} style={style}>
-      <Col xs="12" sm="6" className={showAboveBreakpoint()}>
-        <Label {...props} />
-      </Col>
-      <Col xs="12" sm="6" className={showAboveBreakpoint()}>
-        <Value {...props} />
-      </Col>
-      <Col className={`${showUnderBreakpoint()}`}>
-        <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <Label {...props} />
-            <Value {...props} />
-          </div>
-          {readOnly ? null : <TinyEditButton />}
-        </div>
-      </Col>
-      {!props.noLine && (
-        <Col xs="12">
-          <LightLine />
+    <div className={className} style={style}>
+      <Row>
+        <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+          <Label {...props} />
         </Col>
-      )}
-      {props.subtext && props.writeChapter ? (
-        <Form.Text className="text-muted">{props.subtext}</Form.Text>
-      ) : null}
-    </Row>
+        <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+          <Value {...props} />
+        </Col>
+        <Col className={`${showUnderBreakpoint()}`}>
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <Label {...props} />
+              <Value {...props} />
+            </div>
+            {readOnly ? null : <TinyEditButton />}
+          </div>
+        </Col>
+        {!props.noLine && (
+          <Col xs="12">
+            <LightLine />
+          </Col>
+        )}
+        {props.subtext && props.writeChapter ? (
+          <Form.Text className="text-muted">{props.subtext}</Form.Text>
+        ) : null}
+      </Row>
+    </div>
   );
 };

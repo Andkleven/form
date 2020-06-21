@@ -11,15 +11,28 @@ import { Link } from "react-router-dom";
 export default () => {
   const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
 
-  const NavLink = props => (
-    <LinkContainer to={props.link} className="p-0">
-      <Dropdown.Item>
-        <div className="nav-link">
-          <FontAwesomeIcon icon={props.icon} style={{ width: "1.7em" }} />
-          {props.title}
+  const NavLink = ({ title, link, icon, disabled, hidden }) => (
+    <LinkContainer to={link} className="p-0">
+      <Dropdown.Item disabled={disabled} hidden={hidden}>
+        <div className={`nav-link ${disabled && `text-light`}`}>
+          <FontAwesomeIcon icon={icon} style={{ width: "1.7em" }} />
+          {title}
         </div>
       </Dropdown.Item>
     </LinkContainer>
+  );
+  const NavButton = ({ title, onClick, icon, disabled, hidden }) => (
+    <Dropdown.Item
+      disabled={disabled}
+      hidden={hidden}
+      onClick={onClick}
+      className="m-0 p-0"
+    >
+      <div className={`nav-link px-3 py-2 ${disabled && `text-light`} m-0 p-0`}>
+        <FontAwesomeIcon icon={icon} style={{ width: "1.7em" }} />
+        {title}
+      </div>
+    </Dropdown.Item>
   );
 
   return (
@@ -43,6 +56,12 @@ export default () => {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <NavLink title="Home" link="/" icon="home" />
+            <NavButton
+              title="Repair"
+              onClick={() => alert("Yo")}
+              icon="tools"
+              hidden
+            />
           </Dropdown.Menu>
         </Dropdown>
       </div>

@@ -33,7 +33,7 @@ export default props => {
           showEditButton={false}
           path={`${props.path}.${field.queryPath}`}
           // noLine
-          className={`${props.indent && "ml-3 ml-sm-5"}`}
+          // className={`${props.indent && "ml-3 ml-sm-5"}`}
         />
       );
     } else {

@@ -19,6 +19,8 @@ import {
   variableLabel
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
+import LightLine from "components/design/LightLine";
+import Line from "components/design/Line";
 
 export default ({ resetState, ...props }) => {
   const { documentDate, renderFunction } = useContext(DocumentDateContext);
@@ -274,7 +276,26 @@ export default ({ resetState, ...props }) => {
       index: props.index,
       resetState: resetState
     };
-    if (props.math) {
+    if (props.isSubtitle) {
+      return (
+        <>
+          <div className={props.indent && `ml-3`}>
+            <Subtitle small className="mt-3">{`${label} ${
+              props.repeatStep + 1
+            }`}</Subtitle>
+            {/* Hidden ReadOnlyField */}
+            {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
+          </div>
+          <Line></Line>
+        </>
+      );
+    } else if (props.size === "md") {
+      if (props.writeChapter) {
+        return <ReadOnlyField {...commonProps} noLine className={`mb-3`} />;
+      } else {
+        return <ReadOnlyField {...commonProps} />;
+      }
+    } else if ((!props.size && props.math) || props.size === "sm") {
       if (props.writeChapter) {
         return (
           <small>
@@ -289,13 +310,7 @@ export default ({ resetState, ...props }) => {
         return <ReadOnlyField {...commonProps} />;
       }
     } else {
-      return (
-        <>
-          <Subtitle small>{`${label} ${props.repeatStep + 1}`}</Subtitle>
-          {/* Hidden ReadOnlyField */}
-          {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
-        </>
-      );
+      return <ReadOnlyField noLine {...commonProps} className={`mb-3`} />;
     }
   } else if (
     props.writeChapter ||

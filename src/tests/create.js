@@ -112,8 +112,8 @@ async function select(option, label, selector) {
     await select("OD", "TDV (Target Description Value)");
     await write("10", textBox("Measurement Point Actual Steel"));
     await write("A", textBox("Reference Point"));
-    await click("Add rubber cement");
-    await write("69", textBox("Rubber Cement"));
+    await click("Add Item Rubber Cement");
+    await write("69", textBox("Item Rubber Cement"));
     // Step 1
     await select("Hot Air", "Vulcanization Option");
     await write("1337", textBox("Program Number"));

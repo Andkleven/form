@@ -74,7 +74,7 @@ export default props => {
       skip: !props.optionsQuery
     }
   );
-  // Set DocumentDate to empty dictionary if a new components calls Form
+  // Set DocumentDate to empty dictionary if a new component calls Form
   useLayoutEffect(() => {
     if (props.data) {
       documentDateDispatch({
@@ -142,6 +142,7 @@ export default props => {
       data: { [saveData]: oldData[saveData] }
     });
   };
+
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -195,6 +196,7 @@ export default props => {
       onCompleted: props.reRender
     }
   );
+
   const submitData = useCallback(
     (data, submit) => {
       // clearTimeout(timer.current)
@@ -243,6 +245,7 @@ export default props => {
       props.stage
     ]
   );
+
   const formSubmit = e => {
     e.persist();
     e.preventDefault();

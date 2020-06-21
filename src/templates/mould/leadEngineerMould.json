@@ -200,7 +200,7 @@
             },
             {
               "fieldName": "rubberCementsBeforeCoating",
-              "label": "Rubber Cement Before Coating",
+              "label": "Rubber Agent Before Coating",
 
               "type": "select",
               "options": ["75051", "Soap"]
@@ -265,11 +265,11 @@
           "queryPath": "leadEngineers.0.rubberCements",
           "repeat": true,
           "delete": true,
-          "addButton": "Add rubber cement",
+          "addButton": "Add Rubber Agent",
           "fields": [
             {
               "fieldName": "rubberCement",
-              "label": "Rubber Cement",
+              "label": "Rubber Agent",
               "notLabel": true,
               "type": "number"
             }

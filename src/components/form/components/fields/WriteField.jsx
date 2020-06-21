@@ -193,10 +193,19 @@ export default ({ setResetState, setState, state, ...props }) => {
     props.type
   ]);
 
+  const indent =
+    (!props.label && props.prepend && props.indent !== false) || props.indent;
+
+  if (props.label === "Vulcanization Option") {
+    console.log("label", props.label);
+    console.log("prepend", props.prepend);
+    console.log("indent", props.indent);
+    console.log("indent", props.indent);
+  }
+
   return (
-    <>
+    <div className={indent && "ml-3"}>
       <Input
-        className={!props.label && "ml-3"}
         {...props}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
@@ -232,6 +241,6 @@ export default ({ setResetState, setState, state, ...props }) => {
         />
       )}
       {props.submitButton ? <LightLine /> : null}
-    </>
+    </div>
   );
 };
