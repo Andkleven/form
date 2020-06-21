@@ -277,7 +277,7 @@ export default React.memo(props => {
     props.pageTitle &&
     props.indexVariablePageTitle === undefined;
   const showLine =
-    showTitle &&
+    (showTitle || showEditAll) &&
     !props.noLine &&
     !!props.pageTitle &&
     !["", " "].includes(props.pageTitle);
@@ -297,11 +297,15 @@ export default React.memo(props => {
 
   return (
     <div
-      className={`${finalPage && "mb-4"} ${props.className}`}
+      className={`${finalPage && "mb-5"} ${props.className}`}
       // className={`${!props.finalChapter && ""} ${props.className}`}
     >
       <div className="d-flex justify-content-between align-items-end">
-        {showTitle ? <Title>{props.pageTitle}</Title> : null}
+        {showTitle ? (
+          <Title>{props.pageTitle}</Title>
+        ) : showEditAll ? (
+          <div></div>
+        ) : null}
         {showEditAll ? (
           <TabButton
             onClick={() => {

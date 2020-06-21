@@ -32,7 +32,7 @@
       "queryPath": "operators",
       "pages": [
         {
-          "pageTitle": "Media Blasting",
+          "pageTitle": "Steel Preparation",
           "queryPath": "operators",
           "fields": [
             {
@@ -107,7 +107,7 @@
       "queryPath": "operators",
       "pages": [
         {
-          "pageTitle": "Media Blasting",
+          "pageTitle": "Steel Preparation Additional Tests",
           "queryPath": "operators",
           "fields": [
             {
@@ -389,7 +389,9 @@
       "lookUpBy": "layerApplied",
       "pages": [
         {
-          "customComponent": "CustomCoating"
+          "customComponent": "CustomCoating",
+          "pageTitle": "Coating Layer",
+          "noLine": true
         },
         {
           "repeat": true,

@@ -4,6 +4,7 @@ import objectPath from "object-path";
 import { sumFieldInObject } from "functions/general";
 import { documentDataContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
+import Line from "components/design/Line";
 
 const CustomCoating = props => {
   let layers = 0;
@@ -18,26 +19,36 @@ const CustomCoating = props => {
   layers += props.repeatStepList[1] + 1;
 
   return (
-    <>
-      <ReadField
-        textCenter={true}
-        readOnly={true}
-        label={"Step"}
-        value={`${props.repeatStepList[0] + 1} of ${
-          objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
-            .length
-        }`}
-      />
-      <ReadField
-        textCenter={true}
-        readOnly={true}
-        label={"Layer"}
-        value={`${layers} of ${sumFieldInObject(
-          objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps"),
-          "numberOfLayers"
-        )}`}
-      />
-    </>
+    <div>
+      <b>
+        <Line></Line>
+        <ReadField
+          textCenter={true}
+          readOnly={true}
+          label={"Step"}
+          value={`${props.repeatStepList[0] + 1} of ${
+            objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
+              .length
+          }`}
+        />
+      </b>
+      <b>
+        <ReadField
+          textCenter={true}
+          readOnly={true}
+          noLine
+          label={"Layer"}
+          value={`${layers} of ${sumFieldInObject(
+            objectPath.get(
+              props.specData,
+              "leadEngineers.0.vulcanizationSteps"
+            ),
+            "numberOfLayers"
+          )}`}
+        />
+        <Line></Line>
+      </b>
+    </div>
   );
 };
 

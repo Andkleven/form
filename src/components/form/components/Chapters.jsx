@@ -107,7 +107,7 @@ export default props => {
         }
         return pageInfo.chapterTitle ? (
           <Fragment key={`${count}-${count + 1}`}>
-            <Title>{pageInfo.chapterTitle}</Title>
+            <Title big>{pageInfo.chapterTitle}</Title>
             <Line />
             {newChapterArray}
           </Fragment>
