@@ -18,15 +18,17 @@ import "styles/icons";
 
 export default () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
-  const [item, setItem] = useState({ id: null, stage: null });
+  const [item, setItem] = useState({
+    id: null,
+    name: null,
+    description: null,
+    stage: null
+  });
   const itemValue = useMemo(() => ({ item, setItem }), [item, setItem]);
 
   return (
     <ProjectProvider>
-      <ItemContext.Provider
-        // value={{ item, setItem }}
-        value={itemValue}
-      >
+      <ItemContext.Provider value={itemValue}>
         <Router history={history}>
           <Switch>
             {/* Login */}

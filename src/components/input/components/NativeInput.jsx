@@ -46,7 +46,7 @@ function NativeInput({
               required={required}
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
               readOnly={readOnly}
-              defaultValue={defaultValue}
+              defaultValue={!value && defaultValue}
               value={value}
               onChange={onChange}
               onBlur={onBlur}

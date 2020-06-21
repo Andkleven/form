@@ -35,7 +35,12 @@ export default pageInfo => {
 
   useEffect(() => {
     if (item.id === null) {
-      setItem({ id: itemId, stage: stage });
+      setItem({
+        id: fixedData ? fixedData["items"][0]["id"] : null,
+        stage: fixedData ? fixedData["items"][0]["stage"] : null,
+        name: fixedData ? fixedData["items"][0]["itemId"] : null,
+        description: null
+      });
     }
   });
 
