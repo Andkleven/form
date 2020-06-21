@@ -4,7 +4,7 @@ import {
   allRequiredSatisfied,
   createPath,
   removeSpace
-} from "functions/general";
+} from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
@@ -38,7 +38,6 @@ export default props => {
     if (stopLoop.current) {
       chapter = null;
     } else {
-      // console.log();
       let allRequiredFieldSatisfied = props.data
         ? byStage
           ? thisStage === stage
@@ -83,7 +82,6 @@ export default props => {
   };
   const runChapter = (pageInfo, thisStage = "", step = null) => {
     if (pageInfo.specChapter) {
-      // console.log(1);
       let numberOfChapters = findValue(
         props.specData,
         pageInfo.specChapter,
@@ -108,11 +106,11 @@ export default props => {
           props.nextStage.current = false;
         }
         return pageInfo.chapterTitle ? (
-          <>
+          <Fragment key={`${count}-${count + 1}`}>
             <Title>{pageInfo.chapterTitle}</Title>
             <Line />
             {newChapterArray}
-          </>
+          </Fragment>
         ) : (
           newChapterArray
         );

@@ -79,7 +79,11 @@ export default ({ ...props }) => {
   const [valid, feedback] = control(props);
 
   return (
-    <InputShell {...props} className={props.className} style={props.style}>
+    <InputShell
+      {...props}
+      className={props.className ? props.className.toString() : null}
+      style={props.style}
+    >
       <InputType
         {...props}
         isValid={valid}

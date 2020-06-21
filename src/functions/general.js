@@ -144,7 +144,6 @@ export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
 };
 
 export const allRequiredSatisfied = (pageInfo, data, array) => {
-  // console.log(2);
   let returnValue = true;
   pageInfo.pages.forEach((page, index) => {
     let newPath = page.queryPath;
