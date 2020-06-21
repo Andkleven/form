@@ -51,7 +51,7 @@ export default ({ id, show, setShow, children }) => {
         <Modal.Header>
           <Modal.Title>
             <FontAwesomeIcon icon={["fas", "tools"]} className="text-primary" />{" "}
-            Repair
+            Send item for repair
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
