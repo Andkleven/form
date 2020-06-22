@@ -32,16 +32,16 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   const showAboveBreakpoint = () => {
     return `d-none d-${breakpoint}-inline`;
   };
-
-  const TinyEditButton = props => (
-    <TinyButton
-      {...props}
-      onClick={() => flipToWrite()}
-      icon={["fas", "pen"]}
-      iconSize="sm"
-      tooltip="Edit"
-    />
-  );
+  const TinyEditButton = props =>
+    props.edit ? (
+      <TinyButton
+        {...props}
+        onClick={() => flipToWrite()}
+        icon={["fas", "pen"]}
+        iconSize="sm"
+        tooltip="Edit"
+      />
+    ) : null;
 
   // const BigEditButton = props => (
   //   <Button {...props} onClick={() => flipToWrite()} icon="pencil">
@@ -106,7 +106,10 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
-              <TinyEditButton className={showAboveBreakpoint()} />
+              <TinyEditButton
+                className={showAboveBreakpoint()}
+                edit={props.edit}
+              />
             )}
           </div>
         </>
@@ -139,7 +142,9 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             ) : null}
           </small>
         </div>
-        {readOnly ? null : <TinyEditButton className={showAboveBreakpoint()} />}
+        {readOnly ? null : (
+          <TinyEditButton className={showAboveBreakpoint()} edit={props.edit} />
+        )}
       </div>
     );
 
@@ -158,7 +163,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <Label {...props} />
               <Value {...props} />
             </div>
-            {readOnly ? null : <TinyEditButton />}
+            {readOnly ? null : <TinyEditButton edit={props.edit} />}
           </div>
         </Col>
         {!props.noLine && (

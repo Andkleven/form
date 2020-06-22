@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 import operatorMouldJson from "templates/mould/operatorMould.json";
+import leadEngineersCoatedItemJson from "templates/coatedItem/leadEngineerCoatedItem.json";
+import leadEngineersMouldJson from "templates/mould/leadEngineerMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -10,8 +12,10 @@ import {
   formDataStructure,
   coatedItemOrMould
 } from "functions/general";
+import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
 import { ItemContext } from "components/contexts/ItemContext";
+import { getAccess } from "functions/user.ts";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
@@ -46,7 +50,29 @@ export default pageInfo => {
 
   return (
     <Canvas>
+      {getAccess()["specs"] && (
+        <Paper>
+          <Title>Lead Engineer</Title>
+
+          <Form
+            componentsId={"leadEngineersPage"}
+            document={coatedItemOrMould(
+              geometry,
+              leadEngineersCoatedItemJson,
+              leadEngineersMouldJson
+            )}
+            reRender={() => setReRender(!reRender)}
+            data={
+              fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            }
+            getQueryBy={itemId}
+            itemId={itemId}
+            sendItemId={true}
+          />
+        </Paper>
+      )}
       <Paper>
+        {getAccess()["specs"] && <Title>Operator</Title>}
         <Form
           componentsId={"SingleItem"}
           document={operatorJson}
@@ -55,6 +81,9 @@ export default pageInfo => {
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
+          // edit={getAccess()["itemEdit"]}
+          edit={true}
+          readOnlySheet={!getAccess()["itemWrite"]}
           stage={stage}
           geometry={geometry}
           getQueryBy={itemId}

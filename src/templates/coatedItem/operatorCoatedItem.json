@@ -379,7 +379,6 @@
       ]
     },
     "coatingStep": {
-      "chapterTitle": "Coating",
       "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",

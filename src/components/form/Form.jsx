@@ -83,8 +83,6 @@ export default props => {
       });
     }
   }, [props.componentsId, documentDataDispatch, props.data]);
-  // console.log(documentData);
-  // console.log(validationPassed)
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
@@ -276,6 +274,10 @@ export default props => {
             optionsData={optionsData}
             submitData={submitData}
             nextStage={nextStage}
+            edit={props.edit === undefined ? true : props.edit}
+            readOnlySheet={
+              props.readOnlySheet === undefined ? false : props.readOnlySheet
+            }
           />
           {loadingMutation && <p>Loading...</p>}
           {errorMutation && <p>Error :( Please try again</p>}

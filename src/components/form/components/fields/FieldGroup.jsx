@@ -22,6 +22,7 @@ export default props => {
         <Page
           {...field}
           key={index}
+          edit={props.edit}
           finalChapter={props.finalChapter}
           optionsData={props.optionsData}
           backendData={props.backendData}
