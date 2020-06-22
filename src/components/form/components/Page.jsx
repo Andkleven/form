@@ -329,15 +329,15 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              // if (window.confirm("Are you sure you wish to edit?")) {
-              documentDataDispatch({
-                type: "setState",
-                newState: props.backendData
-              });
-              setEditChapter(props.thisChapter);
-              setResetState(prevState => !prevState);
+              if (window.confirm("Are you sure you wish to edit?")) {
+                documentDataDispatch({
+                  type: "setState",
+                  newState: props.backendData
+                });
+                setEditChapter(props.thisChapter);
+                setResetState(prevState => !prevState);
+              }
             }}
-            // }
           >
             Edit all
           </TabButton>

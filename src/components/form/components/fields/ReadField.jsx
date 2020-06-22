@@ -14,13 +14,13 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
-    // if (window.confirm("Are you sure you wish to edit?")) {
-    if (!display) {
-      chapterContext.setEditChapter(
-        `${props.repeatStepList}-${props.fieldName}`
-      );
+    if (window.confirm("Are you sure you wish to edit?")) {
+      if (!display) {
+        chapterContext.setEditChapter(
+          `${props.repeatStepList}-${props.fieldName}`
+        );
+      }
     }
-    // }
   };
 
   const breakpoint = "sm";

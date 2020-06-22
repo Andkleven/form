@@ -2,6 +2,8 @@
   "mutation": "OPERATOR",
   "query": "GET_OPERATOR_BY_ITEM",
   "chapterByStage": true,
+  "specQueryPath": "items.0.leadEngineers",
+  "queryPath": "items.0.operators",
   "chapters": {
     "actualSteelMeasurement": {
       "queryPath": "operators",
