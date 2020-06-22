@@ -46,30 +46,38 @@ export default props => {
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
         finalChapter = count + 1;
+        if (props.readOnlySheet) {
+          stopLoop.current = true;
+        }
       }
       // Map through pages in this pages
-      chapter = pageInfo.pages.map((info, index) => {
-        let showEditButton = !props.notEditButton && !index ? true : false;
-        let showSaveButton = index === pageInfo.pages.length - 1 ? true : false;
-        return (
-          <Page
-            key={`${index}-${count}-canvas`}
-            {...info}
-            {...props}
-            // data={getData(info, repeatStepList, props.data)}
-            path={createPath(info.queryPath, repeatStepList)}
-            thisChapter={count + 1}
-            stopLoop={stopLoop.current}
-            showEditButton={showEditButton}
-            indexId={`${count + 1}-${index}`}
-            index={index}
-            finalChapter={finalChapter}
-            submitData={props.submitData}
-            showSaveButton={showSaveButton}
-            repeatStepList={repeatStepList}
-          />
-        );
-      });
+      if (allRequiredFieldSatisfied && props.readOnlySheet) {
+        chapter = null;
+      } else {
+        chapter = pageInfo.pages.map((info, index) => {
+          let showEditButton = !props.notEditButton && !index ? true : false;
+          let showSaveButton =
+            index === pageInfo.pages.length - 1 ? true : false;
+          return (
+            <Page
+              key={`${index}-${count}-canvas`}
+              {...info}
+              {...props}
+              // data={getData(info, repeatStepList, props.data)}
+              path={createPath(info.queryPath, repeatStepList)}
+              thisChapter={count + 1}
+              stopLoop={stopLoop.current}
+              showEditButton={showEditButton}
+              indexId={`${count + 1}-${index}`}
+              index={index}
+              finalChapter={finalChapter}
+              submitData={props.submitData}
+              showSaveButton={showSaveButton}
+              repeatStepList={repeatStepList}
+            />
+          );
+        });
+      }
       // if now data in lookUpBy stop loop
       if (allRequiredFieldSatisfied) {
         stopLoop.current = true;

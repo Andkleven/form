@@ -180,12 +180,14 @@ export default ({ setResetState, setState, state, ...props }) => {
     } else {
       newSate = defaultValue();
     }
+    setState(newSate);
     documentDataDispatch({
       type: "add",
       newState: newSate,
       path: props.path
     });
   }, [
+    setState,
     props.path,
     documentDataDispatch,
     defaultValue,
@@ -209,7 +211,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         {...props}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
-        defaultValue={defaultValue()}
+        // defaultValue={defaultValue()}
         value={state}
         readOnly={props.readOnly}
         onChange={onChange}

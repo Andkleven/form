@@ -286,7 +286,10 @@ export default React.memo(props => {
 
   // Checks for conditional rendering
   const showEditAll =
-    props.showEditButton && !props.stopLoop && !writeChapter.current;
+    props.showEditButton &&
+    !props.stopLoop &&
+    !writeChapter.current &&
+    props.edit;
   // && props.thisChapter !== finalChapter;
   const showTitle =
     !props.stopLoop &&
@@ -325,6 +328,7 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
+              // if (window.confirm("Are you sure you wish to edit?")) {
               documentDataDispatch({
                 type: "setState",
                 newState: props.backendData
@@ -332,6 +336,7 @@ export default React.memo(props => {
               setEditChapter(props.thisChapter);
               setResetState(prevState => !prevState);
             }}
+            // }
           >
             Edit all
           </TabButton>
