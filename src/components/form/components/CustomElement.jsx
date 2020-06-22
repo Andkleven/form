@@ -5,8 +5,6 @@ import { sumFieldInObject } from "functions/general";
 import { documentDataContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
-import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
-import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 
 const CustomCoating = props => {
   let layers = 0;

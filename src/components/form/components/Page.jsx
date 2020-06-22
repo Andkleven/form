@@ -207,6 +207,7 @@ export default React.memo(props => {
   ) {
     documentDataDispatch({
       type: "add",
+      notReRender: true,
       newState: [],
       path: props.path
     });
