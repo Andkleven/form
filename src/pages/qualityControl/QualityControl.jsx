@@ -7,12 +7,12 @@ import qualityControlCoatingItem from "templates/coatedItem/qualityControlCoatin
 import qualityControlMould from "templates/mould/qualityControlMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
-import PaperStack from "components/layout/PaperStack";
 import {
   objectifyQuery,
   formDataStructure,
   coatedItemOrMould
 } from "functions/general";
+import Canvas from "components/layout/Canvas";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
@@ -40,7 +40,7 @@ export default pageInfo => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
-    <PaperStack>
+    <Canvas>
       <Paper>
         <Form
           componentsId={"SingleItem"}
@@ -57,9 +57,9 @@ export default pageInfo => {
           sendItemId={true}
           saveButton={true}
         />
-        </Paper>
-        <br></br>
-        <Paper>
+      </Paper>
+      <br></br>
+      <Paper>
         <Form
           componentsId={"finalInspectionQualityControls"}
           document={qualityControl}
@@ -82,6 +82,6 @@ export default pageInfo => {
           saveButton={true}
         />
       </Paper>
-    </PaperStack>
+    </Canvas>
   );
 };

@@ -51,8 +51,10 @@ export default pageInfo => {
   return (
     <Canvas>
       {getAccess()["specs"] && (
-        <Paper>
-          <Title>Lead Engineer</Title>
+        <Paper className="mb-3">
+          <Title big align="center">
+            Lead Engineer
+          </Title>
 
           <Form
             componentsId={"leadEngineersPage"}
@@ -72,7 +74,11 @@ export default pageInfo => {
         </Paper>
       )}
       <Paper>
-        {getAccess()["specs"] && <Title>Operator</Title>}
+        {getAccess()["specs"] && (
+          <Title big align="center">
+            Operator
+          </Title>
+        )}
         <Form
           componentsId={"SingleItem"}
           document={operatorJson}
