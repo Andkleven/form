@@ -41,7 +41,7 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
   return (
     <Canvas>
-      <Paper>
+      <Paper className="mb-3">
         <Form
           componentsId={"SingleItem"}
           document={operatorJson}
@@ -58,7 +58,6 @@ export default pageInfo => {
           saveButton={true}
         />
       </Paper>
-      <br></br>
       <Paper>
         <Form
           componentsId={"finalInspectionQualityControls"}

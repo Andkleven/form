@@ -329,7 +329,9 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              if (window.confirm("Are you sure you wish to edit?")) {
+              if (
+                window.confirm("You will lose unsaved changes, are you sure?")
+              ) {
                 documentDataDispatch({
                   type: "setState",
                   newState: props.backendData
