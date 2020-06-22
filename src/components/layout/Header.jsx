@@ -6,7 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { USER } from "constants.js";
 import { camelCaseToNormal } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ItemContext } from "components/contexts/ItemContext";
 import Repair from "components/repair/Repair";
 
@@ -61,14 +61,16 @@ export default () => {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <NavLink title="Home" link="/" icon="home" />
-            <Repair id={item.id} show={showRepair} setShow={setShowRepair}>
-              <NavButton
-                title={`Repair`}
-                onClick={() => setShowRepair(true)}
-                icon="tools"
-                // hidden
-              />
-            </Repair>
+            {"/single-item/" === useLocation().pathname.slice(0, 13) && (
+              <Repair id={item.id} show={showRepair} setShow={setShowRepair}>
+                <NavButton
+                  title={`Repair`}
+                  onClick={() => setShowRepair(true)}
+                  icon="tools"
+                  // hidden
+                />
+              </Repair>
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </div>

@@ -1,7 +1,9 @@
 {
   "admin": {
     "displayName": "Administrator",
-    "levels": ["general"],
+    "levels": [
+      "general"
+    ],
     "access": {
       "specs": true,
       "itemRead": true,
@@ -14,7 +16,9 @@
   },
   "lead": {
     "displayName": "Lead Engineer",
-    "levels": ["general"],
+    "levels": [
+      "general"
+    ],
     "access": {
       "specs": true,
       "itemRead": true,
@@ -27,7 +31,9 @@
   },
   "supervisor": {
     "displayName": "Supervisor",
-    "levels": ["general"],
+    "levels": [
+      "general"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -40,7 +46,9 @@
   },
   "operator": {
     "displayName": "Operator",
-    "levels": ["general"],
+    "levels": [
+      "general"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -53,7 +61,9 @@
   },
   "quality": {
     "displayName": "Quality Control",
-    "levels": ["general"],
+    "levels": [
+      "general"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -66,7 +76,9 @@
   },
   "offsite": {
     "displayName": "Offsite Responsible",
-    "levels": ["project"],
+    "levels": [
+      "project"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -79,7 +91,9 @@
   },
   "spectator": {
     "displayName": "Spectator",
-    "levels": ["general"],
+    "levels": [
+      "general"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,

@@ -99,7 +99,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "routeToSpecMax": "leadEngineers.0.data.solubleSaltLevel",
               "placeholder": "Result",
-              "unit": "mg/m2",
+              "unit": "mg/m²",
               "required": true,
               "type": "number"
             },
@@ -107,7 +107,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "fieldName": "equipmentIDSolubleSaltLevel",
               "required": true,
-              "placeholder": "Equipment ID"
+              "prepend": "Equipment ID"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
@@ -147,7 +147,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "equipmentIdCompressedAirCheck",
               "required": true,
-              "placeholder": "Equipment ID"
+              "prepend": "Equipment ID"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
@@ -172,7 +172,7 @@
               "fieldName": "equipmentIDUvTest",
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "required": true,
-              "placeholder": "Equipment ID"
+              "prepend": "Equipment ID"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
@@ -199,7 +199,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "required": true,
               "fieldName": "equipmentIDBlastMediaConductivity",
-              "placeholder": "Equipment ID"
+              "prepend": "Equipment ID"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
@@ -226,7 +226,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
               "required": true,
               "fieldName": "equipmentIDSurfaceProfileRoughness",
-              "placeholder": "Equipment ID"
+              "prepend": "Equipment ID"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
