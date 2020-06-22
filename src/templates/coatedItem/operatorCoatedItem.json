@@ -389,8 +389,12 @@
       "lookUpBy": "layerApplied",
       "pages": [
         {
-          "customComponent": "CustomCoating",
+          "customComponent": "ActualSteelThickness",
+          "noLine": true
+        },
+        {
           "pageTitle": "Coating Layer",
+          "customComponent": "CustomCoating",
           "noLine": true
         },
         {

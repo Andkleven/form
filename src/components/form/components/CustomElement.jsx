@@ -5,6 +5,8 @@ import { sumFieldInObject } from "functions/general";
 import { documentDataContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
+import SelectSetFieldGroupData from "components/form/components/fields/SelectSetFieldGroupData";
+import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 
 const CustomCoating = props => {
   let layers = 0;
@@ -146,9 +148,31 @@ const CustomLead = props => {
   }
 };
 
+const ActualSteelThickness = props => {
+  if (props.repeatStepList[1] === 0) {
+    return objectPath
+      .get(props.backendData, `operators.0.measurementPointActualTdvs`)
+      .map((measurementPointActual, index) => {
+        return (
+          <ReadField
+            key={index}
+            readOnly={true}
+            label={`Measurement Point Actual Steel ${objectPath.get(
+              props.specData,
+              `leadEngineers.0.data.targetDescriptionValue`
+            )}`}
+            value={measurementPointActual.data.measurementPointActual}
+          />
+        );
+      });
+  }
+  return null;
+};
+
 const CustomComponents = {
   CustomCoating,
-  CustomLead
+  CustomLead,
+  ActualSteelThickness
 };
 
 export default CustomComponents;
