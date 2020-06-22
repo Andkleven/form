@@ -27,7 +27,11 @@ export default props => {
         let specValueList = field.specValueList;
         if (specValueList) {
           batchingData[
-            specValueList.split(".")[specValueList.split(".").length - 1]
+            Array.isArray(specValueList)
+              ? specValueList[specValueList.length - 1].split(".")[
+                  specValueList[specValueList.length - 1].split(".").length - 1
+                ]
+              : specValueList.split(".")[specValueList.split(".").length - 1]
           ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
           batchingData[field.fieldName] = findValue(

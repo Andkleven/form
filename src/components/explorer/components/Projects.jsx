@@ -47,7 +47,6 @@ export default ({
 
   // Batching stages
   const batchingStages = Object.keys(batching);
-  console.log(batchingStages);
 
   return (
     <div className={props.className}>

@@ -1,14 +1,16 @@
 import stages from "components/form/stage/stages.json";
-import { camelCaseToNormal } from "functions/general";
+import { camelCaseToNormal, reshapeStageSting } from "functions/general";
 
 export function progress(item) {
   if (item.stage === "done") {
     return 100;
   } else if (
     typeof item.stage === "string" &&
-    stages.all.includes(item.stage)
+    stages.all.includes(reshapeStageSting(item.stage))
   ) {
-    const position = stages.all.findIndex(stage => stage === item.stage);
+    const position = stages.all.findIndex(
+      stage => stage === reshapeStageSting(item.stage)
+    );
     const length = stages.all.length;
     const percentage = Math.floor(100 * (position / length));
     return percentage;
