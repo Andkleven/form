@@ -73,11 +73,6 @@
               "required": true
             },
             {
-              "fieldName": "blastMediaBatchNumber",
-              "required": true,
-              "label": "Blast Media Batch Number"
-            },
-            {
               "fieldName": "equipmentIDMediaBlasting",
               "required": true,
               "label": "Equipment ID"
@@ -87,6 +82,11 @@
               "required": true,
               "label": "Next Calibration Date",
               "type": "date"
+            },
+            {
+              "fieldName": "blastMediaBatchNumber",
+              "required": true,
+              "label": "Blast Media Batch Number"
             },
             {
               "fieldName": "mediaBlastingStarted",
@@ -138,7 +138,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
-              "label": "Next Calibration Date",
+              "prepend": "Next Calibration Date",
               "type": "date",
               "required": true
             },
@@ -175,7 +175,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
               "fieldName": "nextCalibrationDateCompressedAirCheck",
               "type": "date",
-              "label": "Next Calibration Date",
+              "prepend": "Next Calibration Date",
               "required": true
             },
             {
@@ -196,7 +196,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.uvTest",
               "fieldName": "nextCalibrationDateUvTest",
               "type": "date",
-              "label": "Next Calibration Date",
+              "prepend": "Next Calibration Date",
               "required": true
             },
             {
@@ -219,7 +219,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
               "type": "date",
-              "label": "Next Calibration Date",
+              "prepend": "Next Calibration Date",
               "required": true
             },
             {
@@ -243,7 +243,7 @@
               "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
               "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
               "type": "date",
-              "label": "Next Calibration Date",
+              "prepend": "Next Calibration Date",
               "required": true
             },
             {
@@ -380,7 +380,6 @@
       ]
     },
     "coatingStep": {
-      "chapterTitle": "Coating",
       "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",
@@ -390,12 +389,12 @@
       "lookUpBy": "layerApplied",
       "pages": [
         {
-          "customComponent": "ActualSteelThickness",
+          "pageTitle": "Coating Layer",
+          "customComponent": "CustomCoating",
           "noLine": true
         },
         {
-          "pageTitle": "Coating Layer",
-          "customComponent": "CustomCoating",
+          "customComponent": "ActualSteelThickness",
           "noLine": true
         },
         {

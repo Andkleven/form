@@ -72,7 +72,7 @@ export default props => {
     isDragAccept,
     isDragReject
   } = useDropzone({
-    accept: "image/*",
+    accept: "image/*,application/pdf",
     onDrop: acceptedFiles => {
       if (props.singleFile) {
         documentDataDispatch({
