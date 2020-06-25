@@ -327,7 +327,9 @@
 
       "pages": [
         {
-          "customComponent": "CustomCoating"
+          "pageTitle": "Coating Layer",
+          "customComponent": "CustomCoating",
+          "noLine": true
         },
         {
           "repeat": true,
@@ -357,11 +359,7 @@
               "label": "Compound Number"
             },
             {
-              "specValueList": [
-                "leadEngineers.0.vulcanizationSteps",
-                "coatingLayers",
-                "data.shrunkThickness"
-              ],
+              "mathSpec": "mathShrinkThickness",
               "label": "Actual Rubber Thickness"
             },
             {
