@@ -20,7 +20,7 @@ export default props => {
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
   let count = 0;
-  let stage = stagesJson["all"][0];
+  // let stage = stagesJson["all"][0];
 
   const getNewChapter = (
     repeatStepList,
@@ -40,7 +40,7 @@ export default props => {
     } else {
       let allRequiredFieldSatisfied = props.data
         ? byStage
-          ? thisStage === stage
+          ? thisStage === props.stage
           : !allRequiredSatisfied(pageInfo, props.data, repeatStepList)
         : false;
       // if now data in lookUpBy this is last chapter
@@ -145,27 +145,30 @@ export default props => {
   const stageChapters = () => {
     let i = 0;
     let chapterBasedOnStage = [];
-    let thisStage = props.stage ? props.stage : stage;
-    let stageSplit = stage.split("Step");
-    if (props.stage === "" && props.geometry) {
-      thisStage = Object.keys(
-        stagesJson[removeSpace(props.geometry.toLowerCase())]
-      )[0];
-    }
+    // let thisStage = props.stage;
+    // let stageSplit = thisStage.split("Step");
+    // if (props.nextStage === "" && props.geometry) {
+    let thisStage = Object.keys(
+      stagesJson[removeSpace(props.geometry.toLowerCase())]
+    )[0];
+    let stageSplit = thisStage.split("Step");
+    // }
     while (stopLoop.current === false && i < 20) {
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
-            stageSplit[1] ? stageSplit[0] + "Step" : stage
+            stageSplit[1] ? stageSplit[0] + "Step" : thisStage
           ],
           thisStage,
           Number(stageSplit[1]) - 1
         )
       );
-      stage = findNextStage(props.specData, stage, props.geometry);
-      stageSplit = stage.split("Step");
+      thisStage = findNextStage(props.specData, thisStage, props.geometry);
+      stageSplit = thisStage.split("Step");
       if (
-        !props.document.chapters[stageSplit[1] ? stageSplit[0] + "Step" : stage]
+        !props.document.chapters[
+          stageSplit[1] ? stageSplit[0] + "Step" : thisStage
+        ]
       ) {
         break;
       }
@@ -188,7 +191,11 @@ export default props => {
 
   return (
     <>
-      {props.document.chapterByStage ? stageChapters() : chapterBasedOnJson}{" "}
+      {props.document.chapterByStage
+        ? props.stage
+          ? stageChapters()
+          : null
+        : chapterBasedOnJson}{" "}
       {!editChapter && !finalChapter && !!props.backButton ? (
         <SubmitButton type="button" onClick={props.backButton}>
           Back
