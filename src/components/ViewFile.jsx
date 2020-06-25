@@ -12,7 +12,7 @@ export default pageInfo => {
       error
     },
     getImage
-  ] = FetchData("https://versjon2.herokuapp.com/file");
+  ] = FetchData(`${process.env.REACT_APP_BACKEND}/file`);
 
   return (
     <PaperStack>
