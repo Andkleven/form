@@ -13,7 +13,7 @@ import { createUploadLink } from "apollo-upload-client";
 
 const httpLink = createUploadLink({
   // See README for how to setup backend
-  uri: process.env.REACT_APP_BACKEND
+  uri: `${process.env.REACT_APP_BACKEND}/graphql/`
 });
 
 const authLink = setContext((_, { headers }) => {
