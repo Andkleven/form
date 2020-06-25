@@ -323,10 +323,12 @@
                 {
                   "fieldName": "layer",
                   "label": "Layer",
-                  "type": "Number",
-                  "math": "mathLayer"
+                  "math": "mathLayer",
+                  "isSubtitle": true,
+                  "indent": "true"
                 },
                 {
+                  "indent": true,
                   "fieldName": "compoundNumber",
                   "required": true,
                   "label": "Compound Number",
@@ -411,6 +413,7 @@
                   ]
                 },
                 {
+                  "indent": true,
                   "fieldName": "appliedThickness",
                   "label": "Applied Thickness",
                   "unit": "mm",
@@ -418,6 +421,7 @@
                   "type": "Number"
                 },
                 {
+                  "indent": true,
                   "fieldName": "shrink",
                   "label": "Shrink",
                   "unit": "%",
@@ -425,6 +429,7 @@
                   "default": 0
                 },
                 {
+                  "indent": true,
                   "fieldName": "shrunkThickness",
                   "label": "Shrunk Thickness",
                   "math": "mathShrinkThickness",
@@ -434,6 +439,7 @@
                   "required": true
                 },
                 {
+                  "indent": true,
                   "fieldName": "layersUnique",
                   "label": "Exclude layer from calculations",
                   "type": "checkbox"
@@ -493,12 +499,6 @@
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
             },
             {
-              "fieldName": "finalDimensionsCheck",
-              "label": "Final Dimensions Check",
-              "type": "checkbox",
-              "subtext": "APS. All parts in accordance to drawings."
-            },
-            {
               "fieldName": "sparkTest",
               "label": "Spark Test",
               "type": "checkbox",
@@ -509,6 +509,36 @@
               "label": "Hammer Test",
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch."
+            },
+            {
+              "fieldName": "simpleFinalDimensionsCheck",
+              "label": "Simple Final Dimensions Check",
+              "type": "checkbox",
+              "subtext": "APS. All parts in accordance to drawings (no references or min-max)."
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.finalInspectionDimensionsChecks",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Advanced Final Dimensions Check",
+          "fields": [
+            {
+              "fieldName": "finalDimensionsReference",
+              "label": "Final Dimensions Reference"
+            },
+            {
+              "fieldName": "finalDimensionsMin",
+              "prepend": "Min",
+              "unit": "mm",
+              "type": "Number"
+            },
+            {
+              "fieldName": "finalDimensionsMax",
+              "prepend": "Max",
+              "unit": "mm",
+              "type": "Number"
             }
           ]
         },
@@ -520,11 +550,12 @@
           "fields": [
             {
               "fieldName": "name",
-              "label": "Name"
+              "label": "Custom Test",
+              "prepend": "Name"
             },
             {
               "fieldName": "criteria",
-              "label": "Criteria"
+              "prepend": "Criteria"
             }
           ]
         }

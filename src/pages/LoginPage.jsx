@@ -89,7 +89,7 @@ export default () => {
                   variables: { username, password }
                 })
                   .then(() => {
-                    return <Redirect to="/" />;
+                    history.push("/");
                   })
                   .catch(e => {
                     console.log(e);
