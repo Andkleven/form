@@ -400,7 +400,8 @@
         {
           "queryPath": [
             "operators.0.vulcanizationOperators",
-            "coatingOperators"
+            "coatingOperators",
+            ""
           ],
           "fields": [
             {
