@@ -405,6 +405,7 @@ const QUALITY_CONTROL = gql`
       unique
       qrCode
       repair
+      stage
       leadEngineers {
         id
         data
@@ -455,6 +456,10 @@ const QUALITY_CONTROL = gql`
             id
             data
             measurementPointOperators {
+              id
+              data
+            }
+            layers {
               id
               data
             }

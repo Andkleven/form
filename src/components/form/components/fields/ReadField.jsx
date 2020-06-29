@@ -1,24 +1,34 @@
 import React, { useContext } from "react";
-import { ChapterContext } from "components/form/Form";
 import { Form, Row, Col } from "react-bootstrap";
 import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
+import { documentDataContext, ChapterContext } from "components/form/Form";
 
 export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-
+  const { documentData } = useContext(documentDataContext);
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
-    if (window.confirm("Are you sure you wish to edit?")) {
+    if (
+      JSON.stringify(documentData.current) === JSON.stringify(props.backendData)
+    ) {
       if (!display) {
         chapterContext.setEditChapter(
           `${props.repeatStepList}-${props.fieldName}`
         );
+      }
+    } else {
+      if (window.confirm("You will lose unsaved changes, are you sure?")) {
+        if (!display) {
+          chapterContext.setEditChapter(
+            `${props.repeatStepList}-${props.fieldName}`
+          );
+        }
       }
     }
   };

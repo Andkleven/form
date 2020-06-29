@@ -15,8 +15,8 @@ import Canvas from "components/layout/Canvas";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
-  const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
+  const [reRender, setReRender] = useState(null);
 
   let operatorJson = coatedItemOrMould(
     geometry,
@@ -29,9 +29,10 @@ export default pageInfo => {
   });
   useEffect(() => {
     setFixedData(objectifyQuery(data));
-  }, [loading, error, data, reRender]);
+  }, [loading, error, data]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
   return (
     <Canvas>
       <Paper className="mb-3">
@@ -55,7 +56,6 @@ export default pageInfo => {
         <Form
           componentsId={"finalInspectionQualityControls"}
           document={qualityControlJson}
-          reRender={() => setReRender(!reRender)}
           data={
             fixedData &&
             formDataStructure(
@@ -66,6 +66,7 @@ export default pageInfo => {
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
+          reRender={() => setReRender(!reRender)}
           allData={fixedData}
           geometry={geometry}
           getQueryBy={itemId}

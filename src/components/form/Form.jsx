@@ -17,13 +17,6 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 
 const cloneDeep = require("clone-deep");
 
-// import whyDidYouRender from "@welldone-software/why-did-you-render";
-
-// whyDidYouRender(React, {
-//   onlyLogs: true,
-//   titleColor: "green",
-//   diffNameColor: "darkturquoise"
-// });
 function useStore(init) {
   const state = useRef(init);
   const renderFunction = useRef({});
@@ -74,6 +67,7 @@ export default props => {
       skip: !props.optionsQuery
     }
   );
+
   // Set documentData to empty dictionary if a new component calls Form
   useLayoutEffect(() => {
     if (props.data) {
@@ -304,4 +298,3 @@ export default props => {
     </documentDataContext.Provider>
   );
 };
-// Form.whyDidYouRender = true;

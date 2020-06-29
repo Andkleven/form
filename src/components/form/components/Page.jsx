@@ -330,7 +330,8 @@ export default React.memo(props => {
           <TabButton
             onClick={() => {
               if (
-                window.confirm("You will lose unsaved changes, are you sure?")
+                JSON.stringify(documentData.current) ===
+                JSON.stringify(props.backendData)
               ) {
                 documentDataDispatch({
                   type: "setState",
@@ -338,6 +339,17 @@ export default React.memo(props => {
                 });
                 setEditChapter(props.thisChapter);
                 setResetState(prevState => !prevState);
+              } else {
+                if (
+                  window.confirm("You will lose unsaved changes, are you sure?")
+                ) {
+                  documentDataDispatch({
+                    type: "setState",
+                    newState: props.backendData
+                  });
+                  setEditChapter(props.thisChapter);
+                  setResetState(prevState => !prevState);
+                }
               }
             }}
           >
