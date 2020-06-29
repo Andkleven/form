@@ -89,7 +89,7 @@ export default props => {
     ) : null;
   };
   const runChapter = (pageInfo, thisStage = "", step = null) => {
-    if (pageInfo.specChapter) {
+    if (pageInfo && pageInfo.specChapter) {
       let numberOfChapters = findValue(
         props.specData,
         pageInfo.specChapter,

@@ -55,7 +55,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "taiko": "taiko",
-    "createProject": "taiko ./src/auto/tasks/testing/coating.js",
+    "createProject": "taiko ./src/auto/tasks/testing/createProjects.js",
     "deleteProjects": "taiko ./src/auto/node_modules/delete.js"
   },
   "browserslist": [
