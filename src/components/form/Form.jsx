@@ -201,7 +201,25 @@ export default props => {
       // timer.current = setTimeout(() => {
       setEditChapter(0);
       setFinalChapter(0);
-      // console.log("nei");
+      if (props.stage) {
+        console.log(
+          isStringInstance(props.stage) &&
+            submit &&
+            nextStage.current &&
+            !editChapter
+            ? FindNextStage(props.specData, props.stage, props.geometry)
+            : props.stage
+        );
+        console.log(
+          isStringInstance(props.stage),
+          submit,
+          nextStage.current,
+          !editChapter,
+          FindNextStage(props.specData, props.stage, props.geometry),
+          props.stage
+        );
+      }
+
       if (documentData.current) {
         let variables = stringifyQuery(
           cloneDeep(documentData.current),

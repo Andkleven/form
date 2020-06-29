@@ -239,7 +239,7 @@ const OPERATOR = gql`
 
 const QUALITY_CONTROL = gql`
   mutation finalInspectionQualityControls(
-    $finalInspectionQualityControls: [UnderCategoriesOfLeadEngineerInput]
+    $finalInspectionQualityControls: [FinalInspectionQualityControlInput]
     $itemId: Int
   ) {
     finalInspectionQualityControls(

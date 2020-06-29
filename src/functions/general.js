@@ -165,6 +165,9 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
                 fieldNotFilledOut(dataField.data[field.fieldName]) &&
                 !dataField.data[field.fieldName + ignoreRequiredField]
               ) {
+                console.log(dataField);
+                console.log(field.fieldName);
+                console.log(dataField.data[field.fieldName]);
                 returnValue = false;
               }
             });
@@ -189,6 +192,7 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
         }
       });
     if (allFieldMissing.every(allFalse) && allFieldMissing.length !== 0) {
+      console.log(allFieldMissing);
       returnValue = false;
     }
   });
