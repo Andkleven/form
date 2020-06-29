@@ -143,7 +143,7 @@ export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
   );
 };
 
-export const allRequiredSatisfied = (pageInfo, data, array) => {
+export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
   let returnValue = true;
   pageInfo.pages.forEach((page, index) => {
     let newPath = page.queryPath;
@@ -163,9 +163,16 @@ export const allRequiredSatisfied = (pageInfo, data, array) => {
             dataFields.forEach(dataField => {
               if (
                 fieldNotFilledOut(dataField.data[field.fieldName]) &&
-                !dataField.data[field.fieldName + ignoreRequiredField]
+                !dataField.data[field.fieldName + ignoreRequiredField] &&
+                ((field.showFieldSpecPath &&
+                  specData[field.showFieldSpecPath]) ||
+                  field.showFieldSpecPath === undefined)
               ) {
-                console.log(dataField);
+                if (
+                  field.showFieldSpecPath &&
+                  specData[field.showFieldSpecPath]
+                )
+                  console.log(dataField);
                 console.log(field.fieldName);
                 console.log(dataField.data[field.fieldName]);
                 returnValue = false;

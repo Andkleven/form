@@ -3,8 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 import operatorMouldJson from "templates/mould/operatorMould.json";
-import qualityControlCoatingItem from "templates/coatedItem/qualityControlCoatingItem.json";
-import qualityControlMould from "templates/mould/qualityControlMould.json";
+import qualityControlJson from "templates/qualityControl.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -19,19 +18,13 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-  let qualityControl = coatedItemOrMould(
-    geometry,
-    qualityControlCoatingItem,
-    qualityControlMould
-  );
-
   let operatorJson = coatedItemOrMould(
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
   );
 
-  const { loading, error, data } = useQuery(query[qualityControl.query], {
+  const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
   useEffect(() => {
@@ -61,7 +54,7 @@ export default pageInfo => {
       <Paper>
         <Form
           componentsId={"finalInspectionQualityControls"}
-          document={qualityControl}
+          document={qualityControlJson}
           reRender={() => setReRender(!reRender)}
           data={
             fixedData &&

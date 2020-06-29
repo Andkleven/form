@@ -41,7 +41,12 @@ export default props => {
       let allRequiredFieldSatisfied = props.data
         ? byStage
           ? thisStage === props.stage
-          : !allRequiredSatisfied(pageInfo, props.data, repeatStepList)
+          : !allRequiredSatisfied(
+              pageInfo,
+              props.data,
+              repeatStepList,
+              props.specData
+            )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
