@@ -445,6 +445,7 @@ const QUALITY_CONTROL = gql`
       operators {
         id
         data
+        surfaceCleanlinessImage
         measurementPointActualTdvs {
           id
           data
@@ -455,11 +456,15 @@ const QUALITY_CONTROL = gql`
           coatingOperators {
             id
             data
-            measurementPointOperators {
+            mixDates {
               id
               data
             }
             layers {
+              id
+              data
+            }
+            measurementPointOperators {
               id
               data
             }

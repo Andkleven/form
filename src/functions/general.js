@@ -172,10 +172,7 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
                   field.showFieldSpecPath &&
                   specData[field.showFieldSpecPath]
                 )
-                  console.log(dataField);
-                console.log(field.fieldName);
-                console.log(dataField.data[field.fieldName]);
-                returnValue = false;
+                  returnValue = false;
               }
             });
           } else if (!dataFields || !dataFields.data) {
@@ -199,7 +196,6 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
         }
       });
     if (allFieldMissing.every(allFalse) && allFieldMissing.length !== 0) {
-      console.log(allFieldMissing);
       returnValue = false;
     }
   });

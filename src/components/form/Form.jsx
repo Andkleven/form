@@ -67,7 +67,6 @@ export default props => {
       skip: !props.optionsQuery
     }
   );
-
   // Set documentData to empty dictionary if a new component calls Form
   useLayoutEffect(() => {
     if (props.data) {

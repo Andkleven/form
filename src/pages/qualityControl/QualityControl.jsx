@@ -32,7 +32,9 @@ export default pageInfo => {
   }, [loading, error, data]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
+  if (fixedData) {
+    console.log(fixedData.items[0].stage);
+  }
   return (
     <Canvas>
       <Paper className="mb-3">

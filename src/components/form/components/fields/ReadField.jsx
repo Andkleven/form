@@ -10,12 +10,13 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-  const { documentData } = useContext(documentDataContext);
+  const documentData = useContext(documentDataContext);
   const chapterContext = useContext(ChapterContext);
 
   const flipToWrite = () => {
     if (
-      JSON.stringify(documentData.current) === JSON.stringify(props.backendData)
+      JSON.stringify(documentData.documentData.current) ===
+      JSON.stringify(props.backendData)
     ) {
       if (!display) {
         chapterContext.setEditChapter(
