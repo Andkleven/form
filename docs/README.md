@@ -155,7 +155,7 @@ REACT_APP_BACKEND=https://versjon2.herokuapp.com
     2. Open a new terminal
 
     3. start backend:
-      ```console
+       ```console
        python manage.py runserver
        ```
 
