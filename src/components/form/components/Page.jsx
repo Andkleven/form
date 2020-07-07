@@ -31,7 +31,6 @@ export default React.memo(props => {
   const [resetState, setResetState] = useState(false);
   const [addOrRemove, setAddOrRemove] = useState(0);
   const writeChapter = useRef(false);
-
   useEffect(() => {
     if (props.repeat) {
       setAddOrRemove(prevState => prevState + 1);
@@ -46,6 +45,7 @@ export default React.memo(props => {
 
   const addData = useCallback(
     pushOnIndex => {
+      console.log(22);
       documentDataDispatch({
         type: "add",
         newState: {},
@@ -106,8 +106,6 @@ export default React.memo(props => {
   }
   // }, [props.allWaysShow, editChapter, props.thisChapter, props.finalChapter, props.componentsId]);
 
-  // If repeat group start with one group set repeatGroup to 1
-
   // If number of repeat group decided by a another field, it sets repeatGroup
   const autoRepeat = useCallback(
     (data = documentData.current) => {
@@ -117,7 +115,7 @@ export default React.memo(props => {
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
-      let oldValue = objectPath.get(data, props.path, false);
+      let oldValue = objectPath.get(documentData.current, props.path, false);
       let oldValueLength = oldValue ? oldValue.length : 0;
       if (oldValueLength < newValue) {
         for (let i = oldValueLength; i < newValue; i++) {
@@ -173,16 +171,7 @@ export default React.memo(props => {
       writeChapter.current
     ) {
       autoRepeat(props.backendData);
-    }
-  }, [
-    props.backendData,
-    autoRepeat,
-    props.repeatGroupWithQuery,
-    props.repeatGroupWithQuerySpecData
-  ]);
-
-  useEffect(() => {
-    if (
+    } else if (
       props.repeatGroupWithQuery &&
       props.repeatGroupWithQuerySpecData &&
       writeChapter.current
@@ -190,9 +179,10 @@ export default React.memo(props => {
       autoRepeat(props.specData);
     }
   }, [
+    props.backendData,
+    autoRepeat,
     props.specData,
     props.repeatGroupWithQuery,
-    autoRepeat,
     props.repeatGroupWithQuerySpecData
   ]);
 
