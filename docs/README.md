@@ -141,9 +141,9 @@ REACT_APP_BACKEND=https://versjon2.herokuapp.com
 
 14. Create admin user:
     1. Enter:
-         ```console
-         python manage.py createsuperuser
-         ```
+       ```console
+       python manage.py createsuperuser
+       ```
     2. Enter username and password (do not need mail) 
 
 15. Start app:
@@ -154,7 +154,7 @@ REACT_APP_BACKEND=https://versjon2.herokuapp.com
 
     2. Open a new terminal
 
-    3. start backend:
+    3. Start backend:
        ```console
        python manage.py runserver
        ```
