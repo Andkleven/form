@@ -223,9 +223,9 @@ _Warning: This may not work on public networks (e.g. school and work)!_
      python manage.py makemigrations
      ```
   3. Run migrations:
-    ```console
-    python manage.py migrate
-   ```
+     ```console
+     python manage.py migrate
+     ```
 
 
 ### Remote manual testing
