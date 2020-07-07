@@ -68,7 +68,7 @@ const InputType = props => {
   } else if (props.type === "select") {
     return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {
-    return <FileInput {...props} readOnly={readOnly} />;
+    return <FileInput {...props} />;
   } else {
     return <NativeInput {...props} readOnly={readOnly} />;
   }

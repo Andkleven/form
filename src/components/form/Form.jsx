@@ -200,7 +200,7 @@ export default props => {
             submit &&
             nextStage.current &&
             !editChapter
-            ? FindNextStage(props.specData, props.stage, props.geometry)
+            ? FindNextStage(props.specData, props.stage, props.stageType)
             : props.stage
         );
         console.log(
@@ -208,7 +208,7 @@ export default props => {
           submit,
           nextStage.current,
           !editChapter,
-          FindNextStage(props.specData, props.stage, props.geometry),
+          FindNextStage(props.specData, props.stage, props.stageType),
           props.stage
         );
       }
@@ -232,7 +232,7 @@ export default props => {
               submit &&
               nextStage.current &&
               !editChapter
-                ? FindNextStage(props.specData, props.stage, props.geometry)
+                ? FindNextStage(props.specData, props.stage, props.stageType)
                 : props.stage
           }
         });
@@ -247,7 +247,7 @@ export default props => {
       nextStage,
       props.batchingListIds,
       props.descriptionId,
-      props.geometry,
+      props.stageType,
       props.itemId,
       props.sendItemId,
       props.specData,
@@ -260,7 +260,6 @@ export default props => {
     e.preventDefault();
     submitData(documentData.current, true);
   };
-
   return (
     <documentDataContext.Provider
       value={{ documentData, documentDataDispatch, renderFunction }}
@@ -276,6 +275,7 @@ export default props => {
         <Title>{props.document.documentTitle}</Title>
         <Form
           onSubmit={e => {
+            console.log(23);
             formSubmit(e);
           }}
         >

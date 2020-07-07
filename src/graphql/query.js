@@ -262,6 +262,14 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
           id
           data
           surfaceCleanlinessImage
+          rubberCementOperators {
+            id
+            data
+            mixDates {
+              id
+              data
+            }
+          }
           measurementPointActualTdvs {
             id
             data
@@ -272,10 +280,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             coatingOperators {
               id
               data
-              mixDates {
-                id
-                data
-              }
               layers {
                 id
                 data
@@ -342,6 +346,14 @@ const GET_OPERATOR_BY_ITEM = gql`
         id
         data
         surfaceCleanlinessImage
+        rubberCementOperators {
+          id
+          data
+          mixDates {
+            id
+            data
+          }
+        }
         measurementPointActualTdvs {
           id
           data
@@ -356,10 +368,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           coatingOperators {
             id
             data
-            mixDates {
-              id
-              data
-            }
             layers {
               id
               data
@@ -446,6 +454,14 @@ const QUALITY_CONTROL = gql`
         id
         data
         surfaceCleanlinessImage
+        rubberCementOperators {
+          id
+          data
+          mixDates {
+            id
+            data
+          }
+        }
         measurementPointActualTdvs {
           id
           data
@@ -456,10 +472,6 @@ const QUALITY_CONTROL = gql`
           coatingOperators {
             id
             data
-            mixDates {
-              id
-              data
-            }
             layers {
               id
               data

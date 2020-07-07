@@ -32,9 +32,7 @@ export default pageInfo => {
   }, [loading, error, data]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  if (fixedData) {
-    console.log(fixedData.items[0].stage);
-  }
+
   return (
     <Canvas>
       <Paper className="mb-3">
@@ -47,7 +45,7 @@ export default pageInfo => {
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           stage={fixedData && fixedData.items[0].stage}
-          geometry={geometry}
+          stageType={geometry}
           getQueryBy={itemId}
           itemId={itemId}
           sendItemId={true}
@@ -70,7 +68,8 @@ export default pageInfo => {
           }
           reRender={() => setReRender(!reRender)}
           allData={fixedData}
-          geometry={geometry}
+          stage={fixedData && fixedData.items[0].stage}
+          stageType={geometry}
           getQueryBy={itemId}
           itemId={itemId}
           sendItemId={true}

@@ -10,7 +10,8 @@
     "vulcanizationStep",
     "measurementPointStep",
     "touchUp",
-    "qualityControl"
+    "qualityControl",
+    "done"
   ],
   "coateditem": {
     "actualSteelMeasurement": { "queryPath": "" },
@@ -42,7 +43,8 @@
       "step": true
     },
     "touchUp": { "queryPath": "" },
-    "qualityControl": { "queryPath": "" }
+    "qualityControl": { "queryPath": "" },
+    "done": { "queryPath": "" }
   },
 
   "mould": {
@@ -74,6 +76,7 @@
       "step": true
     },
     "touchUp": { "queryPath": "" },
-    "qualityControl": { "queryPath": "" }
+    "qualityControl": { "queryPath": "" },
+    "done": { "queryPath": "" }
   }
 }

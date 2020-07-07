@@ -157,6 +157,7 @@
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "prepend": "Image",
               "type": "file"
             },
             {
@@ -251,7 +252,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
               "fieldName": "referencePlateId",
-              "placeholder": "Reference Plate Id (Optional)"
+              "prepend": "Reference Plate Id (Optional)"
             },
             {
               "fieldName": "dustTest",
@@ -404,6 +405,7 @@
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
+          "queryPath": "operators.0.rubberCementOperators",
           "fields": [
             {
               "specValueList": [
@@ -412,31 +414,24 @@
                 "leadEngineers.0.rubberCements",
                 "data.rubberCement"
               ],
-              "label": "Item Rubber Cement"
-            }
-          ]
-        },
-        {
-          "repeat": true,
-          "notAddButton": true,
-          "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
-          "queryPath": [
-            "operators.0.vulcanizationOperators",
-            "coatingOperators",
-            "mixDates"
-          ],
-          "fields": [
-            {
-              "fieldName": "mixDate1",
-              "required": true,
-              "label": "Mix Date",
-              "type": "date"
+              "label": "Rubber Cement"
             },
             {
-              "fieldName": "mixDate2",
-              "label": "Mix Date",
-              "type": "date"
+              "page": true,
+              "queryPath": "mixDates",
+              "repeat": true,
+              "repeatStartWithOneGroup": true,
+              "delete": true,
+              "addButton": "Add Rubber Cement",
+              "fields": [
+                {
+                  "fieldName": "mixDate",
+                  "required": true,
+                  "indexVariableLabel": true,
+                  "label": "Mix Date {}",
+                  "type": "date"
+                }
+              ]
             }
           ]
         },

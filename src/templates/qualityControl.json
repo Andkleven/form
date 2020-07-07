@@ -1,5 +1,6 @@
 {
   "queryPath": "finalInspectionQualityControls",
+  "specQueryPath": "items.0.leadEngineers",
   "mutation": "QUALITY_CONTROL",
   "query": "QUALITY_CONTROL",
   "chapters": [
@@ -107,6 +108,32 @@
               "label": "Peel Test: {}",
               "unit": "N/25mm",
               "type": "number"
+            }
+          ]
+        },
+        {
+          "repeat": true,
+          "notAddButton": true,
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineers.0.finalInspectionDimensionsChecks",
+          "queryPath": "finalInspectionQualityControls.0.finalInspectionDimensionsCheckQualityControls",
+          "fields": [
+            {
+              "fieldName": "finalInspectionDimensionsChecks",
+              "variableLabelSpec": true,
+              "queryVariableLabel": [
+                "leadEngineers.0.finalInspectionDimensionsChecks",
+                "data.finalDimensionsReference"
+              ],
+              "label": "Final Dimensions Reference {}",
+              "routeToSpecMin": [
+                "leadEngineers.0.finalInspectionDimensionsChecks",
+                "data.finalDimensionsMin"
+              ],
+              "routeToSpecMax": [
+                "leadEngineers.0.finalInspectionDimensionsChecks",
+                "data.finalDimensionsMax"
+              ]
             }
           ]
         },

@@ -6,12 +6,15 @@ import {
   removeSpace
 } from "functions/general.js";
 
-export default (specData: object, stage: string, geometry: string): string => {
+export default (specData: object, stage: string, stageType: string): string => {
   stage = stage ? stage : stagesJson.all[0];
-  geometry = removeSpace(geometry).toLowerCase();
+  stageType = removeSpace(stageType).toLowerCase();
   function nextStageFormat(index: number, step: number): string {
     nextStage = stagesJson.all[index + 1];
-    if (stagesJson[geometry][nextStage]["step"]) {
+    if (
+      stagesJson[stageType][nextStage] &&
+      stagesJson[stageType][nextStage]["step"]
+    ) {
       return `${nextStage}${step}`;
     }
     return nextStage;
@@ -19,7 +22,7 @@ export default (specData: object, stage: string, geometry: string): string => {
 
   let step = 1;
   let query;
-  let thisStage = stage;
+  let thisStage = stage ? stage : stagesJson.all[0];
   if (stage.includes("Step")) {
     step = Number(stage.split("Step")[1]);
     thisStage = stage.split("Step")[0] + "Step";
@@ -28,29 +31,36 @@ export default (specData: object, stage: string, geometry: string): string => {
   let index = stages.indexOf(thisStage);
   let nextStage;
   while (nextStage === undefined) {
-    let crossroads = stagesJson[geometry][thisStage]["crossroads"];
+    if (thisStage === stages[stages.length - 1]) {
+      nextStage = thisStage;
+      break;
+    }
+    let crossroads;
+    if (stagesJson[stageType][thisStage]) {
+      crossroads = stagesJson[stageType][thisStage]["crossroads"];
+    }
     if (crossroads) {
       query = findValue(
         specData,
-        stagesJson[geometry][crossroads]["queryPath"],
+        stagesJson[stageType][crossroads]["queryPath"],
         isNumber(step) ? [step] : [],
-        stagesJson[geometry][crossroads]["editIndexList"]
+        stagesJson[stageType][crossroads]["editIndexList"]
       );
       if (!emptyField(query)) {
         return `${crossroads}${step + 1}`;
       }
     }
     thisStage = stages[index + 1];
-    if (emptyField(stagesJson[geometry][thisStage])) {
+    if (emptyField(stagesJson[stageType][thisStage])) {
       index++;
-    } else if (emptyField(stagesJson[geometry][thisStage]["queryPath"])) {
+    } else if (emptyField(stagesJson[stageType][thisStage]["queryPath"])) {
       nextStage = nextStageFormat(index, step);
     } else {
       query = findValue(
         specData,
-        stagesJson[geometry][thisStage]["queryPath"],
+        stagesJson[stageType][thisStage]["queryPath"],
         [step - 1],
-        stagesJson[geometry][thisStage]["editIndexList"]
+        stagesJson[stageType][thisStage]["editIndexList"]
       );
       if (emptyField(query)) {
         index++;

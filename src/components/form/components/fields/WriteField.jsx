@@ -51,6 +51,14 @@ export default ({ setResetState, setState, state, ...props }) => {
     setState(e.value);
   };
 
+  const onChangeFile = value => {
+    documentDataDispatch({
+      type: "add",
+      newState: value,
+      path: props.path
+    });
+    setState(value);
+  };
   const onChange = e => {
     let { value, type } = e.target;
     addUser();
@@ -170,7 +178,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         false
       )
     );
-  }, [defaultValue, setIgnoreRequired, documentData, props.path]);
+  }, [setIgnoreRequired, documentData, props.path]);
 
   useEffect(() => {
     let newSate;
@@ -204,18 +212,17 @@ export default ({ setResetState, setState, state, ...props }) => {
     console.log("indent", props.indent);
     console.log("indent", props.indent);
   }
-
   return (
     <div className={indent && "ml-3"}>
       <Input
         {...props}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
-        // defaultValue={defaultValue()}
         value={state}
         readOnly={props.readOnly}
         onChange={onChange}
         onChangeSelect={onChangeSelect}
+        onChangeFile={onChangeFile}
         label={props.label}
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}
@@ -228,11 +235,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         <Input
           type={"checkbox"}
           onChange={onChangeIgnoreRequired}
-          defaultValue={objectPath.get(
-            documentData.current,
-            props.path + ignoreRequiredField,
-            false
-          )}
+          value={ignoreRequired}
           label={`Ignore Required on ${props.label}`}
           TinyButtons={TinyButtons()}
           BigButtons={BigButtons()}

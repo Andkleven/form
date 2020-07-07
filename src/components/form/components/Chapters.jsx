@@ -152,9 +152,9 @@ export default props => {
     let chapterBasedOnStage = [];
     // let thisStage = props.stage;
     // let stageSplit = thisStage.split("Step");
-    // if (props.nextStage === "" && props.geometry) {
+    // if (props.nextStage === "" && props.stageType) {
     let thisStage = Object.keys(
-      stagesJson[removeSpace(props.geometry.toLowerCase())]
+      stagesJson[removeSpace(props.stageType.toLowerCase())]
     )[0];
     let stageSplit = thisStage.split("Step");
     // }
@@ -168,7 +168,7 @@ export default props => {
           Number(stageSplit[1]) - 1
         )
       );
-      thisStage = findNextStage(props.specData, thisStage, props.geometry);
+      thisStage = findNextStage(props.specData, thisStage, props.stageType);
       stageSplit = thisStage.split("Step");
       if (
         !props.document.chapters[

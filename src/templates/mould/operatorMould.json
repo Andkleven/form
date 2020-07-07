@@ -133,6 +133,7 @@
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "prepend": "Image",
               "type": "file"
             },
             {
@@ -238,7 +239,7 @@
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
               "fieldName": "referencePlateId",
-              "placeholder": "Reference Plate Id (Optional)"
+              "prepend": "Reference Plate Id (Optional)"
             },
             {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",

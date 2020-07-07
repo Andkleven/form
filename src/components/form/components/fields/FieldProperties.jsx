@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import ReadField from "./ReadField";
 import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
-import Input from "components/input/Input";
 import WriteField from "components/form/components/fields/WriteField";
 import objectPath from "object-path";
 import { documentDataContext, ChapterContext } from "components/form/Form";
@@ -28,6 +27,7 @@ export default ({ resetState, ...props }) => {
   const [state, setState] = useState("");
   const [readOnly, setReadOnly] = useState(false);
   const [label, setLabel] = useState("");
+
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
       return `${props.path}.${props.fieldName}`;
@@ -335,17 +335,6 @@ export default ({ resetState, ...props }) => {
         file={props.type === "file" ? props.file : null}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}
-      />
-    );
-  } else if (props.type === "file") {
-    return (
-      <Input
-        {...props}
-        key={`${props.indexId}-${props.index}`}
-        subtext={subtext}
-        singleFile={true}
-        path={`${props.path}.${props.fieldName}`}
-        label={label}
       />
     );
   } else {

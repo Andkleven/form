@@ -10,7 +10,7 @@ import SelectSetFieldGroupData from "components/form/components/fields/SelectSet
 import { ChapterContext, documentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
 import { getRepeatNumber, isNumberAndNotNaN } from "functions/general";
-import Input from "components/input/Input";
+import MultipleFiles from "components/input/components/MultipleFiles";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
@@ -56,7 +56,6 @@ export default React.memo(props => {
     },
     [props.path, documentDataDispatch, setAddOrRemove]
   );
-
   const addHandler = useCallback(() => {
     if (objectPath.get(documentData.current, props.path) === undefined) {
       documentDataDispatch({
@@ -140,7 +139,6 @@ export default React.memo(props => {
       deleteHandler
     ]
   );
-
   useEffect(() => {
     let effectsRenderFunction = renderFunction.current;
     if (
@@ -393,7 +391,7 @@ export default React.memo(props => {
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <Input {...props} writeChapter={writeChapter.current} />
+        <MultipleFiles {...props} writeChapter={writeChapter.current} />
       ) : null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>

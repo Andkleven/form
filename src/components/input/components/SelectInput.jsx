@@ -39,15 +39,16 @@ export default props => {
     label = camelCaseToNormal(label);
     return (option.label = label);
   });
+
   const selectProps = {
     className: "w-100",
     name: props.name,
     id: `custom-${props.type}-${props.label}-${props.repeatStepList}`,
     options: options,
-    defaultValue:
-      !props.value && props.defaultValue
-        ? options.find(option => option.value === props.defaultValue)
-        : null,
+    // defaultValue:
+    //   !props.value && props.defaultValue
+    //     ? options.find(option => option.value === props.defaultValue)
+    //     : null,
     theme: theme => ({
       ...theme,
       colors: {

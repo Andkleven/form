@@ -205,6 +205,14 @@ const OPERATOR = gql`
               id
               data
             }
+            rubberCementOperators {
+              id
+              data
+              mixDates {
+                id
+                data
+              }
+            }
             vulcanizationOperators {
               id
               data
@@ -212,10 +220,6 @@ const OPERATOR = gql`
               coatingOperators {
                 id
                 data
-                mixDates {
-                  id
-                  data
-                }
                 layers {
                   id
                   data
@@ -247,34 +251,119 @@ const QUALITY_CONTROL = gql`
       itemId: $itemId
     ) {
       new {
-        id
-        data
-        id
-        data
-        measurementPointQualityControls {
+        item {
           id
-          data
-        }
-        hardnessQualityControls {
-          id
-          data
-        }
-        peelTestQualityControls {
-          id
-          data
-        }
-        finalInspectionCustomTestQualityControls {
-          id
-          data
-        }
-        finalInspectionDimensionsCheckQualityControls {
-          id
-          data
-        }
-        uploadFiles {
-          id
-          file
-          fileDescription
+          itemId
+          unique
+          qrCode
+          repair
+          stage
+          leadEngineers {
+            id
+            data
+            measurementPointActualTdvs {
+              id
+              data
+            }
+            vulcanizationSteps {
+              id
+              data
+              coatingLayers {
+                id
+                data
+                cumulativeThickness {
+                  id
+                  data
+                }
+              }
+            }
+            rubberCements {
+              id
+              data
+            }
+            additionalCustomTests {
+              id
+              data
+            }
+            finalInspectionCustomTests {
+              id
+              data
+            }
+            finalInspectionDimensionsChecks {
+              id
+              data
+            }
+          }
+          operators {
+            id
+            data
+            surfaceCleanlinessImage
+            rubberCementOperators {
+              id
+              data
+              mixDates {
+                id
+                data
+              }
+            }
+            measurementPointActualTdvs {
+              id
+              data
+            }
+            vulcanizationOperators {
+              id
+              data
+              coatingOperators {
+                id
+                data
+                layers {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
+              measurementPointOperators {
+                id
+                data
+              }
+            }
+            additionalCustomTestOperators {
+              id
+              data
+            }
+          }
+          finalInspectionQualityControls {
+            id
+            data
+            measurementPointQualityControls {
+              id
+              data
+            }
+            hardnessQualityControls {
+              id
+              data
+            }
+            peelTestQualityControls {
+              id
+              data
+            }
+            finalInspectionCustomTestQualityControls {
+              id
+              data
+            }
+            finalInspectionDimensionsCheckQualityControls {
+              id
+              data
+            }
+            uploadFiles {
+              id
+              file
+              fileDescription
+            }
+          }
         }
       }
     }
