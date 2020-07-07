@@ -165,18 +165,12 @@ export default React.memo(props => {
   ]);
 
   useEffect(() => {
-    if (
-      props.repeatGroupWithQuery &&
-      !props.repeatGroupWithQuerySpecData &&
-      writeChapter.current
-    ) {
-      autoRepeat(props.backendData);
-    } else if (
-      props.repeatGroupWithQuery &&
-      props.repeatGroupWithQuerySpecData &&
-      writeChapter.current
-    ) {
-      autoRepeat(props.specData);
+    if (props.repeatGroupWithQuery && writeChapter.current) {
+      if (!props.repeatGroupWithQuerySpecData) {
+        autoRepeat(props.backendData);
+      } else if (props.repeatGroupWithQuerySpecData) {
+        autoRepeat(props.specData);
+      }
     }
   }, [
     props.backendData,
