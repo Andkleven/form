@@ -129,13 +129,39 @@ REACT_APP_BACKEND=https://versjon2.herokuapp.com
    npm install
    ```
 
-12. Start app:
-
+12. Install all pip packages:
    ```console
-   npm start
+   pip install -r requirements.txt
    ```
 
-12. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+13. Create local database:
+   ```console
+   python manage.py migrate
+   ```
+
+14. Create admin user:
+    1. Enter:
+       ```console
+       python manage.py createsuperuser
+       ```
+    2. Enter username and password (do not need mail) 
+
+15. Start app:
+    1. Start forntend:
+       ```console
+       npm start
+       ```
+
+    2. Open a new terminal
+
+    3. Start backend:
+       ```console
+       python manage.py runserver
+       ```
+
+16. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+
+
 
 ## 🧪 Cross platform and user testing
 
@@ -188,6 +214,19 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    ```console
    http://192.168.0.36:5500/
    ```
+
+## 🍑 Backend
+### Update database
+  1. Make changes to backend.app.models.py 
+  2. Make migrations:
+     ```console
+     python manage.py makemigrations
+     ```
+  3. Run migrations:
+     ```console
+     python manage.py migrate
+     ```
+
 
 ### Remote manual testing
 
