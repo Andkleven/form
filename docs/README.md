@@ -218,14 +218,15 @@ _Warning: This may not work on public networks (e.g. school and work)!_
 ## 🍑 Backend
 ### Update database
   1. Make changes to backend.app.models.py 
-  2. Make migrations
-    ```console
-    python manage.py makemigrations
-    ```
-  3. Run migrations
+  2. Make migrations:
+     ```console
+     python manage.py makemigrations
+     ```
+  3. Run migrations:
     ```console
     python manage.py migrate
-    ```
+   ```
+
 
 ### Remote manual testing
 
