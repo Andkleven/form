@@ -150,14 +150,11 @@ export default props => {
   const stageChapters = () => {
     let i = 0;
     let chapterBasedOnStage = [];
-    // let thisStage = props.stage;
-    // let stageSplit = thisStage.split("Step");
-    // if (props.nextStage === "" && props.stageType) {
     let thisStage = Object.keys(
       stagesJson[removeSpace(props.stageType.toLowerCase())]
     )[0];
     let stageSplit = thisStage.split("Step");
-    // }
+
     while (stopLoop.current === false && i < 20) {
       chapterBasedOnStage.push(
         runChapter(

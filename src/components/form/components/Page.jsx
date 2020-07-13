@@ -375,7 +375,11 @@ export default React.memo(props => {
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <MultipleFiles {...props} writeChapter={writeChapter.current} />
+        <MultipleFiles
+          {...props}
+          writeChapter={writeChapter.current}
+          resetState={resetState}
+        />
       ) : null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>

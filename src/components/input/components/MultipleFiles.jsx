@@ -4,6 +4,7 @@ import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
 import { documentDataContext } from "components/form/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+const cloneDeep = require("clone-deep");
 
 const baseStyle = {
   flex: 1,
@@ -33,36 +34,31 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
-export default props => {
-  const { documentData, documentDataDispatch } = useContext(
-    documentDataContext
-  );
+export default ({ resetState, ...props }) => {
+  const { documentDataDispatch } = useContext(documentDataContext);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setFiles([]);
   }, [props.componentsId, setFiles]);
 
-  // test
   useEffect(() => {
     let oldFiles = objectPath.get(props.backendData, props.path);
     if (oldFiles) {
       oldFiles = oldFiles.map(oldFile => ({
         ...oldFile,
         file: {
-          name: oldFile.file.name
-            ? oldFile.file.name
-            : oldFile.file.split("/")[1]
+          name: oldFile.file.name || oldFile.file.split("/")[1]
         }
       }));
       setFiles(oldFiles);
-      objectPath.set(props.backendData, props.path, oldFiles);
+      objectPath.set(props.backendData, props.path, cloneDeep(oldFiles));
     }
-  }, [props.path, props.backendData]);
+  }, [props.path, props.backendData, resetState]);
 
   useEffect(() => {
     documentDataDispatch({ type: "add", path: props.path, newState: files });
-  }, [files, props.path, documentDataDispatch]);
+  }, [files, props.path, documentDataDispatch, resetState]);
 
   const {
     getRootProps,

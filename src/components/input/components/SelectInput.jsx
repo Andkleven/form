@@ -45,10 +45,7 @@ export default props => {
     name: props.name,
     id: `custom-${props.type}-${props.label}-${props.repeatStepList}`,
     options: options,
-    // defaultValue:
-    //   !props.value && props.defaultValue
-    //     ? options.find(option => option.value === props.defaultValue)
-    //     : null,
+
     theme: theme => ({
       ...theme,
       colors: {
@@ -59,7 +56,7 @@ export default props => {
         primary: "#f1b25b"
       }
     }),
-    selected: props.value,
+    value: { label: camelCaseToNormal(props.value) },
     isSearchable: true,
     placeholder: placeholder,
     onChange: props.onChangeSelect,
