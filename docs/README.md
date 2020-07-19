@@ -69,6 +69,7 @@ WIP...
 
 1. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
    - Tip: The norwegian keyboard shortcut is <kbd>CTRL</kbd> + <kbd>Ø</kbd>
+
 1. Install extensions:
 
       Windows
@@ -121,10 +122,10 @@ WIP...
 
 1. Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
 
-```env
-FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
-REACT_APP_BACKEND=https://versjon2.herokuapp.com
-```
+   ```env
+   FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
+   REACT_APP_BACKEND=https://versjon2.herokuapp.com
+   ```
 
 1. Install all node packages:
 
