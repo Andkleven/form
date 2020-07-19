@@ -51,21 +51,21 @@ WIP...
 1. Clone the repository
 
    1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
-   2. Enter
+   1. Enter
 
       ```console
       Git: Clone
       ```
 
-   3. Paste
+   1. Paste
 
       ```console
       https://github.com/Andkleven/digital-coating-report-2.0.git
       ```
 
-   4. Select a place to store the project
-   5. Follow instructions
-   6. Press "yes" to open repository, or open manually
+   1. Select a place to store the project
+   1. Follow instructions
+   1. Press "yes" to open repository, or open manually
 
 1. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
    - Tip: The norwegian keyboard shortcut is <kbd>CTRL</kbd> + <kbd>Ø</kbd>
@@ -80,13 +80,13 @@ WIP...
         code --list-extensions | % { code --uninstall-extension $_ }
         ```
 
-     2. Then install extensions:
+     1. Then install extensions:
 
         ```console
         get-content extensions.txt | % { code --install-extension $_ }
         ```
 
-     3. Close and reopen VSCode.
+     1. Close and reopen VSCode.
 
       Linux
 
@@ -96,13 +96,13 @@ WIP...
         code --list-extensions | xargs -n 1 code --uninstall-extension
         ```
 
-     2. Then install all extensions:
+     1. Then install all extensions:
 
          ```console
          cat extensions.txt | xargs -n 1 code --install-extension
          ```
 
-     3. Close and reopen VSCode.
+     1. Close and reopen VSCode.
 
       Other (or failed installation)
 
@@ -112,19 +112,19 @@ WIP...
 
      1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
 
-     2. Enter `Material Icons: Activate Icons`
+     1. Enter `Material Icons: Activate Icons`
 
-     3. Open the command palette
+     1. Open the command palette
 
-     4. Enter `Preferences: Color Theme`
+     1. Enter `Preferences: Color Theme`
 
-     5. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
+     1. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
 
 1. Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
 
    ```env
    FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
-   REACT_APP_BACKEND=https://versjon2.herokuapp.com
+   REACT_APP_BACKEND=http://127.0.0.1:8000
    ```
 
 1. Install all node packages:
@@ -152,7 +152,7 @@ WIP...
        python manage.py createsuperuser
        ```
 
-    1. Enter username and password (do not need mail) 
+    1. Enter username and password (skip email)
 
 1. Start app:
     1. Start frontend:
@@ -239,7 +239,6 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    ```console
    http://192.168.0.36:5500/
    ```
-
 
 ### Remote manual testing
 
