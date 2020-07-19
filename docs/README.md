@@ -3,11 +3,14 @@
 WIP...
 
 ## 📑 Table of Contents <!-- omit in toc -->
+
 - [🎓 Prerequisites](#-prerequisites)
   - [General](#general)
   - [Frontend](#frontend)
   - [Backend](#backend)
 - [🚀 Quick start](#-quick-start)
+- [🍑 Backend](#-backend)
+  - [Update database](#update-database)
 - [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
   - [Local manual testing](#local-manual-testing)
   - [Remote manual testing](#remote-manual-testing)
@@ -40,12 +43,12 @@ WIP...
 ## 🚀 Quick start
 
 1. Install [VSCode](https://code.visualstudio.com/)
-2. Install [Node](https://nodejs.org/en/download/)
-3. Install [Git](https://git-scm.com/)
-4. [Create a GitHub user](https://github.com/join)
-5. Get access to the [repository](https://github.com/Andkleven/digital-coating-report-2.0) (will show 404 error if you do not have permission)
-6. Open VSCode
-7. Clone the repository
+1. Install [Node](https://nodejs.org/en/download/)
+1. Install [Git](https://git-scm.com/)
+1. [Create a GitHub user](https://github.com/join)
+1. Get access to the [repository](https://github.com/Andkleven/digital-coating-report-2.0) (will show 404 error if you do not have permission)
+1. Open VSCode
+1. Clone the repository
 
    1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
    2. Enter
@@ -64,9 +67,9 @@ WIP...
    5. Follow instructions
    6. Press "yes" to open repository, or open manually
 
-8. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
+1. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
    - Tip: The norwegian keyboard shortcut is <kbd>CTRL</kbd> + <kbd>Ø</kbd>
-9. Install extensions:
+1. Install extensions:
 
       Windows
 
@@ -101,67 +104,88 @@ WIP...
      3. Close and reopen VSCode.
 
       Other (or failed installation)
-         
+
       All extensions used in the project are listed in `.vscode/extensions.txt`, so you can try [another method](https://stackoverflow.com/questions/35773299/how-can-you-export-the-visual-studio-code-extension-list) or install them manually.
-      
+
       Optional
-      
+
      1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
 
      2. Enter `Material Icons: Activate Icons`
-     
+
      3. Open the command palette
-     
+
      4. Enter `Preferences: Color Theme`
-     
+
      5. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
 
-10.  Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
+1. Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
 
-```
+```env
 FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
 REACT_APP_BACKEND=https://versjon2.herokuapp.com
 ```
 
-11.  Install all node packages:
+1. Install all node packages:
 
    ```console
    npm install
    ```
 
-12. Install all pip packages:
+1. Install all pip packages:
+
    ```console
    pip install -r requirements.txt
    ```
 
-13. Create local database:
+1. Create local database:
+
    ```console
    python manage.py migrate
    ```
 
-14. Create admin user:
+1. Create admin user:
     1. Enter:
+
        ```console
        python manage.py createsuperuser
        ```
-    2. Enter username and password (do not need mail) 
 
-15. Start app:
-    1. Start forntend:
+    1. Enter username and password (do not need mail) 
+
+1. Start app:
+    1. Start frontend:
+
        ```console
        npm start
        ```
 
-    2. Open a new terminal
+    1. Open a new terminal
 
-    3. Start backend:
+    1. Start backend:
+
        ```console
        python manage.py runserver
        ```
 
-16. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+1. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
 
+## 🍑 Backend
 
+### Update database
+
+  1. Make changes to backend.app.models.py 
+  1. Make migrations:
+
+     ```console
+     python manage.py makemigrations
+     ```
+
+  1. Run migrations:
+
+     ```console
+     python manage.py migrate
+     ```
 
 ## 🧪 Cross platform and user testing
 
@@ -177,11 +201,11 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    npm start
    ```
 
-2. Find your computer's local IP address
+1. Find your computer's local IP address
 
    The terminal should give you the local address like so:
 
-   ```
+   ```console
    On Your Network:  http://IPADDRESS:PORT/
    ```
 
@@ -198,12 +222,12 @@ _Warning: This may not work on public networks (e.g. school and work)!_
      ```console
      ifconfig
      ```
-   
+
    Copy paste the IPv4 address of your computer.
 
    Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section *How to find your internal IP address* if you are having trouble.
 
-3. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
+1. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 
    ```console
    http://IPADDRESS:PORT/
@@ -215,18 +239,6 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    http://192.168.0.36:5500/
    ```
 
-## 🍑 Backend
-### Update database
-  1. Make changes to backend.app.models.py 
-  2. Make migrations:
-     ```console
-     python manage.py makemigrations
-     ```
-  3. Run migrations:
-     ```console
-     python manage.py migrate
-     ```
-
 
 ### Remote manual testing
 
@@ -234,27 +246,27 @@ We have two alternatives for remote testing:
 
 1. <a name="devServer"></a>TODO: Development server
 
-2. [CodeSandbox](https://codesandbox.io/)   
+1. [CodeSandbox](https://codesandbox.io/)   
    Warning: As of 19.06.2020, this doesn't work anymore  
    Note: You will need [CodeSandbox Pro](https://codesandbox.io/pricing) for this, because of privacy settings.  
-   
+
    1. Open the repository in CodeSandbox  
       We recommend using chrome with this [extension](https://chrome.google.com/webstore/detail/open-in-codesandbox/jkhbnhagngalpojoeijaleemepfpefmp?hl=en).  
       Press <kbd>Open in CodeSandbox</kbd> on [GitHub](https://github.com/Andkleven/digital-coating-report-2.0)
-   2. Press <kbd>Fork</kbd>
-   3. Login to CodeSandbox on the device to test
-   4. Enter the preview address in a browser
-   5. Test away!
-   
+   1. Press <kbd>Fork</kbd>
+   1. Login to CodeSandbox on the device to test
+   1. Enter the preview address in a browser
+   1. Test away!
+
    If you want to share the link with someone who does not have access (e.g. a lead engineer for testing a feature) you may disable privacy and the preview link will be shareable:
 
    _Warning: The sandbox will be available for everyone with the link and the source code is accessible._
 
    1. Open `Template info`
-   2. Change Privacy from `Private` to `Unlisted`  
+   1. Change Privacy from `Private` to `Unlisted`  
       _Important: Never set this to `Public`!_
-   3. Send link to recipient
-   4. Test away!
+   1. Send link to recipient
+   1. Test away!
 
    If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)). 
 
@@ -276,4 +288,3 @@ Feel free to tighten up your security settings when done:
 ```console
 Set-ExecutionPolicy Restricted
 ```
-
