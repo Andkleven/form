@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import ReportViewer, { ReportDownload, Report } from "components/report/Report";
+import ReportViewer, { ReportDownload } from "components/report/Report";
 import { isMobile } from "react-device-detect";
 
-export const ReportButton = ({ item, ...props }) => {
-  const openPdf = () => {
-    return null;
-  };
+export const ReportButton = ({ project, description, item, ...props }) => {
+  // const openPdf = () => {
+  //   return null;
+  // };
 
+  // Switch these for development
   // const [show, setShow] = useState(item.itemId === "ItemID1");
   const [show, setShow] = useState(false);
 
@@ -26,13 +27,20 @@ export const ReportButton = ({ item, ...props }) => {
         show={show}
         onHide={handleClose}
       >
-        <Modal.Body style={{ maxHeight: "100vh" }}>
+        <Modal.Body
+        // Comment to make modal scrollable
+        // style={{ maxHeight: "100vh" }}
+        >
           {isMobile ? (
             <div className="text-secondary">
               Preview not yet available on mobile.
             </div>
           ) : (
-            <ReportViewer></ReportViewer>
+            <ReportViewer
+              project={project}
+              description={description}
+              item={item}
+            ></ReportViewer>
           )}
         </Modal.Body>
         <Modal.Footer>
@@ -42,6 +50,9 @@ export const ReportButton = ({ item, ...props }) => {
               className="w-100"
               onClick={() => null}
               disabled
+              project={project}
+              description={description}
+              item={item}
             >
               Download
             </ReportDownload>

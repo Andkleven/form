@@ -2,14 +2,13 @@ import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
-import { Col, ProgressBar, Button, ButtonGroup } from "react-bootstrap";
+import { Col, ProgressBar, Button } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
 import { numberOfChildren } from "../functions/data.js";
 import batching from "templates/batching.json";
-import { LinkContainer } from "react-router-bootstrap";
 import { getUser } from "functions/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
@@ -149,7 +148,7 @@ export default ({
                 )}
               <Link
                 to={`#`}
-                key={`projectSpecs${indexProject}`}
+                key={`projectExport${indexProject}`}
                 iconProps={{
                   icon: ["fad", "download"],
                   swapOpacity: true,
@@ -322,6 +321,8 @@ export default ({
                                   style={{
                                     position: "relative"
                                   }}
+                                  project={project}
+                                  description={description}
                                   item={item}
                                 >
                                   <FontAwesomeIcon

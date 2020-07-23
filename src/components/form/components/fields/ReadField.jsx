@@ -50,8 +50,10 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         onClick={() => flipToWrite()}
         icon={["fas", "pen"]}
         iconSize="sm"
-        tooltip="Edit"
-      />
+        // tooltip="Edit"
+      >
+        Edit
+      </TinyButton>
     ) : null;
 
   // const BigEditButton = props => (
@@ -145,11 +147,14 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <EmptyValue />
             )}
           <small>
-            {props.value && props.max ? (
+            {/* {props.value && props.max ? (
               <div className="text-muted">Max: {props.max}</div>
             ) : null}
             {props.value && props.min ? (
               <div className="text-muted">Min: {props.min}</div>
+            ) : null} */}
+            {props.value && props.subtext ? (
+              <div className="text-muted">{props.subtext}</div>
             ) : null}
           </small>
         </div>

@@ -25,7 +25,7 @@ export function convertDatetimeToString(datetime, type) {
       const day = new Intl.DateTimeFormat("no", { day: "numeric" }).format(
         datetime
       );
-      datetimeString = `${day}. ${month} ${year}`;
+      datetimeString = `${day} ${month} ${year}`;
       if (type === "datetime-local") {
         const hour = new Intl.DateTimeFormat("no", {
           hour: "2-digit"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ExplorerView from "components/explorer/components/ExplorerView";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
@@ -24,12 +24,8 @@ export default ({
   },
   ...props
 }) => {
-  let { loading, error, data, refetch } = useQuery(query["OPERATOR_PROJECTS"], {
-    options: { pollInterval: 1000, fetchPolicy: "cache-network" }
-  });
-  useEffect(() => {
-    refetch();
-  });
+  let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
+
   data = objectifyQuery(data);
 
   if (loading) {
@@ -44,7 +40,6 @@ export default ({
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
-        refetch={refetch}
         access={getAccess()}
       />
     );

@@ -45,7 +45,7 @@ export default React.memo(props => {
 
   const addData = useCallback(
     pushOnIndex => {
-      console.log(22);
+      // console.log(22);
       documentDataDispatch({
         type: "add",
         newState: {},
@@ -211,7 +211,7 @@ export default React.memo(props => {
   const SubmitButton = () => {
     return (
       <DepthButton
-        iconProps={{ icon: ["fas", "check"], className: "text-primary" }}
+        iconProps={{ icon: ["fas", "check"], className: "text-success" }}
         short
         type="submit"
       >

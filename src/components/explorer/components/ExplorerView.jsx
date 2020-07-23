@@ -53,6 +53,7 @@ export default ({ view = "items", ...props }) => {
         <h6 className="mb-3">Filters</h6>
         <form id="filterForm">
           <Input
+            comment={false}
             className="mb-1"
             key="stageTermInput"
             placeholder="Stage"
@@ -74,6 +75,7 @@ export default ({ view = "items", ...props }) => {
             }}
           />
           <Input
+            comment={false}
             className="mb-1"
             key="itemTermInput"
             placeholder="Type of item"
@@ -95,6 +97,7 @@ export default ({ view = "items", ...props }) => {
             }}
           />
           <Input
+            comment={false}
             className="mb-1"
             placeholder="Search item properties..."
             tight

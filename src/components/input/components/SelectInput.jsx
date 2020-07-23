@@ -25,19 +25,24 @@ export default props => {
     });
   }
 
-  const placeholder = props.custom
-    ? props.placeholder || "Select or type..."
-    : props.placeholder || "Select...";
+  // const placeholder = props.custom
+  //   ? props.placeholder || "Select or type..."
+  //   : props.placeholder || "Select...";
+  const placeholder = "Select or type...";
 
   options.unshift({
-    value: null,
+    value: "",
     label: placeholder
   });
 
-  options.map(option => {
-    let label = option.value;
-    label = camelCaseToNormal(label);
-    return (option.label = label);
+  options.map((option, index) => {
+    if (index > 0) {
+      const label = camelCaseToNormal(option.value);
+      return (option.label = label);
+    } else {
+      const label = camelCaseToNormal("Leave empty");
+      return (option.label = label);
+    }
   });
 
   const selectProps = {
@@ -45,7 +50,6 @@ export default props => {
     name: props.name,
     id: `custom-${props.type}-${props.label}-${props.repeatStepList}`,
     options: options,
-
     theme: theme => ({
       ...theme,
       colors: {
@@ -56,7 +60,9 @@ export default props => {
         primary: "#f1b25b"
       }
     }),
-    value: { label: camelCaseToNormal(props.value) },
+    value: {
+      label: props.value ? camelCaseToNormal(props.value) : placeholder
+    },
     isSearchable: true,
     placeholder: placeholder,
     onChange: props.onChangeSelect,

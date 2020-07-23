@@ -9,7 +9,7 @@ import history from "../functions/history";
 import emblem from "../images/emblem.png";
 import Copyright from "components/design/Copyright";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($username: String!, $password: String!) {

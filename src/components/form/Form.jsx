@@ -194,24 +194,24 @@ export default props => {
       // timer.current = setTimeout(() => {
       setEditChapter(0);
       setFinalChapter(0);
-      if (props.stage) {
-        console.log(
-          isStringInstance(props.stage) &&
-            submit &&
-            nextStage.current &&
-            !editChapter
-            ? FindNextStage(props.specData, props.stage, props.stageType)
-            : props.stage
-        );
-        console.log(
-          isStringInstance(props.stage),
-          submit,
-          nextStage.current,
-          !editChapter,
-          FindNextStage(props.specData, props.stage, props.stageType),
-          props.stage
-        );
-      }
+      // if (props.stage) {
+      //   console.log(
+      //     isStringInstance(props.stage) &&
+      //       submit &&
+      //       nextStage.current &&
+      //       !editChapter
+      //       ? FindNextStage(props.specData, props.stage, props.stageType)
+      //       : props.stage
+      //   );
+      //   console.log(
+      //     isStringInstance(props.stage),
+      //     submit,
+      //     nextStage.current,
+      //     !editChapter,
+      //     FindNextStage(props.specData, props.stage, props.stageType),
+      //     props.stage
+      //   );
+      // }
 
       if (documentData.current) {
         let variables = stringifyQuery(
@@ -275,7 +275,7 @@ export default props => {
         <Title>{props.document.documentTitle}</Title>
         <Form
           onSubmit={e => {
-            console.log(23);
+            // console.log(23);
             formSubmit(e);
           }}
         >

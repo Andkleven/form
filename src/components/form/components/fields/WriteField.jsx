@@ -124,12 +124,22 @@ export default ({ setResetState, setState, state, ...props }) => {
           !props.label && " w-100 text-right"
         }`}
       >
-        <TinyButton icon="check" type="submit" tooltip="Submit" />
         <TinyButton
+          icon="check"
+          type="submit"
+          tooltip="Submit"
+          className="text-success"
+        >
+          Submit
+        </TinyButton>
+        <TinyButton
+          className="text-secondary"
           icon="times"
           onClick={event => cancelEdit(event)}
           tooltip="Cancel"
-        />
+        >
+          Cancel
+        </TinyButton>
       </div>
     ) : null;
   };
@@ -138,10 +148,10 @@ export default ({ setResetState, setState, state, ...props }) => {
     if (props.submitButton) {
       return (
         <>
-          <div className={`d-flex d-${buttonBreakPoint}-none mb-1`}>
+          <div className={`d-flex d-${buttonBreakPoint}-none my-1`}>
             <Button
               className="w-100 m-0 px-0 text-light"
-              variant="primary"
+              variant="success"
               type="submit"
             >
               <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
@@ -206,12 +216,12 @@ export default ({ setResetState, setState, state, ...props }) => {
   const indent =
     (!props.label && props.prepend && props.indent !== false) || props.indent;
 
-  if (props.label === "Vulcanization Option") {
-    console.log("label", props.label);
-    console.log("prepend", props.prepend);
-    console.log("indent", props.indent);
-    console.log("indent", props.indent);
-  }
+  // if (props.label === "Vulcanization Option") {
+  //   console.log("label", props.label);
+  //   console.log("prepend", props.prepend);
+  //   console.log("indent", props.indent);
+  //   console.log("indent", props.indent);
+  // }
   return (
     <div className={indent && "ml-3"}>
       <Input
