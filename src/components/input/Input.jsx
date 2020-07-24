@@ -16,7 +16,7 @@ import FileInput from "components/input/components/FileInput";
 import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
 import TinyButton from "components/button/TinyButton";
-import { documentDateContext } from "components/form/Form";
+// import { documentDateContext } from "components/form/Form";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
