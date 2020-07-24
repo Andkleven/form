@@ -60,13 +60,13 @@ function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
 
   return (
     <Form.Group>
-      <div className="text-secondary">
+      {/* <div className="text-secondary">
         {prepend && !label && (
           <label htmlFor={`custom-${type}-${label}-${repeatStepList}`}>
             {prepend}
           </label>
         )}
-      </div>
+      </div> */}
       <div>
         <DatePicker
           className="w-100"

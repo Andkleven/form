@@ -19,11 +19,44 @@ import TinyButton from "components/button/TinyButton";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
-export default ({ comment = true, ...props }) => {
+export default ({ noComment = false, ...props }) => {
   const [showComment, setShowComment] = useState(false);
+
+  // const addComment = () => {
+  //   setShowComment(true);
+  // };
+  // const deleteComment = () => {
+  //   if (window.confirm("This will delete the comment. Are you sure?")) {
+  //     setShowComment(false);
+  //   }
+  // };
 
   const BottomPart = props => {
     return <>{props.BigButtons}</>;
+  };
+
+  const Comment = props => {
+    const [comment, setComment] = useState("");
+
+    return (
+      <Form.Group
+        controlId={`comment-group-${props.type}-${props.name}-${props.repeatStepList}`}
+        className="ml-3 mt-3"
+      >
+        <Form.Label>Comment</Form.Label>
+        <Form.Control
+          id={`comment-${props.type}-${props.name}-${props.repeatStepList}`}
+          as="textarea"
+          rows="3"
+          // style={{ resize: "none" }}
+          style={{ minHeight: "3em" }}
+          value={comment}
+          onChange={e => {
+            setComment(e.target.value);
+          }}
+        />
+      </Form.Group>
+    );
   };
 
   const InputContent = ({ ...props }) => {
@@ -41,15 +74,7 @@ export default ({ comment = true, ...props }) => {
             <small>{feedback}</small>
           </div>
         )}
-        {showComment && (
-          <Form.Group
-            controlId="exampleForm.ControlTextarea1"
-            className="ml-3 mt-3"
-          >
-            <Form.Label>Comment</Form.Label>
-            <Form.Control as="textarea" rows="3" style={{ resize: "none" }} />
-          </Form.Group>
-        )}
+        {showComment && <Comment />}
       </>
     );
   };
@@ -61,13 +86,17 @@ export default ({ comment = true, ...props }) => {
           {(props.label || props.prepend) && (
             <label
               htmlFor={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
-              hidden={!!props.prepend && !props.label}
+              hidden={
+                !["date", "datetime"].includes(props.type) &&
+                !!props.prepend &&
+                !props.label
+              }
             >
-              {props.label}
+              {props.label || props.prepend}
             </label>
           )}
-          <div>
-            {comment && (
+          <div className={`${!props.label && "ml-auto"}`}>
+            {!noComment && (
               <TinyButton
                 // {...props}
                 onClick={() => setShowComment(!showComment)}
@@ -120,35 +149,3 @@ const InputType = ({ ...props }) => {
     return <NativeInput {...props} readOnly={readOnly} />;
   }
 };
-
-// export default ({ ...props }) => {
-//   const [valid, feedback] = control(props);
-
-//   return (
-//     <InputShell
-//       {...props}
-//       className={props.className ? props.className.toString() : null}
-//       style={props.style}
-//     >
-//       <InputType
-//         {...props}
-//         isValid={valid}
-//         isInvalid={[true, false].includes(valid) && !valid}
-//       />
-//       {!!feedback && (
-//         <div className={`text-${valid ? "success" : "danger"}`}>
-//           <small>{feedback}</small>
-//         </div>
-//       )}
-//       {showComment && (
-//         <Form.Group
-//           controlId="exampleForm.ControlTextarea1"
-//           className="ml-3 mt-3"
-//         >
-//           <Form.Label>Comment</Form.Label>
-//           <Form.Control as="textarea" rows="3" style={{ resize: "none" }} />
-//         </Form.Group>
-//       )}
-//     </InputShell>
-//   );
-// };

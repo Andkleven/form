@@ -18,17 +18,21 @@ function NativeInput({
   required,
   min,
   max,
-  onChange,
+  // onChange,
   onBlur,
   repeatStepList,
   // readOnlyFields,
   readOnly,
   step,
+  onChangeInput,
   ...props
 }) {
   return (
     <>
-      <Form.Group className="mb-0">
+      <Form.Group
+        className="mb-0"
+        // controlId={`input-group-${type}-${props.name}-${repeatStepList}`}
+      >
         <div className="d-flex">
           <InputGroup className="d-flex">
             {prepend ? (
@@ -41,14 +45,13 @@ function NativeInput({
             <Form.Control
               isValid={isValid}
               isInvalid={isInvalid}
-              id={`custom-${type}-${label}-${repeatStepList}`}
+              controlId={`custom-${type}-${label}-${repeatStepList}`}
               name={name}
               required={required}
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
               readOnly={readOnly}
-              defaultValue={!value && defaultValue}
               value={value}
-              onChange={onChange}
+              onChange={onChangeInput}
               onBlur={onBlur}
               type={type}
               min={min}

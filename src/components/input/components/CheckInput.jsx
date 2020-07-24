@@ -16,7 +16,7 @@ export default props => (
           defaultChecked={props.defaultValue}
           checked={props.value || props.checked}
           name={props.name}
-          onChange={props.onChange}
+          onChange={props.onChangeInput}
           onBlur={props.onBlur}
           className={`mb-0 pb-0 ${props.labelAppend && "mr-1"} ${
             props.className

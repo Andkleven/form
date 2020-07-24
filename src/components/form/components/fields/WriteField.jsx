@@ -59,7 +59,8 @@ export default ({ setResetState, setState, state, ...props }) => {
     });
     setState(value);
   };
-  const onChange = e => {
+
+  const onChangeInput = e => {
     let { value, type } = e.target;
     addUser();
     let newValue = value;
@@ -230,7 +231,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         onChangeDate={onChangeDate}
         value={state}
         readOnly={props.readOnly}
-        onChange={onChange}
+        onChangeInput={onChangeInput}
         onChangeSelect={onChangeSelect}
         onChangeFile={onChangeFile}
         label={props.label}
