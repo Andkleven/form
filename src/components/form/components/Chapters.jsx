@@ -61,7 +61,7 @@ export default props => {
       } else {
         chapter = pageInfo.pages.map((info, index) => {
           let showEditButton = !props.notEditButton && !index ? true : false;
-          let showSaveButton =
+          let showSubmitButton =
             index === pageInfo.pages.length - 1 ? true : false;
           return (
             <Page
@@ -77,7 +77,7 @@ export default props => {
               index={index}
               finalChapter={finalChapter}
               submitData={props.submitData}
-              showSaveButton={showSaveButton}
+              showSubmitButton={showSubmitButton}
               repeatStepList={repeatStepList}
             />
           );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   isMobile,
   // isTablet,
@@ -16,11 +16,19 @@ import FileInput from "components/input/components/FileInput";
 import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
 import TinyButton from "components/button/TinyButton";
+import { documentDateContext } from "components/form/Form";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
 export default ({ noComment = false, ...props }) => {
-  const [showComment, setShowComment] = useState(false);
+  if (props.type === "file") {
+    noComment = true;
+  }
+
+  // TODO: See if input has comment
+  const hasComment = false;
+
+  const [showComment, setShowComment] = useState(hasComment);
 
   // const addComment = () => {
   //   setShowComment(true);
@@ -36,6 +44,16 @@ export default ({ noComment = false, ...props }) => {
   };
 
   const Comment = props => {
+    // const { documentDateDispatch } = useContext(documentDateContext);
+
+    // let comment;
+    // documentDateDispatch({
+    //   type: "add",
+    //   newState: comment,
+    //   path: `${props.path}Comment`
+    // });
+
+    // TODO: Get saved comment
     const [comment, setComment] = useState("");
 
     return (

@@ -3,7 +3,7 @@ import { Navbar, Dropdown } from "react-bootstrap";
 import emblem from "images/emblem.png";
 import "styles/styles.css";
 import { LinkContainer } from "react-router-bootstrap";
-import { USER } from "constants.js";
+import { getUser, getAccess } from "functions/user";
 import { camelCaseToNormal } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from "react-router-dom";
@@ -11,10 +11,15 @@ import { ItemContext } from "components/contexts/ItemContext";
 import Repair from "components/repair/Repair";
 
 export default () => {
-  const userInfo = JSON.parse(localStorage.getItem(USER)); // Local user info
-  const { item } = useContext(ItemContext);
+  const user = getUser();
+  const access = getAccess();
 
+  const showRepairButton =
+    "/single-item/" === useLocation().pathname.slice(0, 13) &&
+    access.itemRepair;
   const [showRepair, setShowRepair] = useState(false);
+
+  const { item } = useContext(ItemContext);
 
   const NavLink = ({ title, link, icon, disabled, hidden }) => (
     <LinkContainer to={link} className="p-0">
@@ -61,7 +66,7 @@ export default () => {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <NavLink title="Home" link="/" icon="home" />
-            {"/single-item/" === useLocation().pathname.slice(0, 13) && (
+            {showRepairButton && (
               <Repair id={item.id} show={showRepair} setShow={setShowRepair}>
                 <NavButton
                   title={`Repair`}
@@ -95,10 +100,10 @@ export default () => {
               {/* Large */}
               <div className="d-none d-sm-block">
                 <div className="d-inline">
-                  {userInfo
-                    ? `${camelCaseToNormal(
-                        userInfo.username
-                      )} (${camelCaseToNormal(userInfo.role.toLowerCase())})`
+                  {user !== {}
+                    ? `${camelCaseToNormal(user.username)} (${camelCaseToNormal(
+                        user.role.toLowerCase()
+                      )})`
                     : "role • name"}
                 </div>
                 <FontAwesomeIcon icon="user" className="ml-2" />
@@ -106,8 +111,8 @@ export default () => {
               {/* Small */}
               <div className="d-block d-sm-none">
                 <div className="d-inline">
-                  {userInfo
-                    ? `${camelCaseToNormal(userInfo.role.toLowerCase())}`
+                  {user !== {}
+                    ? `${camelCaseToNormal(user.role.toLowerCase())}`
                     : "role • name"}
                 </div>
                 <FontAwesomeIcon icon="user" className="ml-2" />

@@ -261,7 +261,7 @@ export default React.memo(props => {
     return (
       <DepthButtonGroup className="w-100 d-flex">
         {!props.notSubmitButton && <SubmitButton />}
-        {props.saveButton && <SaveButton />}
+        {finalChapterActive && <SaveButton />}
         {showCancel && <CancelButton />}
       </DepthButtonGroup>
     );
@@ -290,12 +290,12 @@ export default React.memo(props => {
     props.thisChapter !== finalChapter &&
     props.pageTitle;
   const editAllActive =
-    props.showSaveButton && editChapter && props.thisChapter === editChapter;
+    props.showSubmitButton && editChapter && props.thisChapter === editChapter;
   const finalChapterActive =
-    props.showSaveButton &&
+    props.showSubmitButton &&
     !editChapter &&
     props.thisChapter === props.finalChapter;
-  const finalPage = props.showSaveButton;
+  const finalPage = props.showSubmitButton;
 
   return (
     <div
