@@ -25,7 +25,7 @@ export default ({ noComment = false, ...props }) => {
     noComment = true;
   }
 
-  // TODO: See if input has comment
+  // TODO: Check if input has comment
   const hasComment = false;
 
   const [showComment, setShowComment] = useState(hasComment);

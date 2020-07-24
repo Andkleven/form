@@ -40,7 +40,7 @@ export default props => {
       const label = camelCaseToNormal(option.value);
       return (option.label = label);
     } else {
-      const label = camelCaseToNormal("Leave empty");
+      const label = "―";
       return (option.label = label);
     }
   });
