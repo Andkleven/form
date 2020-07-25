@@ -42,7 +42,7 @@ export default ({ ...props }) => {
     <ReadField
       {...props}
       noLine
-      key={props.indexId}
+      key={`${props.indexId}-readField-fileDescription`}
       readOnly={true}
       label={
         <div className="d-flex justify-content-between">

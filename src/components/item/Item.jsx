@@ -13,7 +13,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
   return (
     <div className="h-100">
       <DepthButtonGroup
-        key={item.itemId}
+        key={`item-${item.itemId}`}
         className="w-100 h-100"
         style={{ padding: "2px 2px" }}
       >

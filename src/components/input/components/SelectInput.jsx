@@ -67,7 +67,8 @@ export default props => {
     placeholder: placeholder,
     onChange: props.onChangeSelect,
     autoFocus: props.focus,
-    isDisabled: props.readOnlyFields ? props.readOnlyFields : props.readOnly
+    isDisabled: props.readOnlyFields ? props.readOnlyFields : props.readOnly,
+    onKeyDown: props.onKeyPress
   };
 
   return (

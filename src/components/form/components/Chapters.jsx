@@ -65,7 +65,7 @@ export default props => {
             index === pageInfo.pages.length - 1 ? true : false;
           return (
             <Page
-              key={`${index}-${count}-canvas`}
+              key={`${index}-${count}-page`}
               {...info}
               {...props}
               // data={getData(info, repeatStepList, props.data)}
@@ -90,7 +90,7 @@ export default props => {
     }
     count += 1;
     return chapter ? (
-      <Fragment key={`${count}-canvas`}>{chapter}</Fragment>
+      <Fragment key={`${count}-canvas-chapterFragment`}>{chapter}</Fragment>
     ) : null;
   };
   const runChapter = (pageInfo, thisStage = "", step = null) => {
@@ -112,14 +112,18 @@ export default props => {
             pageInfo
           );
           newChapterArray.push(
-            newChapter ? <Fragment key={count}>{newChapter}</Fragment> : null
+            newChapter ? (
+              <Fragment key={`${count}-${index}-newChapterFragment`}>
+                {newChapter}
+              </Fragment>
+            ) : null
           );
         }
         if (newChapterArray[newChapterArray.length - 1] === null) {
           props.nextStage.current = false;
         }
         return pageInfo.chapterTitle ? (
-          <Fragment key={`${count}-${count + 1}`}>
+          <Fragment key={`${count}-${count + 1}-pageInfo-chapterTitle`}>
             <Title big>{pageInfo.chapterTitle}</Title>
             <Line />
             {newChapterArray}
@@ -131,7 +135,7 @@ export default props => {
       return null;
     } else {
       return (
-        <Fragment key={count}>
+        <Fragment key={`${count}-stageTitleSomething`}>
           {" "}
           {getNewChapter(
             step !== null

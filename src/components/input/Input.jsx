@@ -13,14 +13,17 @@ import CheckInput from "components/input/components/CheckInput";
 import SelectInput from "components/input/components/SelectInput";
 import FileInput from "components/input/components/FileInput";
 // import Duplicate from "components/input/widgets/Duplicate";
-import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
 import TinyButton from "components/button/TinyButton";
 import { documentDataContext } from "components/form/Form";
+import { control } from "./functions/control.ts";
+import { focusNextInput } from "./functions/general";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
 export default ({ noComment = false, ...props }) => {
+  console.trace("Daddies:");
+
   if (props.type === "file") {
     noComment = true;
   }
@@ -70,6 +73,7 @@ export default ({ noComment = false, ...props }) => {
           onChange={e => {
             setComment(e.target.value);
           }}
+          onKeyPress={props.onKeyPress}
         />
       </Form.Group>
     );
@@ -78,19 +82,28 @@ export default ({ noComment = false, ...props }) => {
   const InputContent = ({ ...props }) => {
     const [valid, feedback] = control(props);
 
+    // Enter focuses on next input or submit button,
+    // instead of submitting
+    const onKeyPress = e => {
+      if (["Enter"].includes(e.key)) {
+        focusNextInput(e);
+      }
+    };
+
     return (
       <>
         <InputType
           {...props}
           isValid={valid}
           isInvalid={[true, false].includes(valid) && !valid}
+          onKeyPress={onKeyPress}
         />
         {!!feedback && (
           <div className={`text-${valid ? "success" : "danger"}`}>
             <small>{feedback}</small>
           </div>
         )}
-        {showComment && <Comment />}
+        {showComment && <Comment onKeyPress={onKeyPress} />}
       </>
     );
   };

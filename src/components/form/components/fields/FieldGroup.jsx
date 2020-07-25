@@ -21,9 +21,7 @@ export default props => {
       return (
         <Page
           {...field}
-          key={`${index}-${field.queryPath}-field-properties`}
-          id={`${index}-${field.queryPath}-field-properties`}
-          name={`${index}-${field.queryPath}-field-properties`}
+          key={`${index}-${field.queryPath}-page`}
           edit={props.edit}
           finalChapter={props.finalChapter}
           optionsData={props.optionsData}

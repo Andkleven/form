@@ -181,12 +181,12 @@ export default ({
                     if (
                       confirmation === project.data.projectName &&
                       window.confirm(
-                        `Are you sure? The project "${project.data.projectName}" will be gone forever. Tip: You may need to refresh the browser to see the changes.`
+                        `Are you sure? The project "${project.data.projectName}" will be gone forever.`
                       )
                     ) {
                       deleteProject({ variables: { id: project["id"] } });
-                      // window.location.reload(false);
-                      refetch();
+                      window.location.reload(false);
+                      // refetch();
                     } else if (
                       confirmation !== project.data.projectName &&
                       confirmation !== null

@@ -230,7 +230,7 @@ export default ({ resetState, ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`${props.indexId}-${props.index}-readField`}
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
@@ -247,7 +247,7 @@ export default ({ resetState, ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`${props.indexId}-${props.index}-readField-math`}
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
@@ -341,7 +341,7 @@ export default ({ resetState, ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`${props.indexId}-${props.index}-readField-other`}
         readOnly={readOnly}
         path={getNewPath()}
         indexId={`${props.indexId}-${props.index}`}

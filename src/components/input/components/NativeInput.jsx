@@ -25,6 +25,7 @@ function NativeInput({
   readOnly,
   step,
   onChangeInput,
+  onKeyPress,
   ...props
 }) {
   return (
@@ -58,6 +59,7 @@ function NativeInput({
               max={max}
               step={step}
               placeholder={placeholder}
+              onKeyPress={onKeyPress}
             ></Form.Control>
             {(unit || append) && (
               <InputGroup.Append>

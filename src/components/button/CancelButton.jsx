@@ -12,7 +12,7 @@ export default props => {
       <Button
         {...props}
         variant="secondary"
-        type="submit"
+        type="button"
         onClick={props.onClick}
         className="w-100 py-2"
       >

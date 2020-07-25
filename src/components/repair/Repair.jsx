@@ -31,7 +31,7 @@ export default ({ id, show, setShow, children }) => {
   const [mutationHandle, { loading, error }] = useMutation(mutation["ITEM"]);
   const stageButtons = repairStages.map((repairStage, index) => (
     <DepthButton
-      key={`${repairStage.stage}Button`}
+      key={`repair-${repairStage.stage}-button`}
       className={`w-100 ${index + 1 !== repairStages.length && "mb-1"}`}
       type="button"
       disabled={!id}
