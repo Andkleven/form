@@ -18,10 +18,13 @@ export default props => {
     ) {
       return null;
     } else if (field.page) {
+      console.log(field);
       return (
         <Page
           {...field}
-          key={index}
+          key={`${index}-${field.queryPath}-field-properties`}
+          id={`${index}-${field.queryPath}-field-properties`}
+          name={`${index}-${field.queryPath}-field-properties`}
           edit={props.edit}
           finalChapter={props.finalChapter}
           optionsData={props.optionsData}
@@ -39,7 +42,12 @@ export default props => {
       );
     } else {
       return (
-        <FieldProperties key={index} {...field} {...props} index={index} />
+        <FieldProperties
+          key={`${index}-${field.fieldName}-field-properties`}
+          {...field}
+          {...props}
+          index={index}
+        />
       );
     }
   });

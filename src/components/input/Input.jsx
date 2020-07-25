@@ -16,7 +16,7 @@ import FileInput from "components/input/components/FileInput";
 import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
 import TinyButton from "components/button/TinyButton";
-// import { documentDateContext } from "components/form/Form";
+import { documentDataContext } from "components/form/Form";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
@@ -28,7 +28,9 @@ export default ({ noComment = false, ...props }) => {
   // TODO: Check if input has comment
   const hasComment = false;
 
-  const [showComment, setShowComment] = useState(hasComment);
+  // TODO: Get saved comment
+  const [comment, setComment] = useState("");
+  const [showComment, setShowComment] = useState(!!comment);
 
   // const addComment = () => {
   //   setShowComment(true);
@@ -44,17 +46,14 @@ export default ({ noComment = false, ...props }) => {
   };
 
   const Comment = props => {
-    // const { documentDateDispatch } = useContext(documentDateContext);
+    const { documentDataDispatch } = useContext(documentDataContext);
 
     // let comment;
-    // documentDateDispatch({
+    // documentDataDispatch({
     //   type: "add",
     //   newState: comment,
     //   path: `${props.path}Comment`
     // });
-
-    // TODO: Get saved comment
-    const [comment, setComment] = useState("");
 
     return (
       <Form.Group
@@ -63,7 +62,6 @@ export default ({ noComment = false, ...props }) => {
       >
         <Form.Label>Comment</Form.Label>
         <Form.Control
-          id={`comment-${props.type}-${props.name}-${props.repeatStepList}`}
           as="textarea"
           rows="3"
           // style={{ resize: "none" }}

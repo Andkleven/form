@@ -45,7 +45,7 @@ function NativeInput({
             <Form.Control
               isValid={isValid}
               isInvalid={isInvalid}
-              controlId={`custom-${type}-${label}-${repeatStepList}`}
+              id={`custom-${type}-${label}-${repeatStepList}`}
               name={name}
               required={required}
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}

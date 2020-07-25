@@ -318,7 +318,7 @@ export default ({ resetState, ...props }) => {
     return (
       <WriteField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`write-field-${props.indexId}-${props.index}-${props.fieldName}`}
         path={getNewPath()}
         submitButton={
           `${props.repeatStepList}-${props.fieldName}` === editChapter
