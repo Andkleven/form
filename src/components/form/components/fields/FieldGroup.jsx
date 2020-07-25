@@ -18,7 +18,6 @@ export default props => {
     ) {
       return null;
     } else if (field.page) {
-      console.log(field);
       return (
         <Page
           {...field}

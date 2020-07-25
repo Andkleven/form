@@ -16,6 +16,7 @@ import {
   getStepFromStage,
   reshapeStageSting
 } from "functions/general";
+import { Prompt } from "react-router-dom";
 
 export default pageInfo => {
   const {
@@ -93,6 +94,10 @@ export default pageInfo => {
 
   return (
     <Canvas>
+      <Prompt
+        when={true}
+        message="Unsaved changes will be lost, are you sure?"
+      />
       <Paper>
         <Batching
           data={fixedData}

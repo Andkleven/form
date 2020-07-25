@@ -8,11 +8,18 @@ import Paper from "components/layout/Paper";
 import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
+import { Prompt } from "react-router-dom";
 
 let leadEngineersJson = leadEngineersCoatedItemJson;
 
 export default pageInfo => {
-  const { projectId, descriptionId, itemId, unique, geometry } = pageInfo.match.params;
+  const {
+    projectId,
+    descriptionId,
+    itemId,
+    unique,
+    geometry
+  } = pageInfo.match.params;
 
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
@@ -32,6 +39,10 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
   return (
     <Canvas>
+      <Prompt
+        when={true}
+        message="Unsaved changes will be lost, are you sure?"
+      />
       <Paper full>
         <Form
           componentsId={"leadEngineersPage"}

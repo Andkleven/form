@@ -16,6 +16,7 @@ import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
 import { ItemContext } from "components/contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
+import { Prompt } from "react-router-dom";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
@@ -50,6 +51,10 @@ export default pageInfo => {
 
   return (
     <Canvas>
+      <Prompt
+        when={true}
+        message="Unsaved changes will be lost, are you sure?"
+      />
       {getAccess()["specs"] && (
         <Paper className="mb-3">
           <Title big align="center">

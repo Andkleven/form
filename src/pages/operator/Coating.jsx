@@ -36,7 +36,7 @@ export default pageInfo => {
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
-  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
