@@ -290,6 +290,60 @@
         }
       ]
     },
+    "primer1": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Priming 1",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "specValueList": "leadEngineers.0.data.primer1",
+              "label": "Primer Number"
+            },
+            {
+              "fieldName": "startTimePriming1",
+              "required": true,
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimePriming1",
+              "required": true,
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "primer2": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Priming 2",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "specValueList": "leadEngineers.0.data.primer2",
+              "label": "Primer Number:"
+            },
+            {
+              "fieldName": "startTimePriming2",
+              "required": true,
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimePriming2",
+              "required": true,
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
     "rubberCementsBeforeCoating": {
       "queryPath": "operators",
       "pages": [
