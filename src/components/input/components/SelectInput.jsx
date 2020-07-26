@@ -40,7 +40,7 @@ export default props => {
       const label = camelCaseToNormal(option.value);
       return (option.label = label);
     } else {
-      const label = camelCaseToNormal("Leave empty");
+      const label = "―";
       return (option.label = label);
     }
   });
@@ -67,7 +67,8 @@ export default props => {
     placeholder: placeholder,
     onChange: props.onChangeSelect,
     autoFocus: props.focus,
-    isDisabled: props.readOnlyFields ? props.readOnlyFields : props.readOnly
+    isDisabled: props.readOnlyFields ? props.readOnlyFields : props.readOnly,
+    onKeyDown: props.onKeyPress
   };
 
   return (

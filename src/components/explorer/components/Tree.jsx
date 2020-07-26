@@ -5,36 +5,44 @@ import { Frame, Title, Content } from "../styles/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default memo(
-  ({ children, name, defaultOpen = false, iconSize, iconStyle, rowStyle }) => {
+  ({
+    children,
+    name,
+    defaultOpen = false,
+    iconSize,
+    iconStyle,
+    rowStyle,
+    badge
+  }) => {
     const [isOpen, setOpen] = useState(defaultOpen);
-    const previous = usePrevious(isOpen);
+    // const previous = usePrevious(isOpen);
     const [bind, { height: viewHeight }] = useMeasure();
-    const { height, opacity, transform } = useSpring({
+    const {
+      //  height,
+      opacity,
+      transform
+    } = useSpring({
       from: {
-        // opacity: 0,
-        // transform: "translate3d(0,-3px,0)",
-        height: 0
+        opacity: 0,
+        transform: "translate3d(0,-3px,0)"
+        // height: 0
       },
       to: {
-        // opacity: isOpen ? 1 : 0,
-        // transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`,
-        height: isOpen ? viewHeight * 1 : 0
+        opacity: isOpen ? 1 : 0,
+        transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`
+        // height: isOpen ? viewHeight * 1 : 0
       },
       config: {
-        tension: isOpen
-          ? // ? 800 * (1 + 0.007 * viewHeight)
-            // : 400 * (1 + 0.007 * viewHeight),
-            10000
-          : 10000,
-        friction: isOpen
-          ? // ? 35 * (1 + 0.005 * viewHeight)
-            // : 35 * (1 + 0.005 * viewHeight),
-            0.01
-          : 0.01,
+        tension: 400,
+        // ?   10000
+        // : 10000,
+        friction: 35,
+        // ?  0.01
+        // : 0.01,
         // clamp: isOpen ? false : true,
         clamp: true,
-        // mass: 1 + 0.00125 * viewHeight
-        mass: 0.01
+        mass: isOpen ? 5 : 0.01
+        // mass: 0.01
       }
     });
 
@@ -54,11 +62,20 @@ export default memo(
             style={iconStyle}
           />
           <Title className="not-selectable">{name}</Title>
+          {!isOpen && !!badge && (
+            <div
+              className="d-flex justify-content-center px-1"
+              style={{ width: "5em" }}
+            >
+              {badge}
+            </div>
+          )}
         </div>
         <Content
           style={{
             opacity,
-            height: isOpen && previous === isOpen ? "auto" : height
+            // height: isOpen && previous === isOpen ? "auto" : height
+            height: isOpen ? viewHeight * 1 : 0
           }}
         >
           <a.div style={{ transform }} {...bind} children={children} />

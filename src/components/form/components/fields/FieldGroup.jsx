@@ -21,7 +21,7 @@ export default props => {
       return (
         <Page
           {...field}
-          key={index}
+          key={`${index}-${field.queryPath}-page`}
           edit={props.edit}
           finalChapter={props.finalChapter}
           optionsData={props.optionsData}
@@ -39,7 +39,12 @@ export default props => {
       );
     } else {
       return (
-        <FieldProperties key={index} {...field} {...props} index={index} />
+        <FieldProperties
+          key={`${index}-${field.fieldName}-field-properties`}
+          {...field}
+          {...props}
+          index={index}
+        />
       );
     }
   });

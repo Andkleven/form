@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   isMobile,
   // isTablet,
@@ -15,72 +15,19 @@ import FileInput from "components/input/components/FileInput";
 // import Duplicate from "components/input/widgets/Duplicate";
 import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
+import { focusNextInput } from "./functions/general";
 import TinyButton from "components/button/TinyButton";
+import { documentDataContext } from "components/form/Form";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
-export default ({ noComment = false, ...props }) => {
-  const [showComment, setShowComment] = useState(false);
-
-  // const addComment = () => {
-  //   setShowComment(true);
-  // };
-  // const deleteComment = () => {
-  //   if (window.confirm("This will delete the comment. Are you sure?")) {
-  //     setShowComment(false);
-  //   }
-  // };
-
+const InputShell = ({ noComment, showComment, setShowComment, ...props }) => {
   const BottomPart = props => {
     return <>{props.BigButtons}</>;
   };
 
-  const Comment = props => {
-    const [comment, setComment] = useState("");
-
-    return (
-      <Form.Group
-        controlId={`comment-group-${props.type}-${props.name}-${props.repeatStepList}`}
-        className="ml-3 mt-3"
-      >
-        <Form.Label>Comment</Form.Label>
-        <Form.Control
-          id={`comment-${props.type}-${props.name}-${props.repeatStepList}`}
-          as="textarea"
-          rows="3"
-          // style={{ resize: "none" }}
-          style={{ minHeight: "3em" }}
-          value={comment}
-          onChange={e => {
-            setComment(e.target.value);
-          }}
-        />
-      </Form.Group>
-    );
-  };
-
-  const InputContent = ({ ...props }) => {
-    const [valid, feedback] = control(props);
-
-    return (
-      <>
-        <InputType
-          {...props}
-          isValid={valid}
-          isInvalid={[true, false].includes(valid) && !valid}
-        />
-        {!!feedback && (
-          <div className={`text-${valid ? "success" : "danger"}`}>
-            <small>{feedback}</small>
-          </div>
-        )}
-        {showComment && <Comment />}
-      </>
-    );
-  };
-
   return !customLabelTypes.includes(props.type) ? (
-    <div {...props} className={props.className} style={props.style}>
+    <div className={props.className} style={props.style}>
       <div className={props.tight ? "mb-0" : "mb-3"}>
         <div className="d-flex justify-content-between align-items-center">
           {(props.label || props.prepend) && (
@@ -112,21 +59,50 @@ export default ({ noComment = false, ...props }) => {
             {props.TinyButtons}
           </div>
         </div>
-        <InputContent {...props} />
+        {props.children}
         <BottomPart {...props} />
       </div>
     </div>
   ) : (
     <div>
       <div className={props.tight ? "mb-0" : "mb-3"}>
-        <InputContent {...props} />
+        {props.children}
         <BottomPart {...props} />
       </div>
     </div>
   );
 };
 
-const InputType = ({ ...props }) => {
+const Comment = ({ comment, setComment, onKeyPress, path, ...props }) => {
+  const { documentDataDispatch } = useContext(documentDataContext);
+
+  documentDataDispatch({
+    type: "add",
+    newState: comment,
+    path: `${path}Comment`
+  });
+
+  return (
+    <Form.Group
+      controlId={`comment-group-${props.type}-${props.name}-${props.repeatStepList}`}
+      className="ml-3 mt-3"
+    >
+      <Form.Label>Comment</Form.Label>
+      <Form.Control
+        as="textarea"
+        rows="3"
+        style={{ resize: "none" }}
+        value={comment}
+        onChange={e => {
+          setComment(e.target.value);
+        }}
+        onKeyPress={props.onKeyPress}
+      />
+    </Form.Group>
+  );
+};
+
+const InputType = props => {
   const isDateRelated = ["date", "datetime-local"].includes(props.type);
   const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
   const isDesktop = !isMobile;
@@ -148,4 +124,55 @@ const InputType = ({ ...props }) => {
   } else {
     return <NativeInput {...props} readOnly={readOnly} />;
   }
+};
+
+export default ({ noComment = false, ...props }) => {
+  if (props.type === "file") {
+    noComment = true;
+  }
+
+  // Enter focuses on next input or submit button,
+  // instead of submitting
+  const onKeyPress = e => {
+    if (["Enter"].includes(e.key)) {
+      focusNextInput(e);
+    }
+  };
+
+  // TODO: Get saved comment
+  const [comment, setComment] = useState(props.comment);
+  const [showComment, setShowComment] = useState(!!comment);
+
+  const [valid, feedback] = control(props);
+
+  return (
+    <InputShell
+      {...props}
+      className={props.className ? props.className.toString() : null}
+      style={props.style}
+      noComment={noComment}
+      showComment={showComment}
+      setShowComment={setShowComment}
+    >
+      <InputType
+        {...props}
+        isValid={valid}
+        isInvalid={[true, false].includes(valid) && !valid}
+        onKeyPress={onKeyPress}
+      />
+      {!!feedback && (
+        <div className={`text-${valid ? "success" : "danger"}`}>
+          <small>{feedback}</small>
+        </div>
+      )}
+      {showComment && (
+        <Comment
+          onKeyPress={onKeyPress}
+          comment={comment}
+          setComment={setComment}
+          path
+        />
+      )}
+    </InputShell>
+  );
 };

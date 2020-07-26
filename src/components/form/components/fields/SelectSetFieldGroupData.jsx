@@ -18,7 +18,7 @@ export default ({ addOrRemove, ...props }) => {
   const DeleteButton = props => (
     <DepthButton
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
-      key={props.index}
+      // key={`${props.index}-DepthButton`}
       onClick={() => props.deleteHandler(props.index)}
       className="w-100 mt-1 mb-3"
       // style={{ position: "relative", bottom: ".9em" }}
@@ -47,7 +47,7 @@ export default ({ addOrRemove, ...props }) => {
         )
         .map((v, index) => {
           return (
-            <Fragment key={index}>
+            <Fragment key={`${index}-repeat-fragment`}>
               {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
                 <>
                   <Subtitle className={!props.writeChapter && "mt-3"}>
@@ -60,7 +60,7 @@ export default ({ addOrRemove, ...props }) => {
                 {...props}
                 repeatStepList={getRepeatStepList(props.repeatStepList, index)}
                 repeatStep={index}
-                key={`${props.indexId}-${index}`}
+                // key={`${props.indexId}-${index}-FieldGroup`}
                 path={props.path ? `${props.path}.${index}` : null}
                 file={
                   objectPath.get(
@@ -108,7 +108,7 @@ export default ({ addOrRemove, ...props }) => {
       for (let index = 0; index < repeatNumber; index++) {
         arraySetFieldGroupData.push(
           <FieldGroup
-            key={index}
+            key={`${index}-FieldGroup-${props.indexId}`}
             {...props}
             repeatStepList={getRepeatStepList(props.repeatStepList, index)}
             repeatStep={index}

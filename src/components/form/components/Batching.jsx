@@ -162,11 +162,11 @@ export default props => {
             JSON.stringify(batchingData) === JSON.stringify(props.batchingData)
           );
         return (
-          <Fragment key={`${index}-fragment`}>
+          <Fragment key={`${index}-fragment-batching`}>
             <CheckInput
               className="mt-3"
               disabled={disabled}
-              key={`${index}-check`}
+              key={`${index}-fragment-batching-check`}
               onChange={e => handleClick(e, item, description, batchingData)}
               id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
               checked={
@@ -184,7 +184,7 @@ export default props => {
                       variant="link"
                       className="p-0 m-0 ml-2"
                       style={{ height: "1.5em" }}
-                      key={`${index}-button`}
+                      key={`${index}-fragment-batching-button`}
                       onClick={() => {
                         submitStage({
                           variables: {
@@ -211,7 +211,7 @@ export default props => {
             ></CheckInput>
 
             {/* <Form.Check
-              key={`${index}-check`}
+              key={`${index}-fragment-batching-check`}
               className="text-success"
               onChange={e => handleClick(e, item, description, batchingData)}
               id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
@@ -274,7 +274,10 @@ export default props => {
               Number(props.descriptionId) === 0
             ) {
               return (
-                <div key={`${index}`} className="mb-3">
+                <div
+                  key={`${index}-${description.data.geometry}-batching-description`}
+                  className="mb-3"
+                >
                   {!!description &&
                     !Items({ description }).every(
                       element => element === null

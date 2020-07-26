@@ -230,7 +230,7 @@ export default ({ resetState, ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`${props.indexId}-${props.index}-readField`}
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
@@ -247,7 +247,7 @@ export default ({ resetState, ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`${props.indexId}-${props.index}-readField-math`}
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
@@ -318,7 +318,7 @@ export default ({ resetState, ...props }) => {
     return (
       <WriteField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`write-field-${props.indexId}-${props.index}-${props.fieldName}`}
         path={getNewPath()}
         submitButton={
           `${props.repeatStepList}-${props.fieldName}` === editChapter
@@ -341,7 +341,7 @@ export default ({ resetState, ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}`}
+        key={`${props.indexId}-${props.index}-readField-other`}
         readOnly={readOnly}
         path={getNewPath()}
         indexId={`${props.indexId}-${props.index}`}

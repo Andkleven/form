@@ -9,12 +9,22 @@ export function getUser(): object {
   return JSON.parse(localStorage.getItem("user") || "{}");
 }
 
+interface Access {
+  finalInspection?: boolean;
+  finished?: boolean;
+  itemEdit?: boolean;
+  itemRead?: boolean;
+  itemRepair?: boolean;
+  itemWrite?: boolean;
+  specs?: boolean;
+}
+
 /**
  * Returns access as an object combined with an optional customAccess.
  * @param {object} customAccess Custom permissions
  * @return {object} Access
  */
-export function getAccess(customAccess: object): object {
+export function getAccess(customAccess: Access): Access {
   let access: object = {};
 
   const user = getUser();

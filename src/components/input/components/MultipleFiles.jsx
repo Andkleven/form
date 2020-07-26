@@ -35,6 +35,24 @@ const rejectStyle = {
 };
 
 export default ({ resetState, ...props }) => {
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject
+  } = useDropzone({
+    accept: "image/*,application/pdf",
+    onDrop: acceptedFiles => {
+      setFiles(prevState => {
+        acceptedFiles.forEach(file => {
+          prevState.push({ file: file });
+        });
+        return [...prevState];
+      });
+    }
+  });
+
   const { documentDataDispatch } = useContext(documentDataContext);
   const [files, setFiles] = useState([]);
 
@@ -59,24 +77,6 @@ export default ({ resetState, ...props }) => {
   useEffect(() => {
     documentDataDispatch({ type: "add", path: props.path, newState: files });
   }, [files, props.path, documentDataDispatch, resetState]);
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject
-  } = useDropzone({
-    accept: "image/*,application/pdf",
-    onDrop: acceptedFiles => {
-      setFiles(prevState => {
-        acceptedFiles.forEach(file => {
-          prevState.push({ file: file });
-        });
-        return [...prevState];
-      });
-    }
-  });
 
   const style = useMemo(
     () => ({
@@ -133,7 +133,7 @@ export default ({ resetState, ...props }) => {
             <ul className="px-0 mb-0">
               {files.map((file, index) => (
                 <FileDescription
-                  key={index}
+                  key={`${index}-FileDescription`}
                   {...props}
                   deleteHandler={deleteHandler}
                   index={index}

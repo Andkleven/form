@@ -12,6 +12,7 @@ import batching from "templates/batching.json";
 import { getUser } from "functions/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
+import Badge from "components/design/NotificationBadge";
 
 export default ({
   results, // Search results (JSON-object)
@@ -51,6 +52,31 @@ export default ({
   const [deleteProject] = useMutation(mutations["DELETE_PROJECT"], {
     update: deleteProjectFromCache
   });
+
+  // Check for new items
+  const newItem = (item, user) => {
+    return item.seen && item.seen.includes(user.username);
+  };
+  const newInDescription = (description, user) => {
+    description &&
+      description.items &&
+      description.items.forEach(item => {
+        if (newItem(item, user)) {
+          return true;
+        }
+      });
+    return false;
+  };
+  const newInProject = (project, user) => {
+    project &&
+      project.descriptions &&
+      project.descriptions.forEach(description => {
+        if (newInDescription(description, user)) {
+          return true;
+        }
+      });
+    return false;
+  };
 
   // Batching stages
   const batchingStages = Object.keys(batching);
@@ -96,6 +122,7 @@ export default ({
               </div>
               // + `(${countProjectItems(project)} items)`
             }
+            badge={newInProject(project, user) && <Badge>New</Badge>}
           >
             <div className="d-flex align-items-center flex-wrap">
               {props.access && props.access.specs && (
@@ -181,12 +208,12 @@ export default ({
                     if (
                       confirmation === project.data.projectName &&
                       window.confirm(
-                        `Are you sure? The project "${project.data.projectName}" will be gone forever. Tip: You may need to refresh the browser to see the changes.`
+                        `Are you sure? The project "${project.data.projectName}" will be gone forever.`
                       )
                     ) {
                       deleteProject({ variables: { id: project["id"] } });
-                      // window.location.reload(false);
-                      refetch();
+                      window.location.reload(false);
+                      // refetch();
                     } else if (
                       confirmation !== project.data.projectName &&
                       confirmation !== null
@@ -231,6 +258,9 @@ export default ({
                         </div>
                       </div>
                     }
+                    badge={
+                      newInDescription(project, user) && <Badge>New</Badge>
+                    }
                   >
                     <ItemGrid className="mb-n3">
                       {props.access &&
@@ -255,96 +285,126 @@ export default ({
                               xs="12"
                               md="6"
                               lg="4"
-                              className="text-truncate pr-5 mb-3"
+                              className="text-truncate pr-2 mb-1 p-1"
                             >
-                              <div className="p-1">
-                                <Link
-                                  to={itemLink}
-                                  key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
-                                  iconProps={{
-                                    icon: ["fad", "cube"],
-                                    size: iconSize,
-                                    style: iconStyle
-                                  }}
-                                  style={{ zIndex: 1, ...rowStyle }}
-                                  className="text-light text-wrap text-decoration-none w-100"
-                                >
-                                  <div className="d-inline">
-                                    <div className="d-inline text-light">
-                                      {item.itemId ? (
-                                        item.itemId
-                                      ) : (
-                                        <div className="text-secondary d-inline">
-                                          No Item ID (Index ID: {item.id})
-                                        </div>
-                                      )}
-                                    </div>
-                                    <ProgressBar
-                                      animated={progress(item) < 100}
-                                      variant={
-                                        progress(item) > 100
-                                          ? "success"
-                                          : "primary"
-                                      }
-                                      now={progress(item)}
-                                      className="mt-2 shadow-sm w-100"
-                                      style={{
-                                        height: "1.5em",
-                                        backgroundColor: "rgba(0, 0, 0, 0.25)"
-                                      }}
-                                    />
-                                    <div
-                                      align="center"
-                                      style={{
-                                        position: "relative",
-                                        bottom: "1.4em",
-                                        height: 0,
-                                        zIndex: 0,
-                                        opacity: 0.75
-                                      }}
-                                    >
-                                      <small className="text-decoration-none">
-                                        {displayStage(item)}
-                                      </small>
-                                    </div>
+                              {newItem(item, user) && (
+                                <div className="d-flex justify-content-end">
+                                  <div
+                                    style={{
+                                      position: "relative",
+                                      top: ".65em",
+                                      right: "1.2em"
+                                    }}
+                                    className="d-flex justify-content-center align-items-center"
+                                  >
+                                    <Badge>New</Badge>
                                   </div>
-                                </Link>
-                              </div>
-                              {/* <ButtonGroup className="w-100" size="sm"> */}
-                              <div className="w-100 d-flex">
-                                <ReportButton
-                                  size="sm"
-                                  variant={
-                                    progress(item) > 100 ? "success" : "primary"
-                                  }
-                                  className="w-100 m-1"
-                                  style={{
-                                    position: "relative"
-                                  }}
-                                  project={project}
-                                  description={description}
-                                  item={item}
-                                >
-                                  <FontAwesomeIcon
-                                    icon={["fas", "file-download"]}
-                                    className="mr-2"
-                                  ></FontAwesomeIcon>
-                                  Report
-                                </ReportButton>
-                                <Button
-                                  size="sm"
-                                  variant="danger"
-                                  className="m-1"
-                                  style={{
-                                    position: "relative"
-                                  }}
-                                  disabled
-                                >
-                                  <FontAwesomeIcon
-                                    icon={["fas", "trash-alt"]}
-                                  ></FontAwesomeIcon>
-                                </Button>
-                                {/* </ButtonGroup> */}
+                                </div>
+                              )}
+                              <div
+                                className="shadow-sm p-1"
+                                style={{
+                                  borderStyle: "solid",
+                                  borderColor: "rgba(255, 255, 255, 0.15)",
+                                  // borderColor: "red",
+                                  borderRadius: ".5em",
+                                  borderWidth: ".05em",
+                                  backgroundColor: "rgba(255, 255, 255, 0.1)"
+                                }}
+                              >
+                                <div className="px-1 mt-n1">
+                                  <Link
+                                    to={itemLink}
+                                    key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
+                                    iconProps={{
+                                      icon: ["fad", "cube"],
+                                      size: iconSize,
+                                      style: iconStyle
+                                    }}
+                                    style={{ zIndex: 1, ...rowStyle }}
+                                    className="text-light text-wrap text-decoration-none w-100"
+                                  >
+                                    <div className="d-inline">
+                                      <div className="d-inline">
+                                        {item.itemId ? (
+                                          <div className="d-inline">
+                                            {item.itemId}
+                                          </div>
+                                        ) : (
+                                          <div className="text-secondary d-inline">
+                                            No Item ID (Index ID: {item.id})
+                                          </div>
+                                        )}
+                                      </div>
+                                      <ProgressBar
+                                        animated={progress(item) < 100}
+                                        variant={
+                                          progress(item) > 100
+                                            ? "success"
+                                            : "primary"
+                                        }
+                                        now={progress(item)}
+                                        className="mt-2 shadow-sm w-100"
+                                        style={{
+                                          height: "1.5em",
+                                          backgroundColor: "rgba(0, 0, 0, 0.25)"
+                                        }}
+                                      />
+                                      <div
+                                        align="center"
+                                        style={{
+                                          position: "relative",
+                                          bottom: "1.4em",
+                                          height: 0,
+                                          zIndex: 0,
+                                          opacity: 0.75
+                                        }}
+                                      >
+                                        <small className="text-decoration-none">
+                                          {displayStage(item)}
+                                        </small>
+                                      </div>
+                                    </div>
+                                  </Link>
+                                </div>
+                                {/* <ButtonGroup className="w-100" size="sm"> */}
+                                <div className="w-100 d-flex">
+                                  <ReportButton
+                                    size="sm"
+                                    variant={
+                                      progress(item) > 100
+                                        ? "success"
+                                        : "primary"
+                                    }
+                                    className="w-100 m-1"
+                                    style={{
+                                      position: "relative"
+                                    }}
+                                    project={project}
+                                    description={description}
+                                    item={item}
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={["fas", "file-download"]}
+                                      className="mr-2"
+                                    ></FontAwesomeIcon>
+                                    Report
+                                  </ReportButton>
+                                  <Button
+                                    size="sm"
+                                    variant="danger"
+                                    className="m-1"
+                                    style={{
+                                      position: "relative"
+                                    }}
+                                    disabled
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={["fas", "trash-alt"]}
+                                    ></FontAwesomeIcon>
+                                  </Button>
+                                  {/* </ButtonGroup> */}
+                                </div>
                               </div>
                             </Col>
                           );

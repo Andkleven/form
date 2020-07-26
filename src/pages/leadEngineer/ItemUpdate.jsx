@@ -124,6 +124,7 @@ export default ({ descriptionName = "description", ...props }) => {
           setValid(false);
           setState(e.target.value);
         }}
+        noComment
         // value={state}
         // value={props.item.itemId}
         label="Item ID"

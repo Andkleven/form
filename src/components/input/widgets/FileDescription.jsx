@@ -32,6 +32,7 @@ export default ({ ...props }) => {
         </div>
       </div>
       <Input
+        noComment
         placeholder={`Description or comment...`}
         defaultValue={props.file.fileDescription}
         onChange={e => props.onChange(e.target, props.index)}
@@ -41,7 +42,7 @@ export default ({ ...props }) => {
     <ReadField
       {...props}
       noLine
-      key={props.indexId}
+      key={`${props.indexId}-readField-fileDescription`}
       readOnly={true}
       label={
         <div className="d-flex justify-content-between">

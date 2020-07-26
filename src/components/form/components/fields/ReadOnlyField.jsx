@@ -48,6 +48,11 @@ export default ({ resetState, backendData, ...props }) => {
   }, [math]);
 
   return (
-    <ReadField {...props} key={props.indexId} readOnly={true} value={value} />
+    <ReadField
+      {...props}
+      key={`${props.indexId}-${props.index}-readField-readOnly`}
+      readOnly={true}
+      value={value}
+    />
   );
 };

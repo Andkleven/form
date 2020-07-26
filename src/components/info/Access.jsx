@@ -6,7 +6,7 @@ export default () => {
     <div>
       <ul>
         {Object.keys(roles).map((role, roleIndex) => (
-          <li key={`${role}${roleIndex}`}>
+          <li key={`role-${role}-${roleIndex}`}>
             <div>{roles[role]["displayName"]}</div>
             {Object.keys(roles[role]["access"]).map((feature, accessIndex) => (
               <div>

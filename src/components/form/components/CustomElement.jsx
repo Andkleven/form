@@ -153,7 +153,7 @@ const ActualSteelThickness = props => {
       .map((measurementPointActual, index) => {
         return (
           <ReadField
-            key={index}
+            key={`${index}-ActualSteelThickness`}
             readOnly={true}
             label={`Measurement Point Actual Steel ${objectPath.get(
               props.specData,

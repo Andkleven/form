@@ -18,6 +18,7 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
+import { Prompt } from "react-router-dom";
 const cloneDeep = require("clone-deep");
 
 export default pageInfo => {
@@ -225,6 +226,10 @@ export default pageInfo => {
   };
   return (
     <Canvas>
+      <Prompt
+        when={true}
+        message="Unsaved changes will be lost, are you sure?"
+      />
       <Paper>
         <Form
           componentsId={"itemsPage" + counter.toString()}
