@@ -19,36 +19,38 @@ export default ({
       overlay={<Tooltip hidden={tooltip ? false : true}>{tooltip}</Tooltip>}
     >
       {force ? (
-        <a
-          variant="link"
-          className={`d-flex m-0 p-0 text-${
-            color || "light"
-          } text-decoration-none ${props.className}`}
-          href={to}
-          onClick={onClick}
-          {...props}
-          style={props.style}
-        >
-          <div className="pb-1 pt-2 not-selectable">
-            <FontAwesomeIcon {...iconProps} />
-            {children}
-          </div>
-        </a>
+        <div className={`${props.className}`} style={props.style}>
+          <a
+            variant="link"
+            className={`d-flex m-0 p-0 text-${
+              color || "light"
+            } text-decoration-none`}
+            href={to}
+            onClick={onClick}
+            {...props}
+          >
+            <div className="pb-1 pt-2 not-selectable">
+              <FontAwesomeIcon {...iconProps} />
+              {children}
+            </div>
+          </a>
+        </div>
       ) : (
-        <Link
-          className={`d-flex not-selectable text-${
-            color || "light"
-          } text-decoration-none ${props.className}`}
-          to={to}
-          onClick={onClick}
-          {...props}
-          style={props.style}
-        >
-          <div className="pb-1 pt-2 not-selectable">
-            <FontAwesomeIcon {...iconProps} />
-            {children}
-          </div>
-        </Link>
+        <div className={`${props.className}`} style={props.style}>
+          <Link
+            className={`d-flex not-selectable text-${
+              color || "light"
+            } text-decoration-none`}
+            to={to}
+            onClick={onClick}
+            {...props}
+          >
+            <div className="pb-1 pt-2 not-selectable">
+              <FontAwesomeIcon {...iconProps} />
+              {children}
+            </div>
+          </Link>
+        </div>
       )}
     </OverlayTrigger>
   );
