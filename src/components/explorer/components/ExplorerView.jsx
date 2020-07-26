@@ -101,7 +101,7 @@ export default ({ view = "items", ...props }) => {
             className="mb-1"
             placeholder="Search item properties..."
             tight
-            onChange={e => {
+            onChangeInput={e => {
               setSearchTerm(e.target.value);
             }}
             unit={
