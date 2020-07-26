@@ -62,7 +62,7 @@ export default memo(
             style={iconStyle}
           />
           <Title className="not-selectable">{name}</Title>
-          {!isOpen && (
+          {!isOpen && !!badge && (
             <div
               className="d-flex justify-content-center px-1"
               style={{ width: "5em" }}
