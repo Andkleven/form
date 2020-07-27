@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { useSpring, a } from "react-spring";
-import { useMeasure, usePrevious } from "../styles/helpers";
+import { useMeasure } from "../styles/helpers";
 import { Frame, Title, Content } from "../styles/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

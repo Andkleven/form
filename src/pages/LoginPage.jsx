@@ -41,16 +41,12 @@ export default () => {
   const [token, setToken] = useState();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  useEffect(() => {
-    if (token) {
-      history.push(`/`);
-    }
-  }, [token]);
+
   if (loggedIn) {
     localStorage.removeItem(AUTH_TOKEN);
     localStorage.removeItem(USER);
   }
-  async function saveToke(data) {
+  async function saveToken(data) {
     let newToken = await data.tokenAuth.token;
     let user = await data.tokenAuth.user;
     setToken(newToken);
@@ -63,9 +59,15 @@ export default () => {
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(LOGIN_MUTATION, {
     onCompleted: data => {
-      saveToke(data);
+      saveToken(data);
     }
   });
+
+  useEffect(() => {
+    if (token) {
+      window.location.href = "/";
+    }
+  }, [token]);
 
   return (
     <>
@@ -87,13 +89,7 @@ export default () => {
                 e.preventDefault();
                 login({
                   variables: { username, password }
-                })
-                  .then(() => {
-                    history.push("/");
-                  })
-                  .catch(e => {
-                    console.log(e);
-                  });
+                });
               }}
             >
               <Form.Group controlId="formUsername" className="mb-1 rounded-0">

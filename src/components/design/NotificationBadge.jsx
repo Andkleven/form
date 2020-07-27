@@ -6,17 +6,17 @@ export default ({ ...props }) => {
     to: async (next, cancel) => {
       while (true) {
         await next({
-          paddingTop: 2,
-          paddingBottom: 2,
+          paddingTop: 1.5,
+          paddingBottom: 1.5,
           paddingLeft: 6,
           paddingRight: 6,
           fontSize: 15
         });
         await next({
-          paddingTop: 0.5,
-          paddingBottom: 0.5,
-          paddingLeft: 4,
-          paddingRight: 4,
+          paddingTop: 1,
+          paddingBottom: 1,
+          paddingLeft: 5,
+          paddingRight: 5,
           fontSize: 14
         });
       }
@@ -24,9 +24,9 @@ export default ({ ...props }) => {
     from: {
       paddingTop: 1,
       paddingBottom: 1,
-      paddingLeft: 4,
-      paddingRight: 4,
-      fontSize: 14
+      paddingLeft: 5,
+      paddingRight: 5,
+      fontSize: 13
     },
     config: {
       tension: 175,
