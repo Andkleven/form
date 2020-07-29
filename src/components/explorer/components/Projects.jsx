@@ -55,28 +55,29 @@ export default ({
 
   // Check for new items
   const newItem = (item, user) => {
-    return true;
     return item.seen && item.seen.includes(user.username);
   };
   const newInDescription = (description, user) => {
+    let result = false;
     description &&
       description.items &&
       description.items.forEach(item => {
         if (newItem(item, user)) {
-          return true;
+          result = true;
         }
       });
-    return false;
+    return result;
   };
   const newInProject = (project, user) => {
+    let result = false;
     project &&
       project.descriptions &&
       project.descriptions.forEach(description => {
         if (newInDescription(description, user)) {
-          return true;
+          result = true;
         }
       });
-    return false;
+    return result;
   };
 
   // Batching stages
@@ -259,7 +260,7 @@ export default ({
                       </div>
                     }
                     badge={
-                      newInDescription(project, user) && <Badge>New</Badge>
+                      newInDescription(description, user) && <Badge>New</Badge>
                     }
                   >
                     <ItemGrid className="mb-n3">
