@@ -13,6 +13,7 @@ import {
   reshapeStageSting,
   coatedItemOrMould
 } from "functions/general";
+import Overview from "components/layout/Overview";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
@@ -41,6 +42,7 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
   return (
     <PaperStack>
+      <Overview />
       <Paper>
         <Form
           componentsId={"SingleItem"}

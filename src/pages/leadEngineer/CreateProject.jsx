@@ -194,24 +194,6 @@ export default pageInfo => {
     );
   };
 
-  const sent = projectExists && fixedData.projects[0].leadEngineerDone;
-
-  const sendable =
-    !sent &&
-    ((projectExists &&
-      fixedData.projects[0].descriptions.length !==
-        projectsData.numberOfDescriptions) ||
-      Number(numberOfItems) !== Number(projectsData.totalNumberOfItems));
-
-  // useEffect(() => {
-  // const currentId = data.projects[0] && data.projects[0].id;
-  // let history = useHistory();
-  // if (_id === 0 && currentId) {
-  //   refetch();
-  //   history.push(`${currentId}`);
-  // }
-  // }, [_id, data]);
-
   const setInitialStages = data => {
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {
@@ -224,6 +206,31 @@ export default pageInfo => {
       });
     });
   };
+
+  const itemsDone = data => {
+    let done = true;
+    data.projects.forEach((project, projectIndex) => {
+      project.descriptions.forEach((description, descriptionIndex) => {
+        description.items.forEach((item, itemIndex) => {
+          if (!item.data) {
+            done = false;
+          }
+        });
+      });
+    });
+    return done;
+  };
+
+  const sent = projectExists && fixedData.projects[0].leadEngineerDone;
+
+  const sendable =
+    !sent &&
+    ((projectExists &&
+      fixedData.projects[0].descriptions.length !==
+        projectsData.numberOfDescriptions) ||
+      Number(numberOfItems) !== Number(projectsData.totalNumberOfItems)) &&
+    itemsDone(data);
+
   return (
     <Canvas>
       <Prompt
@@ -344,9 +351,13 @@ export default pageInfo => {
                   variables: newData
                 });
               }}
-              disabled={sendable || sent}
+              disabled={!sendable}
             >
-              {sent ? "Sent to Production" : "Send to Production"}
+              {sent
+                ? "Sent to Production"
+                : sendable
+                ? "Send to Production"
+                : "Define all items to proceed"}
             </DepthButton>
           </>
         )}

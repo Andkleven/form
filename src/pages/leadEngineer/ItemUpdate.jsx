@@ -71,7 +71,7 @@ export default ({ descriptionName = "description", ...props }) => {
         setValid(true);
       })
       .catch(e => {
-        // console.log(e);
+        console.log(e);
       });
   };
   const [valid, setValid] = useState();
@@ -120,7 +120,7 @@ export default ({ descriptionName = "description", ...props }) => {
       }}
     >
       <Input
-        onChange={e => {
+        onChangeInput={e => {
           setValid(false);
           setState(e.target.value);
         }}
@@ -132,6 +132,7 @@ export default ({ descriptionName = "description", ...props }) => {
         isValid={valid}
         isInvalid={error}
         feedback={error}
+        nextOnEnter={false}
         append={
           <DepthButton
             type="submit"

@@ -45,7 +45,7 @@
     "react-use-dimensions": "^1.2.1",
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.1.1",
-    "taiko": "^1.0.15",
+    "taiko": "^1.0.16",
     "use-http": "^0.4.5"
   },
   "devDependencies": {

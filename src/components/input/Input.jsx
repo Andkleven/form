@@ -126,7 +126,7 @@ const InputType = props => {
   }
 };
 
-export default ({ noComment = false, ...props }) => {
+export default ({ noComment = false, nextOnEnter = true, ...props }) => {
   if (props.type === "file") {
     noComment = true;
   }
@@ -134,7 +134,7 @@ export default ({ noComment = false, ...props }) => {
   // Enter focuses on next input or submit button,
   // instead of submitting
   const onKeyPress = e => {
-    if (["Enter"].includes(e.key)) {
+    if (["Enter"].includes(e.key) && nextOnEnter) {
       focusNextInput(e);
     }
   };

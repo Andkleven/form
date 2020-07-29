@@ -9,6 +9,7 @@ import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import { Prompt } from "react-router-dom";
+import Overview from "components/layout/Overview";
 
 let leadEngineersJson = leadEngineersCoatedItemJson;
 
@@ -39,6 +40,7 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
   return (
     <Canvas>
+      <Overview />
       <Prompt
         when={true}
         message="Unsaved changes will be lost, are you sure?"
