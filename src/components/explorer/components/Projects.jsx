@@ -83,10 +83,15 @@ export default ({
   };
 
   const ADD_SEEN = gql`
-    mutation item($id: Int, $seen: [SeenInput]) {
+    mutation item($id: Int, $seen: [String]) {
       item(id: $id, seen: $seen) {
-        id
-        seen
+        new {
+          id
+          seen {
+            id
+            seen
+          }
+        }
       }
     }
   `;
@@ -95,7 +100,7 @@ export default ({
 
   const handleItemClick = id => {
     console.log(id, user.username);
-    updateSeen({ variables: { id: parseInt(id), user: [user.username] } });
+    updateSeen({ variables: { id: parseInt(id), seen: [user.username] } });
   };
 
   // Batching stages
