@@ -13,6 +13,7 @@ import { getUser } from "functions/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
 import Badge from "components/design/NotificationBadge";
+import gql from "graphql-tag";
 
 export default ({
   results, // Search results (JSON-object)
@@ -27,6 +28,7 @@ export default ({
 }) => {
   // Delete projects
   const user = getUser();
+  console.log("user", user);
   const userIsAdmin = user.role === "ADMIN";
   const userIsQuality = user.role === "QUALITY";
 
@@ -55,7 +57,7 @@ export default ({
 
   // Check for new items
   const newItem = (item, user) => {
-    return item.seen && item.seen.includes(user.username);
+    return !(item.seen && !item.seen.includes(user.username));
   };
   const newInDescription = (description, user) => {
     let result = false;
@@ -78,6 +80,22 @@ export default ({
         }
       });
     return result;
+  };
+
+  const ADD_SEEN = gql`
+    mutation item($id: Int, $seen: [SeenInput]) {
+      item(id: $id, seen: $seen) {
+        id
+        seen
+      }
+    }
+  `;
+
+  const [updateSeen] = useMutation(ADD_SEEN);
+
+  const handleItemClick = id => {
+    console.log(id, user.username);
+    updateSeen({ variables: { id: parseInt(id), user: [user.username] } });
   };
 
   // Batching stages
@@ -315,6 +333,7 @@ export default ({
                               >
                                 <div className="px-1 mt-n1">
                                   <Link
+                                    onClick={() => handleItemClick(item.id)}
                                     to={itemLink}
                                     key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
                                     iconProps={{

@@ -68,57 +68,58 @@ WIP...
    1. Press "yes" to open repository, or open manually
 
 1. Open the [integrated terminal in VSCode](https://code.visualstudio.com/docs/editor/integrated-terminal)
+
    - Tip: The norwegian keyboard shortcut is <kbd>CTRL</kbd> + <kbd>Ø</kbd>
 
 1. Install extensions:
 
-      Windows
+   Windows
 
-     1. Preferably, uninstall current extensions first:
+   1. Preferably, uninstall current extensions first:
 
-        ```console
-        code --list-extensions | % { code --uninstall-extension $_ }
-        ```
+      ```console
+      code --list-extensions | % { code --uninstall-extension $_ }
+      ```
 
-     1. Then install extensions:
+   1. Then install extensions:
 
-        ```console
-        get-content extensions.txt | % { code --install-extension $_ }
-        ```
+      ```console
+      get-content extensions.txt | % { code --install-extension $_ }
+      ```
 
-     1. Close and reopen VSCode.
+   1. Close and reopen VSCode.
 
-      Linux
+   Linux
 
-     1. Preferably, uninstall current extensions first:
+   1. Preferably, uninstall current extensions first:
 
-        ```console
-        code --list-extensions | xargs -n 1 code --uninstall-extension
-        ```
+      ```console
+      code --list-extensions | xargs -n 1 code --uninstall-extension
+      ```
 
-     1. Then install all extensions:
+   1. Then install all extensions:
 
-         ```console
-         cat extensions.txt | xargs -n 1 code --install-extension
-         ```
+      ```console
+      cat extensions.txt | xargs -n 1 code --install-extension
+      ```
 
-     1. Close and reopen VSCode.
+   1. Close and reopen VSCode.
 
-      Other (or failed installation)
+   Other (or failed installation)
 
-      All extensions used in the project are listed in `.vscode/extensions.txt`, so you can try [another method](https://stackoverflow.com/questions/35773299/how-can-you-export-the-visual-studio-code-extension-list) or install them manually.
+   All extensions used in the project are listed in `.vscode/extensions.txt`, so you can try [another method](https://stackoverflow.com/questions/35773299/how-can-you-export-the-visual-studio-code-extension-list) or install them manually.
 
-      Optional
+   Optional
 
-     1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
+   1. Open the command palette (Windows shortcuts are <kbd>F1</kbd> or <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>)
 
-     1. Enter `Material Icons: Activate Icons`
+   1. Enter `Material Icons: Activate Icons`
 
-     1. Open the command palette
+   1. Open the command palette
 
-     1. Enter `Preferences: Color Theme`
+   1. Enter `Preferences: Color Theme`
 
-     1. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
+   1. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
 
 1. Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
 
@@ -146,28 +147,38 @@ WIP...
    ```
 
 1. Create admin user:
-    1. Enter:
 
-       ```console
-       python manage.py createsuperuser
-       ```
+   1. Enter:
 
-    1. Enter username and password (skip email)
+      ```console
+      python manage.py createsuperuser
+      ```
+
+   1. Enter `admin` as username and password (skip email)
 
 1. Start app:
-    1. Start frontend:
 
-       ```console
-       npm start
-       ```
+   1. Start backend:
 
-    1. Open a new terminal
+      ```console
+      python manage.py runserver
+      ```
 
-    1. Start backend:
+      If this is the first time:
 
-       ```console
-       python manage.py runserver
-       ```
+      Run the `createUsers` script:
+
+      ```console
+      npm run createProject
+      ```
+
+   1. Open a new terminal
+
+   1. Start frontend:
+
+      ```console
+      npm start
+      ```
 
 1. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
 
@@ -175,18 +186,18 @@ WIP...
 
 ### Update database
 
-  1. Make changes to backend.app.models.py 
-  1. Make migrations:
+1. Make changes to backend.app.models.py
+1. Make migrations:
 
-     ```console
-     python manage.py makemigrations
-     ```
+   ```console
+   python manage.py makemigrations
+   ```
 
-  1. Run migrations:
+1. Run migrations:
 
-     ```console
-     python manage.py migrate
-     ```
+   ```console
+   python manage.py migrate
+   ```
 
 ## 🧪 Cross platform and user testing
 
@@ -226,7 +237,7 @@ _Warning: This may not work on public networks (e.g. school and work)!_
 
    Copy paste the IPv4 address of your computer.
 
-   Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section *How to find your internal IP address* if you are having trouble.
+   Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section _How to find your internal IP address_ if you are having trouble.
 
 1. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 
@@ -246,9 +257,9 @@ We have two alternatives for remote testing:
 
 1. <a name="devServer"></a>TODO: Development server
 
-1. [CodeSandbox](https://codesandbox.io/)   
+1. [CodeSandbox](https://codesandbox.io/)  
    Warning: As of 19.06.2020, this doesn't work anymore  
-   Note: You will need [CodeSandbox Pro](https://codesandbox.io/pricing) for this, because of privacy settings.  
+   Note: You will need [CodeSandbox Pro](https://codesandbox.io/pricing) for this, because of privacy settings.
 
    1. Open the repository in CodeSandbox  
       We recommend using chrome with this [extension](https://chrome.google.com/webstore/detail/open-in-codesandbox/jkhbnhagngalpojoeijaleemepfpefmp?hl=en).  
@@ -268,7 +279,7 @@ We have two alternatives for remote testing:
    1. Send link to recipient
    1. Test away!
 
-   If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)). 
+   If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)).
 
 ### E2E
 

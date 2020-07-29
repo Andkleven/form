@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: __dirname + "/./../../../../.env.development"
+});
+
 const {
   openBrowser,
   goto,
@@ -7,13 +11,17 @@ const {
   into,
   dropDown,
   click,
-  closeBrowser
+  closeBrowser,
+  link
 } = require("taiko");
-(async () => {
+
+console.log(process.env.FONTAWESOME_NPM_AUTH_TOKEN);
+
+const createUsers = async () => {
   try {
     // Login
     await openBrowser({ headless: false });
-    await goto("https://versjon2.herokuapp.com/admin/login/?next=/admin/");
+    await goto(process.env.REACT_APP_BACKEND + "/admin/login/?next=/admin/");
     await write("admin", into(textBox("Username:")));
     await write("admin", into(textBox("Password:")));
     await press("Enter");
@@ -52,16 +60,22 @@ const {
       }
     ];
 
+    await goto(process.env.REACT_APP_BACKEND + "/admin/auth/user/");
+    await click(link("admin"));
+    await dropDown({ id: "id_userprofile-0-role" }).select("Admin");
+    await write("admin", into(textBox({ id: "id_userprofile-0-name" })));
+    await click("SAVE");
+
     // Add users
     for (const user of users) {
       // Add user
-      await goto("https://versjon2.herokuapp.com/admin/auth/user/add/");
+      await goto(process.env.REACT_APP_BACKEND + "/admin/auth/user/add/");
       await write(user.username, into(textBox("Username:")));
       await write(user.password, into(textBox("Password:")));
       await write(user.password, into(textBox("Password confirmation:")));
       await press("Enter");
-      await dropDown("Role").select(user.role);
-      await write(user.name, into(textBox("Name:")));
+      await dropDown({ id: "id_userprofile-0-role" }).select(user.role);
+      await write(user.name, into(textBox({ id: "id_userprofile-0-name" })));
       await click("SAVE");
     }
   } catch (error) {
@@ -69,4 +83,6 @@ const {
   } finally {
     await closeBrowser();
   }
-})();
+};
+
+createUsers();
