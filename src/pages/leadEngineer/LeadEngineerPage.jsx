@@ -8,7 +8,6 @@ import Paper from "components/layout/Paper";
 import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
-import { Prompt } from "react-router-dom";
 import Overview from "components/layout/Overview";
 
 let leadEngineersJson = leadEngineersCoatedItemJson;
@@ -41,10 +40,6 @@ export default pageInfo => {
   return (
     <Canvas>
       <Overview />
-      <Prompt
-        when={true}
-        message="Unsaved changes will be lost, are you sure?"
-      />
       <Paper full>
         <Form
           componentsId={"leadEngineersPage"}

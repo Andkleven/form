@@ -14,6 +14,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
+import { Prompt } from "react-router-dom";
 
 const cloneDeep = require("clone-deep");
 
@@ -279,6 +280,15 @@ export default props => {
             formSubmit(e);
           }}
         >
+          <Prompt
+            when={
+              !(
+                JSON.stringify(documentData.current) ===
+                JSON.stringify(props.backendData)
+              )
+            }
+            message="Unsaved changes will be lost, are you sure?"
+          />
           <Chapters
             {...props}
             backendData={props.data}

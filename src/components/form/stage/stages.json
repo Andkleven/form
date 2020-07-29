@@ -30,11 +30,6 @@
     },
     "coatingStep": {
       "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
-      "numberOfRepeats": [
-        "leadEngineers.0.vulcanizationSteps",
-        "coatingLayers"
-      ],
-      "repeatName": "layer",
       "step": true
     },
     "vulcanizationStep": {

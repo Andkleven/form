@@ -286,4 +286,4 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
 
     role = models.CharField(max_length=200, choices=position_code)
-    name = models.CharField(max_length=200, default='', unique=True)
+    name = models.CharField(max_length=200, default='')

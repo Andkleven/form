@@ -13,7 +13,7 @@ export default (specData: object, stage: string, stageType: string): string => {
     nextStage = stagesJson.all[index + 1];
     if (
       stagesJson[stageType][nextStage] &&
-      stagesJson[stageType][nextStage]["Step"]
+      stagesJson[stageType][nextStage]["step"]
     ) {
       return `${nextStage}${step}`;
     }
