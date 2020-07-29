@@ -172,7 +172,6 @@ export default ({ setResetState, setState, state, ...props }) => {
       );
     }
   };
-
   const defaultValue = useCallback(() => {
     return objectPath.get(
       props.backendData,
@@ -200,11 +199,13 @@ export default ({ setResetState, setState, state, ...props }) => {
       newSate = defaultValue();
     }
     setState(newSate);
-    documentDataDispatch({
-      type: "add",
-      newState: newSate,
-      path: props.path
-    });
+    if (newSate) {
+      documentDataDispatch({
+        type: "add",
+        newState: newSate,
+        path: props.path
+      });
+    }
   }, [
     setState,
     props.path,
@@ -213,7 +214,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     props.backendData,
     props.type
   ]);
-
+  console.log(documentData.current, props.backendData);
   const indent =
     (!props.label && props.prepend && props.indent !== false) || props.indent;
 
@@ -229,7 +230,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         {...props}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
-        value={state}
+        value={state === undefined ? "" : state}
         readOnly={props.readOnly}
         onChangeInput={onChangeInput}
         onChangeSelect={onChangeSelect}
