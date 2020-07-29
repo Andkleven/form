@@ -959,7 +959,7 @@ class ItemGraphql(graphene.Mutation):
         id = graphene.Int()
         itemId = graphene.String()
 
-        seen = graphene.List(SeenInput)
+        seen = graphene.List(graphene.String)
         delete_seen = graphene.Boolean()
         stage = graphene.String()
         qr_code = graphene.String()

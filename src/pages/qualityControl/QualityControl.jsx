@@ -12,7 +12,6 @@ import {
   coatedItemOrMould
 } from "functions/general";
 import Canvas from "components/layout/Canvas";
-import { Prompt } from "react-router-dom";
 import Overview from "components/layout/Overview";
 
 export default pageInfo => {
@@ -38,10 +37,6 @@ export default pageInfo => {
   return (
     <Canvas>
       <Overview />
-      <Prompt
-        when={true}
-        message="Unsaved changes will be lost, are you sure?"
-      />
       <Paper className="mb-3">
         <Form
           componentsId={"SingleItem"}
