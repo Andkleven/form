@@ -380,9 +380,7 @@ export default React.memo(props => {
           {...props}
           writeChapter={writeChapter.current}
           resetState={resetState}
-        >
-          {console.log(props)}
-        </Input>
+        />
       ) : // <MultipleFiles
       //   {...props}
       //   writeChapter={writeChapter.current}

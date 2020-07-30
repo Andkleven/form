@@ -9,11 +9,12 @@ import SubmitButton from "components/button/SubmitButton";
 import CancelButton from "components/button/CancelButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButton from "components/button/DepthButton";
-import { Form } from "react-bootstrap";
+import { Form, Toast } from "react-bootstrap";
 import { getStartStage } from "functions/general";
 
 export default ({ descriptionName = "description", ...props }) => {
   const [state, setState] = useState(props.value ? props.value : null);
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
@@ -35,6 +36,7 @@ export default ({ descriptionName = "description", ...props }) => {
       data: { ...oldData }
     });
   };
+
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[itemsJson.query],
@@ -51,9 +53,13 @@ export default ({ descriptionName = "description", ...props }) => {
       data: { ...oldData }
     });
   };
+
   const [mutation, { error: mutationError }] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });
+
+  const [error, setError] = useState(null);
+
   const handleSubmit = (stage = undefined) => {
     mutation({
       variables: {
@@ -68,72 +74,54 @@ export default ({ descriptionName = "description", ...props }) => {
           props.onDone();
         }
         setValid(true);
+        setError(null);
       })
       .catch(e => {
-        console.log(e);
+        setError(e.message.replace("GraphQL error: ", ""));
       });
   };
   const [valid, setValid] = useState();
-  const error =
-    mutationError && mutationError.message.replace("GraphQL error: ", "");
+
+  const inputProps = {
+    onChangeInput: e => {
+      setState(e.target.value);
+      setError(null);
+      setValid();
+    },
+    label: "Item ID",
+    required: true,
+    isValid: valid,
+    isInvalid: !!error,
+    feedback: error,
+    value: state,
+    nextOnEnter: false,
+    noComment: true
+  };
+
+  const formProps = {
+    onSubmit: e => {
+      e.preventDefault();
+      handleSubmit(props.setStage ? getStartStage(props.geometry) : undefined);
+    }
+  };
 
   if (props.edit) {
     return (
-      <Form
-        onSubmit={e => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <Input
-          onChangeInput={e => {
-            setValid(false);
-            setState(e.target.value);
-          }}
-          label="Item ID"
-          required
-          isValid={valid}
-          isInvalid={error}
-          feedback={error}
-          value={state}
-          nextOnEnter={false}
-          noComment
-        />
+      <Form {...formProps}>
+        <Input {...inputProps} />
         <div className="d-flex w-100">
           <SubmitButton>Save</SubmitButton>
           <div className="px-1"></div>
           <CancelButton onClick={props.onCancel} />
         </div>
-        {/* {mutationError && (
-          <ErrorMessage className="w-100 mt-3" error={mutationError.message} />
-        )} */}
       </Form>
     );
   }
 
   return (
-    <Form
-      onSubmit={e => {
-        e.preventDefault();
-        handleSubmit(
-          props.setStage ? getStartStage(props.geometry) : undefined
-        );
-      }}
-    >
+    <Form {...formProps}>
       <Input
-        onChangeInput={e => {
-          setValid(false);
-          setState(e.target.value);
-        }}
-        noComment
-        // value={state}
-        // value={props.item.itemId}
-        label="Item ID"
-        required
-        isValid={valid}
-        isInvalid={error}
-        feedback={error}
-        nextOnEnter={false}
+        {...inputProps}
         append={
           <DepthButton
             type="submit"
