@@ -190,7 +190,6 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
     <>
       <InputShell
         {...props}
-<<<<<<< HEAD
         isValid={valid}
         isInvalid={[true, false].includes(valid) && !valid}
         onKeyPress={onKeyPress}
@@ -207,26 +206,6 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
             path={props.path}
             backendData={props.backendData}
           />
-=======
-        className={props.className ? props.className.toString() : null}
-        style={props.style}
-        noComment={noComment}
-        showComment={showComment}
-        setShowComment={setShowComment}
-      >
-        <InputType
-          {...props}
-          isValid={props.isValid || valid}
-          isInvalid={
-            props.isInvalid || ([true, false].includes(valid) && !valid)
-          }
-          onKeyPress={onKeyPress}
-        />
-        {!!feedback && (
-          <div className={`text-${valid ? "success" : "danger"}`}>
-            <small>{feedback}</small>
-          </div>
->>>>>>> de06ae3642731e757ba132aed78395c20cc29418
         )}
         {!!props.feedback && (
           <div className={`text-${valid ? "success" : "danger"}`}>
