@@ -22,6 +22,7 @@ export default props => (
             props.className
           }`}
           size={props.size}
+          onKeyPress={props.onKeyPress}
         />
         {!!props.labelAppend ? (
           <>

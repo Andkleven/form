@@ -34,13 +34,21 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
+const focusedStyle = {
+  // boxShadow: "0 0 2px 2px rgba(240, 167, 65, 0.25)",
+  borderColor: "#f0a741",
+  backgroundColor: "rgba(240, 167, 65, 0.125)",
+  color: "#f0a741"
+};
+
 export default ({ resetState, ...props }) => {
   const {
     getRootProps,
     getInputProps,
     isDragActive,
     isDragAccept,
-    isDragReject
+    isDragReject,
+    isFocused
   } = useDropzone({
     accept: "image/*,application/pdf",
     onDrop: acceptedFiles => {
@@ -83,9 +91,10 @@ export default ({ resetState, ...props }) => {
       ...baseStyle,
       ...(isDragActive ? activeStyle : {}),
       ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {})
+      ...(isDragReject ? rejectStyle : {}),
+      ...(isFocused ? focusedStyle : {})
     }),
-    [isDragActive, isDragReject, isDragAccept]
+    [isDragActive, isDragReject, isDragAccept, isFocused]
   );
 
   const onChange = (value, index) => {

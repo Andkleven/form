@@ -28,7 +28,6 @@ export default ({
 }) => {
   // Delete projects
   const user = getUser();
-  console.log("user", user);
   const userIsAdmin = user.role === "ADMIN";
   const userIsQuality = user.role === "QUALITY";
 
@@ -57,6 +56,7 @@ export default ({
 
   // Check for new items
   const newItem = (item, user) => {
+    console.log(item.seen);
     return !(item.seen && !item.seen.includes(user.username));
   };
   const newInDescription = (description, user) => {
@@ -83,7 +83,7 @@ export default ({
   };
 
   const ADD_SEEN = gql`
-    mutation item($id: Int, $seen: [String]) {
+    mutation item($id: Int!, $seen: [String]!) {
       item(id: $id, seen: $seen) {
         new {
           id
@@ -99,7 +99,7 @@ export default ({
   const [updateSeen] = useMutation(ADD_SEEN);
 
   const handleItemClick = id => {
-    console.log(id, user.username);
+    console.log(typeof id, typeof user.username);
     updateSeen({ variables: { id: parseInt(id), seen: [user.username] } });
   };
 

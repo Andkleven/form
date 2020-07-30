@@ -18,6 +18,7 @@ import { Form } from "react-bootstrap";
 import { focusNextInput } from "./functions/general";
 import TinyButton from "components/button/TinyButton";
 import { documentDataContext } from "components/form/Form";
+import MultipleFiles from "components/input/components/MultipleFiles";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
@@ -120,7 +121,8 @@ const InputType = props => {
   } else if (props.type === "select") {
     return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {
-    return <FileInput {...props} />;
+    return <MultipleFiles {...props} />;
+    // return <FileInput {...props} />;
   } else {
     return <NativeInput {...props} readOnly={readOnly} />;
   }

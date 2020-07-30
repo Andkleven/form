@@ -17,6 +17,7 @@ import Line from "components/design/Line";
 import TabButton from "components/button/TabButton";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
+import Input from "components/input/Input";
 
 export default React.memo(props => {
   const {
@@ -375,12 +376,19 @@ export default React.memo(props => {
           ) : null}
         </>
       ) : props.type === "file" ? (
-        <MultipleFiles
+        <Input
           {...props}
           writeChapter={writeChapter.current}
           resetState={resetState}
-        />
-      ) : null}
+        >
+          {console.log(props)}
+        </Input>
+      ) : // <MultipleFiles
+      //   {...props}
+      //   writeChapter={writeChapter.current}
+      //   resetState={resetState}
+      // />
+      null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );

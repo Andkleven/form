@@ -168,6 +168,8 @@ export default pageInfo => {
       textColor = "success";
     } else if (over) {
       textColor = "danger";
+    } else {
+      textColor = "danger";
     }
 
     textColor = "text-" + textColor;
