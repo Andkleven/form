@@ -172,6 +172,7 @@ export default ({ setResetState, setState, state, ...props }) => {
       );
     }
   };
+
   const defaultValue = useCallback(() => {
     return objectPath.get(
       props.backendData,

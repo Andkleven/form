@@ -5,7 +5,6 @@ import TinyButton from "components/button/TinyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default ({ ...props }) => {
-  console.log("FileDescription called!");
   const FileName = () => (
     <div className={(props.writeChapter && "mb-2") || ""}>
       <FontAwesomeIcon
@@ -18,7 +17,6 @@ export default ({ ...props }) => {
   );
 
   if (props.description && props.writeChapter) {
-    console.log("Write variant called!");
     return (
       <div className="mt-2">
         <div className={(props.writeChapter && "pt-2") || ""}>
@@ -46,7 +44,6 @@ export default ({ ...props }) => {
       </div>
     );
   } else {
-    console.log("Read variant called!");
     return (
       <ReadField
         {...props}
