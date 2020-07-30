@@ -253,8 +253,12 @@ def save_method_operator(input, step, foreignkeyModel, model_string, Model, fore
         return model
     elif foreignKey:
         foreignkey_model = foreignkeyModel.objects.get(id=foreignKey.id)
+        surface_cleanliness_image = {}
+        if "surface_cleanliness_image" in input:
+            surface_cleanliness_image = {
+                "surface_cleanliness_image": input["surface_cleanliness_image"]}
         model = Model(
-            **{"data": data, model_string: foreignkey_model, "surface_cleanliness_image": input["surface_cleanliness_image"]})
+            **{"data": data, model_string: foreignkey_model, **surface_cleanliness_image})
         model.save()
         return model
     raise GraphQLError("Custom Error: 2121212121212121212212121221")

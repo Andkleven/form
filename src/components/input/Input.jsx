@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   isMobile,
   // isTablet,
@@ -12,6 +12,7 @@ import NativeInput from "components/input/components/NativeInput";
 import CheckInput from "components/input/components/CheckInput";
 import SelectInput from "components/input/components/SelectInput";
 import FileInput from "components/input/components/FileInput";
+import objectPath from "object-path";
 // import Duplicate from "components/input/widgets/Duplicate";
 import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
@@ -24,6 +25,7 @@ import { useSpring, animated } from "react-spring";
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
 const InputShell = ({ noComment, showComment, setShowComment, ...props }) => {
+  const { documentDataDispatch } = useContext(documentDataContext);
   const BottomPart = props => {
     return <>{props.BigButtons}</>;
   };
@@ -50,6 +52,14 @@ const InputShell = ({ noComment, showComment, setShowComment, ...props }) => {
                 // {...props}
                 onClick={() => {
                   setShowComment(!showComment);
+                  if (showComment) {
+                    documentDataDispatch({
+                      type: "add",
+                      newState: "",
+                      path: `${props.path}Comment`,
+                      notReRender: true
+                    });
+                  }
                 }}
                 icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
                 className={`text-${showComment ? "danger" : "info"}`}
@@ -77,14 +87,10 @@ const InputShell = ({ noComment, showComment, setShowComment, ...props }) => {
   );
 };
 
-const Comment = ({ comment, setComment, onKeyPress, path, ...props }) => {
-  const { documentDataDispatch } = useContext(documentDataContext);
-
-  documentDataDispatch({
-    type: "add",
-    newState: comment,
-    path: `${path}Comment`
-  });
+const Comment = ({ onKeyPress, path, backendData, ...props }) => {
+  const { documentData, documentDataDispatch } = useContext(
+    documentDataContext
+  );
 
   return (
     <Form.Group
@@ -96,9 +102,18 @@ const Comment = ({ comment, setComment, onKeyPress, path, ...props }) => {
         as="textarea"
         rows="3"
         style={{ resize: "none" }}
-        value={comment}
+        defaultValue={objectPath.get(
+          documentData.current,
+          `${path}Comment`,
+          ""
+        )}
         onChange={e => {
-          setComment(e.target.value);
+          documentDataDispatch({
+            type: "add",
+            newState: e.target.value,
+            path: `${path}Comment`,
+            notReRender: true
+          });
         }}
         onKeyPress={props.onKeyPress}
       />
@@ -144,9 +159,13 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
     }
   };
 
-  // TODO: Get saved comment
-  const [comment, setComment] = useState(props.comment);
-  const [showComment, setShowComment] = useState(!!comment);
+  const savedComment = objectPath.get(
+    props.backendData,
+    `${props.path}Comment`,
+    false
+  );
+
+  const [showComment, setShowComment] = useState(!!savedComment);
 
   const [valid, feedback] = control(props);
 
@@ -191,9 +210,8 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
         {showComment && (
           <Comment
             onKeyPress={onKeyPress}
-            comment={comment}
-            setComment={setComment}
-            path
+            path={props.path}
+            backendData={props.backendData}
           />
         )}
       </animated.div>
