@@ -15,7 +15,7 @@ import FileInput from "components/input/components/FileInput";
 import objectPath from "object-path";
 // import Duplicate from "components/input/widgets/Duplicate";
 import { control } from "./functions/control.ts";
-import { Form } from "react-bootstrap";
+import { Form, Toast } from "react-bootstrap";
 import { focusNextInput } from "./functions/general";
 import TinyButton from "components/button/TinyButton";
 import { documentDataContext } from "components/form/Form";
@@ -187,16 +187,10 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
   });
 
   return (
-    <InputShell
-      {...props}
-      className={props.className ? props.className.toString() : null}
-      style={props.style}
-      noComment={noComment}
-      showComment={showComment}
-      setShowComment={setShowComment}
-    >
-      <InputType
+    <>
+      <InputShell
         {...props}
+<<<<<<< HEAD
         isValid={valid}
         isInvalid={[true, false].includes(valid) && !valid}
         onKeyPress={onKeyPress}
@@ -213,8 +207,43 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
             path={props.path}
             backendData={props.backendData}
           />
+=======
+        className={props.className ? props.className.toString() : null}
+        style={props.style}
+        noComment={noComment}
+        showComment={showComment}
+        setShowComment={setShowComment}
+      >
+        <InputType
+          {...props}
+          isValid={props.isValid || valid}
+          isInvalid={
+            props.isInvalid || ([true, false].includes(valid) && !valid)
+          }
+          onKeyPress={onKeyPress}
+        />
+        {!!feedback && (
+          <div className={`text-${valid ? "success" : "danger"}`}>
+            <small>{feedback}</small>
+          </div>
+>>>>>>> de06ae3642731e757ba132aed78395c20cc29418
         )}
-      </animated.div>
-    </InputShell>
+        {!!props.feedback && (
+          <div className={`text-${valid ? "success" : "danger"}`}>
+            <small>{props.feedback}</small>
+          </div>
+        )}
+        <animated.div style={commentSpring}>
+          {showComment && (
+            <Comment
+              onKeyPress={onKeyPress}
+              comment={comment}
+              setComment={setComment}
+              path
+            />
+          )}
+        </animated.div>
+      </InputShell>
+    </>
   );
 };

@@ -5,6 +5,7 @@ interface Control {
   unit?: string;
   disabled?: boolean;
   readOnly?: boolean;
+  feedback?: string;
 }
 
 export function control({
@@ -13,7 +14,8 @@ export function control({
   max,
   unit = "",
   disabled,
-  readOnly
+  readOnly,
+  feedback
 }: Control): any | null {
   let fails: number = 0;
   let valid: boolean | null = null;
@@ -51,15 +53,15 @@ export function control({
     }
   }
 
-  let feedback: string | null = null;
+  let combinedFeedback: string | null = null;
 
   feedbacks.forEach((string, index) => {
     if ((index = 1)) {
-      feedback = string;
+      combinedFeedback = string;
     } else if (index > 1) {
-      feedback += ` ∙ ${string}`;
+      combinedFeedback += ` ∙ ${string}`;
     }
   });
 
-  return [valid, feedback];
+  return [valid, combinedFeedback];
 }
