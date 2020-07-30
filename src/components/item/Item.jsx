@@ -62,6 +62,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
             {...props}
             edit
             id={item.id}
+            item
             value={item.itemId}
             onDone={handleCloseRename}
             onCancel={handleCloseRename}

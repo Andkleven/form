@@ -54,7 +54,6 @@ export default ({ descriptionName = "description", ...props }) => {
   const [mutation, { error: mutationError }] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });
-
   const handleSubmit = (stage = undefined) => {
     mutation({
       variables: {
@@ -87,7 +86,7 @@ export default ({ descriptionName = "description", ...props }) => {
         }}
       >
         <Input
-          onChange={e => {
+          onChangeInput={e => {
             setValid(false);
             setState(e.target.value);
           }}
@@ -96,7 +95,7 @@ export default ({ descriptionName = "description", ...props }) => {
           isValid={valid}
           isInvalid={error}
           feedback={error}
-          defaultValue={props.item.itemId}
+          value={state}
         />
         <div className="d-flex w-100">
           <SubmitButton>Save</SubmitButton>

@@ -50,7 +50,7 @@ const ITEM = gql`
     $qrCode: String
     $repair: Boolean
     $stage: String
-    $seen: [SeenInput]
+    $seen: [String]
     $foreignKey: Int
   ) {
     item(
