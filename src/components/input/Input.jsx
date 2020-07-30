@@ -19,6 +19,7 @@ import { focusNextInput } from "./functions/general";
 import TinyButton from "components/button/TinyButton";
 import { documentDataContext } from "components/form/Form";
 import MultipleFiles from "components/input/components/MultipleFiles";
+import { useSpring, animated } from "react-spring";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
@@ -47,7 +48,9 @@ const InputShell = ({ noComment, showComment, setShowComment, ...props }) => {
             {!noComment && (
               <TinyButton
                 // {...props}
-                onClick={() => setShowComment(!showComment)}
+                onClick={() => {
+                  setShowComment(!showComment);
+                }}
                 icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
                 className={`text-${showComment ? "danger" : "info"}`}
                 // iconSize="md"
@@ -147,6 +150,23 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
 
   const [valid, feedback] = control(props);
 
+  const commentSpring = useSpring({
+    from: {
+      // opacity: 0
+      transform: "scale(0.75, 0)"
+    },
+    to: {
+      // opacity: showComment ? 1 : 0
+      transform: showComment ? "scale(1, 1)" : "scale(0.75, 0)"
+    },
+    config: {
+      tension: 450,
+      friction: 25,
+      // clamp: true,
+      mass: 0.75
+    }
+  });
+
   return (
     <InputShell
       {...props}
@@ -167,14 +187,16 @@ export default ({ noComment = false, nextOnEnter = true, ...props }) => {
           <small>{feedback}</small>
         </div>
       )}
-      {showComment && (
-        <Comment
-          onKeyPress={onKeyPress}
-          comment={comment}
-          setComment={setComment}
-          path
-        />
-      )}
+      <animated.div style={commentSpring}>
+        {showComment && (
+          <Comment
+            onKeyPress={onKeyPress}
+            comment={comment}
+            setComment={setComment}
+            path
+          />
+        )}
+      </animated.div>
     </InputShell>
   );
 };

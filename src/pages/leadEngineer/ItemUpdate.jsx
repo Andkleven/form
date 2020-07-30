@@ -96,7 +96,9 @@ export default ({ descriptionName = "description", ...props }) => {
           isValid={valid}
           isInvalid={error}
           feedback={error}
-          defaultValue={props.item.itemId}
+          defaultValue={props.item && props.item.itemId}
+          nextOnEnter={false}
+          noComment
         />
         <div className="d-flex w-100">
           <SubmitButton>Save</SubmitButton>

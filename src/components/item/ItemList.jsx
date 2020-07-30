@@ -16,9 +16,10 @@ export default props => {
       tension: 500,
       friction: 20,
       // clamp: true,
-      mass: 1
+      mass: 0.75
     }
   });
+
   const items = props.items.map((item, index) => {
     return (
       <Col
