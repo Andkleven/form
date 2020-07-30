@@ -96,6 +96,8 @@ export default ({ descriptionName = "description", ...props }) => {
           isInvalid={error}
           feedback={error}
           value={state}
+          nextOnEnter={false}
+          noComment
         />
         <div className="d-flex w-100">
           <SubmitButton>Save</SubmitButton>

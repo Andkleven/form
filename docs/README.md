@@ -14,7 +14,7 @@ WIP...
 - [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
   - [Local manual testing](#local-manual-testing)
   - [Remote manual testing](#remote-manual-testing)
-  - [E2E](#e2e)
+  - [E2E and automation](#e2e-and-automation)
 
 ## 🎓 Prerequisites
 
@@ -164,7 +164,7 @@ WIP...
       python manage.py runserver
       ```
 
-      If this is the first time:
+      If you are on Windows, see [E2E and automation](#e2e) first.
 
       Run the `createUsers` script:
 
@@ -172,21 +172,21 @@ WIP...
       npm run createProject
       ```
 
-   1. Open a new terminal
+   2. Open a new terminal
 
-   1. Start frontend:
+   3. Start frontend:
 
       ```console
       npm start
       ```
 
-1. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+2. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
 
 ## 🍑 Backend
 
 ### Update database
 
-1. Make changes to backend.app.models.py
+1. Make changes to `backend.app.models.py`
 1. Make migrations:
 
    ```console
@@ -207,7 +207,7 @@ Live server is already installed if the [quick start](#-quick-tart) guide is fol
 
 _Warning: This may not work on public networks (e.g. school and work)!_
 
-1. Start the server
+1. Start the frontend
 
    ```console
    npm start
@@ -238,6 +238,22 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    Copy paste the IPv4 address of your computer.
 
    Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section _How to find your internal IP address_ if you are having trouble.
+
+1. Change the backend in your `.env.development`-file
+
+   ```env
+   REACT_APP_BACKEND=http://x.x.x.x:8000
+   ```
+
+   - Where x.x.x.x is your local IP address
+
+1. Start the backend
+
+   ```console
+   python manage.py runserver x.x.x.x:8000
+   ```
+
+   - Where x.x.x.x is your local IP address
 
 1. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 
@@ -281,7 +297,7 @@ We have two alternatives for remote testing:
 
    If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)).
 
-### E2E
+### E2E and automation
 
 [Taiko](https://docs.taiko.dev/) is used to perform end-to-end testing.
 

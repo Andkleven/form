@@ -13,11 +13,13 @@ export const focusNextInput = e => {
           ["INPUT", "TEXTAREA"].includes(element.tagName) ||
           element.type === "submit"
         ) {
+          if (element.hidden) {
+            element.parentElement.focus();
+          }
           element.focus();
           break;
         }
       } else {
-        console.log(element);
       }
       skipElements += 1;
     }
@@ -35,12 +37,13 @@ export const focusNextInput = e => {
      * for different inputs.
      */
     if (e.key === "Enter") {
+      console.log("Is select");
       if (e.target.value) {
         skip(e, 2);
       } else {
         e.preventDefault();
+        skip(e, 2);
       }
-      console.log("Enter");
     }
   } else {
     // Input and text area

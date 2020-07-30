@@ -370,6 +370,20 @@ const QUALITY_CONTROL = gql`
   }
 `;
 
+const DELETE_SEEN = gql`
+  mutation item($id: Int, $deleteSeen: Boolean) {
+    item(id: $id, deleteSeen: $deleteSeen) {
+      new {
+        id
+        seen {
+          id
+          seen
+        }
+      }
+    }
+  }
+`;
+
 const mutations = {
   ORDER,
   DELETE_PROJECT,
@@ -379,7 +393,8 @@ const mutations = {
   LEAD_ENGINEER_DONE,
   OPERATOR_BATCHING,
   OPERATOR,
-  QUALITY_CONTROL
+  QUALITY_CONTROL,
+  DELETE_SEEN
 };
 
 export default mutations;

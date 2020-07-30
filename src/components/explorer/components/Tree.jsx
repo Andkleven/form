@@ -41,7 +41,7 @@ export default memo(
         // : 0.01,
         // clamp: isOpen ? false : true,
         clamp: true,
-        mass: isOpen ? 5 : 0.01
+        mass: isOpen ? 0.5 : 0.01
         // mass: 0.01
       }
     });

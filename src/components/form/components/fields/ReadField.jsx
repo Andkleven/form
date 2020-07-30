@@ -165,7 +165,11 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     );
 
   return (
-    <div className={className} style={style} hidden={readOnly}>
+    <div
+      className={className}
+      style={style}
+      // hidden={readOnly}
+    >
       <Row>
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
           <Label {...props} />

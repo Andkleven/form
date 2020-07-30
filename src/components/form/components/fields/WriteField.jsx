@@ -172,6 +172,7 @@ export default ({ setResetState, setState, state, ...props }) => {
       );
     }
   };
+
   const defaultValue = useCallback(() => {
     return objectPath.get(
       props.backendData,
@@ -214,7 +215,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     props.backendData,
     props.type
   ]);
-  console.log(documentData.current, props.backendData);
+  // console.log(documentData.current, props.backendData);
   const indent =
     (!props.label && props.prepend && props.indent !== false) || props.indent;
 

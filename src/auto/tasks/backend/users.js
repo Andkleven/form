@@ -15,8 +15,6 @@ const {
   link
 } = require("taiko");
 
-console.log(process.env.FONTAWESOME_NPM_AUTH_TOKEN);
-
 const createUsers = async () => {
   try {
     // Login

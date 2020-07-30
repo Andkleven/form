@@ -15,43 +15,50 @@ export default ({ ...props }) => {
       {props.file.file.name}
     </div>
   );
-  return props.description && props.writeChapter ? (
-    <div className="mt-2">
-      <div className={(props.writeChapter && "pt-2") || ""}>
-        <div className="d-flex justify-content-between">
-          <FileName />
-          {props.writeChapter && (
-            <TinyButton
-              onClick={() => props.deleteHandler(props.index)}
-              icon="trash-alt"
-              color="danger"
-              tooltip={`Delete "${props.file.file.name}"`}
-              noPadding
-            />
-          )}
-        </div>
-      </div>
-      <Input
-        noComment
-        placeholder={`Description or comment...`}
-        defaultValue={props.file.fileDescription}
-        onChange={e => props.onChange(e.target, props.index)}
-      />
-    </div>
-  ) : (
-    <ReadField
-      {...props}
-      noLine
-      key={`${props.indexId}-readField-fileDescription`}
-      readOnly={true}
-      label={
-        <div className="d-flex justify-content-between">
-          <div>
+
+  if (props.description && props.writeChapter) {
+    return (
+      <div className="mt-2">
+        <div className={(props.writeChapter && "pt-2") || ""}>
+          <div className="d-flex justify-content-between">
             <FileName />
+            {props.writeChapter && (
+              <TinyButton
+                onClick={() => props.deleteHandler(props.index)}
+                icon="trash-alt"
+                color="danger"
+                tooltip={`Delete "${props.file.file.name}"`}
+                noPadding
+              >
+                Delete
+              </TinyButton>
+            )}
           </div>
         </div>
-      }
-      value={props.file.fileDescription ? props.file.fileDescription : ""}
-    />
-  );
+        <Input
+          noComment
+          placeholder={`Description or comment...`}
+          defaultValue={props.file.fileDescription}
+          onChange={e => props.onChange(e.target, props.index)}
+        />
+      </div>
+    );
+  } else {
+    return (
+      <ReadField
+        {...props}
+        noLine
+        key={`${props.indexId}-readField-fileDescription`}
+        readOnly={true}
+        label={
+          <div className="d-flex justify-content-between">
+            <div>
+              <FileName />
+            </div>
+          </div>
+        }
+        value={props.file.fileDescription ? props.file.fileDescription : ""}
+      />
+    );
+  }
 };

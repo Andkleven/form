@@ -39,16 +39,16 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
           size="sm"
           tooltip="Rename"
           short
-          iconProps={{ icon: ["fas", "pen"], size: "sm" }}
-          className="btn h-100 text-primary"
+          iconProps={{ icon: ["fas", "pen"], size: "sm", maxHeight: "100%" }}
+          className="btn text-primary"
           onClick={handleShowRename}
         ></DepthButton>
         <DepthButton
           size="sm"
           tooltip="Delete"
           short
-          iconProps={{ icon: ["fas", "trash"], size: "sm" }}
-          className="btn h-100 text-danger"
+          iconProps={{ icon: ["fas", "trash"], size: "sm", maxHeight: "100%" }}
+          className="btn text-danger"
           // onClick={submitDelete.bind(this, item.id)}
           onClick={() => {
             window.confirm("This is irreversible - are you sure?") &&
