@@ -4,7 +4,7 @@ import {
   // isTablet,
   isSafari,
   isChrome,
-  isFirefox,
+  isFirefox
 } from "react-device-detect";
 import Date from "components/input/components/Date";
 import Datetime from "components/input/components/Datetime";
@@ -24,73 +24,87 @@ import { useSpring, animated } from "react-spring";
 
 const customLabelTypes = ["checkbox", "radio", "switch"];
 
-const InputShell = (
-  { noComment, showComment, setShowComment, documentDataDispatch, ...props },
-) => {
-  const BottomPart = (props) => {
+const InputShell = ({
+  noComment,
+  hasComment,
+  showComment,
+  setShowComment,
+  documentDataDispatch,
+  ...props
+}) => {
+  const BottomPart = props => {
     return <>{props.BigButtons}</>;
   };
 
-  return !customLabelTypes.includes(props.type)
-    ? (
-      <div className={props.className} style={props.style}>
-        <div className={props.tight ? "mb-0" : "mb-3"}>
-          <div className="d-flex justify-content-between align-items-center">
-            {(props.label || props.prepend) && (
-              <label
-                htmlFor={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
-                hidden={!["date", "datetime"].includes(props.type) &&
-                  !!props.prepend &&
-                  !props.label}
-              >
-                {props.label || props.prepend}
-              </label>
-            )}
-            <div className={`${!props.label && "ml-auto"}`}>
-              {!noComment && (
-                <TinyButton
-                  // {...props}
-                  onClick={() => {
-                    setShowComment(!showComment);
-                    if (showComment) {
+  return !customLabelTypes.includes(props.type) ? (
+    <div className={props.className} style={props.style}>
+      <div className={props.tight ? "mb-0" : "mb-3"}>
+        <div className="d-flex justify-content-between align-items-center">
+          {(props.label || props.prepend) && (
+            <label
+              htmlFor={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
+              hidden={
+                !["date", "datetime"].includes(props.type) &&
+                !!props.prepend &&
+                !props.label
+              }
+            >
+              {props.label || props.prepend}
+            </label>
+          )}
+          <div
+            className={`${!props.label && "ml-auto"}`}
+            style={{ marginBottom: "9px" }}
+          >
+            {!noComment && (
+              <TinyButton
+                // {...props}
+                onClick={() => {
+                  if (showComment && hasComment) {
+                    if (
+                      window.confirm(
+                        "The comment will be gone forever. Are you sure?"
+                      )
+                    ) {
+                      setShowComment(!showComment);
                       documentDataDispatch({
                         type: "add",
                         newState: "",
                         path: `${props.path}Comment`,
-                        notReRender: true,
+                        notReRender: true
                       });
                     }
-                  }}
-                  icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
-                  className={`text-${showComment ? "danger" : "info"}`}
-                  // iconSize="md"
-                  // tooltip={`${showComment ? "Remove" : "Add"} comment`}
-                  style={{ position: "relative", top: "2em" }}
-                >
-                  {`${showComment ? "Delete" : "Add"} comment`}
-                </TinyButton>
-              )}
-              {props.TinyButtons}
-            </div>
+                  } else {
+                    setShowComment(!showComment);
+                  }
+                }}
+                icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
+                className={`text-${showComment ? "danger" : "info"}`}
+                // iconSize="md"
+                // tooltip={`${showComment ? "Remove" : "Add"} comment`}
+                style={{ position: "relative", top: "2em" }}
+              >
+                {`${showComment ? "Delete" : "Add"} comment`}
+              </TinyButton>
+            )}
+            {props.TinyButtons}
           </div>
-          {props.children}
-          <BottomPart {...props} />
         </div>
+        {props.children}
+        <BottomPart {...props} />
       </div>
-    )
-    : (
-      <div>
-        <div className={props.tight ? "mb-0" : "mb-3"}>
-          {props.children}
-          <BottomPart {...props} />
-        </div>
+    </div>
+  ) : (
+    <div>
+      <div className={props.tight ? "mb-0" : "mb-3"}>
+        {props.children}
+        <BottomPart {...props} />
       </div>
-    );
+    </div>
+  );
 };
 
-const Comment = (
-  { onKeyPress, path, documentDataDispatch, documentData, ...props },
-) => {
+const Comment = ({ onKeyPress, onChange, defaultValue, ...props }) => {
   return (
     <Form.Group
       controlId={`comment-group-${props.type}-${props.name}-${props.repeatStepList}`}
@@ -101,26 +115,15 @@ const Comment = (
         as="textarea"
         rows="3"
         style={{ resize: "none" }}
-        defaultValue={objectPath.get(
-          documentData.current,
-          `${path}Comment`,
-          "",
-        )}
-        onChange={(e) => {
-          documentDataDispatch({
-            type: "add",
-            newState: e.target.value,
-            path: `${path}Comment`,
-            notReRender: true,
-          });
-        }}
-        onKeyPress={props.onKeyPress}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        onKeyPress={onKeyPress}
       />
     </Form.Group>
   );
 };
 
-const InputType = (props) => {
+const InputType = props => {
   const isDateRelated = ["date", "datetime-local"].includes(props.type);
   const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
   const isDesktop = !isMobile;
@@ -145,16 +148,20 @@ const InputType = (props) => {
   }
 };
 
-export default ({ noComment = false, nextOnEnter = true, documentData, documentDataDispatch, ...props }) => {
-
-
+export default ({
+  noComment = false,
+  nextOnEnter = true,
+  documentData,
+  documentDataDispatch,
+  ...props
+}) => {
   if (props.type === "file") {
     noComment = true;
   }
 
   // Enter focuses on next input or submit button,
   // instead of submitting
-  const onKeyPress = (e) => {
+  const onKeyPress = e => {
     if (["Enter"].includes(e.key) && nextOnEnter) {
       focusNextInput(e);
     }
@@ -163,28 +170,29 @@ export default ({ noComment = false, nextOnEnter = true, documentData, documentD
   const savedComment = objectPath.get(
     props.backendData,
     `${props.path}Comment`,
-    false,
+    false
   );
 
   const [showComment, setShowComment] = useState(!!savedComment);
+  const [hasComment, setHasComment] = useState(!!savedComment);
 
   const [valid, feedback] = control(props);
 
   const commentSpring = useSpring({
     from: {
       // opacity: 0
-      transform: "scale(0.75, 0)",
+      transform: "scale(0.75, 0.50)"
     },
     to: {
       // opacity: showComment ? 1 : 0
-      transform: showComment ? "scale(1, 1)" : "scale(0.75, 0)",
+      transform: showComment ? "scale(1, 1)" : "scale(0.75, 0)"
     },
     config: {
       tension: 450,
       friction: 25,
       // clamp: true,
-      mass: 0.75,
-    },
+      mass: 0.75
+    }
   });
 
   return (
@@ -193,6 +201,7 @@ export default ({ noComment = false, nextOnEnter = true, documentData, documentD
       className={props.className ? props.className.toString() : null}
       style={props.style}
       noComment={noComment}
+      hasComment={hasComment}
       showComment={showComment}
       setShowComment={setShowComment}
       documentDataDispatch={documentDataDispatch}
@@ -217,9 +226,21 @@ export default ({ noComment = false, nextOnEnter = true, documentData, documentD
         {showComment && (
           <Comment
             documentData={documentData}
-            documentDataDispatch={documentDataDispatch}
             onKeyPress={onKeyPress}
-            path={props.path}
+            onChange={e => {
+              setHasComment(!!e.target.value || !!savedComment);
+              documentDataDispatch({
+                type: "add",
+                newState: e.target.value,
+                path: `${props.path}Comment`,
+                notReRender: true
+              });
+            }}
+            defaultValue={objectPath.get(
+              documentData.current,
+              `${props.path}Comment`,
+              ""
+            )}
           />
         )}
       </animated.div>

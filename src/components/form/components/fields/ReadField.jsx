@@ -5,6 +5,7 @@ import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 import { documentDataContext, ChapterContext } from "components/form/Form";
+import objectPath from "object-path";
 
 export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
@@ -164,6 +165,12 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       </div>
     );
 
+  const savedComment = objectPath.get(
+    props.backendData,
+    `${props.path}Comment`,
+    false
+  );
+
   return (
     <div
       className={className}
@@ -177,6 +184,16 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
           <Value {...props} />
         </Col>
+        {savedComment && (
+          <>
+            <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+              <div className="text-muted">Comment</div>
+            </Col>
+            <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+              <div className="text-muted">"{savedComment}"</div>
+            </Col>
+          </>
+        )}
         <Col className={`${showUnderBreakpoint()}`}>
           <div className="d-flex justify-content-between align-items-center">
             <div>
@@ -186,6 +203,17 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             {readOnly ? null : <TinyEditButton edit={props.edit} />}
           </div>
         </Col>
+        {savedComment && (
+          <Col xs="12" className={`${showUnderBreakpoint()}`}>
+            <div className="d-flex justify-content-between align-items-center text-muted">
+              <div>
+                <small>Comment</small>
+                <div>"{savedComment}"</div>
+              </div>
+            </div>
+          </Col>
+        )}
+
         {!props.noLine && (
           <Col xs="12">
             <LightLine />
