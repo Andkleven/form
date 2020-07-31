@@ -123,7 +123,7 @@ export default ({ setResetState, setState, state, ...props }) => {
       <div
         className={`d-none d-${buttonBreakPoint}-inline ${
           !props.label && " w-100 text-right"
-        }`}
+          }`}
       >
         <TinyButton
           icon="check"
@@ -243,6 +243,8 @@ export default ({ setResetState, setState, state, ...props }) => {
         required={ignoreRequired ? false : props.required}
         step={props.decimal ? decimalTooStep[props.decimal] : 0}
         tight={props.submitButton}
+        documentData={documentData}
+        documentDataDispatch={documentDataDispatch}
       />
       {props.ignoreRequired && (
         <Input
