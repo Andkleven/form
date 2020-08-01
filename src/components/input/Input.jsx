@@ -155,9 +155,9 @@ export default ({
   documentDataDispatch,
   ...props
 }) => {
-  if (props.type === "file") {
-    noComment = true;
-  }
+  // if (props.type === "file") {
+  //   noComment = true;
+  // }
 
   // Enter focuses on next input or submit button,
   // instead of submitting

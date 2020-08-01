@@ -116,11 +116,11 @@ export default ({ setResetState, setState, state, ...props }) => {
   //   props.submitHandler(data);
   // };
 
-  const buttonBreakPoint = "sm";
-
   const TinyButtons = () => {
     return props.submitButton ? (
-      <>
+      <div
+        className={`d-none d-sm-inline ${!props.label && " w-100 text-right"}`}
+      >
         <TinyButton
           icon="check"
           type="submit"
@@ -137,7 +137,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         >
           Cancel
         </TinyButton>
-      </>
+      </div>
     ) : null;
   };
 
@@ -145,7 +145,7 @@ export default ({ setResetState, setState, state, ...props }) => {
     if (props.submitButton) {
       return (
         <>
-          <div className={`d-flex d-${buttonBreakPoint}-none my-1`}>
+          <div className={`d-flex d-sm-none my-1`}>
             <Button
               className="w-100 m-0 px-0 text-light"
               variant="success"
