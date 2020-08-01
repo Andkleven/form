@@ -6,6 +6,7 @@ import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
+import { dialog } from "components/Dialog";
 
 export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
@@ -25,12 +26,41 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         );
       }
     } else {
-      if (window.confirm("You will lose unsaved changes, are you sure?")) {
-        if (!display) {
-          chapterContext.setEditChapter(
-            `${props.repeatStepList}-${props.fieldName}`
-          );
-        }
+      if (
+        // window.confirm("You will lose unsaved changes, are you sure?")
+        dialog({
+          message: "Do you want to save your changes?",
+          buttons: [
+            {
+              label: "Save and continue",
+              type: "submit",
+              onClick: () => {
+                props.submitData(documentData.current, false);
+                if (!display) {
+                  chapterContext.setEditChapter(
+                    `${props.repeatStepList}-${props.fieldName}`
+                  );
+                }
+              }
+            },
+            {
+              label: "Discard and continue",
+              onClick: () => {
+                // TODO: Revert displayed value to stored value
+                if (!display) {
+                  chapterContext.setEditChapter(
+                    `${props.repeatStepList}-${props.fieldName}`
+                  );
+                }
+              }
+            },
+            {
+              label: "Cancel",
+              onClick: () => {}
+            }
+          ]
+        })
+      ) {
       }
     }
   };

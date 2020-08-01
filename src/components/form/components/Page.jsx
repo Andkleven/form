@@ -18,6 +18,7 @@ import TabButton from "components/button/TabButton";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Input from "components/input/Input";
+import { dialog } from "components/Dialog";
 
 export default React.memo(props => {
   const {
@@ -324,14 +325,40 @@ export default React.memo(props => {
                 setResetState(prevState => !prevState);
               } else {
                 if (
-                  window.confirm("You will lose unsaved changes, are you sure?")
+                  dialog({
+                    message: "Do you want to save your changes?",
+                    buttons: [
+                      {
+                        label: "Save and continue",
+                        type: "submit",
+                        onClick: () => {
+                          props.submitData(documentData.current, false);
+                          documentDataDispatch({
+                            type: "setState",
+                            newState: props.backendData
+                          });
+                          setEditChapter(props.thisChapter);
+                          setResetState(prevState => !prevState);
+                        }
+                      },
+                      {
+                        label: "Discard and continue",
+                        onClick: () => {
+                          documentDataDispatch({
+                            type: "setState",
+                            newState: props.backendData
+                          });
+                          setEditChapter(props.thisChapter);
+                          setResetState(prevState => !prevState);
+                        }
+                      },
+                      {
+                        label: "Cancel",
+                        onClick: () => {}
+                      }
+                    ]
+                  })
                 ) {
-                  documentDataDispatch({
-                    type: "setState",
-                    newState: props.backendData
-                  });
-                  setEditChapter(props.thisChapter);
-                  setResetState(prevState => !prevState);
                 }
               }
             }}
