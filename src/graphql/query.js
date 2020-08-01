@@ -246,6 +246,9 @@ const GET_ORDER_GEOMETRY = gql`
           id
           itemId
           unique
+          leadEngineers {
+            id
+          }
         }
         uploadFiles {
           id

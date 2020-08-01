@@ -122,37 +122,6 @@ export default pageInfo => {
     errorDelete
   ]);
 
-  useEffect(() => {
-    if (
-      !error &&
-      !loading &&
-      fixedData &&
-      fixedData.projects &&
-      fixedData.projects[0] &&
-      fixedData.projects[0].descriptions
-    ) {
-      if (
-        fixedData &&
-        fixedData.projects &&
-        fixedData.projects[0].descriptions &&
-        fixedData.projects[0].descriptions[counter - 1] &&
-        fixedData.projects[0].descriptions[counter - 1].items
-      ) {
-        setGeometryData(fixedData.projects[0].descriptions[counter - 1]);
-      } else {
-        setGeometryData(0);
-      }
-      setProjectData(fixedData.projects[0].data);
-      let countNumberOfItems = 0;
-      fixedData.projects[0].descriptions.forEach(description => {
-        countNumberOfItems += description.items.length;
-      });
-      setNumberOfItems(countNumberOfItems);
-    }
-  }, [counter, fixedData, error, loading]);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
   const projectExists =
     fixedData && fixedData.projects && fixedData.projects[0];
 
@@ -209,11 +178,12 @@ export default pageInfo => {
   };
 
   const itemsDone = data => {
+    console.log(data);
     let done = true;
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {
         description.items.forEach((item, itemIndex) => {
-          if (!item.data) {
+          if (item.leadEngineers && item.leadEngineers.length === 0) {
             done = false;
           }
         });
@@ -226,11 +196,43 @@ export default pageInfo => {
 
   const sendable =
     !sent &&
-    ((projectExists &&
-      fixedData.projects[0].descriptions.length !==
-        projectsData.numberOfDescriptions) ||
-      Number(numberOfItems) !== Number(projectsData.totalNumberOfItems)) &&
+    projectExists &&
+    fixedData.projects[0].descriptions.length ===
+      projectsData.numberOfDescriptions &&
+    Number(numberOfItems) === Number(projectsData.totalNumberOfItems) &&
     itemsDone(data);
+
+  useEffect(() => {
+    if (
+      !error &&
+      !loading &&
+      fixedData &&
+      fixedData.projects &&
+      fixedData.projects[0] &&
+      fixedData.projects[0].descriptions
+    ) {
+      if (
+        fixedData &&
+        fixedData.projects &&
+        fixedData.projects[0].descriptions &&
+        fixedData.projects[0].descriptions[counter - 1] &&
+        fixedData.projects[0].descriptions[counter - 1].items
+      ) {
+        setGeometryData(fixedData.projects[0].descriptions[counter - 1]);
+      } else {
+        setGeometryData(0);
+      }
+      setProjectData(fixedData.projects[0].data);
+      let countNumberOfItems = 0;
+      fixedData.projects[0].descriptions.forEach(description => {
+        countNumberOfItems += description.items.length;
+      });
+      setNumberOfItems(countNumberOfItems);
+    }
+  }, [counter, fixedData, error, loading]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <Canvas>
@@ -351,10 +353,10 @@ export default pageInfo => {
               disabled={!sendable}
             >
               {sent
-                ? "Sent to Production"
+                ? "Sent to production"
                 : sendable
-                ? "Send to Production"
-                : "Define all items to proceed"}
+                ? "Send to production"
+                : "Not ready to send"}
             </DepthButton>
           </>
         )}

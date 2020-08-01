@@ -83,6 +83,9 @@ export default ({
     return result;
   };
 
+  // Notification badge logic
+  // _______________________________________________________________________
+
   const ADD_SEEN = gql`
     mutation item($id: Int!, $seen: [String]!) {
       item(id: $id, seen: $seen) {
@@ -103,6 +106,7 @@ export default ({
     console.log(typeof id, typeof user.username);
     updateSeen({ variables: { id: parseInt(id), seen: [user.username] } });
   };
+  // _______________________________________________________________________
 
   // Batching stages
   const batchingStages = Object.keys(batching);
