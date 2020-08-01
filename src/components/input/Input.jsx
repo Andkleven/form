@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   isMobile,
   // isTablet,
@@ -11,14 +11,12 @@ import Datetime from "components/input/components/Datetime";
 import NativeInput from "components/input/components/NativeInput";
 import CheckInput from "components/input/components/CheckInput";
 import SelectInput from "components/input/components/SelectInput";
-import FileInput from "components/input/components/FileInput";
 import objectPath from "object-path";
 // import Duplicate from "components/input/widgets/Duplicate";
 import { control } from "./functions/control.ts";
-import { Form, Toast } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { focusNextInput } from "./functions/general";
 import TinyButton from "components/button/TinyButton";
-import { documentDataContext } from "components/form/Form";
 import MultipleFiles from "components/input/components/MultipleFiles";
 import { useSpring, animated } from "react-spring";
 
@@ -52,43 +50,45 @@ const InputShell = ({
               {props.label || props.prepend}
             </label>
           )}
-          <div
-            className={`${!props.label && "ml-auto"}`}
-            style={{ marginBottom: "9px" }}
-          >
-            {!noComment && (
-              <TinyButton
-                // {...props}
-                onClick={() => {
-                  if (showComment && hasComment) {
-                    if (
-                      window.confirm(
-                        "The comment will be gone forever. Are you sure?"
-                      )
-                    ) {
+          {(props.TinyButtons || !noComment) && (
+            <div
+              className={`${!props.label && "ml-auto"}`}
+              style={{ marginBottom: "9px" }}
+            >
+              {!noComment && (
+                <TinyButton
+                  // {...props}
+                  onClick={() => {
+                    if (showComment && hasComment) {
+                      if (
+                        window.confirm(
+                          "The comment will be gone forever. Are you sure?"
+                        )
+                      ) {
+                        setShowComment(!showComment);
+                        documentDataDispatch({
+                          type: "add",
+                          newState: "",
+                          path: `${props.path}Comment`,
+                          notReRender: true
+                        });
+                      }
+                    } else {
                       setShowComment(!showComment);
-                      documentDataDispatch({
-                        type: "add",
-                        newState: "",
-                        path: `${props.path}Comment`,
-                        notReRender: true
-                      });
                     }
-                  } else {
-                    setShowComment(!showComment);
-                  }
-                }}
-                icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
-                className={`text-${showComment ? "danger" : "info"}`}
-                // iconSize="md"
-                // tooltip={`${showComment ? "Remove" : "Add"} comment`}
-                style={{ position: "relative", top: "2em" }}
-              >
-                {`${showComment ? "Delete" : "Add"} comment`}
-              </TinyButton>
-            )}
-            {props.TinyButtons}
-          </div>
+                  }}
+                  icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
+                  className={`text-${showComment ? "danger" : "info"}`}
+                  // iconSize="md"
+                  // tooltip={`${showComment ? "Remove" : "Add"} comment`}
+                  style={{ position: "relative", top: "2em" }}
+                >
+                  {`${showComment ? "Delete" : "Add"} comment`}
+                </TinyButton>
+              )}
+              {props.TinyButtons}
+            </div>
+          )}
         </div>
         {props.children}
         <BottomPart {...props} />

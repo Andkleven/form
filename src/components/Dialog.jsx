@@ -78,7 +78,7 @@ export const RouteGuard = ({ when, ...options }) => {
     if (confirmed) {
       navigate();
     }
-  }, [confirmed]);
+  });
 
   return (
     <>
