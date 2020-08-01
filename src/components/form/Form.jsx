@@ -15,6 +15,8 @@ import Title from "components/design/fonts/Title";
 import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { Prompt } from "react-router-dom";
+import { dialog, RouteGuard } from "components/Dialog";
+import history from "functions/history";
 
 const cloneDeep = require("clone-deep");
 
@@ -261,6 +263,7 @@ export default props => {
     e.preventDefault();
     submitData(documentData.current, true);
   };
+
   return (
     <documentDataContext.Provider
       value={{ documentData, documentDataDispatch, renderFunction }}
@@ -280,14 +283,28 @@ export default props => {
             formSubmit(e);
           }}
         >
-          <Prompt
+          <RouteGuard
+            // TODO: Make `when` true when data is unsaved
             when={
-              !(
-                JSON.stringify(documentData.current) ===
-                JSON.stringify(props.backendData)
-              )
+              JSON.stringify(documentData.current) ===
+              JSON.stringify(props.backendData)
             }
-            message="Unsaved changes will be lost, are you sure?"
+            buttons={[
+              {
+                label: "Save and continue",
+                type: "submit",
+                onClick: () => {
+                  // TODO: Save data
+                  return true;
+                }
+              },
+              {
+                label: "Discard and continue",
+                onClick: () => {
+                  return true;
+                }
+              }
+            ]}
           />
           <Chapters
             {...props}
