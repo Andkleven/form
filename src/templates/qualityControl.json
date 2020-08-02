@@ -74,6 +74,11 @@
               "showFieldSpecPath": "leadEngineers.0.data.identificationMarking",
               "required": true,
               "type": "checkbox"
+            },
+            {
+              "fieldName": "finalInspectionComment",
+              "label": "Final Inspection Comment",
+              "type": "comment"
             }
           ]
         },

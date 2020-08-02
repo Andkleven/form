@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 // import Duplicate from "../widgets/Duplicate";
-function NativeInput({
+export default ({
   type,
   label,
   name,
@@ -27,7 +27,7 @@ function NativeInput({
   onChangeInput,
   onKeyPress,
   ...props
-}) {
+}) => {
   return (
     <>
       <Form.Group
@@ -54,7 +54,10 @@ function NativeInput({
               value={value}
               onChange={onChangeInput}
               onBlur={onBlur}
-              type={type}
+              type={type !== "comment" && type}
+              as={type === "comment" ? "textarea" : undefined}
+              style={type === "comment" ? { resize: "none" } : undefined}
+              rows={type === "comment" ? "5" : undefined}
               min={min}
               max={max}
               step={step}
@@ -77,6 +80,4 @@ function NativeInput({
       </Form.Group>
     </>
   );
-}
-
-export default NativeInput;
+};
