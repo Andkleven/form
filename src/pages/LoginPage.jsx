@@ -58,6 +58,8 @@ export default () => {
     login,
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(LOGIN_MUTATION, {
+    onError: () => {
+    },
     onCompleted: data => {
       saveToken(data);
     }
@@ -74,7 +76,7 @@ export default () => {
       <OuterLogin>
         <div
           className="rounded shadow-lg bg-dark"
-          // style={{ backgroundColor: "rgba(0, 0, 0, .7)" }}
+        // style={{ backgroundColor: "rgba(0, 0, 0, .7)" }}
         >
           <div className="p-3 w-100" style={{ maxWidth: "15em" }}>
             <div className="w-100 d-flex">
@@ -128,7 +130,7 @@ export default () => {
                   icon={["fal", "sign-in"]}
                   size="lg"
                   className="position-relative mr-2"
-                  // style={{ fontSize: "1.5em", top: 2 }}
+                // style={{ fontSize: "1.5em", top: 2 }}
                 />
                 Login
               </Button>
