@@ -35,7 +35,6 @@ const qualityControlMeasurementPointMouldMin = (
   );
   return qualityControlMeasurementPointMould(
     allData,
-    repeatStepList,
     toleranceMin,
     1
   );
@@ -50,7 +49,6 @@ const qualityControlMeasurementPointMouldMax = (
   );
   return qualityControlMeasurementPointMould(
     allData,
-    repeatStepList,
     toleranceMax,
     1
   );
@@ -220,7 +218,7 @@ const mathToleranceMin = (values, repeatStepList, decimal) => {
   );
   return whatTooReturn(
     orderedTotalRubberThickness -
-      (orderedTotalRubberThickness * toleranceMinPercent) / 100,
+    (orderedTotalRubberThickness * toleranceMinPercent) / 100,
     decimal,
     [toleranceMinPercent, orderedTotalRubberThickness]
   );
@@ -235,7 +233,7 @@ const mathToleranceMax = (values, repeatStepList, decimal) => {
   );
   return whatTooReturn(
     orderedTotalRubberThickness +
-      (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+    (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
     decimal,
     [toleranceMaxPercent, orderedTotalRubberThickness]
   );

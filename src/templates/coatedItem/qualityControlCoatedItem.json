@@ -16,7 +16,12 @@
           "fields": [
             {
               "fieldName": "measurementPoint",
-              "label": "Measurement Point",
+              "queryVariableLabel": [
+                "leadEngineers.0.measurementPointActualTdvs",
+                "data.referencePoint"
+              ],
+              "variableLabelSpec": true,
+              "label": "Measurement Point Reference: {}",
               "calculateMin": "qualityControlMeasurementPointCoatingItemMin",
               "calculateMax": "qualityControlMeasurementPointCoatingItemMax",
               "type": "number",

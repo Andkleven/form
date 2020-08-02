@@ -3,7 +3,8 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
 import operatorMouldJson from "templates/mould/operatorMould.json";
-import qualityControlJson from "templates/qualityControl.json";
+import qualityControlCoatedItemJson from "templates/coatedItem/qualityControlCoatedItem.json";
+import qualityControlMouldJson from "templates/mould/qualityControlMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -23,6 +24,12 @@ export default pageInfo => {
     geometry,
     operatorCoatedItemJson,
     operatorMouldJson
+  );
+
+  let qualityControlJson = coatedItemOrMould(
+    geometry,
+    qualityControlCoatedItemJson,
+    qualityControlMouldJson
   );
 
   const { loading, error, data } = useQuery(query[qualityControlJson.query], {
