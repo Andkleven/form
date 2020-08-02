@@ -73,21 +73,24 @@ export default props => {
 
   return (
     <>
-      {/* <Form.Group className="mb-0" readOnly={true}> */}
       <div className="d-flex text-dark">
         <Creatable {...selectProps} />
-        {/* {props.custom ? (
-          <Creatable {...selectProps} />
-        ) : (
-          <Select {...selectProps} />
-        )} */}
-        {/* <Duplicate {...props} /> */}
       </div>
+
+      {/* Extra semi-hidden input to enable native form control for required */}
+      {!props.disabled && (
+        <input
+          tabIndex={-1}
+          autoComplete="off"
+          style={{ opacity: 0, height: 0, position: "absolute", width: "100%" }}
+          value={props.value}
+          required={props.required}
+        />
+      )}
 
       {props.subtext && (
         <Form.Text className="text-muted">{props.subtext}</Form.Text>
       )}
-      {/* </Form.Group> */}
     </>
   );
 };

@@ -27,7 +27,7 @@ export const focusNextInput = e => {
 
   if (isSelect(currentElement)) {
     // Select
-    // react-select inputs contains 2 inputs, so we have to skip these
+    // react-select inputs contains 3 inputs, so we have to skip these
 
     /**
      * Temporary attempt at better UX for selects
@@ -39,10 +39,10 @@ export const focusNextInput = e => {
     if (e.key === "Enter") {
       console.log("Is select");
       if (e.target.value) {
-        skip(e, 2);
+        skip(e, 3);
       } else {
         e.preventDefault();
-        skip(e, 2);
+        skip(e, 3);
       }
     }
   } else {
