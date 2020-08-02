@@ -55,10 +55,10 @@ export default ({
     update: deleteProjectFromCache
   });
 
+  // Notification badge logic
+  // _______________________________________________________________________
   // Check for new items
   const newItem = item => {
-    console.log(item);
-
     const scenarios = [
       ["QUALITY"].includes(user.role) && item.stage === "finalInspection",
       ["ADMIN"].includes(user.role)
@@ -102,9 +102,7 @@ export default ({
     return result;
   };
 
-  // Notification badge logic
-  // _______________________________________________________________________
-
+  // Tell backend that the item has been seen by the user (backend)
   const ADD_SEEN = gql`
     mutation item($id: Int!, $seen: [String]!) {
       item(id: $id, seen: $seen) {
@@ -122,7 +120,6 @@ export default ({
   const [updateSeen] = useMutation(ADD_SEEN);
 
   const handleItemClick = item => {
-    console.log(typeof item.id, typeof user.username);
     if (newItem(item)) {
       updateSeen({
         variables: { id: parseInt(item.id), seen: [user.username] }
