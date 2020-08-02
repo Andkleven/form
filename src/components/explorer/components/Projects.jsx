@@ -56,9 +56,28 @@ export default ({
   });
 
   // Check for new items
-  const newItem = (item, user) => {
-    console.log(item.seen);
-    return !(item.seen && !item.seen.includes(user.username));
+  const newItem = item => {
+    console.log(item);
+
+    const scenarios = [
+      ["QUALITY"].includes(user.role) && item.stage === "finalInspection",
+      ["ADMIN"].includes(user.role)
+    ];
+
+    if (scenarios.includes(true)) {
+      let result = true;
+
+      item.seen &&
+        item.seen.forEach(seen => {
+          if (seen.seen === user.username) {
+            result = false;
+          }
+        });
+
+      return result;
+    }
+
+    return false;
   };
   const newInDescription = (description, user) => {
     let result = false;
@@ -102,9 +121,13 @@ export default ({
 
   const [updateSeen] = useMutation(ADD_SEEN);
 
-  const handleItemClick = id => {
-    console.log(typeof id, typeof user.username);
-    updateSeen({ variables: { id: parseInt(id), seen: [user.username] } });
+  const handleItemClick = item => {
+    console.log(typeof item.id, typeof user.username);
+    if (newItem(item)) {
+      updateSeen({
+        variables: { id: parseInt(item.id), seen: [user.username] }
+      });
+    }
   };
   // _______________________________________________________________________
 
@@ -353,7 +376,7 @@ export default ({
                                 >
                                   <div className="px-1 mt-n1">
                                     <Link
-                                      onClick={() => handleItemClick(item.id)}
+                                      onClick={() => handleItemClick(item)}
                                       to={itemLink}
                                       key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
                                       iconProps={{

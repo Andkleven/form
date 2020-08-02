@@ -488,6 +488,10 @@ const OPERATOR_PROJECTS = gql`
           stage
           id
           itemId
+          seen {
+            id
+            seen
+          }
         }
       }
     }
