@@ -21,6 +21,12 @@ function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
         onClick={onClick}
         readOnly
         placeholder="Press to pick date"
+        onKeyPress={props.onKeyPress}
+        onKeyDown={e => {
+          if (e.key === " ") {
+            onClick(e);
+          }
+        }}
       />
       <InputGroup.Append>
         <Button
