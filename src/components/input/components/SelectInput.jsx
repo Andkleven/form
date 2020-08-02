@@ -82,7 +82,13 @@ export default props => {
         <input
           tabIndex={-1}
           autoComplete="off"
-          style={{ opacity: 0, height: 0, position: "absolute", width: "100%" }}
+          style={{
+            opacity: 0,
+            height: 0,
+            position: "absolute",
+            width: "100%",
+            pointerEvents: "none"
+          }}
           value={props.value}
           required={props.required}
         />
