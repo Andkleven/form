@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 // import { getAllPosts } from "@apollo/react-hooks";
 import { Button, Form, Image } from "react-bootstrap";
 import styled from "styled-components";
-import history from "../functions/history";
+// import history from "../functions/history";
 import emblem from "../images/emblem.png";
 import Copyright from "components/design/Copyright";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
