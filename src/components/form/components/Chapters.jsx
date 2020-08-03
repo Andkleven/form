@@ -122,6 +122,8 @@ export default props => {
         }
         if (newChapterArray[newChapterArray.length - 1] === null) {
           props.nextStage.current = false;
+        } else {
+          props.nextStage.current = true;
         }
         return pageInfo.chapterTitle ? (
           <Fragment key={`${count}-${count + 1}-pageInfo-chapterTitle`}>
