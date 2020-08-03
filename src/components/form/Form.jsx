@@ -181,12 +181,12 @@ export default props => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-        ? props.firstQueryPath
-          ? createWithVariable
-          : create
-        : props.firstQueryPath
-        ? updateWithVariable
-        : update,
+          ? props.firstQueryPath
+            ? createWithVariable
+            : create
+          : props.firstQueryPath
+            ? updateWithVariable
+            : update,
       onCompleted: props.reRender
     }
   );
@@ -232,9 +232,9 @@ export default props => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-              submit &&
-              nextStage.current &&
-              !editChapter
+                submit &&
+                nextStage.current &&
+                !editChapter
                 ? FindNextStage(props.specData, props.stage, props.stageType)
                 : props.stage
           }

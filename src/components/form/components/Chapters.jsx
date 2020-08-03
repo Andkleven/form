@@ -42,11 +42,11 @@ export default props => {
         ? byStage
           ? thisStage === props.stage
           : !allRequiredSatisfied(
-              pageInfo,
-              props.data,
-              repeatStepList,
-              props.specData
-            )
+            pageInfo,
+            props.data,
+            repeatStepList,
+            props.specData
+          )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -75,6 +75,7 @@ export default props => {
               showEditButton={showEditButton}
               indexId={`${count + 1}-${index}`}
               index={index}
+              noSaveButton={props.document.noSaveButton}
               finalChapter={finalChapter}
               submitData={props.submitData}
               showSubmitButton={showSubmitButton}
@@ -107,8 +108,8 @@ export default props => {
             step !== null
               ? [step, index]
               : props.repeatStepList
-              ? [...props.repeatStepList, index]
-              : [index],
+                ? [...props.repeatStepList, index]
+                : [index],
             pageInfo
           );
           newChapterArray.push(
@@ -129,8 +130,8 @@ export default props => {
             {newChapterArray}
           </Fragment>
         ) : (
-          newChapterArray
-        );
+            newChapterArray
+          );
       }
       return null;
     } else {
@@ -163,7 +164,7 @@ export default props => {
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
-            stageSplit[1] ? stageSplit[0] + "Step" : thisStage
+          stageSplit[1] ? stageSplit[0] + "Step" : thisStage
           ],
           thisStage,
           Number(stageSplit[1]) - 1
@@ -173,7 +174,7 @@ export default props => {
       stageSplit = thisStage.split("Step");
       if (
         !props.document.chapters[
-          stageSplit[1] ? stageSplit[0] + "Step" : thisStage
+        stageSplit[1] ? stageSplit[0] + "Step" : thisStage
         ]
       ) {
         break;
@@ -186,8 +187,8 @@ export default props => {
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {
-        return runChapter(pageInfo);
-      });
+      return runChapter(pageInfo);
+    });
 
   useEffect(() => {
     return () => {

@@ -14,6 +14,9 @@ const ORDER = gql`
             id
             itemId
             unique
+            leadEngineers {
+              id
+             }
           }
           uploadFiles {
             id
@@ -70,6 +73,9 @@ const ITEM = gql`
         qrCode
         repair
         stage
+        leadEngineers {
+          id
+         }
         seen {
           seen
         }

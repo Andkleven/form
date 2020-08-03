@@ -76,7 +76,7 @@ export default React.memo(props => {
         fieldName: "data",
         path: `${props.path}.${
           objectPath.get(documentData.current, props.path).length
-        }`
+          }`
       });
     }
     setAddOrRemove(prevState => prevState + 1);
@@ -261,12 +261,11 @@ export default React.memo(props => {
       </DepthButton>
     );
   };
-
   const SubmitAndCancel = () => {
     return (
       <DepthButtonGroup className="w-100 d-flex">
         {!props.notSubmitButton && <SubmitButton />}
-        {finalChapterActive && <SaveButton />}
+        {finalChapterActive && !props.noSaveButton && <SaveButton />}
         {showCancel && <CancelButton />}
       </DepthButtonGroup>
     );
@@ -305,14 +304,14 @@ export default React.memo(props => {
   // MultipleFiles logic
   // TODO: Make functions for these variables
   const readMf = true;
-  const onEditMf = () => {};
-  const onSubmitMf = () => {};
-  const onCancelMf = () => {};
+  const onEditMf = () => { };
+  const onSubmitMf = () => { };
+  const onCancelMf = () => { };
 
   return (
     <div
       className={`${finalPage && "mb-5"} ${props.className}`}
-      // className={`${!props.finalChapter && ""} ${props.className}`}
+    // className={`${!props.finalChapter && ""} ${props.className}`}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (
@@ -363,7 +362,7 @@ export default React.memo(props => {
                     },
                     {
                       label: "Cancel",
-                      onClick: () => {}
+                      onClick: () => { }
                     }
                   ]
                 });
@@ -373,45 +372,45 @@ export default React.memo(props => {
             Edit all
           </TabButton>
         ) : (
-          showCancelTab && (
-            <TabButton
-              onClick={() => {
-                if (
-                  JSON.stringify(documentData.current) ===
-                  JSON.stringify(props.backendData)
-                ) {
-                  cancel();
-                } else {
-                  dialog({
-                    message: "Do you want to save your changes?",
-                    buttons: [
-                      {
-                        label: "Save and continue",
-                        type: "submit",
-                        onClick: () => {
-                          props.submitData(documentData.current, false);
-                          setEditChapter(0);
+            showCancelTab && (
+              <TabButton
+                onClick={() => {
+                  if (
+                    JSON.stringify(documentData.current) ===
+                    JSON.stringify(props.backendData)
+                  ) {
+                    cancel();
+                  } else {
+                    dialog({
+                      message: "Do you want to save your changes?",
+                      buttons: [
+                        {
+                          label: "Save and continue",
+                          type: "submit",
+                          onClick: () => {
+                            props.submitData(documentData.current, false);
+                            setEditChapter(0);
+                          }
+                        },
+                        {
+                          label: "Discard and continue",
+                          onClick: () => {
+                            cancel();
+                          }
+                        },
+                        {
+                          label: "Abort",
+                          onClick: () => { }
                         }
-                      },
-                      {
-                        label: "Discard and continue",
-                        onClick: () => {
-                          cancel();
-                        }
-                      },
-                      {
-                        label: "Abort",
-                        onClick: () => {}
-                      }
-                    ]
-                  });
-                }
-              }}
-            >
-              Cancel
-            </TabButton>
-          )
-        )}
+                      ]
+                    });
+                  }
+                }}
+              >
+                Cancel
+              </TabButton>
+            )
+          )}
       </div>
       {showLine && <Line />}
       {props.customComponent ? (
@@ -449,15 +448,15 @@ export default React.memo(props => {
                   Edit
                 </TinyButton>
               ) : (
-                <div className="d-none d-sm-inline">
-                  <TinyButton color="success" onClick={onSubmitMf}>
-                    Submit
+                  <div className="d-none d-sm-inline">
+                    <TinyButton color="success" onClick={onSubmitMf}>
+                      Submit
                   </TinyButton>
-                  <TinyButton color="secondary" onClick={onCancelMf}>
-                    Cancel
+                    <TinyButton color="secondary" onClick={onCancelMf}>
+                      Cancel
                   </TinyButton>
-                </div>
-              )
+                  </div>
+                )
             }
             BigButtons={
               !readMf && (
@@ -487,11 +486,11 @@ export default React.memo(props => {
           />
         </>
       ) : // <MultipleFiles
-      //   {...props}
-      //   writeChapter={writeChapter.current}
-      //   resetState={resetState}
-      // />
-      null}
+          //   {...props}
+          //   writeChapter={writeChapter.current}
+          //   resetState={resetState}
+          // />
+          null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );

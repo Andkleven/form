@@ -21,7 +21,7 @@ import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 
 export default ({ resetState, ...props }) => {
-  const { documentData, renderFunction } = useContext(documentDataContext);
+  const { documentData, renderFunction, documentDataDispatch } = useContext(documentDataContext);
   const { editChapter } = useContext(ChapterContext);
 
   const [state, setState] = useState("");
@@ -36,20 +36,31 @@ export default ({ resetState, ...props }) => {
   }, [props.path, props.fieldName, props.type]);
 
   useEffect(() => {
-    let backendDate = objectPath.get(
-      Object.keys(documentData.current).length === 0
-        ? props.backendData
-        : documentData.current,
-      getNewPath(),
-      null
-    );
-    if (props.type === "date" || props.type === "datetime-local") {
-      setState(backendDate ? new Date(backendDate) : null);
-    } else {
-      setState(backendDate);
+    if (props.path && props.fieldName) {
+      let backendDate = objectPath.get(
+        Object.keys(documentData.current).length === 0
+          ? props.backendData
+          : documentData.current,
+        getNewPath(),
+        ""
+      );
+
+      if (props.type === "date" || props.type === "datetime-local") {
+        backendDate = backendDate ? new Date(backendDate) : null
+        setState(backendDate);
+        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+
+      } else {
+        setState(backendDate);
+        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+
+      }
     }
   }, [
+    props.fieldName,
+    documentDataDispatch,
     resetState,
+    props.path,
     props.backendData,
     setState,
     getNewPath,
@@ -133,18 +144,18 @@ export default ({ resetState, ...props }) => {
         props.subtext,
         props.specSubtextList
           ? findValue(
-              props.specData,
-              props.specSubtextList,
-              props.repeatStepList,
-              props.editRepeatStepSubtextList
-            )
+            props.specData,
+            props.specSubtextList,
+            props.repeatStepList,
+            props.editRepeatStepSubtextList
+          )
           : props.mathSubtext
-          ? Math[props.mathSubtext](
+            ? Math[props.mathSubtext](
               props.specData,
               props.repeatStepList,
               props.decimal ? props.decimal : 0
             )
-          : null,
+            : null,
         max,
         min,
         props.unit,
@@ -281,7 +292,7 @@ export default ({ resetState, ...props }) => {
           <div className={props.indent && `ml-3`}>
             <Subtitle small className="mt-3">{`${label} ${
               props.repeatStep + 1
-            }`}</Subtitle>
+              }`}</Subtitle>
             {/* Hidden ReadOnlyField */}
             {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
           </div>
