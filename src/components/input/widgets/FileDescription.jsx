@@ -6,7 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default ({ ...props }) => {
   const FileName = () => (
-    <div className={(props.writeChapter && "mb-2") || ""}>
+    <div
+      className={(props.writeChapter && "mb-2") || ""}
+      style={{
+        wordBreak: "break-word"
+      }}
+    >
       <FontAwesomeIcon
         icon={["fad", "file-image"]}
         className={`text-primary text-center shadow-sm mr-2`}

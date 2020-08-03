@@ -15,7 +15,8 @@ export default props => {
   const access = getAccess();
 
   const showRepairButton =
-    "/single-item/" === useLocation().pathname.slice(0, 13) &&
+    ("/single-item/" === useLocation().pathname.slice(0, 13) ||
+      "/quality-control/" === useLocation().pathname.slice(0, 17)) &&
     access.itemRepair;
   const [showRepair, setShowRepair] = useState(false);
 

@@ -35,7 +35,7 @@ export default ({ iconProps, ...props }) => {
           )} */}
           {props.children && (
             // && showChildren
-            <div className="ml-1 d-inline">{props.children}</div>
+            <div className="ml-1 text-right">{props.children}</div>
           )}
         </span>
       </Button>

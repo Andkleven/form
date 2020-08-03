@@ -35,7 +35,6 @@ const rejectStyle = {
 };
 
 const focusedStyle = {
-  // boxShadow: "0 0 2px 2px rgba(240, 167, 65, 0.25)",
   borderColor: "#f0a741",
   backgroundColor: "rgba(240, 167, 65, 0.125)",
   color: "#f0a741"
@@ -116,9 +115,15 @@ export default ({ resetState, ...props }) => {
       <section className="container px-0 mx-0">
         {props.writeChapter && (
           <div {...getRootProps({ style })}>
-            <label
-              htmlFor={props.label || props.prepend}
-            >{`Drag and drop files, or click to upload.`}</label>
+            <div
+              // htmlFor={props.label || props.prepend}
+              className="w-100 text-center"
+              style={{
+                wordBreak: "break-word"
+              }}
+            >
+              Drag and drop files, or click to upload
+            </div>
             <input
               {...getInputProps()}
               id={props.label || props.prepend}

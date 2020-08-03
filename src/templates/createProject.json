@@ -31,43 +31,31 @@
               "fieldName": "projectManager",
               "label": "Project Manager",
               "type": "select",
-              "options": [
-                "Option 1",
-                "Option 2",
-                "Option 3"
-              ]
+              "options": ["Option 1", "Option 2", "Option 3"]
             },
             {
               "fieldName": "supervisor",
               "label": "Supervisor",
               "type": "select",
-              "userRole": [
-                "supervisor"
-              ]
+              "userRole": ["supervisor"]
             },
             {
               "fieldName": "leadEngineer",
               "label": "Lead Engineer",
               "type": "select",
-              "userRole": [
-                "lead"
-              ]
+              "userRole": ["lead"]
             },
             {
               "fieldName": "supervisingEngineer",
               "label": "Supervising Engineer",
               "type": "select",
-              "userRole": [
-                "lead"
-              ]
+              "userRole": ["lead"]
             },
             {
               "fieldName": "qualityControl",
               "label": "Quality Control",
               "type": "select",
-              "userRole": [
-                "quality"
-              ]
+              "userRole": ["quality"]
             },
             {
               "fieldName": "numberOfDescriptions",
@@ -92,10 +80,7 @@
         {
           "pageTitle": "Description",
           "pageName": "description",
-          "queryPath": [
-            "projects.0.descriptions",
-            ""
-          ],
+          "queryPath": ["projects.0.descriptions", ""],
           "fields": [
             {
               "fieldName": "description",
@@ -106,10 +91,7 @@
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
-              "options": [
-                "Mould",
-                "Coated Item"
-              ],
+              "options": ["Mould", "Coated Item"],
               "required": true
             },
             {
@@ -124,11 +106,8 @@
         },
         {
           "label": "File Upload",
-          "type": "file",
-          "queryPath": [
-            "projects.0.descriptions",
-            "uploadFiles"
-          ],
+          "type": "files",
+          "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "pageName": "uploadFile",
           "description": true
         }

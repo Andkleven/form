@@ -2,9 +2,12 @@ import React from "react";
 import PaperStack from "components/layout/PaperStack";
 import Paper from "components/layout/Paper";
 import FetchData from "functions/fetchData";
+import { useParams } from "react-router-dom";
 
-export default pageInfo => {
-  const { path } = pageInfo.match.params;
+// http://localhost:3000/file/dummy.png
+
+export default () => {
+  const { filename } = useParams();
   const [
     {
       response: { url },
@@ -12,7 +15,7 @@ export default pageInfo => {
       error
     },
     getImage
-  ] = FetchData(`${process.env.REACT_APP_BACKEND}/file`);
+  ] = FetchData(`${process.env.REACT_APP_BACKEND}/file/`);
 
   return (
     <PaperStack>
@@ -25,7 +28,7 @@ export default pageInfo => {
         ) : (
           <>
             <img src={url} alt="test" />
-            <button onClick={() => getImage("/" + path)}>fetch again</button>
+            <button onClick={() => getImage(filename)}>fetch again</button>
           </>
         )}
       </Paper>

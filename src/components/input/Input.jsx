@@ -19,8 +19,7 @@ import { focusNextInput } from "./functions/general";
 import TinyButton from "components/button/TinyButton";
 import MultipleFiles from "components/input/components/MultipleFiles";
 import { useSpring, animated } from "react-spring";
-
-const customLabelTypes = ["checkbox", "radio", "switch"];
+import FileInput from "components/input/components/FileInput";
 
 const InputShell = ({
   noComment,
@@ -30,9 +29,7 @@ const InputShell = ({
   documentDataDispatch,
   ...props
 }) => {
-  const BottomPart = props => {
-    return <>{props.BigButtons}</>;
-  };
+  const customLabelTypes = ["checkbox", "radio", "switch"];
 
   return !customLabelTypes.includes(props.type) ? (
     <div className={props.className} style={props.style}>
@@ -91,14 +88,14 @@ const InputShell = ({
           )}
         </div>
         {props.children}
-        <BottomPart {...props} />
+        {props.BigButtons}
       </div>
     </div>
   ) : (
     <div>
       <div className={props.tight ? "mb-0" : "mb-3"}>
         {props.children}
-        <BottomPart {...props} />
+        {props.BigButtons}
       </div>
     </div>
   );
@@ -141,8 +138,9 @@ const InputType = props => {
   } else if (props.type === "select") {
     return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {
+    return <FileInput {...props} />;
+  } else if (props.type === "files") {
     return <MultipleFiles {...props} />;
-    // return <FileInput {...props} />;
   } else {
     return <NativeInput {...props} readOnly={readOnly} />;
   }

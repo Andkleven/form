@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
@@ -14,11 +14,14 @@ import {
 } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
+import { ItemContext } from "components/contexts/ItemContext";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(null);
+
+  const { item, setItem } = useContext(ItemContext);
 
   let operatorJson = coatedItemOrMould(
     geometry,
@@ -35,9 +38,23 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
+
+  useEffect(() => {
+    if (item.id === null) {
+      console.count("setItem");
+      setItem({
+        id: fixedData ? fixedData["items"][0]["id"] : null,
+        stage: fixedData ? fixedData["items"][0]["stage"] : null,
+        name: fixedData ? fixedData["items"][0]["itemId"] : null,
+        description: null
+      });
+    }
+  });
+
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 

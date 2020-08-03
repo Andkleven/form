@@ -94,7 +94,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   // );
 
   const indent =
-    (!props.label && props.prepend && props.indent !== false) || props.indent;
+    (!props.label && !!props.prepend && props.indent !== false) || props.indent;
 
   const Label = props => {
     if (typeof props.label === "string") {
@@ -146,7 +146,9 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       return (
         <>
           <div
-            className={`d-flex justify-content-between align-items-start h-100`}
+            className={`d-flex justify-content-between align-items-start h-100 ${
+              indent && "ml-3 ml-sm-0"
+            }`}
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
@@ -166,7 +168,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     DateValue() || (
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
-          (!props.label && "ml-3 ml-sm-0") || (props.indent && "ml-3")
+          indent && "ml-3 ml-sm-0"
         }`}
       >
         <div>

@@ -10,7 +10,6 @@ import SelectSetFieldGroupData from "components/form/components/fields/SelectSet
 import { ChapterContext, documentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
 import { getRepeatNumber, isNumberAndNotNaN } from "functions/general";
-import MultipleFiles from "components/input/components/MultipleFiles";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
@@ -304,10 +303,10 @@ export default React.memo(props => {
 
   // MultipleFiles logic
   // TODO: Make functions for these variables
-  const readMf = true;
-  const onEditMf = () => {};
-  const onSubmitMf = () => {};
-  const onCancelMf = () => {};
+  // const readMf = true;
+  // const onEditMf = () => {};
+  // const onSubmitMf = () => {};
+  // const onCancelMf = () => {};
 
   return (
     <div
@@ -438,60 +437,56 @@ export default React.memo(props => {
             </DepthButton>
           ) : null}
         </>
-      ) : props.type === "file" ? (
+      ) : props.type === "files" ? (
         <>
           <Input
             {...props}
-            noComment={readMf}
-            TinyButtons={
-              readMf ? (
-                <TinyButton color="primary" onClick={onEditMf}>
-                  Edit
-                </TinyButton>
-              ) : (
-                <div className="d-none d-sm-inline">
-                  <TinyButton color="success" onClick={onSubmitMf}>
-                    Submit
-                  </TinyButton>
-                  <TinyButton color="secondary" onClick={onCancelMf}>
-                    Cancel
-                  </TinyButton>
-                </div>
-              )
-            }
-            BigButtons={
-              !readMf && (
-                <div className="d-flex d-sm-none my-1">
-                  <Button
-                    className="w-100 m-0 px-0 text-light"
-                    variant="success"
-                    onClick={onSubmitMf}
-                  >
-                    <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
-                    Submit
-                  </Button>
-                  <div className="px-1" />
-                  <Button
-                    className="w-100 m-0 px-0"
-                    variant="secondary"
-                    onClick={onCancelMf}
-                  >
-                    <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
-                    Cancel
-                  </Button>
-                </div>
-              )
-            }
+            noComment
+            // noComment={readMf}
+            // TinyButtons={
+            //   readMf ? (
+            //     <TinyButton color="primary" onClick={onEditMf}>
+            //       Edit
+            //     </TinyButton>
+            //   ) : (
+            //     <div className="d-none d-sm-inline">
+            //       <TinyButton color="success" onClick={onSubmitMf}>
+            //         Submit
+            //       </TinyButton>
+            //       <TinyButton color="secondary" onClick={onCancelMf}>
+            //         Cancel
+            //       </TinyButton>
+            //     </div>
+            //   )
+            // }
+            // BigButtons={
+            //   !readMf && (
+            //     <div className="d-flex d-sm-none my-1">
+            //       <Button
+            //         className="w-100 m-0 px-0 text-light"
+            //         variant="success"
+            //         onClick={onSubmitMf}
+            //       >
+            //         <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
+            //         Submit
+            //       </Button>
+            //       <div className="px-1" />
+            //       <Button
+            //         className="w-100 m-0 px-0"
+            //         variant="secondary"
+            //         onClick={onCancelMf}
+            //       >
+            //         <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
+            //         Cancel
+            //       </Button>
+            //     </div>
+            //   )
+            // }
             writeChapter={writeChapter.current}
             resetState={resetState}
           />
         </>
-      ) : // <MultipleFiles
-      //   {...props}
-      //   writeChapter={writeChapter.current}
-      //   resetState={resetState}
-      // />
-      null}
+      ) : null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );

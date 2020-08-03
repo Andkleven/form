@@ -79,19 +79,21 @@ export default props => {
 
       {/* Extra semi-hidden input to enable native form control for required */}
       {!props.disabled && (
-        <input
-          tabIndex={-1}
-          autoComplete="off"
-          style={{
-            opacity: 0,
-            height: 0,
-            position: "absolute",
-            width: "100%",
-            pointerEvents: "none"
-          }}
-          value={props.value}
-          required={props.required}
-        />
+        <div className="d-flex justify-content-center w-100">
+          <input
+            tabIndex={-1}
+            autoComplete="off"
+            style={{
+              opacity: 0,
+              height: 0,
+              width: "75%",
+              position: "absolute",
+              pointerEvents: "none"
+            }}
+            value={props.value}
+            required={props.required}
+          />
+        </div>
       )}
 
       {props.subtext && (

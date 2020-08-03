@@ -77,7 +77,9 @@ export default () => {
               path="/quality-control/:itemId/:geometry"
               component={QualityControl}
             />
-            <Route path="/file/:path" component={ViewFile} />
+            <Route path="/file/:filename">
+              <ViewFile />
+            </Route>
           </Switch>
         </Router>
       </ItemContext.Provider>

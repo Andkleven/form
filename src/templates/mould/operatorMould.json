@@ -133,7 +133,8 @@
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "prepend": "Image",
+              "indent": true,
+              "label": "Surface Cleanliness Image",
               "type": "file"
             },
             {
