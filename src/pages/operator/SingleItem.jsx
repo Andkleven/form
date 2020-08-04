@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
@@ -20,6 +20,7 @@ import Overview from "components/layout/Overview";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
+  const opId = useRef("SingleItem")
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   let operatorJson = coatedItemOrMould(
@@ -30,6 +31,7 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
+  console.log(data)
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -82,7 +84,7 @@ export default pageInfo => {
           </Title>
         )}
         <Form
-          componentsId={"SingleItem"}
+          componentsId={opId.current}
           document={operatorJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}

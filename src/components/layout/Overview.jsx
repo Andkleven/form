@@ -11,6 +11,7 @@ const queries = {
   project: gql`
     query($id: Int) {
       projects(id: $id) {
+        id
         data
       }
     }
@@ -18,6 +19,7 @@ const queries = {
   description: gql`
     query($id: Int) {
       descriptions(id: $id) {
+        id
         data
         items {
           itemId
@@ -28,6 +30,7 @@ const queries = {
   item: gql`
     query($id: Int) {
       items(id: $id) {
+        id
         itemId
       }
     }
@@ -146,8 +149,8 @@ export default () => {
             {MultipleItems()
               ? MultipleItems()
               : itemQuery.data
-              ? itemQuery.data.items[0].itemId
-              : "N/A"}
+                ? itemQuery.data.items[0].itemId
+                : "N/A"}
           </div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
