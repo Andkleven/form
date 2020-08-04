@@ -48,7 +48,13 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               label: "Discard and continue",
               variant: "danger",
               onClick: () => {
-                // TODO: Revert displayed value to stored value
+                documentData.documentDataDispatch({
+                  type: "add",
+                  newState: objectPath.get(props.data, props.path),
+                  path: props.path
+                });
+                chapterContext.setEditChapter(0);
+                props.setResetState(prevState => !prevState);
                 if (!display) {
                   chapterContext.setEditChapter(
                     `${props.repeatStepList}-${props.fieldName}`

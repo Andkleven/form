@@ -39,30 +39,26 @@ export default ({ setResetState, setState, state, ...props }) => {
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
-  const onChangeDate = data => {
+  const onChange = (value) => {
     addUser();
-    documentDataDispatch({ type: "add", newState: data, path: props.path });
-    setState(data);
+    documentDataDispatch({ type: "add", newState: value, path: props.path });
+    setState(value);
+  }
+
+  const onChangeDate = data => {
+    onChange(data)
   };
 
   const onChangeSelect = e => {
-    addUser();
-    documentDataDispatch({ type: "add", newState: e.value, path: props.path });
-    setState(e.value);
+    onChange(e.value)
   };
 
   const onChangeFile = value => {
-    documentDataDispatch({
-      type: "add",
-      newState: value,
-      path: props.path
-    });
-    setState(value);
+    onChange(value)
   };
 
   const onChangeInput = e => {
     let { value, type } = e.target;
-    addUser();
     let newValue = value;
     if (["checkbox", "radio", "switch"].includes(type)) {
       newValue = !objectPath.get(documentData.current, props.path, false);
@@ -78,12 +74,7 @@ export default ({ setResetState, setState, state, ...props }) => {
         }
       }
     }
-    documentDataDispatch({
-      type: "add",
-      newState: newValue,
-      path: props.path
-    });
-    setState(newValue);
+    onChange(newValue)
   };
 
   const onChangeIgnoreRequired = e => {
@@ -221,6 +212,7 @@ export default ({ setResetState, setState, state, ...props }) => {
   //   console.log("indent", props.indent);
   //   console.log("indent", props.indent);
   // }
+
   return (
     <div className={indent && "ml-3"}>
       <Input

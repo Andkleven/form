@@ -626,6 +626,11 @@ class SeenInput(InputObjectType):
     seen = graphene.String()
 
 
+class UnderCategoriesOfLeadEngineerInput(InputObjectType):
+    id = graphene.Int()
+    data = graphene.String()
+
+
 class ItemInput(InputObjectType):
     id = graphene.Int()
     itemId = graphene.String()
@@ -634,6 +639,8 @@ class ItemInput(InputObjectType):
     qr_code = graphene.String()
     repair = graphene.Boolean()
     unique = graphene.Boolean()
+
+    lead_engineers = graphene.List(UnderCategoriesOfLeadEngineerInput)
 
 
 class DescriptionInput(InputObjectType):
@@ -650,11 +657,6 @@ class ProjectInput(InputObjectType):
     lead_engineer_done = graphene.Boolean()
 
     descriptions = graphene.List(DescriptionInput)
-
-
-class UnderCategoriesOfLeadEngineerInput(InputObjectType):
-    id = graphene.Int()
-    data = graphene.String()
 
 
 class CoatingLayerInput(InputObjectType):
@@ -913,6 +915,8 @@ class LeadEngineerGraphql(graphene.Mutation):
             return query_lead_engineer
         if item_id:
             query_lead_engineer = save_method(item_id)
+            item = Item.objects.filter(id=item_id)
+            item.update(unique=True)
         elif description_id:
             for item in Item.objects.filter(description=description_id, unique=False).order_by('id'):
                 query_lead_engineer = save_method(item.id)
