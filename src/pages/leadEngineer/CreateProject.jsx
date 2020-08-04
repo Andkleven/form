@@ -178,7 +178,6 @@ export default pageInfo => {
   };
 
   const itemsDone = data => {
-    console.log(data);
     let done = true;
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {

@@ -33,6 +33,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           buttons: [
             {
               label: "Save and continue",
+              variant: "success",
               type: "submit",
               onClick: () => {
                 props.submitData(documentData.current, false);
@@ -45,6 +46,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             },
             {
               label: "Discard and continue",
+              variant: "danger",
               onClick: () => {
                 // TODO: Revert displayed value to stored value
                 if (!display) {
@@ -53,10 +55,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
                   );
                 }
               }
-            },
-            {
-              label: "Cancel",
-              onClick: () => {}
             }
           ]
         })

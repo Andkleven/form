@@ -338,6 +338,7 @@ export default React.memo(props => {
                   buttons: [
                     {
                       label: "Save and continue",
+                      variant: "success",
                       type: "submit",
                       onClick: () => {
                         props.submitData(documentData.current, false);
@@ -351,6 +352,8 @@ export default React.memo(props => {
                     },
                     {
                       label: "Discard and continue",
+                      variant: "danger",
+
                       onClick: () => {
                         documentDataDispatch({
                           type: "setState",
@@ -359,10 +362,6 @@ export default React.memo(props => {
                         setEditChapter(props.thisChapter);
                         setResetState(prevState => !prevState);
                       }
-                    },
-                    {
-                      label: "Cancel",
-                      onClick: () => {}
                     }
                   ]
                 });
@@ -386,6 +385,7 @@ export default React.memo(props => {
                     buttons: [
                       {
                         label: "Save and continue",
+                        variant: "success",
                         type: "submit",
                         onClick: () => {
                           props.submitData(documentData.current, false);
@@ -394,13 +394,10 @@ export default React.memo(props => {
                       },
                       {
                         label: "Discard and continue",
+                        variant: "danger",
                         onClick: () => {
                           cancel();
                         }
-                      },
-                      {
-                        label: "Abort",
-                        onClick: () => {}
                       }
                     ]
                   });

@@ -3,7 +3,8 @@ import React, {
   createContext,
   useLayoutEffect,
   useCallback,
-  useRef
+  useRef,
+  useEffect
 } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/query";
@@ -14,9 +15,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
 import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
-import { Prompt } from "react-router-dom";
-import { dialog, RouteGuard } from "components/Dialog";
-import history from "functions/history";
+import { RouteGuard } from "components/Dialog";
 
 const cloneDeep = require("clone-deep");
 
@@ -264,6 +263,28 @@ export default props => {
     submitData(documentData.current, true);
   };
 
+  // Unsaved changes logic for RouteGuard
+  // ____________________________________________________________
+
+  const [unsavedChanges, setUnsavedChanges] = useState(true);
+  const [unchangedData, setUnchangedData] = useState();
+
+  const fetchingComplete = false;
+
+  useEffect(() => {
+    if (fetchingComplete) {
+      setUnchangedData(documentData.current);
+    }
+    if (documentData.current !== unchangedData)
+      setUnsavedChanges(
+        JSON.stringify(documentData.current) !==
+          JSON.stringify(props.backendData)
+      );
+    console.log(unsavedChanges);
+  }, [documentData, props.backendData, unsavedChanges]);
+
+  // ____________________________________________________________
+
   return (
     <documentDataContext.Provider
       value={{ documentData, documentDataDispatch, renderFunction }}
@@ -285,21 +306,19 @@ export default props => {
         >
           <RouteGuard
             // TODO: Make `when` true when data is unsaved
-            when={
-              JSON.stringify(documentData.current) ===
-              JSON.stringify(props.backendData)
-            }
+            when={unsavedChanges}
             buttons={[
               {
                 label: "Save and continue",
+                variant: "success",
                 type: "submit",
                 onClick: () => {
-                  // TODO: Save data
                   return true;
                 }
               },
               {
                 label: "Discard and continue",
+                variant: "danger",
                 onClick: () => {
                   return true;
                 }

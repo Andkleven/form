@@ -8,10 +8,10 @@ export const DialogModal = ({
   title,
   message,
   buttons,
-  show,
-  setShow,
-  setBlock,
-  setConfirmed
+  show = true,
+  setShow = () => {},
+  setBlock = () => {},
+  setConfirmed = () => {}
 }) => {
   return (
     <Modal show={show} onHide={() => {}}>
@@ -99,6 +99,8 @@ export const RouteGuard = ({ when, ...options }) => {
  */
 export const dialog = options => {
   confirmAlert({
-    ...options
+    customUI: ({ onClose }) => {
+      return <DialogModal setShow={onClose} {...options}></DialogModal>;
+    }
   });
 };

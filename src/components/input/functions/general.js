@@ -37,7 +37,6 @@ export const focusNextInput = e => {
      * for different inputs.
      */
     if (e.key === "Enter") {
-      console.log("Is select");
       if (e.target.value) {
         skip(e, 3);
       } else {

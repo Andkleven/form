@@ -41,7 +41,6 @@ export default pageInfo => {
 
   useEffect(() => {
     if (item.id === null) {
-      console.count("setItem");
       setItem({
         id: fixedData ? fixedData["items"][0]["id"] : null,
         stage: fixedData ? fixedData["items"][0]["stage"] : null,
