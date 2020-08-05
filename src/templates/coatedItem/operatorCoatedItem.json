@@ -383,8 +383,11 @@
         }
       ]
     },
-    "coatingStep": {
-      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
+    "coatingStepLayer": {
+      "specChapter": [
+        "leadEngineers.0.vulcanizationSteps",
+        "coatingLayers"
+      ],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -534,7 +537,10 @@
       "pages": [
         {
           "pageTitle": "Vulcanization",
-          "queryPath": ["operators.0.vulcanizationOperators", ""],
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            ""
+          ],
           "fields": [
             {
               "specValueList": [

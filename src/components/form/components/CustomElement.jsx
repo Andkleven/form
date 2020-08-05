@@ -29,7 +29,7 @@ const CustomCoating = props => {
           value={`${props.repeatStepList[0] + 1} of ${
             objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
               .length
-          }`}
+            }`}
         />
       </b>
       <b>
@@ -59,58 +59,48 @@ const CustomLead = props => {
   const [toleranceMax, setToleranceMax] = useState(0);
   const [layersThickness, setLayersThickness] = useState(0);
 
-  const thickness = useCallback(
-    (data = documentData.current) => {
-      let toleranceMinTemporary = objectPath.get(
-        data,
-        "leadEngineers.0.data.toleranceMin",
-        0
-      );
-      let toleranceMaxTemporary = objectPath.get(
-        data,
-        "leadEngineers.0.data.toleranceMax",
-        0
-      );
-      let layersThicknessTemporary = 0.0;
-      let steps = objectPath.get(data, "leadEngineers.0.vulcanizationSteps");
-      if (Array.isArray(steps)) {
-        steps.forEach(step => {
-          step.coatingLayers &&
-            step.coatingLayers.forEach(coatingLayer => {
-              if (coatingLayer && coatingLayer.data.shrunkThickness) {
-                layersThicknessTemporary += Number(
-                  coatingLayer.data.shrunkThickness
-                );
-              }
-            });
-        });
-      }
-      layersThicknessTemporary = layersThicknessTemporary * 2.0;
-      setStatus(() =>
-        toleranceMinTemporary <= layersThicknessTemporary &&
+  const thickness = useCallback(() => {
+    let toleranceMinTemporary = objectPath.get(
+      documentData.current,
+      "leadEngineers.0.data.toleranceMinPercent",
+      0
+    );
+    let toleranceMaxTemporary = objectPath.get(
+      documentData.current,
+      "leadEngineers.0.data.toleranceMaxPercent",
+      0
+    );
+    let layersThicknessTemporary = 0.0;
+    let steps = objectPath.get(documentData.current, "leadEngineers.0.vulcanizationSteps");
+    if (Array.isArray(steps)) {
+      steps.forEach(step => {
+        step.coatingLayers &&
+          step.coatingLayers.forEach(coatingLayer => {
+            if (coatingLayer && coatingLayer.data.shrunkThickness) {
+              layersThicknessTemporary += Number(
+                coatingLayer.data.shrunkThickness
+              );
+            }
+          });
+      });
+    }
+    layersThicknessTemporary = layersThicknessTemporary * 2.0;
+    setStatus(() =>
+      toleranceMinTemporary <= layersThicknessTemporary &&
         layersThicknessTemporary <= toleranceMaxTemporary
-          ? "success"
-          : "warning"
-      );
-      if (toleranceMinTemporary !== toleranceMin) {
-        setToleranceMin(toleranceMinTemporary);
-      }
-      if (toleranceMaxTemporary !== toleranceMax) {
-        setToleranceMax(toleranceMaxTemporary);
-      }
-      if (layersThicknessTemporary !== layersThickness) {
-        setLayersThickness(layersThicknessTemporary);
-      }
-    },
+        ? "success"
+        : "warning"
+    );
+    setToleranceMin(toleranceMinTemporary);
+    setToleranceMax(toleranceMaxTemporary);
+    setLayersThickness(layersThicknessTemporary);
+  },
     [
       documentData,
       setStatus,
       setToleranceMin,
       setToleranceMax,
-      setLayersThickness,
-      toleranceMin,
-      toleranceMax,
-      layersThickness
+      setLayersThickness
     ]
   );
 
@@ -122,6 +112,7 @@ const CustomLead = props => {
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 
+
   if (
     props.writeChapter.current &&
     toleranceMin &&
@@ -129,17 +120,19 @@ const CustomLead = props => {
     layersThickness
   ) {
     return (
-      <Alert variant={status} className="">
-        <Alert.Heading>
-          {status === "warning" && "Uh-oh 😨"}
-          {status === "success" && "Nice 😄"}
-        </Alert.Heading>
-        <div>
-          Tolerated total rubber thickness is between <b>{toleranceMin}</b> and{" "}
-          <b>{toleranceMax}</b>, and the sum of all layer thicknesses is{" "}
-          <b>{layersThickness.toFixed(1)}</b>.
+      <div>
+        <Alert variant={status} className="">
+          <Alert.Heading>
+            {status === "warning" && "Uh-oh 😨"}
+            {status === "success" && "Nice 😄"}
+          </Alert.Heading>
+          <div>
+            Tolerated total rubber thickness is between <b>{toleranceMin}</b> and{" "}
+            <b>{toleranceMax}</b>, and the sum of all layer thicknesses is{" "}
+            <b>{layersThickness.toFixed(1)}</b>.
         </div>
-      </Alert>
+        </Alert>
+      </div>
     );
   } else {
     return null;

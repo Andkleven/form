@@ -6,7 +6,7 @@
     "primer1",
     "primer2",
     "rubberCementsBeforeCoating",
-    "coatingStep",
+    "coatingStepLayer",
     "vulcanizationStep",
     "measurementPointStep",
     "touchUp",
@@ -14,8 +14,12 @@
     "done"
   ],
   "coateditem": {
-    "actualSteelMeasurement": { "queryPath": "" },
-    "steelPreparation1": { "queryPath": "leadEngineers.0.data.mediaBlasting" },
+    "actualSteelMeasurement": {
+      "queryPath": ""
+    },
+    "steelPreparation1": {
+      "queryPath": "leadEngineers.0.data.mediaBlasting"
+    },
     "steelPreparation2": {
       "queryPath": "leadEngineers.0.data.additionalTests"
     },
@@ -28,27 +32,47 @@
     "rubberCementsBeforeCoating": {
       "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
     },
-    "coatingStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
-      "step": true
+    "coatingStepLayer": {
+      "queryPath": [
+        "leadEngineers.0.vulcanizationSteps",
+        "coatingLayers",
+        ""
+      ],
+      "step": true,
+      "layer": true
     },
     "vulcanizationStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
+      "queryPath": [
+        "leadEngineers.0.vulcanizationSteps",
+        ""
+      ],
       "step": true
     },
     "measurementPointStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
-      "editIndexList": { "0": 1 },
-      "crossroads": "coatingStep",
+      "queryPath": [
+        "leadEngineers.0.vulcanizationSteps",
+        ""
+      ],
+      "editIndexList": {
+        "0": 1
+      },
+      "crossroads": "coatingStepLayer",
       "step": true
     },
-    "touchUp": { "queryPath": "" },
-    "qualityControl": { "queryPath": "" },
-    "done": { "queryPath": "" }
+    "touchUp": {
+      "queryPath": ""
+    },
+    "qualityControl": {
+      "queryPath": ""
+    },
+    "done": {
+      "queryPath": ""
+    }
   },
-
   "mould": {
-    "steelPreparation1": { "queryPath": "leadEngineers.0.data.mediaBlasting" },
+    "steelPreparation1": {
+      "queryPath": "leadEngineers.0.data.mediaBlasting"
+    },
     "steelPreparation2": {
       "queryPath": "leadEngineers.0.data.additionalTests"
     },
@@ -61,22 +85,41 @@
     "rubberCementsBeforeCoating": {
       "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
     },
-    "coatingStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
-      "step": true
+    "coatingStepLayer": {
+      "queryPath": [
+        "leadEngineers.0.vulcanizationSteps",
+        "coatingLayers",
+        ""
+      ],
+      "step": true,
+      "layer": true
     },
     "vulcanizationStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
+      "queryPath": [
+        "leadEngineers.0.vulcanizationSteps",
+        ""
+      ],
       "step": true
     },
     "measurementPointStep": {
-      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
-      "editIndexList": { "0": 1 },
-      "crossroads": "coatingStep",
+      "queryPath": [
+        "leadEngineers.0.vulcanizationSteps",
+        ""
+      ],
+      "editIndexList": {
+        "0": 1
+      },
+      "crossroads": "coatingStepLayer",
       "step": true
     },
-    "touchUp": { "queryPath": "" },
-    "qualityControl": { "queryPath": "" },
-    "done": { "queryPath": "" }
+    "touchUp": {
+      "queryPath": ""
+    },
+    "qualityControl": {
+      "queryPath": ""
+    },
+    "done": {
+      "queryPath": ""
+    }
   }
 }

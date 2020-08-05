@@ -94,89 +94,92 @@ export default props => {
       <Fragment key={`${count}-canvas-chapterFragment`}>{chapter}</Fragment>
     ) : null;
   };
-  const runChapter = (pageInfo, thisStage = "", step = null) => {
-    if (pageInfo && pageInfo.specChapter) {
-      let numberOfChapters = findValue(
-        props.specData,
-        pageInfo.specChapter,
-        step === null ? props.repeatStepList : [step]
-      );
-      if (numberOfChapters && numberOfChapters.length) {
-        let newChapterArray = [];
-        for (let index = 0; index < numberOfChapters.length; index++) {
-          let newChapter = getNewChapter(
-            step !== null
-              ? [step, index]
-              : props.repeatStepList
-                ? [...props.repeatStepList, index]
-                : [index],
-            pageInfo
-          );
-          newChapterArray.push(
-            newChapter ? (
-              <Fragment key={`${count}-${index}-newChapterFragment`}>
-                {newChapter}
-              </Fragment>
-            ) : null
-          );
-        }
-        if (newChapterArray[newChapterArray.length - 1] === null) {
-          props.nextStage.current = false;
-        } else {
-          props.nextStage.current = true;
-        }
-        return pageInfo.chapterTitle ? (
-          <Fragment key={`${count}-${count + 1}-pageInfo-chapterTitle`}>
-            <Title big>{pageInfo.chapterTitle}</Title>
-            <Line />
-            {newChapterArray}
-          </Fragment>
-        ) : (
-            newChapterArray
-          );
-      }
-      return null;
-    } else {
-      return (
-        <Fragment key={`${count}-stageTitleSomething`}>
-          {" "}
-          {getNewChapter(
-            step !== null
-              ? props.repeatStepList
-                ? [...props.repeatStepList, step]
-                : [step]
-              : props.repeatStepList,
-            pageInfo,
-            props.document.chapterByStage,
-            thisStage
-          )}{" "}
-        </Fragment>
-      );
-    }
+  const runChapter = (pageInfo, thisStage = "", stepsList = undefined) => {
+    // if (pageInfo && pageInfo.specChapter) {
+    //   let numberOfChapters = findValue(
+    //     props.specData,
+    //     pageInfo.specChapter,
+    //     step === null ? props.repeatStepList : [step]
+    //   );
+    //   if (numberOfChapters && numberOfChapters.length) {
+    //     let newChapterArray = [];
+    //     for (let index = 0; index < numberOfChapters.length; index++) {
+    //       let newChapter = getNewChapter(
+    //         step !== null
+    //           ? [step, index]
+    //           : props.repeatStepList
+    //             ? [...props.repeatStepList, index]
+    //             : [index],
+    //         pageInfo
+    //       );
+    //       newChapterArray.push(
+    //         newChapter ? (
+    //           <Fragment key={`${count}-${index}-newChapterFragment`}>
+    //             {newChapter}
+    //           </Fragment>
+    //         ) : null
+    //       );
+    //     }
+    //     if (newChapterArray[newChapterArray.length - 1] === null) {
+    //       props.nextStage.current = false;
+    //     } else {
+    //       props.nextStage.current = true;
+    //     }
+    //     return pageInfo.chapterTitle ? (
+    //       <Fragment key={`${count}-${count + 1}-pageInfo-chapterTitle`}>
+    //         <Title big>{pageInfo.chapterTitle}</Title>
+    //         <Line />
+    //         {newChapterArray}
+    //       </Fragment>
+    //     ) : (
+    //         newChapterArray
+    //       );
+    //   }
+    //   return null;
+    // } else {
+    return (
+      <Fragment key={`${count}-stageTitleSomething`}>
+        {" "}
+        {getNewChapter(
+          stepsList !== undefined
+            ? props.repeatStepList
+              ? [...props.repeatStepList, ...stepsList]
+              : stepsList
+            : props.repeatStepList,
+          pageInfo,
+          props.document.chapterByStage,
+          thisStage
+        )}{" "}
+      </Fragment>
+    );
+    // }
   };
   const stageChapters = () => {
     let i = 0;
     let chapterBasedOnStage = [];
-    let thisStage = Object.keys(
-      stagesJson[removeSpace(props.stageType.toLowerCase())]
-    )[0];
-    let stageSplit = thisStage.split("Step");
+    let thisStage = {
+      stage: Object.keys(
+        stagesJson[removeSpace(props.stageType.toLowerCase())]
+      )[0],
+      stageWithoutNumber: Object.keys(
+        stagesJson[removeSpace(props.stageType.toLowerCase())]
+      )[0]
+    };
 
-    while (stopLoop.current === false && i < 20) {
+    while (stopLoop.current === false && i < 50) {
       chapterBasedOnStage.push(
         runChapter(
           props.document.chapters[
-          stageSplit[1] ? stageSplit[0] + "Step" : thisStage
+          thisStage["stageWithoutNumber"]
           ],
-          thisStage,
-          Number(stageSplit[1]) - 1
+          thisStage["stage"],
+          thisStage["number"]
         )
       );
-      thisStage = findNextStage(props.specData, thisStage, props.stageType);
-      stageSplit = thisStage.split("Step");
+      thisStage = findNextStage(props.specData, thisStage["stage"], props.stageType);
       if (
         !props.document.chapters[
-        stageSplit[1] ? stageSplit[0] + "Step" : thisStage
+        thisStage["stageWithoutNumber"]
         ]
       ) {
         break;

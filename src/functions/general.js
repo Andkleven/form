@@ -155,8 +155,8 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
           Array.isArray(newPath)
             ? createPath(newPath, array)
             : index === 0
-            ? `${newPath}.0`
-            : newPath
+              ? `${newPath}.0`
+              : newPath
         );
         if (field.required) {
           if (Array.isArray(dataFields)) {
@@ -271,13 +271,13 @@ export const getSubtext = (
   let minLocal = subtextMathMin
     ? Math[subtextMathMin](allData, repeatStepList)
     : min
-    ? min
-    : "";
+      ? min
+      : "";
   let maxLocal = subtextMathMax
     ? Math[subtextMathMax](allData, repeatStepList)
     : max
-    ? max
-    : "";
+      ? max
+      : "";
 
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
   let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
@@ -560,8 +560,8 @@ export function getRepeatStepList(repeatStepList, index) {
   return repeatStepList !== undefined && repeatStepList !== null
     ? [...repeatStepList, index]
     : repeatStepList
-    ? [...repeatStepList, index]
-    : [index];
+      ? [...repeatStepList, index]
+      : [index];
 }
 
 export function isLastCharacterNumber(str) {

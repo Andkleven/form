@@ -29,8 +29,8 @@ export default props => {
           batchingData[
             Array.isArray(specValueList)
               ? specValueList[specValueList.length - 1].split(".")[
-                  specValueList[specValueList.length - 1].split(".").length - 1
-                ]
+              specValueList[specValueList.length - 1].split(".").length - 1
+              ]
               : specValueList.split(".")[specValueList.split(".").length - 1]
           ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
@@ -192,7 +192,7 @@ export default props => {
                               item,
                               props.stage,
                               description.data.geometry
-                            ),
+                            )["stage"],
                             id: item.id
                           }
                         });
@@ -207,7 +207,7 @@ export default props => {
                   </div>
                 )
               }
-              // tight
+            // tight
             ></CheckInput>
 
             {/* <Form.Check
