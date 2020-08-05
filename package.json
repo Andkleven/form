@@ -56,9 +56,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "NODE_PATH=./src react-scripts build",
+    "build": "NODE_PATH=src/ react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "NODE_PATH=./src react-scripts eject",
+    "eject": "NODE_PATH=src/ react-scripts eject",
     "taiko": "taiko",
     "createUsers": "taiko ./src/auto/tasks/backend/users.js",
     "createProject": "taiko ./src/auto/tasks/testing/createProjects.js",
