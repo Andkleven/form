@@ -25,5 +25,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src", "auto", "src/auto/node_modules/general.js"]
+  "include": ["./src", "src", "auto", "src/auto/node_modules/general.js"]
 }
