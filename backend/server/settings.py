@@ -34,7 +34,8 @@ else:
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['backend.server.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['backend.server.herokuapp.com',
+                 '127.0.0.1', 'digital-coating-report.herokuapp.com']
 
 
 # Application definition
@@ -168,7 +169,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
-
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
