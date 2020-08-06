@@ -126,6 +126,8 @@ WIP...
    npm install
    ```
 
+   Follow instructions to fix vulnerabilities. You only need to to do the automatic fix - don't bother with manual reviews.
+
 1. Install all pip packages:
 
    ```console
@@ -207,20 +209,20 @@ WIP...
 
       We'll now use it to create some placeholder users.
 
-        - Windows:
+      - Windows:
 
-            To enable scripts on your system, you first have to ease up on some security.
-            [Open up PowerShell as an administrator](https://www.howtoedge.com/open-powershell-as-administrator-in-windows-10/), and run the following:
+        To enable scripts on your system, you first have to ease up on some security.
+        [Open up PowerShell as an administrator](https://www.howtoedge.com/open-powershell-as-administrator-in-windows-10/), and run the following:
 
-            ```console
-            Set-ExecutionPolicy RemoteSigned
-            ```
+        ```console
+        Set-ExecutionPolicy RemoteSigned
+        ```
 
-            Feel free to tighten up your security settings when done:
+        Feel free to tighten up your security settings when done:
 
-            ```console
-            Set-ExecutionPolicy Restricted
-            ```
+        ```console
+        Set-ExecutionPolicy Restricted
+        ```
 
       Run the `createUsers` script:
 
