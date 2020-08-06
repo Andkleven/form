@@ -18,9 +18,6 @@ import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
-import TinyButton from "components/button/TinyButton";
-import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default React.memo(props => {
   const {
@@ -75,7 +72,7 @@ export default React.memo(props => {
         fieldName: "data",
         path: `${props.path}.${
           objectPath.get(documentData.current, props.path).length
-          }`
+        }`
       });
     }
     setAddOrRemove(prevState => prevState + 1);
@@ -310,7 +307,7 @@ export default React.memo(props => {
   return (
     <div
       className={`${finalPage && "mb-5"} ${props.className}`}
-    // className={`${!props.finalChapter && ""} ${props.className}`}
+      // className={`${!props.finalChapter && ""} ${props.className}`}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (
@@ -370,43 +367,43 @@ export default React.memo(props => {
             Edit all
           </TabButton>
         ) : (
-            showCancelTab && (
-              <TabButton
-                onClick={() => {
-                  if (
-                    JSON.stringify(documentData.current) ===
-                    JSON.stringify(props.backendData)
-                  ) {
-                    cancel();
-                  } else {
-                    dialog({
-                      message: "Do you want to save your changes?",
-                      buttons: [
-                        {
-                          label: "Save and continue",
-                          variant: "success",
-                          type: "submit",
-                          onClick: () => {
-                            props.submitData(documentData.current, false);
-                            setEditChapter(0);
-                          }
-                        },
-                        {
-                          label: "Discard and continue",
-                          variant: "danger",
-                          onClick: () => {
-                            cancel();
-                          }
+          showCancelTab && (
+            <TabButton
+              onClick={() => {
+                if (
+                  JSON.stringify(documentData.current) ===
+                  JSON.stringify(props.backendData)
+                ) {
+                  cancel();
+                } else {
+                  dialog({
+                    message: "Do you want to save your changes?",
+                    buttons: [
+                      {
+                        label: "Save and continue",
+                        variant: "success",
+                        type: "submit",
+                        onClick: () => {
+                          props.submitData(documentData.current, false);
+                          setEditChapter(0);
                         }
-                      ]
-                    });
-                  }
-                }}
-              >
-                Cancel
-              </TabButton>
-            )
-          )}
+                      },
+                      {
+                        label: "Discard and continue",
+                        variant: "danger",
+                        onClick: () => {
+                          cancel();
+                        }
+                      }
+                    ]
+                  });
+                }
+              }}
+            >
+              Cancel
+            </TabButton>
+          )
+        )}
       </div>
       {showLine && <Line />}
       {props.customComponent ? (

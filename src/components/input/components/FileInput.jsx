@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "react-bootstrap";
 
@@ -53,16 +53,14 @@ export default props => {
     accept: "image/*"
   });
 
-  const style = useMemo(
-    () => ({
-      ...baseStyle,
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-      ...(isFocused ? focusedStyle : {})
-    })
-    // [isDragActive, isDragReject, isDragAccept, isFocused]
-  );
+  const style = () => ({
+    ...baseStyle,
+    ...(isDragActive ? activeStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {}),
+    ...(isFocused ? focusedStyle : {})
+  });
+  // [isDragActive, isDragReject, isDragAccept, isFocused]
 
   const deleteFile = () => {
     props.onChangeFile();

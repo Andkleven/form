@@ -180,12 +180,12 @@ export default props => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-            ? updateWithVariable
-            : update,
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
       onCompleted: props.reRender
     }
   );
@@ -231,10 +231,12 @@ export default props => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-                submit &&
-                nextStage.current &&
-                !editChapter
-                ? FindNextStage(props.specData, props.stage, props.stageType)["stage"]
+              submit &&
+              nextStage.current &&
+              !editChapter
+                ? FindNextStage(props.specData, props.stage, props.stageType)[
+                    "stage"
+                  ]
                 : props.stage
           }
         });
@@ -278,10 +280,16 @@ export default props => {
     if (documentData.current !== unchangedData)
       setUnsavedChanges(
         JSON.stringify(documentData.current) !==
-        JSON.stringify(props.backendData)
+          JSON.stringify(props.backendData)
       );
     console.log(unsavedChanges);
-  }, [documentData, props.backendData, unsavedChanges]);
+  }, [
+    documentData,
+    props.backendData,
+    unsavedChanges,
+    fetchingComplete,
+    unchangedData
+  ]);
 
   // ____________________________________________________________
 

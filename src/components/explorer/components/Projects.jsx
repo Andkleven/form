@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
 import Badge from "components/design/NotificationBadge";
 import gql from "graphql-tag";
-import LeadEngineerPage from "pages/leadEngineer/LeadEngineerPage";
 
 export default ({
   results, // Search results (JSON-object)

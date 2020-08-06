@@ -9,7 +9,7 @@ import SubmitButton from "components/button/SubmitButton";
 import CancelButton from "components/button/CancelButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButton from "components/button/DepthButton";
-import { Form, Toast } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { getStartStage } from "functions/general";
 
 export default ({ descriptionName = "description", ...props }) => {
@@ -57,6 +57,8 @@ export default ({ descriptionName = "description", ...props }) => {
   const [mutation, { error: mutationError }] = useMutation(mutations["ITEM"], {
     update: props.id ? update : create
   });
+
+  mutationError && console.log(mutationError);
 
   const [error, setError] = useState(null);
 
