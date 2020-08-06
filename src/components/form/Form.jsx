@@ -241,7 +241,9 @@ export default props => {
                 submit &&
                 nextStage.current &&
                 !editChapter
-                ? FindNextStage(props.specData, props.stage, props.stageType)["stage"]
+                ? FindNextStage(props.specData, props.stage, props.stageType)[
+                "stage"
+                ]
                 : props.stage
           }
         });
@@ -287,8 +289,14 @@ export default props => {
         JSON.stringify(documentData.current) !==
         JSON.stringify(props.backendData)
       );
-  }, [documentData, props.backendData, unsavedChanges]);
-  console.log(unsavedChanges);
+    console.log(unsavedChanges);
+  }, [
+    documentData,
+    props.backendData,
+    unsavedChanges,
+    fetchingComplete,
+    unchangedData
+  ]);
 
   // ____________________________________________________________
 

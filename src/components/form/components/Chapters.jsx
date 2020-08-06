@@ -1,14 +1,11 @@
 import React, { Fragment, useRef, useEffect, useContext } from "react";
 import {
-  findValue,
   allRequiredSatisfied,
   createPath,
   removeSpace
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
-import Line from "components/design/Line";
-import Title from "components/design/fonts/Title";
 import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
@@ -42,11 +39,11 @@ export default props => {
         ? byStage
           ? thisStage === props.stage
           : !allRequiredSatisfied(
-            pageInfo,
-            props.data,
-            repeatStepList,
-            props.specData
-          )
+              pageInfo,
+              props.data,
+              repeatStepList,
+              props.specData
+            )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -169,19 +166,17 @@ export default props => {
     while (stopLoop.current === false && i < 50) {
       chapterBasedOnStage.push(
         runChapter(
-          props.document.chapters[
-          thisStage["stageWithoutNumber"]
-          ],
+          props.document.chapters[thisStage["stageWithoutNumber"]],
           thisStage["stage"],
           thisStage["number"]
         )
       );
-      thisStage = findNextStage(props.specData, thisStage["stage"], props.stageType);
-      if (
-        !props.document.chapters[
-        thisStage["stageWithoutNumber"]
-        ]
-      ) {
+      thisStage = findNextStage(
+        props.specData,
+        thisStage["stage"],
+        props.stageType
+      );
+      if (!props.document.chapters[thisStage["stageWithoutNumber"]]) {
         break;
       }
       i++;
@@ -192,8 +187,8 @@ export default props => {
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {
-      return runChapter(pageInfo);
-    });
+        return runChapter(pageInfo);
+      });
 
   useEffect(() => {
     return () => {
