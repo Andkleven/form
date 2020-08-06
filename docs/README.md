@@ -14,7 +14,6 @@ WIP...
 - [🧪 Cross platform and user testing](#-cross-platform-and-user-testing)
   - [Local manual testing](#local-manual-testing)
   - [Remote manual testing](#remote-manual-testing)
-  - [E2E and automation](#e2e-and-automation)
 
 ## 🎓 Prerequisites
 
@@ -231,7 +230,7 @@ WIP...
 
       The automation should open up a browser and create users. If it messes up, try following the above instructions one more time and be sure to do everything you're told. If it still messes up, contact your senior(s) or any of the contributors.
 
-2. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+1. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
 
 You should now be ready for development and local testing. If not, contact your senior(s) or any of the contributors. 
 
@@ -285,22 +284,19 @@ We have two alternatives for remote testing:
    1. Open the repository in CodeSandbox  
       We recommend using chrome with this [extension](https://chrome.google.com/webstore/detail/open-in-codesandbox/jkhbnhagngalpojoeijaleemepfpefmp?hl=en).  
       Press <kbd>Open in CodeSandbox</kbd> on [GitHub](https://github.com/Andkleven/digital-coating-report-2.0)
-   2. Press <kbd>Fork</kbd>
-   3. Login to CodeSandbox on the device to test
-   4. Enter the preview address in a browser
-   5. Test away!
+   1. Press <kbd>Fork</kbd>
+   1. Login to CodeSandbox on the device to test
+   1. Enter the preview address in a browser
+   1. Test away!
 
    If you want to share the link with someone who does not have access (e.g. a lead engineer for testing a feature) you may disable privacy and the preview link will be shareable:
 
    _Warning: The sandbox will be available for everyone with the link and the source code is accessible._
 
    1. Open `Template info`
-   2. Change Privacy from `Private` to `Unlisted`  
+   1. Change Privacy from `Private` to `Unlisted`  
       _Important: Never set this to `Public`!_
-   3. Send link to recipient
-   4. Test away!
+   1. Send link to recipient
+   1. Test away!
 
    If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)).
-
-### E2E and automation
-
