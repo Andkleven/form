@@ -232,7 +232,7 @@ WIP...
 
 1. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
 
-You should now be ready for development and local testing. If not, contact your senior(s) or any of the contributors. 
+You should now be ready for development and local testing. If not, contact your senior(s) or any of the contributors. Open your browser and go to http://localhost:3000/ or http://x.x.x.x:3000/ (where x.x.x.x is your local IP address).
 
 ## 🍑 Backend
 
