@@ -121,13 +121,6 @@ WIP...
 
    1. Choose your Community Material Theme of choice (we recommend using a high contrast variant)
 
-1. Create a a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
-
-   ```env
-   FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
-   REACT_APP_BACKEND=http://127.0.0.1:8000
-   ```
-
 1. Install all node packages:
 
    ```console
@@ -156,31 +149,91 @@ WIP...
 
    1. Enter `admin` as username and password (skip email)
 
-1. Start app:
+1. Start the frontend
+
+   ```console
+   npm start
+   ```
+
+1. Find your computer's local IP address
+
+   By starting the fronted, the terminal should give you the local address like so:
+
+   ```console
+   On Your Network:  http://IPADDRESS:PORT/
+   ```
+
+   Copy the IPADDRESS.
+
+   If not, try the following:
+
+   - Windows
+
+     ```console
+     ipconfig
+     ```
+
+   - Linux and Mac
+
+     ```console
+     ifconfig
+     ```
+
+   Copy the IPv4 address of your computer.
+
+   Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section _How to find your internal IP address_ if you are having trouble.
+
+1. Create a file named `.env.development` at root, and add the following (feel free to use other tokens or backends):
+
+   ```env
+   FONTAWESOME_NPM_AUTH_TOKEN=CEFBEF8A-62EA-4EC8-A23C-890E68C06F65
+   REACT_APP_BACKEND=http://x.x.x.x:8000
+   ```
+
+   - Where x.x.x.x is your local IP address
+
+1. Start the backend:
+
+   1. Open a new terminal
 
    1. Start backend:
 
       ```console
-      python manage.py runserver
+      python manage.py runserver x.x.x.x:8000
       ```
 
-      If you are on Windows, see [E2E and automation](#e2e) first.
+      - Where x.x.x.x is your local IP address
+
+      [Taiko](https://docs.taiko.dev/) is used to perform automated tasks and end-to-end testing.
+
+      We'll now use it to create some placeholder users.
+
+        - Windows:
+
+            To enable scripts on your system, you first have to ease up on some security.
+            [Open up PowerShell as an administrator](https://www.howtoedge.com/open-powershell-as-administrator-in-windows-10/), and run the following:
+
+            ```console
+            Set-ExecutionPolicy RemoteSigned
+            ```
+
+            Feel free to tighten up your security settings when done:
+
+            ```console
+            Set-ExecutionPolicy Restricted
+            ```
 
       Run the `createUsers` script:
 
       ```console
-      npm run createProject
+      npm run createUsers
       ```
 
-   2. Open a new terminal
-
-   3. Start frontend:
-
-      ```console
-      npm start
-      ```
+      The automation should open up a browser and create users. If it messes up, try following the above instructions one more time and be sure to do everything you're told. If it still messes up, contact your senior(s) or any of the contributors.
 
 2. To commit, push and pull you need to [enter your username and email for git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+
+You should now be ready for development and local testing. If not, contact your senior(s) or any of the contributors. 
 
 ## 🍑 Backend
 
@@ -207,54 +260,6 @@ Live server is already installed if the [quick start](#-quick-tart) guide is fol
 
 _Warning: This may not work on public networks (e.g. school and work)!_
 
-1. Start the frontend
-
-   ```console
-   npm start
-   ```
-
-1. Find your computer's local IP address
-
-   The terminal should give you the local address like so:
-
-   ```console
-   On Your Network:  http://IPADDRESS:PORT/
-   ```
-
-   If not, try the following:
-
-   - Windows
-
-     ```console
-     ipconfig
-     ```
-
-   - Linux and Mac
-
-     ```console
-     ifconfig
-     ```
-
-   Copy paste the IPv4 address of your computer.
-
-   Follow this [guide](https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108) from the section _How to find your internal IP address_ if you are having trouble.
-
-1. Change the backend in your `.env.development`-file
-
-   ```env
-   REACT_APP_BACKEND=http://x.x.x.x:8000
-   ```
-
-   - Where x.x.x.x is your local IP address
-
-1. Start the backend
-
-   ```console
-   python manage.py runserver x.x.x.x:8000
-   ```
-
-   - Where x.x.x.x is your local IP address
-
 1. Open a browser on a device to connect and enter the following address (make sure it's connected to the same network as the host):
 
    ```console
@@ -264,7 +269,7 @@ _Warning: This may not work on public networks (e.g. school and work)!_
    For example:
 
    ```console
-   http://192.168.0.36:5500/
+   http://192.168.0.36:3000/
    ```
 
 ### Remote manual testing
@@ -274,44 +279,28 @@ We have two alternatives for remote testing:
 1. <a name="devServer"></a>TODO: Development server
 
 1. [CodeSandbox](https://codesandbox.io/)  
-   Warning: As of 19.06.2020, this doesn't work anymore  
+   _Warning: As of 19.06.2020, this doesn't work_  
    Note: You will need [CodeSandbox Pro](https://codesandbox.io/pricing) for this, because of privacy settings.
 
    1. Open the repository in CodeSandbox  
       We recommend using chrome with this [extension](https://chrome.google.com/webstore/detail/open-in-codesandbox/jkhbnhagngalpojoeijaleemepfpefmp?hl=en).  
       Press <kbd>Open in CodeSandbox</kbd> on [GitHub](https://github.com/Andkleven/digital-coating-report-2.0)
-   1. Press <kbd>Fork</kbd>
-   1. Login to CodeSandbox on the device to test
-   1. Enter the preview address in a browser
-   1. Test away!
+   2. Press <kbd>Fork</kbd>
+   3. Login to CodeSandbox on the device to test
+   4. Enter the preview address in a browser
+   5. Test away!
 
    If you want to share the link with someone who does not have access (e.g. a lead engineer for testing a feature) you may disable privacy and the preview link will be shareable:
 
    _Warning: The sandbox will be available for everyone with the link and the source code is accessible._
 
    1. Open `Template info`
-   1. Change Privacy from `Private` to `Unlisted`  
+   2. Change Privacy from `Private` to `Unlisted`  
       _Important: Never set this to `Public`!_
-   1. Send link to recipient
-   1. Test away!
+   3. Send link to recipient
+   4. Test away!
 
    If you want the source code to be kept secret, you can deploy directly from CodeSandbox to [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/), but we do not recommend using CodeSandbox for this (see [Development server](#devServer)).
 
 ### E2E and automation
 
-[Taiko](https://docs.taiko.dev/) is used to perform end-to-end testing.
-
-Windows:
-
-To enable scripts on your system, you first have to ease up on some security.
-[Open up PowerShell as an administrator](https://www.howtoedge.com/open-powershell-as-administrator-in-windows-10/), and run the following:
-
-```console
-Set-ExecutionPolicy RemoteSigned
-```
-
-Feel free to tighten up your security settings when done:
-
-```console
-Set-ExecutionPolicy Restricted
-```
