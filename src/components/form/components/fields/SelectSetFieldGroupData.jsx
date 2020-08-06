@@ -21,7 +21,7 @@ export default ({ addOrRemove, ...props }) => {
       // key={`${props.index}-DepthButton`}
       onClick={() => props.deleteHandler(props.index)}
       className="w-100 mt-1 mb-3"
-      // style={{ position: "relative", bottom: ".9em" }}
+    // style={{ position: "relative", bottom: ".9em" }}
     >
       Remove
     </DepthButton>
@@ -73,27 +73,27 @@ export default ({ addOrRemove, ...props }) => {
                   ).file
                 }
                 indexId={`${props.indexId}-${index}`}
-                // indent={
-                //   // props.pageTitle &&
-                //   // props.indexVariablePageTitle !== undefined
-                //   props.writeChapter && props.repeat && props.addButton
-                // }
+              // indent={
+              //   // props.pageTitle &&
+              //   // props.indexVariablePageTitle !== undefined
+              //   props.writeChapter && props.repeat && props.addButton
+              // }
               />
-              {props.delete && props.writeChapter ? (
+              {!!props.delete && !!props.writeChapter && (
                 props.repeatStartWithOneGroup ? (
-                  index ? (
+                  !!index && (
                     <DeleteButton
                       index={index}
                       deleteHandler={props.deleteHandler}
                     />
-                  ) : null
+                  )
                 ) : (
-                  <DeleteButton
-                    index={index}
-                    deleteHandler={props.deleteHandler}
-                  />
-                )
-              ) : null}
+                    <DeleteButton
+                      index={index}
+                      deleteHandler={props.deleteHandler}
+                    />
+                  )
+              )}
             </Fragment>
           );
         });

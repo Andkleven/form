@@ -124,8 +124,7 @@
               "fieldName": "surfaceCleanliness",
               "label": "Surface Cleanliness",
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "specSubtextList": "leadEngineers.0.data.surfaceCleanliness",
-              "subtext": "ISO 8501-1, Min. Sa {} (Rust grade A or B)",
+              "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
               "required": true,
               "unit": "Sa"
             },

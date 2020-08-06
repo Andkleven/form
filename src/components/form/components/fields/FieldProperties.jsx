@@ -20,8 +20,8 @@ import {
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 
-export default ({ resetState, ...props }) => {
-  const { documentData, renderFunction, documentDataDispatch } = useContext(documentDataContext);
+export default ({ ...props }) => {
+  const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
   const { editChapter } = useContext(ChapterContext);
 
   const [state, setState] = useState("");
@@ -35,6 +35,37 @@ export default ({ resetState, ...props }) => {
     return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
   }, [props.path, props.fieldName, props.type]);
 
+  const updateState = useCallback(
+    () => {
+      let documentDataState = objectPath.get(documentData.current,
+        getNewPath(),
+        null
+      )
+      if (props.path && props.fieldName && documentDataState !== null && documentDataState !== state) {
+        setState(documentDataState)
+      }
+    },
+    [props.path, props.fieldName, documentData, state, getNewPath]
+  )
+
+  useEffect(() => {
+    let resetStateRef = resetState.current
+    if (!readOnly && props.writeChapter) {
+      resetStateRef[
+        `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
+      ] = updateState;
+    }
+    return () => {
+      if (resetStateRef[
+        `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
+      ]) {
+        delete resetStateRef[
+          `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
+        ];
+      }
+    }
+  }, [updateState, props.label, props.path, props.repeatStepList, props.writeChapter, readOnly, resetState])
+
   useEffect(() => {
     if (props.path && props.fieldName) {
       let backendDate = objectPath.get(
@@ -42,30 +73,27 @@ export default ({ resetState, ...props }) => {
           ? props.backendData
           : documentData.current,
         getNewPath(),
-        ""
+        props.default === undefined ? "" : props.default
       );
-
       if (props.type === "date" || props.type === "datetime-local") {
         backendDate = backendDate ? new Date(backendDate) : null
         setState(backendDate);
         documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
-
       } else {
         setState(backendDate);
         documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
-
       }
     }
   }, [
     props.fieldName,
     documentDataDispatch,
-    resetState,
     props.path,
     props.backendData,
     setState,
     getNewPath,
     documentData,
-    props.type
+    props.type,
+    props.default
   ]);
 
   const updateReadOnly = useCallback(() => {
@@ -284,7 +312,6 @@ export default ({ resetState, ...props }) => {
       file: props.type === "file" ? props.file : null,
       indexId: `${props.indexId}-${props.index}`,
       index: props.index,
-      resetState: resetState
     };
     if (props.isSubtitle) {
       return (

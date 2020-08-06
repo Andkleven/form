@@ -24,13 +24,14 @@ const decimalTooStep = {
   9: 0.000000001
 };
 
-export default ({ setResetState, setState, state, ...props }) => {
+export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   const { documentData, documentDataDispatch } = useContext(
     documentDataContext
   );
+  console.log(documentData.current)
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -92,13 +93,13 @@ export default ({ setResetState, setState, state, ...props }) => {
   const cancelEdit = event => {
     event.persist();
     event.preventDefault();
+    setState(objectPath.get(props.data, props.path))
     documentDataDispatch({
       type: "add",
       newState: objectPath.get(props.data, props.path),
       path: props.path
     });
     setEditChapter(0);
-    setResetState(prevState => !prevState);
   };
 
   // const submitEdit = (event, data) => {
@@ -160,14 +161,6 @@ export default ({ setResetState, setState, state, ...props }) => {
     }
   };
 
-  const defaultValue = useCallback(() => {
-    return objectPath.get(
-      props.backendData,
-      props.path,
-      props.default !== undefined ? props.default : ""
-    );
-  }, [props.backendData, props.path, props.default]);
-
   useEffect(() => {
     setIgnoreRequired(
       objectPath.get(
@@ -178,30 +171,38 @@ export default ({ setResetState, setState, state, ...props }) => {
     );
   }, [setIgnoreRequired, documentData, props.path]);
 
-  useEffect(() => {
-    let newSate;
-    if (props.type === "date" || props.type === "datetime-local") {
-      let backendDate = objectPath.get(props.backendData, props.path, null);
-      newSate = backendDate ? new Date(backendDate) : null;
-    } else {
-      newSate = defaultValue();
-    }
-    setState(newSate);
-    if (newSate) {
-      documentDataDispatch({
-        type: "add",
-        newState: newSate,
-        path: props.path
-      });
-    }
-  }, [
-    setState,
-    props.path,
-    documentDataDispatch,
-    defaultValue,
-    props.backendData,
-    props.type
-  ]);
+
+  // const defaultValue = useCallback(() => {
+  //   return objectPath.get(
+  //     props.backendData,
+  //     props.path,
+  //     props.default !== undefined ? props.default : ""
+  //   );
+  // }, [props.backendData, props.path, props.default]);
+  // useEffect(() => {
+  //   let newSate;
+  //   if (props.type === "date" || props.type === "datetime-local") {
+  //     let backendDate = objectPath.get(props.backendData, props.path, null);
+  //     newSate = backendDate ? new Date(backendDate) : null;
+  //   } else {
+  //     newSate = defaultValue();
+  //   }
+  //   setState(newSate);
+  //   if (newSate) {
+  //     documentDataDispatch({
+  //       type: "add",
+  //       newState: newSate,
+  //       path: props.path
+  //     });
+  //   }
+  // }, [
+  //   setState,
+  //   props.path,
+  //   documentDataDispatch,
+  //   defaultValue,
+  //   props.backendData,
+  //   props.type
+  // ]);
   // console.log(documentData.current, props.backendData);
   const indent =
     (!props.label && props.prepend && props.indent !== false) || props.indent;

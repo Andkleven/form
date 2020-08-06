@@ -5,6 +5,7 @@ import { sumFieldInObject } from "functions/general";
 import { documentDataContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
+import math from "components/form/functions/math"
 
 const CustomCoating = props => {
   let layers = 0;
@@ -60,27 +61,16 @@ const CustomLead = props => {
   const [layersThickness, setLayersThickness] = useState(0);
 
   const thickness = useCallback(() => {
-    let toleranceMinTemporary = objectPath.get(
-      documentData.current,
-      "leadEngineers.0.data.toleranceMinPercent",
-      0
-    );
-    let toleranceMaxTemporary = objectPath.get(
-      documentData.current,
-      "leadEngineers.0.data.toleranceMaxPercent",
-      0
-    );
+    let toleranceMinTemporary = math["mathToleranceMin"](documentData.current, props.repeatStepList, 0)
+    let toleranceMaxTemporary = math["mathToleranceMax"](documentData.current, props.repeatStepList, 0)
+
     let layersThicknessTemporary = 0.0;
     let steps = objectPath.get(documentData.current, "leadEngineers.0.vulcanizationSteps");
     if (Array.isArray(steps)) {
-      steps.forEach(step => {
+      steps.forEach((step, stepIndex) => {
         step.coatingLayers &&
-          step.coatingLayers.forEach(coatingLayer => {
-            if (coatingLayer && coatingLayer.data.shrunkThickness) {
-              layersThicknessTemporary += Number(
-                coatingLayer.data.shrunkThickness
-              );
-            }
+          step.coatingLayers.forEach((coatingLayer, coatingLayerIndex) => {
+            layersThicknessTemporary += Number(math["mathShrinkThickness"](documentData.current, [stepIndex, coatingLayerIndex], 1))
           });
       });
     }
@@ -100,7 +90,8 @@ const CustomLead = props => {
       setStatus,
       setToleranceMin,
       setToleranceMax,
-      setLayersThickness
+      setLayersThickness,
+      props.repeatStepList
     ]
   );
 

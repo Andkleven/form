@@ -22,10 +22,15 @@ const cloneDeep = require("clone-deep");
 function useStore(init) {
   const state = useRef(init);
   const renderFunction = useRef({});
+  const resetState = useRef({});
   const reducer = action => {
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
+        Object.values(resetState.current)
+          .forEach(func => {
+            func();
+          });
         break;
       case "add":
         objectPath.set(
@@ -35,7 +40,9 @@ function useStore(init) {
         );
         break;
       case "delete":
+        console.log(state.current)
         objectPath.del(state.current, action.path);
+        console.log(state.current)
         break;
       default:
         throw new Error();
@@ -49,14 +56,14 @@ function useStore(init) {
     }
     return state.current;
   };
-  return [state, reducer, renderFunction];
+  return [state, reducer, renderFunction, resetState];
 }
 export const ChapterContext = createContext();
 export const documentDataContext = createContext();
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentData, documentDataDispatch, renderFunction] = useStore({});
+  const [documentData, documentDataDispatch, renderFunction, resetState] = useStore({});
   const nextStage = useRef(true);
   // const [nextStage, setNextStage] = useState(true);
   const [finalChapter, setFinalChapter] = useState(0);
@@ -280,14 +287,14 @@ export default props => {
         JSON.stringify(documentData.current) !==
         JSON.stringify(props.backendData)
       );
-    console.log(unsavedChanges);
   }, [documentData, props.backendData, unsavedChanges]);
+  console.log(unsavedChanges);
 
   // ____________________________________________________________
 
   return (
     <documentDataContext.Provider
-      value={{ documentData, documentDataDispatch, renderFunction }}
+      value={{ documentData, documentDataDispatch, renderFunction, resetState }}
     >
       <ChapterContext.Provider
         value={{

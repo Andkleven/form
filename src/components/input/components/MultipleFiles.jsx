@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useContext } from "react";
+import React, { useMemo, useState, useEffect, useContext, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
@@ -40,7 +40,7 @@ const focusedStyle = {
   color: "#f0a741"
 };
 
-export default ({ resetState, ...props }) => {
+export default ({ ...props }) => {
   const {
     getRootProps,
     getInputProps,
@@ -60,30 +60,42 @@ export default ({ resetState, ...props }) => {
     }
   });
 
-  const { documentDataDispatch } = useContext(documentDataContext);
+  const { documentDataDispatch, resetState } = useContext(documentDataContext);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setFiles([]);
   }, [props.componentsId, setFiles]);
 
+  const setBackendFiles = useCallback(
+    () => {
+      let oldFiles = objectPath.get(props.backendData, props.path);
+      if (oldFiles) {
+        oldFiles = oldFiles.map(oldFile => ({
+          ...oldFile,
+          file: {
+            name: oldFile.file.name || oldFile.file.split("/")[1]
+          }
+        }));
+        setFiles(oldFiles);
+        objectPath.set(props.backendData, props.path, cloneDeep(oldFiles));
+      }
+    },
+    [props.path, props.backendData],
+  )
+
   useEffect(() => {
-    let oldFiles = objectPath.get(props.backendData, props.path);
-    if (oldFiles) {
-      oldFiles = oldFiles.map(oldFile => ({
-        ...oldFile,
-        file: {
-          name: oldFile.file.name || oldFile.file.split("/")[1]
-        }
-      }));
-      setFiles(oldFiles);
-      objectPath.set(props.backendData, props.path, cloneDeep(oldFiles));
+    setBackendFiles()
+    let resetStateRef = resetState.current
+    resetStateRef[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`] = setBackendFiles;
+    return () => {
+      delete resetStateRef[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`];
     }
-  }, [props.path, props.backendData, resetState]);
+  }, [setBackendFiles, props.repeatStepList, props.path, props.label, resetState]);
 
   useEffect(() => {
     documentDataDispatch({ type: "add", path: props.path, newState: files });
-  }, [files, props.path, documentDataDispatch, resetState]);
+  }, [files, props.path, documentDataDispatch]);
 
   const style = useMemo(
     () => ({
@@ -158,13 +170,13 @@ export default ({ resetState, ...props }) => {
             </ul>
           </aside>
         ) : (
-          !props.writeChapter && (
-            <div className="text-secondary">
-              <FontAwesomeIcon icon="file-times" className="mr-2" />
-              <div className="d-inline">No files uploaded.</div>
-            </div>
-          )
-        )}
+            !props.writeChapter && (
+              <div className="text-secondary">
+                <FontAwesomeIcon icon="file-times" className="mr-2" />
+                <div className="d-inline">No files uploaded.</div>
+              </div>
+            )
+          )}
       </section>
     </div>
   );

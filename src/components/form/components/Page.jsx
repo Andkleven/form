@@ -29,10 +29,9 @@ export default React.memo(props => {
     editChapter,
     setEditChapter
   } = useContext(ChapterContext);
-  const { documentDataDispatch, documentData, renderFunction } = useContext(
+  const { documentDataDispatch, documentData, renderFunction, resetState } = useContext(
     documentDataContext
   );
-  const [resetState, setResetState] = useState(false);
   const [addOrRemove, setAddOrRemove] = useState(0);
   const writeChapter = useRef(false);
   useEffect(() => {
@@ -49,7 +48,6 @@ export default React.memo(props => {
 
   const addData = useCallback(
     pushOnIndex => {
-      // console.log(22);
       documentDataDispatch({
         type: "add",
         newState: {},
@@ -85,12 +83,15 @@ export default React.memo(props => {
     index => {
       documentDataDispatch({
         type: "delete",
-        path: `${props.path}.${index}`,
-        notReRender: true
+        path: `${props.path}.${index}`
       });
       setAddOrRemove(prevState => prevState + 1);
+      Object.values(resetState.current)
+        .forEach(func => {
+          func();
+        });
     },
-    [props.path, documentDataDispatch, setAddOrRemove]
+    [props.path, documentDataDispatch, setAddOrRemove, resetState]
   );
 
   // set repeatGroup
@@ -171,7 +172,9 @@ export default React.memo(props => {
   useEffect(() => {
     if (props.repeatGroupWithQuery && writeChapter.current) {
       if (!props.repeatGroupWithQuerySpecData) {
-        autoRepeat(props.backendData);
+        autoRepeat(Object.keys(documentData.current).length === 0
+          ? props.backendData
+          : documentData.current);
       } else if (props.repeatGroupWithQuerySpecData) {
         autoRepeat(props.specData);
       }
@@ -181,7 +184,8 @@ export default React.memo(props => {
     autoRepeat,
     props.specData,
     props.repeatGroupWithQuery,
-    props.repeatGroupWithQuerySpecData
+    props.repeatGroupWithQuerySpecData,
+    documentData
   ]);
 
   if (
@@ -246,7 +250,6 @@ export default React.memo(props => {
   const cancel = () => {
     documentDataDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
-    setResetState(prevState => !prevState);
   };
 
   const CancelButton = () => {
@@ -330,7 +333,6 @@ export default React.memo(props => {
                   newState: props.backendData
                 });
                 setEditChapter(props.thisChapter);
-                setResetState(prevState => !prevState);
               } else {
                 dialog({
                   message: "Do you want to save your changes?",
@@ -346,7 +348,6 @@ export default React.memo(props => {
                           newState: props.backendData
                         });
                         setEditChapter(props.thisChapter);
-                        setResetState(prevState => !prevState);
                       }
                     },
                     {
@@ -359,7 +360,6 @@ export default React.memo(props => {
                           newState: props.backendData
                         });
                         setEditChapter(props.thisChapter);
-                        setResetState(prevState => !prevState);
                       }
                     }
                   ]
@@ -418,8 +418,6 @@ export default React.memo(props => {
             {...props}
             writeChapter={writeChapter.current}
             deleteHandler={deleteHandler}
-            resetState={resetState}
-            setResetState={setResetState}
             addOrRemove={addOrRemove}
           />
           {!!props.addButton && props.repeat && writeChapter.current ? (
@@ -479,7 +477,6 @@ export default React.memo(props => {
             //   )
             // }
             writeChapter={writeChapter.current}
-            resetState={resetState}
           />
         </>
       ) : null}

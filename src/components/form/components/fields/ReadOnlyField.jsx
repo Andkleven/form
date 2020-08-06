@@ -5,7 +5,7 @@ import ReadField from "components/form/components/fields/ReadField";
 
 import "styles/styles.css";
 
-export default ({ resetState, backendData, ...props }) => {
+export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { documentData, renderFunction } = useContext(documentDataContext);
   const math = useCallback(() => {

@@ -146,17 +146,35 @@ def item(input):
             lead_engineer_copy.id = None
             lead_engineer_copy.item = item
             lead_engineer_copy.save()
+            for measurement_point_actual_tdv in MeasurementPointActualTVD.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+                measurement_point_actual_tdv_copy = deepcopy(
+                    measurement_point_actual_tdv)
+                measurement_point_actual_tdv_copy.id = None
+                measurement_point_actual_tdv_copy.lead_engineer = lead_engineer_copy
+                measurement_point_actual_tdv_copy.save()
+            for final_inspection_custom_test in FinalInspectionCustomTest.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+                final_inspection_custom_test_copy = deepcopy(
+                    final_inspection_custom_test)
+                final_inspection_custom_test_copy.id = None
+                final_inspection_custom_test_copy.lead_engineer = lead_engineer_copy
+                final_inspection_custom_test_copy.save()
+            for additional_custom_test in AdditionalCustomTest.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+                additional_custom_test_copy = deepcopy(
+                    additional_custom_test)
+                additional_custom_test_copy.id = None
+                additional_custom_test_copy.lead_engineer = lead_engineer_copy
+                additional_custom_test_copy.save()
+            for final_inspection_dimensions_check in FinalInspectionDimensionsCheck.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+                final_inspection_dimensions_check_copy = deepcopy(
+                    final_inspection_dimensions_check)
+                final_inspection_dimensions_check_copy.id = None
+                final_inspection_dimensions_check_copy.lead_engineer = lead_engineer_copy
+                final_inspection_dimensions_check_copy.save()
             for rubber_cement in RubberCement.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
                 rubber_cement_copy = deepcopy(rubber_cement)
                 rubber_cement_copy.id = None
                 rubber_cement_copy.lead_engineer = lead_engineer_copy
                 rubber_cement_copy.save()
-            for measurement_point_actual in MeasurementPointActualTVD.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                measurement_point_actual_copy = deepcopy(
-                    measurement_point_actual)
-                measurement_point_actual_copy.id = None
-                measurement_point_actual_copy.lead_engineer = lead_engineer_copy
-                measurement_point_actual_copy.save()
             for vulcanization_step in VulcanizationStep.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
                 vulcanization_step_copy = deepcopy(vulcanization_step)
                 vulcanization_step_copy.id = None
@@ -165,13 +183,13 @@ def item(input):
                 for coating_layer in CoatingLayer.objects.filter(vulcanization_step=vulcanization_step).order_by('id'):
                     coating_layer_copy = deepcopy(coating_layer)
                     coating_layer_copy.id = None
-                    coating_layer_copy.vulcanization_step = vulcanization_step
+                    coating_layer_copy.vulcanization_step = vulcanization_step_copy
                     coating_layer_copy.save()
                     for cumulative_thickness in CumulativeThickness.objects.filter(coating_layer=coating_layer).order_by('id'):
                         cumulative_thickness_copy = deepcopy(
                             cumulative_thickness)
                         cumulative_thickness_copy.id = None
-                        cumulative_thickness_copy.coating_layer = coating_layer
+                        cumulative_thickness_copy.coating_layer = coating_layer_copy
                         cumulative_thickness_copy.save()
         return item
 
