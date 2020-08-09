@@ -64,11 +64,11 @@ export default ({ addOrRemove, ...props }) => {
                 path={props.path ? `${props.path}.${index}` : null}
                 file={
                   objectPath.get(
-                    props.data,
+                    props.backendData,
                     props.path ? `${props.path}.${index}.data` : null
                   ) &&
                   objectPath.get(
-                    props.data,
+                    props.backendData,
                     props.path ? `${props.path}.${index}.data` : null
                   ).file
                 }
@@ -131,10 +131,9 @@ export default ({ addOrRemove, ...props }) => {
         {...props}
         repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
         file={
-          objectPath.get(props.data, props.path + ".0.data") &&
-          objectPath.get(props.data, props.path + ".0.data").file
+          objectPath.get(props.backendData, props.path + ".0.data") &&
+          objectPath.get(props.backendData, props.path + ".0.data").file
         }
-        // data={props.data ? props.data[0] : props.data}
         path={
           props.path
             ? isLastCharacterNumber(props.path)

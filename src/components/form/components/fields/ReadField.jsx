@@ -48,10 +48,10 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               label: "Discard and continue",
               variant: "danger",
               onClick: () => {
-                props.setState(objectPath.get(props.data, props.path))
+                props.setState(objectPath.get(props.backendData, props.path))
                 documentData.documentDataDispatch({
                   type: "add",
-                  newState: objectPath.get(props.data, props.path),
+                  newState: objectPath.get(props.backendData, props.path),
                   path: props.path
                 });
                 chapterContext.setEditChapter(0);

@@ -31,7 +31,6 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
-  console.log(data)
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -52,7 +51,7 @@ export default pageInfo => {
   });
 
   return (
-    <Canvas>
+    <Canvas showForm={!!data}>
       <Overview />
       {getAccess()["specs"] && (
         <Paper className="mb-3">

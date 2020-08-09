@@ -2,6 +2,7 @@ import json
 import ast
 from copy import deepcopy
 from graphql import GraphQLError
+import re
 
 from .models import (
     Project, Description, Item, UploadFile,
@@ -14,10 +15,61 @@ from .models import (
     HardnessQualityControl, FinalInspectionCustomTest,
     AdditionalCustomTest, FinalInspectionDimensionsCheck,
     FinalInspectionDimensionsCheckQualityControl,
-    AdditionalCustomTestOperator, Layer,
+    AdditionalCustomTestOperator, Layer, Seen,
     FinalInspectionCustomTestQualityControl,
     RubberCementOperator
 )
+models = [
+    Project, Description, Item, UploadFile,
+    LeadEngineer, CumulativeThickness,
+    VulcanizationStep, CoatingLayer, Operator,
+    CoatingOperator, MixDate, VulcanizationOperator,
+    FinalInspectionQualityControl, MeasurementPointOperator,
+    MeasurementPointQualityControl, RubberCement, UserProfile,
+    MeasurementPointActualTVD, PeelTestQualityControl,
+    HardnessQualityControl, Seen, FinalInspectionCustomTest,
+    AdditionalCustomTest, AdditionalCustomTestOperator,
+    FinalInspectionCustomTestQualityControl,
+    FinalInspectionDimensionsCheckQualityControl,
+    FinalInspectionDimensionsCheck, Layer, RubberCementOperator
+]
+
+
+def get_foreign_key(foreign_key_name):
+    foreign_keys = {}
+
+    for model in models:
+        for field in model._meta.fields:
+            if field.name == foreign_key_name:
+                model_name = str(model).split("'")[1].split(".")[-1]
+                splitted = re.sub(
+                    '([A-Z][a-z]+)', r' \1', re.sub('([A-Z]+)', r' \1', model_name)).split()
+                foreign_key = ""
+                for index, word in enumerate(splitted):
+                    if index == 0:
+                        foreign_key = word.lower()
+                    else:
+                        foreign_key = foreign_key + "_" + word.lower()
+                foreign_keys[foreign_key] = model
+    return foreign_keys
+
+
+def copy_foreign_key(foreign_key_name, new_foreign_key_model, old_foreign_key_model):
+    foreign_keys = get_foreign_key(foreign_key_name)
+    print(foreign_key_name)
+    if foreign_keys:
+        for model_string, model in foreign_keys.items():
+            print(model_string, model, 4)
+            for foreign_key in model.objects.filter(
+                    **{foreign_key_name: old_foreign_key_model}).order_by('id'):
+                foreign_key_copy = deepcopy(foreign_key)
+                foreign_key_copy.id = None
+                foreign_key_copy.save()
+                foreign_key_copy = model.objects.filter(id=foreign_key_copy.id)
+                foreign_key_copy.update(
+                    **{foreign_key_name: new_foreign_key_model.id})
+                copy_foreign_key(
+                    model_string, foreign_key_copy.get(), foreign_key)
 
 
 def get_values(input, keys):
@@ -142,55 +194,59 @@ def item(input):
         except:
             lead_engineer_first_item = False
         if lead_engineer_first_item and 0 < len(lead_engineer_first_item.data):
+
             lead_engineer_copy = deepcopy(lead_engineer_first_item)
             lead_engineer_copy.id = None
             lead_engineer_copy.item = item
             lead_engineer_copy.save()
-            for measurement_point_actual_tdv in MeasurementPointActualTVD.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                measurement_point_actual_tdv_copy = deepcopy(
-                    measurement_point_actual_tdv)
-                measurement_point_actual_tdv_copy.id = None
-                measurement_point_actual_tdv_copy.lead_engineer = lead_engineer_copy
-                measurement_point_actual_tdv_copy.save()
-            for final_inspection_custom_test in FinalInspectionCustomTest.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                final_inspection_custom_test_copy = deepcopy(
-                    final_inspection_custom_test)
-                final_inspection_custom_test_copy.id = None
-                final_inspection_custom_test_copy.lead_engineer = lead_engineer_copy
-                final_inspection_custom_test_copy.save()
-            for additional_custom_test in AdditionalCustomTest.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                additional_custom_test_copy = deepcopy(
-                    additional_custom_test)
-                additional_custom_test_copy.id = None
-                additional_custom_test_copy.lead_engineer = lead_engineer_copy
-                additional_custom_test_copy.save()
-            for final_inspection_dimensions_check in FinalInspectionDimensionsCheck.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                final_inspection_dimensions_check_copy = deepcopy(
-                    final_inspection_dimensions_check)
-                final_inspection_dimensions_check_copy.id = None
-                final_inspection_dimensions_check_copy.lead_engineer = lead_engineer_copy
-                final_inspection_dimensions_check_copy.save()
-            for rubber_cement in RubberCement.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                rubber_cement_copy = deepcopy(rubber_cement)
-                rubber_cement_copy.id = None
-                rubber_cement_copy.lead_engineer = lead_engineer_copy
-                rubber_cement_copy.save()
-            for vulcanization_step in VulcanizationStep.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
-                vulcanization_step_copy = deepcopy(vulcanization_step)
-                vulcanization_step_copy.id = None
-                vulcanization_step_copy.lead_engineer = lead_engineer_copy
-                vulcanization_step_copy.save()
-                for coating_layer in CoatingLayer.objects.filter(vulcanization_step=vulcanization_step).order_by('id'):
-                    coating_layer_copy = deepcopy(coating_layer)
-                    coating_layer_copy.id = None
-                    coating_layer_copy.vulcanization_step = vulcanization_step_copy
-                    coating_layer_copy.save()
-                    for cumulative_thickness in CumulativeThickness.objects.filter(coating_layer=coating_layer).order_by('id'):
-                        cumulative_thickness_copy = deepcopy(
-                            cumulative_thickness)
-                        cumulative_thickness_copy.id = None
-                        cumulative_thickness_copy.coating_layer = coating_layer_copy
-                        cumulative_thickness_copy.save()
+            copy_foreign_key("lead_engineer", lead_engineer_copy,
+                             lead_engineer_first_item)
+
+            # for measurement_point_actual_tdv in MeasurementPointActualTVD.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+            #     measurement_point_actual_tdv_copy = deepcopy(
+            #         measurement_point_actual_tdv)
+            #     measurement_point_actual_tdv_copy.id = None
+            #     measurement_point_actual_tdv_copy.lead_engineer = lead_engineer_copy
+            #     measurement_point_actual_tdv_copy.save()
+            # for final_inspection_custom_test in FinalInspectionCustomTest.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+            #     final_inspection_custom_test_copy = deepcopy(
+            #         final_inspection_custom_test)
+            #     final_inspection_custom_test_copy.id = None
+            #     final_inspection_custom_test_copy.lead_engineer = lead_engineer_copy
+            #     final_inspection_custom_test_copy.save()
+            # for additional_custom_test in AdditionalCustomTest.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+            #     additional_custom_test_copy = deepcopy(
+            #         additional_custom_test)
+            #     additional_custom_test_copy.id = None
+            #     additional_custom_test_copy.lead_engineer = lead_engineer_copy
+            #     additional_custom_test_copy.save()
+            # for final_inspection_dimensions_check in FinalInspectionDimensionsCheck.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+            #     final_inspection_dimensions_check_copy = deepcopy(
+            #         final_inspection_dimensions_check)
+            #     final_inspection_dimensions_check_copy.id = None
+            #     final_inspection_dimensions_check_copy.lead_engineer = lead_engineer_copy
+            #     final_inspection_dimensions_check_copy.save()
+            # for rubber_cement in RubberCement.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+            #     rubber_cement_copy = deepcopy(rubber_cement)
+            #     rubber_cement_copy.id = None
+            #     rubber_cement_copy.lead_engineer = lead_engineer_copy
+            #     rubber_cement_copy.save()
+            # for vulcanization_step in VulcanizationStep.objects.filter(lead_engineer=lead_engineer_first_item).order_by('id'):
+            #     vulcanization_step_copy = deepcopy(vulcanization_step)
+            #     vulcanization_step_copy.id = None
+            #     vulcanization_step_copy.lead_engineer = lead_engineer_copy
+            #     vulcanization_step_copy.save()
+            #     for coating_layer in CoatingLayer.objects.filter(vulcanization_step=vulcanization_step).order_by('id'):
+            #         coating_layer_copy = deepcopy(coating_layer)
+            #         coating_layer_copy.id = None
+            #         coating_layer_copy.vulcanization_step = vulcanization_step_copy
+            #         coating_layer_copy.save()
+            #         for cumulative_thickness in CumulativeThickness.objects.filter(coating_layer=coating_layer).order_by('id'):
+            #             cumulative_thickness_copy = deepcopy(
+            #                 cumulative_thickness)
+            #             cumulative_thickness_copy.id = None
+            #             cumulative_thickness_copy.coating_layer = coating_layer_copy
+            #             cumulative_thickness_copy.save()
         return item
 
 

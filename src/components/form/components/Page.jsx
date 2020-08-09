@@ -70,7 +70,7 @@ export default React.memo(props => {
         fieldName: "data",
         path: `${props.path}.${
           objectPath.get(documentData.current, props.path).length
-        }`
+          }`
       });
     }
     setAddOrRemove(prevState => prevState + 1);
@@ -203,8 +203,8 @@ export default React.memo(props => {
   if (
     props.repeatStartWithOneGroup &&
     writeChapter.current &&
-    (!objectPath.get(props.data, props.path) ||
-      objectPath.get(props.data, props.path).length === 0) &&
+    (!objectPath.get(props.backendData, props.path) ||
+      objectPath.get(props.backendData, props.path).length === 0) &&
     Array.isArray(objectPath.get(documentData.current, props.path)) &&
     objectPath.get(documentData.current, props.path).length === 0
   ) {
@@ -245,6 +245,7 @@ export default React.memo(props => {
   );
 
   const cancel = () => {
+    console.log(3)
     documentDataDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
   };
@@ -310,7 +311,7 @@ export default React.memo(props => {
   return (
     <div
       className={`${finalPage && "mb-5"} ${props.className}`}
-      // className={`${!props.finalChapter && ""} ${props.className}`}
+    // className={`${!props.finalChapter && ""} ${props.className}`}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (
@@ -325,6 +326,7 @@ export default React.memo(props => {
                 JSON.stringify(documentData.current) ===
                 JSON.stringify(props.backendData)
               ) {
+                console.log(2)
                 documentDataDispatch({
                   type: "setState",
                   newState: props.backendData
@@ -340,6 +342,8 @@ export default React.memo(props => {
                       type: "submit",
                       onClick: () => {
                         props.submitData(documentData.current, false);
+                        console.log(4)
+
                         documentDataDispatch({
                           type: "setState",
                           newState: props.backendData
@@ -352,6 +356,7 @@ export default React.memo(props => {
                       variant: "danger",
 
                       onClick: () => {
+                        console.log(5)
                         documentDataDispatch({
                           type: "setState",
                           newState: props.backendData
@@ -367,43 +372,43 @@ export default React.memo(props => {
             Edit all
           </TabButton>
         ) : (
-          showCancelTab && (
-            <TabButton
-              onClick={() => {
-                if (
-                  JSON.stringify(documentData.current) ===
-                  JSON.stringify(props.backendData)
-                ) {
-                  cancel();
-                } else {
-                  dialog({
-                    message: "Do you want to save your changes?",
-                    buttons: [
-                      {
-                        label: "Save and continue",
-                        variant: "success",
-                        type: "submit",
-                        onClick: () => {
-                          props.submitData(documentData.current, false);
-                          setEditChapter(0);
+            showCancelTab && (
+              <TabButton
+                onClick={() => {
+                  if (
+                    JSON.stringify(documentData.current) ===
+                    JSON.stringify(props.backendData)
+                  ) {
+                    cancel();
+                  } else {
+                    dialog({
+                      message: "Do you want to save your changes?",
+                      buttons: [
+                        {
+                          label: "Save and continue",
+                          variant: "success",
+                          type: "submit",
+                          onClick: () => {
+                            props.submitData(documentData.current, false);
+                            setEditChapter(0);
+                          }
+                        },
+                        {
+                          label: "Discard and continue",
+                          variant: "danger",
+                          onClick: () => {
+                            cancel();
+                          }
                         }
-                      },
-                      {
-                        label: "Discard and continue",
-                        variant: "danger",
-                        onClick: () => {
-                          cancel();
-                        }
-                      }
-                    ]
-                  });
-                }
-              }}
-            >
-              Cancel
-            </TabButton>
-          )
-        )}
+                      ]
+                    });
+                  }
+                }}
+              >
+                Cancel
+              </TabButton>
+            )
+          )}
       </div>
       {showLine && <Line />}
       {props.customComponent ? (

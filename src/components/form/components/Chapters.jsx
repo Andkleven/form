@@ -17,8 +17,6 @@ export default props => {
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
   let count = 0;
-  // let stage = stagesJson["all"][0];
-
   const getNewChapter = (
     repeatStepList,
     pageInfo,
@@ -35,15 +33,15 @@ export default props => {
     if (stopLoop.current) {
       chapter = null;
     } else {
-      let allRequiredFieldSatisfied = props.data
+      let allRequiredFieldSatisfied = props.backendData
         ? byStage
           ? thisStage === props.stage
           : !allRequiredSatisfied(
-              pageInfo,
-              props.data,
-              repeatStepList,
-              props.specData
-            )
+            pageInfo,
+            props.backendData,
+            repeatStepList,
+            props.specData
+          )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -61,23 +59,27 @@ export default props => {
           let showSubmitButton =
             index === pageInfo.pages.length - 1 ? true : false;
           return (
-            <Page
-              key={`${index}-${count}-page`}
-              {...info}
-              {...props}
-              // data={getData(info, repeatStepList, props.data)}
-              path={createPath(info.queryPath, repeatStepList)}
-              thisChapter={count + 1}
-              stopLoop={stopLoop.current}
-              showEditButton={showEditButton}
-              indexId={`${count + 1}-${index}`}
-              index={index}
-              noSaveButton={props.document.noSaveButton}
-              finalChapter={finalChapter}
-              submitData={props.submitData}
-              showSubmitButton={showSubmitButton}
-              repeatStepList={repeatStepList}
-            />
+            <>
+              {allRequiredFieldSatisfied && !editChapter && <div id="KristianAutoScroll">
+                ajskdhgalIHDFGVIUAEHGRUIFH
+              </div>}
+              <Page
+                key={`${index}-${count}-page`}
+                {...info}
+                {...props}
+                path={createPath(info.queryPath, repeatStepList)}
+                thisChapter={count + 1}
+                stopLoop={stopLoop.current}
+                showEditButton={showEditButton}
+                indexId={`${count + 1}-${index}`}
+                index={index}
+                noSaveButton={props.document.noSaveButton}
+                finalChapter={finalChapter}
+                submitData={props.submitData}
+                showSubmitButton={showSubmitButton}
+                repeatStepList={repeatStepList}
+              />
+            </>
           );
         });
       }
@@ -187,8 +189,8 @@ export default props => {
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {
-        return runChapter(pageInfo);
-      });
+      return runChapter(pageInfo);
+    });
 
   useEffect(() => {
     return () => {

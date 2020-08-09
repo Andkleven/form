@@ -9,12 +9,12 @@ export const DialogModal = ({
   message,
   buttons,
   show = true,
-  setShow = () => {},
-  setBlock = () => {},
-  setConfirmed = () => {}
+  setShow = () => { },
+  setBlock = () => { },
+  setConfirmed = () => { }
 }) => {
   return (
-    <Modal show={show} onHide={() => {}}>
+    <Modal show={show} onHide={() => { }}>
       {title && (
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>

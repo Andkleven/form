@@ -1,7 +1,6 @@
 import React, {
   useState,
   createContext,
-  useLayoutEffect,
   useCallback,
   useRef,
   useEffect
@@ -40,9 +39,7 @@ function useStore(init) {
         );
         break;
       case "delete":
-        console.log(state.current)
         objectPath.del(state.current, action.path);
-        console.log(state.current)
         break;
       default:
         throw new Error();
@@ -77,15 +74,12 @@ export default props => {
     }
   );
   // Set documentData to empty dictionary if a new component calls Form
-  useLayoutEffect(() => {
-    if (props.data) {
-      documentDataDispatch({
-        type: "setState",
-        newState: props.data
-      });
-    }
-  }, [props.componentsId, documentDataDispatch, props.data]);
-
+  if (props.data && Object.keys(documentData.current).length === 0) {
+    documentDataDispatch({
+      type: "setState",
+      newState: props.data
+    });
+  }
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -199,29 +193,8 @@ export default props => {
 
   const submitData = useCallback(
     (data, submit) => {
-      // clearTimeout(timer.current)
-      // timer.current = setTimeout(() => {
       setEditChapter(0);
       setFinalChapter(0);
-      // if (props.stage) {
-      //   console.log(
-      //     isStringInstance(props.stage) &&
-      //       submit &&
-      //       nextStage.current &&
-      //       !editChapter
-      //       ? FindNextStage(props.specData, props.stage, props.stageType)
-      //       : props.stage
-      //   );
-      //   console.log(
-      //     isStringInstance(props.stage),
-      //     submit,
-      //     nextStage.current,
-      //     !editChapter,
-      //     FindNextStage(props.specData, props.stage, props.stageType),
-      //     props.stage
-      //   );
-      // }
-
       if (documentData.current) {
         let variables = stringifyQuery(
           cloneDeep(documentData.current),
@@ -248,7 +221,6 @@ export default props => {
           }
         });
       }
-      // }, delayOnHandler)
     },
     [
       props.removeEmptyField,
@@ -289,7 +261,6 @@ export default props => {
         JSON.stringify(documentData.current) !==
         JSON.stringify(props.backendData)
       );
-    console.log(unsavedChanges);
   }, [
     documentData,
     props.backendData,
@@ -299,7 +270,6 @@ export default props => {
   ]);
 
   // ____________________________________________________________
-
   return (
     <documentDataContext.Provider
       value={{ documentData, documentDataDispatch, renderFunction, resetState }}
@@ -315,7 +285,6 @@ export default props => {
         <Title>{props.document.documentTitle}</Title>
         <Form
           onSubmit={e => {
-            // console.log(23);
             formSubmit(e);
           }}
         >

@@ -31,7 +31,6 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch } = useContext(
     documentDataContext
   );
-  console.log(documentData.current)
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -93,10 +92,10 @@ export default ({ setState, state, ...props }) => {
   const cancelEdit = event => {
     event.persist();
     event.preventDefault();
-    setState(objectPath.get(props.data, props.path))
+    setState(objectPath.get(props.backendData, props.path))
     documentDataDispatch({
       type: "add",
-      newState: objectPath.get(props.data, props.path),
+      newState: objectPath.get(props.backendData, props.path),
       path: props.path
     });
     setEditChapter(0);

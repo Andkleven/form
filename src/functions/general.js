@@ -534,6 +534,9 @@ export const reshapeStageSting = stage => {
   let newStage = stage;
   if (stage.split("Step")[1]) {
     newStage = stage.split("Step")[0] + "Step";
+    if (stage.split("Layer")[1]) {
+      newStage = newStage + "Layer"
+    }
   }
   return newStage;
 };
