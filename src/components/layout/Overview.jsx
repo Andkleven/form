@@ -149,8 +149,8 @@ export default () => {
             {MultipleItems()
               ? MultipleItems()
               : itemQuery.data
-                ? itemQuery.data.items[0].itemId
-                : "N/A"}
+              ? itemQuery.data.items[0].itemId
+              : "N/A"}
           </div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
@@ -179,7 +179,7 @@ export default () => {
     >
       <div
         style={{ height: 0, position: "relative", bottom: 0, zIndex: 1 }}
-        className="w-100"
+        className="w-100 mt-3 mt-sm-0"
       >
         <animated.div style={paperSpring}>
           <div ref={measuredRef}>
@@ -198,7 +198,7 @@ export default () => {
                   setShow(!show);
                 }}
                 style={{ height: buttonHeight, width: buttonHeight }}
-                className={`d-flex align-items-center justify-content-center`}
+                className={`d-flex align-items-center justify-content-center shadow`}
               >
                 <FontAwesomeIcon
                   icon={["fas", show ? "times" : "info"]}
