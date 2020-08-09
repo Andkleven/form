@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {
-  isMobile,
-  // isTablet,
-  isSafari,
-  isChrome,
-  isFirefox
-} from "react-device-detect";
-import Date from "components/input/components/Date";
-import Datetime from "components/input/components/Datetime";
+// import {
+// isMobile,
+// isTablet,
+// isSafari,
+// isChrome,
+// isFirefox
+// } from "react-device-detect";
+// import Date from "components/input/components/Date";
+// import Datetime from "components/input/components/Datetime";
 import NativeInput from "components/input/components/NativeInput";
 import CheckInput from "components/input/components/CheckInput";
 import SelectInput from "components/input/components/SelectInput";
