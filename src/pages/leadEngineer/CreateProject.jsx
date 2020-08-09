@@ -142,7 +142,7 @@ export default pageInfo => {
           display
           label={`Items in current description`}
           value={`${geometryData.items.length}`}
-        // noLine
+          // noLine
         />
         <ReadField
           display
@@ -150,8 +150,8 @@ export default pageInfo => {
           label={`Items in project`}
           value={`${numberOfItems}/${projectsData.totalNumberOfItems}${
             over ? ", too many items!" : ""
-            }`}
-        // noLine
+          }`}
+          // noLine
         />
       </div>
     );
@@ -172,9 +172,9 @@ export default pageInfo => {
 
   const itemsDone = data => {
     let done = true;
-    data.projects.forEach((project, projectIndex) => {
-      project.descriptions.forEach((description, descriptionIndex) => {
-        description.items.forEach((item, itemIndex) => {
+    data.projects.forEach(project => {
+      project.descriptions.forEach(description => {
+        description.items.forEach(item => {
           if (item.leadEngineers && item.leadEngineers.length === 0) {
             done = false;
           }
@@ -184,13 +184,27 @@ export default pageInfo => {
     return done;
   };
 
+  const onlyUnique = () => {
+    let onlyUnique = true;
+    data.projects.forEach(project => {
+      project.descriptions.forEach(description => {
+        description.items.forEach(item => {
+          if (!item.unique) {
+            onlyUnique = false;
+          }
+        });
+      });
+    });
+    return onlyUnique;
+  };
+
   const sent = projectExists && fixedData.projects[0].leadEngineerDone;
 
   const sendable =
-    !sent &&
     projectExists &&
+    !sent &&
     fixedData.projects[0].descriptions.length ===
-    projectsData.numberOfDescriptions &&
+      projectsData.numberOfDescriptions &&
     Number(numberOfItems) === Number(projectsData.totalNumberOfItems) &&
     itemsDone(data);
 
@@ -258,13 +272,14 @@ export default pageInfo => {
               onClick={() =>
                 history.push(
                   `/lead-engineer/${_id}/${geometryData.id}/${
-                  geometryData.items.find(item => item.unique === false).id
+                    geometryData.items.find(item => item.unique === false).id
                   }/0/${geometryData.data.geometry}`
                 )
               }
               style={{ marginBottom: 2 }}
+              disabled={onlyUnique()}
             >
-              Open all items
+              {onlyUnique() ? "All items unique" : "Open all homogenous items"}
             </DepthButton>
             <ItemList
               className="pt-1"
@@ -339,8 +354,8 @@ export default pageInfo => {
               {sent
                 ? "Sent to production"
                 : sendable
-                  ? "Send to production"
-                  : "Not ready to send"}
+                ? "Send to production"
+                : "Not ready to send"}
             </DepthButton>
           </>
         )}
