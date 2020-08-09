@@ -17,7 +17,7 @@
     "apollo-client": "^2.6.10",
     "apollo-link-context": "^1.0.20",
     "apollo-upload-client": "^12.1.0",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
     "clone-deep": "^4.0.1",
     "components": "^0.1.0",
     "dotenv": "^8.2.0",

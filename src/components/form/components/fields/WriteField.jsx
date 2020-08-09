@@ -31,7 +31,7 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch } = useContext(
     documentDataContext
   );
-  console.log(documentData.current)
+  // console.log(documentData.current)
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -40,22 +40,22 @@ export default ({ setState, state, ...props }) => {
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
-  const onChange = (value) => {
+  const onChange = value => {
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
-  }
+  };
 
   const onChangeDate = data => {
-    onChange(data)
+    onChange(data);
   };
 
   const onChangeSelect = e => {
-    onChange(e.value)
+    onChange(e.value);
   };
 
   const onChangeFile = value => {
-    onChange(value)
+    onChange(value);
   };
 
   const onChangeInput = e => {
@@ -75,7 +75,7 @@ export default ({ setState, state, ...props }) => {
         }
       }
     }
-    onChange(newValue)
+    onChange(newValue);
   };
 
   const onChangeIgnoreRequired = e => {
@@ -93,7 +93,7 @@ export default ({ setState, state, ...props }) => {
   const cancelEdit = event => {
     event.persist();
     event.preventDefault();
-    setState(objectPath.get(props.data, props.path))
+    setState(objectPath.get(props.data, props.path));
     documentDataDispatch({
       type: "add",
       newState: objectPath.get(props.data, props.path),
@@ -170,7 +170,6 @@ export default ({ setState, state, ...props }) => {
       )
     );
   }, [setIgnoreRequired, documentData, props.path]);
-
 
   // const defaultValue = useCallback(() => {
   //   return objectPath.get(

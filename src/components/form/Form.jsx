@@ -27,10 +27,9 @@ function useStore(init) {
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
-        Object.values(resetState.current)
-          .forEach(func => {
-            func();
-          });
+        Object.values(resetState.current).forEach(func => {
+          func();
+        });
         break;
       case "add":
         objectPath.set(
@@ -40,9 +39,9 @@ function useStore(init) {
         );
         break;
       case "delete":
-        console.log(state.current)
+        console.log(state.current);
         objectPath.del(state.current, action.path);
-        console.log(state.current)
+        console.log(state.current);
         break;
       default:
         throw new Error();
@@ -63,7 +62,12 @@ export const documentDataContext = createContext();
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentData, documentDataDispatch, renderFunction, resetState] = useStore({});
+  const [
+    documentData,
+    documentDataDispatch,
+    renderFunction,
+    resetState
+  ] = useStore({});
   const nextStage = useRef(true);
   // const [nextStage, setNextStage] = useState(true);
   const [finalChapter, setFinalChapter] = useState(0);
@@ -187,12 +191,12 @@ export default props => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-            ? updateWithVariable
-            : update,
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
       onCompleted: props.reRender
     }
   );
@@ -238,12 +242,12 @@ export default props => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-                submit &&
-                nextStage.current &&
-                !editChapter
+              submit &&
+              nextStage.current &&
+              !editChapter
                 ? FindNextStage(props.specData, props.stage, props.stageType)[
-                "stage"
-                ]
+                    "stage"
+                  ]
                 : props.stage
           }
         });
@@ -287,9 +291,9 @@ export default props => {
     if (documentData.current !== unchangedData)
       setUnsavedChanges(
         JSON.stringify(documentData.current) !==
-        JSON.stringify(props.backendData)
+          JSON.stringify(props.backendData)
       );
-    console.log(unsavedChanges);
+    // console.log(unsavedChanges);
   }, [
     documentData,
     props.backendData,

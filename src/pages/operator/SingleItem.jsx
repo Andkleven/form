@@ -20,7 +20,7 @@ import Overview from "components/layout/Overview";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
-  const opId = useRef("SingleItem")
+  const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   let operatorJson = coatedItemOrMould(
@@ -31,7 +31,7 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[operatorJson.query], {
     variables: { id: itemId }
   });
-  console.log(data)
+  // console.log(data)
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
