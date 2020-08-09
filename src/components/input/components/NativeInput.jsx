@@ -54,8 +54,8 @@ export default ({
               value={value}
               onChange={onChangeInput}
               onBlur={onBlur}
-              type={type !== "comment" && type}
-              as={type === "comment" ? "textarea" : undefined}
+              type={type !== "comment" ? type : ""}
+              as={type === "comment" ? "textarea" : "input"}
               style={type === "comment" ? { resize: "none" } : undefined}
               rows={type === "comment" ? "5" : undefined}
               min={min}

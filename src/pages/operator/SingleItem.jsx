@@ -20,7 +20,7 @@ import Overview from "components/layout/Overview";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
-  const opId = useRef("SingleItem")
+  const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   let operatorJson = coatedItemOrMould(

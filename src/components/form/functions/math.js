@@ -33,11 +33,7 @@ const qualityControlMeasurementPointMouldMin = (
   let toleranceMin = Number(
     mathToleranceMin(allData["items"][0], repeatStepList, 0)
   );
-  return qualityControlMeasurementPointMould(
-    allData,
-    toleranceMin,
-    1
-  );
+  return qualityControlMeasurementPointMould(allData, toleranceMin, 1);
 };
 const qualityControlMeasurementPointMouldMax = (
   allData,
@@ -47,11 +43,7 @@ const qualityControlMeasurementPointMouldMax = (
   let toleranceMax = Number(
     mathToleranceMax(allData["items"][0], repeatStepList, 0)
   );
-  return qualityControlMeasurementPointMould(
-    allData,
-    toleranceMax,
-    1
-  );
+  return qualityControlMeasurementPointMould(allData, toleranceMax, 1);
 };
 
 const qualityControlMeasurementPointCoatingItem = (
@@ -218,7 +210,7 @@ const mathToleranceMin = (values, repeatStepList, decimal) => {
   );
   return whatTooReturn(
     orderedTotalRubberThickness -
-    (orderedTotalRubberThickness * toleranceMinPercent) / 100,
+      (orderedTotalRubberThickness * toleranceMinPercent) / 100,
     decimal,
     [toleranceMinPercent, orderedTotalRubberThickness]
   );
@@ -233,7 +225,7 @@ const mathToleranceMax = (values, repeatStepList, decimal) => {
   );
   return whatTooReturn(
     orderedTotalRubberThickness +
-    (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+      (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
     decimal,
     [toleranceMaxPercent, orderedTotalRubberThickness]
   );
@@ -282,6 +274,17 @@ const mathMeasurementPointMax = (allData, data, repeatStepList) => {
   return layerThickness + (layerThickness * toleranceMaxPercent) / 100;
 };
 
+const mathPeelTest = (values, repeatStepList, decimal) => {
+  let peelTest = Number(
+    findValue(
+      values,
+      `finalInspectionQualityControls.0.peelTestQualityControls.${repeatStepList[0]}.data.peelTest`
+    )
+  );
+
+  return peelTest ? (peelTest * 9.81).toFixed(2) : null;
+};
+
 const Math = {
   mathCumulativeThickness,
   mathShrinkThickness,
@@ -293,7 +296,8 @@ const Math = {
   qualityControlMeasurementPointMouldMax,
   mathLayer,
   mathMeasurementPointMin,
-  mathMeasurementPointMax
+  mathMeasurementPointMax,
+  mathPeelTest
 };
 
 export default Math;

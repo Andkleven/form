@@ -115,8 +115,15 @@
               "fieldName": "peelTest",
               "indexVariableLabel": true,
               "required": true,
+              "unit": "kg/25mm",
               "label": "Peel Test: {}",
+              "type": "number"
+            },
+            {
+              "fieldName": "peelTestConversion",
+              "label": "Tolerated Minimum",
               "unit": "N/25mm",
+              "math": "mathPeelTest",
               "type": "number"
             }
           ]

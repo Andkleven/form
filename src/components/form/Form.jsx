@@ -26,10 +26,9 @@ function useStore(init) {
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
-        Object.values(resetState.current)
-          .forEach(func => {
-            func();
-          });
+        Object.values(resetState.current).forEach(func => {
+          func();
+        });
         break;
       case "add":
         objectPath.set(
@@ -60,7 +59,12 @@ export const documentDataContext = createContext();
 
 export default props => {
   const [editChapter, setEditChapter] = useState(0);
-  const [documentData, documentDataDispatch, renderFunction, resetState] = useStore({});
+  const [
+    documentData,
+    documentDataDispatch,
+    renderFunction,
+    resetState
+  ] = useStore({});
   const nextStage = useRef(true);
   // const [nextStage, setNextStage] = useState(true);
   const [finalChapter, setFinalChapter] = useState(0);

@@ -11,18 +11,6 @@
       "chapters": ""
     }
   },
-  "steelPreparation2": {
-    "batching": {
-      "dataPath": "operators"
-    },
-    "document": {
-      "queryPath": "operators",
-      "specQueryPath": "leadEngineers",
-      "mutation": "OPERATOR_BATCHING",
-      "query": "BATCHING_OPERATOR",
-      "chapters": ""
-    }
-  },
   "primer1": {
     "batching": {
       "dataPath": "operators"

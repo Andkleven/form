@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {
-  isMobile,
-  // isTablet,
-  isSafari,
-  isChrome,
-  isFirefox
-} from "react-device-detect";
-import Date from "components/input/components/Date";
-import Datetime from "components/input/components/Datetime";
+// import {
+// isMobile,
+// isTablet,
+// isSafari,
+// isChrome,
+// isFirefox
+// } from "react-device-detect";
+// import Date from "components/input/components/Date";
+// import Datetime from "components/input/components/Datetime";
 import NativeInput from "components/input/components/NativeInput";
 import CheckInput from "components/input/components/CheckInput";
 import SelectInput from "components/input/components/SelectInput";
@@ -121,20 +121,20 @@ const Comment = ({ onKeyPress, onChange, defaultValue, ...props }) => {
 };
 
 const InputType = props => {
-  const isDateRelated = ["date", "datetime-local"].includes(props.type);
-  const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
-  const isDesktop = !isMobile;
-  const useCustomDate = isDateRelated & hasBadCalendar & isDesktop;
+  // const isDateRelated = ["date", "datetime-local"].includes(props.type);
+  // const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
+  // const isDesktop = !isMobile;
+  // const useCustomDate = isDateRelated & hasBadCalendar & isDesktop;
   const readOnly = props.readOnlyFields ? props.readOnlyFields : props.readOnly;
   const disabled = readOnly;
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return <CheckInput {...props} />;
-  } else if (useCustomDate) {
-    if (props.type === "date") {
-      return <Date {...props} />;
-    } else if (props.type === "datetime-local") {
-      return <Datetime {...props} readOnly={readOnly} />;
-    }
+    // } else if (useCustomDate) {
+    //   if (props.type === "date") {
+    //     return <Date {...props} />;
+    //   } else if (props.type === "datetime-local") {
+    //     return <Datetime {...props} readOnly={readOnly} />;
+    //   }
   } else if (props.type === "select") {
     return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {

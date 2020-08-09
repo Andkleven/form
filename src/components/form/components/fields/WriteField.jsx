@@ -39,22 +39,22 @@ export default ({ setState, state, ...props }) => {
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
-  const onChange = (value) => {
+  const onChange = value => {
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
-  }
+  };
 
   const onChangeDate = data => {
-    onChange(data)
+    onChange(data);
   };
 
   const onChangeSelect = e => {
-    onChange(e.value)
+    onChange(e.value);
   };
 
   const onChangeFile = value => {
-    onChange(value)
+    onChange(value);
   };
 
   const onChangeInput = e => {
@@ -74,7 +74,7 @@ export default ({ setState, state, ...props }) => {
         }
       }
     }
-    onChange(newValue)
+    onChange(newValue);
   };
 
   const onChangeIgnoreRequired = e => {
@@ -169,7 +169,6 @@ export default ({ setState, state, ...props }) => {
       )
     );
   }, [setIgnoreRequired, documentData, props.path]);
-
 
   // const defaultValue = useCallback(() => {
   //   return objectPath.get(
