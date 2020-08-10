@@ -23,6 +23,7 @@ export default props => {
     byStage = false,
     thisStage = ""
   ) => {
+
     let chapter; // new chapter to add to document
     let allRequiredFieldSatisfied = false
     if (
@@ -122,7 +123,6 @@ export default props => {
       stage: stageList[0],
       stageWithoutNumber: stageList[0]
     };
-    stopLoop.current = false;
     while (stopLoop.current === false && i < 50) {
       if (props.document.chapters[thisStage["stageWithoutNumber"]]) {
         chapterBasedOnStage.push(
@@ -150,18 +150,13 @@ export default props => {
     }
     return chapterBasedOnStage;
   };
-
+  stopLoop.current = false;
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {
       return runChapter(pageInfo);
     });
 
-  useEffect(() => {
-    return () => {
-      stopLoop.current = false;
-    };
-  });
   return (
     <>
       {props.document.chapterByStage
