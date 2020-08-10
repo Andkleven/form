@@ -9,6 +9,7 @@ import findNextStage from "components/form/stage/findNextStage.ts";
 import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
+import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
@@ -25,7 +26,7 @@ export default props => {
   ) => {
 
     let chapter; // new chapter to add to document
-    let allRequiredFieldSatisfied = false
+    let allRequiredFieldSatisfied = false;
     if (
       (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
       !finalChapter
@@ -39,11 +40,11 @@ export default props => {
         ? byStage
           ? thisStage === props.stage
           : !allRequiredSatisfied(
-            pageInfo,
-            props.backendData,
-            repeatStepList,
-            props.specData
-          )
+              pageInfo,
+              props.backendData,
+              repeatStepList,
+              props.specData
+            )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -88,9 +89,7 @@ export default props => {
     count += 1;
     return chapter ? (
       <Fragment key={`${count}-canvas-chapterFragment`}>
-        {allRequiredFieldSatisfied && !editChapter && <div id="KristianAutoScroll">
-          ajskdhgalIHDFGVIUAEHGRUIFH
-              </div>}
+        {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
         {chapter}
       </Fragment>
     ) : null;
@@ -118,7 +117,7 @@ export default props => {
     let chapterBasedOnStage = [];
     let stageList = Object.keys(
       stagesJson[removeSpace(props.stageType.toLowerCase())]
-    )
+    );
     let thisStage = {
       stage: stageList[0],
       stageWithoutNumber: stageList[0]
@@ -140,7 +139,7 @@ export default props => {
       );
 
       if (thisStage["stageWithoutNumber"] === stageList[stageList.length - 1]) {
-        break
+        break;
       }
       // if (!props.document.chapters[thisStage["stageWithoutNumber"]]) {
       //   console.log(thisStage["stageWithoutNumber"])
@@ -154,8 +153,8 @@ export default props => {
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {
-      return runChapter(pageInfo);
-    });
+        return runChapter(pageInfo);
+      });
 
   return (
     <>

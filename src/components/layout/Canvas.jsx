@@ -7,7 +7,9 @@ export default ({ showForm, ...props }) => {
   return (
     <div className="content">
       <Header />
-      {!!(showForm === undefined || showForm) && <Container className="p-0 mt-n3 mt-sm-0">{props.children}</Container>}
+      {!!(showForm === undefined || showForm) && (
+        <Container className="p-0 mt-n3 mt-sm-0">{props.children}</Container>
+      )}
       <Footer className="d-none d-sm-inline" />
     </div>
   );

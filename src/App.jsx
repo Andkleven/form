@@ -13,7 +13,6 @@ import SingleItem from "./pages/operator/SingleItem";
 import ViewFile from "components/ViewFile";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
-
 import "styles/icons";
 
 export default () => {

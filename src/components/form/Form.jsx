@@ -185,12 +185,12 @@ export default props => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-            ? updateWithVariable
-            : update,
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
       onCompleted: props.reRender
     }
   );
@@ -225,12 +225,12 @@ export default props => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-                submit &&
-                nextStage.current &&
-                !editChapter
+              submit &&
+              nextStage.current &&
+              !editChapter
                 ? FindNextStage(props.specData, props.stage, props.stageType)[
-                "stage"
-                ]
+                    "stage"
+                  ]
                 : props.stage
           }
         });
@@ -273,7 +273,7 @@ export default props => {
     if (documentData.current !== unchangedData)
       setUnsavedChanges(
         JSON.stringify(documentData.current) !==
-        JSON.stringify(props.backendData)
+          JSON.stringify(props.backendData)
       );
   }, [
     documentData,
@@ -287,7 +287,12 @@ export default props => {
   if (props.data) {
     return (
       <documentDataContext.Provider
-        value={{ documentData, documentDataDispatch, renderFunction, resetState }}
+        value={{
+          documentData,
+          documentDataDispatch,
+          renderFunction,
+          resetState
+        }}
       >
         <ChapterContext.Provider
           value={{
@@ -342,6 +347,6 @@ export default props => {
       </documentDataContext.Provider>
     );
   } else {
-    return null
+    return null;
   }
 };
