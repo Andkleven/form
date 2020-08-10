@@ -1178,9 +1178,10 @@ class FinalInspectionQualityControlGraphql(graphene.Mutation):
         final_inspection_quality_controls = graphene.List(
             FinalInspectionQualityControlInput)
         item_id = graphene.Int()
+        stage = graphene.String()
 
     @staticmethod
-    def mutate(root, info, final_inspection_quality_controls=None, item_id=None):
+    def mutate(root, info, stage=None, final_inspection_quality_controls=None, item_id=None):
 
         def delete(queryset, input_id):
             for i in range(queryset.count()-1, len(input_id)-1, -1):
@@ -1247,7 +1248,8 @@ class FinalInspectionQualityControlGraphql(graphene.Mutation):
                 for upload_file in final_inspection_quality_control["upload_files"]:
                     _ = save.upload_file(upload_file, FinalInspectionQualityControl,
                                          'final_inspection_quality_control', query_final_inspection_quality_control)
-
+            if stage:
+                item.update(stage=stage)
         return FinalInspectionQualityControlGraphql(new=query_final_inspection_quality_control)
 
 

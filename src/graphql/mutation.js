@@ -251,10 +251,12 @@ const QUALITY_CONTROL = gql`
   mutation finalInspectionQualityControls(
     $finalInspectionQualityControls: [FinalInspectionQualityControlInput]
     $itemId: Int
+    $stage: String
   ) {
     finalInspectionQualityControls(
       finalInspectionQualityControls: $finalInspectionQualityControls
       itemId: $itemId
+      stage: $stage
     ) {
       new {
         item {

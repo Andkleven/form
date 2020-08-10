@@ -1,10 +1,12 @@
 {
-  "queryPath": "finalInspectionQualityControls",
+  "queryPath": "items.0.finalInspectionQualityControls",
   "specQueryPath": "items.0.leadEngineers",
   "mutation": "QUALITY_CONTROL",
+  "chapterByStage": true,
   "query": "QUALITY_CONTROL",
-  "chapters": [
-    {
+  "chapters": {
+    "qualityControl": {
+      "queryPath": "finalInspectionQualityControls",
       "pages": [
         {
           "pageTitle": "Final Inspection",
@@ -190,5 +192,5 @@
         }
       ]
     }
-  ]
+  }
 }
