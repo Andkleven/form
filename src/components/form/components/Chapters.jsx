@@ -9,6 +9,7 @@ import findNextStage from "components/form/stage/findNextStage.ts";
 import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
+import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
@@ -24,7 +25,7 @@ export default props => {
     thisStage = ""
   ) => {
     let chapter; // new chapter to add to document
-    let allRequiredFieldSatisfied = false
+    let allRequiredFieldSatisfied = false;
     if (
       (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
       !finalChapter
@@ -38,11 +39,11 @@ export default props => {
         ? byStage
           ? thisStage === props.stage
           : !allRequiredSatisfied(
-            pageInfo,
-            props.backendData,
-            repeatStepList,
-            props.specData
-          )
+              pageInfo,
+              props.backendData,
+              repeatStepList,
+              props.specData
+            )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -87,9 +88,7 @@ export default props => {
     count += 1;
     return chapter ? (
       <Fragment key={`${count}-canvas-chapterFragment`}>
-        {allRequiredFieldSatisfied && !editChapter && <div id="KristianAutoScroll">
-          ajskdhgalIHDFGVIUAEHGRUIFH
-              </div>}
+        {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
         {chapter}
       </Fragment>
     ) : null;
@@ -113,8 +112,8 @@ export default props => {
     // }
   };
   const stageChapters = () => {
-    console.log(props)
-    console.log(stopLoop.current)
+    // console.log(props);
+    // console.log(stopLoop.current);
     let i = 0;
     let chapterBasedOnStage = [];
     let thisStage = {
@@ -135,7 +134,7 @@ export default props => {
           thisStage["number"]
         )
       );
-      console.log(chapterBasedOnStage)
+      // console.log(chapterBasedOnStage);
       thisStage = findNextStage(
         props.specData,
         thisStage["stage"],
@@ -146,19 +145,19 @@ export default props => {
       }
       i++;
     }
-    console.log(chapterBasedOnStage)
+    // console.log(chapterBasedOnStage);
     return chapterBasedOnStage;
   };
 
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
     : props.document.chapters.map(pageInfo => {
-      return runChapter(pageInfo);
-    });
+        return runChapter(pageInfo);
+      });
 
   useEffect(() => {
     return () => {
-      console.log(1234)
+      // console.log(1234);
       stopLoop.current = false;
     };
   });
