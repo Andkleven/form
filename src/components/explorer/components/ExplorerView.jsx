@@ -116,7 +116,7 @@ export default ({ view = "items", ...props }) => {
     />
   );
 
-  const standard = {
+  const filterStandard = {
     simple: Search,
     advanced: (
       <>
@@ -127,22 +127,24 @@ export default ({ view = "items", ...props }) => {
   };
 
   const filterConfig = {
-    default: standard,
-    admin: standard,
-    quality: standard,
-    lead: standard,
-    supervisor: standard,
-    operator: {
+    DEFAULT: filterStandard,
+    ADMIN: filterStandard,
+    QUALITY: filterStandard,
+    LEAD: filterStandard,
+    SUPERVISOR: filterStandard,
+    OPERATOR: {
       simple: (
         <>
           {Stage}
-          {Type}
+          {Search}
         </>
       )
     },
-    offsite: standard,
-    spectator: standard
+    OFFSITE: filterStandard,
+    SPECTATOR: filterStandard
   };
+
+  console.log(user.role);
 
   // console.log("data", props.data);
   // console.log("results", results);
@@ -150,41 +152,43 @@ export default ({ view = "items", ...props }) => {
 
   return (
     <>
-      {(!!filterConfig[user.role.toLowerCase()].simple ||
-        !!filterConfig[user.role.toLowerCase()].advanced) && (
+      {(!!filterConfig[user.role]["simple"] ||
+        !!filterConfig[user.role]["advanced"]) && (
         <div className="mb-3">
           <form id="filterForm">
-            {filterConfig[user.role.toLowerCase()].simple}
-            {!!filterConfig[user.role.toLowerCase()].advanced && (
+            {filterConfig[user.role]["simple"]}
+            {!!filterConfig[user.role]["advanced"] && (
               <>
                 <div hidden={!showAdvanced}>
-                  {filterConfig[user.role.toLowerCase()].advanced}
+                  {filterConfig[user.role]["advanced"]}
                 </div>
-                <DarkButton
-                  onClick={() => {
-                    setShowAdvanced(!showAdvanced);
-                    showAdvanced && clearAll();
-                  }}
-                  className="mb-1"
-                >
-                  <FontAwesomeIcon
-                    icon={["fas", showAdvanced ? "caret-up" : "caret-down"]}
-                    className="mr-2"
-                  />
-                  {`${showAdvanced ? "Hide" : "Show"} advanced search`}
-                </DarkButton>
-                <DarkButton
-                  onClick={() => {
-                    clearAll();
-                  }}
-                  className="mb-1"
-                >
-                  <FontAwesomeIcon
-                    icon={["fas", "trash-alt"]}
-                    className="mr-2"
-                  />
-                  Clear all filters
-                </DarkButton>
+                <div className="d-sm-flex">
+                  <DarkButton
+                    onClick={() => {
+                      setShowAdvanced(!showAdvanced);
+                      showAdvanced && clearAll();
+                    }}
+                    className="mb-1"
+                  >
+                    <FontAwesomeIcon
+                      icon={["fas", showAdvanced ? "caret-up" : "caret-down"]}
+                      className="mr-2"
+                    />
+                    {`${showAdvanced ? "Hide" : "Show"} advanced search`}
+                  </DarkButton>
+                  <DarkButton
+                    onClick={() => {
+                      clearAll();
+                    }}
+                    className="mb-1"
+                  >
+                    <FontAwesomeIcon
+                      icon={["fas", "trash-alt"]}
+                      className="mr-2"
+                    />
+                    Clear all filters
+                  </DarkButton>
+                </div>
               </>
             )}
           </form>
