@@ -28,7 +28,7 @@ export default props => {
   // const placeholder = props.custom
   //   ? props.placeholder || "Select or type..."
   //   : props.placeholder || "Select...";
-  const placeholder = "Select or type...";
+  const placeholder = props.placeholder || "Select or type...";
 
   options.unshift({
     value: "",
@@ -61,7 +61,12 @@ export default props => {
       }
     }),
     value: {
-      label: props.value ? camelCaseToNormal(props.value) : placeholder
+      label:
+        props.value && props.placeholder && !props.label && !props.prepend
+          ? `${props.placeholder}: ${camelCaseToNormal(props.value)}`
+          : props.value
+          ? camelCaseToNormal(props.value)
+          : placeholder
     },
     isSearchable: true,
     placeholder: placeholder,
