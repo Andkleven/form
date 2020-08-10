@@ -24,6 +24,7 @@ export default props => {
     thisStage = ""
   ) => {
     let chapter; // new chapter to add to document
+    let allRequiredFieldSatisfied = false
     if (
       (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
       !finalChapter
@@ -33,7 +34,7 @@ export default props => {
     if (stopLoop.current) {
       chapter = null;
     } else {
-      let allRequiredFieldSatisfied = props.backendData
+      allRequiredFieldSatisfied = props.backendData
         ? byStage
           ? thisStage === props.stage
           : !allRequiredSatisfied(
@@ -59,27 +60,22 @@ export default props => {
           let showSubmitButton =
             index === pageInfo.pages.length - 1 ? true : false;
           return (
-            <>
-              {allRequiredFieldSatisfied && !editChapter && <div id="KristianAutoScroll">
-                ajskdhgalIHDFGVIUAEHGRUIFH
-              </div>}
-              <Page
-                key={`${index}-${count}-page`}
-                {...info}
-                {...props}
-                path={createPath(info.queryPath, repeatStepList)}
-                thisChapter={count + 1}
-                stopLoop={stopLoop.current}
-                showEditButton={showEditButton}
-                indexId={`${count + 1}-${index}`}
-                index={index}
-                noSaveButton={props.document.noSaveButton}
-                finalChapter={finalChapter}
-                submitData={props.submitData}
-                showSubmitButton={showSubmitButton}
-                repeatStepList={repeatStepList}
-              />
-            </>
+            <Page
+              key={`${index}-${count}-page`}
+              {...info}
+              {...props}
+              path={createPath(info.queryPath, repeatStepList)}
+              thisChapter={count + 1}
+              stopLoop={stopLoop.current}
+              showEditButton={showEditButton}
+              indexId={`${count + 1}-${index}`}
+              index={index}
+              noSaveButton={props.document.noSaveButton}
+              finalChapter={finalChapter}
+              submitData={props.submitData}
+              showSubmitButton={showSubmitButton}
+              repeatStepList={repeatStepList}
+            />
           );
         });
       }
@@ -90,52 +86,15 @@ export default props => {
     }
     count += 1;
     return chapter ? (
-      <Fragment key={`${count}-canvas-chapterFragment`}>{chapter}</Fragment>
+      <Fragment key={`${count}-canvas-chapterFragment`}>
+        {allRequiredFieldSatisfied && !editChapter && <div id="KristianAutoScroll">
+          ajskdhgalIHDFGVIUAEHGRUIFH
+              </div>}
+        {chapter}
+      </Fragment>
     ) : null;
   };
   const runChapter = (pageInfo, thisStage = "", stepsList = undefined) => {
-    // if (pageInfo && pageInfo.specChapter) {
-    //   let numberOfChapters = findValue(
-    //     props.specData,
-    //     pageInfo.specChapter,
-    //     step === null ? props.repeatStepList : [step]
-    //   );
-    //   if (numberOfChapters && numberOfChapters.length) {
-    //     let newChapterArray = [];
-    //     for (let index = 0; index < numberOfChapters.length; index++) {
-    //       let newChapter = getNewChapter(
-    //         step !== null
-    //           ? [step, index]
-    //           : props.repeatStepList
-    //             ? [...props.repeatStepList, index]
-    //             : [index],
-    //         pageInfo
-    //       );
-    //       newChapterArray.push(
-    //         newChapter ? (
-    //           <Fragment key={`${count}-${index}-newChapterFragment`}>
-    //             {newChapter}
-    //           </Fragment>
-    //         ) : null
-    //       );
-    //     }
-    //     if (newChapterArray[newChapterArray.length - 1] === null) {
-    //       props.nextStage.current = false;
-    //     } else {
-    //       props.nextStage.current = true;
-    //     }
-    //     return pageInfo.chapterTitle ? (
-    //       <Fragment key={`${count}-${count + 1}-pageInfo-chapterTitle`}>
-    //         <Title big>{pageInfo.chapterTitle}</Title>
-    //         <Line />
-    //         {newChapterArray}
-    //       </Fragment>
-    //     ) : (
-    //         newChapterArray
-    //       );
-    //   }
-    //   return null;
-    // } else {
     return (
       <Fragment key={`${count}-stageTitleSomething`}>
         {" "}
@@ -154,6 +113,8 @@ export default props => {
     // }
   };
   const stageChapters = () => {
+    console.log(props)
+    console.log(stopLoop.current)
     let i = 0;
     let chapterBasedOnStage = [];
     let thisStage = {
@@ -164,6 +125,7 @@ export default props => {
         stagesJson[removeSpace(props.stageType.toLowerCase())]
       )[0]
     };
+    stopLoop.current = false;
 
     while (stopLoop.current === false && i < 50) {
       chapterBasedOnStage.push(
@@ -173,6 +135,7 @@ export default props => {
           thisStage["number"]
         )
       );
+      console.log(chapterBasedOnStage)
       thisStage = findNextStage(
         props.specData,
         thisStage["stage"],
@@ -183,6 +146,7 @@ export default props => {
       }
       i++;
     }
+    console.log(chapterBasedOnStage)
     return chapterBasedOnStage;
   };
 
@@ -194,6 +158,7 @@ export default props => {
 
   useEffect(() => {
     return () => {
+      console.log(1234)
       stopLoop.current = false;
     };
   });

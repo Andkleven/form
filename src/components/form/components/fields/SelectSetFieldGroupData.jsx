@@ -14,7 +14,6 @@ import DepthButton from "components/button/DepthButton";
 
 export default ({ addOrRemove, ...props }) => {
   const { documentData } = useContext(documentDataContext);
-
   const DeleteButton = props => (
     <DepthButton
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}

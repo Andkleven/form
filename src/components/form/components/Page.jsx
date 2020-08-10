@@ -210,7 +210,6 @@ export default React.memo(props => {
   ) {
     addData(0);
   }
-
   const Components = CustomComponents[props.customComponent];
 
   const SubmitButton = () => {
@@ -245,7 +244,6 @@ export default React.memo(props => {
   );
 
   const cancel = () => {
-    console.log(3)
     documentDataDispatch({ type: "setState", newState: props.backendData });
     setEditChapter(0);
   };
@@ -326,7 +324,6 @@ export default React.memo(props => {
                 JSON.stringify(documentData.current) ===
                 JSON.stringify(props.backendData)
               ) {
-                console.log(2)
                 documentDataDispatch({
                   type: "setState",
                   newState: props.backendData
@@ -342,7 +339,6 @@ export default React.memo(props => {
                       type: "submit",
                       onClick: () => {
                         props.submitData(documentData.current, false);
-                        console.log(4)
 
                         documentDataDispatch({
                           type: "setState",
@@ -356,7 +352,6 @@ export default React.memo(props => {
                       variant: "danger",
 
                       onClick: () => {
-                        console.log(5)
                         documentDataDispatch({
                           type: "setState",
                           newState: props.backendData

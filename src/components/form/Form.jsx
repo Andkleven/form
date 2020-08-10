@@ -274,60 +274,64 @@ export default props => {
   ]);
 
   // ____________________________________________________________
-  return (
-    <documentDataContext.Provider
-      value={{ documentData, documentDataDispatch, renderFunction, resetState }}
-    >
-      <ChapterContext.Provider
-        value={{
-          finalChapter,
-          setFinalChapter,
-          editChapter,
-          setEditChapter
-        }}
+  if (props.data) {
+    return (
+      <documentDataContext.Provider
+        value={{ documentData, documentDataDispatch, renderFunction, resetState }}
       >
-        <Title>{props.document.documentTitle}</Title>
-        <Form
-          onSubmit={e => {
-            formSubmit(e);
+        <ChapterContext.Provider
+          value={{
+            finalChapter,
+            setFinalChapter,
+            editChapter,
+            setEditChapter
           }}
         >
-          <RouteGuard
-            // TODO: Make `when` true when data is unsaved
-            when={unsavedChanges}
-            buttons={[
-              {
-                label: "Save and continue",
-                variant: "success",
-                type: "submit",
-                onClick: () => {
-                  return true;
+          <Title>{props.document.documentTitle}</Title>
+          <Form
+            onSubmit={e => {
+              formSubmit(e);
+            }}
+          >
+            <RouteGuard
+              // TODO: Make `when` true when data is unsaved
+              when={unsavedChanges}
+              buttons={[
+                {
+                  label: "Save and continue",
+                  variant: "success",
+                  type: "submit",
+                  onClick: () => {
+                    return true;
+                  }
+                },
+                {
+                  label: "Discard and continue",
+                  variant: "danger",
+                  onClick: () => {
+                    return true;
+                  }
                 }
-              },
-              {
-                label: "Discard and continue",
-                variant: "danger",
-                onClick: () => {
-                  return true;
-                }
+              ]}
+            />
+            <Chapters
+              {...props}
+              backendData={props.data}
+              optionsData={optionsData}
+              submitData={submitData}
+              nextStage={nextStage}
+              edit={props.edit === undefined ? true : props.edit}
+              readOnlySheet={
+                props.readOnlySheet === undefined ? false : props.readOnlySheet
               }
-            ]}
-          />
-          <Chapters
-            {...props}
-            backendData={props.data}
-            optionsData={optionsData}
-            submitData={submitData}
-            nextStage={nextStage}
-            edit={props.edit === undefined ? true : props.edit}
-            readOnlySheet={
-              props.readOnlySheet === undefined ? false : props.readOnlySheet
-            }
-          />
-          {loadingMutation && <p>Loading...</p>}
-          {errorMutation && <p>Error :( Please try again</p>}
-        </Form>
-      </ChapterContext.Provider>
-    </documentDataContext.Provider>
-  );
+            />
+            {loadingMutation && <p>Loading...</p>}
+            {errorMutation && <p>Error :( Please try again</p>}
+          </Form>
+        </ChapterContext.Provider>
+      </documentDataContext.Provider>
+    );
+  } else {
+    return null
+  }
 };

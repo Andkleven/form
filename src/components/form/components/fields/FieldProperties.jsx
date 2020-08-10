@@ -23,7 +23,6 @@ import Line from "components/design/Line";
 export default ({ ...props }) => {
   const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
   const { editChapter } = useContext(ChapterContext);
-
   const [state, setState] = useState("");
   const [readOnly, setReadOnly] = useState(false);
   const [label, setLabel] = useState("");
