@@ -5,6 +5,7 @@ import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json
 import operatorMouldJson from "templates/mould/operatorMould.json";
 import qualityControlCoatedItemJson from "templates/coatedItem/qualityControlCoatedItem.json";
 import qualityControlMouldJson from "templates/mould/qualityControlMould.json";
+import Title from "components/design/fonts/Title";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -61,6 +62,9 @@ export default pageInfo => {
     <Canvas>
       <Overview />
       <Paper className="mb-3">
+        <Title big align="center">
+          Operator
+          </Title>
         <Form
           componentsId={"SingleItem"}
           document={operatorJson}
@@ -78,6 +82,9 @@ export default pageInfo => {
         />
       </Paper>
       <Paper>
+        <Title big align="center">
+          Quality Control
+          </Title>
         <Form
           componentsId={"finalInspectionQualityControls"}
           document={qualityControlJson}

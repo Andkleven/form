@@ -204,6 +204,16 @@ export default props => {
           cloneDeep(documentData.current),
           props.removeEmptyField
         );
+
+        console.log(isStringInstance(props.stage) &&
+          submit &&
+          nextStage.current &&
+          !editChapter
+          ? FindNextStage(props.specData, props.stage, props.stageType)[
+          "stage"
+          ]
+          : props.stage)
+
         mutation({
           variables: {
             ...variables,

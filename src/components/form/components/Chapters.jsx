@@ -112,40 +112,41 @@ export default props => {
     // }
   };
   const stageChapters = () => {
-    // console.log(props);
-    // console.log(stopLoop.current);
     let i = 0;
     let chapterBasedOnStage = [];
+    let stageList = Object.keys(
+      stagesJson[removeSpace(props.stageType.toLowerCase())]
+    );
     let thisStage = {
-      stage: Object.keys(
-        stagesJson[removeSpace(props.stageType.toLowerCase())]
-      )[0],
-      stageWithoutNumber: Object.keys(
-        stagesJson[removeSpace(props.stageType.toLowerCase())]
-      )[0]
+      stage: stageList[0],
+      stageWithoutNumber: stageList[0]
     };
     stopLoop.current = false;
-
     while (stopLoop.current === false && i < 50) {
-      chapterBasedOnStage.push(
-        runChapter(
-          props.document.chapters[thisStage["stageWithoutNumber"]],
-          thisStage["stage"],
-          thisStage["number"]
-        )
-      );
-      // console.log(chapterBasedOnStage);
+      if (props.document.chapters[thisStage["stageWithoutNumber"]]) {
+        chapterBasedOnStage.push(
+          runChapter(
+            props.document.chapters[thisStage["stageWithoutNumber"]],
+            thisStage["stage"],
+            thisStage["number"]
+          )
+        );
+      }
       thisStage = findNextStage(
         props.specData,
         thisStage["stage"],
         props.stageType
       );
-      if (!props.document.chapters[thisStage["stageWithoutNumber"]]) {
+
+      if (thisStage["stageWithoutNumber"] === stageList[stageList.length - 1]) {
         break;
       }
+      // if (!props.document.chapters[thisStage["stageWithoutNumber"]]) {
+      //   console.log(thisStage["stageWithoutNumber"])
+      //   break;
+      // }
       i++;
     }
-    // console.log(chapterBasedOnStage);
     return chapterBasedOnStage;
   };
 
@@ -157,11 +158,9 @@ export default props => {
 
   useEffect(() => {
     return () => {
-      // console.log(1234);
       stopLoop.current = false;
     };
   });
-
   return (
     <>
       {props.document.chapterByStage
