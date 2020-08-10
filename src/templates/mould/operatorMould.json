@@ -302,6 +302,12 @@
               "label": "Primer Number"
             },
             {
+              "fieldName": "batchNumberPriming1",
+              "required": true,
+              "label": "Batch Number",
+              "type": "number"
+            },
+            {
               "fieldName": "startTimePriming1",
               "required": true,
               "label": "Start Time",
@@ -329,6 +335,12 @@
               "label": "Primer Number:"
             },
             {
+              "fieldName": "batchNumberPriming2",
+              "required": true,
+              "label": "Batch Number",
+              "type": "number"
+            },
+            {
               "fieldName": "startTimePriming2",
               "required": true,
               "label": "Start Time",
@@ -354,6 +366,12 @@
             {
               "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
               "label": "Rubber Agent:"
+            },
+            {
+              "fieldName": "rubberCementsBeforeCoatingMixDate",
+              "required": true,
+              "label": "Batch Number",
+              "type": "date"
             },
             {
               "fieldName": "startTimeRubberCement",
