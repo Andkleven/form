@@ -4,7 +4,7 @@ package-lock.json
 react-app-env.d.ts
 .codesandbox
 .env.development
-
+.env.production
 
 # backend
 *.pyc

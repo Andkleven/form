@@ -275,12 +275,6 @@ export default (props) => {
     setDataChange(false);
   }, [props.data]);
 
-  console.log(
-    (dataChange &&
-      JSON.stringify(unchangedData) !==
-        JSON.stringify(documentData.current)),
-  );
-
   // ____________________________________________________________
   if (props.data) {
     return (
@@ -311,9 +305,9 @@ export default (props) => {
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={(dataChange &&
+              when={dataChange &&
                 JSON.stringify(unchangedData) !==
-                  JSON.stringify(documentData.current))}
+                  JSON.stringify(documentData.current)}
               buttons={[
                 {
                   label: "Save and continue",

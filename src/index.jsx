@@ -13,7 +13,7 @@ import { createUploadLink } from "apollo-upload-client";
 
 const httpLink = createUploadLink({
   // See README for how to setup backend
-  uri: `${process.env.REACT_APP_BACKEND}/graphql/`
+  uri: `${process.env.REACT_APP_BACKEND}/graphql/`,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -21,19 +21,19 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `JWT ${token}` : ""
-    }
+      authorization: token ? `JWT ${token}` : "",
+    },
   };
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
