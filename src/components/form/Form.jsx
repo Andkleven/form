@@ -201,17 +201,6 @@ export default (props) => {
           props.removeEmptyField,
         );
 
-        console.log(
-          isStringInstance(props.stage) &&
-          submit &&
-          nextStage.current &&
-          !editChapter
-            ? FindNextStage(props.specData, props.stage, props.stageType)[
-              "stage"
-            ]
-            : props.stage,
-        );
-
         mutation({
           variables: {
             ...variables,
@@ -286,6 +275,12 @@ export default (props) => {
     setDataChange(false);
   }, [props.data]);
 
+  console.log(
+    (dataChange &&
+      JSON.stringify(unchangedData) !==
+        JSON.stringify(documentData.current)),
+  );
+
   // ____________________________________________________________
   if (props.data) {
     return (
@@ -316,7 +311,9 @@ export default (props) => {
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={unchangedData !== documentData.current}
+              when={(dataChange &&
+                JSON.stringify(unchangedData) !==
+                  JSON.stringify(documentData.current))}
               buttons={[
                 {
                   label: "Save and continue",

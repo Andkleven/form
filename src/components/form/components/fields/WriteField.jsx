@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance } from "functions/general";
+const cloneDeep = require("clone-deep");
 
 const decimalTooStep = {
   0: 0,
@@ -46,13 +47,13 @@ export default ({ setState, state, ...props }) => {
   }, [documentDataDispatch, props.path, userInfo.username]);
 
   const onChange = (value) => {
+    if (!dataChange) {
+      setDataChange(true);
+      setUnchangedData(cloneDeep(documentData.current));
+    }
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
-    if (!dataChange) {
-      setDataChange(true);
-      setUnchangedData(documentData.current);
-    }
   };
 
   const onChangeDate = (data) => {
