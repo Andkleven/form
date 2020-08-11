@@ -21,43 +21,53 @@ const decimalTooStep = {
   6: 0.000001,
   7: 0.0000001,
   8: 0.00000001,
-  9: 0.000000001
+  9: 0.000000001,
 };
 
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
-  const { documentData, documentDataDispatch } = useContext(
-    documentDataContext
+  const {
+    documentData,
+    documentDataDispatch,
+    setDataChange,
+    dataChange,
+    setUnchangedData,
+  } = useContext(
+    documentDataContext,
   );
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
       newState: userInfo.username,
-      path: props.path + userField
+      path: props.path + userField,
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
-  const onChange = value => {
+  const onChange = (value) => {
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
+    if (!dataChange) {
+      setDataChange(true);
+      setUnchangedData(documentData.current);
+    }
   };
 
-  const onChangeDate = data => {
+  const onChangeDate = (data) => {
     onChange(data);
   };
 
-  const onChangeSelect = e => {
+  const onChangeSelect = (e) => {
     onChange(e.value);
   };
 
-  const onChangeFile = value => {
+  const onChangeFile = (value) => {
     onChange(value);
   };
 
-  const onChangeInput = e => {
+  const onChangeInput = (e) => {
     let { value, type } = e.target;
     let newValue = value;
     if (["checkbox", "radio", "switch"].includes(type)) {
@@ -77,7 +87,7 @@ export default ({ setState, state, ...props }) => {
     onChange(newValue);
   };
 
-  const onChangeIgnoreRequired = e => {
+  const onChangeIgnoreRequired = (e) => {
     let { name } = e.target;
     addUser();
     let oldValue = objectPath.get(documentData.current, props.path, false);
@@ -85,18 +95,18 @@ export default ({ setState, state, ...props }) => {
     documentDataDispatch({
       type: "add",
       newState: !oldValue,
-      path: props.path + name
+      path: props.path + name,
     });
   };
 
-  const cancelEdit = event => {
+  const cancelEdit = (event) => {
     event.persist();
     event.preventDefault();
-    setState(objectPath.get(props.backendData, props.path))
+    setState(objectPath.get(props.backendData, props.path));
     documentDataDispatch({
       type: "add",
       newState: objectPath.get(props.backendData, props.path),
-      path: props.path
+      path: props.path,
     });
     setEditChapter(0);
   };
@@ -108,28 +118,31 @@ export default ({ setState, state, ...props }) => {
   // };
 
   const TinyButtons = () => {
-    return props.submitButton ? (
-      <div
-        className={`d-none d-sm-inline ${!props.label && " w-100 text-right"}`}
-      >
-        <TinyButton
-          icon="check"
-          type="submit"
-          tooltip="Submit"
-          className="text-success"
+    return props.submitButton
+      ? (
+        <div
+          className={`d-none d-sm-inline ${!props.label &&
+            " w-100 text-right"}`}
         >
-          Submit
-        </TinyButton>
-        <TinyButton
-          className="text-secondary"
-          icon="times"
-          onClick={event => cancelEdit(event)}
-          tooltip="Cancel"
-        >
-          Cancel
-        </TinyButton>
-      </div>
-    ) : null;
+          <TinyButton
+            icon="check"
+            type="submit"
+            tooltip="Submit"
+            className="text-success"
+          >
+            Submit
+          </TinyButton>
+          <TinyButton
+            className="text-secondary"
+            icon="times"
+            onClick={(event) => cancelEdit(event)}
+            tooltip="Cancel"
+          >
+            Cancel
+          </TinyButton>
+        </div>
+      )
+      : null;
   };
 
   const BigButtons = () => {
@@ -149,7 +162,7 @@ export default ({ setState, state, ...props }) => {
             <Button
               className="w-100 m-0 px-0"
               variant="secondary"
-              onClick={event => cancelEdit(event)}
+              onClick={(event) => cancelEdit(event)}
             >
               <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
               Cancel
@@ -165,8 +178,8 @@ export default ({ setState, state, ...props }) => {
       objectPath.get(
         documentData.current,
         props.path + ignoreRequiredField,
-        false
-      )
+        false,
+      ),
     );
   }, [setIgnoreRequired, documentData, props.path]);
 
@@ -202,8 +215,8 @@ export default ({ setState, state, ...props }) => {
   //   props.type
   // ]);
   // console.log(documentData.current, props.backendData);
-  const indent =
-    (!props.label && props.prepend && props.indent !== false) || props.indent;
+  const indent = (!props.label && props.prepend && props.indent !== false) ||
+    props.indent;
 
   // if (props.label === "Vulcanization Option") {
   //   console.log("label", props.label);

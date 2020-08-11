@@ -17,10 +17,10 @@ export default ({
     bottom: "0.025em",
     right: "0.25em",
     width: "1.5em",
-    textAlign: "center"
+    textAlign: "center",
   },
   rowStyle = {
-    minHeight: "2.5em"
+    minHeight: "2.5em",
   },
   ...props
 }) => {

@@ -3,7 +3,7 @@ import Header from "components/layout/Header";
 import Container from "react-bootstrap/Container";
 import Footer from "components/layout/Footer";
 
-export default ({ showForm = false, ...props }) => {
+export default ({ showForm = true, ...props }) => {
   return (
     <div className="content">
       <Header />

@@ -1,8 +1,8 @@
-import React, { Fragment, useRef, useEffect, useContext } from "react";
+import React, { Fragment, useRef, useContext } from "react";
 import {
   allRequiredSatisfied,
   createPath,
-  removeSpace
+  removeSpace,
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -13,7 +13,7 @@ import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
-export default props => {
+export default (props) => {
   const { editChapter } = useContext(ChapterContext);
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
@@ -22,9 +22,8 @@ export default props => {
     repeatStepList,
     pageInfo,
     byStage = false,
-    thisStage = ""
+    thisStage = "",
   ) => {
-
     let chapter; // new chapter to add to document
     let allRequiredFieldSatisfied = false;
     if (
@@ -37,14 +36,12 @@ export default props => {
       chapter = null;
     } else {
       allRequiredFieldSatisfied = props.backendData
-        ? byStage
-          ? thisStage === props.stage
-          : !allRequiredSatisfied(
-              pageInfo,
-              props.backendData,
-              repeatStepList,
-              props.specData
-            )
+        ? byStage ? thisStage === props.stage : !allRequiredSatisfied(
+          pageInfo,
+          props.backendData,
+          repeatStepList,
+          props.specData,
+        )
         : false;
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
@@ -59,8 +56,9 @@ export default props => {
       } else {
         chapter = pageInfo.pages.map((info, index) => {
           let showEditButton = !props.notEditButton && !index ? true : false;
-          let showSubmitButton =
-            index === pageInfo.pages.length - 1 ? true : false;
+          let showSubmitButton = index === pageInfo.pages.length - 1
+            ? true
+            : false;
           return (
             <Page
               key={`${index}-${count}-page`}
@@ -87,12 +85,14 @@ export default props => {
       }
     }
     count += 1;
-    return chapter ? (
-      <Fragment key={`${count}-canvas-chapterFragment`}>
-        {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
-        {chapter}
-      </Fragment>
-    ) : null;
+    return chapter
+      ? (
+        <Fragment key={`${count}-canvas-chapterFragment`}>
+          {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
+          {chapter}
+        </Fragment>
+      )
+      : null;
   };
   const runChapter = (pageInfo, thisStage = "", stepsList = undefined) => {
     return (
@@ -106,8 +106,9 @@ export default props => {
             : props.repeatStepList,
           pageInfo,
           props.document.chapterByStage,
-          thisStage
-        )}{" "}
+          thisStage,
+        )}
+        {" "}
       </Fragment>
     );
     // }
@@ -116,11 +117,11 @@ export default props => {
     let i = 0;
     let chapterBasedOnStage = [];
     let stageList = Object.keys(
-      stagesJson[removeSpace(props.stageType.toLowerCase())]
+      stagesJson[removeSpace(props.stageType.toLowerCase())],
     );
     let thisStage = {
       stage: stageList[0],
-      stageWithoutNumber: stageList[0]
+      stageWithoutNumber: stageList[0],
     };
     while (stopLoop.current === false && i < 50) {
       if (props.document.chapters[thisStage["stageWithoutNumber"]]) {
@@ -128,23 +129,19 @@ export default props => {
           runChapter(
             props.document.chapters[thisStage["stageWithoutNumber"]],
             thisStage["stage"],
-            thisStage["number"]
-          )
+            thisStage["number"],
+          ),
         );
       }
       thisStage = findNextStage(
         props.specData,
         thisStage["stage"],
-        props.stageType
+        props.stageType,
       );
 
       if (thisStage["stageWithoutNumber"] === stageList[stageList.length - 1]) {
         break;
       }
-      // if (!props.document.chapters[thisStage["stageWithoutNumber"]]) {
-      //   console.log(thisStage["stageWithoutNumber"])
-      //   break;
-      // }
       i++;
     }
     return chapterBasedOnStage;
@@ -152,22 +149,23 @@ export default props => {
   stopLoop.current = false;
   const chapterBasedOnJson = props.document.chapterByStage
     ? [false]
-    : props.document.chapters.map(pageInfo => {
-        return runChapter(pageInfo);
-      });
+    : props.document.chapters.map((pageInfo) => {
+      return runChapter(pageInfo);
+    });
 
   return (
     <>
       {props.document.chapterByStage
-        ? props.stage
-          ? stageChapters()
-          : null
-        : chapterBasedOnJson}{" "}
-      {!editChapter && !finalChapter && !!props.backButton ? (
-        <SubmitButton type="button" onClick={props.backButton}>
-          Back
-        </SubmitButton>
-      ) : null}
+        ? props.stage ? stageChapters() : null
+        : chapterBasedOnJson}
+      {" "}
+      {!editChapter && !finalChapter && !!props.backButton
+        ? (
+          <SubmitButton type="button" onClick={props.backButton}>
+            Back
+          </SubmitButton>
+        )
+        : null}
     </>
   );
 };
