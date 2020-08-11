@@ -3,7 +3,7 @@ import React, {
   createContext,
   useCallback,
   useRef,
-  useEffect,
+  useEffect
 } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/query";
@@ -22,11 +22,11 @@ function useStore(init) {
   const state = useRef(init);
   const renderFunction = useRef({});
   const resetState = useRef({});
-  const reducer = (action) => {
+  const reducer = action => {
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
-        Object.values(resetState.current).forEach((func) => {
+        Object.values(resetState.current).forEach(func => {
           func();
         });
         break;
@@ -34,7 +34,7 @@ function useStore(init) {
         objectPath.set(
           state.current,
           action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
-          action.newState,
+          action.newState
         );
         break;
       case "delete":
@@ -46,7 +46,7 @@ function useStore(init) {
     if (!action.notReRender) {
       Object.values(renderFunction.current)
         .reverse()
-        .forEach((func) => {
+        .forEach(func => {
           func();
         });
     }
@@ -57,13 +57,13 @@ function useStore(init) {
 export const ChapterContext = createContext();
 export const documentDataContext = createContext();
 
-export default (props) => {
+export default props => {
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
     documentDataDispatch,
     renderFunction,
-    resetState,
+    resetState
   ] = useStore({});
   const [dataChange, setDataChange] = useState(false);
   const nextStage = useRef(true);
@@ -74,42 +74,42 @@ export default (props) => {
       : query["DEFAULT"],
     {
       variables: {},
-      skip: !props.optionsQuery,
-    },
+      skip: !props.optionsQuery
+    }
   );
   // Set documentData to empty dictionary if a new component calls Form
   if (props.data && Object.keys(documentData.current).length === 0) {
     documentDataDispatch({
       type: "setState",
-      newState: props.data,
+      newState: props.data
     });
   }
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      variables: { id: props.getQueryBy }
     });
     let array = objectPath.get(oldData, props.document.queryPath);
     let index = array.findIndex(
-      (x) => x.id === data[props.document.queryPath.split(/[.]+/).pop()].new.id,
+      x => x.id === data[props.document.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
       `${props.document.queryPath}.${index}`,
-      data[props.document.queryPath.split(/[.]+/).pop()].new,
+      data[props.document.queryPath.split(/[.]+/).pop()].new
     );
     let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: query[props.document.query],
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] },
+      data: { [saveData]: oldData[saveData] }
     });
   };
 
   const updateWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      variables: { id: props.getQueryBy }
     });
     let secondQueryPath = "";
     let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
@@ -119,76 +119,80 @@ export default (props) => {
     }
     let array = objectPath.get(
       oldData,
-      [props.firstQueryPath] + secondQueryPath,
+      [props.firstQueryPath] + secondQueryPath
     );
     let index = 0;
     if (props.secondQueryPath.trim()) {
-      index = array.findIndex((x) => x.id === newData.new.id);
+      index = array.findIndex(x => x.id === newData.new.id);
     } else {
-      index = array.findIndex((x) => x.id === newData.new.id);
+      index = array.findIndex(x => x.id === newData.new.id);
     }
     objectPath.set(
       oldData,
       `${props.firstQueryPath}${secondQueryPath}.${index}`,
-      newData.new,
+      newData.new
     );
     let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
 
     cache.writeQuery({
       query: query[props.document.query],
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] },
+      data: { [saveData]: oldData[saveData] }
     });
   };
 
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      variables: { id: props.getQueryBy }
     });
     objectPath.push(
       oldData,
       props.document.queryPath,
-      data[props.document.queryPath.split(/[.]+/).pop()].new,
+      data[props.document.queryPath.split(/[.]+/).pop()].new
     );
     let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: query[props.document.query],
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] },
+      data: { [saveData]: oldData[saveData] }
     });
   };
 
   const createWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      variables: { id: props.getQueryBy }
     });
     objectPath.push(
       oldData,
       `${props.firstQueryPath}.${props.repeatStepList}.${props.secondQueryPath}`,
-      data[props.secondQueryPath.split(/[.]+/).pop()].new,
+      data[props.secondQueryPath.split(/[.]+/).pop()].new
     );
     let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: props.document.query,
       variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] },
+      data: { [saveData]: oldData[saveData] }
     });
   };
 
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[props.document.mutation],
     {
-      update: props.updateCache ? props.updateCache : !props.data ||
-        !props.data[Object.keys(props.data)[0]] ||
-        !props.data[Object.keys(props.data)[0]].length
-      ? props.firstQueryPath ? createWithVariable : create
-      : props.firstQueryPath
-      ? updateWithVariable
-      : update,
-      onCompleted: props.reRender,
-    },
+      update: props.updateCache
+        ? props.updateCache
+        : !props.data ||
+          !props.data[Object.keys(props.data)[0]] ||
+          !props.data[Object.keys(props.data)[0]].length
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
+      onCompleted: props.reRender
+    }
   );
 
   const submitData = useCallback(
@@ -198,28 +202,28 @@ export default (props) => {
       if (documentData.current) {
         let variables = stringifyQuery(
           cloneDeep(documentData.current),
-          props.removeEmptyField,
+          props.removeEmptyField
         );
 
         mutation({
           variables: {
             ...variables,
-            descriptionId: props.sendItemId === 0
-              ? Number(props.descriptionId)
-              : undefined,
+            descriptionId:
+              props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
             itemId: props.sendItemId ? Number(props.itemId) : undefined,
             itemIdList: props.batchingListIds
               ? props.batchingListIds
               : undefined,
-            stage: isStringInstance(props.stage) &&
+            stage:
+              isStringInstance(props.stage) &&
               submit &&
               nextStage.current &&
               !editChapter
-              ? FindNextStage(props.specData, props.stage, props.stageType)[
-                "stage"
-              ]
-              : props.stage,
-          },
+                ? FindNextStage(props.specData, props.stage, props.stageType)[
+                    "stage"
+                  ]
+                : props.stage
+          }
         });
       }
     },
@@ -235,11 +239,11 @@ export default (props) => {
       props.itemId,
       props.sendItemId,
       props.specData,
-      props.stage,
-    ],
+      props.stage
+    ]
   );
 
-  const formSubmit = (e) => {
+  const formSubmit = e => {
     e.persist();
     e.preventDefault();
     submitData(documentData.current, true);
@@ -275,6 +279,14 @@ export default (props) => {
     setDataChange(false);
   }, [props.data]);
 
+  const formRef = useRef();
+  const save = () => {
+    formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
+  };
+  const unsavedChanges =
+    dataChange &&
+    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
+
   // ____________________________________________________________
   if (props.data) {
     return (
@@ -287,6 +299,8 @@ export default (props) => {
           setDataChange,
           dataChange,
           setUnchangedData,
+          save,
+          submitData
         }}
       >
         <ChapterContext.Provider
@@ -294,36 +308,36 @@ export default (props) => {
             finalChapter,
             setFinalChapter,
             editChapter,
-            setEditChapter,
+            setEditChapter
           }}
         >
           <Title>{props.document.documentTitle}</Title>
           <Form
-            onSubmit={(e) => {
+            ref={formRef}
+            onSubmit={e => {
               formSubmit(e);
             }}
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={dataChange &&
-                JSON.stringify(unchangedData) !==
-                  JSON.stringify(documentData.current)}
+              when={unsavedChanges}
               buttons={[
                 {
                   label: "Save and continue",
-                  variant: "success",
+                  variant: "info",
                   type: "submit",
                   onClick: () => {
+                    save();
                     return true;
-                  },
+                  }
                 },
                 {
                   label: "Discard and continue",
                   variant: "danger",
                   onClick: () => {
                     return true;
-                  },
-                },
+                  }
+                }
               ]}
             />
             <Chapters
@@ -333,9 +347,9 @@ export default (props) => {
               submitData={submitData}
               nextStage={nextStage}
               edit={props.edit === undefined ? true : props.edit}
-              readOnlySheet={props.readOnlySheet === undefined
-                ? false
-                : props.readOnlySheet}
+              readOnlySheet={
+                props.readOnlySheet === undefined ? false : props.readOnlySheet
+              }
             />
             {loadingMutation && <p>Loading...</p>}
             {errorMutation && <p>Error :( Please try again</p>}

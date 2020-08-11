@@ -26,9 +26,15 @@ export default React.memo(props => {
     editChapter,
     setEditChapter
   } = useContext(ChapterContext);
-  const { documentDataDispatch, documentData, renderFunction, resetState } = useContext(
-    documentDataContext
-  );
+  const {
+    documentDataDispatch,
+    documentData,
+    renderFunction,
+    resetState,
+    dataChange,
+    setDataChange,
+    unchangedData
+  } = useContext(documentDataContext);
   const [addOrRemove, setAddOrRemove] = useState(0);
   const writeChapter = useRef(false);
   useEffect(() => {
@@ -70,7 +76,7 @@ export default React.memo(props => {
         fieldName: "data",
         path: `${props.path}.${
           objectPath.get(documentData.current, props.path).length
-          }`
+        }`
       });
     }
     setAddOrRemove(prevState => prevState + 1);
@@ -83,10 +89,9 @@ export default React.memo(props => {
         path: `${props.path}.${index}`
       });
       setAddOrRemove(prevState => prevState + 1);
-      Object.values(resetState.current)
-        .forEach(func => {
-          func();
-        });
+      Object.values(resetState.current).forEach(func => {
+        func();
+      });
     },
     [props.path, documentDataDispatch, setAddOrRemove, resetState]
   );
@@ -169,9 +174,11 @@ export default React.memo(props => {
   useEffect(() => {
     if (props.repeatGroupWithQuery && writeChapter.current) {
       if (!props.repeatGroupWithQuerySpecData) {
-        autoRepeat(Object.keys(documentData.current).length === 0
-          ? props.backendData
-          : documentData.current);
+        autoRepeat(
+          Object.keys(documentData.current).length === 0
+            ? props.backendData
+            : documentData.current
+        );
       } else if (props.repeatGroupWithQuerySpecData) {
         autoRepeat(props.specData);
       }
@@ -253,7 +260,35 @@ export default React.memo(props => {
       <DepthButton
         iconProps={{ icon: ["fas", "times"], className: "text-secondary" }}
         short
-        onClick={() => cancel()}
+        onClick={() => {
+          if (unsavedChanges) {
+            dialog({
+              message: "Do you want to save your changes?",
+              buttons: [
+                {
+                  label: "Save and continue",
+                  variant: "success",
+                  type: "submit",
+                  onClick: () => {
+                    props.submitData(documentData.current, false);
+                    setEditChapter(0);
+                  }
+                },
+                {
+                  label: "Discard and continue",
+                  variant: "danger",
+                  onClick: () => {
+                    setDataChange(false);
+                    cancel();
+                  }
+                }
+              ]
+            });
+          } else {
+            setDataChange(false);
+            cancel();
+          }
+        }}
       >
         Cancel
       </DepthButton>
@@ -306,10 +341,14 @@ export default React.memo(props => {
   // const onSubmitMf = () => {};
   // const onCancelMf = () => {};
 
+  const unsavedChanges =
+    dataChange &&
+    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
+
   return (
     <div
       className={`${finalPage && "mb-5"} ${props.className}`}
-    // className={`${!props.finalChapter && ""} ${props.className}`}
+      // className={`${!props.finalChapter && ""} ${props.className}`}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (
@@ -320,16 +359,7 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              if (
-                JSON.stringify(documentData.current) ===
-                JSON.stringify(props.backendData)
-              ) {
-                documentDataDispatch({
-                  type: "setState",
-                  newState: props.backendData
-                });
-                setEditChapter(props.thisChapter);
-              } else {
+              if (unsavedChanges) {
                 dialog({
                   message: "Do you want to save your changes?",
                   buttons: [
@@ -361,49 +391,54 @@ export default React.memo(props => {
                     }
                   ]
                 });
+              } else {
+                documentDataDispatch({
+                  type: "setState",
+                  newState: props.backendData
+                });
+                setEditChapter(props.thisChapter);
               }
             }}
           >
             Edit all
           </TabButton>
         ) : (
-            showCancelTab && (
-              <TabButton
-                onClick={() => {
-                  if (
-                    JSON.stringify(documentData.current) ===
-                    JSON.stringify(props.backendData)
-                  ) {
-                    cancel();
-                  } else {
-                    dialog({
-                      message: "Do you want to save your changes?",
-                      buttons: [
-                        {
-                          label: "Save and continue",
-                          variant: "success",
-                          type: "submit",
-                          onClick: () => {
-                            props.submitData(documentData.current, false);
-                            setEditChapter(0);
-                          }
-                        },
-                        {
-                          label: "Discard and continue",
-                          variant: "danger",
-                          onClick: () => {
-                            cancel();
-                          }
+          showCancelTab && (
+            <TabButton
+              onClick={() => {
+                if (unsavedChanges) {
+                  dialog({
+                    message: "Do you want to save your changes?",
+                    buttons: [
+                      {
+                        label: "Save and continue",
+                        variant: "success",
+                        type: "submit",
+                        onClick: () => {
+                          props.submitData(documentData.current, false);
+                          setEditChapter(0);
                         }
-                      ]
-                    });
-                  }
-                }}
-              >
-                Cancel
-              </TabButton>
-            )
-          )}
+                      },
+                      {
+                        label: "Discard and continue",
+                        variant: "danger",
+                        onClick: () => {
+                          setDataChange(false);
+                          cancel();
+                        }
+                      }
+                    ]
+                  });
+                } else {
+                  setDataChange(false);
+                  cancel();
+                }
+              }}
+            >
+              Cancel
+            </TabButton>
+          )
+        )}
       </div>
       {showLine && <Line />}
       {props.customComponent ? (

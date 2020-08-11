@@ -12,61 +12,71 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-  const documentData = useContext(documentDataContext);
+  // const documentData = useContext(documentDataContext);
+  let {
+    documentData,
+    documentDataDispatch,
+    dataChange,
+    setDataChange,
+    unchangedData,
+    save,
+    submitData
+  } = !display && useContext(documentDataContext);
   const chapterContext = useContext(ChapterContext);
 
+  const unsavedChanges =
+    dataChange &&
+    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
+
   const flipToWrite = () => {
-    if (
-      JSON.stringify(documentData.documentData.current) ===
-      JSON.stringify(props.backendData)
-    ) {
-      if (!display) {
-        chapterContext.setEditChapter(
-          `${props.repeatStepList}-${props.fieldName}`
-        );
-      }
-    } else {
-      if (
-        // window.confirm("You will lose unsaved changes, are you sure?")
-        dialog({
-          message: "Do you want to save your changes?",
-          buttons: [
-            {
-              label: "Save and continue",
-              variant: "success",
-              type: "submit",
-              onClick: () => {
-                props.submitData(documentData.current, false);
-                if (!display) {
-                  chapterContext.setEditChapter(
-                    `${props.repeatStepList}-${props.fieldName}`
-                  );
-                }
-              }
-            },
-            {
-              label: "Discard and continue",
-              variant: "danger",
-              onClick: () => {
-                props.setState(objectPath.get(props.backendData, props.path))
-                documentData.documentDataDispatch({
-                  type: "add",
-                  newState: objectPath.get(props.backendData, props.path),
-                  path: props.path
-                });
-                chapterContext.setEditChapter(0);
-                if (!display) {
-                  chapterContext.setEditChapter(
-                    `${props.repeatStepList}-${props.fieldName}`
-                  );
-                }
-              }
-            }
-          ]
-        })
-      ) {
-      }
+    // if (unsavedChanges) {
+    //   if (
+    //     // window.confirm("You will lose unsaved changes, are you sure?")
+    //     dialog({
+    //       message: "Do you want to save your changes?",
+    //       buttons: [
+    //         {
+    //           label: "Save and continue",
+    //           variant: "success",
+    //           type: "submit",
+    //           onClick: () => {
+    //             props.submitData(documentData.current, false);
+    //             if (!display) {
+    //               chapterContext.setEditChapter(
+    //                 `${props.repeatStepList}-${props.fieldName}`
+    //               );
+    //             }
+    //           }
+    //         },
+    //         {
+    //           label: "Discard and continue",
+    //           variant: "danger",
+    //           onClick: () => {
+    //             props.setState(objectPath.get(props.backendData, props.path));
+    //             documentDataDispatch({
+    //               type: "add",
+    //               newState: objectPath.get(props.backendData, props.path),
+    //               path: props.path
+    //             });
+    //             chapterContext.setEditChapter(0);
+    //             if (!display) {
+    //               chapterContext.setEditChapter(
+    //                 `${props.repeatStepList}-${props.fieldName}`
+    //               );
+    //             }
+    //           }
+    //         }
+    //       ]
+    //     })
+    //   ) {
+    //   }
+    // } else {
+    if (!display) {
+      chapterContext.setEditChapter(
+        `${props.repeatStepList}-${props.fieldName}`
+      );
     }
+    // }
   };
 
   const breakpoint = "sm";
@@ -78,14 +88,49 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   const showAboveBreakpoint = () => {
     return `d-none d-${breakpoint}-inline`;
   };
+
   const TinyEditButton = props =>
     props.edit ? (
       <TinyButton
         {...props}
-        onClick={() => flipToWrite()}
+        onClick={() => {
+          if (unsavedChanges) {
+            dialog({
+              message: "Do you want to save your changes?",
+              buttons: [
+                {
+                  label: "Save and continue",
+                  variant: "success",
+                  type: "submit",
+                  onClick: () => {
+                    save();
+                    flipToWrite();
+                  }
+                },
+                {
+                  label: "Discard and continue",
+                  variant: "danger",
+                  onClick: () => {
+                    // TODO: Remove old data from form
+                    // I tried this, to no luck:
+                    // if (props.backendData) {
+                    //   documentDataDispatch({
+                    //     type: "setState",
+                    //     newState: props.backendData
+                    //   });
+                    // }
+                    flipToWrite();
+                  }
+                }
+              ]
+            });
+          } else {
+            flipToWrite();
+          }
+        }}
+        // tooltip="Edit"
         icon={["fas", "pen"]}
         iconSize="sm"
-      // tooltip="Edit"
       >
         Edit
       </TinyButton>
@@ -106,7 +151,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <div
           className={`d-flex justify-content-between align-items-start h-100 ${
             indent && `ml-3`
-            }`}
+          }`}
         >
           <div className={`${showUnderBreakpoint()}`}>
             <small className={`text-secondary`}>
@@ -152,7 +197,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <div
             className={`d-flex justify-content-between align-items-start h-100 ${
               indent && "ml-3 ml-sm-0"
-              }`}
+            }`}
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
@@ -173,7 +218,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
           indent && "ml-3 ml-sm-0"
-          }`}
+        }`}
       >
         <div>
           {(props.type !== "checkbox" &&
@@ -211,7 +256,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     <div
       className={className}
       style={style}
-    // hidden={readOnly}
+      // hidden={readOnly}
     >
       <Row>
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
