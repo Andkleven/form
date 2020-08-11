@@ -9,12 +9,12 @@ export const DialogModal = ({
   message,
   buttons,
   show = true,
-  setShow = () => { },
-  setBlock = () => { },
-  setConfirmed = () => { }
+  setShow = () => {},
+  setBlock = () => {},
+  setConfirmed = () => {},
 }) => {
   return (
-    <Modal show={show} onHide={() => { }}>
+    <Modal show={show} onHide={() => {}}>
       {title && (
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
@@ -59,13 +59,17 @@ export const RouteGuard = ({ when, ...options }) => {
   const [block, setBlock] = useState(when);
   const [confirmed, setConfirmed] = useState(false);
 
+  useEffect(() => {
+    setBlock(when);
+  }, [when]);
+
   let history = useHistory();
 
   const navigate = () => {
     history.push(path);
   };
 
-  const handleBlockedNavigation = path => {
+  const handleBlockedNavigation = (path) => {
     if (block) {
       setPath(path);
       setShow(true);
@@ -82,14 +86,18 @@ export const RouteGuard = ({ when, ...options }) => {
 
   return (
     <>
-      <Prompt when={block} message={e => handleBlockedNavigation(e.pathname)} />
+      <Prompt
+        when={block}
+        message={(e) => handleBlockedNavigation(e.pathname)}
+      />
       <DialogModal
         show={show}
         setShow={setShow}
         setBlock={setBlock}
         setConfirmed={setConfirmed}
         {...options}
-      ></DialogModal>
+      >
+      </DialogModal>
     </>
   );
 };
@@ -97,10 +105,10 @@ export const RouteGuard = ({ when, ...options }) => {
 /**
  * https://www.npmjs.com/package/react-confirm-alert
  */
-export const dialog = options => {
+export const dialog = (options) => {
   confirmAlert({
     customUI: ({ onClose }) => {
       return <DialogModal setShow={onClose} {...options}></DialogModal>;
-    }
+    },
   });
 };
