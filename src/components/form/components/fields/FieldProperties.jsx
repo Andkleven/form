@@ -24,7 +24,7 @@ export default ({ ...props }) => {
   const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
   const { editChapter } = useContext(ChapterContext);
   const [state, setState] = useState("");
-  const [readOnly, setReadOnly] = useState(false);
+  const [hidden, setHidden] = useState(false)
   const [label, setLabel] = useState("");
 
   const getNewPath = useCallback(() => {
@@ -49,7 +49,7 @@ export default ({ ...props }) => {
 
   useEffect(() => {
     let resetStateRef = resetState.current
-    if (!readOnly && props.writeChapter) {
+    if (!hidden && props.writeChapter) {
       resetStateRef[
         `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
@@ -63,7 +63,7 @@ export default ({ ...props }) => {
         ];
       }
     }
-  }, [updateState, props.label, props.path, props.repeatStepList, props.writeChapter, readOnly, resetState])
+  }, [updateState, props.label, props.path, props.repeatStepList, props.writeChapter, hidden, resetState])
 
   useEffect(() => {
     if (props.path && props.fieldName) {
@@ -96,7 +96,7 @@ export default ({ ...props }) => {
   ]);
 
   const updateReadOnly = useCallback(() => {
-    setReadOnly(
+    setHidden(
       !objectPath.get(
         Object.keys(documentData.current).length === 0
           ? props.backendData
@@ -105,19 +105,19 @@ export default ({ ...props }) => {
         false
       )
     );
-  }, [setReadOnly, props.backendData, props.readOnlyFieldIf, documentData]);
+  }, [setHidden, props.backendData, props.readOnlyFieldIf, documentData]);
 
   useEffect(() => {
     let effectsRenderFunction = renderFunction.current;
     if (props.readOnlyFieldIf) {
       effectsRenderFunction[
-        `${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`
+        `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
       ] = updateReadOnly;
     }
     return () => {
       if (props.readOnlyFieldIf) {
         delete effectsRenderFunction[
-          `${props.label}-${props.repeatStepList}-FieldProperties-ReadOnly`
+          `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
         ];
       }
     };
@@ -281,6 +281,8 @@ export default ({ ...props }) => {
         label={label}
       />
     );
+  } else if (hidden) {
+    return null
   } else if (props.mathSpec) {
     return (
       <ReadField
@@ -362,7 +364,6 @@ export default ({ ...props }) => {
             ? true
             : false
         }
-        readOnly={readOnly}
         setState={setState}
         state={state}
         min={min}
@@ -379,7 +380,6 @@ export default ({ ...props }) => {
       <ReadField
         {...props}
         key={`${props.indexId}-${props.index}-readField-other`}
-        readOnly={readOnly}
         path={getNewPath()}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}

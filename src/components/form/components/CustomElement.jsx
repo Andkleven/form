@@ -26,6 +26,7 @@ const CustomCoating = props => {
         <ReadField
           textCenter={true}
           readOnly={true}
+          backendData={props.backendData}
           label={"Step"}
           value={`${props.repeatStepList[0] + 1} of ${
             objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
@@ -37,6 +38,7 @@ const CustomCoating = props => {
         <ReadField
           textCenter={true}
           readOnly={true}
+          backendData={props.backendData}
           noLine
           label={"Layer"}
           value={`${layers} of ${sumFieldInObject(
@@ -138,6 +140,7 @@ const ActualSteelThickness = props => {
         return (
           <ReadField
             key={`${index}-ActualSteelThickness`}
+            backendData={props.backendData}
             readOnly={true}
             label={`Measurement Point Actual Steel ${objectPath.get(
               props.specData,

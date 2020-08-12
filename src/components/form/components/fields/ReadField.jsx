@@ -89,6 +89,8 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     return `d-none d-${breakpoint}-inline`;
   };
 
+
+
   const TinyEditButton = props =>
     props.edit ? (
       <TinyButton
@@ -111,14 +113,14 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
                   label: "Discard and continue",
                   variant: "danger",
                   onClick: () => {
+                    // console.log(props.backendData, props.path, props)
+
                     // TODO: Remove old data from form
                     // I tried this, to no luck:
-                    // if (props.backendData) {
-                    //   documentDataDispatch({
-                    //     type: "setState",
-                    //     newState: props.backendData
-                    //   });
-                    // }
+                    documentDataDispatch({
+                      type: "setState",
+                      newState: props.backendData
+                    });
                     flipToWrite();
                   }
                 }
@@ -151,7 +153,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <div
           className={`d-flex justify-content-between align-items-start h-100 ${
             indent && `ml-3`
-          }`}
+            }`}
         >
           <div className={`${showUnderBreakpoint()}`}>
             <small className={`text-secondary`}>
@@ -197,11 +199,12 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <div
             className={`d-flex justify-content-between align-items-start h-100 ${
               indent && "ml-3 ml-sm-0"
-            }`}
+              }`}
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
               <TinyEditButton
+                {...props}
                 className={showAboveBreakpoint()}
                 edit={props.edit}
               />
@@ -218,7 +221,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
           indent && "ml-3 ml-sm-0"
-        }`}
+          }`}
       >
         <div>
           {(props.type !== "checkbox" &&
@@ -241,7 +244,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           </small>
         </div>
         {readOnly ? null : (
-          <TinyEditButton className={showAboveBreakpoint()} edit={props.edit} />
+          <TinyEditButton {...props} className={showAboveBreakpoint()} edit={props.edit} />
         )}
       </div>
     );
@@ -256,7 +259,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     <div
       className={className}
       style={style}
-      // hidden={readOnly}
+    // hidden={readOnly}
     >
       <Row>
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
@@ -281,7 +284,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <Label {...props} />
               <Value {...props} />
             </div>
-            {readOnly ? null : <TinyEditButton edit={props.edit} />}
+            {readOnly ? null : <TinyEditButton {...props} edit={props.edit} />}
           </div>
         </Col>
         {savedComment && (

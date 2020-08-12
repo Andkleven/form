@@ -51,6 +51,7 @@ export default ({ backendData, ...props }) => {
     <ReadField
       {...props}
       key={`${props.indexId}-${props.index}-readField-readOnly`}
+      backendData={props.backendData}
       readOnly={true}
       value={value}
     />
