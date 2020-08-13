@@ -17,10 +17,8 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     documentData,
     documentDataDispatch,
     dataChange,
-    setDataChange,
     unchangedData,
-    save,
-    submitData
+    save
   } = !display && useContext(documentDataContext);
   const chapterContext = useContext(ChapterContext);
 

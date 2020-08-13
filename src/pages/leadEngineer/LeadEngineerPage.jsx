@@ -38,7 +38,7 @@ export default pageInfo => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
-    <Canvas>
+    <Canvas showForm={fixedData}>
       <Overview />
       <Paper full>
         <Form
@@ -51,7 +51,6 @@ export default pageInfo => {
           itemId={itemId}
           sendItemId={Number(unique)}
           backButton={() => history.push(`/project/${projectId}`)}
-          // finalButton={console.log("finalButton")}
         />
       </Paper>
     </Canvas>

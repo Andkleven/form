@@ -272,12 +272,12 @@ export const getSubtext = (
 ) => {
   let minLocal = subtextMathMin
     ? Math[subtextMathMin](allData, repeatStepList)
-    : min
+    : isNumber(min)
       ? min
       : "";
   let maxLocal = subtextMathMax
     ? Math[subtextMathMax](allData, repeatStepList)
-    : max
+    : isNumber(max)
       ? max
       : "";
 
@@ -384,35 +384,6 @@ export const calculateMaxMin = (
   return { min: newMin, max: newMax };
 };
 
-// export const chapterPages = (
-//   props,
-//   view,
-//   firstIndex,
-//   stopLoop,
-//   editField,
-//   pageInfo,
-//   finalChapter
-// ) => {
-//   return pageInfo.pages.map((info, index) => {
-//     let showEditButton = !props.notEditButton && !index ? true : false;
-//     let showSaveButton =
-//       index === pageInfo.pages.length - 1 &&
-//       !editField &&
-//       !props.notSubmitButton
-//         ? true
-//         : false;
-//     let page = view(
-//       info,
-//       index,
-//       firstIndex + 1,
-//       stopLoop.current,
-//       showEditButton,
-//       finalChapter,
-//       showSaveButton
-//     );
-//     return <Fragment key={`${index}-${firstIndex}-canvas`}>{page}</Fragment>;
-//   });
-// };
 
 export const stringifyQuery = (query, removeEmptyField = false) => {
   let newObject = { ...query };

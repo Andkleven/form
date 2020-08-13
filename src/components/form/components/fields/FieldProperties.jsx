@@ -15,7 +15,8 @@ import {
   getSubtext,
   findValue,
   calculateMaxMin,
-  variableLabel
+  variableLabel,
+  isNumber
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
@@ -77,10 +78,10 @@ export default ({ ...props }) => {
       if (props.type === "date" || props.type === "datetime-local") {
         backendDate = backendDate ? new Date(backendDate) : null
         setState(backendDate);
-        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath() });
       } else {
         setState(backendDate);
-        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath() });
       }
     }
   }, [
@@ -183,8 +184,8 @@ export default ({ ...props }) => {
               props.decimal ? props.decimal : 0
             )
             : null,
-        max,
-        min,
+        isNumber(props.maxInput) ? props.maxInput : max,
+        isNumber(props.minInput) ? props.minInput : min,
         props.unit,
         props.subtextMathMin,
         props.subtextMathMax,
@@ -192,6 +193,8 @@ export default ({ ...props }) => {
         props.allData
       ),
     [
+      props.maxInput,
+      props.minInput,
       max,
       min,
       props.mathSubtext,

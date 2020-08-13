@@ -65,6 +65,7 @@ export default props => {
     renderFunction,
     resetState
   ] = useStore({});
+  const [unchangedData, setUnchangedData] = useState();
   const [dataChange, setDataChange] = useState(false);
   const nextStage = useRef(true);
   const [finalChapter, setFinalChapter] = useState(0);
@@ -78,12 +79,16 @@ export default props => {
     }
   );
   // Set documentData to empty dictionary if a new component calls Form
-  if (props.data && Object.keys(documentData.current).length === 0) {
-    documentDataDispatch({
-      type: "setState",
-      newState: props.data
-    });
-  }
+  useEffect(() => {
+    if (props.data) {
+      documentDataDispatch({
+        type: "setState",
+        newState: props.data
+      });
+    }
+  }, [props.data, documentDataDispatch])
+
+
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[props.document.query],
@@ -185,12 +190,12 @@ export default props => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-        ? props.firstQueryPath
-          ? createWithVariable
-          : create
-        : props.firstQueryPath
-        ? updateWithVariable
-        : update,
+          ? props.firstQueryPath
+            ? createWithVariable
+            : create
+          : props.firstQueryPath
+            ? updateWithVariable
+            : update,
       onCompleted: props.reRender
     }
   );
@@ -216,12 +221,12 @@ export default props => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-              submit &&
-              nextStage.current &&
-              !editChapter
+                submit &&
+                nextStage.current &&
+                !editChapter
                 ? FindNextStage(props.specData, props.stage, props.stageType)[
-                    "stage"
-                  ]
+                "stage"
+                ]
                 : props.stage
           }
         });
@@ -249,31 +254,9 @@ export default props => {
     submitData(documentData.current, true);
   };
 
-  // Unsaved changes logic for RouteGuard
-  // ____________________________________________________________
 
-  // const [unsavedChanges, setUnsavedChanges] = useState(true);
-  const [unchangedData, setUnchangedData] = useState();
 
-  // const fetchingComplete = false;
 
-  // useEffect(() => {
-  //   if (fetchingComplete) {
-  //     setUnchangedData(documentData.current);
-  //   }
-  //   if (documentData.current !== unchangedData) {
-  //     setUnsavedChanges(
-  //       JSON.stringify(documentData.current) !==
-  //         JSON.stringify(props.backendData),
-  //     );
-  //   }
-  // }, [
-  //   documentData,
-  //   props.backendData,
-  //   unsavedChanges,
-  //   fetchingComplete,
-  //   unchangedData,
-  // ]);
 
   useEffect(() => {
     setDataChange(false);
@@ -286,8 +269,6 @@ export default props => {
   const unsavedChanges =
     dataChange &&
     JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
-
-  // ____________________________________________________________
   if (props.data) {
     return (
       <documentDataContext.Provider

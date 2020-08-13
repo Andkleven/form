@@ -9,21 +9,10 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
-import { isStringInstance } from "functions/general";
-const cloneDeep = require("clone-deep");
+import { isStringInstance, isNumber } from "functions/general";
+const math = require('mathjs');
 
-const decimalTooStep = {
-  0: 0,
-  1: 0.1,
-  2: 0.01,
-  3: 0.001,
-  4: 0.0001,
-  5: 0.00001,
-  6: 0.000001,
-  7: 0.0000001,
-  8: 0.00000001,
-  9: 0.000000001,
-};
+const cloneDeep = require("clone-deep");
 
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
@@ -48,6 +37,7 @@ export default ({ setState, state, ...props }) => {
 
   const onChange = (value) => {
     if (!dataChange) {
+      console.log(2341)
       setDataChange(true);
       setUnchangedData(cloneDeep(documentData.current));
     }
@@ -71,6 +61,7 @@ export default ({ setState, state, ...props }) => {
   const onChangeInput = (e) => {
     let { value, type } = e.target;
     let newValue = value;
+    let updateState = true
     if (["checkbox", "radio", "switch"].includes(type)) {
       newValue = !objectPath.get(documentData.current, props.path, false);
     } else {
@@ -80,12 +71,24 @@ export default ({ setState, state, ...props }) => {
         } else {
           newValue = Number(value);
         }
+        if (isNumber(props.minInput)) {
+          if (newValue < props.minInput) {
+            updateState = false
+          }
+        }
+        if (props.maxInput) {
+          if (props.maxInput < newValue) {
+            updateState = false
+          }
+        }
         if (props.decimal && typeof newValue === "number") {
           newValue.toFixed(props.decimal);
         }
       }
     }
-    onChange(newValue);
+    if (updateState) {
+      onChange(newValue);
+    }
   };
 
   const onChangeIgnoreRequired = (e) => {
@@ -242,7 +245,7 @@ export default ({ setState, state, ...props }) => {
         BigButtons={BigButtons()}
         name={props.fieldName}
         required={ignoreRequired ? false : props.required}
-        step={props.decimal ? decimalTooStep[props.decimal] : 0}
+        step={!!props.decimal && math.pow(0.1, props.decimal).toFixed(props.decimal)}
         tight={props.submitButton}
         documentData={documentData}
         documentDataDispatch={documentDataDispatch}

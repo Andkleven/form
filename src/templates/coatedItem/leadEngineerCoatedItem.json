@@ -19,14 +19,21 @@
               "fieldName": "steel",
               "label": "Steel",
               "type": "select",
-              "options": ["Carbon", "Duplex"],
+              "options": [
+                "Carbon",
+                "Duplex"
+              ],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
-              "options": ["Garnet", "Grit", "Aluminum Oxide"],
+              "options": [
+                "Garnet",
+                "Grit",
+                "Aluminum Oxide"
+              ],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -203,9 +210,11 @@
             {
               "fieldName": "rubberCementsBeforeCoating",
               "label": "Item Rubber Cement Before Coating",
-
               "type": "select",
-              "options": ["75051", "Soap"]
+              "options": [
+                "75051",
+                "Soap"
+              ]
             }
           ]
         }
@@ -264,7 +273,10 @@
               "label": "TDV (Target Description Value)",
               "type": "select",
               "required": true,
-              "options": ["OD", "ID"]
+              "options": [
+                "OD",
+                "ID"
+              ]
             }
           ]
         },
@@ -334,7 +346,9 @@
               "fieldName": "numberOfLayers",
               "label": "Number of Layers",
               "required": true,
-              "type": "Number"
+              "type": "Number",
+              "minInput": 0,
+              "maxInput": 5
             },
             {
               "page": true,
