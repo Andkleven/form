@@ -61,8 +61,14 @@ export default React.memo(props => {
     },
     [props.path, documentDataDispatch, setAddOrRemove]
   );
+  // console.log(props.path)
+  // console.log(documentData.current)
   const addHandler = useCallback(() => {
+    // console.log(props.path)
+    // console.log(documentData.current)
+    // console.log(objectPath.get(documentData.current, props.path))
     if (objectPath.get(documentData.current, props.path) === undefined) {
+      // console.log(453)
       documentDataDispatch({
         type: "add",
         newState: {},

@@ -187,7 +187,6 @@
           "label": "File Upload",
           "type": "files",
           "queryPath": "finalInspectionQualityControls.0.uploadFiles",
-          "pageName": "uploadFile",
           "description": true
         }
       ]
