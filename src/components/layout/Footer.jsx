@@ -5,8 +5,8 @@ export default props => {
   return (
     <footer
       {...props}
-      className={`text-light py-3 ${props.className}`}
-      align="center"
+      className={`text-center text-light py-3 ${props.className}`}
+      // align="center"
     >
       <Copyright showLink />
     </footer>
