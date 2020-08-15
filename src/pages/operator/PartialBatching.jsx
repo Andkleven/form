@@ -18,6 +18,7 @@ import {
   getStepFromStage,
   reshapeStageSting
 } from "functions/general";
+import Loading from "components/Loading";
 
 export default pageInfo => {
   const {
@@ -64,7 +65,7 @@ export default pageInfo => {
     }
   }, [setNewDescriptionId, descriptionId]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({

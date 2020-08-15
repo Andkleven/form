@@ -9,6 +9,7 @@ import styled from "styled-components";
 import emblem from "../images/emblem.png";
 import Copyright from "components/design/Copyright";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Loading from "components/Loading";
 // import { Redirect } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
@@ -58,8 +59,7 @@ export default () => {
     login,
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(LOGIN_MUTATION, {
-    onError: () => {
-    },
+    onError: () => {},
     onCompleted: data => {
       saveToken(data);
     }
@@ -76,7 +76,7 @@ export default () => {
       <OuterLogin>
         <div
           className="rounded shadow-lg bg-dark"
-        // style={{ backgroundColor: "rgba(0, 0, 0, .7)" }}
+          // style={{ backgroundColor: "rgba(0, 0, 0, .7)" }}
         >
           <div className="p-3 w-100" style={{ maxWidth: "15em" }}>
             <div className="w-100 d-flex">
@@ -116,7 +116,7 @@ export default () => {
               {(mutationLoading || mutationError) && (
                 <div className="text-light w-100">
                   <div className="bg-secondary p-2 rounded mb-1 shadow border">
-                    {mutationLoading && <div>Loading...</div>}
+                    {mutationLoading && <Loading />}
                     {mutationError && <>{`${mutationError}`}</>}
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default () => {
                   icon={["fal", "sign-in"]}
                   size="lg"
                   className="position-relative mr-2"
-                // style={{ fontSize: "1.5em", top: 2 }}
+                  // style={{ fontSize: "1.5em", top: 2 }}
                 />
                 Login
               </Button>

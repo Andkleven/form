@@ -10,8 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
-const math = require('mathjs');
-
 const cloneDeep = require("clone-deep");
 
 export default ({ setState, state, ...props }) => {
@@ -23,21 +21,19 @@ export default ({ setState, state, ...props }) => {
     documentDataDispatch,
     setDataChange,
     dataChange,
-    setUnchangedData,
-  } = useContext(
-    documentDataContext,
-  );
+    setUnchangedData
+  } = useContext(documentDataContext);
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
       newState: userInfo.username,
-      path: props.path + userField,
+      path: props.path + userField
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
-  const onChange = (value) => {
+  const onChange = value => {
     if (!dataChange) {
-      console.log(2341)
+      console.log(2341);
       setDataChange(true);
       setUnchangedData(cloneDeep(documentData.current));
     }
@@ -46,22 +42,22 @@ export default ({ setState, state, ...props }) => {
     setState(value);
   };
 
-  const onChangeDate = (data) => {
+  const onChangeDate = data => {
     onChange(data);
   };
 
-  const onChangeSelect = (e) => {
+  const onChangeSelect = e => {
     onChange(e.value);
   };
 
-  const onChangeFile = (value) => {
+  const onChangeFile = value => {
     onChange(value);
   };
 
-  const onChangeInput = (e) => {
+  const onChangeInput = e => {
     let { value, type } = e.target;
     let newValue = value;
-    let updateState = true
+    let updateState = true;
     if (["checkbox", "radio", "switch"].includes(type)) {
       newValue = !objectPath.get(documentData.current, props.path, false);
     } else {
@@ -73,12 +69,12 @@ export default ({ setState, state, ...props }) => {
         }
         if (isNumber(props.minInput)) {
           if (newValue < props.minInput) {
-            updateState = false
+            updateState = false;
           }
         }
         if (props.maxInput) {
           if (props.maxInput < newValue) {
-            updateState = false
+            updateState = false;
           }
         }
         if (props.decimal && typeof newValue === "number") {
@@ -91,7 +87,7 @@ export default ({ setState, state, ...props }) => {
     }
   };
 
-  const onChangeIgnoreRequired = (e) => {
+  const onChangeIgnoreRequired = e => {
     let { name } = e.target;
     addUser();
     let oldValue = objectPath.get(documentData.current, props.path, false);
@@ -99,18 +95,18 @@ export default ({ setState, state, ...props }) => {
     documentDataDispatch({
       type: "add",
       newState: !oldValue,
-      path: props.path + name,
+      path: props.path + name
     });
   };
 
-  const cancelEdit = (event) => {
+  const cancelEdit = event => {
     event.persist();
     event.preventDefault();
     setState(objectPath.get(props.backendData, props.path));
     documentDataDispatch({
       type: "add",
       newState: objectPath.get(props.backendData, props.path),
-      path: props.path,
+      path: props.path
     });
     setEditChapter(0);
   };
@@ -122,31 +118,28 @@ export default ({ setState, state, ...props }) => {
   // };
 
   const TinyButtons = () => {
-    return props.submitButton
-      ? (
-        <div
-          className={`d-none d-sm-inline ${!props.label &&
-            " w-100 text-right"}`}
+    return props.submitButton ? (
+      <div
+        className={`d-none d-sm-inline ${!props.label && " w-100 text-right"}`}
+      >
+        <TinyButton
+          icon="check"
+          type="submit"
+          tooltip="Submit"
+          className="text-success"
         >
-          <TinyButton
-            icon="check"
-            type="submit"
-            tooltip="Submit"
-            className="text-success"
-          >
-            Submit
-          </TinyButton>
-          <TinyButton
-            className="text-secondary"
-            icon="times"
-            onClick={(event) => cancelEdit(event)}
-            tooltip="Cancel"
-          >
-            Cancel
-          </TinyButton>
-        </div>
-      )
-      : null;
+          Submit
+        </TinyButton>
+        <TinyButton
+          className="text-secondary"
+          icon="times"
+          onClick={event => cancelEdit(event)}
+          tooltip="Cancel"
+        >
+          Cancel
+        </TinyButton>
+      </div>
+    ) : null;
   };
 
   const BigButtons = () => {
@@ -166,7 +159,7 @@ export default ({ setState, state, ...props }) => {
             <Button
               className="w-100 m-0 px-0"
               variant="secondary"
-              onClick={(event) => cancelEdit(event)}
+              onClick={event => cancelEdit(event)}
             >
               <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
               Cancel
@@ -182,8 +175,8 @@ export default ({ setState, state, ...props }) => {
       objectPath.get(
         documentData.current,
         props.path + ignoreRequiredField,
-        false,
-      ),
+        false
+      )
     );
   }, [setIgnoreRequired, documentData, props.path]);
 
@@ -219,8 +212,8 @@ export default ({ setState, state, ...props }) => {
   //   props.type
   // ]);
   // console.log(documentData.current, props.backendData);
-  const indent = (!props.label && props.prepend && props.indent !== false) ||
-    props.indent;
+  const indent =
+    (!props.label && props.prepend && props.indent !== false) || props.indent;
 
   // if (props.label === "Vulcanization Option") {
   //   console.log("label", props.label);
@@ -245,7 +238,9 @@ export default ({ setState, state, ...props }) => {
         BigButtons={BigButtons()}
         name={props.fieldName}
         required={ignoreRequired ? false : props.required}
-        step={!!props.decimal && math.pow(0.1, props.decimal).toFixed(props.decimal)}
+        step={
+          !!props.decimal && Math.pow(0.1, props.decimal).toFixed(props.decimal)
+        }
         tight={props.submitButton}
         documentData={documentData}
         documentDataDispatch={documentDataDispatch}

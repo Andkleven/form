@@ -15,6 +15,7 @@ import {
 import { Button } from "react-bootstrap";
 import query from "graphql/query";
 import { useQuery } from "react-apollo";
+import Loading from "components/Loading";
 
 const fontsize = 7;
 
@@ -400,7 +401,7 @@ export default ({ project, description, item, ...props }) => {
   });
 
   if (loading) {
-    return "Loading...";
+    return <Loading />;
   }
   if (error) {
     return error;

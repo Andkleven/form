@@ -18,6 +18,7 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
+import Loading from "components/Loading";
 const cloneDeep = require("clone-deep");
 
 export default pageInfo => {
@@ -142,7 +143,7 @@ export default pageInfo => {
           display
           label={`Items in current description`}
           value={`${geometryData.items.length}`}
-        // noLine
+          // noLine
         />
         <ReadField
           display
@@ -150,8 +151,8 @@ export default pageInfo => {
           label={`Items in project`}
           value={`${numberOfItems}/${projectsData.totalNumberOfItems}${
             over ? ", too many items!" : ""
-            }`}
-        // noLine
+          }`}
+          // noLine
         />
       </div>
     );
@@ -204,7 +205,7 @@ export default pageInfo => {
     projectExists &&
     !sent &&
     fixedData.projects[0].descriptions.length ===
-    projectsData.numberOfDescriptions &&
+      projectsData.numberOfDescriptions &&
     Number(numberOfItems) === Number(projectsData.totalNumberOfItems) &&
     itemsDone(data);
 
@@ -237,7 +238,7 @@ export default pageInfo => {
     }
   }, [counter, fixedData, error, loading]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -272,7 +273,7 @@ export default pageInfo => {
               onClick={() =>
                 history.push(
                   `/lead-engineer/${_id}/${geometryData.id}/${
-                  geometryData.items.find(item => item.unique === false).id
+                    geometryData.items.find(item => item.unique === false).id
                   }/0/${geometryData.data.geometry}`
                 )
               }
@@ -354,8 +355,8 @@ export default pageInfo => {
               {sent
                 ? "Sent to production"
                 : sendable
-                  ? "Send to production"
-                  : "Not ready to send"}
+                ? "Send to production"
+                : "Not ready to send"}
             </DepthButton>
           </>
         )}

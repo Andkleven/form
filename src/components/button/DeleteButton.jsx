@@ -1,7 +1,8 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
+import Loading from "components/Loading";
 
-export default (props) => {
+export default props => {
   const handleDelete = e => {
     e.preventDefault();
     deleteMutation({
@@ -24,9 +25,8 @@ export default (props) => {
       <button className="btn" onClick={() => handleDelete}>
         Delete
       </button>
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       {error && <p>Error :( Please try again</p>}
     </>
   );
-}
-
+};

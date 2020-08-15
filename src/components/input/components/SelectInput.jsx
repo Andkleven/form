@@ -73,7 +73,11 @@ export default props => {
     onChange: props.onChangeSelect,
     autoFocus: props.focus,
     isDisabled: props.readOnlyFields ? props.readOnlyFields : props.readOnly,
-    onKeyDown: props.onKeyPress
+    onKeyDown: props.onKeyPress,
+    styles: {
+      menuPortal: base => ({ ...base, zIndex: 9999 }),
+      menu: provided => ({ ...provided, zIndex: "9999 !important" })
+    }
   };
 
   return (

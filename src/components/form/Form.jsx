@@ -15,6 +15,7 @@ import Title from "components/design/fonts/Title";
 import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
+import Loading from "components/Loading";
 
 const cloneDeep = require("clone-deep");
 
@@ -81,15 +82,18 @@ export default props => {
   );
   // Set documentData to empty dictionary if a new component calls Form
   useEffect(() => {
-    if (props.data && (JSON.stringify(props.data) !== JSON.stringify(lastData.current) || !lastData.current)) {
-      lastData.current = cloneDeep(props.data)
+    if (
+      props.data &&
+      (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
+        !lastData.current)
+    ) {
+      lastData.current = cloneDeep(props.data);
       documentDataDispatch({
         type: "setState",
         newState: props.data
       });
     }
-  }, [props.data, documentDataDispatch, lastData])
-
+  }, [props.data, documentDataDispatch, lastData]);
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
@@ -192,12 +196,12 @@ export default props => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-            ? updateWithVariable
-            : update,
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
       onCompleted: props.reRender
     }
   );
@@ -223,12 +227,12 @@ export default props => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-                submit &&
-                nextStage.current &&
-                !editChapter
+              submit &&
+              nextStage.current &&
+              !editChapter
                 ? FindNextStage(props.specData, props.stage, props.stageType)[
-                "stage"
-                ]
+                    "stage"
+                  ]
                 : props.stage
           }
         });
@@ -255,10 +259,6 @@ export default props => {
     e.preventDefault();
     submitData(documentData.current, true);
   };
-
-
-
-
 
   useEffect(() => {
     setDataChange(false);
@@ -334,7 +334,7 @@ export default props => {
                 props.readOnlySheet === undefined ? false : props.readOnlySheet
               }
             />
-            {loadingMutation && <p>Loading...</p>}
+            {loadingMutation && <Loading />}
             {errorMutation && <p>Error :( Please try again</p>}
           </Form>
         </ChapterContext.Provider>

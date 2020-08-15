@@ -9,6 +9,7 @@ import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
+import Loading from "components/Loading";
 
 let leadEngineersJson = leadEngineersCoatedItemJson;
 
@@ -35,7 +36,7 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
     <Canvas showForm={fixedData}>

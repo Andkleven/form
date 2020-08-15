@@ -6,6 +6,7 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 import DepthButton from "components/button/DepthButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { camelCaseToNormal } from "functions/general";
+import Loading from "components/Loading";
 
 const repairStages = [
   { stage: "steelPreparation1", label: "Steel Preparation 1" },
@@ -55,7 +56,7 @@ export default ({ id, show, setShow, children }) => {
         </Modal.Header>
         <Modal.Body>
           {stageButtons}
-          {loading && <div>Loading...</div>}
+          {loading && <Loading />}
           {error && <div>Error Please try again</div>}
         </Modal.Body>
         <Modal.Footer>

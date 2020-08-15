@@ -248,6 +248,9 @@
             {
               "fieldName": "dustTest",
               "label": "Dust Test",
+              "prepend": "Max",
+              "min": 1,
+              "max": 5,
               "required": true,
               "placeholder": "Result",
               "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
@@ -390,10 +393,7 @@
       ]
     },
     "coatingStepLayer": {
-      "specChapter": [
-        "leadEngineers.0.vulcanizationSteps",
-        "coatingLayers"
-      ],
+      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -493,10 +493,7 @@
       "pages": [
         {
           "pageTitle": "Vulcanization",
-          "queryPath": [
-            "operators.0.vulcanizationOperators",
-            ""
-          ],
+          "queryPath": ["operators.0.vulcanizationOperators", ""],
           "fields": [
             {
               "specValueList": [

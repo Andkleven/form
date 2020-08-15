@@ -16,6 +16,7 @@ import {
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
 import { ItemContext } from "components/contexts/ItemContext";
+import Loading from "components/Loading";
 
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
@@ -55,7 +56,7 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -64,7 +65,7 @@ export default pageInfo => {
       <Paper className="mb-3">
         <Title big align="center">
           Operator
-          </Title>
+        </Title>
         <Form
           componentsId={"SingleItem"}
           document={operatorJson}
@@ -84,7 +85,7 @@ export default pageInfo => {
       <Paper>
         <Title big align="center">
           Quality Control
-          </Title>
+        </Title>
         <Form
           componentsId={"finalInspectionQualityControls"}
           document={qualityControlJson}
