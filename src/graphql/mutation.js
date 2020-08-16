@@ -7,6 +7,10 @@ const ORDER = gql`
         id
         data
         leadEngineerDone
+        itpDocumentNumbers {
+          id
+          data
+        }
         descriptions {
           id
           data
