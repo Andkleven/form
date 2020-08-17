@@ -396,6 +396,14 @@ const DELETE_SEEN = gql`
   }
 `;
 
+const VERIFY_TOKEN = gql`
+  mutation verifyToken($token: String) {
+    verifyToken(token: $token) {
+      payload 
+    }
+  }
+`;
+
 const mutations = {
   ORDER,
   DELETE_PROJECT,
@@ -406,7 +414,8 @@ const mutations = {
   OPERATOR_BATCHING,
   OPERATOR,
   QUALITY_CONTROL,
-  DELETE_SEEN
+  DELETE_SEEN,
+  VERIFY_TOKEN
 };
 
 export default mutations;
