@@ -35,6 +35,7 @@ export default React.memo(props => {
     setDataChange,
     unchangedData
   } = useContext(documentDataContext);
+  console.log(documentData.current)
   const [addOrRemove, setAddOrRemove] = useState(0);
   const writeChapter = useRef(false);
   useEffect(() => {
