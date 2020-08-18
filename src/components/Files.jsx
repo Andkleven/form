@@ -162,7 +162,7 @@ const File = ({ file, ...props }) => {
   const imageExtensions = ["png", "jpg", "webp", "jpeg", "gif", "tif"];
   const isImage = extension =>
     imageExtensions.includes(extension.toLowerCase());
-  const isPdf = extension => extension.toLowerCase() === "pdf";
+  // const isPdf = extension => extension.toLowerCase() === "pdf";
 
   const [
     {
