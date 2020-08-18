@@ -8,7 +8,6 @@ import { camelCaseToNormal } from "functions/general";
 
 export default props => {
   let options = [];
-
   if (props.optionsData && props.userRole) {
     props.optionsData.userProfile.forEach(element => {
       if (props.userRole.includes(element.role.toLowerCase())) {
@@ -65,8 +64,8 @@ export default props => {
         props.value && props.placeholder && !props.label && !props.prepend
           ? `${props.placeholder}: ${camelCaseToNormal(props.value)}`
           : props.value
-          ? camelCaseToNormal(props.value)
-          : placeholder
+            ? camelCaseToNormal(props.value)
+            : placeholder
     },
     isSearchable: true,
     placeholder: placeholder,

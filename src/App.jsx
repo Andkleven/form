@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { AUTH_TOKEN } from "./constants";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./functions/history";
@@ -12,10 +12,32 @@ import SingleItem from "./pages/operator/SingleItem";
 import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
+import mutations from "graphql/mutation";
+import { useMutation } from "@apollo/react-hooks";
 import "styles/icons";
 
 export default () => {
-  const authToken = localStorage.getItem(AUTH_TOKEN);
+  const [authToken, setAuthToken] = useState(localStorage.getItem(AUTH_TOKEN))
+
+  useEffect(() => {
+    setAuthToken(localStorage.getItem(AUTH_TOKEN))
+  }, [])
+
+  const [mutation] = useMutation(
+    mutations["VERIFY_TOKEN"],
+    {
+      onError: () => { setAuthToken(undefined) }
+    }
+  );
+  useEffect(() => {
+    mutation({
+      variables: {
+        token: authToken
+      }
+    })
+
+  }, [authToken, mutation])
+
   const [item, setItem] = useState({
     id: null,
     name: null,
@@ -30,7 +52,7 @@ export default () => {
         <Router history={history}>
           <Switch>
             {/* Login */}
-            <Route exact path="/login" component={Login} />
+            < Route exact path="/login" component={Login} />
             {!authToken && <Redirect to="/login" exact />}
 
             {/* Home */}

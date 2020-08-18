@@ -43,8 +43,7 @@ export default ({ ...props }) => {
         <Input
           noComment
           placeholder={`Description or comment...`}
-          defaultValue={props.file.fileDescription}
-          onChange={e => props.onChange(e.target, props.index)}
+          onChangeInput={e => props.onChange(e.target, props.index)}
         />
       </div>
     );
