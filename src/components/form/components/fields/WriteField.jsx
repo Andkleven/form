@@ -33,7 +33,6 @@ export default ({ setState, state, ...props }) => {
 
   const onChange = value => {
     if (!dataChange) {
-      console.log(2341);
       setDataChange(true);
       setUnchangedData(cloneDeep(documentData.current));
     }

@@ -23,6 +23,7 @@ export default props => (
           }`}
           size={props.size}
           onKeyPress={props.onKeyPress}
+          style={{ zIndex: 0 }}
         />
         {!!props.labelAppend ? (
           <>

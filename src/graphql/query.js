@@ -252,7 +252,7 @@ const GET_ORDER_GEOMETRY = gql`
           unique
           leadEngineers {
             id
-           }
+          }
         }
         uploadFiles {
           id
@@ -487,6 +487,7 @@ const OPERATOR_PROJECTS = gql`
       data
       id
       descriptions {
+        id
         data
         items {
           stage

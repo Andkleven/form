@@ -10,9 +10,19 @@ export const DialogModal = ({
   buttons,
   show = true,
   setShow = () => {},
+  block = false,
   setBlock = () => {},
   setConfirmed = () => {}
 }) => {
+  // Prompt if user tries to close window
+  if (block) {
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+      return "You might have unsaved changes or a task in progress. Are you sure you want to leave?";
+    }
+  }
+
+  // Regular modal dialog
   return (
     <Modal show={show} onHide={() => {}}>
       {title && (
@@ -90,6 +100,7 @@ export const RouteGuard = ({ when, ...options }) => {
       <DialogModal
         show={show}
         setShow={setShow}
+        block={block}
         setBlock={setBlock}
         setConfirmed={setConfirmed}
         {...options}

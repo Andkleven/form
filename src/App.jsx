@@ -6,11 +6,10 @@ import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import CreateProject from "./pages/leadEngineer/CreateProject";
 import LeadEngineerPage from "./pages/leadEngineer/LeadEngineerPage";
-import PartialBatching from "./pages/operator/PartialBatching";
 import Batching from "./pages/operator/Batching";
 import QualityControl from "./pages/qualityControl/QualityControl";
 import SingleItem from "./pages/operator/SingleItem";
-import ViewFile from "components/ViewFile";
+import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
 import "styles/icons";
@@ -49,35 +48,25 @@ export default () => {
             />
 
             {/* Batching (Operator) */}
-            <Route
+            {/* <Route
               path="/batching/:stage/:projectId/:descriptionId/:geometry"
               component={Batching}
-            />
+            /> */}
             <Route path="/batching/:stage/:projectId" component={Batching} />
-
-            {/* Partial Batching (Operator) */}
-            <Route
-              path="/partial-batching/:stage/:projectId/:descriptionId/:geometry"
-              component={PartialBatching}
-            />
-            <Route
-              path="/partial-batching/:stage/:projectId"
-              component={PartialBatching}
-            />
 
             {/* Single Item (Operator) */}
             <Route
-              path="/single-item/:itemId/:geometry"
+              path="/single-item/:projectId/:descriptionId/:itemId/:geometry"
               component={SingleItem}
             />
 
             {/* Final Inspection (Quality Control) */}
             <Route
-              path="/quality-control/:itemId/:geometry"
+              path="/quality-control/:projectId/:descriptionId/:itemId/:geometry"
               component={QualityControl}
             />
             <Route path="/file/:filename">
-              <ViewFile />
+              <Files />
             </Route>
           </Switch>
         </Router>
