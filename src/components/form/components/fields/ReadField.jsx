@@ -13,13 +13,8 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     readOnly = true;
   }
   // const documentData = useContext(documentDataContext);
-  let {
-    documentData,
-    documentDataDispatch,
-    dataChange,
-    unchangedData,
-    save
-  } = !display && useContext(documentDataContext);
+  let { documentData, documentDataDispatch, dataChange, unchangedData, save } =
+    !display && useContext(documentDataContext);
   const chapterContext = useContext(ChapterContext);
 
   const unsavedChanges =
@@ -87,8 +82,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     return `d-none d-${breakpoint}-inline`;
   };
 
-
-
   const TinyEditButton = props =>
     props.edit ? (
       <TinyButton
@@ -130,6 +123,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         // tooltip="Edit"
         icon={["fas", "pen"]}
         iconSize="sm"
+        type="button"
       >
         Edit
       </TinyButton>
@@ -150,7 +144,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <div
           className={`d-flex justify-content-between align-items-start h-100 ${
             indent && `ml-3`
-            }`}
+          }`}
         >
           <div className={`${showUnderBreakpoint()}`}>
             <small className={`text-secondary`}>
@@ -196,7 +190,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <div
             className={`d-flex justify-content-between align-items-start h-100 ${
               indent && "ml-3 ml-sm-0"
-              }`}
+            }`}
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
@@ -218,7 +212,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
           indent && "ml-3 ml-sm-0"
-          }`}
+        }`}
       >
         <div>
           {(props.type !== "checkbox" &&
@@ -242,7 +236,11 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           </small>
         </div>
         {readOnly ? null : (
-          <TinyEditButton {...props} className={showAboveBreakpoint()} edit={props.edit} />
+          <TinyEditButton
+            {...props}
+            className={showAboveBreakpoint()}
+            edit={props.edit}
+          />
         )}
       </div>
     );
@@ -257,7 +255,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     <div
       className={className}
       style={style}
-    // hidden={readOnly}
+      // hidden={readOnly}
     >
       <Row>
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>

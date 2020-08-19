@@ -113,10 +113,10 @@ export default () => {
                   onChange={e => setPassword(e.target.value)}
                 />
               </Form.Group>
-              {(mutationLoading || mutationError) && (
+              {mutationLoading && <Loading />}
+              {mutationError && (
                 <div className="text-light w-100">
                   <div className="bg-secondary p-2 rounded mb-1 shadow border">
-                    {mutationLoading && <Loading />}
                     {mutationError && <>{`${mutationError}`}</>}
                   </div>
                 </div>

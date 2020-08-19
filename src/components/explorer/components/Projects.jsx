@@ -210,20 +210,6 @@ export default ({
                       >
                         Batching
                       </Link>
-                      <Link
-                        // to={`/project/${project["id"]}`}
-                        to={`/partial-batching/${stage}/${project["id"]}`}
-                        key={`projectPartialBatching${indexProject}`}
-                        iconProps={{
-                          icon: ["far", "cubes"],
-                          size: iconSize,
-                          style: iconStyle,
-                          className: "text-secondary"
-                        }}
-                        style={{ marginRight: ".75em", ...rowStyle }}
-                      >
-                        Partial batching
-                      </Link>
                     </>
                   )}
                 <Link
@@ -330,10 +316,10 @@ export default ({
                               (userIsQuality || userIsAdmin) && stageIsQuality;
 
                             let itemLink = `/404`;
-                            itemLink = `/single-item/${item.id}/${description.data.geometry}`;
+                            itemLink = `/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
 
                             if (qcView) {
-                              itemLink = `/quality-control/${item.id}/${description.data.geometry}`;
+                              itemLink = `/quality-control/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
                             }
 
                             return (
@@ -398,7 +384,7 @@ export default ({
                                         <ProgressBar
                                           animated={progress(item) < 100}
                                           variant={
-                                            progress(item) > 100
+                                            progress(item) >= 100
                                               ? "success"
                                               : "primary"
                                           }
@@ -432,7 +418,7 @@ export default ({
                                     <ReportButton
                                       size="sm"
                                       variant={
-                                        progress(item) > 100
+                                        progress(item) >= 100
                                           ? "success"
                                           : "primary"
                                       }

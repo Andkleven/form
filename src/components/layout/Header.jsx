@@ -6,9 +6,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { getUser, getAccess } from "functions/user";
 import { camelCaseToNormal } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { ItemContext } from "components/contexts/ItemContext";
 import Repair from "components/repair/Repair";
+import Files from "components/Files";
 
 export default props => {
   const user = getUser();
@@ -18,7 +19,11 @@ export default props => {
     ("/single-item/" === useLocation().pathname.slice(0, 13) ||
       "/quality-control/" === useLocation().pathname.slice(0, 17)) &&
     access.itemRepair;
+  const { itemId, descriptionId } = useParams();
+  const showFilesButton = itemId && descriptionId;
+
   const [showRepair, setShowRepair] = useState(false);
+  const [showFiles, setShowFiles] = useState(false);
 
   const { item } = useContext(ItemContext);
 
@@ -50,7 +55,6 @@ export default props => {
     <>
       <Navbar
         collapseOnSelect
-        // sticky="top"
         bg="dark"
         variant="dark"
         className="text-light mx-0 px-1 w-100 shadow header"
@@ -69,14 +73,29 @@ export default props => {
             <Dropdown.Menu>
               <NavLink title="Home" link="/" icon="home" />
               {showRepairButton && (
-                <Repair id={item.id} show={showRepair} setShow={setShowRepair}>
+                <>
                   <NavButton
                     title={`Repair`}
                     onClick={() => setShowRepair(true)}
                     icon="tools"
                     // hidden
                   />
-                </Repair>
+                  <Repair
+                    id={item.id}
+                    show={showRepair}
+                    setShow={setShowRepair}
+                  />
+                </>
+              )}
+              {showFilesButton && (
+                <>
+                  <NavButton
+                    title={`Files`}
+                    onClick={() => setShowFiles(true)}
+                    icon="copy"
+                  />
+                  <Files show={showFiles} setShow={setShowFiles} />
+                </>
               )}
             </Dropdown.Menu>
           </Dropdown>

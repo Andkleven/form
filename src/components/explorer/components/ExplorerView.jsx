@@ -5,7 +5,6 @@ import Projects from "./Projects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DarkButton from "components/button/DarkButton";
 import { getUser } from "functions/user";
-import Loading from "components/Loading";
 
 const createStages = data => {
   let stages = [];

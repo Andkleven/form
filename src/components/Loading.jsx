@@ -1,26 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import Div100vh from "react-div-100vh";
 import MoonLoader from "react-spinners/MoonLoader";
-
+import Dots from "components/design/Dots";
 /**
  * Fullscreen loading that blocks user input
  * @param {bool} loading Optional conditional loading, if render is not conditional
  */
 export default ({ loading = true }) => {
-  const dots = useRef();
-
-  useEffect(() => {
-    setInterval(() => {
-      if (dots.current) {
-        if (dots.current.innerHTML.length >= 3) {
-          dots.current.innerHTML = "";
-        } else {
-          dots.current.innerHTML += ".";
-        }
-      }
-    }, 350);
-  }, [dots]);
-
   return (
     <Div100vh
       style={{
@@ -42,7 +28,7 @@ export default ({ loading = true }) => {
         <MoonLoader size={100} color={"#ffffff"} loading={loading} />
         <div style={{ position: "relative", bottom: 77.5, color: "#ffffff" }}>
           Loading
-          <span ref={dots} />
+          <Dots />
         </div>
       </div>
     </Div100vh>

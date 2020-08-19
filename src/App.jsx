@@ -9,7 +9,7 @@ import LeadEngineerPage from "./pages/leadEngineer/LeadEngineerPage";
 import Batching from "./pages/operator/Batching";
 import QualityControl from "./pages/qualityControl/QualityControl";
 import SingleItem from "./pages/operator/SingleItem";
-import ViewFile from "components/ViewFile";
+import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
 import mutations from "graphql/mutation";
@@ -71,26 +71,25 @@ export default () => {
 
 
             {/* Batching (Operator) */}
-            <Route
+            {/* <Route
               path="/batching/:stage/:projectId/:descriptionId/:geometry"
               component={Batching}
-            />
+            /> */}
             <Route path="/batching/:stage/:projectId" component={Batching} />
-
 
             {/* Single Item (Operator) */}
             <Route
-              path="/single-item/:itemId/:geometry"
+              path="/single-item/:projectId/:descriptionId/:itemId/:geometry"
               component={SingleItem}
             />
 
             {/* Final Inspection (Quality Control) */}
             <Route
-              path="/quality-control/:itemId/:geometry"
+              path="/quality-control/:projectId/:descriptionId/:itemId/:geometry"
               component={QualityControl}
             />
             <Route path="/file/:filename">
-              <ViewFile />
+              <Files />
             </Route>
           </Switch>
         </Router>
