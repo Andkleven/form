@@ -19,14 +19,21 @@
               "fieldName": "steel",
               "label": "Steel",
               "type": "select",
-              "options": ["Carbon", "Duplex"],
+              "options": [
+                "Carbon",
+                "Duplex"
+              ],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
-              "options": ["Garnet", "Grit", "Aluminum Oxide"],
+              "options": [
+                "Garnet",
+                "Grit",
+                "Aluminum Oxide"
+              ],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -203,9 +210,11 @@
             {
               "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Agent Before Coating",
-
               "type": "select",
-              "options": ["75051", "Soap"]
+              "options": [
+                "75051",
+                "Soap"
+              ]
             }
           ]
         }
@@ -259,7 +268,9 @@
               "label": "Measurement Points",
               "type": "Number",
               "subtext": "Pre-Coating",
-              "required": true
+              "required": true,
+              "minInput": 0,
+              "maxInput": 20
             }
           ]
         },
@@ -309,7 +320,9 @@
               "fieldName": "numberOfLayers",
               "required": true,
               "label": "Number of Layers",
-              "type": "Number"
+              "type": "Number",
+              "minInput": 0,
+              "maxInput": 40
             },
             {
               "page": true,
@@ -470,7 +483,9 @@
             {
               "fieldName": "numberOfHardnessOfOuterLayer",
               "label": "Number of Hardness of Outer Layer",
-              "type": "number"
+              "type": "number",
+              "max": 30,
+              "min": 0
             },
             {
               "fieldName": "identificationMarking",
@@ -486,7 +501,9 @@
             {
               "fieldName": "numberOfPeelTest",
               "label": "Number of Peel Test",
-              "type": "number"
+              "type": "number",
+              "max": 30,
+              "min": 0
             },
             {
               "fieldName": "totalCoatingThickness",

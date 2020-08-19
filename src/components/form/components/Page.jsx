@@ -30,7 +30,6 @@ export default React.memo(props => {
     documentDataDispatch,
     documentData,
     renderFunction,
-    resetState,
     dataChange,
     setDataChange,
     unchangedData
@@ -57,9 +56,8 @@ export default React.memo(props => {
         fieldName: "data",
         path: `${props.path}.${pushOnIndex}`
       });
-      setAddOrRemove(prevState => prevState + 1);
     },
-    [props.path, documentDataDispatch, setAddOrRemove]
+    [props.path, documentDataDispatch]
   );
   const addHandler = useCallback(() => {
     if (objectPath.get(documentData.current, props.path) === undefined) {
@@ -79,21 +77,19 @@ export default React.memo(props => {
           }`
       });
     }
-    setAddOrRemove(prevState => prevState + 1);
-  }, [documentDataDispatch, props.path, documentData, setAddOrRemove]);
+  }, [documentDataDispatch, props.path, documentData]);
 
   const deleteHandler = useCallback(
     index => {
       documentDataDispatch({
         type: "delete",
-        path: `${props.path}.${index}`
-      });
-      setAddOrRemove(prevState => prevState + 1);
-      Object.values(resetState.current).forEach(func => {
-        func();
+        path: `${props.path}.${index}`,
+        notReRender: true,
+        resetRenderFunction: true
       });
     },
-    [props.path, documentDataDispatch, setAddOrRemove, resetState]
+    [props.path, documentDataDispatch
+    ]
   );
 
   // set repeatGroup
@@ -133,6 +129,8 @@ export default React.memo(props => {
           deleteHandler(i);
         }
       }
+      setAddOrRemove(prevState => prevState + 1);
+
     },
     [
       documentData,
@@ -191,7 +189,6 @@ export default React.memo(props => {
     props.repeatGroupWithQuerySpecData,
     documentData
   ]);
-
   if (
     objectPath.get(documentData.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
@@ -216,6 +213,7 @@ export default React.memo(props => {
       objectPath.get(documentData.current, props.path).length === 0))
   ) {
     addData(0);
+    setAddOrRemove(prevState => prevState + 1);
   }
   const Components = CustomComponents[props.customComponent];
 

@@ -149,22 +149,25 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
   pageInfo.pages.forEach((page, index) => {
     let newPath = page.queryPath;
     let allFieldMissing = [];
+    let dataFields = objectPath.get(
+      data,
+      Array.isArray(newPath)
+        ? createPath(newPath, array)
+        : newPath
+    );
+    if (dataFields.length === 1) {
+      dataFields = dataFields[0]
+    }
+    // let dataFields = objectPath.get(
+    //   data,
+    //   Array.isArray(newPath)
+    //     ? createPath(newPath, array)
+    //     : index === 0
+    //       ? `${newPath}.0`
+    //       : newPath,
+    // );
     page.fields &&
       page.fields.forEach((field) => {
-        let dataFields = objectPath.get(
-          data,
-          Array.isArray(newPath)
-            ? createPath(newPath, array)
-            : `${newPath}.0`
-        );
-        // let dataFields = objectPath.get(
-        //   data,
-        //   Array.isArray(newPath)
-        //     ? createPath(newPath, array)
-        //     : index === 0
-        //       ? `${newPath}.0`
-        //       : newPath,
-        // );
         if (field.required) {
           if (Array.isArray(dataFields)) {
             dataFields.forEach((dataField) => {

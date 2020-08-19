@@ -111,7 +111,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
                   label: "Discard and continue",
                   variant: "danger",
                   onClick: () => {
-                    // console.log(props.backendData, props.path, props)
 
                     // TODO: Remove old data from form
                     // I tried this, to no luck:
@@ -229,6 +228,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             (props.value === true && props.type === "checkbox" && `✓`) || (
               <EmptyValue />
             )}
+          {/* {objectPath.get(documentData.current, props.path)} */}
           <small>
             {/* {props.value && props.max ? (
               <div className="text-muted">Max: {props.max}</div>

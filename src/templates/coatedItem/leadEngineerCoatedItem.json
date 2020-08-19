@@ -266,7 +266,9 @@
               "label": "Measurement Points",
               "type": "Number",
               "subtext": "Pre-Coating",
-              "required": true
+              "required": true,
+              "minInput": 0,
+              "maxInput": 20
             },
             {
               "fieldName": "targetDescriptionValue",
@@ -348,7 +350,7 @@
               "required": true,
               "type": "Number",
               "minInput": 0,
-              "maxInput": 5
+              "maxInput": 40
             },
             {
               "page": true,
@@ -528,7 +530,9 @@
             {
               "fieldName": "numberOfHardnessOfOuterLayer",
               "label": "Number of Hardness of Outer Layer",
-              "type": "number"
+              "type": "number",
+              "max": 30,
+              "min": 0
             },
             {
               "fieldName": "identificationMarking",
@@ -544,7 +548,9 @@
             {
               "fieldName": "numberOfPeelTest",
               "label": "Number of Peel Test",
-              "type": "number"
+              "type": "number",
+              "max": 30,
+              "min": 0
             },
             {
               "fieldName": "totalCoatingThickness",

@@ -24,9 +24,6 @@ import Line from "components/design/Line";
 export default ({ ...props }) => {
   const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
   const { editChapter } = useContext(ChapterContext);
-  const [state, setState] = useState("");
-  const [hidden, setHidden] = useState(false)
-  const [label, setLabel] = useState("");
 
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
@@ -34,6 +31,10 @@ export default ({ ...props }) => {
     }
     return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
   }, [props.path, props.fieldName, props.type]);
+
+  const [state, setState] = useState("");
+  const [hidden, setHidden] = useState(false)
+  const [label, setLabel] = useState("");
 
   const updateState = useCallback(
     () => {
@@ -77,12 +78,10 @@ export default ({ ...props }) => {
       );
       if (props.type === "date" || props.type === "datetime-local") {
         backendDate = backendDate ? new Date(backendDate) : null
-        setState(backendDate);
-        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath() });
-      } else {
-        setState(backendDate);
-        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath() });
       }
+      setState(backendDate);
+      documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath() });
+
     }
   }, [
     props.fieldName,

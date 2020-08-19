@@ -81,19 +81,19 @@ export default props => {
     }
   );
   // Set documentData to empty dictionary if a new component calls Form
-  useEffect(() => {
-    if (
-      props.data &&
-      (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
-        !lastData.current)
-    ) {
-      lastData.current = cloneDeep(props.data);
-      documentDataDispatch({
-        type: "setState",
-        newState: props.data
-      });
-    }
-  }, [props.data, documentDataDispatch, lastData]);
+
+  if (
+    props.data &&
+    (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
+      !lastData.current)
+  ) {
+    lastData.current = cloneDeep(props.data);
+    documentDataDispatch({
+      type: "setState",
+      newState: props.data
+    });
+  }
+
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({

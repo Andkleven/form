@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect, useState } from "react";
+import React, { useContext, useCallback, useEffect, useState, useRef } from "react";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import Input from "components/input/Input";
@@ -12,10 +12,14 @@ import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
 const cloneDeep = require("clone-deep");
 
+const delayOnChange = 1000
+
+
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
+  const timer = useRef(0)
   const {
     documentData,
     documentDataDispatch,
@@ -23,6 +27,7 @@ export default ({ setState, state, ...props }) => {
     dataChange,
     setUnchangedData
   } = useContext(documentDataContext);
+
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -31,14 +36,21 @@ export default ({ setState, state, ...props }) => {
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
+  useEffect(() => {
+    return () => clearTimeout(timer.current);
+  });
+
   const onChange = value => {
-    if (!dataChange) {
-      setDataChange(true);
-      setUnchangedData(cloneDeep(documentData.current));
-    }
-    addUser();
-    documentDataDispatch({ type: "add", newState: value, path: props.path });
-    setState(value);
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
+      if (!dataChange) {
+        setDataChange(true);
+        setUnchangedData(cloneDeep(documentData.current));
+      }
+      addUser();
+      documentDataDispatch({ type: "add", newState: value, path: props.path });
+      setState(value);
+    }, delayOnChange)
   };
 
   const onChangeDate = data => {
@@ -179,38 +191,6 @@ export default ({ setState, state, ...props }) => {
     );
   }, [setIgnoreRequired, documentData, props.path]);
 
-  // const defaultValue = useCallback(() => {
-  //   return objectPath.get(
-  //     props.backendData,
-  //     props.path,
-  //     props.default !== undefined ? props.default : ""
-  //   );
-  // }, [props.backendData, props.path, props.default]);
-  // useEffect(() => {
-  //   let newSate;
-  //   if (props.type === "date" || props.type === "datetime-local") {
-  //     let backendDate = objectPath.get(props.backendData, props.path, null);
-  //     newSate = backendDate ? new Date(backendDate) : null;
-  //   } else {
-  //     newSate = defaultValue();
-  //   }
-  //   setState(newSate);
-  //   if (newSate) {
-  //     documentDataDispatch({
-  //       type: "add",
-  //       newState: newSate,
-  //       path: props.path
-  //     });
-  //   }
-  // }, [
-  //   setState,
-  //   props.path,
-  //   documentDataDispatch,
-  //   defaultValue,
-  //   props.backendData,
-  //   props.type
-  // ]);
-  // console.log(documentData.current, props.backendData);
   const indent =
     (!props.label && props.prepend && props.indent !== false) || props.indent;
 
