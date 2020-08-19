@@ -36,12 +36,9 @@ export default ({ setState, state, ...props }) => {
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
 
-  useEffect(() => {
-    return () => clearTimeout(timer.current);
-  });
-
   const onChange = value => {
     clearTimeout(timer.current)
+    setState(value);
     timer.current = setTimeout(() => {
       if (!dataChange) {
         setDataChange(true);
@@ -68,7 +65,6 @@ export default ({ setState, state, ...props }) => {
   const onChangeInput = e => {
     let { value, type } = e.target;
     let newValue = value;
-    let updateState = true;
     if (["checkbox", "radio", "switch"].includes(type)) {
       newValue = !objectPath.get(documentData.current, props.path, false);
     } else {
@@ -80,12 +76,12 @@ export default ({ setState, state, ...props }) => {
         }
         if (isNumber(props.minInput)) {
           if (newValue < props.minInput) {
-            updateState = false;
+            newValue = props.minInput;
           }
         }
         if (props.maxInput) {
           if (props.maxInput < newValue) {
-            updateState = false;
+            newValue = props.maxInput;
           }
         }
         if (props.decimal && typeof newValue === "number") {
@@ -93,9 +89,7 @@ export default ({ setState, state, ...props }) => {
         }
       }
     }
-    if (updateState) {
-      onChange(newValue);
-    }
+    onChange(newValue);
   };
 
   const onChangeIgnoreRequired = e => {

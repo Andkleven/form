@@ -60,7 +60,7 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <Canvas>
+    <Canvas showForm={fixedData}>
       <Overview />
       <Paper className="mb-3">
         <Title big align="center">
