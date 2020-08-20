@@ -102,10 +102,14 @@ const CustomLead = props => {
   );
 
   useEffect(() => {
-
     renderFunction.current[`${props.repeatStepList}-CustomLead`] = thickness;
     return () => {
-      delete renderFunction.current[`${props.repeatStepList}-CustomLead`];
+      if (renderFunction.current[`${props.repeatStepList}-CustomLead`]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
+        delete renderFunction.current[`${props.repeatStepList}-CustomLead`];
+      }
     };
   }, [thickness, props.repeatStepList, renderFunction]);
 

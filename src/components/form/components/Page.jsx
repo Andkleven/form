@@ -230,7 +230,9 @@ export default React.memo(props => {
     }
     return () => {
       if (renderFunction.current[`${props.path}-Page`]) {
-        console.log(1432)
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
         delete renderFunction.current[`${props.path}-Page`];
       }
     };

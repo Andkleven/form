@@ -37,9 +37,14 @@ export default ({ backendData, ...props }) => {
       `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
     ] = math;
     return () => {
-      delete renderFunction.current[
-        `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
-      ];
+      if (renderFunction.current[`${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
+        delete renderFunction.current[
+          `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
+        ];
+      }
     };
   }, [
     math,

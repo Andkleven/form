@@ -255,6 +255,9 @@ export default React.memo(({ ...props }) => {
     }
     return () => {
       if (renderFunction.current[`${props.label}-${props.repeatStepList}-FieldProperties`]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
         delete renderFunction.current[
           `${props.label}-${props.repeatStepList}-FieldProperties`
         ];
