@@ -109,8 +109,6 @@ const qualityControlMeasurementPointCoatingItemMax = (
 
 
 const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => {
-  console.log(mathStore)
-  console.log(repeatStepList)
   let previousCumulativeThickness = 0;
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {
@@ -122,7 +120,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
         0
       )
     );
-    console.log(previousCumulativeThickness)
   } else if (repeatStepList[1]) {
     previousCumulativeThickness = Number(
       objectPath.get(
@@ -131,7 +128,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
         0
       )
     );
-    console.log(previousCumulativeThickness)
   } else {
     previousCumulativeThickness = Number(
       objectPath.get(
@@ -140,7 +136,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
         0
       )
     );
-    console.log(previousCumulativeThickness)
   }
 
   let appliedThickness = Number(
@@ -179,7 +174,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
 };
 
 const mathShrinkThickness = (values, mathStore, repeatStepList, decimal) => {
-  console.log(45345)
   let partOfNumber = 0;
   let shrink = Number(
     findValue(

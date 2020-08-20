@@ -9,7 +9,6 @@ export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { documentData, renderFunction, stateDispatch, mathStore } = useContext(documentDataContext);
   const math = useCallback(() => {
-    console.log("first")
     const getValueFromMath = Math[props.math](
       Object.keys(documentData.current).length === 0
         ? backendData
@@ -51,7 +50,6 @@ export default ({ backendData, ...props }) => {
   ]);
 
   useEffect(() => {
-    console.log("tekst er letter å se")
     math();
   }, [math]);
 
