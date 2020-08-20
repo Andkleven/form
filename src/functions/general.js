@@ -602,3 +602,19 @@ export function getStartStage(geometry) {
   }
   return stage;
 }
+
+
+export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin = null, specValueList = null, repeatStepList = []) {
+  let comment = ""
+  const getComment = (path) => {
+    comment = objectPath.get(specData, `${createPath(path, repeatStepList)}Comment`, "")
+  }
+  if (specValueList) {
+    getComment(specValueList)
+  } else if (routeToSpecMax) {
+    getComment(routeToSpecMax)
+  } else if (routeToSpecMin) {
+    getComment(routeToSpecMin)
+  }
+  return comment
+}
