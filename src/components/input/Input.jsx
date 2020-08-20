@@ -92,13 +92,13 @@ const InputShell = ({
       </div>
     </div>
   ) : (
-      <div>
-        <div className={props.tight ? "mb-0" : "mb-3"}>
-          {props.children}
-          {props.BigButtons}
-        </div>
+    <div>
+      <div className={props.tight ? "mb-0" : "mb-3"}>
+        {props.children}
+        {props.BigButtons}
       </div>
-    );
+    </div>
+  );
 };
 
 const Comment = ({ onKeyPress, onChange, defaultValue, ...props }) => {
@@ -213,11 +213,6 @@ export default ({
       {!!feedback && (
         <div className={`text-${valid ? "success" : "danger"}`}>
           <small>{feedback}</small>
-        </div>
-      )}
-      {!!props.feedback && (
-        <div className={`text-${valid ? "success" : "danger"}`}>
-          <small>{props.feedback}</small>
         </div>
       )}
       <animated.div style={commentSpring}>

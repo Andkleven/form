@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FetchData from "functions/fetchData";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -120,11 +120,15 @@ export default ({ show, setShow, children }) => {
               return (
                 fileGroup.files &&
                 fileGroup.files.length > 0 && (
-                  <div className="mb-4">
+                  <div
+                    className="mb-4"
+                    key={`generalView-fileGroup-${fileGroupIndex}`}
+                  >
                     <h3>{fileGroup.label}</h3>
                     <Line />
                     {fileGroup.files.map((file, fileIndex) => (
                       <File
+                        key={`generalView-file-${fileIndex}`}
                         file={file}
                         className={
                           // fileIndex === 0 && fileGroupIndex === 0
@@ -154,15 +158,15 @@ const File = ({ file, ...props }) => {
   const description = file.fileDescription;
   const extension = filename.substr(filename.lastIndexOf(".") + 1);
 
-  console.log(file);
-  console.log("filename:", filename);
-  console.log("description:", description);
-  console.log("extension:", extension);
+  // console.log(file);
+  // console.log("filename:", filename);
+  // console.log("description:", description);
+  // console.log("extension:", extension);
 
   const imageExtensions = ["png", "jpg", "webp", "jpeg", "gif", "tif"];
   const isImage = extension =>
     imageExtensions.includes(extension.toLowerCase());
-  // const isPdf = extension => extension.toLowerCase() === "pdf";
+  const isPdf = extension => extension.toLowerCase() === "pdf";
 
   const [
     {
@@ -179,6 +183,8 @@ const File = ({ file, ...props }) => {
     // See https://github.com/facebook/create-react-app/issues/6880
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(url);
 
   return (
     <>
@@ -197,6 +203,10 @@ const File = ({ file, ...props }) => {
         <div {...props}>
           {isImage(extension) ? (
             <img src={url} alt="test" className="w-100 rounded shadow" />
+          ) : isPdf(extension) ? (
+            <a href={url} target="_blank">
+              {filename}
+            </a>
           ) : (
             <div>
               {filename}{" "}
