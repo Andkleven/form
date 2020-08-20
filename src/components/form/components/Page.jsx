@@ -109,7 +109,7 @@ export default React.memo(props => {
         type: "delete",
         path: `${props.path}.${index}`,
         notReRender: true,
-        resetRenderFunction: true
+        // resetRenderFunction: true
       });
     },
     [
@@ -138,6 +138,7 @@ export default React.memo(props => {
     if (
       Array.isArray(arrayData)
     ) {
+
       for (let index = 0; index < arrayData.length; index++) {
         setFieldGroups(prevState => {
           return { ...prevState, [`${props.path}.${index}`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
@@ -219,17 +220,18 @@ export default React.memo(props => {
   );
   useEffect(() => {
 
-    let effectsRenderFunction = renderFunction.current;
+
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData &&
       writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)
     ) {
-      effectsRenderFunction[`${props.path}-Page`] = autoRepeat;
+      renderFunction.current[`${props.path}-Page`] = autoRepeat;
     }
     return () => {
-      if (effectsRenderFunction[`${props.path}-Page`]) {
-        delete effectsRenderFunction[`${props.path}-Page`];
+      if (renderFunction.current[`${props.path}-Page`]) {
+        console.log(1432)
+        delete renderFunction.current[`${props.path}-Page`];
       }
     };
   }, [

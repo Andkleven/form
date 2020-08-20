@@ -32,12 +32,12 @@ export default ({ backendData, ...props }) => {
 
   useEffect(() => {
 
-    let effectsRenderFunction = renderFunction.current;
-    effectsRenderFunction[
+
+    renderFunction.current[
       `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
     ] = math;
     return () => {
-      delete effectsRenderFunction[
+      delete renderFunction.current[
         `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
       ];
     };
