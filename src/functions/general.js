@@ -604,10 +604,10 @@ export function getStartStage(geometry) {
 }
 
 
-export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin = null, specValueList = null, repeatStepList = []) {
+export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin = null, specValueList = null, repeatStepList = [], editRepeatStepValueList = {}) {
   let comment = ""
   const getComment = (path) => {
-    comment = objectPath.get(specData, `${createPath(path, repeatStepList)}Comment`, "")
+    comment = objectPath.get(specData, `${createPath(path, repeatStepList, editRepeatStepValueList)}Comment`, "")
   }
   if (specValueList) {
     getComment(specValueList)
