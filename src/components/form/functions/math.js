@@ -107,38 +107,40 @@ const qualityControlMeasurementPointCoatingItemMax = (
   );
 };
 
-const mathCumulativeThickness = (values, repeatStepList, decimal) => {
+
+const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => {
+  console.log(mathStore)
+  console.log(repeatStepList)
   let previousCumulativeThickness = 0;
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {
-    const sumProposedThickness = stepList => {
-      previousLayers += Number(mathShrinkThickness(values, stepList, 0));
-    };
-    for (let i = 0; i < repeatStepList[0]; i++) {
-      let coatingLayers = findValue(
-        values,
-        `leadEngineers.0.vulcanizationSteps.${i}.coatingLayers`
-      );
-      coatingLayers.forEach((data, index) => sumProposedThickness([i, index]));
-    }
-  }
-  if (repeatStepList[1]) {
-    for (let i = 0; i < repeatStepList[1]; i++) {
-      previousCumulativeThickness = Number(
-        mathCumulativeThickness(values, [
-          repeatStepList[0],
-          i,
-          repeatStepList[2]
-        ])
-      );
-    }
-  } else {
+    let coatingLength = objectPath.get(mathStore, `leadEngineers.0.vulcanizationSteps.${repeatStepList[0] - 1}.coatingLayers`).length - 1
     previousCumulativeThickness = Number(
-      findValue(
-        values,
-        `leadEngineers.0.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
+      objectPath.get(
+        mathStore,
+        `leadEngineers.0.vulcanizationSteps.${repeatStepList[0] - 1}.coatingLayers.${coatingLength}.cumulativeThickness.${repeatStepList[2]}.data.cumulativeThickness`,
+        0
       )
     );
+    console.log(previousCumulativeThickness)
+  } else if (repeatStepList[1]) {
+    previousCumulativeThickness = Number(
+      objectPath.get(
+        mathStore,
+        `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1] - 1}.cumulativeThickness.${repeatStepList[2]}.data.cumulativeThickness`,
+        0
+      )
+    );
+    console.log(previousCumulativeThickness)
+  } else {
+    previousCumulativeThickness = Number(
+      objectPath.get(
+        values,
+        `leadEngineers.0.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`,
+        0
+      )
+    );
+    console.log(previousCumulativeThickness)
   }
 
   let appliedThickness = Number(
@@ -176,7 +178,8 @@ const mathCumulativeThickness = (values, repeatStepList, decimal) => {
   ]);
 };
 
-const mathShrinkThickness = (values, repeatStepList, decimal) => {
+const mathShrinkThickness = (values, mathStore, repeatStepList, decimal) => {
+  console.log(45345)
   let partOfNumber = 0;
   let shrink = Number(
     findValue(
@@ -200,7 +203,7 @@ const mathShrinkThickness = (values, repeatStepList, decimal) => {
   ]);
 };
 
-const mathToleranceMin = (values, repeatStepList, decimal) => {
+const mathToleranceMin = (values, mathStore, repeatStepList, decimal) => {
   let toleranceMinPercent = Number(
     findValue(values, "leadEngineers.0.data.toleranceMinPercent")
   );
@@ -210,13 +213,13 @@ const mathToleranceMin = (values, repeatStepList, decimal) => {
   );
   return whatTooReturn(
     orderedTotalRubberThickness -
-      (orderedTotalRubberThickness * toleranceMinPercent) / 100,
+    (orderedTotalRubberThickness * toleranceMinPercent) / 100,
     decimal,
     [toleranceMinPercent, orderedTotalRubberThickness]
   );
 };
 
-const mathToleranceMax = (values, repeatStepList, decimal) => {
+const mathToleranceMax = (values, mathStore, repeatStepList, decimal) => {
   let toleranceMaxPercent = Number(
     findValue(values, "leadEngineers.0.data.toleranceMaxPercent")
   );
@@ -225,13 +228,13 @@ const mathToleranceMax = (values, repeatStepList, decimal) => {
   );
   return whatTooReturn(
     orderedTotalRubberThickness +
-      (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+    (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
     decimal,
     [toleranceMaxPercent, orderedTotalRubberThickness]
   );
 };
 
-const mathLayer = (values, repeatStepList, decimal) => {
+const mathLayer = (values, mathStore, repeatStepList, decimal) => {
   let layers = 0;
   for (let index = 0; index < repeatStepList[0]; index++) {
     layers += objectPath.get(
@@ -274,7 +277,7 @@ const mathMeasurementPointMax = (allData, data, repeatStepList) => {
   return layerThickness + (layerThickness * toleranceMaxPercent) / 100;
 };
 
-const mathPeelTest = (values, repeatStepList, decimal) => {
+const mathPeelTest = (values, mathStore, repeatStepList, decimal) => {
   let peelTest = Number(
     findValue(
       values,

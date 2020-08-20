@@ -27,7 +27,6 @@ export default ({ setState, state, ...props }) => {
     dataChange,
     setUnchangedData
   } = useContext(documentDataContext);
-
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -49,6 +48,7 @@ export default ({ setState, state, ...props }) => {
       setState(value);
     }, delayOnChange)
   };
+
 
   const onChangeDate = data => {
     onChange(data);
@@ -176,6 +176,7 @@ export default ({ setState, state, ...props }) => {
   };
 
   useEffect(() => {
+
     setIgnoreRequired(
       objectPath.get(
         documentData.current,
@@ -183,6 +184,7 @@ export default ({ setState, state, ...props }) => {
         false
       )
     );
+
   }, [setIgnoreRequired, documentData, props.path]);
 
   const indent =

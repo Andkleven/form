@@ -2,7 +2,8 @@ import React, { useMemo, useState, useEffect, useContext, useCallback } from "re
 import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
-import { documentDataContext } from "components/form/Form";
+import { documentDataContext, ChapterContext } from "components/form/Form";
+import { writeOrReadChapter } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const cloneDeep = require("clone-deep");
 
@@ -59,12 +60,17 @@ export default ({ ...props }) => {
       });
     }
   });
+  const {
+    finalChapter,
+    editChapter
+  } = useContext(ChapterContext);
 
   const { documentDataDispatch, resetState } = useContext(documentDataContext);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setFiles([]);
+
   }, [props.componentsId, setFiles]);
 
   const setBackendFiles = useCallback(
@@ -95,6 +101,7 @@ export default ({ ...props }) => {
 
   useEffect(() => {
     documentDataDispatch({ type: "add", path: props.path, newState: files });
+
   }, [files, props.path, documentDataDispatch]);
 
   const style = useMemo(
@@ -125,7 +132,7 @@ export default ({ ...props }) => {
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
-        {props.writeChapter && (
+        {writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
           <div {...getRootProps({ style })}>
             <div
               // htmlFor={props.label || props.prepend}
@@ -148,9 +155,9 @@ export default ({ ...props }) => {
         )}
         {files.length ? (
           <aside>
-            {props.writeChapter && (
+            {writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
               <>
-                <label className={`${props.writeChapter ? `mt-3` : ``}`}>
+                <label className={`${writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? `mt-3` : ``}`}>
                   Uploaded files
                 </label>
                 <hr className="w-100 m-0" />
@@ -170,7 +177,7 @@ export default ({ ...props }) => {
             </ul>
           </aside>
         ) : (
-            !props.writeChapter && (
+            !writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
               <div className="text-secondary">
                 <FontAwesomeIcon icon="file-times" className="mr-2" />
                 <div className="d-inline">No files uploaded.</div>

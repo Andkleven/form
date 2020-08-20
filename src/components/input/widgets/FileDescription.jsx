@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Input from "components/input/Input";
 import ReadField from "components/form/components/fields/ReadField";
 import TinyButton from "components/button/TinyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChapterContext } from "components/form/Form";
+import { writeOrReadChapter } from "functions/general";
 
 export default ({ ...props }) => {
+  const {
+    finalChapter,
+    editChapter
+  } = useContext(ChapterContext);
   const FileName = () => (
     <div
-      className={(props.writeChapter && "mb-2") || ""}
+      className={(writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "mb-2") || ""}
       style={{
         wordBreak: "break-word"
       }}
@@ -21,13 +27,13 @@ export default ({ ...props }) => {
     </div>
   );
 
-  if (props.description && props.writeChapter) {
+  if (props.description && writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
     return (
       <div className="mt-2">
-        <div className={(props.writeChapter && "pt-2") || ""}>
+        <div className={(writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "pt-2") || ""}>
           <div className="d-flex justify-content-between">
             <FileName />
-            {props.writeChapter && (
+            {writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
               <TinyButton
                 onClick={() => props.deleteHandler(props.index)}
                 icon="trash-alt"

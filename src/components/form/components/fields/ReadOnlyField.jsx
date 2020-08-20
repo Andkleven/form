@@ -7,25 +7,32 @@ import "styles/styles.css";
 
 export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
-  const { documentData, renderFunction } = useContext(documentDataContext);
+  const { documentData, renderFunction, stateDispatch, mathStore } = useContext(documentDataContext);
   const math = useCallback(() => {
+    console.log("first")
     const getValueFromMath = Math[props.math](
       Object.keys(documentData.current).length === 0
         ? backendData
         : documentData.current,
+      mathStore.current,
       props.repeatStepList,
       props.decimal ? props.decimal : 0
     );
+    stateDispatch({ path: props.path, newState: getValueFromMath })
     setValue(getValueFromMath);
   }, [
     documentData,
     props.decimal,
     props.math,
     backendData,
-    props.repeatStepList
+    props.repeatStepList,
+    stateDispatch,
+    props.path,
+    mathStore
   ]);
 
   useEffect(() => {
+
     let effectsRenderFunction = renderFunction.current;
     effectsRenderFunction[
       `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
@@ -44,6 +51,7 @@ export default ({ backendData, ...props }) => {
   ]);
 
   useEffect(() => {
+    console.log("tekst er letter å se")
     math();
   }, [math]);
 

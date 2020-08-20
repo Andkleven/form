@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import ReadField from "components/form/components/fields/ReadField";
 import objectPath from "object-path";
-import { sumFieldInObject } from "functions/general";
-import { documentDataContext } from "components/form/Form";
+import { sumFieldInObject, writeOrReadChapter } from "functions/general";
+import { documentDataContext, ChapterContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
 import math from "components/form/functions/math"
@@ -57,6 +57,10 @@ const CustomCoating = props => {
 
 const CustomLead = props => {
   const { documentData, renderFunction } = useContext(documentDataContext);
+  const {
+    finalChapter,
+    editChapter
+  } = useContext(ChapterContext);
   const [status, setStatus] = useState("danger");
   const [toleranceMin, setToleranceMin] = useState(0);
   const [toleranceMax, setToleranceMax] = useState(0);
@@ -107,7 +111,7 @@ const CustomLead = props => {
 
 
   if (
-    props.writeChapter.current &&
+    writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
     toleranceMin &&
     toleranceMax &&
     layersThickness

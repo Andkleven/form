@@ -4,6 +4,7 @@ import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
+import { writeOrReadChapter } from "functions/general";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
@@ -12,7 +13,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-  // const documentData = useContext(documentDataContext);
   let { documentData, documentDataDispatch, dataChange, unchangedData, save } =
     !display && useContext(documentDataContext);
   const chapterContext = useContext(ChapterContext);
@@ -144,7 +144,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <div
           className={`d-flex justify-content-between align-items-start h-100 ${
             indent && `ml-3`
-          }`}
+            }`}
         >
           <div className={`${showUnderBreakpoint()}`}>
             <small className={`text-secondary`}>
@@ -190,7 +190,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <div
             className={`d-flex justify-content-between align-items-start h-100 ${
               indent && "ml-3 ml-sm-0"
-            }`}
+              }`}
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
@@ -212,7 +212,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
           indent && "ml-3 ml-sm-0"
-        }`}
+          }`}
       >
         <div>
           {(props.type !== "checkbox" &&
@@ -255,7 +255,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     <div
       className={className}
       style={style}
-      // hidden={readOnly}
+    // hidden={readOnly}
     >
       <Row>
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
@@ -299,7 +299,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             <LightLine />
           </Col>
         )}
-        {props.subtext && props.writeChapter ? (
+        {props.subtext && writeOrReadChapter(props.allWaysShow, chapterContext.editChapter, props.thisChapter, chapterContext.finalChapter) ? (
           <Form.Text className="text-muted">{props.subtext}</Form.Text>
         ) : null}
       </Row>

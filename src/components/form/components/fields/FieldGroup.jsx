@@ -33,8 +33,8 @@ export default props => {
           readOnlyFields={props.readOnlyFields}
           showEditButton={false}
           path={`${props.path}.${field.queryPath}`}
-          // noLine
-          // className={`${props.indent && "ml-3 ml-sm-5"}`}
+        // noLine
+        // className={`${props.indent && "ml-3 ml-sm-5"}`}
         />
       );
     } else {

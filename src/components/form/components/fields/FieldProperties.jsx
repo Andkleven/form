@@ -3,7 +3,8 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useState
+  useState,
+  useRef
 } from "react";
 import ReadField from "./ReadField";
 import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
@@ -16,14 +17,15 @@ import {
   findValue,
   calculateMaxMin,
   variableLabel,
-  isNumber
+  isNumber,
+  writeOrReadChapter
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 
-export default ({ ...props }) => {
+export default React.memo(({ ...props }) => {
   const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
-  const { editChapter } = useContext(ChapterContext);
+  const { editChapter, finalChapter } = useContext(ChapterContext);
 
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
@@ -35,6 +37,7 @@ export default ({ ...props }) => {
   const [state, setState] = useState("");
   const [hidden, setHidden] = useState(false)
   const [label, setLabel] = useState("");
+  const setFirstValue = useRef(true)
 
   const updateState = useCallback(
     () => {
@@ -48,10 +51,10 @@ export default ({ ...props }) => {
     },
     [props.path, props.fieldName, documentData, state, getNewPath]
   )
-
   useEffect(() => {
     let resetStateRef = resetState.current
-    if (!hidden && props.writeChapter) {
+
+    if (!hidden && writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
       resetStateRef[
         `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
@@ -65,24 +68,25 @@ export default ({ ...props }) => {
         ];
       }
     }
-  }, [updateState, props.label, props.path, props.repeatStepList, props.writeChapter, hidden, resetState])
+  }, [updateState, props.label, props.path, props.repeatStepList, props.allWaysShow, editChapter, props.thisChapter, finalChapter, hidden, resetState])
 
   useEffect(() => {
     if (props.path && props.fieldName) {
       let backendDate = objectPath.get(
-        Object.keys(documentData.current).length === 0
-          ? props.backendData
-          : documentData.current,
+        props.backendData,
         getNewPath(),
         props.default === undefined ? "" : props.default
       );
-      if (props.type === "date" || props.type === "datetime-local") {
-        backendDate = backendDate ? new Date(backendDate) : null
+      if (setFirstValue.current) {
+        if (props.type === "date" || props.type === "datetime-local") {
+          backendDate = backendDate ? new Date(backendDate) : null
+        }
+        setState(backendDate);
+        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+        setFirstValue.current = false
       }
-      setState(backendDate);
-      documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath() });
-
     }
+
   }, [
     props.fieldName,
     documentDataDispatch,
@@ -108,6 +112,7 @@ export default ({ ...props }) => {
   }, [setHidden, props.backendData, props.readOnlyFieldIf, documentData]);
 
   useEffect(() => {
+
     let effectsRenderFunction = renderFunction.current;
     if (props.readOnlyFieldIf) {
       effectsRenderFunction[
@@ -115,7 +120,9 @@ export default ({ ...props }) => {
       ] = updateReadOnly;
     }
     return () => {
-      if (props.readOnlyFieldIf) {
+      if (effectsRenderFunction[
+        `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
+      ]) {
         delete effectsRenderFunction[
           `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
         ];
@@ -130,9 +137,11 @@ export default ({ ...props }) => {
   ]);
 
   useEffect(() => {
+
     if (props.readOnlyFieldIf) {
       updateReadOnly();
     }
+
   }, [props.readOnlyFieldIf, updateReadOnly]);
 
   const { min, max } = useMemo(
@@ -237,6 +246,7 @@ export default ({ ...props }) => {
   );
 
   useEffect(() => {
+
     let effectsRenderFunction = renderFunction.current;
     if (props.queryVariableLabel || props.indexVariableLabel) {
       effectsRenderFunction[
@@ -246,7 +256,7 @@ export default ({ ...props }) => {
       setLabel(props.label);
     }
     return () => {
-      if (props.queryVariableLabel || props.indexVariableLabel) {
+      if (effectsRenderFunction[`${props.label}-${props.repeatStepList}-FieldProperties`]) {
         delete effectsRenderFunction[
           `${props.label}-${props.repeatStepList}-FieldProperties`
         ];
@@ -264,6 +274,7 @@ export default ({ ...props }) => {
 
   useEffect(() => {
     getLabel(props.backendData);
+
   }, [props.backendData, getLabel]);
 
   if (props.specValueList) {
@@ -330,13 +341,13 @@ export default ({ ...props }) => {
         </>
       );
     } else if (props.size === "md") {
-      if (props.writeChapter) {
+      if (writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
         return <ReadOnlyField {...commonProps} noLine className={`mb-3`} />;
       } else {
         return <ReadOnlyField {...commonProps} />;
       }
     } else if ((!props.size && props.math) || props.size === "sm") {
-      if (props.writeChapter) {
+      if (writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
         return (
           <small>
             <ReadOnlyField
@@ -353,7 +364,7 @@ export default ({ ...props }) => {
       return <ReadOnlyField noLine {...commonProps} className={`mb-3`} />;
     }
   } else if (
-    props.writeChapter ||
+    writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ||
     `${props.repeatStepList}-${props.fieldName}` === editChapter
   ) {
     return (
@@ -391,4 +402,4 @@ export default ({ ...props }) => {
       />
     );
   }
-};
+});

@@ -32,7 +32,7 @@ export default ({
     <>
       <Form.Group
         className="mb-0"
-        // controlId={`input-group-${type}-${props.name}-${repeatStepList}`}
+      // controlId={`input-group-${type}-${props.name}-${repeatStepList}`}
       >
         <div className="d-flex">
           <InputGroup className="d-flex">

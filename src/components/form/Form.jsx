@@ -19,7 +19,7 @@ import Loading from "components/Loading";
 
 const cloneDeep = require("clone-deep");
 
-function useStore(init) {
+function useStore(init = {}) {
   const state = useRef(init);
   const renderFunction = useRef({});
   const resetState = useRef({});
@@ -44,6 +44,9 @@ function useStore(init) {
       default:
         throw new Error();
     }
+    if (action.resetRenderFunction) {
+      renderFunction.current = {}
+    }
     if (!action.notReRender) {
       Object.values(renderFunction.current)
         .reverse()
@@ -55,6 +58,19 @@ function useStore(init) {
   };
   return [state, reducer, renderFunction, resetState];
 }
+function useMathStore(init = {}) {
+  const state = useRef(init);
+  const reducer = action => {
+    objectPath.set(
+      state.current,
+      action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
+      action.newState
+    );
+    return state.current;
+  }
+  return [state, reducer];
+};
+
 export const ChapterContext = createContext();
 export const documentDataContext = createContext();
 
@@ -65,12 +81,18 @@ export default props => {
     documentDataDispatch,
     renderFunction,
     resetState
-  ] = useStore({});
+  ] = useStore();
+  const [mathStore, stateDispatch] = useMathStore();
   const [unchangedData, setUnchangedData] = useState();
   const [dataChange, setDataChange] = useState(false);
   const nextStage = useRef(true);
   const lastData = useRef(false);
   const [finalChapter, setFinalChapter] = useState(0);
+
+
+
+
+
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
@@ -271,6 +293,7 @@ export default props => {
   const unsavedChanges =
     dataChange &&
     JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
+
   if (props.data) {
     return (
       <documentDataContext.Provider
@@ -283,7 +306,9 @@ export default props => {
           dataChange,
           setUnchangedData,
           save,
-          submitData
+          submitData,
+          mathStore,
+          stateDispatch
         }}
       >
         <ChapterContext.Provider

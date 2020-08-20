@@ -268,7 +268,7 @@
               "subtext": "Pre-Coating",
               "required": true,
               "minInput": 0,
-              "maxInput": 20
+              "maxInput": 10
             },
             {
               "fieldName": "targetDescriptionValue",
@@ -350,7 +350,7 @@
               "required": true,
               "type": "Number",
               "minInput": 0,
-              "maxInput": 40
+              "maxInput": 30
             },
             {
               "page": true,

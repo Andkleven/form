@@ -152,7 +152,6 @@ export default (props) => {
     : props.document.chapters.map((pageInfo) => {
       return runChapter(pageInfo);
     });
-
   return (
     <>
       {props.document.chapterByStage
