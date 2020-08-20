@@ -383,26 +383,26 @@ export const calculateMaxMin = (
   let newMin;
   let newMax;
   if (routeToSpecMin) {
-    newMin = findValue(
+    newMin = Number(findValue(
       data,
       routeToSpecMin,
       repeatStepList,
       editRepeatStepListMin,
-    );
+    ));
   } else if (calculateMin) {
-    newMin = Math[calculateMin](allData, data, repeatStepList);
+    newMin = Number(Math[calculateMin](allData, data, repeatStepList));
   } else {
     newMin = min;
   }
   if (routeToSpecMax) {
-    newMax = findValue(
+    newMax = Number(findValue(
       data,
       routeToSpecMax,
       repeatStepList,
       editRepeatStepListMax,
-    );
+    ));
   } else if (calculateMax) {
-    newMax = Math[calculateMax](allData, data, repeatStepList);
+    newMax = Number(Math[calculateMax](allData, data, repeatStepList));
   } else {
     newMax = max;
   }

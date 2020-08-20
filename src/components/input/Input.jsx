@@ -92,13 +92,13 @@ const InputShell = ({
       </div>
     </div>
   ) : (
-    <div>
-      <div className={props.tight ? "mb-0" : "mb-3"}>
-        {props.children}
-        {props.BigButtons}
+      <div>
+        <div className={props.tight ? "mb-0" : "mb-3"}>
+          {props.children}
+          {props.BigButtons}
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 const Comment = ({ onKeyPress, onChange, defaultValue, ...props }) => {
