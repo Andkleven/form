@@ -36,6 +36,28 @@ const queries = {
           }
         }
         finalInspectionQualityControls {
+          id
+            data
+            measurementPointQualityControls {
+              id
+              data
+            }
+            hardnessQualityControls {
+              id
+              data
+            }
+            peelTestQualityControls {
+              id
+              data
+            }
+            finalInspectionCustomTestQualityControls {
+              id
+              data
+            }
+            finalInspectionDimensionsCheckQualityControls {
+              id
+              data
+            }
           uploadFiles {
             file
             fileDescription
@@ -200,22 +222,22 @@ const File = ({ file, ...props }) => {
           </div>
         </div>
       ) : (
-        <div {...props}>
-          {isImage(extension) ? (
-            <img src={url} alt="test" className="w-100 rounded shadow" />
-          ) : isPdf(extension) ? (
-            <a href={url} target="_blank">
-              {filename}
-            </a>
-          ) : (
-            <div>
-              {filename}{" "}
-              <span className="text-muted">(No preview available)</span>
-            </div>
-          )}
-          <div>{description}</div>
-        </div>
-      )}
+          <div {...props}>
+            {isImage(extension) ? (
+              <img src={url} alt="test" className="w-100 rounded shadow" />
+            ) : isPdf(extension) ? (
+              <a href={url} target="_blank">
+                {filename}
+              </a>
+            ) : (
+                  <div>
+                    {filename}{" "}
+                    <span className="text-muted">(No preview available)</span>
+                  </div>
+                )}
+            <div>{description}</div>
+          </div>
+        )}
     </>
   );
 };

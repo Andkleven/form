@@ -113,17 +113,17 @@ export default React.memo(({ ...props }) => {
 
   useEffect(() => {
 
-    let effectsRenderFunction = renderFunction.current;
+
     if (props.readOnlyFieldIf) {
-      effectsRenderFunction[
+      renderFunction.current[
         `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
       ] = updateReadOnly;
     }
     return () => {
-      if (effectsRenderFunction[
+      if (renderFunction.current[
         `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
       ]) {
-        delete effectsRenderFunction[
+        delete renderFunction.current[
           `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
         ];
       }
@@ -246,18 +246,19 @@ export default React.memo(({ ...props }) => {
   );
 
   useEffect(() => {
-
-    let effectsRenderFunction = renderFunction.current;
     if (props.queryVariableLabel || props.indexVariableLabel) {
-      effectsRenderFunction[
+      renderFunction.current[
         `${props.label}-${props.repeatStepList}-FieldProperties`
       ] = getLabel;
     } else {
       setLabel(props.label);
     }
     return () => {
-      if (effectsRenderFunction[`${props.label}-${props.repeatStepList}-FieldProperties`]) {
-        delete effectsRenderFunction[
+      if (renderFunction.current[`${props.label}-${props.repeatStepList}-FieldProperties`]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
+        delete renderFunction.current[
           `${props.label}-${props.repeatStepList}-FieldProperties`
         ];
       }

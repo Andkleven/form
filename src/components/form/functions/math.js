@@ -109,8 +109,6 @@ const qualityControlMeasurementPointCoatingItemMax = (
 
 
 const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => {
-  console.log(mathStore)
-  console.log(repeatStepList)
   let previousCumulativeThickness = 0;
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {
@@ -122,7 +120,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
         0
       )
     );
-    console.log(previousCumulativeThickness)
   } else if (repeatStepList[1]) {
     previousCumulativeThickness = Number(
       objectPath.get(
@@ -131,7 +128,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
         0
       )
     );
-    console.log(previousCumulativeThickness)
   } else {
     previousCumulativeThickness = Number(
       objectPath.get(
@@ -140,7 +136,6 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
         0
       )
     );
-    console.log(previousCumulativeThickness)
   }
 
   let appliedThickness = Number(
@@ -178,8 +173,7 @@ const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => 
   ]);
 };
 
-const mathShrinkThickness = (values, mathStore, repeatStepList, decimal) => {
-  console.log(45345)
+const mathShrinkThickness = (values, repeatStepList, decimal, mathStore = null) => {
   let partOfNumber = 0;
   let shrink = Number(
     findValue(
@@ -203,7 +197,7 @@ const mathShrinkThickness = (values, mathStore, repeatStepList, decimal) => {
   ]);
 };
 
-const mathToleranceMin = (values, mathStore, repeatStepList, decimal) => {
+const mathToleranceMin = (values, repeatStepList, decimal, mathStore = null) => {
   let toleranceMinPercent = Number(
     findValue(values, "leadEngineers.0.data.toleranceMinPercent")
   );
@@ -219,7 +213,7 @@ const mathToleranceMin = (values, mathStore, repeatStepList, decimal) => {
   );
 };
 
-const mathToleranceMax = (values, mathStore, repeatStepList, decimal) => {
+const mathToleranceMax = (values, repeatStepList, decimal, mathStore = null) => {
   let toleranceMaxPercent = Number(
     findValue(values, "leadEngineers.0.data.toleranceMaxPercent")
   );
@@ -234,7 +228,7 @@ const mathToleranceMax = (values, mathStore, repeatStepList, decimal) => {
   );
 };
 
-const mathLayer = (values, mathStore, repeatStepList, decimal) => {
+const mathLayer = (values, repeatStepList, decimal, mathStore = null) => {
   let layers = 0;
   for (let index = 0; index < repeatStepList[0]; index++) {
     layers += objectPath.get(
@@ -277,7 +271,7 @@ const mathMeasurementPointMax = (allData, data, repeatStepList) => {
   return layerThickness + (layerThickness * toleranceMaxPercent) / 100;
 };
 
-const mathPeelTest = (values, mathStore, repeatStepList, decimal) => {
+const mathPeelTest = (values, repeatStepList, decimal, mathStore = null) => {
   let peelTest = Number(
     findValue(
       values,

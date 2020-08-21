@@ -13,14 +13,13 @@ export default props => (
           disabled={props.disabled}
           id={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
           label={props.label}
-          defaultChecked={props.defaultValue}
           checked={props.value || props.checked}
           name={props.name}
           onChange={props.onChangeInput}
           onBlur={props.onBlur}
           className={`mb-0 pb-0 ${props.labelAppend && "mr-1"} ${
             props.className
-          }`}
+            }`}
           size={props.size}
           onKeyPress={props.onKeyPress}
           style={{ zIndex: 0 }}

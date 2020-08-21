@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { ChapterContext, documentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
-import { getRepeatNumber, isNumberAndNotNaN, writeOrReadChapter, variableString, getRepeatStepList } from "functions/general";
+import { getRepeatNumber, isNumberAndNotNaN, writeOrReadChapter, variableString, getRepeatStepList, isLastCharacterNumber } from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
@@ -31,7 +31,7 @@ const DeleteButton = ({ index, deleteHandler }) => (
 );
 
 const multiFieldGroup = (props, index, deleteHandler, editChapter, finalChapter) => {
-  return (<Fragment key={`${index}-repeat-fragment`}>
+  return (<Fragment key={`${index}-${props.path}-${props.queryPath}-repeat-fragment`}>
     {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
       <>
         <Subtitle className={!writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "mt-3"}>
@@ -109,7 +109,7 @@ export default React.memo(props => {
         type: "delete",
         path: `${props.path}.${index}`,
         notReRender: true,
-        resetRenderFunction: true
+        // resetRenderFunction: true
       });
     },
     [
@@ -134,15 +134,62 @@ export default React.memo(props => {
 
   useEffect(() => {
 
-    let arrayData = objectPath.get(props.backendData, props.path)
-    if (
-      Array.isArray(arrayData)
-    ) {
-      for (let index = 0; index < arrayData.length; index++) {
-        setFieldGroups(prevState => {
-          return { ...prevState, [`${props.path}.${index}`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
-        })
+    let temporaryMultiFieldGroup = {}
+    if (props.repeat) {
+      let arrayData = objectPath.get(props.backendData, props.path)
+      if (
+        Array.isArray(arrayData)
+      ) {
+        for (let index = 0; index < arrayData.length; index++) {
+          temporaryMultiFieldGroup[`${props.path}.${props.queryPath}.${index}`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter)
+        }
+
+      } else if (!props.queryPath) {
+        let repeatNumber = getRepeatNumber(
+          props.specData,
+          props.repeatGroupWithQuery,
+          props.repeatStepList,
+          props.editRepeatStepListRepeat
+        );
+        for (let index = 0; index < repeatNumber; index++) {
+          temporaryMultiFieldGroup[`${props.path}.${props.repeatGroupWithQuery}.${index}`] = (
+            <FieldGroup
+              key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
+              {...props}
+              repeatStepList={getRepeatStepList(props.repeatStepList, index)}
+              repeatStep={index}
+              path={props.path ? `${props.path}.${index}.data` : null}
+              indexId={`${props.indexId}-${index}`}
+            />
+          );
+        }
       }
+    } else {
+      temporaryMultiFieldGroup[`${props.path}.${props.queryPath}`] = (
+        <FieldGroup
+          {...props}
+          key={`${props.path}.${props.queryPath}`}
+          repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
+          file={
+            objectPath.get(props.backendData, props.path + ".0.data") &&
+            objectPath.get(props.backendData, props.path + ".0.data").file
+          }
+          path={
+            props.path
+              ? isLastCharacterNumber(props.path)
+                ? props.path
+                : `${props.path}.0`
+              : null
+          }
+          repeatStep={0}
+          indexId={`${props.indexId}-0`}
+        />
+      );
+    }
+    if (Object.keys(temporaryMultiFieldGroup).length) {
+      setFieldGroups(prevState => {
+        return { ...prevState, ...temporaryMultiFieldGroup }
+      })
     }
 
   }, [props.backendData, props, deleteHandler, setFieldGroups, editChapter, finalChapter])
@@ -219,17 +266,20 @@ export default React.memo(props => {
   );
   useEffect(() => {
 
-    let effectsRenderFunction = renderFunction.current;
+
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData &&
       writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)
     ) {
-      effectsRenderFunction[`${props.path}-Page`] = autoRepeat;
+      renderFunction.current[`${props.path}-Page`] = autoRepeat;
     }
     return () => {
-      if (effectsRenderFunction[`${props.path}-Page`]) {
-        delete effectsRenderFunction[`${props.path}-Page`];
+      if (renderFunction.current[`${props.path}-Page`]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
+        delete renderFunction.current[`${props.path}-Page`];
       }
     };
   }, [

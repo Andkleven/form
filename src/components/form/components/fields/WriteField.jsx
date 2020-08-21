@@ -4,6 +4,7 @@ import objectPath from "object-path";
 import Input from "components/input/Input";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
+import CheckInput from "components/input/components/CheckInput";
 import "styles/styles.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -176,7 +177,6 @@ export default ({ setState, state, ...props }) => {
   };
 
   useEffect(() => {
-
     setIgnoreRequired(
       objectPath.get(
         documentData.current,
@@ -184,7 +184,6 @@ export default ({ setState, state, ...props }) => {
         false
       )
     );
-
   }, [setIgnoreRequired, documentData, props.path]);
 
   const indent =
@@ -196,7 +195,6 @@ export default ({ setState, state, ...props }) => {
   //   console.log("indent", props.indent);
   //   console.log("indent", props.indent);
   // }
-
   return (
     <div className={indent && "ml-3"}>
       <Input
@@ -212,7 +210,7 @@ export default ({ setState, state, ...props }) => {
         TinyButtons={TinyButtons()}
         BigButtons={BigButtons()}
         name={props.fieldName}
-        required={ignoreRequired ? false : props.required}
+        required={ignoreRequired ? undefined : props.required}
         step={
           !!props.decimal && Math.pow(0.1, props.decimal).toFixed(props.decimal)
         }
@@ -221,9 +219,8 @@ export default ({ setState, state, ...props }) => {
         documentDataDispatch={documentDataDispatch}
       />
       {props.ignoreRequired && (
-        <Input
-          type={"checkbox"}
-          onChange={onChangeIgnoreRequired}
+        <CheckInput
+          onChangeInput={onChangeIgnoreRequired}
           value={ignoreRequired}
           label={`Ignore Required on ${props.label}`}
           TinyButtons={TinyButtons()}

@@ -9,7 +9,6 @@ export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { documentData, renderFunction, stateDispatch, mathStore } = useContext(documentDataContext);
   const math = useCallback(() => {
-    console.log("first")
     const getValueFromMath = Math[props.math](
       Object.keys(documentData.current).length === 0
         ? backendData
@@ -33,14 +32,19 @@ export default ({ backendData, ...props }) => {
 
   useEffect(() => {
 
-    let effectsRenderFunction = renderFunction.current;
-    effectsRenderFunction[
+
+    renderFunction.current[
       `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
     ] = math;
     return () => {
-      delete effectsRenderFunction[
-        `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
-      ];
+      if (renderFunction.current[`${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
+        delete renderFunction.current[
+          `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
+        ];
+      }
     };
   }, [
     math,
@@ -51,7 +55,6 @@ export default ({ backendData, ...props }) => {
   ]);
 
   useEffect(() => {
-    console.log("tekst er letter å se")
     math();
   }, [math]);
 
