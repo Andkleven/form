@@ -61,6 +61,7 @@ export default pageInfo => {
 
           <Form
             componentsId={"leadEngineersPage"}
+            edit={getAccess()["itemEdit"]}
             document={coatedItemOrMould(
               geometry,
               leadEngineersCoatedItemJson,
@@ -90,8 +91,7 @@ export default pageInfo => {
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
-          // edit={getAccess()["itemEdit"]}
-          edit={true}
+          edit={getAccess()["itemEdit"]}
           readOnlySheet={!getAccess()["itemWrite"]}
           stage={stage}
           stageType={geometry}

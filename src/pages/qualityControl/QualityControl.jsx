@@ -6,6 +6,7 @@ import operatorMouldJson from "templates/mould/operatorMould.json";
 import qualityControlCoatedItemJson from "templates/coatedItem/qualityControlCoatedItem.json";
 import qualityControlMouldJson from "templates/mould/qualityControlMould.json";
 import Title from "components/design/fonts/Title";
+import { getAccess } from "functions/user.ts";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -76,6 +77,7 @@ export default pageInfo => {
           }
           stage={fixedData && fixedData.items[0].stage}
           stageType={geometry}
+          edit={getAccess()["itemEdit"]}
           getQueryBy={itemId}
           itemId={itemId}
           sendItemId={true}
@@ -96,6 +98,7 @@ export default pageInfo => {
               "items.0.finalInspectionQualityControls"
             )
           }
+          edit={getAccess()["itemEdit"]}
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
