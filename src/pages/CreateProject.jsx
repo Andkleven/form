@@ -4,7 +4,7 @@ import history from "functions/history";
 import query from "graphql/query";
 import objectPath from "object-path";
 import mutations from "graphql/mutation";
-import ItemList from "components/pages/item/ItemList";
+import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -12,7 +12,7 @@ import {
   stringifyQuery,
   getStartStage
 } from "functions/general";
-import ItemUpdate from "components/pages/item/ItemUpdate";
+import ItemUpdate from "components/item/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
