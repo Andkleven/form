@@ -196,7 +196,7 @@ export default ({
                 {props.access && props.access.specs && (
                   <Link
                     to={`/packer/project/${project["id"]}`}
-                    key={`projectSpecs${indexProject}`}
+                    key={`projectSpecs(Packer)${indexProject}`}
                     iconProps={{
                       icon: ["fad", "file-invoice"],
                       swapOpacity: true,
