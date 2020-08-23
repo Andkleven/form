@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
 import query from "graphql/query";
 import objectPath from "object-path";
-import itemsJson from "templates/createProject.json";
+import itemsJson from "templates/coating/createProject.json";
 import mutations from "graphql/mutation";
 import ItemList from "components/item/ItemList";
 import Form from "components/form/Form";
@@ -13,7 +13,7 @@ import {
   stringifyQuery,
   getStartStage
 } from "functions/general";
-import ItemUpdate from "pages/leadEngineer/ItemUpdate";
+import ItemUpdate from "pages/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
@@ -273,7 +273,7 @@ export default pageInfo => {
               className="text-center w-100 mt-3"
               onClick={() =>
                 history.push(
-                  `/lead-engineer/${_id}/${geometryData.id}/${
+                  `/coating/lead-engineer/${_id}/${geometryData.id}/${
                   geometryData.items.find(item => item.unique === false).id
                   }/0/${geometryData.data.geometry}`
                 )
@@ -290,7 +290,7 @@ export default pageInfo => {
               items={geometryData.items}
               submitItem={item => {
                 history.push(
-                  `/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
+                  `/coating/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
                 );
               }}
               submitDelete={id => {

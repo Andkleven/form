@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import query from "graphql/query";
 import objectPath from "object-path";
-import itemsJson from "templates/createProject.json";
+import itemsJson from "templates/coating/createProject.json";
 import mutations from "graphql/mutation";
 import Input from "components/input/Input";
 import SubmitButton from "components/button/SubmitButton";

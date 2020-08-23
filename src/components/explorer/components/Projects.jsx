@@ -8,7 +8,7 @@ import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
 import { numberOfChildren } from "../functions/data.js";
-import batching from "templates/batching.json";
+import batching from "templates/coating/batching.json";
 import { getUser } from "functions/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
@@ -135,7 +135,7 @@ export default ({
       {headline && <h6>{headline}</h6>}
       {props.access && props.access.specs && (
         <Link
-          to="/project/0"
+          to="/coating/project/0"
           iconProps={{
             icon: ["fad", "folder-plus"],
             size: iconSize,
@@ -167,7 +167,7 @@ export default ({
                           project.data.projectName
                         )} Descriptions`) ||
                       " ∙ No descriptions"
-                    }`}
+                      }`}
                   </div>
                 </div>
                 // + `(${countProjectItems(project)} items)`
@@ -180,7 +180,7 @@ export default ({
               <div className="d-flex align-items-center flex-wrap">
                 {props.access && props.access.specs && (
                   <Link
-                    to={`/project/${project["id"]}`}
+                    to={`/coating/project/${project["id"]}`}
                     key={`projectSpecs${indexProject}`}
                     iconProps={{
                       icon: ["fad", "file-invoice"],
@@ -193,13 +193,28 @@ export default ({
                     Specifications
                   </Link>
                 )}
+                {props.access && props.access.specs && (
+                  <Link
+                    to={`/packer/project/${project["id"]}`}
+                    key={`projectSpecs${indexProject}`}
+                    iconProps={{
+                      icon: ["fad", "file-invoice"],
+                      swapOpacity: true,
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: ".75em", ...rowStyle }}
+                  >
+                    Specifications (Packer)
+                  </Link>
+                )}
                 {!!stage &&
                   // Array of stages with batching here
                   batchingStages.includes(stage) && (
                     <>
                       <Link
-                        // to={`/project/${project["id"]}`}
-                        to={`/batching/${stage}/${project["id"]}`}
+                        // to={`/coating/project/${project["id"]}`}
+                        to={`/coating/batching/${stage}/${project["id"]}`}
                         key={`projectBatching${indexProject}`}
                         iconProps={{
                           icon: ["fad", "cubes"],
@@ -288,14 +303,14 @@ export default ({
                                 description.data.description
                               ) &&
                                 ` ∙ ${
-                                  description.items.length
+                                description.items.length
                                 }/${numberOfChildren(
                                   data,
                                   project.data.projectName,
                                   description.data.description
                                 )} Items`) ||
                               " ∙ No items"
-                            }`}
+                              }`}
                           </div>
                         </div>
                       }
@@ -316,10 +331,10 @@ export default ({
                               (userIsQuality || userIsAdmin) && stageIsQuality;
 
                             let itemLink = `/404`;
-                            itemLink = `/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
+                            itemLink = `/coating/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
 
                             if (qcView) {
-                              itemLink = `/quality-control/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
+                              itemLink = `/coating/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
                             }
 
                             return (
@@ -376,10 +391,10 @@ export default ({
                                               {item.itemId}
                                             </div>
                                           ) : (
-                                            <div className="text-secondary d-inline">
-                                              No Item ID (Index ID: {item.id})
-                                            </div>
-                                          )}
+                                              <div className="text-secondary d-inline">
+                                                No Item ID (Index ID: {item.id})
+                                              </div>
+                                            )}
                                         </div>
                                         <ProgressBar
                                           animated={progress(item) < 100}
@@ -463,10 +478,10 @@ export default ({
           );
         })
       ) : (
-        <div className="pt-1 text-secondary">
-          <em>No items found.</em>
-        </div>
-      )}
+          <div className="pt-1 text-secondary">
+            <em>No items found.</em>
+          </div>
+        )}
     </div>
   );
 };

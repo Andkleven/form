@@ -101,17 +101,17 @@ export default pageInfo => {
           json={
             fixedData && newDescriptionId[0]
               ? getBatchingJson(
-                  objectPath
-                    .get(fixedData, "projects.0.descriptions")
-                    .find(
-                      description =>
-                        Number(description.id) === Number(newDescriptionId[0])
-                    )["data"]["geometry"],
-                  operatorCoatedItemJson,
-                  operatorMouldJson,
-                  allBatchingJson,
-                  reshapeStageSting(stage)
-                )
+                objectPath
+                  .get(fixedData, "projects.0.descriptions")
+                  .find(
+                    description =>
+                      Number(description.id) === Number(newDescriptionId[0])
+                  )["data"]["geometry"],
+                operatorCoatedItemJson,
+                operatorMouldJson,
+                allBatchingJson,
+                reshapeStageSting(stage)
+              )
               : batchingJson
           }
           setBatchingData={setBatchingData}

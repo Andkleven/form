@@ -9,8 +9,8 @@ import {
   camelCaseToNormal
 } from "functions/general";
 import mutations from "graphql/mutation";
-import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/mould/operatorMould.json";
+import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/coating/mould/operatorMould.json";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
 import CheckInput from "components/input/components/CheckInput";
