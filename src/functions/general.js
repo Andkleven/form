@@ -171,7 +171,7 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
         ? createPath(newPath, array)
         : newPath
     );
-    if (dataFields.length === 1) {
+    if (dataFields && dataFields.length === 1) {
       dataFields = dataFields[0]
     }
     // let dataFields = objectPath.get(

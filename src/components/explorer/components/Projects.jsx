@@ -28,9 +28,7 @@ export default ({
 }) => {
   // Delete projects
   const user = getUser();
-  const userIsAdmin = user.role === "ADMIN";
-  const userIsQuality = user.role === "QUALITY";
-
+  console.log(data)
   const deleteProjectFromCache = (
     cache,
     {
@@ -127,6 +125,8 @@ export default ({
   };
   // _______________________________________________________________________
 
+
+
   // Batching stages
   const batchingStages = Object.keys(batching);
 
@@ -213,8 +213,8 @@ export default ({
                   batchingStages.includes(stage) && (
                     <>
                       <Link
-                        // to={`/coating/project/${project["id"]}`}
-                        to={`/coating/batching/${stage}/${project["id"]}`}
+                        // to={`/project/${project["id"]}`}
+                        to={`/batching/${stage}/${project["id"]}`}
                         key={`projectBatching${indexProject}`}
                         iconProps={{
                           icon: ["fad", "cubes"],
@@ -325,18 +325,6 @@ export default ({
                           (props.access.itemRead || props.access.itemWrite) &&
                           description.items &&
                           description.items.map((item, indexItem) => {
-                            const stageIsQuality =
-                              item.stage === "qualityControl";
-                            const qcView =
-                              (userIsQuality || userIsAdmin) && stageIsQuality;
-
-                            let itemLink = `/404`;
-                            itemLink = `/coating/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
-
-                            if (qcView) {
-                              itemLink = `/coating/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`;
-                            }
-
                             return (
                               <Col
                                 key={`itemContainer${indexItem}`}
@@ -374,7 +362,7 @@ export default ({
                                   <div className="px-1 mt-n1">
                                     <Link
                                       onClick={() => handleItemClick(item)}
-                                      to={itemLink}
+                                      to={`/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`}
                                       key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
                                       iconProps={{
                                         icon: ["fad", "cube"],

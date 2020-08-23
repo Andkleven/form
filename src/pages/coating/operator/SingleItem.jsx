@@ -5,6 +5,8 @@ import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json
 import operatorMouldJson from "templates/mould/operatorMould.json";
 import leadEngineersCoatedItemJson from "templates/coatedItem/leadEngineerCoatedItem.json";
 import leadEngineersMouldJson from "templates/mould/leadEngineerMould.json";
+import qualityControlCoatedItemJson from "templates/coatedItem/qualityControlCoatedItem.json";
+import qualityControlMouldJson from "templates/mould/qualityControlMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -23,12 +25,15 @@ export default pageInfo => {
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-  let operatorJson = coatedItemOrMould(
+
+
+  let qualityControlJson = coatedItemOrMould(
     geometry,
-    operatorCoatedItemJson,
-    operatorMouldJson
+    qualityControlCoatedItemJson,
+    qualityControlMouldJson
   );
-  const { loading, error, data } = useQuery(query[operatorJson.query], {
+
+  const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
   useEffect(() => {
@@ -53,7 +58,7 @@ export default pageInfo => {
   return (
     <Canvas showForm={!!data}>
       <Overview />
-      {getAccess()["specs"] && (
+      {getAccess().specs && (
         <Paper className="mb-3">
           <Title big align="center">
             Lead Engineer
@@ -61,7 +66,7 @@ export default pageInfo => {
 
           <Form
             componentsId={"leadEngineersPage"}
-            edit={getAccess()["itemEdit"]}
+            edit={getAccess().itemEdit}
             document={coatedItemOrMould(
               geometry,
               leadEngineersCoatedItemJson,
@@ -78,21 +83,25 @@ export default pageInfo => {
         </Paper>
       )}
       <Paper>
-        {getAccess()["specs"] && (
+        {getAccess().specs && (
           <Title big align="center">
             Operator
           </Title>
         )}
         <Form
           componentsId={opId.current}
-          document={operatorJson}
+          document={coatedItemOrMould(
+            geometry,
+            operatorCoatedItemJson,
+            operatorMouldJson
+          )}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
-          edit={getAccess()["itemEdit"]}
-          readOnlySheet={!getAccess()["itemWrite"]}
+          edit={getAccess().itemEdit}
+          readOnlySheet={!getAccess().itemWrite}
           stage={stage}
           stageType={geometry}
           getQueryBy={itemId}
@@ -101,6 +110,36 @@ export default pageInfo => {
           saveButton={true}
         />
       </Paper>
+      {getAccess().finalInspection && stage === "qualityControl" && (
+        <Paper>
+          <Title big align="center">
+            Quality Control
+        </Title>
+          <Form
+            componentsId={"finalInspectionQualityControls"}
+            document={qualityControlJson}
+            data={
+              fixedData &&
+              formDataStructure(
+                fixedData,
+                "items.0.finalInspectionQualityControls"
+              )
+            }
+            edit={getAccess().itemEdit}
+            specData={
+              fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            }
+            reRender={() => setReRender(!reRender)}
+            allData={fixedData}
+            stage={fixedData && fixedData.items[0].stage}
+            stageType={geometry}
+            getQueryBy={itemId}
+            itemId={itemId}
+            sendItemId={true}
+            saveButton={true}
+          />
+        </Paper>
+      )}
     </Canvas>
   );
 };

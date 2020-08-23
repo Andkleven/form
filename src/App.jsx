@@ -61,35 +61,26 @@ export default () => {
             </Route>
 
             {/* Create Project (Lead Engineer) */}
-            <Route path="/coating/project/:id" component={CreateProject} />
-
-            {/* Create Project (Lead Engineer) */}
-            <Route path="/packer/project/:id" component={CreateProject} />
+            <Route path="/project/:productionLine/:id" component={CreateProject} />
 
             {/* Create Items (Lead Engineer) */}
             <Route
-              path="/coating/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
+              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
               component={LeadEngineerPage}
             />
 
 
             {/* Batching (Operator) */}
             {/* <Route
-              path="/coating/batching/:stage/:projectId/:descriptionId/:geometry"
+              path="/batching/:stage/:projectId/:descriptionId/:geometry"
               component={Batching}
             /> */}
-            <Route path="/coating/batching/:stage/:projectId" component={Batching} />
+            <Route path="/batching/:stage/:projectId" component={Batching} />
 
             {/* Single Item (Operator) */}
             <Route
-              path="/coating/single-item/:projectId/:descriptionId/:itemId/:geometry"
+              path="/single-item/:projectId/:descriptionId/:itemId/:geometry"
               component={SingleItem}
-            />
-
-            {/* Final Inspection (Quality Control) */}
-            <Route
-              path="/coating/single-item/:projectId/:descriptionId/:itemId/:geometry"
-              component={QualityControl}
             />
             <Route path="/file/:filename">
               <Files />

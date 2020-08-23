@@ -92,6 +92,7 @@ const BATCHING_OPERATOR = gql`
       id
       data
       leadEngineerDone
+      productionLine
       descriptions {
         id
         data
@@ -158,6 +159,7 @@ const BATCHING_VULCANIZATION = gql`
       id
       data
       leadEngineerDone
+      productionLine
       descriptions {
         id
         data
@@ -239,6 +241,7 @@ const GET_ORDER_GEOMETRY = gql`
       id
       data
       leadEngineerDone
+      productionLine
       itpDocumentNumbers {
         id
         data
@@ -519,18 +522,6 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
-        vulcanizationSteps {
-          id
-          data
-          coatingLayers {
-            id
-            data
-            cumulativeThickness {
-              id
-              data
-            }
-          }
-        }
         rubberCements {
           id
           data
@@ -546,6 +537,18 @@ const QUALITY_CONTROL = gql`
         finalInspectionDimensionsChecks {
           id
           data
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
+            id
+            data
+            cumulativeThickness {
+              id
+              data
+            }
+          }
         }
       }
       operators {

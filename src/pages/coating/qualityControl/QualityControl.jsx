@@ -77,7 +77,7 @@ export default pageInfo => {
           }
           stage={fixedData && fixedData.items[0].stage}
           stageType={geometry}
-          edit={getAccess()["itemEdit"]}
+          edit={getAccess().itemEdit}
           getQueryBy={itemId}
           itemId={itemId}
           sendItemId={true}
@@ -98,7 +98,7 @@ export default pageInfo => {
               "items.0.finalInspectionQualityControls"
             )
           }
-          edit={getAccess()["itemEdit"]}
+          edit={getAccess().itemEdit}
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
