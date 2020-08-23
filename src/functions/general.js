@@ -539,13 +539,13 @@ export const reshapeStageSting = (stage) => {
   return newStage;
 };
 
-export function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+export function lowerCaseFirstLetter(string) {
+  return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
 export function coatedItemOrMould(category, coatedItemJson, mouldJson, packerJson) {
   let json;
-  switch (capitalizeFirstLetter(removeSpace(category.toString()))) {
+  switch (lowerCaseFirstLetter(removeSpace(category.toString()))) {
     case "coatedItem":
       json = coatedItemJson;
       break;

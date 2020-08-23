@@ -22,6 +22,12 @@ export default pageInfo => {
     geometry
   } = pageInfo.match.params;
 
+  console.log(projectId,
+    descriptionId,
+    itemId,
+    unique,
+    geometry)
+
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   leadEngineersJson = coatedItemOrMould(
