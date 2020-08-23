@@ -8,6 +8,7 @@ import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
 import Canvas from "components/layout/Canvas";
+import { useParams } from "react-router-dom";
 import Batching from "components/form/components/Batching";
 import {
   getBatchingJson,
@@ -18,13 +19,13 @@ import {
 } from "functions/general";
 import Loading from "components/Loading";
 
-export default pageInfo => {
+export default () => {
   const {
     stage,
     projectId,
     descriptionId,
     geometryDefault
-  } = pageInfo.match.params;
+  } = useParams();
 
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);

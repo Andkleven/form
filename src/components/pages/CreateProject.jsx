@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import history from "functions/history";
 import query from "graphql/query";
 import objectPath from "object-path";
-import itemsJson from "templates/coating/createProject.json";
 import mutations from "graphql/mutation";
-import ItemList from "components/item/ItemList";
+import ItemList from "components/pages/item/ItemList";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -13,7 +12,7 @@ import {
   stringifyQuery,
   getStartStage
 } from "functions/general";
-import ItemUpdate from "pages/ItemUpdate";
+import ItemUpdate from "components/pages/item/ItemUpdate";
 import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
@@ -21,8 +20,8 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Loading from "components/Loading";
 const cloneDeep = require("clone-deep");
 
-export default pageInfo => {
-  const [_id, set_id] = useState(Number(pageInfo.match.params.id));
+export default ({ id, createProjectJson }) => {
+  const [_id, set_id] = useState(Number(id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
@@ -33,9 +32,14 @@ export default pageInfo => {
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[itemsJson.query], {
+  const { loading, error, data } = useQuery(query[createProjectJson.query], {
     variables: { id: _id }
   });
+
+  const dosePathExist = useCallback(path => {
+    return !!(fixedData && objectPath.get(fixedData, path))
+  }, [fixedData])
+
   const deleteFromCache = (
     cache,
     {
@@ -69,22 +73,22 @@ export default pageInfo => {
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[itemsJson.query],
+      query: query[createProjectJson.query],
       variables: { id: _id }
     });
-    let array = objectPath.get(oldData, itemsJson.queryPath);
+    let array = objectPath.get(oldData, createProjectJson.queryPath);
     let index = array.findIndex(
-      x => x.id === data[itemsJson.queryPath.split(/[.]+/).pop()].new.id
+      x => x.id === data[createProjectJson.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
-      `${itemsJson.queryPath}.${index}`,
-      data[itemsJson.queryPath.split(/[.]+/).pop()].new
+      `${createProjectJson.queryPath}.${index}`,
+      data[createProjectJson.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = itemsJson.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = createProjectJson.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: query[itemsJson.query],
-      variables: { id: itemsJson.getQueryBy },
+      query: query[createProjectJson.query],
+      variables: { id: createProjectJson.getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
@@ -102,7 +106,7 @@ export default pageInfo => {
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
-    if (data && data.projects && data.projects[0] && data.projects[0].id) {
+    if (data && objectPath.get("projects.0.id", data)) {
       set_id(data.projects[0].id);
     }
   }, [
@@ -116,8 +120,7 @@ export default pageInfo => {
     errorDelete
   ]);
 
-  const projectExists =
-    fixedData && fixedData.projects && fixedData.projects[0];
+  const projectExists = dosePathExist("projects.0")
 
   const ItemCounter = ({ className }) => {
     const percentage = numberOfItems / projectsData.totalNumberOfItems;
@@ -199,7 +202,7 @@ export default pageInfo => {
     return onlyUnique;
   };
 
-  const sent = projectExists && fixedData.projects[0].leadEngineerDone;
+  const sent = dosePathExist("projects.0.leadEngineerDone")
 
   const sendable =
     projectExists &&
@@ -213,18 +216,9 @@ export default pageInfo => {
     if (
       !error &&
       !loading &&
-      fixedData &&
-      fixedData.projects &&
-      fixedData.projects[0] &&
-      fixedData.projects[0].descriptions
+      dosePathExist("projects.0.descriptions")
     ) {
-      if (
-        fixedData &&
-        fixedData.projects &&
-        fixedData.projects[0].descriptions &&
-        fixedData.projects[0].descriptions[counter - 1] &&
-        fixedData.projects[0].descriptions[counter - 1].items
-      ) {
+      if (dosePathExist(`projects.0.descriptions.${counter - 1}.items`)) {
         setGeometryData(fixedData.projects[0].descriptions[counter - 1]);
       } else {
         setGeometryData(0);
@@ -236,7 +230,7 @@ export default pageInfo => {
       });
       setNumberOfItems(countNumberOfItems);
     }
-  }, [counter, fixedData, error, loading]);
+  }, [counter, fixedData, error, loading, dosePathExist]);
 
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
@@ -246,7 +240,7 @@ export default pageInfo => {
       <Paper>
         <Form
           componentsId={"itemsPage" + counter.toString()}
-          document={itemsJson}
+          document={createProjectJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData}
           repeatStepList={[counter - 1]}
@@ -361,10 +355,6 @@ export default pageInfo => {
             </DepthButton>
           </>
         )}
-        {/* {loadingMutation && <p>Loading...</p>}
-        {errorMutation && <p>Error :( Please try again</p>}
-        {loadingLeadEngineerDone && <p>Loading...</p>}
-        {errorLeadEngineerDone && <p>Error :( Please try again</p>} */}
       </Paper>
     </Canvas>
   );
