@@ -21,7 +21,6 @@ import Loading from "components/Loading";
 const cloneDeep = require("clone-deep");
 
 export default ({ _id, createProjectJson }) => {
-  console.log(_id)
   // const [_id, set_id] = useState(Number(id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
