@@ -141,8 +141,8 @@ const LEAD_ENGINEER = gql`
 `;
 
 const LEAD_ENGINEER_DONE = gql`
-  mutation projects($project: [ProjectInput]) {
-    projects(project: $project) {
+  mutation projects($projects: [ProjectInput]) {
+    projects(projects: $projects) {
       new {
         leadEngineerDone
       }

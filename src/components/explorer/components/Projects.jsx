@@ -28,7 +28,6 @@ export default ({
 }) => {
   // Delete projects
   const user = getUser();
-  console.log(data)
   const deleteProjectFromCache = (
     cache,
     {
@@ -135,7 +134,7 @@ export default ({
       {headline && <h6>{headline}</h6>}
       {props.access && props.access.specs && (
         <Link
-          to="/coating/project/0"
+          to="/create-project/coating"
           iconProps={{
             icon: ["fad", "folder-plus"],
             size: iconSize,

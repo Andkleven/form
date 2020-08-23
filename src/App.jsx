@@ -4,7 +4,8 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./functions/history";
 import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
-import CreateProject from "./pages/coating/leadEngineer/CreateProject";
+import UpdateProject from "./pages/UpdateProject";
+import CreateProject from "./pages/CreateProject";
 import LeadEngineerPage from "./pages/coating/leadEngineer/LeadEngineerPage";
 import Batching from "./pages/coating/operator/Batching";
 import SingleItem from "./pages/coating/operator/SingleItem";
@@ -60,7 +61,10 @@ export default () => {
             </Route>
 
             {/* Create Project (Lead Engineer) */}
-            <Route path="/project/:productionLine/:id" component={CreateProject} />
+            <Route path="/create-project/:productionLine" component={CreateProject} />
+
+            {/* Update Project (Lead Engineer) */}
+            <Route path="/update-project/:productionLine/:id" component={UpdateProject} />
 
             {/* Create Items (Lead Engineer) */}
             <Route
