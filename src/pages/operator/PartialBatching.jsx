@@ -34,7 +34,7 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [newDescriptionId, setNewDescriptionId] = useState([]);
   const [batchingListIds, setBatchingListIds] = useState([]);
-  const [geometry, setGeometry] = useState("coateditem");
+  const [geometry, setGeometry] = useState("coatedItem");
 
   useEffect(() => {
     if (geometryDefault) {

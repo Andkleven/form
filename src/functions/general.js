@@ -539,12 +539,24 @@ export const reshapeStageSting = (stage) => {
   return newStage;
 };
 
-export const coatedItemOrMould = (category, coatedItemJson, mouldJson) => {
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function coatedItemOrMould(category, coatedItemJson, mouldJson, packerJson) {
   let json;
-  if (removeSpace(category.toString()).toLowerCase() === "coateditem") {
-    json = coatedItemJson;
-  } else if (removeSpace(category.toString()).toLowerCase() === "mould") {
-    json = mouldJson;
+  switch (capitalizeFirstLetter(removeSpace(category.toString()))) {
+    case "coatedItem":
+      json = coatedItemJson;
+      break;
+    case "mould":
+      json = mouldJson;
+      break;
+    case "packer":
+      json = packerJson;
+      break;
+    default:
+      break;
   }
   return json;
 };
@@ -592,7 +604,7 @@ export function getStartStage(geometry) {
   let stage = undefined;
   switch (geometry) {
     case "Coated Item":
-      stage = Object.keys(stages["coateditem"])[0];
+      stage = Object.keys(stages["coatedItem"])[0];
       break;
     case "Mould":
       stage = Object.keys(stages["mould"])[0];

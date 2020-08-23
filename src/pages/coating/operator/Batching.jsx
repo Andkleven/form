@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import allBatchingJson from "templates/coating/batching.json";
-import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/coating/mould/operatorMould.json";
+import allBatchingJson from "templates/batching.json";
+import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/mould/operatorMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
@@ -32,7 +32,7 @@ export default () => {
   const [fixedData, setFixedData] = useState(null);
   const [newDescriptionId, setNewDescriptionId] = useState([]);
   const [reRender, setReRender] = useState(false);
-  const [geometry, setGeometry] = useState("coateditem");
+  const [geometry, setGeometry] = useState("coatedItem");
 
   useEffect(() => {
     if (geometryDefault) {

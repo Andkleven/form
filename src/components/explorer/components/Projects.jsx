@@ -8,7 +8,7 @@ import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
 import query from "graphql/query";
 import { numberOfChildren } from "../functions/data.js";
-import batching from "templates/coating/batching.json";
+import batching from "templates/batching.json";
 import { getUser } from "functions/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
