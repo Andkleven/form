@@ -7,7 +7,6 @@ import Login from "./pages/LoginPage";
 import CreateProject from "./pages/coating/leadEngineer/CreateProject";
 import LeadEngineerPage from "./pages/coating/leadEngineer/LeadEngineerPage";
 import Batching from "./pages/coating/operator/Batching";
-import QualityControl from "./pages/coating/qualityControl/QualityControl";
 import SingleItem from "./pages/coating/operator/SingleItem";
 import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
