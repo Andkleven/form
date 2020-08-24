@@ -253,7 +253,6 @@ export default () => {
           data={fixedData}
           repeatStepList={[counter - 1]}
           getQueryBy={_id}
-          foreignKey={_id}
           optionsQuery={true}
           addValuesToData={{ "projects.0.productionLine": productionLine }}
         />

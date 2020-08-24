@@ -9,6 +9,7 @@
       "packer"
     ],
     "access": {
+      "receiptControl": true,
       "specs": true,
       "itemRead": true,
       "itemWrite": true,
@@ -27,6 +28,7 @@
       "coating"
     ],
     "access": {
+      "receiptControl": false,
       "specs": true,
       "itemRead": true,
       "itemWrite": true,
@@ -45,6 +47,7 @@
       "coating"
     ],
     "access": {
+      "receiptControl": false,
       "specs": false,
       "itemRead": true,
       "itemWrite": true,
@@ -63,6 +66,7 @@
       "coating"
     ],
     "access": {
+      "receiptControl": false,
       "specs": false,
       "itemRead": true,
       "itemWrite": true,
@@ -81,6 +85,7 @@
       "coating"
     ],
     "access": {
+      "receiptControl": false,
       "specs": false,
       "itemRead": true,
       "itemWrite": true,
@@ -99,6 +104,7 @@
       "coating"
     ],
     "access": {
+      "receiptControl": false,
       "specs": false,
       "itemRead": true,
       "itemWrite": true,
@@ -117,6 +123,7 @@
       "coating"
     ],
     "access": {
+      "receiptControl": false,
       "specs": false,
       "itemRead": true,
       "itemWrite": false,

@@ -12,6 +12,7 @@ import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
 import mutations from "graphql/mutation";
+import CreateProjectReceiptControl from "pages/packer/CreateProjectReceiptControl"
 import { useMutation } from "@apollo/react-hooks";
 import "styles/icons";
 
@@ -60,7 +61,10 @@ export default () => {
             </Route>
 
             {/* Create Project (Lead Engineer) */}
-            <Route path="/create-project/:productionLine/:id" component={CreateProject} />
+            <Route path="/project/:productionLine/:id" component={CreateProject} />
+
+            {/* Create Project (Lead Engineer) */}
+            <Route path="/project-receipt-control/:id" component={CreateProjectReceiptControl} />
 
             {/* Create Items (Lead Engineer) */}
             <Route

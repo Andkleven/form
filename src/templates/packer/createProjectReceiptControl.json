@@ -1,0 +1,302 @@
+{
+    "queryPath": "projects",
+    "mutation": "ORDER",
+    "query": "GET_ORDER_GEOMETRY",
+    "optionsQuery": "USERS",
+    "chapters": [
+        {
+            "pages": [
+                {
+                    "pageTitle": "Project",
+                    "queryPath": "projects",
+                    "fields": [
+                        {
+                            "fieldName": "projectNumber",
+                            "label": "Project Number",
+                            "required": true
+                        },
+                        {
+                            "fieldName": "controlOfRings",
+                            "label": "Control of Rings",
+                            "type": "checkbox"
+                        },
+                        {
+                            "fieldName": "deliveryNoteID",
+                            "label": "Delivery Note ID",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "totalNoOfRings",
+                            "label": "Total No. of rings",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings",
+                            "type": "number"
+                        },
+                        {
+                            "fieldName": "sampleToTest",
+                            "label": "Sample To Test",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings",
+                            "type": "number"
+                        }
+                    ]
+                },
+                {
+                    "repeat": true,
+                    "queryPath": "projects.0.samples",
+                    "notAddButton": true,
+                    "repeatGroupWithQuery": "projects.0.data.sampleToTest",
+                    "indexVariablePageTitle": 0,
+                    "pageTitle": "Step {}",
+                    "fields": [
+                        {
+                            "fieldName": "itemId",
+                            "label": "Item Id"
+                        },
+                        {
+                            "fieldName": "dimensionIdOd",
+                            "label": "Dimension ID/OD",
+                            "type": "number"
+                        },
+                        {
+                            "fieldName": "visualControl",
+                            "label": "Visual Control",
+                            "type": "number"
+                        },
+                        {
+                            "fieldName": "odControl",
+                            "label": "OD Control",
+                            "type": "number"
+                        },
+                        {
+                            "fieldName": "idControl",
+                            "label": "iD Control",
+                            "type": "number"
+                        }
+                    ]
+                },
+                {
+                    "queryPath": "projects",
+                    "fields": [
+                        {
+                            "fieldName": "setScrewInPlace",
+                            "label": "Set screw in place",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "rustProtectionCoating",
+                            "label": "Rust protection coating",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "plasticWrapped",
+                            "label": "Plastic wrapped",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "materialQualityMarkedOnRing",
+                            "label": "Material quality marked on ring",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "poNoCheckbox",
+                            "label": "Po No.",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "poNo",
+                            "label": "Po No. comment",
+                            "readOnlyFieldIf": "projects.0.data.poNoCheckbox"
+                        },
+                        {
+                            "fieldName": "materialCertificates",
+                            "label": "Material Certificates",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "certificateOfConformity",
+                            "label": "Certificate Of Conformity",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "engDrawing",
+                            "label": "Eng Drawing - SAP No.",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "ringMarkingInformationOnRing",
+                            "label": "Ring marking/information on ring",
+                            "type": "comment",
+                            "readOnlyFieldIf": "projects.0.data.controlOfRings"
+                        },
+                        {
+                            "fieldName": "controlOfPipe",
+                            "label": "Control of Pipe",
+                            "type": "checkbox"
+                        },
+                        {
+                            "fieldName": "halliburtonsSuppliersPoNo",
+                            "label": "Halliburtons Suppliers Po No.",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "pipeCertificateNo",
+                            "label": "Pipe Certificate No.",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "poDetailsWhenPipesReceive",
+                            "label": "PO details when pipes receive",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "materialCertificatesReceived",
+                            "label": "Material certificates received",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "numberOfReceivedPipes",
+                            "label": "Number of received pipes",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe",
+                            "type": "number"
+                        },
+                        {
+                            "label": "Control of marking on pipe:",
+                            "readOnlyField": true,
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "dimension",
+                            "prepend": "Dimension",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "threadType",
+                            "prepend": "Thread type",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "weightClass",
+                            "prepend": "Weight class",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "materialQuality",
+                            "prepend": "Material quality",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "label": "Pipe length:",
+                            "readOnlyField": true,
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "min",
+                            "prepend": "Min",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "max",
+                            "prepend": "Max",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "drawingLength",
+                            "prepend": "Drawing length",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "visualInspectionOfExternalViableDamagesDents",
+                            "label": "Visual inspection of external viable damages/dents",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "ifNotOkNoOfPipesDamaged",
+                            "label": "If not ok, no. of pipes damaged",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "allThreadProtectorsInPlace",
+                            "label": "All thread protectors in place",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "inspectThreadProtectorsForDamages",
+                            "label": "Inspect thread protectors for damages",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "removeThreadProtectorAndControlForDamages",
+                            "label": "Remove thread protector and control for damages, grad() ect. ",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "threadSealanr",
+                            "label": "Thread sealanr(tetting)",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "ifNotOkNoOfPipesDamaged",
+                            "label": "If not ok, no. of pipes damaged",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "cleanedIdForForeignObjects",
+                            "label": "Cleaned ID for foreign objects",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "driftPipeInternally",
+                            "label": "Drift pipe internally",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "driftIdentification:",
+                            "label": "Drift identification",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "controlPlacementOfWeldedRings",
+                            "label": "Control placement of welded rings",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "isThePipeApproved",
+                            "label": "If the pipe are approved, mark the pipe with 'OK' on the midle where it free space",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "ifThePipeIsOutsideTheSpecifications",
+                            "label": "If the pipe is outside the specifications, mark the pipe with a red 'X'",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        },
+                        {
+                            "fieldName": "Deviations approved by Halliburton",
+                            "label": "Deviations approved by Halliburton",
+                            "type": "checkbox",
+                            "readOnlyFieldIf": "projects.0.data.controlOfPipe"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

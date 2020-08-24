@@ -14,11 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
 import Badge from "components/design/NotificationBadge";
 import gql from "graphql-tag";
-const cloneDeep = require("clone-deep");
 
 
 const NoItemsFound = ({ show }) => {
-  console.log(show)
   return (
     <>
       {show && (
@@ -153,7 +151,7 @@ export default ({
         <>
           {props.productionLine.includes("coating") &&
             <Link
-              to="/create-project/coating/0"
+              to="/project/coating/0"
               iconProps={{
                 icon: ["fad", "folder-plus"],
                 size: iconSize,
@@ -165,24 +163,40 @@ export default ({
               Create new project (coating)
         </Link>}
           {props.productionLine.includes("packer") &&
-            <Link
-              to="/create-project/packer/0"
-              iconProps={{
-                icon: ["fad", "folder-plus"],
-                size: iconSize,
-                style: iconStyle
-              }}
-              style={rowStyle}
-              force
-            >
-              Create new project (packer)
-        </Link>}
+            <>
+              {props.access.specs && (<Link
+                to="/project/packer/0"
+                iconProps={{
+                  icon: ["fad", "folder-plus"],
+                  size: iconSize,
+                  style: iconStyle
+                }}
+                style={rowStyle}
+                force
+              >
+                Create new project (packer)
+              </Link>)
+              }
+              {props.access.receiptControl && (<Link
+                to="/project-receipt-control/0"
+                iconProps={{
+                  icon: ["fad", "folder-plus"],
+                  size: iconSize,
+                  style: iconStyle
+                }}
+                style={rowStyle}
+                force
+              >
+                Create new project (packer)(RC)
+              </Link>)
+              }
+            </>
+          }
         </>
       )}
       {results && results.length > 0 ? (
         results.map((project, indexProject) => {
-          if (props.productionLine.includes("project.productionLine.toString()")) {
-            console.log("aja")
+          if (props.productionLine.includes(project.productionLine.toString())) {
             return (
               <Tree
                 iconSize={iconSize}
@@ -214,7 +228,7 @@ export default ({
                 <div className="d-flex align-items-center flex-wrap">
                   {props.access && props.access.specs && (
                     <Link
-                      to={`/create-project/coating/${project.id}`}
+                      to={`/project/coating/${project.id}`}
                       key={`projectSpecs${indexProject}`}
                       iconProps={{
                         icon: ["fad", "file-invoice"],
