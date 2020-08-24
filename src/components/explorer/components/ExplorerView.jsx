@@ -14,12 +14,12 @@ const createStages = data => {
   data.projects.forEach(project => {
     project.leadEngineerDone
       ? project.descriptions.forEach(description => {
-          description.items.forEach(item => {
-            item.qualityControlDone // Not tested yet
-              ? (qualityControl = true)
-              : !stages.includes(item.stage) && stages.push(item.stage);
-          });
-        })
+        description.items.forEach(item => {
+          item.qualityControlDone // Not tested yet
+            ? (qualityControl = true)
+            : !stages.includes(item.stage) && stages.push(item.stage);
+        });
+      })
       : (leadEngineer = true);
   });
 
@@ -152,47 +152,46 @@ export default ({ view = "items", ...props }) => {
     <>
       {(!!filterConfig[user.role]["simple"] ||
         !!filterConfig[user.role]["advanced"]) && (
-        <div className="mb-3">
-          <form id="filterForm">
-            {filterConfig[user.role]["simple"]}
-            {!!filterConfig[user.role]["advanced"] && (
-              <>
-                <div hidden={!showAdvanced}>
-                  {filterConfig[user.role]["advanced"]}
-                </div>
-                <div className="d-sm-flex">
-                  <DarkButton
-                    onClick={() => {
-                      setShowAdvanced(!showAdvanced);
-                      showAdvanced && clearAll();
-                    }}
-                    className="mb-1"
-                  >
-                    <FontAwesomeIcon
-                      icon={["fas", showAdvanced ? "caret-up" : "caret-down"]}
-                      className="mr-2"
-                    />
-                    {`${showAdvanced ? "Hide" : "Show"} advanced search`}
-                  </DarkButton>
-                  <DarkButton
-                    onClick={() => {
-                      clearAll();
-                    }}
-                    className="mb-1"
-                  >
-                    <FontAwesomeIcon
-                      icon={["fas", "trash-alt"]}
-                      className="mr-2"
-                    />
+          <div className="mb-3">
+            <form id="filterForm">
+              {filterConfig[user.role]["simple"]}
+              {!!filterConfig[user.role]["advanced"] && (
+                <>
+                  <div hidden={!showAdvanced}>
+                    {filterConfig[user.role]["advanced"]}
+                  </div>
+                  <div className="d-sm-flex">
+                    <DarkButton
+                      onClick={() => {
+                        setShowAdvanced(!showAdvanced);
+                        showAdvanced && clearAll();
+                      }}
+                      className="mb-1"
+                    >
+                      <FontAwesomeIcon
+                        icon={["fas", showAdvanced ? "caret-up" : "caret-down"]}
+                        className="mr-2"
+                      />
+                      {`${showAdvanced ? "Hide" : "Show"} advanced search`}
+                    </DarkButton>
+                    <DarkButton
+                      onClick={() => {
+                        clearAll();
+                      }}
+                      className="mb-1"
+                    >
+                      <FontAwesomeIcon
+                        icon={["fas", "trash-alt"]}
+                        className="mr-2"
+                      />
                     Clear all filters
                   </DarkButton>
-                </div>
-              </>
-            )}
-          </form>
-        </div>
-      )}
-
+                  </div>
+                </>
+              )}
+            </form>
+          </div>
+        )}
       <Projects
         {...props}
         results={results}

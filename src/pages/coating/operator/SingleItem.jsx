@@ -21,6 +21,7 @@ import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 
 export default pageInfo => {
+  const access = getAccess().access
   const { itemId, geometry } = pageInfo.match.params;
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
@@ -58,7 +59,7 @@ export default pageInfo => {
   return (
     <Canvas showForm={!!data}>
       <Overview />
-      {getAccess().specs && (
+      {access.specs && (
         <Paper className="mb-3">
           <Title big align="center">
             Lead Engineer
@@ -66,7 +67,7 @@ export default pageInfo => {
 
           <Form
             componentsId={"leadEngineersPage"}
-            edit={getAccess().itemEdit}
+            edit={access.itemEdit}
             document={coatedItemOrMould(
               geometry,
               leadEngineersCoatedItemJson,
@@ -82,7 +83,7 @@ export default pageInfo => {
         </Paper>
       )}
       <Paper>
-        {getAccess().specs && (
+        {access.specs && (
           <Title big align="center">
             Operator
           </Title>
@@ -99,8 +100,8 @@ export default pageInfo => {
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
-          edit={getAccess().itemEdit}
-          readOnlySheet={!getAccess().itemWrite}
+          edit={access.itemEdit}
+          readOnlySheet={!access.itemWrite}
           stage={stage}
           stageType={geometry}
           getQueryBy={itemId}
@@ -109,7 +110,7 @@ export default pageInfo => {
           saveButton={true}
         />
       </Paper>
-      {getAccess().finalInspection && stage === "qualityControl" && (
+      {access.finalInspection && stage === "qualityControl" && (
         <Paper>
           <Title big align="center">
             Quality Control
@@ -124,7 +125,7 @@ export default pageInfo => {
                 "items.0.finalInspectionQualityControls"
               )
             }
-            edit={getAccess().itemEdit}
+            edit={access.itemEdit}
             specData={
               fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
             }

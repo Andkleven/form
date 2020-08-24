@@ -4,6 +4,10 @@
     "levels": [
       "general"
     ],
+    "productionLine": [
+      "coating",
+      "packer"
+    ],
     "access": {
       "specs": true,
       "itemRead": true,
@@ -18,6 +22,9 @@
     "displayName": "Lead Engineer",
     "levels": [
       "general"
+    ],
+    "productionLine": [
+      "coating"
     ],
     "access": {
       "specs": true,
@@ -34,6 +41,9 @@
     "levels": [
       "general"
     ],
+    "productionLine": [
+      "coating"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -48,6 +58,9 @@
     "displayName": "Operator",
     "levels": [
       "general"
+    ],
+    "productionLine": [
+      "coating"
     ],
     "access": {
       "specs": false,
@@ -64,6 +77,9 @@
     "levels": [
       "general"
     ],
+    "productionLine": [
+      "coating"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -79,6 +95,9 @@
     "levels": [
       "project"
     ],
+    "productionLine": [
+      "coating"
+    ],
     "access": {
       "specs": false,
       "itemRead": true,
@@ -93,6 +112,9 @@
     "displayName": "Spectator",
     "levels": [
       "general"
+    ],
+    "productionLine": [
+      "coating"
     ],
     "access": {
       "specs": false,

@@ -40,7 +40,8 @@ export default ({
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
-        access={getAccess()}
+        access={getAccess().access}
+        productionLine={getAccess().productionLine}
       />
     );
   }

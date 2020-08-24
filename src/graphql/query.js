@@ -486,6 +486,7 @@ const GET_OPERATOR_BY_ITEM = gql`
 const OPERATOR_PROJECTS = gql`
   query($leadEngineerDone: Boolean) {
     projects(leadEngineerDone: $leadEngineerDone) {
+      productionLine
       leadEngineerDone
       data
       id

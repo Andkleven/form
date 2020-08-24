@@ -31,7 +31,7 @@ export function getAccess(customAccess: Access): Access {
 
   try {
     const role = user["role"].toLowerCase();
-    access = roles[role]["access"];
+    access = roles[role];
     if (customAccess) {
       access = { ...access, ...customAccess };
     }
