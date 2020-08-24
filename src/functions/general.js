@@ -174,14 +174,6 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
     if (dataFields && dataFields.length === 1) {
       dataFields = dataFields[0]
     }
-    // let dataFields = objectPath.get(
-    //   data,
-    //   Array.isArray(newPath)
-    //     ? createPath(newPath, array)
-    //     : index === 0
-    //       ? `${newPath}.0`
-    //       : newPath,
-    // );
     page.fields &&
       page.fields.forEach((field) => {
         if (field.required) {
@@ -551,6 +543,21 @@ export function coatedItemOrMould(category, coatedItemJson, mouldJson, packerJso
       break;
     case "mould":
       json = mouldJson;
+      break;
+    case "packer":
+      json = packerJson;
+      break;
+    default:
+      break;
+  }
+  return json;
+};
+
+export function productionLineJson(productionLine, coatingJson, packerJson) {
+  let json;
+  switch (lowerCaseFirstLetter(removeSpace(productionLine.toString()))) {
+    case "coating":
+      json = coatingJson;
       break;
     case "packer":
       json = packerJson;

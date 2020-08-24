@@ -133,18 +133,32 @@ export default ({
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
       {props.access && props.access.specs && (
-        <Link
-          to="/create-project/coating"
-          iconProps={{
-            icon: ["fad", "folder-plus"],
-            size: iconSize,
-            style: iconStyle
-          }}
-          style={rowStyle}
-          force
-        >
-          Create new project
+        <>
+          <Link
+            to="/create-project/coating/0"
+            iconProps={{
+              icon: ["fad", "folder-plus"],
+              size: iconSize,
+              style: iconStyle
+            }}
+            style={rowStyle}
+            force
+          >
+            Create new project (coating)
         </Link>
+          <Link
+            to="/create-project/packer/0"
+            iconProps={{
+              icon: ["fad", "folder-plus"],
+              size: iconSize,
+              style: iconStyle
+            }}
+            style={rowStyle}
+            force
+          >
+            Create new project (packer)
+        </Link>
+        </>
       )}
       {results && results.length > 0 ? (
         results.map((project, indexProject) => {
@@ -179,7 +193,7 @@ export default ({
               <div className="d-flex align-items-center flex-wrap">
                 {props.access && props.access.specs && (
                   <Link
-                    to={`/coating/project/${project["id"]}`}
+                    to={`/create-project/coating/${project.id}`}
                     key={`projectSpecs${indexProject}`}
                     iconProps={{
                       icon: ["fad", "file-invoice"],
@@ -192,21 +206,7 @@ export default ({
                     Specifications
                   </Link>
                 )}
-                {props.access && props.access.specs && (
-                  <Link
-                    to={`/packer/project/${project["id"]}`}
-                    key={`projectSpecs(Packer)${indexProject}`}
-                    iconProps={{
-                      icon: ["fad", "file-invoice"],
-                      swapOpacity: true,
-                      size: iconSize,
-                      style: iconStyle
-                    }}
-                    style={{ marginRight: ".75em", ...rowStyle }}
-                  >
-                    Specifications (Packer)
-                  </Link>
-                )}
+
                 {!!stage &&
                   // Array of stages with batching here
                   batchingStages.includes(stage) && (
