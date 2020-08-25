@@ -107,12 +107,17 @@ export default () => {
       params.unique === "0"
     ) {
       let items = [];
-
-      descriptionQuery.data.descriptions &&
+      descriptionQuery &&
+        descriptionQuery.data &&
+        descriptionQuery.data.descriptions &&
         descriptionQuery.data.descriptions[0] &&
         descriptionQuery.data.descriptions[0].items.forEach(item => {
-          items.push(item.itemId);
+          item && items.push(item.itemId);
         });
+
+      if (items.length < 2) {
+        return null;
+      }
 
       let string = items.join(", ");
 
@@ -146,11 +151,11 @@ export default () => {
             <small>{MultipleItems() ? "Items:" : "Item:"}</small>
           </div>
           <div>
-            {MultipleItems()
+            {/* {MultipleItems()
               ? MultipleItems()
               : itemQuery.data
               ? itemQuery.data.items[0].itemId
-              : "N/A"}
+              : "N/A"} */}
           </div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
