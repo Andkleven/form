@@ -16,6 +16,7 @@
                         },
                         {
                             "fieldName": "purchaseOrderNumber",
+                            "required": true,
                             "label": "Purchase order Number "
                         },
                         {

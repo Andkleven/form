@@ -5,7 +5,6 @@ import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import { objectifyQuery } from "functions/general";
 import Canvas from "components/layout/Canvas";
-import Overview from "components/layout/Overview";
 import { useParams } from "react-router-dom";
 import Loading from "components/Loading";
 import createProjectReceiptControl from "templates/packer/createProjectReceiptControl.json"
@@ -31,11 +30,12 @@ export default () => {
         data
     ]);
 
+    console.log(data)
+
     if (loading) return <Loading />;
     if (error) return <p>Error :(</p>;
     return (
         <Canvas showForm={data}>
-            <Overview />
             <Paper full>
                 <Form
                     componentsId={"leadEngineersPage"}

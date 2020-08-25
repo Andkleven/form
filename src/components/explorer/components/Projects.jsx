@@ -319,7 +319,6 @@ export default ({
                         Receipt Control
                       </Link>
                     )}
-
                   {!!stage &&
                     // Array of stages with batching here
                     batchingStages.includes(stage) && (
