@@ -15,6 +15,10 @@ const ORDER = gql`
         descriptions {
           id
           data
+          rubberOds{
+            id 
+            data
+          }
           items {
             id
             itemId
@@ -169,6 +173,10 @@ const OPERATOR_BATCHING = gql`
         descriptions {
           id
           data
+          rubberOds{
+            id 
+            data
+          }
           items {
             id
             itemId

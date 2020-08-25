@@ -96,6 +96,10 @@ const BATCHING_OPERATOR = gql`
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           id
           itemId
@@ -163,6 +167,10 @@ const BATCHING_VULCANIZATION = gql`
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           id
           itemId
@@ -249,6 +257,10 @@ const GET_ORDER_GEOMETRY = gql`
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           id
           itemId
@@ -314,6 +326,10 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
     descriptions(id: $id) {
       id
       data
+      rubberOds{
+        id 
+        data
+      }
       items {
         id
         itemId
@@ -493,6 +509,10 @@ const OPERATOR_PROJECTS = gql`
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           stage
           id
