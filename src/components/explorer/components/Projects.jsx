@@ -187,8 +187,7 @@ export default ({
     }
   };
   // _______________________________________________________________________
-
-
+  console.log(results)
 
   // Batching stages
   const batchingStages = Object.keys(batching);
@@ -299,7 +298,7 @@ export default ({
                     )}
                     {props.access && props.access.specs && (
                       <Link
-                        to={`/ project / ${project.productionLine} /${project.id}`}
+                        to={`/project/${project.productionLine}/${project.id}`}
                         key={`projectSpecs${indexProject}-1`}
                         iconProps={{
                           icon: ["fad", "file-invoice"],
