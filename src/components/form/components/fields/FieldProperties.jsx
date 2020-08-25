@@ -68,7 +68,19 @@ export default React.memo(({ ...props }) => {
         ];
       }
     }
-  }, [updateState, props.label, props.path, props.repeatStepList, props.allWaysShow, editChapter, props.thisChapter, finalChapter, hidden, resetState])
+  }, [
+    updateState,
+    props.label,
+    props.path,
+    props.repeatStepList,
+    props.allWaysShow,
+    editChapter,
+    props.thisChapter,
+    finalChapter,
+    hidden,
+    resetState,
+    props.prepend
+  ])
 
   useEffect(() => {
     if (props.path && props.fieldName) {
@@ -132,6 +144,7 @@ export default React.memo(({ ...props }) => {
   }, [
     props.readOnlyFieldIf,
     updateReadOnly,
+    props.prepend,
     props.label,
     renderFunction,
     props.repeatStepList
@@ -267,6 +280,7 @@ export default React.memo(({ ...props }) => {
     props.queryVariableLabel,
     props.indexVariableLabel,
     setLabel,
+    props.prepend,
     props.label,
     getLabel,
     renderFunction,
@@ -297,7 +311,7 @@ export default React.memo(({ ...props }) => {
     );
   } else if (hidden) {
     return null
-  } else if (props.readOnlyField) {
+  } else if (props.labelOnly) {
     return (
       <small className={`text-secondary`}>
         {label}

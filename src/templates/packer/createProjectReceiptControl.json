@@ -108,7 +108,7 @@
                         },
                         {
                             "fieldName": "poNo",
-                            "label": "Po No. comment",
+                            "label": "Po No.",
                             "readOnlyFieldIf": "projects.0.data.poNoCheckbox"
                         },
                         {
@@ -170,7 +170,7 @@
                         },
                         {
                             "label": "Control of marking on pipe:",
-                            "readOnlyField": true,
+                            "labelOnly": true,
                             "readOnlyFieldIf": "projects.0.data.controlOfPipe"
                         },
                         {
@@ -195,7 +195,7 @@
                         },
                         {
                             "label": "Pipe length:",
-                            "readOnlyField": true,
+                            "labelOnly": true,
                             "readOnlyFieldIf": "projects.0.data.controlOfPipe"
                         },
                         {

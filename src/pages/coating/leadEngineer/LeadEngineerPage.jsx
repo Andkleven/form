@@ -19,7 +19,8 @@ export default pageInfo => {
     descriptionId,
     itemId,
     unique,
-    geometry
+    geometry,
+    productionLine
   } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
@@ -52,7 +53,7 @@ export default pageInfo => {
             itemId: Number(unique) ? Number(itemId) : undefined,
           }}
           getQueryBy={itemId}
-          backButton={() => history.push(`/coating/project/${projectId}`)}
+          backButton={() => history.push(`/project/${productionLine}/${projectId}`)}
         />
       </Paper>
     </Canvas>

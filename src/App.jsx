@@ -68,7 +68,7 @@ export default () => {
 
             {/* Create Items (Lead Engineer) */}
             <Route
-              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
+              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry/:productionLine"
               component={LeadEngineerPage}
             />
 

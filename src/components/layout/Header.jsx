@@ -16,8 +16,8 @@ export default props => {
   const access = getAccess();
 
   const showRepairButton =
-    ("/coating/single-item/" === useLocation().pathname.slice(0, 13) ||
-      "/coating/single-item/" === useLocation().pathname.slice(0, 17)) &&
+    ("/single-item/" === useLocation().pathname.slice(0, 13) ||
+      "/single-item/" === useLocation().pathname.slice(0, 17)) &&
     access.itemRepair;
   const { itemId, descriptionId } = useParams();
   const showFilesButton = itemId && descriptionId;

@@ -224,6 +224,7 @@ export default ({ saveVariables = {}, ...props }) => {
           : props.firstQueryPath
             ? updateWithVariable
             : update,
+      onError: () => { },
       onCompleted: props.reRender
     }
   );
@@ -268,6 +269,7 @@ export default ({ saveVariables = {}, ...props }) => {
       documentData,
       editChapter,
       mutation,
+      props.addValuesToData,
       nextStage,
       props.batchingListIds,
       props.stageType,
@@ -361,7 +363,13 @@ export default ({ saveVariables = {}, ...props }) => {
               }
             />
             {loadingMutation && <Loading />}
-            {errorMutation && <p>Error :( Please try again</p>}
+            {errorMutation && (
+              <div className="text-light w-100">
+                <div className="bg-secondary p-2 rounded mb-1 shadow border">
+                  {errorMutation && <>{`${errorMutation}`}</>}
+                </div>
+              </div>
+            )}
           </Form>
         </ChapterContext.Provider>
       </documentDataContext.Provider>

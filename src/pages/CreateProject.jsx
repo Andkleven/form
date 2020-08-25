@@ -275,9 +275,9 @@ export default () => {
               className="text-center w-100 mt-3"
               onClick={() =>
                 history.push(
-                  `/coating/lead-engineer/${_id}/${geometryData.id}/${
+                  `/lead-engineer/${_id}/${geometryData.id}/${
                   geometryData.items.find(item => item.unique === false).id
-                  }/0/${geometryData.data.geometry}`
+                  }/0/${geometryData.data.geometry}/${productionLine}`
                 )
               }
               style={{ marginBottom: 2 }}
@@ -292,7 +292,7 @@ export default () => {
               items={geometryData.items}
               submitItem={item => {
                 history.push(
-                  `/coating/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
+                  `/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}/${productionLine}`
                 );
               }}
               submitDelete={id => {
