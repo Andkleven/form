@@ -13,7 +13,7 @@
     "qualityControl",
     "done"
   ],
-  "coateditem": {
+  "coatedItem": {
     "actualSteelMeasurement": {
       "queryPath": ""
     },

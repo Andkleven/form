@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import allBatchingJson from "templates/batching.json";
-import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/mould/operatorMould.json";
+import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/coating/mould/operatorMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
 import Canvas from "components/layout/Canvas";
+import { useParams } from "react-router-dom";
 import Batching from "components/form/components/Batching";
 import {
   getBatchingJson,
@@ -18,20 +19,20 @@ import {
 } from "functions/general";
 import Loading from "components/Loading";
 
-export default pageInfo => {
+export default () => {
   const {
     stage,
     projectId,
     descriptionId,
     geometryDefault
-  } = pageInfo.match.params;
+  } = useParams();
 
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
   const [fixedData, setFixedData] = useState(null);
   const [newDescriptionId, setNewDescriptionId] = useState([]);
   const [reRender, setReRender] = useState(false);
-  const [geometry, setGeometry] = useState("coateditem");
+  const [geometry, setGeometry] = useState("coatedItem");
 
   useEffect(() => {
     if (geometryDefault) {
@@ -100,17 +101,17 @@ export default pageInfo => {
           json={
             newDescriptionId[0] && fixedData
               ? getBatchingJson(
-                  objectPath
-                    .get(fixedData, "projects.0.descriptions")
-                    .find(
-                      description =>
-                        Number(description.id) === Number(newDescriptionId[0])
-                    )["data"]["geometry"],
-                  operatorCoatedItemJson,
-                  operatorMouldJson,
-                  allBatchingJson,
-                  reshapeStageSting(stage)
-                )
+                objectPath
+                  .get(fixedData, "projects.0.descriptions")
+                  .find(
+                    description =>
+                      Number(description.id) === Number(newDescriptionId[0])
+                  )["data"]["geometry"],
+                operatorCoatedItemJson,
+                operatorMouldJson,
+                allBatchingJson,
+                reshapeStageSting(stage)
+              )
               : batchingJson
           }
           setBatchingData={setBatchingData}

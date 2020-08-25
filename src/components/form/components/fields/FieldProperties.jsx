@@ -56,19 +56,31 @@ export default React.memo(({ ...props }) => {
 
     if (!hidden && writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
       resetStateRef[
-        `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
+        `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
     }
     return () => {
       if (resetStateRef[
-        `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
+        `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ]) {
         delete resetStateRef[
-          `${props.path}-${props.label}-${props.repeatStepList}-FieldProperties-resetState`
+          `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
         ];
       }
     }
-  }, [updateState, props.label, props.path, props.repeatStepList, props.allWaysShow, editChapter, props.thisChapter, finalChapter, hidden, resetState])
+  }, [
+    updateState,
+    props.label,
+    props.path,
+    props.repeatStepList,
+    props.allWaysShow,
+    editChapter,
+    props.thisChapter,
+    finalChapter,
+    hidden,
+    resetState,
+    props.prepend
+  ])
 
   useEffect(() => {
     if (props.path && props.fieldName) {
@@ -112,32 +124,33 @@ export default React.memo(({ ...props }) => {
   }, [setHidden, props.backendData, props.readOnlyFieldIf, documentData]);
 
   useEffect(() => {
-
-
     if (props.readOnlyFieldIf) {
       renderFunction.current[
-        `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
+        `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
       ] = updateReadOnly;
     }
     return () => {
       if (renderFunction.current[
-        `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
+        `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
       ]) {
+        // TODO: Implement correctly by eslint standard
+        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
+        // eslint-disable-next-line
         delete renderFunction.current[
-          `${props.label}-${props.repeatStepList}-FieldProperties-hidden`
+          `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
         ];
       }
     };
   }, [
     props.readOnlyFieldIf,
     updateReadOnly,
+    props.prepend,
     props.label,
     renderFunction,
     props.repeatStepList
   ]);
 
   useEffect(() => {
-
     if (props.readOnlyFieldIf) {
       updateReadOnly();
     }
@@ -248,18 +261,18 @@ export default React.memo(({ ...props }) => {
   useEffect(() => {
     if (props.queryVariableLabel || props.indexVariableLabel) {
       renderFunction.current[
-        `${props.label}-${props.repeatStepList}-FieldProperties`
+        `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
       ] = getLabel;
     } else {
       setLabel(props.label);
     }
     return () => {
-      if (renderFunction.current[`${props.label}-${props.repeatStepList}-FieldProperties`]) {
+      if (renderFunction.current[`${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`]) {
         // TODO: Implement correctly by eslint standard
         // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
         // eslint-disable-next-line
         delete renderFunction.current[
-          `${props.label}-${props.repeatStepList}-FieldProperties`
+          `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
         ];
       }
     };
@@ -267,6 +280,7 @@ export default React.memo(({ ...props }) => {
     props.queryVariableLabel,
     props.indexVariableLabel,
     setLabel,
+    props.prepend,
     props.label,
     getLabel,
     renderFunction,
@@ -297,6 +311,12 @@ export default React.memo(({ ...props }) => {
     );
   } else if (hidden) {
     return null
+  } else if (props.labelOnly) {
+    return (
+      <small className={`text-secondary`}>
+        {label}
+      </small>
+    );
   } else if (props.mathSpec) {
     return (
       <ReadField

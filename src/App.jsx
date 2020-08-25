@@ -4,15 +4,15 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./functions/history";
 import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
-import CreateProject from "./pages/leadEngineer/CreateProject";
-import LeadEngineerPage from "./pages/leadEngineer/LeadEngineerPage";
-import Batching from "./pages/operator/Batching";
-import QualityControl from "./pages/qualityControl/QualityControl";
-import SingleItem from "./pages/operator/SingleItem";
+import CreateProject from "./pages/CreateProject";
+import LeadEngineerPage from "./pages/coating/leadEngineer/LeadEngineerPage";
+import Batching from "./pages/coating/operator/Batching";
+import SingleItem from "./pages/coating/operator/SingleItem";
 import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
 import mutations from "graphql/mutation";
+import CreateProjectReceiptControl from "pages/packer/CreateProjectReceiptControl"
 import { useMutation } from "@apollo/react-hooks";
 import "styles/icons";
 
@@ -61,14 +61,16 @@ export default () => {
             </Route>
 
             {/* Create Project (Lead Engineer) */}
-            <Route path="/project/:id" component={CreateProject} />
+            <Route path="/project/:productionLine/:id" component={CreateProject} />
+
+            {/* Create Project (Lead Engineer) */}
+            <Route path="/project-receipt-control/:id" component={CreateProjectReceiptControl} />
 
             {/* Create Items (Lead Engineer) */}
             <Route
-              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
+              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry/:productionLine"
               component={LeadEngineerPage}
             />
-
 
             {/* Batching (Operator) */}
             {/* <Route
@@ -81,12 +83,6 @@ export default () => {
             <Route
               path="/single-item/:projectId/:descriptionId/:itemId/:geometry"
               component={SingleItem}
-            />
-
-            {/* Final Inspection (Quality Control) */}
-            <Route
-              path="/quality-control/:projectId/:descriptionId/:itemId/:geometry"
-              component={QualityControl}
             />
             <Route path="/file/:filename">
               <Files />

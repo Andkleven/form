@@ -323,7 +323,7 @@
           "delete": true,
           "addButton": "Add step",
           "indexVariablePageTitle": 0,
-          "pageTitle": "Step {}",
+          "pageTitle": "Item {}",
           "fields": [
             {
               "fieldName": "vulcanizationOption",

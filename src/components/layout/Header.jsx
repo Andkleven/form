@@ -17,7 +17,7 @@ export default props => {
 
   const showRepairButton =
     ("/single-item/" === useLocation().pathname.slice(0, 13) ||
-      "/quality-control/" === useLocation().pathname.slice(0, 17)) &&
+      "/single-item/" === useLocation().pathname.slice(0, 17)) &&
     access.itemRepair;
   const { itemId, descriptionId } = useParams();
   const showFilesButton = itemId && descriptionId;
@@ -78,7 +78,7 @@ export default props => {
                     title={`Repair`}
                     onClick={() => setShowRepair(true)}
                     icon="tools"
-                    // hidden
+                  // hidden
                   />
                   <Repair
                     id={item.id}
@@ -123,8 +123,8 @@ export default props => {
                   <div className="d-inline">
                     {user !== {}
                       ? `${camelCaseToNormal(
-                          user.username
-                        )} (${camelCaseToNormal(user.role.toLowerCase())})`
+                        user.username
+                      )} (${camelCaseToNormal(user.role.toLowerCase())})`
                       : "role • name"}
                   </div>
                   <FontAwesomeIcon icon="user" className="ml-2" />

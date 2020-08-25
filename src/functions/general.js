@@ -171,17 +171,9 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
         ? createPath(newPath, array)
         : newPath
     );
-    if (dataFields.length === 1) {
+    if (dataFields && dataFields.length === 1) {
       dataFields = dataFields[0]
     }
-    // let dataFields = objectPath.get(
-    //   data,
-    //   Array.isArray(newPath)
-    //     ? createPath(newPath, array)
-    //     : index === 0
-    //       ? `${newPath}.0`
-    //       : newPath,
-    // );
     page.fields &&
       page.fields.forEach((field) => {
         if (field.required) {
@@ -539,12 +531,39 @@ export const reshapeStageSting = (stage) => {
   return newStage;
 };
 
-export const coatedItemOrMould = (category, coatedItemJson, mouldJson) => {
+export function lowerCaseFirstLetter(string) {
+  return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
+export function coatedItemOrMould(category, coatedItemJson, mouldJson, packerJson) {
   let json;
-  if (removeSpace(category.toString()).toLowerCase() === "coateditem") {
-    json = coatedItemJson;
-  } else if (removeSpace(category.toString()).toLowerCase() === "mould") {
-    json = mouldJson;
+  switch (lowerCaseFirstLetter(removeSpace(category.toString()))) {
+    case "coatedItem":
+      json = coatedItemJson;
+      break;
+    case "mould":
+      json = mouldJson;
+      break;
+    case "packer":
+      json = packerJson;
+      break;
+    default:
+      break;
+  }
+  return json;
+};
+
+export function productionLineJson(productionLine, coatingJson, packerJson) {
+  let json;
+  switch (lowerCaseFirstLetter(removeSpace(productionLine.toString()))) {
+    case "coating":
+      json = coatingJson;
+      break;
+    case "packer":
+      json = packerJson;
+      break;
+    default:
+      break;
   }
   return json;
 };
@@ -592,7 +611,7 @@ export function getStartStage(geometry) {
   let stage = undefined;
   switch (geometry) {
     case "Coated Item":
-      stage = Object.keys(stages["coateditem"])[0];
+      stage = Object.keys(stages["coatedItem"])[0];
       break;
     case "Mould":
       stage = Object.keys(stages["mould"])[0];

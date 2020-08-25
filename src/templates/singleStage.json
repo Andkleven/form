@@ -1,7 +1,0 @@
-{
-  "queryPath": "items.0.operators",
-  "specQueryPath": "items.0.leadEngineers",
-  "mutation": "OPERATOR",
-  "query": "GET_OPERATOR_BY_ITEM",
-  "chapters": "coatingStep"
-}

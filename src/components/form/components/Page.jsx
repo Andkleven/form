@@ -96,7 +96,6 @@ export default React.memo(props => {
   } = useContext(documentDataContext);
   const [fieldGroups, setFieldGroups] = useState({})
 
-
   useLayoutEffect(() => {
     if (props.finalChapter && props.finalChapter !== finalChapter) {
       setFinalChapter(props.finalChapter);
@@ -141,7 +140,7 @@ export default React.memo(props => {
         Array.isArray(arrayData)
       ) {
         for (let index = 0; index < arrayData.length; index++) {
-          temporaryMultiFieldGroup[`${props.path}.${props.queryPath}.${index}`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter)
+          temporaryMultiFieldGroup[`${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter)
         }
 
       } else if (!props.queryPath) {
@@ -197,7 +196,7 @@ export default React.memo(props => {
   const addData = useCallback(
     pushOnIndex => {
       setFieldGroups(prevState => {
-        return { ...prevState, [`${props.path}.${pushOnIndex}`]: multiFieldGroup(props, pushOnIndex, deleteHandler, editChapter, finalChapter) }
+        return { ...prevState, [`${pushOnIndex}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, pushOnIndex, deleteHandler, editChapter, finalChapter) }
       })
       documentDataDispatch({
         type: "add",
@@ -213,7 +212,7 @@ export default React.memo(props => {
   const addHandler = useCallback(() => {
     let index = objectPath.get(documentData.current, props.path) === undefined ? 0 : objectPath.get(documentData.current, props.path).length
     setFieldGroups(prevState => {
-      return { ...prevState, [`${props.path}.${index}`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
+      return { ...prevState, [`${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
     })
 
     documentDataDispatch({
@@ -240,12 +239,12 @@ export default React.memo(props => {
       let temporaryMultiFieldGroup = {}
       if (oldValueLength < newValue) {
         for (let i = oldValueLength; i < newValue; i++) {
-          temporaryMultiFieldGroup[`${props.path}.${i}`] = multiFieldGroup(props, i, deleteHandler, editChapter, finalChapter)
+          temporaryMultiFieldGroup[`${i}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, i, deleteHandler, editChapter, finalChapter)
           addData(i);
         }
       } else if (newValue < oldValueLength) {
         for (let i = oldValueLength - 1; i > newValue - 1; i--) {
-          temporaryMultiFieldGroup[`${props.path}.${i}`] = null
+          temporaryMultiFieldGroup[`${i}-${props.path}-${props.queryPath}-repeat-fragment`] = null
           deleteData(i);
         }
       }
@@ -345,7 +344,7 @@ export default React.memo(props => {
   ) {
     if (!fieldGroups[`${props.path}.${0}`]) {
       setFieldGroups(prevState => {
-        return { ...prevState, [`${props.path}.${0}`]: multiFieldGroup(props, 0, deleteHandler, editChapter, finalChapter) }
+        return { ...prevState, [`${0}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, 0, deleteHandler, editChapter, finalChapter) }
       })
     }
     addData(0);

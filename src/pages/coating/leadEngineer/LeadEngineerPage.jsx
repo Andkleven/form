@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import leadEngineersCoatedItemJson from "templates/coatedItem/leadEngineerCoatedItem.json";
-import leadEngineersMouldJson from "templates/mould/leadEngineerMould.json";
+import leadEngineersCoatedItemJson from "templates/coating/coatedItem/leadEngineerCoatedItem.json";
+import leadEngineersMouldJson from "templates/coating/mould/leadEngineerMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import history from "functions/history";
@@ -19,9 +19,9 @@ export default pageInfo => {
     descriptionId,
     itemId,
     unique,
-    geometry
+    geometry,
+    productionLine
   } = pageInfo.match.params;
-
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
   leadEngineersJson = coatedItemOrMould(
@@ -47,11 +47,13 @@ export default pageInfo => {
           document={leadEngineersJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData}
+          saveVariables={{
+            descriptionId:
+              Number(unique) === 0 ? Number(descriptionId) : undefined,
+            itemId: Number(unique) ? Number(itemId) : undefined,
+          }}
           getQueryBy={itemId}
-          descriptionId={descriptionId}
-          itemId={itemId}
-          sendItemId={Number(unique)}
-          backButton={() => history.push(`/project/${projectId}`)}
+          backButton={() => history.push(`/project/${productionLine}/${projectId}`)}
         />
       </Paper>
     </Canvas>

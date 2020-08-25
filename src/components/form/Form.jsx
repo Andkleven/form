@@ -74,7 +74,7 @@ function useMathStore(init = {}) {
 export const ChapterContext = createContext();
 export const documentDataContext = createContext();
 
-export default props => {
+export default ({ saveVariables = {}, ...props }) => {
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
@@ -224,6 +224,7 @@ export default props => {
           : props.firstQueryPath
             ? updateWithVariable
             : update,
+      onError: () => { },
       onCompleted: props.reRender
     }
   );
@@ -237,13 +238,16 @@ export default props => {
           cloneDeep(documentData.current),
           props.removeEmptyField
         );
+        if (props.addValuesToData) {
+          Object.keys(props.addValuesToData).forEach(key => {
+            objectPath.set(variables, key, props.addValuesToData[key])
+          })
+        }
 
         mutation({
           variables: {
             ...variables,
-            descriptionId:
-              props.sendItemId === 0 ? Number(props.descriptionId) : undefined,
-            itemId: props.sendItemId ? Number(props.itemId) : undefined,
+            ...saveVariables,
             itemIdList: props.batchingListIds
               ? props.batchingListIds
               : undefined,
@@ -265,14 +269,13 @@ export default props => {
       documentData,
       editChapter,
       mutation,
+      props.addValuesToData,
       nextStage,
       props.batchingListIds,
-      props.descriptionId,
       props.stageType,
-      props.itemId,
-      props.sendItemId,
       props.specData,
-      props.stage
+      props.stage,
+      saveVariables
     ]
   );
 
@@ -360,7 +363,13 @@ export default props => {
               }
             />
             {loadingMutation && <Loading />}
-            {errorMutation && <p>Error :( Please try again</p>}
+            {errorMutation && (
+              <div className="text-light w-100">
+                <div className="bg-secondary p-2 rounded mb-1 shadow border">
+                  {errorMutation && <>{`${errorMutation}`}</>}
+                </div>
+              </div>
+            )}
           </Form>
         </ChapterContext.Provider>
       </documentDataContext.Provider>

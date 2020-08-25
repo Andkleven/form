@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/mould/operatorMould.json";
-import leadEngineersCoatedItemJson from "templates/coatedItem/leadEngineerCoatedItem.json";
-import leadEngineersMouldJson from "templates/mould/leadEngineerMould.json";
+import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
+import operatorMouldJson from "templates/coating/mould/operatorMould.json";
+import leadEngineersCoatedItemJson from "templates/coating/coatedItem/leadEngineerCoatedItem.json";
+import leadEngineersMouldJson from "templates/coating/mould/leadEngineerMould.json";
+import qualityControlCoatedItemJson from "templates/coating/coatedItem/qualityControlCoatedItem.json";
+import qualityControlMouldJson from "templates/coating/mould/qualityControlMould.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
@@ -19,16 +21,20 @@ import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 
 export default pageInfo => {
+  const access = getAccess().access
   const { itemId, geometry } = pageInfo.match.params;
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-  let operatorJson = coatedItemOrMould(
+
+
+  let qualityControlJson = coatedItemOrMould(
     geometry,
-    operatorCoatedItemJson,
-    operatorMouldJson
+    qualityControlCoatedItemJson,
+    qualityControlMouldJson
   );
-  const { loading, error, data } = useQuery(query[operatorJson.query], {
+
+  const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
   useEffect(() => {
@@ -53,7 +59,7 @@ export default pageInfo => {
   return (
     <Canvas showForm={!!data}>
       <Overview />
-      {getAccess()["specs"] && (
+      {access.specs && (
         <Paper className="mb-3">
           <Title big align="center">
             Lead Engineer
@@ -61,6 +67,7 @@ export default pageInfo => {
 
           <Form
             componentsId={"leadEngineersPage"}
+            edit={access.itemEdit}
             document={coatedItemOrMould(
               geometry,
               leadEngineersCoatedItemJson,
@@ -70,29 +77,31 @@ export default pageInfo => {
             data={
               fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
             }
+            saveVariables={{ itemId: itemId }}
             getQueryBy={itemId}
-            itemId={itemId}
-            sendItemId={true}
           />
         </Paper>
       )}
       <Paper>
-        {getAccess()["specs"] && (
+        {access.specs && (
           <Title big align="center">
             Operator
           </Title>
         )}
         <Form
           componentsId={opId.current}
-          document={operatorJson}
+          document={coatedItemOrMould(
+            geometry,
+            operatorCoatedItemJson,
+            operatorMouldJson
+          )}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
-          // edit={getAccess()["itemEdit"]}
-          edit={true}
-          readOnlySheet={!getAccess()["itemWrite"]}
+          edit={access.itemEdit}
+          readOnlySheet={!access.itemWrite}
           stage={stage}
           stageType={geometry}
           getQueryBy={itemId}
@@ -101,6 +110,36 @@ export default pageInfo => {
           saveButton={true}
         />
       </Paper>
+      {access.finalInspection && stage === "qualityControl" && (
+        <Paper>
+          <Title big align="center">
+            Quality Control
+        </Title>
+          <Form
+            componentsId={"finalInspectionQualityControls"}
+            document={qualityControlJson}
+            data={
+              fixedData &&
+              formDataStructure(
+                fixedData,
+                "items.0.finalInspectionQualityControls"
+              )
+            }
+            edit={access.itemEdit}
+            specData={
+              fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            }
+            reRender={() => setReRender(!reRender)}
+            allData={fixedData}
+            stage={fixedData && fixedData.items[0].stage}
+            stageType={geometry}
+            getQueryBy={itemId}
+            itemId={itemId}
+            sendItemId={true}
+            saveButton={true}
+          />
+        </Paper>
+      )}
     </Canvas>
   );
 };

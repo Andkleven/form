@@ -92,9 +92,14 @@ const BATCHING_OPERATOR = gql`
       id
       data
       leadEngineerDone
+      productionLine
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           id
           itemId
@@ -158,9 +163,14 @@ const BATCHING_VULCANIZATION = gql`
       id
       data
       leadEngineerDone
+      productionLine
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           id
           itemId
@@ -239,6 +249,7 @@ const GET_ORDER_GEOMETRY = gql`
       id
       data
       leadEngineerDone
+      productionLine
       itpDocumentNumbers {
         id
         data
@@ -246,6 +257,10 @@ const GET_ORDER_GEOMETRY = gql`
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           id
           itemId
@@ -311,6 +326,10 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
     descriptions(id: $id) {
       id
       data
+      rubberOds{
+        id 
+        data
+      }
       items {
         id
         itemId
@@ -483,12 +502,17 @@ const GET_OPERATOR_BY_ITEM = gql`
 const OPERATOR_PROJECTS = gql`
   query($leadEngineerDone: Boolean) {
     projects(leadEngineerDone: $leadEngineerDone) {
+      productionLine
       leadEngineerDone
       data
       id
       descriptions {
         id
         data
+        rubberOds{
+          id 
+          data
+        }
         items {
           stage
           id
@@ -519,18 +543,6 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
-        vulcanizationSteps {
-          id
-          data
-          coatingLayers {
-            id
-            data
-            cumulativeThickness {
-              id
-              data
-            }
-          }
-        }
         rubberCements {
           id
           data
@@ -546,6 +558,18 @@ const QUALITY_CONTROL = gql`
         finalInspectionDimensionsChecks {
           id
           data
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
+            id
+            data
+            cumulativeThickness {
+              id
+              data
+            }
+          }
         }
       }
       operators {
