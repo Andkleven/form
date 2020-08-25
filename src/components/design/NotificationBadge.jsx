@@ -3,7 +3,7 @@ import { useSpring, animated } from "react-spring";
 
 export default ({ ...props }) => {
   const spring = useSpring({
-    to: async (next, cancel) => {
+    to: async next => {
       while (true) {
         await next({
           paddingTop: 1.5,
