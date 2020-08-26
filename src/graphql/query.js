@@ -254,6 +254,10 @@ const GET_ORDER_GEOMETRY = gql`
         id
         data
       }
+      samples {
+        id
+        data
+      }
       descriptions {
         id
         data

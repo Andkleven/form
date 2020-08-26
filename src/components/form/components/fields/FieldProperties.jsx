@@ -53,7 +53,6 @@ export default React.memo(({ ...props }) => {
   )
   useEffect(() => {
     let resetStateRef = resetState.current
-
     if (!hidden && writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
       resetStateRef[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`

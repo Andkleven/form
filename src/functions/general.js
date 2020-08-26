@@ -171,7 +171,7 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
         ? createPath(newPath, array)
         : newPath
     );
-    if (dataFields && dataFields.length === 1) {
+    if (dataFields && !page.repeat && !Array.isArray(page.queryPath)) {
       dataFields = dataFields[0]
     }
     page.fields &&

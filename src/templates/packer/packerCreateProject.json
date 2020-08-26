@@ -138,7 +138,10 @@
                 },
                 {
                     "repeat": true,
-                    "queryPath": "projects.0.rubberOds",
+                    "queryPath": [
+                        "projects.0.descriptions",
+                        "rubberOds"
+                    ],
                     "repeatStartWithOneGroup": true,
                     "delete": true,
                     "addButton": "Rubber OD",

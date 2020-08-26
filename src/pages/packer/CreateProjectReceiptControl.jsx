@@ -30,8 +30,6 @@ export default () => {
         data
     ]);
 
-    console.log(data)
-
     if (loading) return <Loading />;
     if (error) return <p>Error :(</p>;
     return (

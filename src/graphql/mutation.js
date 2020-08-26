@@ -12,6 +12,10 @@ const ORDER = gql`
           id
           data
         }
+        samples {
+          id
+          data
+        }
         descriptions {
           id
           data

@@ -92,7 +92,6 @@ export default ({ saveVariables = {}, ...props }) => {
 
 
 
-
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
       ? query[props.document.optionsQuery]
@@ -233,17 +232,18 @@ export default ({ saveVariables = {}, ...props }) => {
     (data, submit) => {
       setEditChapter(0);
       setFinalChapter(0);
+      console.log(3456765434565456)
       if (documentData.current) {
         let variables = stringifyQuery(
           cloneDeep(documentData.current),
           props.removeEmptyField
         );
+
         if (props.addValuesToData) {
           Object.keys(props.addValuesToData).forEach(key => {
             objectPath.set(variables, key, props.addValuesToData[key])
           })
         }
-
         mutation({
           variables: {
             ...variables,

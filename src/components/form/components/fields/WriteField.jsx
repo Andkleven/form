@@ -20,7 +20,7 @@ export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
-  const timer = useRef(0)
+  // const timer = useRef(0)
   const {
     documentData,
     documentDataDispatch,
@@ -28,6 +28,8 @@ export default ({ setState, state, ...props }) => {
     dataChange,
     setUnchangedData
   } = useContext(documentDataContext);
+
+
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -37,17 +39,17 @@ export default ({ setState, state, ...props }) => {
   }, [documentDataDispatch, props.path, userInfo.username]);
 
   const onChange = value => {
-    clearTimeout(timer.current)
+    // clearTimeout(timer.current)
     setState(value);
-    timer.current = setTimeout(() => {
-      if (!dataChange) {
-        setDataChange(true);
-        setUnchangedData(cloneDeep(documentData.current));
-      }
-      addUser();
-      documentDataDispatch({ type: "add", newState: value, path: props.path });
-      setState(value);
-    }, delayOnChange)
+    // timer.current = setTimeout(() => {
+    if (!dataChange) {
+      setDataChange(true);
+      setUnchangedData(cloneDeep(documentData.current));
+    }
+    addUser();
+    documentDataDispatch({ type: "add", newState: value, path: props.path });
+    setState(value);
+    // }, delayOnChange)
   };
 
 

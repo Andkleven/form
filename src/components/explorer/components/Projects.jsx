@@ -187,7 +187,6 @@ export default ({
     }
   };
   // _______________________________________________________________________
-  console.log(results)
 
   // Batching stages
   const batchingStages = Object.keys(batching);

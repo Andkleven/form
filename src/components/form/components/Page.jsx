@@ -96,11 +96,10 @@ export default React.memo(props => {
   } = useContext(documentDataContext);
   const [fieldGroups, setFieldGroups] = useState({})
 
-  useLayoutEffect(() => {
-    if (props.finalChapter && props.finalChapter !== finalChapter) {
-      setFinalChapter(props.finalChapter);
-    }
-  }, [props.finalChapter, setFinalChapter, finalChapter]);
+  if (props.finalChapter && props.finalChapter !== finalChapter) {
+    console.log(props.finalChapter)
+    setFinalChapter(props.finalChapter);
+  }
 
   const deleteData = useCallback(
     index => {
@@ -115,7 +114,6 @@ export default React.memo(props => {
       props.path,
       documentDataDispatch
     ])
-
   const deleteHandler = useCallback(
     index => {
       setFieldGroups(prevState => {
