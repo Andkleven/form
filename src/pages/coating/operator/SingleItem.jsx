@@ -21,12 +21,11 @@ import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 
 export default pageInfo => {
-  const access = getAccess().access
+  const access = getAccess().access;
   const { itemId, geometry } = pageInfo.match.params;
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-
 
   let qualityControlJson = coatedItemOrMould(
     geometry,
@@ -41,7 +40,11 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
-  const stage = fixedData && fixedData.items && fixedData.items[0].stage;
+  const stage =
+    fixedData &&
+    fixedData.items &&
+    fixedData.items[0] &&
+    fixedData.items[0].stage;
 
   const { item, setItem } = useContext(ItemContext);
 
@@ -114,7 +117,7 @@ export default pageInfo => {
         <Paper>
           <Title big align="center">
             Quality Control
-        </Title>
+          </Title>
           <Form
             componentsId={"finalInspectionQualityControls"}
             document={qualityControlJson}
