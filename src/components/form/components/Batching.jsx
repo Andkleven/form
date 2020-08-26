@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { useMutation } from "@apollo/react-hooks";
 import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,
@@ -19,6 +20,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   const [submitStage] = useMutation(mutations["ITEM"]);
+
+
 
   const allFields = (chapter, itemData) => {
     let batchingData = {};
@@ -163,53 +166,58 @@ export default props => {
           );
         return (
           <Fragment key={`${index}-fragment-batching`}>
-            <CheckInput
-              className="mt-3"
-              disabled={disabled}
-              key={`${index}-fragment-batching-check`}
-              onChange={e => handleClick(e, item, description, batchingData)}
-              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-              checked={
-                props.batchingListIds.find(id => Number(id) === Number(item.id))
-                  ? true
-                  : false
-              }
-              label={`${item.itemId}`}
-              labelAppend={
-                props.partialBatching &&
-                allRequiredSatisfied(item, chapter) && (
-                  <div className="d-flex align-items-center">
-                    <div className="d-inline text-secondary">(Done)</div>
-                    <Button
-                      variant="link"
-                      className="p-0 m-0 ml-2"
-                      style={{ height: "1.5em" }}
-                      key={`${index}-fragment-batching-button`}
-                      onClick={() => {
-                        submitStage({
-                          variables: {
-                            stage: FindNextStage(
-                              item,
-                              props.stage,
-                              description.data.geometry
-                            )["stage"],
-                            id: item.id
-                          }
-                        });
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={["fas", "arrow-square-right"]}
-                        className="mr-2"
-                      />
+            <Form.Group className="mb-0">
+              <div className="d-flex justify-content-between">
+                <div className="d-flex align-items-center flex-wrap">
+                  <Form.Check
+                    className="mt-3"
+                    disabled={disabled}
+                    key={`${index}-fragment-batching-check`}
+                    onChange={e => handleClick(e, item, description, batchingData)}
+                    id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
+                    checked={
+                      props.batchingListIds.find(id => Number(id) === Number(item.id))
+                        ? true
+                        : false
+                    }
+                    label={`${item.itemId}`}
+                    labelAppend={
+                      props.partialBatching &&
+                      allRequiredSatisfied(item, chapter) && (
+                        <div className="d-flex align-items-center">
+                          <div className="d-inline text-secondary">(Done)</div>
+                          <Button
+                            variant="link"
+                            className="p-0 m-0 ml-2"
+                            style={{ height: "1.5em" }}
+                            key={`${index}-fragment-batching-button`}
+                            onClick={() => {
+                              submitStage({
+                                variables: {
+                                  stage: FindNextStage(
+                                    item,
+                                    props.stage,
+                                    description.data.geometry
+                                  )["stage"],
+                                  id: item.id
+                                }
+                              });
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              icon={["fas", "arrow-square-right"]}
+                              className="mr-2"
+                            />
                       Send to next stage
                     </Button>
-                  </div>
-                )
-              }
-            // tight
-            ></CheckInput>
-
+                        </div>
+                      )
+                    }
+                  // tight
+                  ></Form.Check>
+                </div>
+              </div>
+            </Form.Group >
             {/* <Form.Check
               key={`${index}-fragment-batching-check`}
               className="text-success"
@@ -222,7 +230,7 @@ export default props => {
               }
               label={item.itemId}
             /> */}
-          </Fragment>
+          </Fragment >
         );
       } else if (item.stage === props.stage) {
         // samme stage, men forskjellig data

@@ -97,7 +97,6 @@ export default React.memo(props => {
   const [fieldGroups, setFieldGroups] = useState({})
 
   if (props.finalChapter && props.finalChapter !== finalChapter) {
-    console.log(props.finalChapter)
     setFinalChapter(props.finalChapter);
   }
 
