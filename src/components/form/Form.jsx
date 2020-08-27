@@ -12,7 +12,7 @@ import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
-import { stringifyQuery, isStringInstance } from "functions/general";
+import { stringifyQuery, isStringInstance, leStage } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
@@ -87,6 +87,7 @@ export default ({ saveVariables = {}, ...props }) => {
   const [dataChange, setDataChange] = useState(false);
   const nextStage = useRef(true);
   const lastData = useRef(false);
+  const stagePath = useRef(false);
   const [finalChapter, setFinalChapter] = useState(0);
 
 
@@ -232,18 +233,19 @@ export default ({ saveVariables = {}, ...props }) => {
     (data, submit) => {
       setEditChapter(0);
       setFinalChapter(0);
-      console.log(3456765434565456)
       if (documentData.current) {
+        if (submit && !props.stage && stagePath) {
+          objectPath.set(documentData.current, stagePath.current, true)
+        }
+        if (props.addValuesToData) {
+          Object.keys(props.addValuesToData).forEach(key => {
+            objectPath.set(documentData.current, key, props.addValuesToData[key])
+          })
+        }
         let variables = stringifyQuery(
           cloneDeep(documentData.current),
           props.removeEmptyField
         );
-
-        if (props.addValuesToData) {
-          Object.keys(props.addValuesToData).forEach(key => {
-            objectPath.set(variables, key, props.addValuesToData[key])
-          })
-        }
         mutation({
           variables: {
             ...variables,
@@ -267,6 +269,8 @@ export default ({ saveVariables = {}, ...props }) => {
     [
       props.removeEmptyField,
       documentData,
+      stagePath,
+      props.document,
       editChapter,
       mutation,
       props.addValuesToData,
@@ -357,6 +361,7 @@ export default ({ saveVariables = {}, ...props }) => {
               optionsData={optionsData}
               submitData={submitData}
               nextStage={nextStage}
+              stagePath={stagePath}
               edit={props.edit === undefined ? true : props.edit}
               readOnlySheet={
                 props.readOnlySheet === undefined ? false : props.readOnlySheet

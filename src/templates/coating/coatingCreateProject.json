@@ -5,6 +5,7 @@
   "optionsQuery": "USERS",
   "chapters": [
     {
+      "stageQueryPath": "projects.0.data.stageCoating",
       "pages": [
         {
           "pageTitle": "Project",
@@ -101,6 +102,10 @@
       ]
     },
     {
+      "stageQueryPath": [
+        "projects.0.descriptions",
+        "data.stageCoating"
+      ],
       "pages": [
         {
           "pageTitle": "Description",

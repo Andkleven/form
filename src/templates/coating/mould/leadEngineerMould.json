@@ -4,6 +4,7 @@
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
+      "stageQueryPath": "projects.0.data.stage",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
@@ -221,6 +222,7 @@
       ]
     },
     {
+      "stageQueryPath": "projects.0.data.stage1",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanization",
@@ -469,6 +471,7 @@
       ]
     },
     {
+      "stageQueryPath": "projects.0.data.stage2",
       "pages": [
         {
           "pageTitle": "Final Inspection",

@@ -5,6 +5,7 @@
     "optionsQuery": "USERS",
     "chapters": [
         {
+            "stageQueryPath": "projects.0.data.stageReceiptControl",
             "pages": [
                 {
                     "pageTitle": "Project",

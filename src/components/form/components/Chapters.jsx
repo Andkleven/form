@@ -6,6 +6,7 @@ import {
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
+import objectPath from "object-path";
 import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext, documentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
@@ -13,7 +14,7 @@ import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
-export default (props) => {
+export default ({ stagePath, ...props }) => {
   const { editChapter } = useContext(ChapterContext);
   const {
     documentData
@@ -40,15 +41,12 @@ export default (props) => {
     } else {
       allRequiredFieldSatisfied = documentData.current ?
         byStage ? thisStage === props.stage
-          : !allRequiredSatisfied(
-            pageInfo,
-            documentData.current,
-            repeatStepList,
-            props.specData,
-          )
+          : !objectPath.get(documentData.current, createPath(pageInfo.stageQueryPath, repeatStepList), false)
         : false;
+
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
+        stagePath.current = createPath(pageInfo.stageQueryPath, repeatStepList)
         finalChapter = count + 1;
         if (props.readOnlySheet) {
           stopLoop.current = true;
