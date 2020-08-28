@@ -3,8 +3,8 @@ package-lock.json
 # .vscode
 react-app-env.d.ts
 .codesandbox
-.env.development
-.env.production
+# .env.development
+# .env.production
 
 # backend
 *.pyc
@@ -113,6 +113,6 @@ target/
 __pycache__/
 local_settings.py
 
-.env
+# .env
 db.sqlite3
 media
