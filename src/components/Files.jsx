@@ -9,8 +9,9 @@ import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Line from "components/design/Line";
 import { useSpring, animated, config } from "react-spring";
-import Div100vh from "react-div-100vh";
+import Div100vh, { use100vh } from "react-div-100vh";
 import Loading from "components/Loading";
+import useOutsideClick from "hooks/useOutsideClick";
 
 const queries = {
   description: gql`
@@ -299,27 +300,32 @@ const File = ({ file, ...props }) => {
   };
 
   const descriptionRef = useRef(null);
-  const [overflow, setOverflow] = useState(false);
+  const imageRef = useRef(null);
 
-  // eslint-disable-next-line
-  useEffect(() => {
-    console.log("Ref:", descriptionRef.current);
-    setOverflow(
-      descriptionRef.current &&
-        (descriptionRef.current.offsetHeight <
-          descriptionRef.current.scrollHeight ||
-          descriptionRef.current.offsetWidth <
-            descriptionRef.current.scrollWidth)
-    );
-  });
+  // const [overflow, setOverflow] = useState(false);
+
+  // useEffect(() => {
+  //   console.log("Ref:", descriptionRef.current);
+  //   setOverflow(
+  //     descriptionRef.current &&
+  //       (descriptionRef.current.offsetHeight <
+  //         descriptionRef.current.scrollHeight ||
+  //         descriptionRef.current.offsetWidth <
+  //           descriptionRef.current.scrollWidth)
+  //   );
+  // }, [setOverflow, descriptionRef]);
 
   const Content = () => {
+    useOutsideClick([imageRef, descriptionRef], () => {
+      setShow(false);
+    });
+
     return (
       <>
         <Div100vh
           style={{
             position: "fixed",
-            width: "100%",
+            // width: "100%",
             top: 0,
             bottom: 0,
             right: 0,
@@ -327,55 +333,63 @@ const File = ({ file, ...props }) => {
             zIndex: 999,
             backgroundColor: "rgba(0, 0, 0, 0.25)"
           }}
-          className=""
         >
-          <div
+          <Button
+            variant=""
+            onClick={() => {
+              setShow(false);
+            }}
+            className="text-white p-3 m-1 align-self-start"
             style={{
               position: "fixed",
               // top: 0,
-              // right: 0,
-              // left: 0,
-              // zIndex: 1000,
-              height: 0
+              right: 0,
+              zIndex: 1000
+              // height: 0
             }}
-            className="p-3 w-100 d-flex justify-content-end"
           >
-            <Button
-              variant=""
-              onClick={() => {
-                setShow(false);
+            <FontAwesomeIcon
+              icon={["fas", "times"]}
+              size="2x"
+              style={{
+                filter: "drop-shadow(0 0 0.15rem rgba(0, 0, 0, 0.25))"
               }}
-              className="text-white"
-            >
-              <FontAwesomeIcon icon={["fas", "times"]} size="2x" />
-            </Button>
-          </div>
-          <Container className="d-flex flex-column justify-content-between align-items-center h-100 w-100">
-            <div className="mt-5 mb-3 h-100 w-100 d-flex justify-content-center align-items-center">
+              className="mx-1"
+            />
+          </Button>
+          <Container
+            className="d-flex px-3 h-100"
+            style={{
+              overflow: "scroll"
+            }}
+          >
+            <div className="my-auto d-flex flex-column">
               <img
-                className="rounded shadow"
+                ref={imageRef}
+                className="rounded shadow my-3 mx-auto"
                 style={{
                   objectFit: "contain",
                   maxWidth: "100%",
-                  maxHeight: "100%"
+                  maxHeight: use100vh() * 0.9,
+                  position: "static"
                 }}
                 // src="https://upload.wikimedia.org/wikipedia/commons/c/cc/ESC_large_ISS022_ISS022-E-11387-edit_01.JPG"
-                src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg"
+                // src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg"
                 // src="https://cdn.pixabay.com/photo/2017/08/23/15/39/square-2673252_960_720.png"
+                src="https://www.formsbirds.com/formhtml/7c23a80196dad560ce9a/bgluzw5c7638fa0287eae70124/bg1.png"
                 alt="Placeholder"
               />
-            </div>
-            <div
-              ref={descriptionRef}
-              className="my-3 text-white"
-              style={{
-                textShadow: "0px 0px 6px rgba(0, 0, 0, 0.25)",
-                maxHeight: "25vh",
-                overflow: "scroll"
-              }}
-            >
-              {overflow && "OVERFLOW"}
-              {description}
+              <div
+                ref={descriptionRef}
+                className="py-3 text-white"
+                style={{
+                  textShadow: "0px 0px 6px rgba(0, 0, 0, 0.25)"
+                  // maxHeight: "25vh",
+                  // overflow: "scroll"
+                }}
+              >
+                {description}
+              </div>
             </div>
           </Container>
         </Div100vh>

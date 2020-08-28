@@ -1,0 +1,5 @@
+/* Scrollbar always visible */
+.ps > .ps__rail-x,
+.ps > .ps__rail-y {
+  opacity: 0.6;
+}
