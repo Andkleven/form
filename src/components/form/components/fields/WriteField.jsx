@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect, useState, useRef } from "react";
+import React, { useContext, useCallback, useEffect, useState } from "react";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import Input from "components/input/Input";
@@ -115,6 +115,7 @@ export default ({ setState, state, ...props }) => {
       newState: objectPath.get(props.backendData, props.path),
       path: props.path
     });
+    setDataChange(false);
     setEditChapter(0);
   };
 
