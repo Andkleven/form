@@ -8,7 +8,7 @@ import Paper from "components/layout/Paper";
 import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
-// import Overview from "components/layout/Overview";
+import Overview from "components/layout/Overview";
 import Loading from "components/Loading";
 
 let leadEngineersJson = leadEngineersCoatedItemJson;
