@@ -14,14 +14,12 @@ import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedI
 import operatorMouldJson from "templates/coating/mould/operatorMould.json";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
-import CheckInput from "components/input/components/CheckInput";
+// import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
   const [submitStage] = useMutation(mutations["ITEM"]);
-
-
 
   const allFields = (chapter, itemData) => {
     let batchingData = {};
@@ -32,8 +30,8 @@ export default props => {
           batchingData[
             Array.isArray(specValueList)
               ? specValueList[specValueList.length - 1].split(".")[
-              specValueList[specValueList.length - 1].split(".").length - 1
-              ]
+                  specValueList[specValueList.length - 1].split(".").length - 1
+                ]
               : specValueList.split(".")[specValueList.split(".").length - 1]
           ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
@@ -173,10 +171,14 @@ export default props => {
                     className="mt-3"
                     disabled={disabled}
                     key={`${index}-fragment-batching-check`}
-                    onChange={e => handleClick(e, item, description, batchingData)}
+                    onChange={e =>
+                      handleClick(e, item, description, batchingData)
+                    }
                     id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
                     checked={
-                      props.batchingListIds.find(id => Number(id) === Number(item.id))
+                      props.batchingListIds.find(
+                        id => Number(id) === Number(item.id)
+                      )
                         ? true
                         : false
                     }
@@ -208,16 +210,16 @@ export default props => {
                               icon={["fas", "arrow-square-right"]}
                               className="mr-2"
                             />
-                      Send to next stage
-                    </Button>
+                            Send to next stage
+                          </Button>
                         </div>
                       )
                     }
-                  // tight
+                    // tight
                   ></Form.Check>
                 </div>
               </div>
-            </Form.Group >
+            </Form.Group>
             {/* <Form.Check
               key={`${index}-fragment-batching-check`}
               className="text-success"
@@ -230,7 +232,7 @@ export default props => {
               }
               label={item.itemId}
             /> */}
-          </Fragment >
+          </Fragment>
         );
       } else if (item.stage === props.stage) {
         // samme stage, men forskjellig data

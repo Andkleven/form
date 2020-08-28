@@ -10,6 +10,7 @@ import gql from "graphql-tag";
 import Line from "components/design/Line";
 import { useSpring, animated, config } from "react-spring";
 import Div100vh from "react-div-100vh";
+import Loading from "components/Loading";
 
 const queries = {
   description: gql`
@@ -229,6 +230,7 @@ const File = ({ file, ...props }) => {
   const Thumbnail = () => {
     return (
       <>
+        {loading && <Loading />}
         <div className="w-100 d-flex justify-content-center m-0 p-0">
           <Button
             // Functionality

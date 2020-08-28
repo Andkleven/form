@@ -8,7 +8,7 @@ import Paper from "components/layout/Paper";
 import history from "functions/history";
 import { objectifyQuery, coatedItemOrMould } from "functions/general";
 import Canvas from "components/layout/Canvas";
-import Overview from "components/layout/Overview";
+// import Overview from "components/layout/Overview";
 import Loading from "components/Loading";
 
 let leadEngineersJson = leadEngineersCoatedItemJson;
@@ -36,7 +36,7 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
-  console.log(1123321321)
+  console.log(1123321321);
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
@@ -51,10 +51,12 @@ export default pageInfo => {
           saveVariables={{
             descriptionId:
               Number(unique) === 0 ? Number(descriptionId) : undefined,
-            itemId: Number(unique) ? Number(itemId) : undefined,
+            itemId: Number(unique) ? Number(itemId) : undefined
           }}
           getQueryBy={itemId}
-          backButton={() => history.push(`/project/${productionLine}/${projectId}`)}
+          backButton={() =>
+            history.push(`/project/${productionLine}/${projectId}`)
+          }
         />
       </Paper>
     </Canvas>

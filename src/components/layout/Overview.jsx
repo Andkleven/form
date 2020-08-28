@@ -93,11 +93,11 @@ export default () => {
       id: params.descriptionId
     }
   });
-  const itemQuery = useQuery(queries.item, {
-    variables: {
-      id: params.itemId
-    }
-  });
+  // const itemQuery = useQuery(queries.item, {
+  //   variables: {
+  //     id: params.itemId
+  //   }
+  // });
 
   const MultipleItems = () => {
     if (

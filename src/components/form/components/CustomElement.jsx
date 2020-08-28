@@ -5,7 +5,7 @@ import { sumFieldInObject, writeChapter } from "functions/general";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
-import math from "components/form/functions/math"
+import math from "components/form/functions/math";
 
 const CustomCoating = props => {
   let layers = 0;
@@ -31,7 +31,7 @@ const CustomCoating = props => {
           value={`${props.repeatStepList[0] + 1} of ${
             objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
               .length
-            }`}
+          }`}
         />
       </b>
       <b>
@@ -57,67 +57,97 @@ const CustomCoating = props => {
 
 const CustomLead = props => {
   const { documentData, renderFunction } = useContext(documentDataContext);
-  const {
-    finalChapter,
-    editChapter
-  } = useContext(ChapterContext);
+  const { finalChapter, editChapter } = useContext(ChapterContext);
   const [status, setStatus] = useState("danger");
   const [toleranceMin, setToleranceMin] = useState(0);
   const [toleranceMax, setToleranceMax] = useState(0);
   const [layersThickness, setLayersThickness] = useState(0);
 
   const thickness = useCallback(() => {
-    let toleranceMinTemporary = math["mathToleranceMin"](documentData.current, props.repeatStepList, 0)
-    let toleranceMaxTemporary = math["mathToleranceMax"](documentData.current, props.repeatStepList, 0)
+    let toleranceMinTemporary = math["mathToleranceMin"](
+      documentData.current,
+      props.repeatStepList,
+      0
+    );
+    let toleranceMaxTemporary = math["mathToleranceMax"](
+      documentData.current,
+      props.repeatStepList,
+      0
+    );
 
     let layersThicknessTemporary = 0.0;
-    let steps = objectPath.get(documentData.current, "leadEngineers.0.vulcanizationSteps");
+    let steps = objectPath.get(
+      documentData.current,
+      "leadEngineers.0.vulcanizationSteps"
+    );
     if (Array.isArray(steps)) {
       steps.forEach((step, stepIndex) => {
         step.coatingLayers &&
           step.coatingLayers.forEach((coatingLayer, coatingLayerIndex) => {
-            layersThicknessTemporary += Number(math["mathShrinkThickness"](documentData.current, [stepIndex, coatingLayerIndex], 1))
+            layersThicknessTemporary += Number(
+              math["mathShrinkThickness"](
+                documentData.current,
+                [stepIndex, coatingLayerIndex],
+                1
+              )
+            );
           });
       });
     }
     layersThicknessTemporary = layersThicknessTemporary * 2.0;
     setStatus(() =>
       toleranceMinTemporary <= layersThicknessTemporary &&
-        layersThicknessTemporary <= toleranceMaxTemporary
+      layersThicknessTemporary <= toleranceMaxTemporary
         ? "success"
         : "warning"
     );
     setToleranceMin(toleranceMinTemporary);
     setToleranceMax(toleranceMaxTemporary);
     setLayersThickness(layersThicknessTemporary);
-  },
-    [
-      documentData,
-      setStatus,
-      setToleranceMin,
-      setToleranceMax,
-      setLayersThickness,
-      props.repeatStepList
-    ]
-  );
+  }, [
+    documentData,
+    setStatus,
+    setToleranceMin,
+    setToleranceMax,
+    setLayersThickness,
+    props.repeatStepList
+  ]);
 
   useEffect(() => {
-
-    if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+    if (
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter
+      )
+    ) {
       renderFunction.current[`${props.repeatStepList}-CustomLead`] = thickness;
-
     }
     return () => {
       if (renderFunction.current[`${props.repeatStepList}-CustomLead`]) {
-
+        // TODO: See if eslint warning is valid, and fix if necessary
+        // eslint-disable-next-line
         delete renderFunction.current[`${props.repeatStepList}-CustomLead`];
       }
     };
-  }, [thickness, props.repeatStepList, renderFunction, props.allWaysShow, editChapter, props.thisChapter, finalChapter]);
-
+  }, [
+    thickness,
+    props.repeatStepList,
+    renderFunction,
+    props.allWaysShow,
+    editChapter,
+    props.thisChapter,
+    finalChapter
+  ]);
 
   if (
-    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
+    writeChapter(
+      props.allWaysShow,
+      editChapter,
+      props.thisChapter,
+      finalChapter
+    ) &&
     toleranceMin &&
     toleranceMax &&
     layersThickness
@@ -130,10 +160,10 @@ const CustomLead = props => {
             {status === "success" && "Nice 😄"}
           </Alert.Heading>
           <div>
-            Tolerated total rubber thickness is between <b>{toleranceMin}</b> and{" "}
-            <b>{toleranceMax}</b>, and the sum of all layer thicknesses is{" "}
+            Tolerated total rubber thickness is between <b>{toleranceMin}</b>{" "}
+            and <b>{toleranceMax}</b>, and the sum of all layer thicknesses is{" "}
             <b>{layersThickness.toFixed(1)}</b>.
-        </div>
+          </div>
         </Alert>
       </div>
     );
