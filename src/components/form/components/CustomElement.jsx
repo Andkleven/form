@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import ReadField from "components/form/components/fields/ReadField";
 import objectPath from "object-path";
-import { sumFieldInObject, writeOrReadChapter } from "functions/general";
+import { sumFieldInObject, writeChapter } from "functions/general";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
@@ -102,20 +102,22 @@ const CustomLead = props => {
   );
 
   useEffect(() => {
-    renderFunction.current[`${props.repeatStepList}-CustomLead`] = thickness;
+
+    if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+      renderFunction.current[`${props.repeatStepList}-CustomLead`] = thickness;
+
+    }
     return () => {
       if (renderFunction.current[`${props.repeatStepList}-CustomLead`]) {
-        // TODO: Implement correctly by eslint standard
-        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
-        // eslint-disable-next-line
+
         delete renderFunction.current[`${props.repeatStepList}-CustomLead`];
       }
     };
-  }, [thickness, props.repeatStepList, renderFunction]);
+  }, [thickness, props.repeatStepList, renderFunction, props.allWaysShow, editChapter, props.thisChapter, finalChapter]);
 
 
   if (
-    writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
+    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
     toleranceMin &&
     toleranceMax &&
     layersThickness

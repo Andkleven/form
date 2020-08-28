@@ -1,6 +1,5 @@
 import React, { Fragment, useRef, useContext } from "react";
 import {
-  allRequiredSatisfied,
   createPath,
   removeSpace,
 } from "functions/general.js";
@@ -52,6 +51,7 @@ export default ({ stagePath, ...props }) => {
           stopLoop.current = true;
         }
       }
+
       // Map through pages in this pages
       if (allRequiredFieldSatisfied && props.readOnlySheet) {
         chapter = null;

@@ -452,8 +452,7 @@
                   "math": "mathShrinkThickness",
                   "type": "Number",
                   "unit": "mm",
-                  "decimal": 1,
-                  "required": true
+                  "decimal": 1
                 },
                 {
                   "indent": true,

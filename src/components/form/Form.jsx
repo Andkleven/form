@@ -26,12 +26,14 @@ function useStore(init = {}) {
   const reducer = action => {
     switch (action.type) {
       case "setState":
+
         state.current = cloneDeep(action.newState);
         Object.values(resetState.current).forEach(func => {
           func();
         });
         break;
       case "add":
+
         objectPath.set(
           state.current,
           action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
@@ -51,6 +53,7 @@ function useStore(init = {}) {
       Object.values(renderFunction.current)
         .reverse()
         .forEach(func => {
+
           func();
         });
     }
@@ -75,6 +78,7 @@ export const ChapterContext = createContext();
 export const documentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
+
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
@@ -231,10 +235,11 @@ export default ({ saveVariables = {}, ...props }) => {
 
   const submitData = useCallback(
     (data, submit) => {
+      renderFunction.current = {}
       setEditChapter(0);
       setFinalChapter(0);
       if (documentData.current) {
-        if (submit && !props.stage && stagePath) {
+        if (submit && !props.stage && stagePath && !editChapter) {
           objectPath.set(documentData.current, stagePath.current, true)
         }
         if (props.addValuesToData) {
@@ -270,7 +275,6 @@ export default ({ saveVariables = {}, ...props }) => {
       props.removeEmptyField,
       documentData,
       stagePath,
-      props.document,
       editChapter,
       mutation,
       props.addValuesToData,
@@ -279,7 +283,8 @@ export default ({ saveVariables = {}, ...props }) => {
       props.stageType,
       props.specData,
       props.stage,
-      saveVariables
+      saveVariables,
+      renderFunction,
     ]
   );
 

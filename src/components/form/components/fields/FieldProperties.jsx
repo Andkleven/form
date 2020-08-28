@@ -18,7 +18,7 @@ import {
   calculateMaxMin,
   variableLabel,
   isNumber,
-  writeOrReadChapter
+  writeChapter
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
@@ -52,17 +52,17 @@ export default React.memo(({ ...props }) => {
     [props.path, props.fieldName, documentData, state, getNewPath]
   )
   useEffect(() => {
-    let resetStateRef = resetState.current
-    if (!hidden && writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
-      resetStateRef[
+    if (!hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+      resetState.current[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
     }
     return () => {
-      if (resetStateRef[
+      if (resetState.current[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ]) {
-        delete resetStateRef[
+        // eslint-disable-next-line
+        delete resetState.current[
           `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
         ];
       }
@@ -123,6 +123,8 @@ export default React.memo(({ ...props }) => {
   }, [setHidden, props.backendData, props.readOnlyFieldIf, documentData]);
 
   useEffect(() => {
+
+
     if (props.readOnlyFieldIf) {
       renderFunction.current[
         `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
@@ -132,8 +134,6 @@ export default React.memo(({ ...props }) => {
       if (renderFunction.current[
         `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
       ]) {
-        // TODO: Implement correctly by eslint standard
-        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
         // eslint-disable-next-line
         delete renderFunction.current[
           `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
@@ -256,19 +256,21 @@ export default React.memo(({ ...props }) => {
       documentData
     ]
   );
+  useEffect(() => {
+    setLabel(props.label);
+
+  }, [setLabel, props.label])
 
   useEffect(() => {
-    if (props.queryVariableLabel || props.indexVariableLabel) {
+
+
+    if ((props.queryVariableLabel || props.indexVariableLabel) && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
       renderFunction.current[
         `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
       ] = getLabel;
-    } else {
-      setLabel(props.label);
     }
     return () => {
       if (renderFunction.current[`${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`]) {
-        // TODO: Implement correctly by eslint standard
-        // Note: The ref value is supposed to change before the cleanup function (regarding eslint warning)
         // eslint-disable-next-line
         delete renderFunction.current[
           `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
@@ -283,7 +285,8 @@ export default React.memo(({ ...props }) => {
     props.label,
     getLabel,
     renderFunction,
-    props.repeatStepList
+    props.repeatStepList,
+    props.allWaysShow, editChapter, props.thisChapter, finalChapter
   ]);
 
   useEffect(() => {
@@ -361,13 +364,13 @@ export default React.memo(({ ...props }) => {
         </>
       );
     } else if (props.size === "md") {
-      if (writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
         return <ReadOnlyField {...commonProps} noLine className={`mb-3`} />;
       } else {
         return <ReadOnlyField {...commonProps} />;
       }
     } else if ((!props.size && props.math) || props.size === "sm") {
-      if (writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
         return (
           <small>
             <ReadOnlyField
@@ -384,7 +387,7 @@ export default React.memo(({ ...props }) => {
       return <ReadOnlyField noLine {...commonProps} className={`mb-3`} />;
     }
   } else if (
-    writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ||
+    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ||
     `${props.repeatStepList}-${props.fieldName}` === editChapter
   ) {
     return (

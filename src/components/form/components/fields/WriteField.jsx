@@ -13,7 +13,6 @@ import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
 const cloneDeep = require("clone-deep");
 
-const delayOnChange = 1000
 
 
 export default ({ setState, state, ...props }) => {

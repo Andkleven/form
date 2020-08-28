@@ -7,7 +7,7 @@ import {
   getRepeatStepList,
   isLastCharacterNumber,
   variableString,
-  writeOrReadChapter
+  writeChapter
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
@@ -54,7 +54,7 @@ export default ({ addOrRemove, ...props }) => {
             <Fragment key={`${index}-repeat-fragment`}>
               {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
                 <>
-                  <Subtitle className={!writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "mt-3"}>
+                  <Subtitle className={!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "mt-3"}>
                     {variableString(index + 1, props.pageTitle)}
                   </Subtitle>
                   <Line></Line>
@@ -78,7 +78,7 @@ export default ({ addOrRemove, ...props }) => {
                 }
                 indexId={`${props.indexId}-${index}`}
               />
-              {!!props.delete && !!writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+              {!!props.delete && !!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
                 props.repeatStartWithOneGroup ? (
                   !!index && (
                     <DeleteButton

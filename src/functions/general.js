@@ -37,7 +37,7 @@ export const getDataFromQuery = (data, path, field) => {
   return fields[field];
 };
 
-export const writeOrReadChapter = (allWaysShow, editChapter, thisChapter, finalChapter) => {
+export const writeChapter = (allWaysShow, editChapter, thisChapter, finalChapter) => {
   if (allWaysShow) {
     return true;
   } else if (editChapter) {

@@ -479,7 +479,6 @@
                   "type": "Number",
                   "unit": "mm",
                   "decimal": 1,
-                  "required": true,
                   "indent": "true"
                 },
                 {

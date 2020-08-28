@@ -108,7 +108,7 @@ const qualityControlMeasurementPointCoatingItemMax = (
 };
 
 
-const mathCumulativeThickness = (values, mathStore, repeatStepList, decimal) => {
+const mathCumulativeThickness = (values, repeatStepList, decimal, mathStore) => {
   let previousCumulativeThickness = 0;
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {

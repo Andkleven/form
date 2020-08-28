@@ -36,11 +36,12 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
+  console.log(1123321321)
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
     <Canvas showForm={data}>
-      <Overview />
+      {/* <Overview /> */}
       <Paper full>
         <Form
           componentsId={"leadEngineersPage"}

@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
 import { documentDataContext, ChapterContext } from "components/form/Form";
-import { writeOrReadChapter } from "functions/general";
+import { writeChapter } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const cloneDeep = require("clone-deep");
 
@@ -92,10 +92,10 @@ export default ({ ...props }) => {
 
   useEffect(() => {
     setBackendFiles()
-    let resetStateRef = resetState.current
-    resetStateRef[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`] = setBackendFiles;
+    resetState.current[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`] = setBackendFiles;
     return () => {
-      delete resetStateRef[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`];
+      // eslint-disable-next-line
+      delete resetState.current[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`];
     }
   }, [setBackendFiles, props.repeatStepList, props.path, props.label, resetState]);
 
@@ -132,7 +132,7 @@ export default ({ ...props }) => {
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
-        {writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+        {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
           <div {...getRootProps({ style })}>
             <div
               // htmlFor={props.label || props.prepend}
@@ -155,9 +155,9 @@ export default ({ ...props }) => {
         )}
         {files.length ? (
           <aside>
-            {writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
               <>
-                <label className={`${writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? `mt-3` : ``}`}>
+                <label className={`${writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? `mt-3` : ``}`}>
                   Uploaded files
                 </label>
                 <hr className="w-100 m-0" />
@@ -177,7 +177,7 @@ export default ({ ...props }) => {
             </ul>
           </aside>
         ) : (
-            !writeOrReadChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+            !writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
               <div className="text-secondary">
                 <FontAwesomeIcon icon="file-times" className="mr-2" />
                 <div className="d-inline">No files uploaded.</div>

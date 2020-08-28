@@ -4,7 +4,7 @@ import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
-import { writeOrReadChapter } from "functions/general";
+import { writeChapter } from "functions/general";
 import { documentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
@@ -299,7 +299,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             <LightLine />
           </Col>
         )}
-        {props.subtext && writeOrReadChapter(props.allWaysShow, chapterContext.editChapter, props.thisChapter, chapterContext.finalChapter) ? (
+        {props.subtext && writeChapter(props.allWaysShow, chapterContext.editChapter, props.thisChapter, chapterContext.finalChapter) ? (
           <Form.Text className="text-muted">{props.subtext}</Form.Text>
         ) : null}
       </Row>
