@@ -4,7 +4,7 @@
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
-      "stageQueryPath": "projects.0.data.stage",
+      "stageQueryPath": "leadEngineers.0.data.stage",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
@@ -168,17 +168,16 @@
           "queryPath": "leadEngineers.0.additionalCustomTests",
           "repeat": true,
           "delete": true,
+          "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
           "addButton": "Custom Test",
           "fields": [
             {
               "fieldName": "name",
               "prepend": "Name",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
               "label": "Custom Test"
             },
             {
               "fieldName": "criteria",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
               "prepend": "Criteria"
             }
           ]
@@ -222,7 +221,7 @@
       ]
     },
     {
-      "stageQueryPath": "projects.0.data.stage1",
+      "stageQueryPath": "leadEngineers.0.data.stage1",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanization",
@@ -470,7 +469,7 @@
       ]
     },
     {
-      "stageQueryPath": "projects.0.data.stage2",
+      "stageQueryPath": "leadEngineers.0.data.stage2",
       "pages": [
         {
           "pageTitle": "Final Inspection",

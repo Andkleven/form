@@ -168,17 +168,16 @@
           "queryPath": "leadEngineers.0.additionalCustomTests",
           "repeat": true,
           "delete": true,
+          "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
           "addButton": "Custom Test",
           "fields": [
             {
               "fieldName": "name",
               "prepend": "Name",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
               "label": "Custom Test"
             },
             {
               "fieldName": "criteria",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
               "prepend": "Criteria"
             }
           ]
@@ -313,8 +312,7 @@
             {
               "fieldName": "rubberCement",
               "label": "Item Rubber Cement",
-              "notLabel": true,
-              "type": "number"
+              "notLabel": true
             }
           ]
         },

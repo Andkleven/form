@@ -18,6 +18,9 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
+import useHidden from "functions/useHidden"
+
+
 
 const DeleteButton = ({ index, deleteHandler }) => (
   <DepthButton
@@ -94,11 +97,10 @@ export default React.memo(props => {
     unchangedData
   } = useContext(documentDataContext);
   const [fieldGroups, setFieldGroups] = useState({})
-
+  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.queryPath}-page-hidden`])
   if (props.finalChapter && props.finalChapter > finalChapter) {
     setFinalChapter(props.finalChapter);
   }
-
   const deleteData = useCallback(
     index => {
       documentDataDispatch({
@@ -115,20 +117,19 @@ export default React.memo(props => {
   const deleteHandler = useCallback(
     index => {
       setFieldGroups(prevState => {
-        delete prevState[`${props.path}.${index}`]
+        delete prevState[`${index}-${props.path}-${props.queryPath}-repeat-fragment`]
         return { ...prevState }
       })
-
       deleteData(index)
     },
     [
       deleteData,
       props.path,
-      setFieldGroups
+      setFieldGroups,
+      props.queryPath
     ])
 
   useEffect(() => {
-
     let temporaryMultiFieldGroup = {}
     if (props.repeat) {
       let arrayData = objectPath.get(props.backendData, props.path)
@@ -138,7 +139,6 @@ export default React.memo(props => {
         for (let index = 0; index < arrayData.length; index++) {
           temporaryMultiFieldGroup[`${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter)
         }
-
       } else if (!props.queryPath) {
         let repeatNumber = getRepeatNumber(
           props.specData,
@@ -210,7 +210,6 @@ export default React.memo(props => {
     setFieldGroups(prevState => {
       return { ...prevState, [`${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
     })
-
     documentDataDispatch({
       type: "add",
       newState: {},
@@ -218,7 +217,6 @@ export default React.memo(props => {
       path: `${props.path}.${index}`,
       notReRender: true
     });
-
   }, [documentDataDispatch, documentData, props, setFieldGroups, deleteHandler, editChapter, finalChapter]);
 
   // If number of repeat group decided by a another field, it sets repeatGroup
@@ -259,9 +257,8 @@ export default React.memo(props => {
       finalChapter
     ]
   );
+
   useEffect(() => {
-
-
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData &&
@@ -313,6 +310,10 @@ export default React.memo(props => {
     props.repeatGroupWithQuerySpecData,
     documentData
   ]);
+
+
+
+
   if (
     objectPath.get(documentData.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
@@ -466,6 +467,9 @@ export default React.memo(props => {
   // const onSubmitMf = () => {};
   // const onCancelMf = () => {};
 
+
+
+
   const unsavedChanges =
     dataChange &&
     JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
@@ -572,7 +576,7 @@ export default React.memo(props => {
       {props.fields ? (
         <>
           {Object.values(fieldGroups)}
-          {!!props.addButton && props.repeat && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? (
+          {!!props.addButton && props.repeat && !hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? (
             <DepthButton
               iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}
               type="button"

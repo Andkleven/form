@@ -306,6 +306,9 @@ export default ({ saveVariables = {}, ...props }) => {
     dataChange &&
     JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
 
+
+
+
   if (props.data) {
     return (
       <documentDataContext.Provider

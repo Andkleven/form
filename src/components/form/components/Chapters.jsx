@@ -52,7 +52,6 @@ export default ({ stagePath, ...props }) => {
         }
       }
 
-      // Map through pages in this pages
       if (allRequiredFieldSatisfied && props.readOnlySheet) {
         chapter = null;
       } else {
@@ -63,14 +62,14 @@ export default ({ stagePath, ...props }) => {
             : false;
           return (
             <Page
-              key={`${index}-${count}-page`}
+              key={`${index}-${count}-${repeatStepList}-page`}
               {...info}
               {...props}
               path={createPath(info.queryPath, repeatStepList)}
               thisChapter={count + 1}
               stopLoop={stopLoop.current}
               showEditButton={showEditButton}
-              indexId={`${count + 1}-${index}`}
+              indexId={`${count + 1}- ${index} `}
               index={index}
               noSaveButton={props.document.noSaveButton}
               finalChapter={finalChapter}
@@ -89,7 +88,7 @@ export default ({ stagePath, ...props }) => {
     count += 1;
     return chapter
       ? (
-        <Fragment key={`${count}-canvas-chapterFragment`}>
+        <Fragment key={`${count} -canvas - chapterFragment`}>
           {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
           {chapter}
         </Fragment>
@@ -98,7 +97,7 @@ export default ({ stagePath, ...props }) => {
   };
   const runChapter = (pageInfo, thisStage = "", stepsList = undefined) => {
     return (
-      <Fragment key={`${count}-stageTitleSomething`}>
+      <Fragment key={`${count} -stageTitleSomething`}>
         {" "}
         {getNewChapter(
           stepsList !== undefined
