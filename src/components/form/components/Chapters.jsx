@@ -52,7 +52,6 @@ export default ({ stagePath, ...props }) => {
         }
       }
 
-      // Map through pages in this pages
       if (allRequiredFieldSatisfied && props.readOnlySheet) {
         chapter = null;
       } else {

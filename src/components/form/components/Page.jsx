@@ -120,7 +120,6 @@ export default React.memo(props => {
         delete prevState[`${index}-${props.path}-${props.queryPath}-repeat-fragment`]
         return { ...prevState }
       })
-
       deleteData(index)
     },
     [
@@ -131,7 +130,6 @@ export default React.memo(props => {
     ])
 
   useEffect(() => {
-
     let temporaryMultiFieldGroup = {}
     if (props.repeat) {
       let arrayData = objectPath.get(props.backendData, props.path)
@@ -141,7 +139,6 @@ export default React.memo(props => {
         for (let index = 0; index < arrayData.length; index++) {
           temporaryMultiFieldGroup[`${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter)
         }
-
       } else if (!props.queryPath) {
         let repeatNumber = getRepeatNumber(
           props.specData,
@@ -210,11 +207,9 @@ export default React.memo(props => {
 
   const addHandler = useCallback(() => {
     let index = objectPath.get(documentData.current, props.path) === undefined ? 0 : objectPath.get(documentData.current, props.path).length
-    console.log(index, props)
     setFieldGroups(prevState => {
       return { ...prevState, [`${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
     })
-
     documentDataDispatch({
       type: "add",
       newState: {},
@@ -222,7 +217,6 @@ export default React.memo(props => {
       path: `${props.path}.${index}`,
       notReRender: true
     });
-
   }, [documentDataDispatch, documentData, props, setFieldGroups, deleteHandler, editChapter, finalChapter]);
 
   // If number of repeat group decided by a another field, it sets repeatGroup
@@ -263,9 +257,8 @@ export default React.memo(props => {
       finalChapter
     ]
   );
+
   useEffect(() => {
-
-
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData &&
