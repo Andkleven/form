@@ -312,8 +312,7 @@
             {
               "fieldName": "rubberCement",
               "label": "Item Rubber Cement",
-              "notLabel": true,
-              "type": "number"
+              "notLabel": true
             }
           ]
         },
