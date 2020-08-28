@@ -18,7 +18,7 @@ react-app-env.d.ts
 /build/
 /dist/
 /*.egg-info/
-/env/
+# /env/
 MANIFEST
 coverage.*
 
@@ -62,7 +62,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
+# env/
 build/
 develop-eggs/
 dist/
