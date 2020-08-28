@@ -36,7 +36,6 @@ export default pageInfo => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
 
-  console.log(1123321321)
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (

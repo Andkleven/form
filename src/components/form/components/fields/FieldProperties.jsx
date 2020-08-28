@@ -22,6 +22,7 @@ import {
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
+import useHidden from "functions/useHidden"
 
 export default React.memo(({ ...props }) => {
   const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
@@ -35,7 +36,7 @@ export default React.memo(({ ...props }) => {
   }, [props.path, props.fieldName, props.type]);
 
   const [state, setState] = useState("");
-  const [hidden, setHidden] = useState(false)
+  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`])
   const [label, setLabel] = useState("");
   const setFirstValue = useRef(true)
 
@@ -109,52 +110,6 @@ export default React.memo(({ ...props }) => {
     props.type,
     props.default
   ]);
-
-  const updateReadOnly = useCallback(() => {
-    setHidden(
-      !objectPath.get(
-        Object.keys(documentData.current).length === 0
-          ? props.backendData
-          : documentData.current,
-        props.readOnlyFieldIf,
-        false
-      )
-    );
-  }, [setHidden, props.backendData, props.readOnlyFieldIf, documentData]);
-
-  useEffect(() => {
-
-
-    if (props.readOnlyFieldIf) {
-      renderFunction.current[
-        `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
-      ] = updateReadOnly;
-    }
-    return () => {
-      if (renderFunction.current[
-        `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
-      ]) {
-        // eslint-disable-next-line
-        delete renderFunction.current[
-          `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
-        ];
-      }
-    };
-  }, [
-    props.readOnlyFieldIf,
-    updateReadOnly,
-    props.prepend,
-    props.label,
-    renderFunction,
-    props.repeatStepList
-  ]);
-
-  useEffect(() => {
-    if (props.readOnlyFieldIf) {
-      updateReadOnly();
-    }
-
-  }, [props.readOnlyFieldIf, updateReadOnly]);
 
   const { min, max } = useMemo(
     () =>

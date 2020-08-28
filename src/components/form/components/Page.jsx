@@ -18,6 +18,9 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
+import useHidden from "functions/useHidden"
+
+
 
 const DeleteButton = ({ index, deleteHandler }) => (
   <DepthButton
@@ -94,11 +97,10 @@ export default React.memo(props => {
     unchangedData
   } = useContext(documentDataContext);
   const [fieldGroups, setFieldGroups] = useState({})
-
+  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.queryPath}-page-hidden`])
   if (props.finalChapter && props.finalChapter > finalChapter) {
     setFinalChapter(props.finalChapter);
   }
-
   const deleteData = useCallback(
     index => {
       documentDataDispatch({
@@ -115,7 +117,7 @@ export default React.memo(props => {
   const deleteHandler = useCallback(
     index => {
       setFieldGroups(prevState => {
-        delete prevState[`${props.path}.${index}`]
+        delete prevState[`${index}-${props.path}-${props.queryPath}-repeat-fragment`]
         return { ...prevState }
       })
 
@@ -124,7 +126,8 @@ export default React.memo(props => {
     [
       deleteData,
       props.path,
-      setFieldGroups
+      setFieldGroups,
+      props.queryPath
     ])
 
   useEffect(() => {
@@ -207,6 +210,7 @@ export default React.memo(props => {
 
   const addHandler = useCallback(() => {
     let index = objectPath.get(documentData.current, props.path) === undefined ? 0 : objectPath.get(documentData.current, props.path).length
+    console.log(index, props)
     setFieldGroups(prevState => {
       return { ...prevState, [`${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter) }
     })
@@ -313,6 +317,10 @@ export default React.memo(props => {
     props.repeatGroupWithQuerySpecData,
     documentData
   ]);
+
+
+
+
   if (
     objectPath.get(documentData.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
@@ -466,6 +474,9 @@ export default React.memo(props => {
   // const onSubmitMf = () => {};
   // const onCancelMf = () => {};
 
+
+
+
   const unsavedChanges =
     dataChange &&
     JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
@@ -572,7 +583,7 @@ export default React.memo(props => {
       {props.fields ? (
         <>
           {Object.values(fieldGroups)}
-          {!!props.addButton && props.repeat && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? (
+          {!!props.addButton && props.repeat && !hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? (
             <DepthButton
               iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}
               type="button"
