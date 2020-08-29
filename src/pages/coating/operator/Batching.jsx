@@ -20,12 +20,7 @@ import {
 import Loading from "components/Loading";
 
 export default () => {
-  const {
-    stage,
-    projectId,
-    descriptionId,
-    geometryDefault
-  } = useParams();
+  const { stage, projectId, descriptionId, geometryDefault } = useParams();
 
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
@@ -101,17 +96,17 @@ export default () => {
           json={
             newDescriptionId[0] && fixedData
               ? getBatchingJson(
-                objectPath
-                  .get(fixedData, "projects.0.descriptions")
-                  .find(
-                    description =>
-                      Number(description.id) === Number(newDescriptionId[0])
-                  )["data"]["geometry"],
-                operatorCoatedItemJson,
-                operatorMouldJson,
-                allBatchingJson,
-                reshapeStageSting(stage)
-              )
+                  objectPath
+                    .get(fixedData, "projects.0.descriptions")
+                    .find(
+                      description =>
+                        Number(description.id) === Number(newDescriptionId[0])
+                    )["data"]["geometry"],
+                  operatorCoatedItemJson,
+                  operatorMouldJson,
+                  allBatchingJson,
+                  reshapeStageSting(stage)
+                )
               : batchingJson
           }
           setBatchingData={setBatchingData}
