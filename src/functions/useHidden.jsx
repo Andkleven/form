@@ -1,7 +1,6 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 import objectPath from "object-path";
 import { documentDataContext } from "components/form/Form";
-// [`${label}-${prepend}-${queryPath}-page-hidden`]
 export default (backendData, readOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(documentDataContext);
   const [hidden, setHidden] = useState(false);

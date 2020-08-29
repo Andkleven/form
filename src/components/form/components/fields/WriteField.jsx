@@ -41,10 +41,10 @@ export default ({ setState, state, ...props }) => {
     // clearTimeout(timer.current)
     setState(value);
     // timer.current = setTimeout(() => {
-    if (!dataChange) {
-      setDataChange(true);
-      setUnchangedData(cloneDeep(documentData.current));
-    }
+    // if (!dataChange) {
+    //   setDataChange(true);
+    //   setUnchangedData(cloneDeep(documentData.current));
+    // }
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);

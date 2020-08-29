@@ -269,13 +269,15 @@
               "subtext": "Pre-Coating",
               "required": true,
               "minInput": 0,
-              "maxInput": 10
+              "maxInput": 10,
+              "notSingleEdit": true
             },
             {
               "fieldName": "targetDescriptionValue",
               "label": "TDV (Target Description Value)",
               "type": "select",
               "required": true,
+              "notSingleEdit": true,
               "options": [
                 "OD",
                 "ID"
@@ -350,7 +352,8 @@
               "required": true,
               "type": "Number",
               "minInput": 0,
-              "maxInput": 30
+              "maxInput": 30,
+              "notSingleEdit": true
             },
             {
               "page": true,
