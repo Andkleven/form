@@ -11,7 +11,10 @@ export default props => (
           type={props.type}
           required={props.required}
           disabled={props.disabled}
-          id={`custom-${props.type}-${props.fieldName}-${props.repeatStepList}`}
+          id={
+            props.id ||
+            `custom-${props.type}-${props.fieldName}-${props.repeatStepList}`
+          }
           label={props.label}
           checked={props.value || props.checked}
           name={props.name}
@@ -19,7 +22,7 @@ export default props => (
           onBlur={props.onBlur}
           className={`mb-0 pb-0 ${props.labelAppend && "mr-1"} ${
             props.className
-            }`}
+          }`}
           size={props.size}
           onKeyPress={props.onKeyPress}
           style={{ zIndex: 0 }}

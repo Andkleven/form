@@ -46,6 +46,7 @@
     "react-spring": "^9.0.0-rc.3",
     "react-test-renderer": "^16.13.1",
     "react-use-dimensions": "^1.2.1",
+    "react-webcam-barcode-scanner": "0.0.2-rc2",
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.1.1",
     "use-http": "^0.4.5"

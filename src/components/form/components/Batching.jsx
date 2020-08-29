@@ -14,7 +14,7 @@ import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedI
 import operatorMouldJson from "templates/coating/mould/operatorMould.json";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
-// import CheckInput from "components/input/components/CheckInput";
+import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -100,11 +100,15 @@ export default props => {
     }
   };
   const handleClick = (e, item, description, batchingData) => {
+    console.log(e, item);
     if (e.target.checked) {
       add(item, description, batchingData);
     } else {
       remove(item, description);
     }
+    console.log(
+      props.batchingListIds.find(id => Number(id) === Number(item.id))
+    );
   };
 
   const allRequiredSatisfied = (itemData, chapter) => {
@@ -162,77 +166,53 @@ export default props => {
             !props.batchingData ||
             JSON.stringify(batchingData) === JSON.stringify(props.batchingData)
           );
+
         return (
-          <Fragment key={`${index}-fragment-batching`}>
-            <Form.Group className="mb-0">
-              <div className="d-flex justify-content-between">
-                <div className="d-flex align-items-center flex-wrap">
-                  <Form.Check
-                    className="mt-3"
-                    disabled={disabled}
-                    key={`${index}-fragment-batching-check`}
-                    onChange={e =>
-                      handleClick(e, item, description, batchingData)
-                    }
-                    id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-                    checked={
-                      props.batchingListIds.find(
-                        id => Number(id) === Number(item.id)
-                      )
-                        ? true
-                        : false
-                    }
-                    label={`${item.itemId}`}
-                    labelAppend={
-                      props.partialBatching &&
-                      allRequiredSatisfied(item, chapter) && (
-                        <div className="d-flex align-items-center">
-                          <div className="d-inline text-secondary">(Done)</div>
-                          <Button
-                            variant="link"
-                            className="p-0 m-0 ml-2"
-                            style={{ height: "1.5em" }}
-                            key={`${index}-fragment-batching-button`}
-                            onClick={() => {
-                              submitStage({
-                                variables: {
-                                  stage: FindNextStage(
-                                    item,
-                                    props.stage,
-                                    description.data.geometry
-                                  )["stage"],
-                                  id: item.id
-                                }
-                              });
-                            }}
-                          >
-                            <FontAwesomeIcon
-                              icon={["fas", "arrow-square-right"]}
-                              className="mr-2"
-                            />
-                            Send to next stage
-                          </Button>
-                        </div>
-                      )
-                    }
-                    // tight
-                  ></Form.Check>
+          <CheckInput
+            className="mt-3"
+            disabled={disabled}
+            onChangeInput={e => handleClick(e, item, description, batchingData)}
+            // key={`${index}-batching-check`}
+            id={`${index}-batching-check`}
+            checked={
+              props.batchingListIds.find(id => Number(id) === Number(item.id))
+                ? true
+                : false
+            }
+            label={`${item.itemId}`}
+            labelAppend={
+              props.partialBatching &&
+              allRequiredSatisfied(item, chapter) && (
+                <div className="d-flex align-items-center">
+                  <div className="d-inline text-secondary">(Done)</div>
+                  <Button
+                    variant="link"
+                    className="p-0 m-0 ml-2"
+                    style={{ height: "1.5em" }}
+                    key={`${index}-fragment-batching-button`}
+                    onClick={() => {
+                      submitStage({
+                        variables: {
+                          stage: FindNextStage(
+                            item,
+                            props.stage,
+                            description.data.geometry
+                          )["stage"],
+                          id: item.id
+                        }
+                      });
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={["fas", "arrow-square-right"]}
+                      className="mr-2"
+                    />
+                    Send to next stage
+                  </Button>
                 </div>
-              </div>
-            </Form.Group>
-            {/* <Form.Check
-              key={`${index}-fragment-batching-check`}
-              className="text-success"
-              onChange={e => handleClick(e, item, description, batchingData)}
-              id={`custom-${props.type}-${props.fieldName}-${props.indexId}`}
-              checked={
-                props.batchingListIds.find(id => Number(id) === Number(item.id))
-                  ? true
-                  : false
-              }
-              label={item.itemId}
-            /> */}
-          </Fragment>
+              )
+            }
+          />
         );
       } else if (item.stage === props.stage) {
         // samme stage, men forskjellig data
