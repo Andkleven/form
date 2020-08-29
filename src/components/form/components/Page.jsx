@@ -5,7 +5,7 @@ import React, {
   useState,
   Fragment
 } from "react";
-import { ChapterContext, documentDataContext } from "components/form/Form";
+import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
 import { getRepeatNumber, isNumberAndNotNaN, writeChapter, variableString, getRepeatStepList, isLastCharacterNumber } from "functions/general";
 import objectPath from "object-path";
@@ -91,11 +91,8 @@ export default React.memo(props => {
   const {
     documentDataDispatch,
     documentData,
-    renderFunction,
-    dataChange,
-    setDataChange,
-    unchangedData
-  } = useContext(documentDataContext);
+    renderFunction
+  } = useContext(DocumentDataContext);
 
   const [fieldGroups, setFieldGroups] = useState({})
   const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.queryPath}-page-hidden`])
@@ -389,7 +386,7 @@ export default React.memo(props => {
         iconProps={{ icon: ["fas", "times"], className: "text-secondary" }}
         short
         onClick={() => {
-          if (unsavedChanges) {
+          if ((JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
             dialog({
               message: "Do you want to save your changes?",
               buttons: [
@@ -406,14 +403,12 @@ export default React.memo(props => {
                   label: "Discard and continue",
                   variant: "danger",
                   onClick: () => {
-                    setDataChange(false);
                     cancel();
                   }
                 }
               ]
             });
           } else {
-            setDataChange(false);
             cancel();
           }
         }}
@@ -468,12 +463,6 @@ export default React.memo(props => {
   // const onSubmitMf = () => {};
   // const onCancelMf = () => {};
 
-
-
-  const unsavedChanges =
-    dataChange &&
-    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
-
   return (
     <div
       className={`${finalPage && "mb-5"} ${props.className}`}
@@ -488,7 +477,7 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              if (unsavedChanges) {
+              if ((JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
                 dialog({
                   message: "Do you want to save your changes?",
                   buttons: [
@@ -535,7 +524,7 @@ export default React.memo(props => {
             showCancelTab && (
               <TabButton
                 onClick={() => {
-                  if (unsavedChanges) {
+                  if ((JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
                     dialog({
                       message: "Do you want to save your changes?",
                       buttons: [
@@ -552,14 +541,12 @@ export default React.memo(props => {
                           label: "Discard and continue",
                           variant: "danger",
                           onClick: () => {
-                            setDataChange(false);
                             cancel();
                           }
                         }
                       ]
                     });
                   } else {
-                    setDataChange(false);
                     cancel();
                   }
                 }}

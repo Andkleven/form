@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import ReadField from "components/form/components/fields/ReadField";
 import objectPath from "object-path";
 import { sumFieldInObject, writeChapter } from "functions/general";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
 import math from "components/form/functions/math";
@@ -56,7 +56,7 @@ const CustomCoating = props => {
 };
 
 const CustomLead = props => {
-  const { documentData, renderMath, mathStore } = useContext(documentDataContext);
+  const { documentData, renderMath, mathStore } = useContext(DocumentDataContext);
   const { finalChapter, editChapter } = useContext(ChapterContext);
   const [status, setStatus] = useState("danger");
   const [toleranceMin, setToleranceMin] = useState(0);

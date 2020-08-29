@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useContext, useCallback } from "re
 import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import { writeChapter } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const cloneDeep = require("clone-deep");
@@ -65,7 +65,7 @@ export default ({ ...props }) => {
     editChapter
   } = useContext(ChapterContext);
 
-  const { documentDataDispatch, resetState } = useContext(documentDataContext);
+  const { documentDataDispatch, resetState } = useContext(DocumentDataContext);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
@@ -91,7 +91,6 @@ export default ({ ...props }) => {
   )
 
   useEffect(() => {
-    setBackendFiles()
     resetState.current[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`] = setBackendFiles;
     return () => {
       // eslint-disable-next-line
@@ -100,8 +99,12 @@ export default ({ ...props }) => {
   }, [setBackendFiles, props.repeatStepList, props.path, props.label, resetState]);
 
   useEffect(() => {
-    documentDataDispatch({ type: "add", path: props.path, newState: files });
+    setBackendFiles()
+  }, [setBackendFiles])
 
+
+  useEffect(() => {
+    documentDataDispatch({ type: "add", path: props.path, newState: files });
   }, [files, props.path, documentDataDispatch]);
 
   const style = useMemo(

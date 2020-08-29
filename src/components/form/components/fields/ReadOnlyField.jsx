@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import Math from "components/form/functions/math";
 import { writeChapter } from "functions/general"
 import ReadField from "components/form/components/fields/ReadField";
@@ -10,7 +10,7 @@ import "styles/styles.css";
 export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { editChapter, finalChapter } = useContext(ChapterContext);
-  const { documentData, renderFunction, mathDispatch, mathStore, renderMath } = useContext(documentDataContext);
+  const { documentData, renderFunction, mathDispatch, mathStore, renderMath } = useContext(DocumentDataContext);
   const math = useCallback(() => {
     const getValueFromMath = Math[props.math](
       Object.keys(documentData.current).length === 0

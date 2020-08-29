@@ -5,9 +5,9 @@ import {
     useContext
 } from "react";
 import objectPath from "object-path";
-import { documentDataContext } from "components/form/Form";
+import { DocumentDataContext } from "components/form/Form";
 export default (backendData, readOnlyFieldIf, keyName) => {
-    const { documentData, renderFunction } = useContext(documentDataContext);
+    const { documentData, renderFunction } = useContext(DocumentDataContext);
     const [hidden, setHidden] = useState(false)
 
     const updateReadOnly = useCallback(() => {

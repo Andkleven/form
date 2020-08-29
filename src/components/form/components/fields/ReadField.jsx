@@ -5,7 +5,7 @@ import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
 import { writeChapter } from "functions/general";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
 
@@ -13,13 +13,10 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-  let { documentData, documentDataDispatch, dataChange, unchangedData, save } =
-    !display && useContext(documentDataContext);
+  const { documentData, documentDataDispatch, save } =
+    !display && useContext(DocumentDataContext);
   const chapterContext = useContext(ChapterContext);
 
-  const unsavedChanges =
-    dataChange &&
-    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
 
   const flipToWrite = () => {
     // if (unsavedChanges) {
@@ -87,7 +84,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <TinyButton
         {...props}
         onClick={() => {
-          if (unsavedChanges) {
+          if (documentData && (JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
             dialog({
               message: "Do you want to save your changes?",
               buttons: [

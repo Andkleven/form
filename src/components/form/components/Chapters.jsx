@@ -7,7 +7,7 @@ import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import objectPath from "object-path";
 import stagesJson from "components/form/stage/stages.json";
-import { ChapterContext, documentDataContext } from "components/form/Form";
+import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
 
@@ -17,7 +17,7 @@ export default ({ stagePath, ...props }) => {
   const { editChapter } = useContext(ChapterContext);
   const {
     documentData
-  } = useContext(documentDataContext);
+  } = useContext(DocumentDataContext);
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
   let count = 0;

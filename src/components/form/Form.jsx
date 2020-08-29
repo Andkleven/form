@@ -73,7 +73,7 @@ function useMathStore(init = {}) {
 };
 
 export const ChapterContext = createContext();
-export const documentDataContext = createContext();
+export const DocumentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
 
@@ -85,8 +85,6 @@ export default ({ saveVariables = {}, ...props }) => {
     resetState
   ] = useStore();
   const [mathStore, mathDispatch] = useMathStore();
-  const [unchangedData, setUnchangedData] = useState();
-  const [dataChange, setDataChange] = useState(false);
   const nextStage = useRef(true);
   const renderMath = useRef({});
   const lastData = useRef(false);
@@ -293,32 +291,19 @@ export default ({ saveVariables = {}, ...props }) => {
     submitData(documentData.current, true);
   };
 
-  useEffect(() => {
-    setDataChange(false);
-  }, [props.data]);
-
   const formRef = useRef();
   const save = () => {
     formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
   };
-  const unsavedChanges =
-    dataChange &&
-    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
-
-
-
 
   if (props.data) {
     return (
-      <documentDataContext.Provider
+      <DocumentDataContext.Provider
         value={{
           documentData,
           documentDataDispatch,
           renderFunction,
           resetState,
-          setDataChange,
-          dataChange,
-          setUnchangedData,
           save,
           submitData,
           mathStore,
@@ -343,7 +328,7 @@ export default ({ saveVariables = {}, ...props }) => {
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={unsavedChanges}
+              when={(JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))}
               buttons={[
                 {
                   label: "Save and continue",
@@ -385,7 +370,7 @@ export default ({ saveVariables = {}, ...props }) => {
             )}
           </Form>
         </ChapterContext.Provider>
-      </documentDataContext.Provider>
+      </DocumentDataContext.Provider>
     );
   } else {
     return null;

@@ -10,7 +10,7 @@ import ReadField from "./ReadField";
 import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
 import WriteField from "components/form/components/fields/WriteField";
 import objectPath from "object-path";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import Math from "components/form/functions/math";
 import {
   getSubtext,
@@ -25,7 +25,7 @@ import Line from "components/design/Line";
 import useHidden from "functions/useHidden"
 
 export default React.memo(({ ...props }) => {
-  const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(documentDataContext);
+  const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(DocumentDataContext);
   const { editChapter, finalChapter } = useContext(ChapterContext);
 
   const getNewPath = useCallback(() => {
