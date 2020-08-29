@@ -31,7 +31,7 @@ const CustomCoating = props => {
           value={`${props.repeatStepList[0] + 1} of ${
             objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
               .length
-          }`}
+            }`}
         />
       </b>
       <b>
@@ -56,12 +56,14 @@ const CustomCoating = props => {
 };
 
 const CustomLead = props => {
-  const { documentData, renderFunction } = useContext(documentDataContext);
+  const { documentData, renderMath, mathStore } = useContext(documentDataContext);
   const { finalChapter, editChapter } = useContext(ChapterContext);
   const [status, setStatus] = useState("danger");
   const [toleranceMin, setToleranceMin] = useState(0);
   const [toleranceMax, setToleranceMax] = useState(0);
   const [layersThickness, setLayersThickness] = useState(0);
+
+
 
   const thickness = useCallback(() => {
     let toleranceMinTemporary = math["mathToleranceMin"](
@@ -84,12 +86,7 @@ const CustomLead = props => {
       steps.forEach((step, stepIndex) => {
         step.coatingLayers &&
           step.coatingLayers.forEach((coatingLayer, coatingLayerIndex) => {
-            layersThicknessTemporary += Number(
-              math["mathShrinkThickness"](
-                documentData.current,
-                [stepIndex, coatingLayerIndex],
-                1
-              )
+            layersThicknessTemporary += Number(objectPath.get(mathStore.current, `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`)
             );
           });
       });
@@ -97,14 +94,14 @@ const CustomLead = props => {
     layersThicknessTemporary = layersThicknessTemporary * 2.0;
     setStatus(() =>
       toleranceMinTemporary <= layersThicknessTemporary &&
-      layersThicknessTemporary <= toleranceMaxTemporary
+        layersThicknessTemporary <= toleranceMaxTemporary
         ? "success"
         : "warning"
     );
     setToleranceMin(toleranceMinTemporary);
     setToleranceMax(toleranceMaxTemporary);
     setLayersThickness(layersThicknessTemporary);
-  }, [
+  }, [mathStore,
     documentData,
     setStatus,
     setToleranceMin,
@@ -122,24 +119,25 @@ const CustomLead = props => {
         finalChapter
       )
     ) {
-      renderFunction.current[`${props.repeatStepList}-CustomLead`] = thickness;
+      renderMath.current[`${props.repeatStepList}-CustomLead`] = thickness;
     }
     return () => {
-      if (renderFunction.current[`${props.repeatStepList}-CustomLead`]) {
+      if (renderMath.current[`${props.repeatStepList}-CustomLead`]) {
         // TODO: See if eslint warning is valid, and fix if necessary
         // eslint-disable-next-line
-        delete renderFunction.current[`${props.repeatStepList}-CustomLead`];
+        delete renderMath.current[`${props.repeatStepList}-CustomLead`];
       }
     };
   }, [
     thickness,
+    renderMath,
     props.repeatStepList,
-    renderFunction,
     props.allWaysShow,
     editChapter,
     props.thisChapter,
     finalChapter
   ]);
+
 
   if (
     writeChapter(

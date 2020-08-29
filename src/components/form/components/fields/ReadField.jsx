@@ -197,7 +197,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <TinyEditButton
                 {...props}
                 className={showAboveBreakpoint()}
-                edit={props.edit}
+                edit={props.edit && !props.notSingleEdit}
               />
             )}
           </div>
@@ -239,7 +239,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <TinyEditButton
             {...props}
             className={showAboveBreakpoint()}
-            edit={props.edit}
+            edit={props.edit && !props.notSingleEdit}
           />
         )}
       </div>
@@ -280,7 +280,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <Label {...props} />
               <Value {...props} />
             </div>
-            {readOnly ? null : <TinyEditButton {...props} edit={props.edit} />}
+            {readOnly ? null : <TinyEditButton {...props} edit={props.edit && !props.notSingleEdit} />}
           </div>
         </Col>
         {savedComment && (

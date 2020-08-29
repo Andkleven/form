@@ -187,10 +187,13 @@ const mathShrinkThickness = (values, repeatStepList, decimal, mathStore = null) 
       `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
     )
   );
-
   if (shrink) {
     partOfNumber = (shrink * shrunkThickness) / 100;
   }
+  console.log(whatTooReturn(shrunkThickness - partOfNumber, decimal, [
+    shrink,
+    shrunkThickness
+  ]))
   return whatTooReturn(shrunkThickness - partOfNumber, decimal, [
     shrink,
     shrunkThickness

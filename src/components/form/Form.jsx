@@ -51,9 +51,7 @@ function useStore(init = {}) {
     }
     if (!action.notReRender) {
       Object.values(renderFunction.current)
-        .reverse()
         .forEach(func => {
-
           func();
         });
     }
@@ -86,10 +84,11 @@ export default ({ saveVariables = {}, ...props }) => {
     renderFunction,
     resetState
   ] = useStore();
-  const [mathStore, stateDispatch] = useMathStore();
+  const [mathStore, mathDispatch] = useMathStore();
   const [unchangedData, setUnchangedData] = useState();
   const [dataChange, setDataChange] = useState(false);
   const nextStage = useRef(true);
+  const renderMath = useRef({});
   const lastData = useRef(false);
   const stagePath = useRef(false);
   const [finalChapter, setFinalChapter] = useState(0);
@@ -323,7 +322,8 @@ export default ({ saveVariables = {}, ...props }) => {
           save,
           submitData,
           mathStore,
-          stateDispatch
+          mathDispatch,
+          renderMath
         }}
       >
         <ChapterContext.Provider
