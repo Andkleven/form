@@ -49,7 +49,7 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <Canvas showForm={fixedData}>
+    <Canvas showForm={!!data}>
       <Overview />
       <Paper className="mb-3">
         <Title big align="center">
@@ -95,10 +95,9 @@ export default pageInfo => {
           reRender={() => setReRender(!reRender)}
           allData={fixedData}
           stage={fixedData && fixedData.items[0].stage}
+          saveVariables={{ itemId: itemId }}
           stageType={geometry}
           getQueryBy={itemId}
-          itemId={itemId}
-          sendItemId={true}
           saveButton={true}
         />
       </Paper>

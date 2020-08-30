@@ -2,7 +2,8 @@ import React, {
   useState,
   createContext,
   useCallback,
-  useRef
+  useRef,
+  useEffect
 } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/query";
@@ -291,6 +292,20 @@ export default ({ saveVariables = {}, ...props }) => {
     formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
   };
 
+  const [loading, setLoading] = useState(true)
+  const timer = useRef()
+
+  useEffect(() => {
+    timer.current = setTimeout(() => {
+      setLoading(false)
+    }, 1)
+    return () => {
+      setLoading(true)
+      clearTimeout(timer.current)
+    }
+  }, [timer, setLoading])
+
+
   if (props.data) {
     return (
       <DocumentDataContext.Provider
@@ -314,6 +329,7 @@ export default ({ saveVariables = {}, ...props }) => {
             setEditChapter
           }}
         >
+          {loading && <Loading />}
           <Title>{props.document.documentTitle}</Title>
           <Form
             ref={formRef}

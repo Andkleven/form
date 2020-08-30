@@ -101,7 +101,7 @@ export default pageInfo => {
           saveButton={true}
         />
       </Paper>
-      {access.finalInspection && stage === "qualityControl" && (
+      {access.finalInspection && ["qualityControl", "done"].includes(stage) && (
         <Paper>
           <Title big align="center">
             Quality Control
@@ -126,8 +126,7 @@ export default pageInfo => {
             stage={fixedData && fixedData.items[0].stage}
             stageType={geometry}
             getQueryBy={itemId}
-            itemId={itemId}
-            sendItemId={true}
+            saveVariables={{ itemId: itemId }}
             saveButton={true}
           />
         </Paper>

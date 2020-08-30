@@ -419,86 +419,119 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
 const GET_OPERATOR_BY_ITEM = gql`
   query($id: Int) {
     items(id: $id) {
-      id
-      itemId
-      stage
-      leadEngineers {
         id
-        data
-        measurementPointActualTdvs {
+        itemId
+        unique
+        qrCode
+        repair
+        stage
+        leadEngineers {
           id
           data
-        }
-        rubberCements {
-          id
-          data
-        }
-        additionalCustomTests {
-          id
-          data
-        }
-        finalInspectionCustomTests {
-          id
-          data
-        }
-        finalInspectionDimensionsChecks {
-          id
-          data
-        }
-        vulcanizationSteps {
-          id
-          data
-          coatingLayers {
+          measurementPointActualTdvs {
             id
             data
-            cumulativeThickness {
+          }
+          vulcanizationSteps {
+            id
+            data
+            coatingLayers {
+              id
+              data
+              cumulativeThickness {
+                id
+                data
+              }
+            }
+          }
+          rubberCements {
+            id
+            data
+          }
+          additionalCustomTests {
+            id
+            data
+          }
+          finalInspectionCustomTests {
+            id
+            data
+          }
+          finalInspectionDimensionsChecks {
+            id
+            data
+          }
+        }
+        operators {
+          id
+          data
+          surfaceCleanlinessImage
+          rubberCementOperators {
+            id
+            data
+            mixDates {
               id
               data
             }
           }
-        }
-      }
-      operators {
-        id
-        data
-        surfaceCleanlinessImage
-        rubberCementOperators {
-          id
-          data
-          mixDates {
+          measurementPointActualTdvs {
             id
             data
           }
-        }
-        measurementPointActualTdvs {
-          id
-          data
-        }
-        additionalCustomTestOperators {
-          id
-          data
-        }
-        vulcanizationOperators {
-          id
-          data
-          coatingOperators {
+          vulcanizationOperators {
             id
             data
-            layers {
+            coatingOperators {
               id
               data
+              layers {
+                id
+                data
+              }
+              measurementPointOperators {
+                id
+                data
+              }
             }
             measurementPointOperators {
               id
               data
             }
           }
-          measurementPointOperators {
+          additionalCustomTestOperators {
             id
             data
           }
         }
-      }
+        finalInspectionQualityControls {
+          id
+          data
+          measurementPointQualityControls {
+            id
+            data
+          }
+          hardnessQualityControls {
+            id
+            data
+          }
+          peelTestQualityControls {
+            id
+            data
+          }
+          finalInspectionCustomTestQualityControls {
+            id
+            data
+          }
+          finalInspectionDimensionsCheckQualityControls {
+            id
+            data
+          }
+          uploadFiles {
+            id
+            file
+            fileDescription
+          }
+        }
+      
     }
   }
 `;

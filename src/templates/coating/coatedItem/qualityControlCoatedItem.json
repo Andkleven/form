@@ -37,6 +37,8 @@
                 "coatedItem": "qualityControlMeasurementPointCoatingItemMax",
                 "mould": "qualityControlMeasurementPointMouldMax"
               },
+              "ignoreMin": true,
+              "ignoreMax": true,
               "type": "number",
               "required": true,
               "unit": "mm"

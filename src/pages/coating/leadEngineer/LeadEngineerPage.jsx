@@ -35,7 +35,7 @@ export default pageInfo => {
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
-    <Canvas showForm={data}>
+    <Canvas showForm={!!data}>
       <Overview />
       <Paper full>
         <Form
