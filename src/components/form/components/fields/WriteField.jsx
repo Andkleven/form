@@ -46,9 +46,15 @@ export default ({ setState, state, ...props }) => {
   const onChangeSelect = e => {
     onChange(e.value);
   };
-
   const onChangeFile = value => {
-    onChange(value);
+    documentDataDispatch({ type: "add", newState: value, path: props.path });
+    setState(value);
+    let spiltPath = props.path.split(".")
+    documentDataDispatch({
+      type: "add",
+      newState: userInfo.username,
+      path: `${spiltPath.slice(0, -1).join(".")}.data.${spiltPath[spiltPath.length - 1]}userField`
+    });
   };
 
   const onChangeInput = e => {

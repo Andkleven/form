@@ -393,7 +393,6 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path,
     );
-
     return { [key]: newData };
   }
   return { [key]: [] };
@@ -553,9 +552,10 @@ export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin =
 }
 
 export function getProperties(value, jsonVariables = []) {
-  if (typeof value === 'object' && value !== null) {
+  if (typeof value === 'object' && value !== null && !(value instanceof Array)) {
     for (let variable of jsonVariables) {
       if (value[removeSpace(lowerCaseFirstLetter(variable))] !== undefined) {
+
         return value[removeSpace(lowerCaseFirstLetter(variable))]
       }
     }

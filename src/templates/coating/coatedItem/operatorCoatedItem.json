@@ -569,7 +569,7 @@
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
-              "mathSubtext": "mathCumulativeThickness",
+              "mathSubtext": "mathCumulativeThicknessAll",
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
               "required": true

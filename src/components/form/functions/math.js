@@ -173,6 +173,75 @@ const mathCumulativeThickness = (values, repeatStepList, decimal, mathStore) => 
   ]);
 };
 
+const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
+  let previousCumulativeThickness = 0;
+  let previousLayers = 0;
+  if (repeatStepList[0] && repeatStepList[1] === 0) {
+    const sumProposedThickness = stepList => {
+      previousLayers += Number(mathShrinkThickness(values, stepList, 0));
+    };
+    for (let i = 0; i < repeatStepList[0]; i++) {
+      let coatingLayers = findValue(
+        values,
+        `leadEngineers.0.vulcanizationSteps.${i}.coatingLayers`
+      );
+      coatingLayers.forEach((data, index) => sumProposedThickness([i, index]));
+    }
+  }
+  if (repeatStepList[1]) {
+    for (let i = 0; i < repeatStepList[1]; i++) {
+      previousCumulativeThickness = Number(
+        mathCumulativeThicknessAll(values, [
+          repeatStepList[0],
+          i,
+          repeatStepList[2]
+        ])
+      );
+    }
+  } else {
+    previousCumulativeThickness = Number(
+      findValue(
+        values,
+        `leadEngineers.0.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
+      )
+    );
+  }
+
+  let appliedThickness = Number(
+    findValue(
+      values,
+      `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
+    )
+  );
+  let layersUnique = findValue(
+    values,
+    `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
+  );
+
+  let tvd = findValue(values, `leadEngineers.0.data.targetDescriptionValue`);
+
+  let cumulativeThickness = 0;
+  if (layersUnique) {
+    appliedThickness = 0;
+  }
+
+  if (tvd === "OD") {
+    cumulativeThickness =
+      previousCumulativeThickness + (previousLayers + appliedThickness) * 2;
+  } else if (tvd === "ID") {
+    cumulativeThickness =
+      previousCumulativeThickness - (previousLayers + appliedThickness) * 2;
+  } else {
+    cumulativeThickness =
+      previousCumulativeThickness + previousLayers + appliedThickness;
+  }
+  return whatTooReturn(cumulativeThickness, decimal, [
+    previousCumulativeThickness,
+    appliedThickness,
+    layersUnique
+  ]);
+};
+
 const mathShrinkThickness = (values, repeatStepList, decimal, mathStore = null) => {
   let partOfNumber = 0;
   let shrink = Number(
@@ -282,6 +351,7 @@ const mathPeelTest = (values, repeatStepList, decimal, mathStore = null) => {
 };
 
 const Math = {
+  mathCumulativeThicknessAll,
   mathCumulativeThickness,
   mathShrinkThickness,
   mathToleranceMin,

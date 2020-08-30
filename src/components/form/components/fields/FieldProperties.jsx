@@ -45,13 +45,13 @@ export default React.memo(({ ...props }) => {
     () => {
       let documentDataState = objectPath.get(documentData.current,
         getNewPath(),
-        null
+        props.type === "checkbox" ? false : ""
       )
-      if (props.path && props.fieldName && documentDataState !== null && documentDataState !== state) {
+      if (props.path && props.fieldName && documentDataState !== state) {
         setState(documentDataState)
       }
     },
-    [props.path, props.fieldName, documentData, state, getNewPath]
+    [props.path, props.fieldName, documentData, state, getNewPath, props.type]
   )
   useEffect(() => {
     if (!hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
@@ -218,12 +218,9 @@ export default React.memo(({ ...props }) => {
   );
   useEffect(() => {
     setLabel(props.label);
-
   }, [setLabel, props.label])
 
   useEffect(() => {
-
-
     if ((getProperties(props.queryVariableLabel, props.jsonVariables) || props.indexVariableLabel) && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
       renderFunction.current[
         `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`

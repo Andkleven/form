@@ -34,7 +34,7 @@ const DeleteButton = ({ index, deleteHandler }) => (
 );
 
 const multiFieldGroup = (props, index, deleteHandler, editChapter, finalChapter, hidden) => {
-  return (<Fragment key={`${index}-${props.path}-${props.queryPath}-repeat-fragment`}>
+  return (<Fragment key={`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`}>
     {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
       <>
         <Subtitle className={!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "mt-3"}>
@@ -98,7 +98,6 @@ export default React.memo(props => {
   const [fieldGroups, setFieldGroups] = useState({})
   const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.queryPath}-page-hidden`])
 
-
   if (props.finalChapter && props.finalChapter > finalChapter) {
     setFinalChapter(props.finalChapter);
   }
@@ -118,7 +117,7 @@ export default React.memo(props => {
   const deleteHandler = useCallback(
     index => {
       setFieldGroups(prevState => {
-        delete prevState[`${index}-${props.path}-${props.queryPath}-repeat-fragment`]
+        delete prevState[`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`]
         return { ...prevState }
       })
       deleteData(index)
@@ -127,7 +126,8 @@ export default React.memo(props => {
       deleteData,
       props.path,
       setFieldGroups,
-      props.queryPath
+      props.queryPath,
+      props.repeatStepList
     ])
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default React.memo(props => {
           Array.isArray(arrayData)
         ) {
           for (let index = 0; index < arrayData.length; index++) {
-            temporaryMultiFieldGroup[`${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden)
+            temporaryMultiFieldGroup[`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden)
           }
         } else if (!props.queryPath) {
           let repeatNumber = getRepeatNumber(
@@ -149,7 +149,7 @@ export default React.memo(props => {
             props.editRepeatStepListRepeat
           );
           for (let index = 0; index < repeatNumber; index++) {
-            temporaryMultiFieldGroup[`${props.path}.${props.repeatGroupWithQuery}.${index}`] = (
+            temporaryMultiFieldGroup[`${props.repeatStepList}-${index}-${props.path}.${props.queryPath}-repeat-fragment`] = (
               <FieldGroup
                 key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
                 {...props}
@@ -162,7 +162,7 @@ export default React.memo(props => {
           }
         }
       } else {
-        temporaryMultiFieldGroup[`${props.path}.${props.queryPath}`] = (
+        temporaryMultiFieldGroup[`${props.repeatStepList}-${0}-${props.path}.${props.queryPath}-repeat-fragment`] = (
           <FieldGroup
             {...props}
             key={`${props.path}.${props.queryPath}`}
@@ -195,7 +195,7 @@ export default React.memo(props => {
   const addData = useCallback(
     pushOnIndex => {
       setFieldGroups(prevState => {
-        return { ...prevState, [`${pushOnIndex}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, pushOnIndex, deleteHandler, editChapter, finalChapter, hidden) }
+        return { ...prevState, [`${props.repeatStepList}-${pushOnIndex}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, pushOnIndex, deleteHandler, editChapter, finalChapter, hidden) }
       })
       documentDataDispatch({
         type: "add",
@@ -205,13 +205,21 @@ export default React.memo(props => {
         notReRender: true
       });
     },
-    [props, documentDataDispatch, setFieldGroups, deleteHandler, editChapter, finalChapter, hidden]
+    [
+      props,
+      documentDataDispatch,
+      setFieldGroups,
+      deleteHandler,
+      editChapter,
+      finalChapter,
+      hidden
+    ]
   );
 
   const addHandler = useCallback(() => {
     let index = objectPath.get(documentData.current, props.path) === undefined ? 0 : objectPath.get(documentData.current, props.path).length
     setFieldGroups(prevState => {
-      return { ...prevState, [`${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden) }
+      return { ...prevState, [`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden) }
     })
     documentDataDispatch({
       type: "add",
@@ -220,7 +228,16 @@ export default React.memo(props => {
       path: `${props.path}.${index}`,
       notReRender: true
     });
-  }, [documentDataDispatch, documentData, props, setFieldGroups, deleteHandler, editChapter, finalChapter, hidden]);
+  }, [
+    documentDataDispatch,
+    documentData,
+    props,
+    setFieldGroups,
+    deleteHandler,
+    editChapter,
+    finalChapter,
+    hidden
+  ]);
 
   // If number of repeat group decided by a another field, it sets repeatGroup
   const autoRepeat = useCallback(
@@ -237,12 +254,12 @@ export default React.memo(props => {
       let temporaryMultiFieldGroup = {}
       if (oldValue < newValue) {
         for (let i = oldValue; i < newValue; i++) {
-          temporaryMultiFieldGroup[`${i}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, i, deleteHandler, editChapter, finalChapter, hidden)
+          temporaryMultiFieldGroup[`${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, i, deleteHandler, editChapter, finalChapter, hidden)
           addData(i);
         }
       } else if (newValue < oldValue) {
         for (let i = oldValue - 1; i > newValue - 1; i--) {
-          temporaryMultiFieldGroup[`${i}-${props.path}-${props.queryPath}-repeat-fragment`] = null
+          temporaryMultiFieldGroup[`${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`] = null
           deleteData(i);
         }
       }
@@ -269,12 +286,12 @@ export default React.memo(props => {
       writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
       (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables)))
     ) {
-      renderFunction.current[`${props.path}-Page`] = autoRepeat;
+      renderFunction.current[`${props.path} -Page`] = autoRepeat;
     }
     return () => {
-      if (renderFunction.current[`${props.path}-Page`]) {
+      if (renderFunction.current[`${props.path} -Page`]) {
         // eslint-disable-next-line
-        delete renderFunction.current[`${props.path}-Page`];
+        delete renderFunction.current[`${props.path} -Page`];
       }
     };
   }, [
@@ -344,9 +361,9 @@ export default React.memo(props => {
     (objectPath.get(documentData.current, props.path) === undefined || (Array.isArray(objectPath.get(documentData.current, props.path)) &&
       objectPath.get(documentData.current, props.path).length === 0))
   ) {
-    if (!fieldGroups[`${props.path}.${0}`]) {
+    if (!fieldGroups[`${props.path}.${0} `]) {
       setFieldGroups(prevState => {
-        return { ...prevState, [`${0}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, 0, deleteHandler, editChapter, finalChapter, hidden) }
+        return { ...prevState, [`${props.repeatStepList}-${0}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, 0, deleteHandler, editChapter, finalChapter, hidden) }
       })
     }
     addData(0);
@@ -474,8 +491,8 @@ export default React.memo(props => {
 
   return (
     <div
-      className={`${finalPage && "mb-5"} ${props.className}`}
-    // className={`${!props.finalChapter && ""} ${props.className}`}
+      className={`${finalPage && "mb-5"} ${props.className} `}
+    // className={`${ !props.finalChapter && "" } ${ props.className } `}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (

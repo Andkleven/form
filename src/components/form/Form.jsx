@@ -25,14 +25,12 @@ function useStore(init = {}) {
   const reducer = action => {
     switch (action.type) {
       case "setState":
-
         state.current = cloneDeep(action.newState);
         Object.values(resetState.current).forEach(func => {
           func();
         });
         break;
       case "add":
-
         objectPath.set(
           state.current,
           action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
@@ -102,7 +100,6 @@ export default ({ saveVariables = {}, ...props }) => {
       skip: !props.optionsQuery
     }
   );
-  // Set documentData to empty dictionary if a new component calls Form
 
   if (
     props.data &&
@@ -115,7 +112,6 @@ export default ({ saveVariables = {}, ...props }) => {
       newState: props.data
     });
   }
-
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({

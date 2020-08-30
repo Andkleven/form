@@ -86,7 +86,6 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-  console.log(geometry)
   return (
     <Canvas>
       <Paper>
