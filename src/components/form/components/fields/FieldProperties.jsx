@@ -47,6 +47,9 @@ export default React.memo(({ ...props }) => {
         getNewPath(),
         props.type === "checkbox" ? false : ""
       )
+      if (props.type === "date" || props.type === "datetime-local") {
+        documentDataState = documentDataState ? new Date(documentDataState) : null
+      }
       if (props.path && props.fieldName && documentDataState !== state) {
         setState(documentDataState)
       }
@@ -95,7 +98,7 @@ export default React.memo(({ ...props }) => {
           backendDate = backendDate ? new Date(backendDate) : null
         }
         setState(backendDate);
-        documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+        // documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
         setFirstValue.current = false
       }
     }
