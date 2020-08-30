@@ -190,10 +190,6 @@ const mathShrinkThickness = (values, repeatStepList, decimal, mathStore = null) 
   if (shrink) {
     partOfNumber = (shrink * shrunkThickness) / 100;
   }
-  console.log(whatTooReturn(shrunkThickness - partOfNumber, decimal, [
-    shrink,
-    shrunkThickness
-  ]))
   return whatTooReturn(shrunkThickness - partOfNumber, decimal, [
     shrink,
     shrunkThickness

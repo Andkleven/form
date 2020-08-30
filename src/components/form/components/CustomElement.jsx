@@ -86,12 +86,21 @@ const CustomLead = props => {
       steps.forEach((step, stepIndex) => {
         step.coatingLayers &&
           step.coatingLayers.forEach((coatingLayer, coatingLayerIndex) => {
-            layersThicknessTemporary += Number(objectPath.get(mathStore.current, `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`)
-            );
+            if (!objectPath.get(documentData.current, `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.layersUnique`)) {
+              layersThicknessTemporary += Number(objectPath.get(mathStore.current, `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`)
+              );
+            }
           });
       });
     }
-    layersThicknessTemporary = layersThicknessTemporary * 2.0;
+    let targetDescriptionValue = objectPath.get(
+      documentData.current,
+      "leadEngineers.0.data.targetDescriptionValue",
+      null
+    );
+    if (targetDescriptionValue) {
+      layersThicknessTemporary = layersThicknessTemporary * 2.0;
+    }
     setStatus(() =>
       toleranceMinTemporary <= layersThicknessTemporary &&
         layersThicknessTemporary <= toleranceMaxTemporary

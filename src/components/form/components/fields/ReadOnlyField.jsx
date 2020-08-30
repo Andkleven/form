@@ -20,12 +20,12 @@ export default ({ backendData, ...props }) => {
       props.decimal ? props.decimal : 0,
       mathStore.current
     );
+    mathDispatch({ path: props.path, newState: getValueFromMath })
+    setValue(getValueFromMath);
     Object.values(renderMath.current)
       .forEach(func => {
         func();
       });
-    mathDispatch({ path: props.path, newState: getValueFromMath })
-    setValue(getValueFromMath);
   }, [
     documentData,
     props.decimal,

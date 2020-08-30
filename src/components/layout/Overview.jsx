@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo";
+import objectPath from "object-path";
 
 const queries = {
   project: gql`
@@ -107,14 +108,12 @@ export default () => {
       params.unique === "0"
     ) {
       let items = [];
-      descriptionQuery &&
-        descriptionQuery.data &&
-        descriptionQuery.data.descriptions &&
-        descriptionQuery.data.descriptions[0] &&
-        descriptionQuery.data.descriptions[0].items.forEach(item => {
-          item && items.push(item.itemId);
-        });
 
+      descriptionQuery &&
+        objectPath.get(descriptionQuery, "data.descriptions.0.items", [])
+          .forEach(item => {
+            item && items.push(item.itemId);
+          });
       if (items.length < 2) {
         return null;
       }
@@ -125,6 +124,7 @@ export default () => {
     }
     return null;
   };
+  const multipleItems = MultipleItems()
 
   const Info = () => {
     return (
@@ -133,8 +133,9 @@ export default () => {
           <div className="text-muted mb-n2">
             <small>Project:</small>
           </div>
+          {}
           <div>
-            {(projectQuery.data &&
+            {(projectQuery && objectPath.get(projectQuery, "data.projects.0.data") &&
               JSON.parse(projectQuery.data.projects[0].data).projectName) ||
               "N/A"}
           </div>
@@ -142,20 +143,18 @@ export default () => {
             <small>Description:</small>
           </div>
           <div>
-            {(descriptionQuery.data &&
+            {(descriptionQuery && descriptionQuery.data &&
               JSON.parse(descriptionQuery.data.descriptions[0].data)
                 .description) ||
               "N/A"}
           </div>
           <div className="text-muted mb-n2">
-            <small>{MultipleItems() ? "Items:" : "Item:"}</small>
+            <small>{multipleItems ? "Items:" : "Item:"}</small>
           </div>
           <div>
-            {/* {MultipleItems()
-              ? MultipleItems()
-              : itemQuery.data
-              ? itemQuery.data.items[0].itemId
-              : "N/A"} */}
+            {multipleItems
+              ? multipleItems
+              : "N/A"}
           </div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}

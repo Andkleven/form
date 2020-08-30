@@ -4,7 +4,7 @@ import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
-import { writeChapter } from "functions/general";
+import { writeChapter, getProperties } from "functions/general";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
@@ -167,7 +167,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
 
   const showUnit = [undefined, null, "", false].includes(props.unit)
     ? ""
-    : props.unit;
+    : getProperties(props.unit, props.jsonVariables);
 
   const EmptyValue = () => (
     <div className="text-secondary">

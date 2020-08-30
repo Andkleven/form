@@ -6,6 +6,7 @@
   "query": "QUALITY_CONTROL",
   "chapters": {
     "qualityControl": {
+      "queryPath": "finalInspectionQualityControls",
       "pages": [
         {
           "pageTitle": "Final Inspection",

@@ -35,7 +35,7 @@
       "queryPath": "operators",
       "pages": [
         {
-          "pageTitle": "Steel Preparation",
+          "pageTitle": "Media Blasting",
           "queryPath": "operators",
           "fields": [
             {
@@ -110,7 +110,7 @@
       "queryPath": "operators",
       "pages": [
         {
-          "pageTitle": "Steel Preparation Additional Tests",
+          "pageTitle": "Media Blasting Additional Tests",
           "queryPath": "operators",
           "fields": [
             {
@@ -370,7 +370,7 @@
         }
       ]
     },
-    "rubberCementsBeforeCoating": {
+    "itemRubberCementsBeforeCoating": {
       "queryPath": "operators",
       "pages": [
         {
@@ -378,8 +378,41 @@
           "queryPath": "operators",
           "fields": [
             {
-              "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
+              "specValueList": "leadEngineers.0.data.itemRubberCementsBeforeCoating",
               "label": "Item Rubber Cement:"
+            },
+            {
+              "fieldName": "itemRubberCementsBeforeCoatingMixDate",
+              "required": true,
+              "label": "Batch Number",
+              "type": "date"
+            },
+            {
+              "fieldName": "startTimeItemRubberCement",
+              "required": true,
+              "label": "Start Time",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "stopTimeItemRubberCement",
+              "required": true,
+              "label": "Stop Time",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "rubberCementsBeforeCoating": {
+      "queryPath": "operators",
+      "pages": [
+        {
+          "pageTitle": "Rubber Agent",
+          "queryPath": "operators",
+          "fields": [
+            {
+              "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
+              "label": "Rubber Agent:"
             },
             {
               "fieldName": "rubberCementsBeforeCoatingMixDate",
@@ -404,7 +437,10 @@
       ]
     },
     "coatingStepLayer": {
-      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
+      "specChapter": [
+        "leadEngineers.0.vulcanizationSteps",
+        "coatingLayers"
+      ],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -418,7 +454,9 @@
           "noLine": true
         },
         {
-          "customComponent": "ActualSteelThickness",
+          "customComponent": {
+            "coatedItem": "ActualSteelThickness"
+          },
           "noLine": true
         },
         {
@@ -435,7 +473,10 @@
                 "leadEngineers.0.rubberCements",
                 "data.rubberCement"
               ],
-              "label": "Rubber Cement"
+              "label": {
+                "coatedItem": "Rubber Cement",
+                "mould": "Rubber Agent"
+              }
             },
             {
               "page": true,
@@ -443,7 +484,7 @@
               "repeat": true,
               "repeatStartWithOneGroup": true,
               "delete": true,
-              "addButton": "Add Rubber Cement",
+              "addButton": "Add Rubber",
               "fields": [
                 {
                   "fieldName": "mixDate",
@@ -506,6 +547,10 @@
           ]
         },
         {
+          "showPage": {
+            "coatedItem": true,
+            "mould": false
+          },
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
@@ -554,7 +599,10 @@
       "pages": [
         {
           "pageTitle": "Vulcanization",
-          "queryPath": ["operators.0.vulcanizationOperators", ""],
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            ""
+          ],
           "fields": [
             {
               "specValueList": [
@@ -596,13 +644,6 @@
     "measurementPointStep": {
       "pages": [
         {
-          "variableLabelSpec": true,
-          "queryVariableLabel": [
-            "",
-            "leadEngineers.0.measurementPointActualTdvs",
-            "data.referencePoint"
-          ],
-          "label": "Measurement Point Reference: {}",
           "pageTitle": "Measurement after Vulcanization",
           "repeat": true,
           "notAddButton": true,
@@ -615,7 +656,18 @@
           "fields": [
             {
               "fieldName": "measurementPoint",
-              "label": "Measurement Point",
+              "variableLabelSpec": true,
+              "queryVariableLabel": {
+                "coatedItem": [
+                  "",
+                  "leadEngineers.0.measurementPointActualTdvs",
+                  "data.referencePoint"
+                ]
+              },
+              "label": {
+                "coatedItem": "Measurement Point Reference: {}",
+                "mould": "Measurement Point"
+              },
               "calculateMin": "mathMeasurementPointMin",
               "calculateMax": "mathMeasurementPointMax",
               "type": "number",

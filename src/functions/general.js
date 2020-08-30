@@ -590,16 +590,10 @@ export function isLastCharacterNumber(str) {
 
 export function getBatchingJson(
   geometry,
-  operatorCoatedItemJson,
-  operatorMouldJson,
+  operatorJson,
   allBatchingJson,
-  stage,
+  stage
 ) {
-  let operatorJson = coatedItemOrMould(
-    geometry,
-    operatorCoatedItemJson,
-    operatorMouldJson,
-  );
   let batchingJson = allBatchingJson[reshapeStageSting(stage)];
   batchingJson.document.chapters = [
     operatorJson.chapters[reshapeStageSting(stage)],
@@ -638,3 +632,17 @@ export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin =
   return comment
 }
 
+export function getProperties(value, jsonVariables = []) {
+  if (typeof value === 'object' && value !== null) {
+    for (let variable of jsonVariables) {
+      if (value[removeSpace(lowerCaseFirstLetter(variable))] !== undefined) {
+        return value[removeSpace(lowerCaseFirstLetter(variable))]
+      }
+    }
+    return ""
+  } else if (value === undefined) {
+    return ""
+  } else {
+    return value
+  }
+}

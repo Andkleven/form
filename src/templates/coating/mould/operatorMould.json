@@ -287,7 +287,8 @@
             },
             {
               "fieldName": "test",
-              "label": "Test"
+              "label": "Test",
+              "required": true
             }
           ]
         }
@@ -393,7 +394,10 @@
       ]
     },
     "coatingStepLayer": {
-      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
+      "specChapter": [
+        "leadEngineers.0.vulcanizationSteps",
+        "coatingLayers"
+      ],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -411,6 +415,7 @@
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
+          "queryPath": "operators.0.rubberCementOperators",
           "fields": [
             {
               "specValueList": [
@@ -420,6 +425,23 @@
                 "data.rubberCement"
               ],
               "label": "Rubber Agent"
+            },
+            {
+              "page": true,
+              "queryPath": "mixDates",
+              "repeat": true,
+              "repeatStartWithOneGroup": true,
+              "delete": true,
+              "addButton": "Add Rubber Cement",
+              "fields": [
+                {
+                  "fieldName": "mixDate",
+                  "required": true,
+                  "indexVariableLabel": true,
+                  "label": "Mix Date {}",
+                  "type": "date"
+                }
+              ]
             }
           ]
         },
@@ -493,7 +515,10 @@
       "pages": [
         {
           "pageTitle": "Vulcanization",
-          "queryPath": ["operators.0.vulcanizationOperators", ""],
+          "queryPath": [
+            "operators.0.vulcanizationOperators",
+            ""
+          ],
           "fields": [
             {
               "specValueList": [
@@ -562,7 +587,7 @@
       "pages": [
         {
           "pageTitle": "Touch-Up",
-          "queryPath": "operators.0",
+          "queryPath": "operators",
           "fields": [
             {
               "fieldName": "touchUp",

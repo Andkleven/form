@@ -2,8 +2,7 @@ import React, {
   useState,
   createContext,
   useCallback,
-  useRef,
-  useEffect
+  useRef
 } from "react";
 import Chapters from "./components/Chapters";
 import query from "graphql/query";
@@ -328,7 +327,7 @@ export default ({ saveVariables = {}, ...props }) => {
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={(JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))}
+              when={() => (JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))}
               buttons={[
                 {
                   label: "Save and continue",

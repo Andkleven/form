@@ -3,11 +3,12 @@ import React, {
   useContext,
   useCallback,
   useState,
-  Fragment
+  Fragment,
+  useMemo
 } from "react";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
-import { getRepeatNumber, isNumberAndNotNaN, writeChapter, variableString, getRepeatStepList, isLastCharacterNumber } from "functions/general";
+import { getRepeatNumber, isNumberAndNotNaN, writeChapter, getProperties, variableString, getRepeatStepList, isLastCharacterNumber } from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
@@ -131,60 +132,62 @@ export default React.memo(props => {
 
   useEffect(() => {
     let temporaryMultiFieldGroup = {}
-    if (props.repeat) {
-      let arrayData = objectPath.get(documentData.current, props.path)
-      if (
-        Array.isArray(arrayData)
-      ) {
-        for (let index = 0; index < arrayData.length; index++) {
-          temporaryMultiFieldGroup[`${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden)
-        }
-      } else if (!props.queryPath) {
-        let repeatNumber = getRepeatNumber(
-          props.specData,
-          props.repeatGroupWithQuery,
-          props.repeatStepList,
-          props.editRepeatStepListRepeat
-        );
-        for (let index = 0; index < repeatNumber; index++) {
-          temporaryMultiFieldGroup[`${props.path}.${props.repeatGroupWithQuery}.${index}`] = (
-            <FieldGroup
-              key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
-              {...props}
-              repeatStepList={getRepeatStepList(props.repeatStepList, index)}
-              repeatStep={index}
-              path={props.path ? `${props.path}.${index}.data` : null}
-              indexId={`${props.indexId}-${index}`}
-            />
+    if (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables))) {
+      if (props.repeat) {
+        let arrayData = objectPath.get(documentData.current, props.path)
+        if (
+          Array.isArray(arrayData)
+        ) {
+          for (let index = 0; index < arrayData.length; index++) {
+            temporaryMultiFieldGroup[`${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden)
+          }
+        } else if (!props.queryPath) {
+          let repeatNumber = getRepeatNumber(
+            props.specData,
+            props.repeatGroupWithQuery,
+            props.repeatStepList,
+            props.editRepeatStepListRepeat
           );
+          for (let index = 0; index < repeatNumber; index++) {
+            temporaryMultiFieldGroup[`${props.path}.${props.repeatGroupWithQuery}.${index}`] = (
+              <FieldGroup
+                key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
+                {...props}
+                repeatStepList={getRepeatStepList(props.repeatStepList, index)}
+                repeatStep={index}
+                path={props.path ? `${props.path}.${index}.data` : null}
+                indexId={`${props.indexId}-${index}`}
+              />
+            );
+          }
         }
+      } else {
+        temporaryMultiFieldGroup[`${props.path}.${props.queryPath}`] = (
+          <FieldGroup
+            {...props}
+            key={`${props.path}.${props.queryPath}`}
+            repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
+            file={
+              objectPath.get(props.backendData, props.path + ".0.data") &&
+              objectPath.get(props.backendData, props.path + ".0.data").file
+            }
+            path={
+              props.path
+                ? isLastCharacterNumber(props.path)
+                  ? props.path
+                  : `${props.path}.0`
+                : null
+            }
+            repeatStep={0}
+            indexId={`${props.indexId}-0`}
+          />
+        );
       }
-    } else {
-      temporaryMultiFieldGroup[`${props.path}.${props.queryPath}`] = (
-        <FieldGroup
-          {...props}
-          key={`${props.path}.${props.queryPath}`}
-          repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
-          file={
-            objectPath.get(props.backendData, props.path + ".0.data") &&
-            objectPath.get(props.backendData, props.path + ".0.data").file
-          }
-          path={
-            props.path
-              ? isLastCharacterNumber(props.path)
-                ? props.path
-                : `${props.path}.0`
-              : null
-          }
-          repeatStep={0}
-          indexId={`${props.indexId}-0`}
-        />
-      );
-    }
-    if (Object.keys(temporaryMultiFieldGroup).length) {
-      setFieldGroups(prevState => {
-        return { ...prevState, ...temporaryMultiFieldGroup }
-      })
+      if (Object.keys(temporaryMultiFieldGroup).length) {
+        setFieldGroups(prevState => {
+          return { ...prevState, ...temporaryMultiFieldGroup }
+        })
+      }
     }
 
   }, [documentData, props, deleteHandler, setFieldGroups, editChapter, finalChapter, hidden])
@@ -263,7 +266,8 @@ export default React.memo(props => {
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData &&
-      writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)
+      writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
+      (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables)))
     ) {
       renderFunction.current[`${props.path}-Page`] = autoRepeat;
     }
@@ -274,6 +278,8 @@ export default React.memo(props => {
       }
     };
   }, [
+    props.showPage,
+    props.jsonVariables,
     props.repeatGroupWithQuery,
     props.path,
     props.editRepeatStepListRepeat,
@@ -287,7 +293,8 @@ export default React.memo(props => {
   ]);
 
   useEffect(() => {
-    if (props.repeatGroupWithQuery && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+    if (props.repeatGroupWithQuery && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) &&
+      (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables)))) {
       if (!props.repeatGroupWithQuerySpecData) {
         autoRepeat(
           documentData.current
@@ -297,6 +304,8 @@ export default React.memo(props => {
       }
     }
   }, [
+    props.showPage,
+    props.jsonVariables,
     editChapter,
     finalChapter,
     props.allWaysShow,
@@ -342,7 +351,7 @@ export default React.memo(props => {
     }
     addData(0);
   }
-  const Components = CustomComponents[props.customComponent];
+  const Components = useMemo(() => CustomComponents[getProperties(props.customComponent, props.jsonVariables)], [props.customComponent, props.jsonVariables]);
 
   const SubmitButton = () => {
     return (
@@ -557,9 +566,9 @@ export default React.memo(props => {
           )}
       </div>
       {showLine && <Line />}
-      {props.customComponent ? (
+      {!!Components && (
         <Components {...props} />
-      ) : null}
+      )}
       {props.fields ? (
         <>
           {Object.values(fieldGroups)}

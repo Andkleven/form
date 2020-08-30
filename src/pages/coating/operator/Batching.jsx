@@ -38,7 +38,6 @@ export default () => {
   let batchingJson = getBatchingJson(
     geometry,
     operatorCoatedItemJson,
-    operatorMouldJson,
     allBatchingJson,
     reshapeStageSting(stage)
   );
@@ -96,17 +95,17 @@ export default () => {
           json={
             newDescriptionId[0] && fixedData
               ? getBatchingJson(
-                  objectPath
-                    .get(fixedData, "projects.0.descriptions")
-                    .find(
-                      description =>
-                        Number(description.id) === Number(newDescriptionId[0])
-                    )["data"]["geometry"],
-                  operatorCoatedItemJson,
-                  operatorMouldJson,
-                  allBatchingJson,
-                  reshapeStageSting(stage)
-                )
+                objectPath
+                  .get(fixedData, "projects.0.descriptions")
+                  .find(
+                    description =>
+                      Number(description.id) === Number(newDescriptionId[0])
+                  )["data"]["geometry"],
+                operatorCoatedItemJson,
+                operatorMouldJson,
+                allBatchingJson,
+                reshapeStageSting(stage)
+              )
               : batchingJson
           }
           setBatchingData={setBatchingData}
@@ -125,6 +124,7 @@ export default () => {
           repeatStepList={
             getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
           }
+          jsonVariables={[geometry]}
           chapterAlwaysInWrite={true}
           componentsId={"leadEngineersPage"}
           geometry={geometry}

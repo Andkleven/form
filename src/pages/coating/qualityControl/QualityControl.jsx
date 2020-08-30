@@ -26,19 +26,7 @@ export default pageInfo => {
 
   const { item, setItem } = useContext(ItemContext);
 
-  let operatorJson = coatedItemOrMould(
-    geometry,
-    operatorCoatedItemJson,
-    operatorMouldJson
-  );
-
-  let qualityControlJson = coatedItemOrMould(
-    geometry,
-    qualityControlCoatedItemJson,
-    qualityControlMouldJson
-  );
-
-  const { loading, error, data } = useQuery(query[qualityControlJson.query], {
+  const { loading, error, data } = useQuery(query[qualityControlCoatedItemJson.query], {
     variables: { id: itemId }
   });
 
@@ -68,8 +56,9 @@ export default pageInfo => {
           Operator
         </Title>
         <Form
+          jsonVariables={[geometry]}
           componentsId={"SingleItem"}
-          document={operatorJson}
+          document={operatorCoatedItemJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           specData={
@@ -90,7 +79,7 @@ export default pageInfo => {
         </Title>
         <Form
           componentsId={"finalInspectionQualityControls"}
-          document={qualityControlJson}
+          document={qualityControlCoatedItemJson}
           data={
             fixedData &&
             formDataStructure(
@@ -98,6 +87,7 @@ export default pageInfo => {
               "items.0.finalInspectionQualityControls"
             )
           }
+          jsonVariables={[geometry]}
           edit={getAccess().itemEdit}
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
