@@ -86,7 +86,7 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-
+  console.log(geometry)
   return (
     <Canvas>
       <Paper>
@@ -102,7 +102,6 @@ export default () => {
                       Number(description.id) === Number(newDescriptionId[0])
                   )["data"]["geometry"],
                 operatorCoatedItemJson,
-                operatorMouldJson,
                 allBatchingJson,
                 reshapeStageSting(stage)
               )
@@ -127,7 +126,7 @@ export default () => {
           jsonVariables={[geometry]}
           chapterAlwaysInWrite={true}
           componentsId={"leadEngineersPage"}
-          geometry={geometry}
+          stageType={geometry}
           notSubmitButton={!batchingListIds.length}
           document={batchingJson.document}
           reRender={() => {

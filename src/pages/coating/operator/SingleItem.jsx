@@ -92,13 +92,12 @@ export default pageInfo => {
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
+          saveVariables={{ itemId: itemId }}
           edit={access.itemEdit}
           readOnlySheet={!access.itemWrite}
           stage={stage}
           stageType={geometry}
           getQueryBy={itemId}
-          itemId={itemId}
-          sendItemId={true}
           saveButton={true}
         />
       </Paper>

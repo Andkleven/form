@@ -3,12 +3,13 @@ import {
   findValue,
   emptyField,
   isNumber,
-  removeSpace
+  removeSpace,
+  lowerCaseFirstLetter
 } from "functions/general.js";
 
 export default (specData: object, stage: string, stageType: string): object => {
   stage = stage ? stage : stagesJson.all[0];
-  stageType = removeSpace(stageType).toLowerCase();
+  stageType = removeSpace(lowerCaseFirstLetter(stageType));
   function nextStageFormat(index: number, step: number, layer: number): object {
     nextStage = stagesJson.all[index + 1];
     if (

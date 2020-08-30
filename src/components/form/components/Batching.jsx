@@ -30,8 +30,8 @@ export default props => {
           batchingData[
             Array.isArray(specValueList)
               ? specValueList[specValueList.length - 1].split(".")[
-                  specValueList[specValueList.length - 1].split(".").length - 1
-                ]
+              specValueList[specValueList.length - 1].split(".").length - 1
+              ]
               : specValueList.split(".")[specValueList.split(".").length - 1]
           ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
@@ -100,15 +100,11 @@ export default props => {
     }
   };
   const handleClick = (e, item, description, batchingData) => {
-    console.log(e, item);
     if (e.target.checked) {
       add(item, description, batchingData);
     } else {
       remove(item, description);
     }
-    console.log(
-      props.batchingListIds.find(id => Number(id) === Number(item.id))
-    );
   };
 
   const allRequiredSatisfied = (itemData, chapter) => {

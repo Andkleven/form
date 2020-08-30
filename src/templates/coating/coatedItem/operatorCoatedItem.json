@@ -21,9 +21,7 @@
               "variableLabelSpec": true,
               "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
-              "feedback": "Enter valid number.",
               "required": true,
-              "subtext": "Accepts any value",
               "type": "number",
               "unit": "mm"
             }

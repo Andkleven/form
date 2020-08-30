@@ -2,6 +2,7 @@ import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
   removeSpace,
+  lowerCaseFirstLetter
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -118,7 +119,7 @@ export default ({ stagePath, ...props }) => {
     let i = 0;
     let chapterBasedOnStage = [];
     let stageList = Object.keys(
-      stagesJson[removeSpace(props.stageType.toLowerCase())],
+      stagesJson[removeSpace(lowerCaseFirstLetter(props.stageType))],
     );
     let thisStage = {
       stage: stageList[0],
