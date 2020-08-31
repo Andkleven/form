@@ -296,7 +296,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             <LightLine />
           </Col>
         )}
-        {props.subtext && writeChapter(props.allWaysShow, chapterContext.editChapter, props.thisChapter, chapterContext.finalChapter) ? (
+        {props.subtext && writeChapter(props.allWaysShow, chapterContext.editChapter, props.thisChapter, chapterContext.finalChapter.current) ? (
           <Form.Text className="text-muted">{props.subtext}</Form.Text>
         ) : null}
       </Row>

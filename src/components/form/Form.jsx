@@ -89,7 +89,7 @@ export default ({ saveVariables = {}, ...props }) => {
   const renderMath = useRef({});
   const lastData = useRef(false);
   const stagePath = useRef(false);
-  const [finalChapter, setFinalChapter] = useState(0);
+  const finalChapter = useRef(0);
 
 
 
@@ -109,7 +109,7 @@ export default ({ saveVariables = {}, ...props }) => {
     (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
       !lastData.current)
   ) {
-    setFinalChapter(0);
+    finalChapter.current = 0;
     lastData.current = cloneDeep(props.data);
     documentDataDispatch({
       type: "setState",
@@ -231,7 +231,6 @@ export default ({ saveVariables = {}, ...props }) => {
 
   const submitData = useCallback(
     (data, submit) => {
-      console.log(documentData.current)
       renderFunction.current = {}
       setEditChapter(0);
       setLoading(true)
@@ -299,7 +298,7 @@ export default ({ saveVariables = {}, ...props }) => {
 
   timer.current = setTimeout(() => {
     setLoading(false)
-  }, 4000)
+  }, 1000)
   useEffect(() => {
     return () => {
       clearTimeout(timer.current)
@@ -326,7 +325,6 @@ export default ({ saveVariables = {}, ...props }) => {
         <ChapterContext.Provider
           value={{
             finalChapter,
-            setFinalChapter,
             editChapter,
             setEditChapter
           }}

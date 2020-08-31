@@ -39,7 +39,7 @@ export default ({ backendData, ...props }) => {
   ]);
 
   useEffect(() => {
-    if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+    if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
       renderFunction.current[
         `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
       ] = math;

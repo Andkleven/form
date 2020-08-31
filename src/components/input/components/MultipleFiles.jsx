@@ -135,7 +135,7 @@ export default ({ ...props }) => {
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
-        {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+        {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
           <div {...getRootProps({ style })}>
             <div
               // htmlFor={props.label || props.prepend}
@@ -158,9 +158,9 @@ export default ({ ...props }) => {
         )}
         {files.length ? (
           <aside>
-            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
               <>
-                <label className={`${writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ? `mt-3` : ``}`}>
+                <label className={`${writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) ? `mt-3` : ``}`}>
                   Uploaded files
                 </label>
                 <hr className="w-100 m-0" />
@@ -180,7 +180,7 @@ export default ({ ...props }) => {
             </ul>
           </aside>
         ) : (
-            !writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+            !writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
               <div className="text-secondary">
                 <FontAwesomeIcon icon="file-times" className="mr-2" />
                 <div className="d-inline">No files uploaded.</div>

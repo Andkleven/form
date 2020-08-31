@@ -520,10 +520,15 @@ export function getBatchingJson(
   return batchingJson;
 }
 
-export function getStartStage(geometry) {
+export function getStartStage(geometry, item) {
   let stage = undefined;
+  console.log(item)
   switch (geometry) {
     case "Coated Item":
+      if (item && objectPath.get(item, "leadEngineers.0.data.measurementPoint") === 0) {
+        stage = "steelPreparation1"
+        break;
+      }
       stage = Object.keys(stages["coatedItem"])[0];
       break;
     case "Mould":

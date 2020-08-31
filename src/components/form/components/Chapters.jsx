@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useContext, useEffect } from "react";
+import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
   removeSpace,
@@ -15,7 +15,7 @@ import AutoScroll from "components/AutoScroll";
 // import objectPath from "object-path";
 
 export default ({ stagePath, ...props }) => {
-  const { editChapter, setFinalChapter } = useContext(ChapterContext);
+  const { editChapter } = useContext(ChapterContext);
   const {
     documentData
   } = useContext(DocumentDataContext);

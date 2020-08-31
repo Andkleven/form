@@ -8,11 +8,11 @@ import leadEngineersMouldJson from "templates/coating/mould/leadEngineerMould.js
 import qualityControlCoatedItemJson from "templates/coating/coatedItem/qualityControlCoatedItem.json";
 import qualityControlMouldJson from "templates/coating/mould/qualityControlMould.json";
 import Form from "components/form/Form";
+import history from "functions/history";
 import Paper from "components/layout/Paper";
 import {
   objectifyQuery,
-  formDataStructure,
-  coatedItemOrMould
+  formDataStructure
 } from "functions/general";
 import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
@@ -54,6 +54,8 @@ export default pageInfo => {
     }
   });
 
+  const finalInspection = access.finalInspection && ["qualityControl", "done"].includes(stage)
+
   return (
     <Canvas showForm={!!data}>
       <Overview />
@@ -77,7 +79,7 @@ export default pageInfo => {
           />
         </Paper>
       )}
-      <Paper>
+      <Paper className="mb-3">
         {access.specs && (
           <Title big align="center">
             Operator
@@ -99,10 +101,13 @@ export default pageInfo => {
           stageType={geometry}
           getQueryBy={itemId}
           saveButton={true}
+          backButton={!finalInspection && (() =>
+            history.push(`/`))
+          }
         />
       </Paper>
-      {access.finalInspection && ["qualityControl", "done"].includes(stage) && (
-        <Paper>
+      {finalInspection && (
+        <Paper className="mb-3">
           <Title big align="center">
             Quality Control
           </Title>
@@ -128,6 +133,9 @@ export default pageInfo => {
             getQueryBy={itemId}
             saveVariables={{ itemId: itemId }}
             saveButton={true}
+            backButton={() =>
+              history.push(`/`)
+            }
           />
         </Paper>
       )}

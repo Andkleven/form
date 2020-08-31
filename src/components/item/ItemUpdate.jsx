@@ -103,7 +103,7 @@ export default ({ descriptionName = "description", ...props }) => {
   const formProps = {
     onSubmit: e => {
       e.preventDefault();
-      handleSubmit(props.setStage ? getStartStage(props.geometry) : undefined);
+      handleSubmit(props.setStage ? getStartStage(props.geometry, props.items.find(item => item.id === props.id)) : undefined);
     }
   };
 

@@ -16,7 +16,7 @@
   ],
   "coatedItem": {
     "actualSteelMeasurement": {
-      "queryPath": ""
+      "queryPath": "leadEngineers.0.data.measurementPoint"
     },
     "steelPreparation1": {
       "queryPath": "leadEngineers.0.data.mediaBlasting"

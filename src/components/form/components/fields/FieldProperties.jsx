@@ -57,17 +57,18 @@ export default React.memo(({ ...props }) => {
     [props.path, props.fieldName, documentData, state, getNewPath, props.type]
   )
   useEffect(() => {
-    if (!hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
-      resetState.current[
+    const effect = resetState.current
+    if (!hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+      effect[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
     }
     return () => {
-      if (resetState.current[
+      if (effect[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ]) {
         // eslint-disable-next-line
-        delete resetState.current[
+        delete effect[
           `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
         ];
       }
@@ -224,7 +225,7 @@ export default React.memo(({ ...props }) => {
   }, [setLabel, props.label])
 
   useEffect(() => {
-    if ((getProperties(props.queryVariableLabel, props.jsonVariables) || props.indexVariableLabel) && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+    if ((getProperties(props.queryVariableLabel, props.jsonVariables) || props.indexVariableLabel) && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
       renderFunction.current[
         `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
       ] = getLabel;
@@ -247,7 +248,7 @@ export default React.memo(({ ...props }) => {
     getLabel,
     renderFunction,
     props.repeatStepList,
-    props.allWaysShow, editChapter, props.thisChapter, finalChapter
+    props.allWaysShow, editChapter, props.thisChapter, finalChapter.current
   ]);
 
   useEffect(() => {
@@ -325,13 +326,13 @@ export default React.memo(({ ...props }) => {
         </>
       );
     } else if (props.size === "md") {
-      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
         return <ReadOnlyField {...commonProps} noLine className={`mb-3`} />;
       } else {
         return <ReadOnlyField {...commonProps} />;
       }
     } else if ((!props.size && props.math) || props.size === "sm") {
-      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
         return (
           <small>
             <ReadOnlyField
@@ -348,7 +349,7 @@ export default React.memo(({ ...props }) => {
       return <ReadOnlyField noLine {...commonProps} className={`mb-3`} />;
     }
   } else if (
-    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) ||
+    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) ||
     `${props.repeatStepList}-${props.fieldName}` === editChapter
   ) {
     return (

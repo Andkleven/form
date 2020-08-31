@@ -5,6 +5,7 @@ import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json
 import operatorMouldJson from "templates/mould/operatorMould.json";
 import qualityControlCoatedItemJson from "templates/coatedItem/qualityControlCoatedItem.json";
 import qualityControlMouldJson from "templates/mould/qualityControlMould.json";
+import history from "functions/history";
 import Title from "components/design/fonts/Title";
 import { getAccess } from "functions/user.ts";
 import Form from "components/form/Form";
@@ -99,6 +100,9 @@ export default pageInfo => {
           stageType={geometry}
           getQueryBy={itemId}
           saveButton={true}
+          backButton={() =>
+            history.push(`/`)
+          }
         />
       </Paper>
     </Canvas>
