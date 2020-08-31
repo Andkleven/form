@@ -44,7 +44,6 @@ export default ({ stagePath, ...props }) => {
         byStage ? thisStage === props.stage
           : !objectPath.get(documentData.current, createPath(pageInfo.stageQueryPath, repeatStepList), false)
         : false;
-      console.log(thisStage, props.stage)
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
         stagePath.current = createPath(pageInfo.stageQueryPath, repeatStepList)
