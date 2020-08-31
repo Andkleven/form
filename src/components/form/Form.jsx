@@ -27,9 +27,11 @@ function useStore(init = {}) {
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
-        Object.values(resetState.current).forEach(func => {
-          func();
-        });
+        if (!action.notReRender) {
+          Object.values(resetState.current).forEach(func => {
+            func();
+          });
+        }
         break;
       case "add":
         objectPath.set(
@@ -113,7 +115,8 @@ export default ({ saveVariables = {}, ...props }) => {
     lastData.current = cloneDeep(props.data);
     documentDataDispatch({
       type: "setState",
-      newState: props.data
+      newState: props.data,
+      notReRender: true
     });
   }
 

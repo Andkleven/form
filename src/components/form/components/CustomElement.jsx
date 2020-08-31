@@ -144,7 +144,7 @@ const CustomLead = props => {
     props.allWaysShow,
     editChapter,
     props.thisChapter,
-    finalChapter.current
+    finalChapter
   ]);
 
 

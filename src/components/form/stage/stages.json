@@ -1,5 +1,6 @@
 {
   "all": [
+    "start",
     "actualSteelMeasurement",
     "steelPreparation1",
     "steelPreparation2",

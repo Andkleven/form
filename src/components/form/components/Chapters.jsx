@@ -121,10 +121,12 @@ export default ({ stagePath, ...props }) => {
     let stageList = Object.keys(
       stagesJson[removeSpace(lowerCaseFirstLetter(props.stageType))],
     );
-    let thisStage = {
-      stage: stageList[0],
-      stageWithoutNumber: stageList[0],
-    };
+    let thisStage = findNextStage(
+      props.specData,
+      undefined,
+      props.stageType,
+    );
+
     while (stopLoop.current === false && i < 50) {
       if (props.document.chapters[thisStage["stageWithoutNumber"]]) {
         chapterBasedOnStage.push(

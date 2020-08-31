@@ -1,8 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import objectPath from "object-path";
 import { useMutation } from "@apollo/react-hooks";
 import { Button } from "react-bootstrap";
-import { Form } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,

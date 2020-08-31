@@ -189,7 +189,7 @@ export default React.memo(props => {
       }
     }
 
-  }, [documentData, props, deleteHandler, setFieldGroups, editChapter, finalChapter.current, hidden])
+  }, [documentData, props, deleteHandler, setFieldGroups, editChapter, finalChapter, hidden])
 
   const addData = useCallback(
     pushOnIndex => {

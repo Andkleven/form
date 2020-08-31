@@ -248,7 +248,10 @@ export default React.memo(({ ...props }) => {
     getLabel,
     renderFunction,
     props.repeatStepList,
-    props.allWaysShow, editChapter, props.thisChapter, finalChapter.current
+    props.allWaysShow,
+    editChapter,
+    props.thisChapter,
+    finalChapter
   ]);
 
   useEffect(() => {
