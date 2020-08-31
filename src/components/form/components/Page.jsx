@@ -99,6 +99,7 @@ export default React.memo(props => {
   const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.queryPath}-page-hidden`])
 
   if (props.finalChapter && props.finalChapter > finalChapter) {
+    console.log(1243)
     setFinalChapter(props.finalChapter);
   }
   const deleteData = useCallback(

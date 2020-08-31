@@ -75,6 +75,8 @@ export const DocumentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
 
+  const [loading, setLoading] = useState(true)
+  const timer = useRef()
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
@@ -107,6 +109,7 @@ export default ({ saveVariables = {}, ...props }) => {
     (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
       !lastData.current)
   ) {
+    setFinalChapter(0);
     lastData.current = cloneDeep(props.data);
     documentDataDispatch({
       type: "setState",
@@ -228,9 +231,10 @@ export default ({ saveVariables = {}, ...props }) => {
 
   const submitData = useCallback(
     (data, submit) => {
+      console.log(documentData.current)
       renderFunction.current = {}
       setEditChapter(0);
-      setFinalChapter(0);
+      setLoading(true)
       if (documentData.current) {
         if (submit && !props.stage && stagePath && !editChapter) {
           objectPath.set(documentData.current, stagePath.current, true)
@@ -292,16 +296,14 @@ export default ({ saveVariables = {}, ...props }) => {
     formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
   };
 
-  const [loading, setLoading] = useState(true)
-  const timer = useRef()
 
+  timer.current = setTimeout(() => {
+    setLoading(false)
+  }, 4000)
   useEffect(() => {
-    timer.current = setTimeout(() => {
-      setLoading(false)
-    }, 1)
     return () => {
-      setLoading(true)
       clearTimeout(timer.current)
+      setLoading(true)
     }
   }, [timer, setLoading])
 

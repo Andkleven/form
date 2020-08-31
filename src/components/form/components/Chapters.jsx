@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useContext } from "react";
+import React, { Fragment, useRef, useContext, useEffect } from "react";
 import {
   createPath,
   removeSpace,
@@ -15,10 +15,11 @@ import AutoScroll from "components/AutoScroll";
 // import objectPath from "object-path";
 
 export default ({ stagePath, ...props }) => {
-  const { editChapter } = useContext(ChapterContext);
+  const { editChapter, setFinalChapter } = useContext(ChapterContext);
   const {
     documentData
   } = useContext(DocumentDataContext);
+
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
   let count = 0;
@@ -43,7 +44,7 @@ export default ({ stagePath, ...props }) => {
         byStage ? thisStage === props.stage
           : !objectPath.get(documentData.current, createPath(pageInfo.stageQueryPath, repeatStepList), false)
         : false;
-
+      console.log(thisStage, props.stage)
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
         stagePath.current = createPath(pageInfo.stageQueryPath, repeatStepList)
