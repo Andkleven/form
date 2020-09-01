@@ -129,7 +129,7 @@ export default pageInfo => {
             reRender={() => setReRender(!reRender)}
             allData={fixedData}
             stage={fixedData && fixedData.items[0].stage}
-            stageType={geometry}
+            stageType={"qualityControl"}
             getQueryBy={itemId}
             saveVariables={{ itemId: itemId }}
             saveButton={true}

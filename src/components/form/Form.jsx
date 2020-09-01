@@ -76,7 +76,6 @@ export const ChapterContext = createContext();
 export const DocumentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
-  console.log(props.data)
   const [loading, setLoading] = useState(true)
   const timer = useRef()
   const [editChapter, setEditChapter] = useState(0);
@@ -217,15 +216,16 @@ export default ({ saveVariables = {}, ...props }) => {
     {
       update: props.updateCache
         ? props.updateCache
-        : !props.data ||
-          !props.data[Object.keys(props.data)[0]] ||
-          !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-            ? updateWithVariable
-            : update,
+        : update,
+      // !props.data ||
+      //   !props.data[Object.keys(props.data)[0]] ||
+      //   !props.data[Object.keys(props.data)[0]].length
+      //   ? props.firstQueryPath
+      //     ? createWithVariable
+      //     : create
+      //   : props.firstQueryPath
+      //     ? updateWithVariable
+      //     : update,
       onError: () => { },
       onCompleted: props.reRender
     }
@@ -235,6 +235,7 @@ export default ({ saveVariables = {}, ...props }) => {
     (data, submit) => {
       renderFunction.current = {}
       setEditChapter(0);
+      finalChapter.current = 0;
       setLoading(true)
       if (documentData.current) {
         if (submit && !props.stage && stagePath && !editChapter) {

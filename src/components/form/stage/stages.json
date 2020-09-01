@@ -64,9 +64,6 @@
     "touchUp": {
       "queryPath": ""
     },
-    "qualityControl": {
-      "queryPath": ""
-    },
     "done": {
       "queryPath": ""
     }
@@ -117,6 +114,11 @@
     "touchUp": {
       "queryPath": ""
     },
+    "done": {
+      "queryPath": ""
+    }
+  },
+  "qualityControl": {
     "qualityControl": {
       "queryPath": ""
     },

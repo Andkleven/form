@@ -12,8 +12,7 @@ import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import {
   objectifyQuery,
-  formDataStructure,
-  coatedItemOrMould
+  formDataStructure
 } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
@@ -97,7 +96,7 @@ export default pageInfo => {
           allData={fixedData}
           stage={fixedData && fixedData.items[0].stage}
           saveVariables={{ itemId: itemId }}
-          stageType={geometry}
+          stageType={"qualityControl"}
           getQueryBy={itemId}
           saveButton={true}
           backButton={() =>
