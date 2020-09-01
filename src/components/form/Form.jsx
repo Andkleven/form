@@ -26,14 +26,12 @@ function useStore(init = {}) {
   const reducer = action => {
     switch (action.type) {
       case "setState":
-
         state.current = cloneDeep(action.newState);
         Object.values(resetState.current).forEach(func => {
           func();
         });
         break;
       case "add":
-
         objectPath.set(
           state.current,
           action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
@@ -51,9 +49,7 @@ function useStore(init = {}) {
     }
     if (!action.notReRender) {
       Object.values(renderFunction.current)
-        .reverse()
         .forEach(func => {
-
           func();
         });
     }
@@ -75,10 +71,12 @@ function useMathStore(init = {}) {
 };
 
 export const ChapterContext = createContext();
-export const documentDataContext = createContext();
+export const DocumentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
 
+  const [loading, setLoading] = useState(true)
+  const timer = useRef()
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
@@ -86,10 +84,9 @@ export default ({ saveVariables = {}, ...props }) => {
     renderFunction,
     resetState
   ] = useStore();
-  const [mathStore, stateDispatch] = useMathStore();
-  const [unchangedData, setUnchangedData] = useState();
-  const [dataChange, setDataChange] = useState(false);
+  const [mathStore, mathDispatch] = useMathStore();
   const nextStage = useRef(true);
+  const renderMath = useRef({});
   const lastData = useRef(false);
   const stagePath = useRef(false);
   const [finalChapter, setFinalChapter] = useState(0);
@@ -106,20 +103,19 @@ export default ({ saveVariables = {}, ...props }) => {
       skip: !props.optionsQuery
     }
   );
-  // Set documentData to empty dictionary if a new component calls Form
 
   if (
     props.data &&
     (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
       !lastData.current)
   ) {
+    setFinalChapter(0);
     lastData.current = cloneDeep(props.data);
     documentDataDispatch({
       type: "setState",
       newState: props.data
     });
   }
-
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
@@ -235,9 +231,10 @@ export default ({ saveVariables = {}, ...props }) => {
 
   const submitData = useCallback(
     (data, submit) => {
+      console.log(documentData.current)
       renderFunction.current = {}
       setEditChapter(0);
-      setFinalChapter(0);
+      setLoading(true)
       if (documentData.current) {
         if (submit && !props.stage && stagePath && !editChapter) {
           objectPath.set(documentData.current, stagePath.current, true)
@@ -294,36 +291,36 @@ export default ({ saveVariables = {}, ...props }) => {
     submitData(documentData.current, true);
   };
 
-  useEffect(() => {
-    setDataChange(false);
-  }, [props.data]);
-
   const formRef = useRef();
   const save = () => {
     formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
   };
-  const unsavedChanges =
-    dataChange &&
-    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
 
 
+  timer.current = setTimeout(() => {
+    setLoading(false)
+  }, 4000)
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer.current)
+      setLoading(true)
+    }
+  }, [timer, setLoading])
 
 
   if (props.data) {
     return (
-      <documentDataContext.Provider
+      <DocumentDataContext.Provider
         value={{
           documentData,
           documentDataDispatch,
           renderFunction,
           resetState,
-          setDataChange,
-          dataChange,
-          setUnchangedData,
           save,
           submitData,
           mathStore,
-          stateDispatch
+          mathDispatch,
+          renderMath
         }}
       >
         <ChapterContext.Provider
@@ -334,6 +331,7 @@ export default ({ saveVariables = {}, ...props }) => {
             setEditChapter
           }}
         >
+          {loading && <Loading />}
           <Title>{props.document.documentTitle}</Title>
           <Form
             ref={formRef}
@@ -343,7 +341,7 @@ export default ({ saveVariables = {}, ...props }) => {
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={unsavedChanges}
+              when={() => (JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))}
               buttons={[
                 {
                   label: "Save and continue",
@@ -385,7 +383,7 @@ export default ({ saveVariables = {}, ...props }) => {
             )}
           </Form>
         </ChapterContext.Provider>
-      </documentDataContext.Provider>
+      </DocumentDataContext.Provider>
     );
   } else {
     return null;

@@ -5,6 +5,8 @@ import Projects from "./Projects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DarkButton from "components/button/DarkButton";
 import { getUser } from "functions/user";
+import DepthButton from "components/button/DepthButton";
+import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 
 const createStages = data => {
   let stages = [];
@@ -14,12 +16,12 @@ const createStages = data => {
   data.projects.forEach(project => {
     project.leadEngineerDone
       ? project.descriptions.forEach(description => {
-        description.items.forEach(item => {
-          item.qualityControlDone // Not tested yet
-            ? (qualityControl = true)
-            : !stages.includes(item.stage) && stages.push(item.stage);
-        });
-      })
+          description.items.forEach(item => {
+            item.qualityControlDone // Not tested yet
+              ? (qualityControl = true)
+              : !stages.includes(item.stage) && stages.push(item.stage);
+          });
+        })
       : (leadEngineer = true);
   });
 
@@ -38,6 +40,7 @@ export default ({ view = "items", ...props }) => {
 
   const [filters, setFilters] = useState(props.defaultFilters || {});
   const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
+  const [scan, setScan] = useState(false);
   const results = search(props.data, filters, searchTerm);
 
   const clearAll = () => {
@@ -48,22 +51,54 @@ export default ({ view = "items", ...props }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const Search = (
-    <Input
-      noComment={true}
-      className="mb-1"
-      placeholder="Search"
-      tight
-      value={searchTerm}
-      onChangeInput={e => {
-        setSearchTerm(e.target.value);
-      }}
-      unit={
-        <FontAwesomeIcon
-          icon="search"
-          style={{ position: "relative", top: "0.09em" }}
+    <>
+      <div className="d-flex flex-column flex-sm-row w-100">
+        <Input
+          noComment={true}
+          className="mb-1 w-100"
+          placeholder="Search"
+          tight
+          value={searchTerm}
+          onChangeInput={e => {
+            setSearchTerm(e.target.value);
+          }}
+          unit={
+            <FontAwesomeIcon
+              icon="search"
+              style={{ position: "relative", top: "0.09em" }}
+            />
+          }
         />
-      }
-    />
+        <DepthButton
+          short
+          className="mb-1 mb-sm-0 ml-sm-1 h-100"
+          onClick={() => {
+            setScan(!scan);
+          }}
+        >
+          <div className="d-flex align-items-center justify-content-center">
+            <FontAwesomeIcon
+              className="text-dark"
+              icon={["fas", scan ? "caret-up" : "qrcode"]}
+              // color="rgba(0, 0, 0, 0.75)"
+            />
+            <span className="ml-2">{scan ? "Cancel" : "Scan"}</span>
+          </div>
+        </DepthButton>
+      </div>
+      {scan && (
+        <BarcodeScannerComponent
+          className="rounded"
+          width={"100%"}
+          onUpdate={(err, result) => {
+            if (result) {
+              setSearchTerm(result.text);
+              setScan(false);
+            }
+          }}
+        />
+      )}
+    </>
   );
 
   const Stage = (
@@ -79,6 +114,7 @@ export default ({ view = "items", ...props }) => {
       value={filters.stage}
       onChangeSelect={e => {
         if (e) {
+          setTimeout(() => {}, 1000);
           if (e.value) {
             setFilters({ ...filters, stage: e.value });
           } else {
@@ -144,54 +180,50 @@ export default ({ view = "items", ...props }) => {
     SPECTATOR: filterStandard
   };
 
-  // console.log("data", props.data);
-  // console.log("results", results);
-  // console.log("stage", filters["stage"]);
-
   return (
     <>
       {(!!filterConfig[user.role]["simple"] ||
         !!filterConfig[user.role]["advanced"]) && (
-          <div className="mb-3">
-            <form id="filterForm">
-              {filterConfig[user.role]["simple"]}
-              {!!filterConfig[user.role]["advanced"] && (
-                <>
-                  <div hidden={!showAdvanced}>
-                    {filterConfig[user.role]["advanced"]}
-                  </div>
-                  <div className="d-sm-flex">
-                    <DarkButton
-                      onClick={() => {
-                        setShowAdvanced(!showAdvanced);
-                        showAdvanced && clearAll();
-                      }}
-                      className="mb-1"
-                    >
-                      <FontAwesomeIcon
-                        icon={["fas", showAdvanced ? "caret-up" : "caret-down"]}
-                        className="mr-2"
-                      />
-                      {`${showAdvanced ? "Hide" : "Show"} advanced search`}
-                    </DarkButton>
-                    <DarkButton
-                      onClick={() => {
-                        clearAll();
-                      }}
-                      className="mb-1"
-                    >
-                      <FontAwesomeIcon
-                        icon={["fas", "trash-alt"]}
-                        className="mr-2"
-                      />
+        <div className="mb-3">
+          <form id="filterForm">
+            {filterConfig[user.role]["simple"]}
+            {!!filterConfig[user.role]["advanced"] && (
+              <>
+                <div hidden={!showAdvanced}>
+                  {filterConfig[user.role]["advanced"]}
+                </div>
+                <div className="d-sm-flex">
+                  <DarkButton
+                    onClick={() => {
+                      setShowAdvanced(!showAdvanced);
+                      showAdvanced && clearAll();
+                    }}
+                    className="mb-1"
+                  >
+                    <FontAwesomeIcon
+                      icon={["fas", showAdvanced ? "caret-up" : "caret-down"]}
+                      className="mr-2"
+                    />
+                    {`${showAdvanced ? "Hide" : "Show"} advanced search`}
+                  </DarkButton>
+                  <DarkButton
+                    onClick={() => {
+                      clearAll();
+                    }}
+                    className="mb-1"
+                  >
+                    <FontAwesomeIcon
+                      icon={["fas", "trash-alt"]}
+                      className="mr-2"
+                    />
                     Clear all filters
                   </DarkButton>
-                  </div>
-                </>
-              )}
-            </form>
-          </div>
-        )}
+                </div>
+              </>
+            )}
+          </form>
+        </div>
+      )}
       <Projects
         {...props}
         results={results}

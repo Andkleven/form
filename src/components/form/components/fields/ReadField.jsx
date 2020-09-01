@@ -4,8 +4,8 @@ import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
-import { writeChapter } from "functions/general";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { writeChapter, getProperties } from "functions/general";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
 
@@ -13,13 +13,10 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-  let { documentData, documentDataDispatch, dataChange, unchangedData, save } =
-    !display && useContext(documentDataContext);
+  const { documentData, documentDataDispatch, save } =
+    !display && useContext(DocumentDataContext);
   const chapterContext = useContext(ChapterContext);
 
-  const unsavedChanges =
-    dataChange &&
-    JSON.stringify(unchangedData) !== JSON.stringify(documentData.current);
 
   const flipToWrite = () => {
     // if (unsavedChanges) {
@@ -87,7 +84,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <TinyButton
         {...props}
         onClick={() => {
-          if (unsavedChanges) {
+          if (documentData && (JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
             dialog({
               message: "Do you want to save your changes?",
               buttons: [
@@ -170,7 +167,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
 
   const showUnit = [undefined, null, "", false].includes(props.unit)
     ? ""
-    : props.unit;
+    : getProperties(props.unit, props.jsonVariables);
 
   const EmptyValue = () => (
     <div className="text-secondary">
@@ -197,7 +194,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <TinyEditButton
                 {...props}
                 className={showAboveBreakpoint()}
-                edit={props.edit}
+                edit={props.edit && !props.notSingleEdit}
               />
             )}
           </div>
@@ -239,7 +236,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <TinyEditButton
             {...props}
             className={showAboveBreakpoint()}
-            edit={props.edit}
+            edit={props.edit && !props.notSingleEdit}
           />
         )}
       </div>
@@ -280,7 +277,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <Label {...props} />
               <Value {...props} />
             </div>
-            {readOnly ? null : <TinyEditButton {...props} edit={props.edit} />}
+            {readOnly ? null : <TinyEditButton {...props} edit={props.edit && !props.notSingleEdit} />}
           </div>
         </Col>
         {savedComment && (

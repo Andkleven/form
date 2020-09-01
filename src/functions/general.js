@@ -21,21 +21,6 @@ export const isNumber = (number) => typeof number === "number";
 export const isNumberAndNotNaN = (number) =>
   typeof number === "number" && !isNaN(number);
 
-export const getDataFromQuery = (data, path, field) => {
-  if (!data) {
-    return null;
-  }
-
-  let stringFields = objectPath.get(data, path, null);
-  if (stringFields === null) {
-    return null;
-  }
-  let fields = stringToDictionary(stringFields.data);
-  if (!fields) {
-    return null;
-  }
-  return fields[field];
-};
 
 export const writeChapter = (allWaysShow, editChapter, thisChapter, finalChapter) => {
   if (allWaysShow) {
@@ -98,23 +83,6 @@ export const findValue = (
   return objectPath.get(data, path, null);
 };
 
-// Get data to Group or test if group have data in database
-export const getData = (
-  info,
-  repeatStepList,
-  documentData,
-  isItData = false,
-) => {
-  if (!documentData.current) {
-    return null;
-  }
-  let path = createPath(info.queryPath, repeatStepList);
-  let data = objectPath.get(documentData.current, path);
-  if (isItData && Array.isArray(data)) {
-    return data[data.length - 1];
-  }
-  return data;
-};
 
 export const sumFieldInObject = (array, key) => {
   let total = 0;
@@ -124,25 +92,9 @@ export const sumFieldInObject = (array, key) => {
   return total;
 };
 
-export const getValue = (value, queryName, indexNumber, fieldName) => {
-  let test;
-
-  if (
-    value[queryName] &&
-    value[queryName][indexNumber] !== undefined &&
-    value[queryName][indexNumber][fieldName] !== undefined
-  ) {
-    test = value[queryName][indexNumber][fieldName];
-  }
-
-  return test;
-};
 
 export const isStringInstance = (string) =>
   typeof string === "string" || string instanceof String;
-
-export const getLastObjectValue = (object, key) =>
-  object[Object.values(object).length - 1][key];
 
 export const allFalse = (element) => !element;
 
@@ -151,14 +103,7 @@ export const allTrue = (element) => element;
 export const allZeroOrNaN = (element) => element === 0 || isNaN(element);
 
 export const removeSpace = (string) => string.replace(/\s/g, "");
-
-export const notDataInField = (getDataFromGroupWithLookUpBy, lookUpBy) => {
-  return (
-    !getDataFromGroupWithLookUpBy ||
-    !getDataFromGroupWithLookUpBy.data ||
-    !getDataFromGroupWithLookUpBy.data[lookUpBy]
-  );
-};
+;
 
 export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
   let returnValue = true;
@@ -221,12 +166,6 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
   return returnValue;
 };
 
-export const emptyObject = (objectToCheck) => {
-  if (Object.entries(objectToCheck).length === 0) {
-    return true;
-  }
-  return false;
-};
 
 export const removeEmptyValueFromObject = (object) => {
   Object.keys(object).forEach((key) => {
@@ -350,15 +289,6 @@ export const objectifyQuery = (query) => {
   }
 };
 
-export const validateFieldWithValue = (validation) => {
-  Object.keys(validation).forEach((key) => {
-    if (!validation[key]) {
-      return false;
-    }
-  });
-  return true;
-};
-
 export const calculateMaxMin = (
   min,
   routeToSpecMin,
@@ -463,20 +393,9 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path,
     );
-
     return { [key]: newData };
   }
   return { [key]: [] };
-};
-
-export const allRequiredFinished = (data, fields) => {
-  let requiredApproved = true;
-  fields.forEach((field) => {
-    if (field.required && emptyField(data[field.fieldName])) {
-      requiredApproved = false;
-    }
-  });
-  return requiredApproved;
 };
 
 export const formDataStructure = (data, path) => {
@@ -590,16 +509,10 @@ export function isLastCharacterNumber(str) {
 
 export function getBatchingJson(
   geometry,
-  operatorCoatedItemJson,
-  operatorMouldJson,
+  operatorJson,
   allBatchingJson,
-  stage,
+  stage
 ) {
-  let operatorJson = coatedItemOrMould(
-    geometry,
-    operatorCoatedItemJson,
-    operatorMouldJson,
-  );
   let batchingJson = allBatchingJson[reshapeStageSting(stage)];
   batchingJson.document.chapters = [
     operatorJson.chapters[reshapeStageSting(stage)],
@@ -638,3 +551,18 @@ export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin =
   return comment
 }
 
+export function getProperties(value, jsonVariables = []) {
+  if (typeof value === 'object' && value !== null && !(value instanceof Array)) {
+    for (let variable of jsonVariables) {
+      if (value[removeSpace(lowerCaseFirstLetter(variable))] !== undefined) {
+
+        return value[removeSpace(lowerCaseFirstLetter(variable))]
+      }
+    }
+    return ""
+  } else if (value === undefined) {
+    return ""
+  } else {
+    return value
+  }
+}

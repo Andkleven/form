@@ -20,12 +20,7 @@ import {
 import Loading from "components/Loading";
 
 export default () => {
-  const {
-    stage,
-    projectId,
-    descriptionId,
-    geometryDefault
-  } = useParams();
+  const { stage, projectId, descriptionId, geometryDefault } = useParams();
 
   const [batchingData, setBatchingData] = useState(false);
   const [batchingListIds, setBatchingListIds] = useState([]);
@@ -43,7 +38,6 @@ export default () => {
   let batchingJson = getBatchingJson(
     geometry,
     operatorCoatedItemJson,
-    operatorMouldJson,
     allBatchingJson,
     reshapeStageSting(stage)
   );
@@ -92,7 +86,6 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-
   return (
     <Canvas>
       <Paper>
@@ -108,7 +101,6 @@ export default () => {
                       Number(description.id) === Number(newDescriptionId[0])
                   )["data"]["geometry"],
                 operatorCoatedItemJson,
-                operatorMouldJson,
                 allBatchingJson,
                 reshapeStageSting(stage)
               )
@@ -130,9 +122,10 @@ export default () => {
           repeatStepList={
             getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
           }
+          jsonVariables={[geometry]}
           chapterAlwaysInWrite={true}
           componentsId={"leadEngineersPage"}
-          geometry={geometry}
+          stageType={geometry}
           notSubmitButton={!batchingListIds.length}
           document={batchingJson.document}
           reRender={() => {

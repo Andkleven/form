@@ -18,14 +18,27 @@
           "fields": [
             {
               "fieldName": "measurementPoint",
-              "queryVariableLabel": [
-                "leadEngineers.0.measurementPointActualTdvs",
-                "data.referencePoint"
-              ],
+              "queryVariableLabel": {
+                "coatedItem": [
+                  "leadEngineers.0.measurementPointActualTdvs",
+                  "data.referencePoint"
+                ]
+              },
               "variableLabelSpec": true,
-              "label": "Measurement Point Reference: {}",
-              "calculateMin": "qualityControlMeasurementPointCoatingItemMin",
-              "calculateMax": "qualityControlMeasurementPointCoatingItemMax",
+              "label": {
+                "coatedItem": "Measurement Point Reference: {}",
+                "mould": "Measurement Point"
+              },
+              "calculateMin": {
+                "coatedItem": "qualityControlMeasurementPointCoatingItemMin",
+                "mould": "qualityControlMeasurementPointMouldMin"
+              },
+              "calculateMax": {
+                "coatedItem": "qualityControlMeasurementPointCoatingItemMax",
+                "mould": "qualityControlMeasurementPointMouldMax"
+              },
+              "ignoreMin": true,
+              "ignoreMax": true,
               "type": "number",
               "required": true,
               "unit": "mm"
@@ -36,11 +49,26 @@
           "queryPath": "finalInspectionQualityControls",
           "fields": [
             {
+              "showField": {
+                "coatedItem": true
+              },
               "fieldName": "totalOd",
               "label": "Total OD (Pi-tape)",
               "type": "checkbox",
               "required": true,
-              "subtext": "APS. Final measurements are within tolerances."
+              "subtext": "APS. Final measurements are within tolerances.",
+              "showFieldSpecPath": "leadEngineers.0.data.totalOd"
+            },
+            {
+              "showField": {
+                "mould": true
+              },
+              "fieldName": "totalCoatingThickness",
+              "label": "Total Coating Thickness",
+              "type": "checkbox",
+              "required": true,
+              "subtext": "APS. Final measurements are within tolerances.",
+              "showFieldSpecPath": "leadEngineers.0.data.totalCoatingThickness"
             },
             {
               "fieldName": "visualInspection",

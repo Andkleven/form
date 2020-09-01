@@ -3,12 +3,13 @@ import {
   findValue,
   emptyField,
   isNumber,
-  removeSpace
+  removeSpace,
+  lowerCaseFirstLetter
 } from "functions/general.js";
 
 export default (specData: object, stage: string, stageType: string): object => {
   stage = stage ? stage : stagesJson.all[0];
-  stageType = removeSpace(stageType).toLowerCase();
+  stageType = removeSpace(lowerCaseFirstLetter(stageType));
   function nextStageFormat(index: number, step: number, layer: number): object {
     nextStage = stagesJson.all[index + 1];
     if (
@@ -62,7 +63,9 @@ export default (specData: object, stage: string, stageType: string): object => {
         return { stage: `${crossroads}${step + 1}`, stageWithoutNumber: `${crossroads}`, number: [step, 0] };
       }
     }
-    if (stagesJson[stageType][thisStage]["layer"]) {
+    if (stagesJson[stageType][thisStage] === undefined) {
+      index++;
+    } else if (stagesJson[stageType][thisStage]["layer"]) {
       layer += 1
       query = findValue(
         specData,
@@ -74,7 +77,6 @@ export default (specData: object, stage: string, stageType: string): object => {
         return nextStageFormat(index - 1, step, layer);
       }
     }
-
     thisStage = stages[index + 1];
     if (emptyField(stagesJson[stageType][thisStage])) {
       index++;

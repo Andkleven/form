@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useEffect, useState } from "react";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import Input from "components/input/Input";
 import TinyButton from "components/button/TinyButton";
@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
-const cloneDeep = require("clone-deep");
 
 
 
@@ -22,12 +21,8 @@ export default ({ setState, state, ...props }) => {
   // const timer = useRef(0)
   const {
     documentData,
-    documentDataDispatch,
-    setDataChange,
-    dataChange,
-    setUnchangedData
-  } = useContext(documentDataContext);
-
+    documentDataDispatch
+  } = useContext(DocumentDataContext);
 
   const addUser = useCallback(() => {
     documentDataDispatch({
@@ -38,17 +33,9 @@ export default ({ setState, state, ...props }) => {
   }, [documentDataDispatch, props.path, userInfo.username]);
 
   const onChange = value => {
-    // clearTimeout(timer.current)
-    setState(value);
-    // timer.current = setTimeout(() => {
-    if (!dataChange) {
-      setDataChange(true);
-      setUnchangedData(cloneDeep(documentData.current));
-    }
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
-    // }, delayOnChange)
   };
 
 
@@ -59,9 +46,15 @@ export default ({ setState, state, ...props }) => {
   const onChangeSelect = e => {
     onChange(e.value);
   };
-
   const onChangeFile = value => {
-    onChange(value);
+    documentDataDispatch({ type: "add", newState: value, path: props.path });
+    setState(value);
+    let spiltPath = props.path.split(".")
+    documentDataDispatch({
+      type: "add",
+      newState: userInfo.username,
+      path: `${spiltPath.slice(0, -1).join(".")}.data.${spiltPath[spiltPath.length - 1]}userField`
+    });
   };
 
   const onChangeInput = e => {
@@ -115,7 +108,6 @@ export default ({ setState, state, ...props }) => {
       newState: objectPath.get(props.backendData, props.path),
       path: props.path
     });
-    setDataChange(false);
     setEditChapter(0);
   };
 

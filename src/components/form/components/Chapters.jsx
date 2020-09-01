@@ -1,23 +1,25 @@
-import React, { Fragment, useRef, useContext } from "react";
+import React, { Fragment, useRef, useContext, useEffect } from "react";
 import {
   createPath,
   removeSpace,
+  lowerCaseFirstLetter
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import objectPath from "object-path";
 import stagesJson from "components/form/stage/stages.json";
-import { ChapterContext, documentDataContext } from "components/form/Form";
+import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
 export default ({ stagePath, ...props }) => {
-  const { editChapter } = useContext(ChapterContext);
+  const { editChapter, setFinalChapter } = useContext(ChapterContext);
   const {
     documentData
-  } = useContext(documentDataContext);
+  } = useContext(DocumentDataContext);
+
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
   let count = 0;
@@ -42,7 +44,6 @@ export default ({ stagePath, ...props }) => {
         byStage ? thisStage === props.stage
           : !objectPath.get(documentData.current, createPath(pageInfo.stageQueryPath, repeatStepList), false)
         : false;
-
       // if now data in lookUpBy this is last chapter
       if (allRequiredFieldSatisfied) {
         stagePath.current = createPath(pageInfo.stageQueryPath, repeatStepList)
@@ -118,7 +119,7 @@ export default ({ stagePath, ...props }) => {
     let i = 0;
     let chapterBasedOnStage = [];
     let stageList = Object.keys(
-      stagesJson[removeSpace(props.stageType.toLowerCase())],
+      stagesJson[removeSpace(lowerCaseFirstLetter(props.stageType))],
     );
     let thisStage = {
       stage: stageList[0],

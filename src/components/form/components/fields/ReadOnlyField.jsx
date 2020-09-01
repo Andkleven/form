@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import Math from "components/form/functions/math";
 import { writeChapter } from "functions/general"
 import ReadField from "components/form/components/fields/ReadField";
 
 import "styles/styles.css";
 
+
 export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { editChapter, finalChapter } = useContext(ChapterContext);
-  const { documentData, renderFunction, stateDispatch, mathStore } = useContext(documentDataContext);
+  const { documentData, renderFunction, mathDispatch, mathStore, renderMath } = useContext(DocumentDataContext);
   const math = useCallback(() => {
     const getValueFromMath = Math[props.math](
       Object.keys(documentData.current).length === 0
@@ -19,16 +20,21 @@ export default ({ backendData, ...props }) => {
       props.decimal ? props.decimal : 0,
       mathStore.current
     );
-    stateDispatch({ path: props.path, newState: getValueFromMath })
+    mathDispatch({ path: props.path, newState: getValueFromMath })
     setValue(getValueFromMath);
+    Object.values(renderMath.current)
+      .forEach(func => {
+        func();
+      });
   }, [
     documentData,
     props.decimal,
     props.math,
     backendData,
     props.repeatStepList,
-    stateDispatch,
+    mathDispatch,
     props.path,
+    renderMath,
     mathStore
   ]);
 

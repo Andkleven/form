@@ -6,6 +6,7 @@
     "primer1",
     "primer2",
     "rubberCementsBeforeCoating",
+    "itemRubberCementsBeforeCoating",
     "coatingStepLayer",
     "vulcanizationStep",
     "measurementPointStep",
@@ -29,8 +30,8 @@
     "primer2": {
       "queryPath": "leadEngineers.0.data.primer2"
     },
-    "rubberCementsBeforeCoating": {
-      "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
+    "itemRubberCementsBeforeCoating": {
+      "queryPath": "leadEngineers.0.data.itemRubberCementsBeforeCoating"
     },
     "coatingStepLayer": {
       "queryPath": [
@@ -83,7 +84,7 @@
       "queryPath": "leadEngineers.0.data.primer2"
     },
     "rubberCementsBeforeCoating": {
-      "queryPath": "leadEngineers.0.data.rubberCementsBeforeCoating"
+      "queryPath": "leadEngineers.0.data.itemRubberCementsBeforeCoating"
     },
     "coatingStepLayer": {
       "queryPath": [

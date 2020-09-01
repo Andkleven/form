@@ -1,7 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import FieldGroup from "components/form/components/fields/FieldGroup";
 import objectPath from "object-path";
-import { documentDataContext, ChapterContext } from "components/form/Form";
+import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import {
   getRepeatNumber,
   getRepeatStepList,
@@ -14,7 +14,7 @@ import Line from "components/design/Line";
 import DepthButton from "components/button/DepthButton";
 
 export default ({ addOrRemove, ...props }) => {
-  const { documentData } = useContext(documentDataContext);
+  const { documentData } = useContext(DocumentDataContext);
   const {
     finalChapter,
     editChapter

@@ -58,8 +58,8 @@ export default ({
               as={type === "comment" ? "textarea" : "input"}
               style={type === "comment" ? { resize: "none" } : undefined}
               rows={type === "comment" ? "5" : undefined}
-              min={min}
-              max={max}
+              min={props.ignoreMin ? undefined : props.min}
+              max={props.ignoreMax ? undefined : props.max}
               step={step}
               placeholder={placeholder}
               onKeyPress={onKeyPress}

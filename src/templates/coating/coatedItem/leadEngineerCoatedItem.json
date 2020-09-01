@@ -81,7 +81,10 @@
               "fieldName": "additionalTests",
               "label": "Additional Tests",
               "type": "checkbox",
-              "default": true
+              "default": {
+                "coatedItem": true,
+                "mould": false
+              }
             },
             {
               "fieldName": "blastMediaConductivity",
@@ -208,8 +211,23 @@
               ]
             },
             {
-              "fieldName": "rubberCementsBeforeCoating",
+              "showField": {
+                "coatedItem": true
+              },
+              "fieldName": "itemRubberCementsBeforeCoating",
               "label": "Item Rubber Cement Before Coating",
+              "type": "select",
+              "options": [
+                "75051",
+                "Soap"
+              ]
+            },
+            {
+              "showField": {
+                "mould": true
+              },
+              "fieldName": "rubberCementsBeforeCoating",
+              "label": "Rubber Agent Before Coating",
               "type": "select",
               "options": [
                 "75051",
@@ -269,13 +287,18 @@
               "subtext": "Pre-Coating",
               "required": true,
               "minInput": 0,
-              "maxInput": 10
+              "maxInput": 10,
+              "notSingleEdit": true
             },
             {
+              "showField": {
+                "coatedItem": true
+              },
               "fieldName": "targetDescriptionValue",
               "label": "TDV (Target Description Value)",
               "type": "select",
               "required": true,
+              "notSingleEdit": true,
               "options": [
                 "OD",
                 "ID"
@@ -284,6 +307,10 @@
           ]
         },
         {
+          "showPage": {
+            "coatedItem": true,
+            "mould": false
+          },
           "queryPath": "leadEngineers.0.measurementPointActualTdvs",
           "repeat": true,
           "notAddButton": true,
@@ -350,7 +377,8 @@
               "required": true,
               "type": "Number",
               "minInput": 0,
-              "maxInput": 30
+              "maxInput": 30,
+              "notSingleEdit": true
             },
             {
               "page": true,
@@ -486,7 +514,10 @@
                   "indent": "true"
                 },
                 {
-                  "page": true,
+                  "page": {
+                    "coatedItem": true,
+                    "mould": false
+                  },
                   "queryPath": "cumulativeThickness",
                   "repeat": true,
                   "notAddButton": true,
@@ -553,6 +584,18 @@
               "min": 0
             },
             {
+              "showField": {
+                "coatedItem": true
+              },
+              "fieldName": "totalOd",
+              "label": "Total OD (Pi-tape)",
+              "type": "checkbox",
+              "subtext": "APS. Final measurments are within tolerances."
+            },
+            {
+              "showField": {
+                "mould": true
+              },
               "fieldName": "totalCoatingThickness",
               "label": "Total Coating Thickness",
               "type": "checkbox",

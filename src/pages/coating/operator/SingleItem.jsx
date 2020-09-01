@@ -27,13 +27,8 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-  let qualityControlJson = coatedItemOrMould(
-    geometry,
-    qualityControlCoatedItemJson,
-    qualityControlMouldJson
-  );
 
-  const { loading, error, data } = useQuery(query[qualityControlJson.query], {
+  const { loading, error, data } = useQuery(query[qualityControlCoatedItemJson.query], {
     variables: { id: itemId }
   });
   useEffect(() => {
@@ -69,13 +64,10 @@ export default pageInfo => {
           </Title>
 
           <Form
+            jsonVariables={[geometry]}
             componentsId={"leadEngineersPage"}
             edit={access.itemEdit}
-            document={coatedItemOrMould(
-              geometry,
-              leadEngineersCoatedItemJson,
-              leadEngineersMouldJson
-            )}
+            document={leadEngineersCoatedItemJson}
             reRender={() => setReRender(!reRender)}
             data={
               fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
@@ -92,35 +84,32 @@ export default pageInfo => {
           </Title>
         )}
         <Form
+          jsonVariables={[geometry]}
           componentsId={opId.current}
-          document={coatedItemOrMould(
-            geometry,
-            operatorCoatedItemJson,
-            operatorMouldJson
-          )}
+          document={operatorCoatedItemJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           specData={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
+          saveVariables={{ itemId: itemId }}
           edit={access.itemEdit}
           readOnlySheet={!access.itemWrite}
           stage={stage}
           stageType={geometry}
           getQueryBy={itemId}
-          itemId={itemId}
-          sendItemId={true}
           saveButton={true}
         />
       </Paper>
-      {access.finalInspection && stage === "qualityControl" && (
+      {access.finalInspection && ["qualityControl", "done"].includes(stage) && (
         <Paper>
           <Title big align="center">
             Quality Control
           </Title>
           <Form
+            jsonVariables={[geometry]}
             componentsId={"finalInspectionQualityControls"}
-            document={qualityControlJson}
+            document={qualityControlCoatedItemJson}
             data={
               fixedData &&
               formDataStructure(
@@ -137,8 +126,7 @@ export default pageInfo => {
             stage={fixedData && fixedData.items[0].stage}
             stageType={geometry}
             getQueryBy={itemId}
-            itemId={itemId}
-            sendItemId={true}
+            saveVariables={{ itemId: itemId }}
             saveButton={true}
           />
         </Paper>

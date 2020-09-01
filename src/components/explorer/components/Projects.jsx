@@ -180,6 +180,7 @@ export default ({
   // Batching stages
   const batchingStages = Object.keys(batching);
   let showNoItemsFound = true;
+
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
@@ -400,7 +401,7 @@ export default ({
                         iconSize={iconSize}
                         iconStyle={iconStyle}
                         rowStyle={rowStyle}
-                        defaultOpen
+                        // defaultOpen
                         key={`project${indexProject}Description${indexDescription}`}
                         // name={description.data.geometry}
                         name={

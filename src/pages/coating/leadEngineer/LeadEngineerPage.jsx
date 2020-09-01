@@ -24,11 +24,7 @@ export default pageInfo => {
   } = pageInfo.match.params;
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
-  leadEngineersJson = coatedItemOrMould(
-    geometry,
-    leadEngineersCoatedItemJson,
-    leadEngineersMouldJson
-  );
+
   const { loading, error, data } = useQuery(query[leadEngineersJson.query], {
     variables: { id: itemId }
   });
@@ -39,7 +35,7 @@ export default pageInfo => {
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
-    <Canvas showForm={data}>
+    <Canvas showForm={!!data}>
       <Overview />
       <Paper full>
         <Form
@@ -47,6 +43,7 @@ export default pageInfo => {
           document={leadEngineersJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData}
+          jsonVariables={[geometry]}
           saveVariables={{
             descriptionId:
               Number(unique) === 0 ? Number(descriptionId) : undefined,
