@@ -138,7 +138,8 @@ export default () => {
             batchingListIds,
             batchingJson.document.queryPath,
             newDescriptionId[0],
-            getStepFromStage(stage) ? [getStepFromStage(stage)] : null
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
+            batchingData
           )}
           stage={stage}
           specData={getDataToBatching(
@@ -146,7 +147,8 @@ export default () => {
             batchingListIds,
             batchingJson.document.specQueryPath,
             newDescriptionId[0],
-            getStepFromStage(stage) ? [getStepFromStage(stage)] : null
+            getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
+            batchingData
           )}
           updateCache={() => update}
           saveButton={!!batchingListIds.length}

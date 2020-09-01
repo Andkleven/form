@@ -76,7 +76,7 @@ export const ChapterContext = createContext();
 export const DocumentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
-
+  console.log(props.data)
   const [loading, setLoading] = useState(true)
   const timer = useRef()
   const [editChapter, setEditChapter] = useState(0);
@@ -115,8 +115,7 @@ export default ({ saveVariables = {}, ...props }) => {
     lastData.current = cloneDeep(props.data);
     documentDataDispatch({
       type: "setState",
-      newState: props.data,
-      notReRender: true
+      newState: props.data
     });
   }
 
