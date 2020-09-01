@@ -271,24 +271,6 @@ export default ({
                 <div className="d-flex align-items-center flex-wrap">
                   {props.access && props.access.specs && (
                     <Link
-                      key={`projectSpecs${indexProject} -0`}
-                      onClick={() => {
-                        copyProject({ variables: { id: project.id } });
-                        window.location.reload(false);
-                      }}
-                      iconProps={{
-                        icon: ["fad", "file-invoice"],
-                        swapOpacity: true,
-                        size: iconSize,
-                        style: iconStyle
-                      }}
-                      style={{ marginRight: ".75em", ...rowStyle }}
-                    >
-                      Copy
-                    </Link>
-                  )}
-                  {props.access && props.access.specs && (
-                    <Link
                       to={`/project/${project.productionLine}/${project.id}`}
                       key={`projectSpecs${indexProject}-1`}
                       iconProps={{
@@ -302,6 +284,24 @@ export default ({
                       Specifications
                     </Link>
                   )}
+                  {props.access && props.access.specs && (
+                    <Link
+                      key={`projectSpecs${indexProject} -0`}
+                      onClick={() => {
+                        copyProject({ variables: { id: project.id } });
+                        window.location.reload(false);
+                      }}
+                      iconProps={{
+                        icon: ["fad", "copy"],
+                        swapOpacity: true,
+                        size: iconSize,
+                        style: iconStyle
+                      }}
+                      style={{ marginRight: ".75em", ...rowStyle }}
+                    >
+                      Duplicate
+                    </Link>
+                  )}
                   {props.access &&
                     props.access.receiptControl &&
                     project.productionLine === "packer" && (
@@ -309,7 +309,7 @@ export default ({
                         to={`/project-receipt-control/${project.id}`}
                         key={`projectSpecs${indexProject}-2`}
                         iconProps={{
-                          icon: ["fad", "file-invoice"],
+                          icon: ["fad", "receipt"],
                           swapOpacity: true,
                           size: iconSize,
                           style: iconStyle

@@ -322,7 +322,7 @@ const File = ({ file, ...props }) => {
 
     return (
       <>
-        <Div100vh
+        <div
           style={{
             position: "fixed",
             // width: "100%",
@@ -331,7 +331,8 @@ const File = ({ file, ...props }) => {
             right: 0,
             left: 0,
             zIndex: 999,
-            backgroundColor: "rgba(0, 0, 0, 0.25)"
+            backgroundColor: "rgba(0, 0, 0, 0.25)",
+            overflow: "scroll"
           }}
         >
           <Button
@@ -357,12 +358,7 @@ const File = ({ file, ...props }) => {
               className="mx-1"
             />
           </Button>
-          <Container
-            className="d-flex px-3 h-100"
-            style={{
-              overflow: "scroll"
-            }}
-          >
+          <Container className="d-flex px-3 h-100">
             <div className="my-auto d-flex flex-column">
               <img
                 ref={imageRef}
@@ -392,7 +388,7 @@ const File = ({ file, ...props }) => {
               </div>
             </div>
           </Container>
-        </Div100vh>
+        </div>
 
         {/* {error && (
           <p style={{ color: "red" }}>something went wrong try again!</p>
