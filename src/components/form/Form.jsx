@@ -306,6 +306,8 @@ export default ({ saveVariables = {}, ...props }) => {
     };
   }, [timer, setLoading]);
 
+  const [when, setWhen] = useState(false);
+
   if (props.data) {
     return (
       <DocumentDataContext.Provider
@@ -335,13 +337,16 @@ export default ({ saveVariables = {}, ...props }) => {
             onSubmit={e => {
               formSubmit(e);
             }}
+            onChange={() =>
+              setWhen(
+                JSON.stringify(props.data) !==
+                  JSON.stringify(documentData.current)
+              )
+            }
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={
-                JSON.stringify(props.data) !==
-                JSON.stringify(documentData.current)
-              }
+              when={when}
               buttons={[
                 {
                   label: "Save and continue",
