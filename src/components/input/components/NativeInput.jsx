@@ -31,11 +31,9 @@ export default ({
 }) => {
   switch (type) {
     case "date":
-      console.log("date");
       value = value && moment(value).format("yyyy-MM-DD");
       break;
     case "datetime-local":
-      console.log("datetime-local");
       value = value && moment(value).format("yyyy-MM-DDThh:mm");
       break;
     default:
