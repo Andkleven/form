@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorCoatedItemJson from "templates/operatorCoatedItem.json";
-import leadEngineersCoatedItemJson from "templates/leadEngineerCoatedItem.json";
-import qualityControlCoatedItemJson from "templates/qualityControlCoatedItem.json";
+import operatorCoatedItemJson from "templates/operator.json";
+import leadEngineersCoatedItemJson from "templates/leadEngineer.json";
+import qualityControlCoatedItemJson from "templates/qualityControl.json";
 import Form from "components/form/Form";
 import history from "functions/history";
 import Paper from "components/layout/Paper";
