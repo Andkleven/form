@@ -17,9 +17,17 @@ export default (specData: object, stage: string, stageType: string): object => {
       stagesJson[stageType][nextStage]["step"]
     ) {
       if (stagesJson[stageType][nextStage]["layer"]) {
-        return { stage: `${nextStage.split("Step")[0]}Step${step}Layer${layer}`, stageWithoutNumber: `${nextStage.split("Step")[0]}StepLayer`, number: [step - 1, layer - 1] }
+        return {
+          stage: `${nextStage.split("Step")[0]}Step${step}Layer${layer}`,
+          stageWithoutNumber: `${nextStage.split("Step")[0]}StepLayer`,
+          number: [step - 1, layer - 1]
+        };
       }
-      return { stage: `${nextStage}${step}`, stageWithoutNumber: `${nextStage}`, number: [step - 1] }
+      return {
+        stage: `${nextStage}${step}`,
+        stageWithoutNumber: `${nextStage}`,
+        number: [step - 1]
+      };
     }
     return { stage: nextStage, stageWithoutNumber: nextStage };
   }
@@ -33,10 +41,10 @@ export default (specData: object, stage: string, stageType: string): object => {
     thisStage = stage.split("Step")[0] + "Step";
     if (stage.includes("Layer")) {
       layer = Number(stepLayer.split("Layer")[1]);
-      step = Number(stepLayer.split("Layer")[0])
-      thisStage = thisStage + "Layer"
+      step = Number(stepLayer.split("Layer")[0]);
+      thisStage = thisStage + "Layer";
     } else {
-      step = Number(stepLayer)
+      step = Number(stepLayer);
     }
   }
 
@@ -60,11 +68,18 @@ export default (specData: object, stage: string, stageType: string): object => {
         stagesJson[stageType][crossroads]["editIndexList"]
       );
       if (!emptyField(query)) {
-        return { stage: `${crossroads}${step + 1}`, stageWithoutNumber: `${crossroads}`, number: [step, 0] };
+        return {
+          stage: `${crossroads}${step + 1}`,
+          stageWithoutNumber: `${crossroads}`,
+          number: [step, 0]
+        };
       }
     }
-    if (stagesJson[stageType][thisStage] && stagesJson[stageType][thisStage]["layer"]) {
-      layer += 1
+    if (
+      stagesJson[stageType][thisStage] &&
+      stagesJson[stageType][thisStage]["layer"]
+    ) {
+      layer += 1;
       query = findValue(
         specData,
         stagesJson[stageType][thisStage]["queryPath"],
