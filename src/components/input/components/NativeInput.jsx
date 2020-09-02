@@ -29,7 +29,7 @@ export default ({
   onKeyPress,
   ...props
 }) => {
-  // Format date value
+  // Format datetime values
   switch (type) {
     case "date":
       value = value && moment(value).format("yyyy-MM-DD");
