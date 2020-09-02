@@ -48,6 +48,8 @@ export default React.memo(({ ...props }) => {
       `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
     ]
   );
+
+  console.log(hidden, props.fieldName);
   const [label, setLabel] = useState("");
   const setFirstValue = useRef(true);
 
@@ -64,6 +66,12 @@ export default React.memo(({ ...props }) => {
     }
     if (props.path && props.fieldName && documentDataState !== state) {
       setState(documentDataState);
+      documentDataDispatch({
+        type: "add",
+        newState: documentDataState,
+        path: getNewPath(),
+        notReRender: true
+      });
     }
   }, [
     props.path,
@@ -71,10 +79,10 @@ export default React.memo(({ ...props }) => {
     documentData,
     state,
     getNewPath,
+    documentDataDispatch,
     props.type
   ]);
   useEffect(() => {
-    const effect = resetState.current;
     if (
       !hidden &&
       writeChapter(
@@ -84,18 +92,18 @@ export default React.memo(({ ...props }) => {
         finalChapter.current
       )
     ) {
-      effect[
+      resetState.current[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
     }
     return () => {
       if (
-        effect[
+        resetState.current[
           `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
         ]
       ) {
         // eslint-disable-next-line
-        delete effect[
+        delete resetState.current[
           `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
         ];
       }
@@ -126,7 +134,12 @@ export default React.memo(({ ...props }) => {
           backendDate = backendDate ? new Date(backendDate) : null;
         }
         setState(backendDate);
-        // documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
+        documentDataDispatch({
+          type: "add",
+          newState: backendDate,
+          path: getNewPath(),
+          notReRender: true
+        });
         setFirstValue.current = false;
       }
     }
