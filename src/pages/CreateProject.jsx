@@ -10,8 +10,7 @@ import Paper from "components/layout/Paper";
 import {
   objectifyQuery,
   stringifyQuery,
-  getStartStage,
-  productionLineJson
+  getStartStage
 } from "functions/general";
 import ItemUpdate from "components/item/ItemUpdate";
 import { useParams } from "react-router-dom";
@@ -19,8 +18,7 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import coatingCreateProject from "templates/coating/coatingCreateProject.json";
-import packerCreateProject from "templates/packer/packerCreateProject.json";
+import createProject from "templates/createProject.json";
 import Loading from "components/Loading";
 const cloneDeep = require("clone-deep");
 
@@ -34,16 +32,10 @@ export default () => {
   const [projectsData, setProjectData] = useState(0);
   const [fixedData, setFixedData] = useState(null);
 
-  const createProjectJson = productionLineJson(
-    productionLine,
-    coatingCreateProject,
-    packerCreateProject
-  );
-
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[createProjectJson.query], {
+  const { loading, error, data } = useQuery(query[createProject.query], {
     variables: { id: _id }
   });
 
@@ -87,22 +79,22 @@ export default () => {
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[createProjectJson.query],
+      query: query[createProject.query],
       variables: { id: _id }
     });
-    let array = objectPath.get(oldData, createProjectJson.queryPath);
+    let array = objectPath.get(oldData, createProject.queryPath);
     let index = array.findIndex(
-      x => x.id === data[createProjectJson.queryPath.split(/[.]+/).pop()].new.id
+      x => x.id === data[createProject.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
-      `${createProjectJson.queryPath}.${index}`,
-      data[createProjectJson.queryPath.split(/[.]+/).pop()].new
+      `${createProject.queryPath}.${index}`,
+      data[createProject.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = createProjectJson.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = createProject.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: query[createProjectJson.query],
-      variables: { id: createProjectJson.getQueryBy },
+      query: query[createProject.query],
+      variables: { id: createProject.getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
@@ -250,7 +242,7 @@ export default () => {
       <Paper>
         <Form
           componentsId={"itemsPage" + counter.toString()}
-          document={createProjectJson}
+          document={createProject}
           reRender={() => setReRender(!reRender)}
           data={fixedData}
           repeatStepList={[counter - 1]}

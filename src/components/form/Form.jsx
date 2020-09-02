@@ -136,76 +136,76 @@ export default ({ saveVariables = {}, ...props }) => {
     });
   };
 
-  const updateWithVariable = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
-    });
-    let secondQueryPath = "";
-    let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
-    if (props.secondQueryPath.trim()) {
-      newData = data[props.secondQueryPath.split(/[.]+/).pop()];
-      secondQueryPath = `.${props.repeatStepList}.${props.secondQueryPath}`;
-    }
-    let array = objectPath.get(
-      oldData,
-      [props.firstQueryPath] + secondQueryPath
-    );
-    let index = 0;
-    if (props.secondQueryPath.trim()) {
-      index = array.findIndex(x => x.id === newData.new.id);
-    } else {
-      index = array.findIndex(x => x.id === newData.new.id);
-    }
-    objectPath.set(
-      oldData,
-      `${props.firstQueryPath}${secondQueryPath}.${index}`,
-      newData.new
-    );
-    let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
+  // const updateWithVariable = (cache, { data }) => {
+  //   const oldData = cache.readQuery({
+  //     query: query[props.document.query],
+  //     variables: { id: props.getQueryBy }
+  //   });
+  //   let secondQueryPath = "";
+  //   let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
+  //   if (props.secondQueryPath.trim()) {
+  //     newData = data[props.secondQueryPath.split(/[.]+/).pop()];
+  //     secondQueryPath = `.${props.repeatStepList}.${props.secondQueryPath}`;
+  //   }
+  //   let array = objectPath.get(
+  //     oldData,
+  //     [props.firstQueryPath] + secondQueryPath
+  //   );
+  //   let index = 0;
+  //   if (props.secondQueryPath.trim()) {
+  //     index = array.findIndex(x => x.id === newData.new.id);
+  //   } else {
+  //     index = array.findIndex(x => x.id === newData.new.id);
+  //   }
+  //   objectPath.set(
+  //     oldData,
+  //     `${props.firstQueryPath}${secondQueryPath}.${index}`,
+  //     newData.new
+  //   );
+  //   let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
 
-    cache.writeQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
-    });
-  };
+  //   cache.writeQuery({
+  //     query: query[props.document.query],
+  //     variables: { id: props.getQueryBy },
+  //     data: { [saveData]: oldData[saveData] }
+  //   });
+  // };
 
-  const create = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
-    });
-    objectPath.push(
-      oldData,
-      props.document.queryPath,
-      data[props.document.queryPath.split(/[.]+/).pop()].new
-    );
-    let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
-    cache.writeQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
-    });
-  };
+  // const create = (cache, { data }) => {
+  //   const oldData = cache.readQuery({
+  //     query: query[props.document.query],
+  //     variables: { id: props.getQueryBy }
+  //   });
+  //   objectPath.push(
+  //     oldData,
+  //     props.document.queryPath,
+  //     data[props.document.queryPath.split(/[.]+/).pop()].new
+  //   );
+  //   let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
+  //   cache.writeQuery({
+  //     query: query[props.document.query],
+  //     variables: { id: props.getQueryBy },
+  //     data: { [saveData]: oldData[saveData] }
+  //   });
+  // };
 
-  const createWithVariable = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
-    });
-    objectPath.push(
-      oldData,
-      `${props.firstQueryPath}.${props.repeatStepList}.${props.secondQueryPath}`,
-      data[props.secondQueryPath.split(/[.]+/).pop()].new
-    );
-    let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
-    cache.writeQuery({
-      query: props.document.query,
-      variables: { id: props.getQueryBy },
-      data: { [saveData]: oldData[saveData] }
-    });
-  };
+  // const createWithVariable = (cache, { data }) => {
+  //   const oldData = cache.readQuery({
+  //     query: query[props.document.query],
+  //     variables: { id: props.getQueryBy }
+  //   });
+  //   objectPath.push(
+  //     oldData,
+  //     `${props.firstQueryPath}.${props.repeatStepList}.${props.secondQueryPath}`,
+  //     data[props.secondQueryPath.split(/[.]+/).pop()].new
+  //   );
+  //   let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
+  //   cache.writeQuery({
+  //     query: props.document.query,
+  //     variables: { id: props.getQueryBy },
+  //     data: { [saveData]: oldData[saveData] }
+  //   });
+  // };
 
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[props.document.mutation],

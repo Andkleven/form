@@ -1,25 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import objectPath from "object-path";
-import { useMutation } from "@apollo/react-hooks";
-import { Button } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,
   reshapeStageSting,
   camelCaseToNormal
 } from "functions/general";
-import mutations from "graphql/mutation";
-import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
+import operatorCoatedItemJson from "templates/operatorCoatedItem.json";
 import operatorMouldJson from "templates/coating/mould/operatorMould.json";
-import FindNextStage from "components/form/stage/findNextStage.ts";
 import Line from "components/design/Line";
 import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default props => {
-  const [submitStage] = useMutation(mutations["ITEM"]);
-
   const allFields = (chapter, itemData) => {
     let batchingData = {};
     chapter.pages.forEach(page => {
@@ -29,8 +22,8 @@ export default props => {
           batchingData[
             Array.isArray(specValueList)
               ? specValueList[specValueList.length - 1].split(".")[
-              specValueList[specValueList.length - 1].split(".").length - 1
-              ]
+                  specValueList[specValueList.length - 1].split(".").length - 1
+                ]
               : specValueList.split(".")[specValueList.split(".").length - 1]
           ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
@@ -173,38 +166,38 @@ export default props => {
                 : false
             }
             label={`${item.itemId}`}
-          // labelAppend={
-          //   props.partialBatching &&
-          //   allRequiredSatisfied(item, chapter) && (
-          //     <div className="d-flex align-items-center">
-          //       <div className="d-inline text-secondary">(Done)</div>
-          //       <Button
-          //         variant="link"
-          //         className="p-0 m-0 ml-2"
-          //         style={{ height: "1.5em" }}
-          //         key={`${index}-${item.id}-fragment-batching-button`}
-          //         onClick={() => {
-          //           submitStage({
-          //             variables: {
-          //               stage: FindNextStage(
-          //                 item,
-          //                 props.stage,
-          //                 description.data.geometry
-          //               )["stage"],
-          //               id: item.id
-          //             }
-          //           });
-          //         }}
-          //       >
-          //         <FontAwesomeIcon
-          //           icon={["fas", "arrow-square-right"]}
-          //           className="mr-2"
-          //         />
-          //         Send to next stage
-          //       </Button>
-          //     </div>
-          //   )
-          // }
+            // labelAppend={
+            //   props.partialBatching &&
+            //   allRequiredSatisfied(item, chapter) && (
+            //     <div className="d-flex align-items-center">
+            //       <div className="d-inline text-secondary">(Done)</div>
+            //       <Button
+            //         variant="link"
+            //         className="p-0 m-0 ml-2"
+            //         style={{ height: "1.5em" }}
+            //         key={`${index}-${item.id}-fragment-batching-button`}
+            //         onClick={() => {
+            //           submitStage({
+            //             variables: {
+            //               stage: FindNextStage(
+            //                 item,
+            //                 props.stage,
+            //                 description.data.geometry
+            //               )["stage"],
+            //               id: item.id
+            //             }
+            //           });
+            //         }}
+            //       >
+            //         <FontAwesomeIcon
+            //           icon={["fas", "arrow-square-right"]}
+            //           className="mr-2"
+            //         />
+            //         Send to next stage
+            //       </Button>
+            //     </div>
+            //   )
+            // }
           />
         );
       } else if (item.stage === props.stage) {

@@ -5,38 +5,35 @@ import history from "./functions/history";
 import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import CreateProject from "./pages/CreateProject";
-import LeadEngineerPage from "./pages/coating/leadEngineer/LeadEngineerPage";
-import Batching from "./pages/coating/operator/Batching";
-import SingleItem from "./pages/coating/operator/SingleItem";
+import LeadEngineerPage from "./pages/leadEngineer/LeadEngineerPage";
+import Batching from "./pages/operator/Batching";
+import SingleItem from "./pages/operator/SingleItem";
 import Files from "components/Files";
 import { ProjectProvider } from "components/explorer/components/ProjectContext";
 import { ItemContext } from "components/contexts/ItemContext";
 import mutations from "graphql/mutation";
-import CreateProjectReceiptControl from "pages/packer/CreateProjectReceiptControl"
 import { useMutation } from "@apollo/react-hooks";
 import "styles/icons";
 
 export default () => {
-  const [authToken, setAuthToken] = useState(localStorage.getItem(AUTH_TOKEN))
+  const [authToken, setAuthToken] = useState(localStorage.getItem(AUTH_TOKEN));
 
   useEffect(() => {
-    setAuthToken(localStorage.getItem(AUTH_TOKEN))
-  }, [])
+    setAuthToken(localStorage.getItem(AUTH_TOKEN));
+  }, []);
 
-  const [mutation] = useMutation(
-    mutations["VERIFY_TOKEN"],
-    {
-      onError: () => { setAuthToken(undefined) }
+  const [mutation] = useMutation(mutations["VERIFY_TOKEN"], {
+    onError: () => {
+      setAuthToken(undefined);
     }
-  );
+  });
   useEffect(() => {
     mutation({
       variables: {
         token: authToken
       }
-    })
-
-  }, [authToken, mutation])
+    });
+  }, [authToken, mutation]);
 
   const [item, setItem] = useState({
     id: null,
@@ -52,7 +49,7 @@ export default () => {
         <Router history={history}>
           <Switch>
             {/* Login */}
-            < Route exact path="/login" component={Login} />
+            <Route exact path="/login" component={Login} />
             {!authToken && <Redirect to="/login" exact />}
 
             {/* Home */}
@@ -61,10 +58,10 @@ export default () => {
             </Route>
 
             {/* Create Project (Lead Engineer) */}
-            <Route path="/project/:productionLine/:id" component={CreateProject} />
-
-            {/* Create Project (Lead Engineer) */}
-            <Route path="/project-receipt-control/:id" component={CreateProjectReceiptControl} />
+            <Route
+              path="/project/:productionLine/:id"
+              component={CreateProject}
+            />
 
             {/* Create Items (Lead Engineer) */}
             <Route
