@@ -17,56 +17,12 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     !display && useContext(DocumentDataContext);
   const chapterContext = useContext(ChapterContext);
 
-
   const flipToWrite = () => {
-    // if (unsavedChanges) {
-    //   if (
-    //     // window.confirm("You will lose unsaved changes, are you sure?")
-    //     dialog({
-    //       message: "Do you want to save your changes?",
-    //       buttons: [
-    //         {
-    //           label: "Save and continue",
-    //           variant: "success",
-    //           type: "submit",
-    //           onClick: () => {
-    //             props.submitData(documentData.current, false);
-    //             if (!display) {
-    //               chapterContext.setEditChapter(
-    //                 `${props.repeatStepList}-${props.fieldName}`
-    //               );
-    //             }
-    //           }
-    //         },
-    //         {
-    //           label: "Discard and continue",
-    //           variant: "danger",
-    //           onClick: () => {
-    //             props.setState(objectPath.get(props.backendData, props.path));
-    //             documentDataDispatch({
-    //               type: "add",
-    //               newState: objectPath.get(props.backendData, props.path),
-    //               path: props.path
-    //             });
-    //             chapterContext.setEditChapter(0);
-    //             if (!display) {
-    //               chapterContext.setEditChapter(
-    //                 `${props.repeatStepList}-${props.fieldName}`
-    //               );
-    //             }
-    //           }
-    //         }
-    //       ]
-    //     })
-    //   ) {
-    //   }
-    // } else {
     if (!display) {
       chapterContext.setEditChapter(
         `${props.repeatStepList}-${props.fieldName}`
       );
     }
-    // }
   };
 
   const breakpoint = "sm";
@@ -84,7 +40,11 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <TinyButton
         {...props}
         onClick={() => {
-          if (documentData && (JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
+          if (
+            documentData &&
+            JSON.stringify(props.backendData) !==
+              JSON.stringify(documentData.current)
+          ) {
             dialog({
               message: "Do you want to save your changes?",
               buttons: [
@@ -101,7 +61,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
                   label: "Discard and continue",
                   variant: "danger",
                   onClick: () => {
-
                     // TODO: Remove old data from form
                     // I tried this, to no luck:
                     documentDataDispatch({
@@ -141,7 +100,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <div
           className={`d-flex justify-content-between align-items-start h-100 ${
             indent && `ml-3`
-            }`}
+          }`}
         >
           <div className={`${showUnderBreakpoint()}`}>
             <small className={`text-secondary`}>
@@ -187,7 +146,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           <div
             className={`d-flex justify-content-between align-items-start h-100 ${
               indent && "ml-3 ml-sm-0"
-              }`}
+            }`}
           >
             <div>{datetimeString}</div>
             {readOnly ? null : (
@@ -209,7 +168,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       <div
         className={`d-flex justify-content-between align-items-start h-100 ${
           indent && "ml-3 ml-sm-0"
-          }`}
+        }`}
       >
         <div>
           {(props.type !== "checkbox" &&
@@ -252,7 +211,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     <div
       className={className}
       style={style}
-    // hidden={readOnly}
+      // hidden={readOnly}
     >
       <Row>
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
@@ -277,7 +236,12 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <Label {...props} />
               <Value {...props} />
             </div>
-            {readOnly ? null : <TinyEditButton {...props} edit={props.edit && !props.notSingleEdit} />}
+            {readOnly ? null : (
+              <TinyEditButton
+                {...props}
+                edit={props.edit && !props.notSingleEdit}
+              />
+            )}
           </div>
         </Col>
         {savedComment && (
@@ -296,7 +260,13 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             <LightLine />
           </Col>
         )}
-        {props.subtext && writeChapter(props.allWaysShow, chapterContext.editChapter, props.thisChapter, chapterContext.finalChapter) ? (
+        {props.subtext &&
+        writeChapter(
+          props.allWaysShow,
+          chapterContext.editChapter,
+          props.thisChapter,
+          chapterContext.finalChapter
+        ) ? (
           <Form.Text className="text-muted">{props.subtext}</Form.Text>
         ) : null}
       </Row>

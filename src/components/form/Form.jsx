@@ -45,13 +45,12 @@ function useStore(init = {}) {
         throw new Error();
     }
     if (action.resetRenderFunction) {
-      renderFunction.current = {}
+      renderFunction.current = {};
     }
     if (!action.notReRender) {
-      Object.values(renderFunction.current)
-        .forEach(func => {
-          func();
-        });
+      Object.values(renderFunction.current).forEach(func => {
+        func();
+      });
     }
     return state.current;
   };
@@ -66,17 +65,16 @@ function useMathStore(init = {}) {
       action.newState
     );
     return state.current;
-  }
+  };
   return [state, reducer];
-};
+}
 
 export const ChapterContext = createContext();
 export const DocumentDataContext = createContext();
 
 export default ({ saveVariables = {}, ...props }) => {
-
-  const [loading, setLoading] = useState(true)
-  const timer = useRef()
+  const [loading, setLoading] = useState(true);
+  const timer = useRef();
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
@@ -90,9 +88,6 @@ export default ({ saveVariables = {}, ...props }) => {
   const lastData = useRef(false);
   const stagePath = useRef(false);
   const [finalChapter, setFinalChapter] = useState(0);
-
-
-
 
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -218,31 +213,34 @@ export default ({ saveVariables = {}, ...props }) => {
         : !props.data ||
           !props.data[Object.keys(props.data)[0]] ||
           !props.data[Object.keys(props.data)[0]].length
-          ? props.firstQueryPath
-            ? createWithVariable
-            : create
-          : props.firstQueryPath
-            ? updateWithVariable
-            : update,
-      onError: () => { },
+        ? props.firstQueryPath
+          ? createWithVariable
+          : create
+        : props.firstQueryPath
+        ? updateWithVariable
+        : update,
+      onError: () => {},
       onCompleted: props.reRender
     }
   );
 
   const submitData = useCallback(
     (data, submit) => {
-      console.log(documentData.current)
-      renderFunction.current = {}
+      renderFunction.current = {};
       setEditChapter(0);
-      setLoading(true)
+      setLoading(true);
       if (documentData.current) {
         if (submit && !props.stage && stagePath && !editChapter) {
-          objectPath.set(documentData.current, stagePath.current, true)
+          objectPath.set(documentData.current, stagePath.current, true);
         }
         if (props.addValuesToData) {
           Object.keys(props.addValuesToData).forEach(key => {
-            objectPath.set(documentData.current, key, props.addValuesToData[key])
-          })
+            objectPath.set(
+              documentData.current,
+              key,
+              props.addValuesToData[key]
+            );
+          });
         }
         let variables = stringifyQuery(
           cloneDeep(documentData.current),
@@ -257,12 +255,12 @@ export default ({ saveVariables = {}, ...props }) => {
               : undefined,
             stage:
               isStringInstance(props.stage) &&
-                submit &&
-                nextStage.current &&
-                !editChapter
+              submit &&
+              nextStage.current &&
+              !editChapter
                 ? FindNextStage(props.specData, props.stage, props.stageType)[
-                "stage"
-                ]
+                    "stage"
+                  ]
                 : props.stage
           }
         });
@@ -281,7 +279,7 @@ export default ({ saveVariables = {}, ...props }) => {
       props.specData,
       props.stage,
       saveVariables,
-      renderFunction,
+      renderFunction
     ]
   );
 
@@ -296,17 +294,15 @@ export default ({ saveVariables = {}, ...props }) => {
     formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
   };
 
-
   timer.current = setTimeout(() => {
-    setLoading(false)
-  }, 4000)
+    setLoading(false);
+  }, 2000);
   useEffect(() => {
     return () => {
-      clearTimeout(timer.current)
-      setLoading(true)
-    }
-  }, [timer, setLoading])
-
+      clearTimeout(timer.current);
+      setLoading(true);
+    };
+  }, [timer, setLoading]);
 
   if (props.data) {
     return (
@@ -341,7 +337,10 @@ export default ({ saveVariables = {}, ...props }) => {
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved
-              when={() => (JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))}
+              when={
+                JSON.stringify(props.data) !==
+                JSON.stringify(documentData.current)
+              }
               buttons={[
                 {
                   label: "Save and continue",

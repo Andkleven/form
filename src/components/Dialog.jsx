@@ -4,6 +4,15 @@ import { Modal, Button } from "react-bootstrap";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { Prompt, useHistory } from "react-router-dom";
 
+const blockExit = (block = true) => {
+  if (block) {
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+      return "You might have unsaved changes or a task in progress. Are you sure you want to leave?";
+    }
+  }
+};
+
 export const DialogModal = ({
   title,
   message,
@@ -15,12 +24,7 @@ export const DialogModal = ({
   setConfirmed = () => {}
 }) => {
   // Prompt if user tries to close window
-  if (block) {
-    window.onbeforeunload = confirmExit;
-    function confirmExit() {
-      return "You might have unsaved changes or a task in progress. Are you sure you want to leave?";
-    }
-  }
+  blockExit(block);
 
   // Regular modal dialog
   return (
