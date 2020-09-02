@@ -40,6 +40,7 @@ export default React.memo(({ ...props }) => {
     }
     return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
   }, [props.path, props.fieldName, props.type]);
+
   const [state, setState] = useState("");
   const hidden = useHidden(
     props.backendData,
@@ -49,9 +50,9 @@ export default React.memo(({ ...props }) => {
     ]
   );
 
-  console.log(hidden, props.fieldName);
   const [label, setLabel] = useState("");
   const setFirstValue = useRef(true);
+  const unit = useRef(getProperties(props.unit, props.jsonVariables));
 
   const updateState = useCallback(() => {
     let documentDataState = objectPath.get(
@@ -207,7 +208,7 @@ export default React.memo(({ ...props }) => {
           : null,
         isNumber(props.maxInput) ? props.maxInput : max,
         isNumber(props.minInput) ? props.minInput : min,
-        getProperties(props.unit, props.jsonVariables),
+        unit.current,
         props.subtextMathMin,
         props.subtextMathMax,
         props.repeatStepList,
@@ -220,7 +221,7 @@ export default React.memo(({ ...props }) => {
       max,
       min,
       props.mathSubtext,
-      props.unit,
+      unit,
       props.subtextMathMin,
       props.subtextMathMax,
       props.repeatStepList,
@@ -320,6 +321,7 @@ export default React.memo(({ ...props }) => {
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
+        unit={unit.current}
         value={findValue(
           props.specData,
           props.specValueList,
@@ -341,6 +343,7 @@ export default React.memo(({ ...props }) => {
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
+        unit={unit.current}
         value={Math[props.mathSpec](
           props.specData,
           props.repeatStepList,
@@ -353,6 +356,7 @@ export default React.memo(({ ...props }) => {
     const commonProps = {
       ...props,
       key: `${props.indexId}-${props.index}`,
+      unit: unit.current,
       path: getNewPath(),
       submitButton:
         `${props.repeatStepList}-${props.fieldName}` === editChapter
@@ -428,6 +432,7 @@ export default React.memo(({ ...props }) => {
         {...props}
         key={`write-field-${props.indexId}-${props.index}-${props.fieldName}`}
         path={getNewPath()}
+        unit={unit.current}
         submitButton={
           `${props.repeatStepList}-${props.fieldName}` === editChapter
             ? true
@@ -449,6 +454,7 @@ export default React.memo(({ ...props }) => {
       <ReadField
         {...props}
         key={`${props.indexId}-${props.index}-readField-other`}
+        unit={unit.current}
         path={getNewPath()}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}

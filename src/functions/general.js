@@ -4,25 +4,29 @@ import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
 import stages from "components/form/stage/stages.json";
 
-export const stringToDictionary = (data) => {
+export const stringToDictionary = data => {
   if (typeof data === "string") {
     return JSON.parse(data.replace(/'/g, '"'));
   }
 };
 
-export const emptyField = (field) =>
+export const emptyField = field =>
   [null, undefined, "", "None", 0, false].includes(field);
 
-export const fieldNotFilledOut = (field) =>
+export const fieldNotFilledOut = field =>
   [null, undefined, "", false].includes(field);
 
-export const isNumber = (number) => typeof number === "number";
+export const isNumber = number => typeof number === "number";
 
-export const isNumberAndNotNaN = (number) =>
+export const isNumberAndNotNaN = number =>
   typeof number === "number" && !isNaN(number);
 
-
-export const writeChapter = (allWaysShow, editChapter, thisChapter, finalChapter) => {
+export const writeChapter = (
+  allWaysShow,
+  editChapter,
+  thisChapter,
+  finalChapter
+) => {
   if (allWaysShow) {
     return true;
   } else if (editChapter) {
@@ -36,12 +40,12 @@ export const writeChapter = (allWaysShow, editChapter, thisChapter, finalChapter
   } else {
     return false;
   }
-}
+};
 
 export const createPath = (
   pathList,
   repeatStepList = [],
-  editRepeatStepList = {},
+  editRepeatStepList = {}
 ) => {
   let mergePath = "";
   if (Array.isArray(pathList)) {
@@ -74,7 +78,7 @@ export const findValue = (
   data,
   oldPath,
   repeatStepList = [],
-  editRepeatStepList = {},
+  editRepeatStepList = {}
 ) => {
   let path = createPath(oldPath, repeatStepList, editRepeatStepList);
   if (emptyField(path)) {
@@ -83,28 +87,24 @@ export const findValue = (
   return objectPath.get(data, path, null);
 };
 
-
 export const sumFieldInObject = (array, key) => {
   let total = 0;
-  array.forEach((value) => {
+  array.forEach(value => {
     total += Number(value.data[key]);
   });
   return total;
 };
 
-
-export const isStringInstance = (string) =>
+export const isStringInstance = string =>
   typeof string === "string" || string instanceof String;
 
-export const allFalse = (element) => !element;
+export const allFalse = element => !element;
 
-export const allTrue = (element) => element;
+export const allTrue = element => element;
 
-export const allZeroOrNaN = (element) => element === 0 || isNaN(element);
+export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
-export const removeSpace = (string) => string.replace(/\s/g, "");
-;
-
+export const removeSpace = string => string.replace(/\s/g, "");
 export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
   let returnValue = true;
   pageInfo.pages.forEach((page, index) => {
@@ -112,18 +112,16 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
     let allFieldMissing = [];
     let dataFields = objectPath.get(
       data,
-      Array.isArray(newPath)
-        ? createPath(newPath, array)
-        : newPath
+      Array.isArray(newPath) ? createPath(newPath, array) : newPath
     );
     if (dataFields && !page.repeat && !Array.isArray(page.queryPath)) {
-      dataFields = dataFields[0]
+      dataFields = dataFields[0];
     }
     page.fields &&
-      page.fields.forEach((field) => {
+      page.fields.forEach(field => {
         if (field.required) {
           if (Array.isArray(dataFields)) {
-            dataFields.forEach((dataField) => {
+            dataFields.forEach(dataField => {
               if (
                 fieldNotFilledOut(dataField.data[field.fieldName]) &&
                 !dataField.data[field.fieldName + ignoreRequiredField] &&
@@ -166,9 +164,8 @@ export const allRequiredSatisfied = (pageInfo, data, array, specData) => {
   return returnValue;
 };
 
-
-export const removeEmptyValueFromObject = (object) => {
-  Object.keys(object).forEach((key) => {
+export const removeEmptyValueFromObject = object => {
+  Object.keys(object).forEach(key => {
     if ([null, undefined, ""].includes(object[key])) {
       delete object[key];
     }
@@ -195,7 +192,7 @@ export const variableLabel = (
   queryVariableLabel = undefined,
   repeatStepList = [],
   editRepeatStepListVariableLabel = {},
-  index = undefined,
+  index = undefined
 ) => {
   if (!label) {
     return "";
@@ -207,7 +204,7 @@ export const variableLabel = (
       value,
       queryVariableLabel,
       repeatStepList,
-      editRepeatStepListVariableLabel,
+      editRepeatStepListVariableLabel
     );
   } else {
     variableLabel = index + 1;
@@ -224,18 +221,18 @@ export const getSubtext = (
   subtextMathMin,
   subtextMathMax,
   repeatStepList,
-  allData,
+  allData
 ) => {
   let minLocal = subtextMathMin
     ? Math[subtextMathMin](allData, repeatStepList)
     : isNumber(min)
-      ? min
-      : "";
+    ? min
+    : "";
   let maxLocal = subtextMathMax
     ? Math[subtextMathMax](allData, repeatStepList)
     : isNumber(max)
-      ? max
-      : "";
+    ? max
+    : "";
 
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
   let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
@@ -254,12 +251,12 @@ export const getSubtext = (
   return minString + maxString + (subtext ? subtext : "");
 };
 
-export const objectifyQuery = (query) => {
+export const objectifyQuery = query => {
   if (query) {
     let newObject = JSON.parse(JSON.stringify(query));
     const objectifyEntries = (query, oldPath = null) => {
       let path;
-      Object.keys(query).forEach((key) => {
+      Object.keys(query).forEach(key => {
         path = oldPath === null ? key : oldPath + "." + key;
         if (Array.isArray(query[key])) {
           query[key].forEach((value, index) => {
@@ -294,7 +291,7 @@ export const getBatchingData = (query, batching) => {
     let newObject = {};
     const objectifyEntries = (query, oldPath = null) => {
       let path;
-      Object.keys(query).forEach((key) => {
+      Object.keys(query).forEach(key => {
         path = oldPath === null ? key : oldPath + "." + key;
         if (Array.isArray(query[key])) {
           query[key].forEach((value, index) => {
@@ -303,12 +300,15 @@ export const getBatchingData = (query, batching) => {
         } else if (key === "data") {
           let data = {};
           Object.keys(batching).forEach(fieldName => {
-            if (![null, undefined].includes(query.data[fieldName]) && ![null, undefined].includes(batching[fieldName])) {
-              data[fieldName] = query.data[fieldName]
+            if (
+              ![null, undefined].includes(query.data[fieldName]) &&
+              ![null, undefined].includes(batching[fieldName])
+            ) {
+              data[fieldName] = query.data[fieldName];
             }
-          })
+          });
           if (Object.keys(data).length !== 0) {
-            objectPath.set(newObject, path, { ...data })
+            objectPath.set(newObject, path, { ...data });
           }
         }
       });
@@ -329,29 +329,23 @@ export const calculateMaxMin = (
   calculateMax,
   repeatStepList,
   data,
-  allData,
+  allData
 ) => {
   let newMin;
   let newMax;
   if (routeToSpecMin) {
-    newMin = Number(findValue(
-      data,
-      routeToSpecMin,
-      repeatStepList,
-      editRepeatStepListMin,
-    ));
+    newMin = Number(
+      findValue(data, routeToSpecMin, repeatStepList, editRepeatStepListMin)
+    );
   } else if (calculateMin) {
     newMin = Number(Math[calculateMin](allData, data, repeatStepList));
   } else {
     newMin = min;
   }
   if (routeToSpecMax) {
-    newMax = Number(findValue(
-      data,
-      routeToSpecMax,
-      repeatStepList,
-      editRepeatStepListMax,
-    ));
+    newMax = Number(
+      findValue(data, routeToSpecMax, repeatStepList, editRepeatStepListMax)
+    );
   } else if (calculateMax) {
     newMax = Number(Math[calculateMax](allData, data, repeatStepList));
   } else {
@@ -360,12 +354,11 @@ export const calculateMaxMin = (
   return { min: newMin, max: newMax };
 };
 
-
 export const stringifyQuery = (query, removeEmptyField = false) => {
   let newObject = { ...query };
   const loopThroughQuery = (query, oldPath = null) => {
     let path;
-    Object.keys(query).forEach((key) => {
+    Object.keys(query).forEach(key => {
       path = oldPath === null ? key : oldPath + "." + key;
       if (Array.isArray(query[key])) {
         query[key].forEach((value, index) => {
@@ -387,7 +380,7 @@ export const stringifyQuery = (query, removeEmptyField = false) => {
   return newObject;
 };
 
-export const batchingKey = (path) => {
+export const batchingKey = path => {
   let splitWordInJson;
   let key;
   if (Array.isArray(path)) {
@@ -417,13 +410,13 @@ export const getDataToBatching = (
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
     let newData = fixedData.projects[0].descriptions
-      .find((description) => Number(description.id) === Number(descriptionId))
-      .items.find((item) => Number(item.id) === Number(batchingListIds[0]));
+      .find(description => Number(description.id) === Number(descriptionId))
+      .items.find(item => Number(item.id) === Number(batchingListIds[0]));
     newData = objectPath.get(
       newData,
-      Array.isArray(path) ? createPath(path, repeatStepList) : path,
+      Array.isArray(path) ? createPath(path, repeatStepList) : path
     );
-    return getBatchingData({ [key]: newData }, batchingData)
+    return getBatchingData({ [key]: newData }, batchingData);
   }
   return { [key]: [] };
 };
@@ -431,7 +424,7 @@ export const getDataToBatching = (
 export const formDataStructure = (data, path) => {
   let lastPath = path.split(".");
   return {
-    [lastPath[lastPath.length - 1]]: objectPath.get(data, path, null),
+    [lastPath[lastPath.length - 1]]: objectPath.get(data, path, null)
   };
 };
 
@@ -439,13 +432,13 @@ export const getRepeatNumber = (
   data,
   repeatGroupWithQuery,
   repeatStepList,
-  editRepeatStepListRepeat,
+  editRepeatStepListRepeat
 ) => {
   let newValue = findValue(
     data,
     repeatGroupWithQuery,
     repeatStepList,
-    editRepeatStepListRepeat,
+    editRepeatStepListRepeat
   );
   if (Array.isArray(newValue)) {
     newValue = newValue.length;
@@ -453,7 +446,7 @@ export const getRepeatNumber = (
   return newValue;
 };
 
-export const camelCaseToNormal = (string) => {
+export const camelCaseToNormal = string => {
   if (string === null) {
     return <div className="text-secondary">None</div>;
   } else if (typeof string === "number") {
@@ -469,7 +462,7 @@ export const camelCaseToNormal = (string) => {
   }
 };
 
-export const reshapeStageSting = (stage) => {
+export const reshapeStageSting = stage => {
   let newStage = stage;
   if (stage.split("Step")[1]) {
     newStage = stage.split("Step")[0] + "Step";
@@ -484,7 +477,12 @@ export function lowerCaseFirstLetter(string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
-export function coatedItemOrMould(category, coatedItemJson, mouldJson, packerJson) {
+export function coatedItemOrMould(
+  category,
+  coatedItemJson,
+  mouldJson,
+  packerJson
+) {
   let json;
   switch (lowerCaseFirstLetter(removeSpace(category.toString()))) {
     case "coatedItem":
@@ -500,7 +498,7 @@ export function coatedItemOrMould(category, coatedItemJson, mouldJson, packerJso
       break;
   }
   return json;
-};
+}
 
 export function productionLineJson(productionLine, coatingJson, packerJson) {
   let json;
@@ -515,9 +513,9 @@ export function productionLineJson(productionLine, coatingJson, packerJson) {
       break;
   }
   return json;
-};
+}
 
-export const getStepFromStage = (stage) => {
+export const getStepFromStage = stage => {
   let step = null;
   if (stage.split("Step")[1]) {
     step = Number(stage.split("Step")[1]);
@@ -529,8 +527,8 @@ export function getRepeatStepList(repeatStepList, index) {
   return repeatStepList !== undefined && repeatStepList !== null
     ? [...repeatStepList, index]
     : repeatStepList
-      ? [...repeatStepList, index]
-      : [index];
+    ? [...repeatStepList, index]
+    : [index];
 }
 
 export function isLastCharacterNumber(str) {
@@ -545,7 +543,7 @@ export function getBatchingJson(
 ) {
   let batchingJson = allBatchingJson[reshapeStageSting(stage)];
   batchingJson.document.chapters = [
-    operatorJson.chapters[reshapeStageSting(stage)],
+    operatorJson.chapters[reshapeStageSting(stage)]
   ];
   return batchingJson;
 }
@@ -554,8 +552,11 @@ export function getStartStage(geometry, item) {
   let stage = undefined;
   switch (geometry) {
     case "Coated Item":
-      if (item && objectPath.get(item, "leadEngineers.0.data.measurementPoint") === 0) {
-        stage = "steelPreparation1"
+      if (
+        item &&
+        objectPath.get(item, "leadEngineers.0.data.measurementPoint") === 0
+      ) {
+        stage = "steelPreparation1";
         break;
       }
       stage = Object.keys(stages["coatedItem"])[0];
@@ -569,34 +570,47 @@ export function getStartStage(geometry, item) {
   return stage;
 }
 
-
-export function getSpecComment(specData, routeToSpecMax = null, routeToSpecMin = null, specValueList = null, repeatStepList = [], editRepeatStepValueList = {}) {
-  let comment = ""
-  const getComment = (path) => {
-    comment = objectPath.get(specData, `${createPath(path, repeatStepList, editRepeatStepValueList)}Comment`, "")
-  }
+export function getSpecComment(
+  specData,
+  routeToSpecMax = null,
+  routeToSpecMin = null,
+  specValueList = null,
+  repeatStepList = [],
+  editRepeatStepValueList = {}
+) {
+  let comment = "";
+  const getComment = path => {
+    comment = objectPath.get(
+      specData,
+      `${createPath(path, repeatStepList, editRepeatStepValueList)}Comment`,
+      ""
+    );
+  };
   if (specValueList) {
-    getComment(specValueList)
+    getComment(specValueList);
   } else if (routeToSpecMax) {
-    getComment(routeToSpecMax)
+    getComment(routeToSpecMax);
   } else if (routeToSpecMin) {
-    getComment(routeToSpecMin)
+    getComment(routeToSpecMin);
   }
-  return comment
+  return comment;
 }
 
 export function getProperties(value, jsonVariables = []) {
-  if (typeof value === 'object' && value !== null && !(value instanceof Array)) {
+  if (
+    typeof value === "object" &&
+    value !== null &&
+    !(value instanceof Array)
+  ) {
     for (let variable of jsonVariables) {
       if (value[removeSpace(lowerCaseFirstLetter(variable))] !== undefined) {
-
-        return value[removeSpace(lowerCaseFirstLetter(variable))]
+        return value[removeSpace(lowerCaseFirstLetter(variable))];
       }
     }
-    return ""
+    return "";
   } else if (value === undefined) {
-    return ""
+    return "";
   } else {
-    return value
+    return value;
   }
 }

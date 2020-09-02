@@ -2,7 +2,8 @@ import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
   removeSpace,
-  lowerCaseFirstLetter
+  lowerCaseFirstLetter,
+  getProperties
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -27,74 +28,85 @@ export default ({ stagePath, ...props }) => {
     byStage = false,
     thisStage = ""
   ) => {
-    let chapter; // new chapter to add to document
-    let allRequiredFieldSatisfied = false;
     if (
-      (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
-      !finalChapter
+      props.showChapter === undefined ||
+      (props.showChapter &&
+        getProperties(props.showChapter, props.jsonVariables))
     ) {
-      finalChapter = count + 1;
-    }
-    if (stopLoop.current) {
-      chapter = null;
-    } else {
-      allRequiredFieldSatisfied = documentData.current
-        ? byStage
-          ? thisStage === props.stage
-          : !objectPath.get(
-              documentData.current,
-              createPath(pageInfo.stageQueryPath, repeatStepList),
-              false
-            )
-        : false;
-      // if now data in lookUpBy this is last chapter
-      if (allRequiredFieldSatisfied) {
-        stagePath.current = createPath(pageInfo.stageQueryPath, repeatStepList);
+      let chapter; // new chapter to add to document
+      let allRequiredFieldSatisfied = false;
+      if (
+        (pageInfo.chapterAlwaysInWrite || props.chapterAlwaysInWrite) &&
+        !finalChapter
+      ) {
         finalChapter = count + 1;
-        if (props.readOnlySheet) {
+      }
+      if (stopLoop.current) {
+        chapter = null;
+      } else {
+        allRequiredFieldSatisfied = documentData.current
+          ? byStage
+            ? thisStage === props.stage
+            : !objectPath.get(
+                documentData.current,
+                createPath(pageInfo.stageQueryPath, repeatStepList),
+                false
+              )
+          : false;
+        // if now data in lookUpBy this is last chapter
+        if (allRequiredFieldSatisfied) {
+          stagePath.current = createPath(
+            pageInfo.stageQueryPath,
+            repeatStepList
+          );
+          finalChapter = count + 1;
+          if (props.readOnlySheet) {
+            stopLoop.current = true;
+          }
+        }
+
+        if (allRequiredFieldSatisfied && props.readOnlySheet) {
+          chapter = null;
+        } else {
+          chapter = pageInfo.pages.map((info, index) => {
+            let showEditButton = !props.notEditButton && !index ? true : false;
+            let showSubmitButton =
+              index === pageInfo.pages.length - 1 ? true : false;
+            return (
+              <Page
+                key={`${index}-${count}-${repeatStepList}-page`}
+                {...info}
+                {...props}
+                path={createPath(info.queryPath, repeatStepList)}
+                thisChapter={count + 1}
+                stopLoop={stopLoop.current}
+                showEditButton={showEditButton}
+                indexId={`${count + 1}- ${index} `}
+                index={index}
+                noSaveButton={props.document.noSaveButton}
+                finalChapter={finalChapter}
+                submitData={props.submitData}
+                showSubmitButton={showSubmitButton}
+                repeatStepList={repeatStepList}
+              />
+            );
+          });
+        }
+        // if now data in lookUpBy stop loop
+        if (allRequiredFieldSatisfied) {
           stopLoop.current = true;
         }
       }
-
-      if (allRequiredFieldSatisfied && props.readOnlySheet) {
-        chapter = null;
-      } else {
-        chapter = pageInfo.pages.map((info, index) => {
-          let showEditButton = !props.notEditButton && !index ? true : false;
-          let showSubmitButton =
-            index === pageInfo.pages.length - 1 ? true : false;
-          return (
-            <Page
-              key={`${index}-${count}-${repeatStepList}-page`}
-              {...info}
-              {...props}
-              path={createPath(info.queryPath, repeatStepList)}
-              thisChapter={count + 1}
-              stopLoop={stopLoop.current}
-              showEditButton={showEditButton}
-              indexId={`${count + 1}- ${index} `}
-              index={index}
-              noSaveButton={props.document.noSaveButton}
-              finalChapter={finalChapter}
-              submitData={props.submitData}
-              showSubmitButton={showSubmitButton}
-              repeatStepList={repeatStepList}
-            />
-          );
-        });
-      }
-      // if now data in lookUpBy stop loop
-      if (allRequiredFieldSatisfied) {
-        stopLoop.current = true;
-      }
+      count += 1;
+      return chapter ? (
+        <Fragment key={`${count} -canvas - chapterFragment`}>
+          {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
+          {chapter}
+        </Fragment>
+      ) : null;
+    } else {
+      return null;
     }
-    count += 1;
-    return chapter ? (
-      <Fragment key={`${count} -canvas - chapterFragment`}>
-        {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
-        {chapter}
-      </Fragment>
-    ) : null;
   };
   const runChapter = (pageInfo, thisStage = "", stepsList = undefined) => {
     return (

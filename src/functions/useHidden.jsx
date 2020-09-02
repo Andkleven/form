@@ -3,7 +3,11 @@ import objectPath from "object-path";
 import { DocumentDataContext } from "components/form/Form";
 export default (backendData, readOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(DocumentDataContext);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(
+    readOnlyFieldIf
+      ? !objectPath.get(documentData.current, readOnlyFieldIf, false)
+      : false
+  );
   const updateReadOnly = useCallback(() => {
     setHidden(
       !objectPath.get(

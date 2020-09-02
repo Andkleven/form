@@ -111,22 +111,20 @@ export default React.memo(props => {
   const { documentDataDispatch, documentData, renderFunction } = useContext(
     DocumentDataContext
   );
-
   const [fieldGroups, setFieldGroups] = useState({});
   const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
   ]);
-
   if (props.finalChapter && props.finalChapter > finalChapter.current) {
     finalChapter.current = props.finalChapter;
   }
+
   const deleteData = useCallback(
     index => {
       documentDataDispatch({
         type: "delete",
         path: `${props.path}.${index}`,
         notReRender: true
-        // resetRenderFunction: true
       });
     },
     [props.path, documentDataDispatch]
@@ -722,7 +720,7 @@ export default React.memo(props => {
           {Object.values(fieldGroups)}
           {!!props.addButton &&
           props.repeat &&
-          !hidden &&
+          objectPath.get(documentData.current, props.readOnlyFieldIf, false) &&
           writeChapter(
             props.allWaysShow,
             editChapter,

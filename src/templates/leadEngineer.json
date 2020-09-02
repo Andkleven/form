@@ -47,7 +47,7 @@
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
-              "subtext": "ISO 8502-4",
+              "subtext": "ISP 8502-4",
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -57,7 +57,13 @@
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
-              "subtext": "ISO 8502-4",
+              "subtext": {
+                "coatedItem": "ISO 8502-4",
+                "mould": "ISO 8502-4",
+                "slipon": "SO 8502-4",
+                "b2P": "SO 8502-4",
+                "dual": "SO 8502-4"
+              },
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -76,7 +82,10 @@
               "type": "checkbox",
               "default": {
                 "coatedItem": true,
-                "mould": false
+                "mould": false,
+                "slipon": true,
+                "b2P": false,
+                "dual": true
               }
             },
             {
@@ -86,24 +95,52 @@
               "prepend": "Max",
               "unit": "µS/cm",
               "subtext": "ISO 8502-9",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             },
             {
               "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile Min (Roughness)",
+              "label": "Surface Profile (Roughness)",
               "prepend": "Min",
-              "unit": "µm",
-              "default": 50,
+              "unit": {
+                "coatedItem": "µm",
+                "mould": "µm",
+                "slipon": "Ra",
+                "b2P": "Ra",
+                "dual": "Ra"
+              },
+              "default": {
+                "coatedItem": 50,
+                "mould": 50,
+                "slipon": 5,
+                "b2P": 5,
+                "dual": 5
+              },
               "type": "Number",
               "subtext": "ISO 8503-4",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
             },
             {
               "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile Max (Roughness)",
+              "label": "Surface Profile (Roughness)",
               "prepend": "Max",
-              "unit": "µm",
-              "default": 100,
+              "unit": {
+                "coatedItem": "µm",
+                "mould": "µm",
+                "slipon": "Ra",
+                "b2P": "Ra",
+                "dual": "Ra"
+              },
+              "default": {
+                "coatedItem": 100,
+                "mould": 100,
+                "slipon": 15,
+                "b2P": 15,
+                "dual": 15
+              },
               "type": "Number",
               "subtext": "ISO 8503-4",
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
@@ -116,7 +153,11 @@
               "prepend": "Max",
               "unit": "mg/m²",
               "subtext": "ISO 8502-5/9",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             },
             {
               "fieldName": "dustTest",
@@ -126,14 +167,22 @@
               "min": 1,
               "max": 5,
               "subtext": "ISO 8502-3, Whole number between 1-5",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             },
             {
               "fieldName": "inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "type": "checkbox",
               "subtext": "ISO 8501-3, Welds to be grade P3",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             },
             {
               "fieldName": "compressedAirCheck",
@@ -141,7 +190,11 @@
               "placeholder": "Min",
               "type": "checkbox",
               "subtext": "ASTM D 4285, No oil and no water",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             },
             {
               "fieldName": "surfaceCleanliness",
@@ -149,14 +202,22 @@
               "placeholder": "Max",
               "type": "checkbox",
               "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             },
             {
               "fieldName": "uvTest",
               "label": "UV Test",
               "type": "checkbox",
               "subtext": "No reflecting light",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "showField": {
+                "coatedItem": true,
+                "mould": true
+              }
             }
           ]
         },
@@ -226,6 +287,7 @@
       ]
     },
     {
+      "showChapter": { "coatedItem": true, "mould": true },
       "stageQueryPath": "leadEngineers.0.data.stage1",
       "pages": [
         {
