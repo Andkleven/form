@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import allBatchingJson from "templates/batching.json";
-import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/coating/mould/operatorMould.json";
+import operatorCoatedItemJson from "templates/operatorCoatedItem.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
@@ -94,16 +93,16 @@ export default () => {
           json={
             newDescriptionId[0] && fixedData
               ? getBatchingJson(
-                objectPath
-                  .get(fixedData, "projects.0.descriptions")
-                  .find(
-                    description =>
-                      Number(description.id) === Number(newDescriptionId[0])
-                  )["data"]["geometry"],
-                operatorCoatedItemJson,
-                allBatchingJson,
-                reshapeStageSting(stage)
-              )
+                  objectPath
+                    .get(fixedData, "projects.0.descriptions")
+                    .find(
+                      description =>
+                        Number(description.id) === Number(newDescriptionId[0])
+                    )["data"]["geometry"],
+                  operatorCoatedItemJson,
+                  allBatchingJson,
+                  reshapeStageSting(stage)
+                )
               : batchingJson
           }
           setBatchingData={setBatchingData}

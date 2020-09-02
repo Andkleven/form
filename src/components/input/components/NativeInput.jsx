@@ -66,14 +66,17 @@ export default ({
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
               readOnly={readOnly}
               value={value}
-              onChange={onChangeInput}
+              onChange={e => {
+                console.log(3);
+                onChangeInput(e);
+              }}
               onBlur={onBlur}
               type={type !== "comment" ? type : ""}
               as={type === "comment" ? "textarea" : "input"}
               style={type === "comment" ? { resize: "none" } : undefined}
               rows={type === "comment" ? "5" : undefined}
-              min={props.ignoreMin ? undefined : props.min}
-              max={props.ignoreMax ? undefined : props.max}
+              min={props.ignoreMin ? undefined : min}
+              max={props.ignoreMax ? undefined : max}
               step={step}
               placeholder={placeholder}
               onKeyPress={onKeyPress}

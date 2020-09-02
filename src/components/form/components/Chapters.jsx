@@ -137,7 +137,6 @@ export default ({ stagePath, ...props }) => {
         thisStage["stage"],
         props.stageType
       );
-
       if (thisStage["stageWithoutNumber"] === stageList[stageList.length - 1]) {
         break;
       }

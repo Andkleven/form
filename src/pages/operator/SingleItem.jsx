@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorCoatedItemJson from "templates/coating/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/coating/mould/operatorMould.json";
-import leadEngineersCoatedItemJson from "templates/coating/coatedItem/leadEngineerCoatedItem.json";
-import leadEngineersMouldJson from "templates/coating/mould/leadEngineerMould.json";
-import qualityControlCoatedItemJson from "templates/coating/coatedItem/qualityControlCoatedItem.json";
-import qualityControlMouldJson from "templates/coating/mould/qualityControlMould.json";
+import operatorCoatedItemJson from "templates/operatorCoatedItem.json";
+import leadEngineersCoatedItemJson from "templates/leadEngineerCoatedItem.json";
+import qualityControlCoatedItemJson from "templates/qualityControlCoatedItem.json";
 import Form from "components/form/Form";
 import history from "functions/history";
 import Paper from "components/layout/Paper";
-import {
-  objectifyQuery,
-  formDataStructure
-} from "functions/general";
+import { objectifyQuery, formDataStructure } from "functions/general";
 import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
 import { ItemContext } from "components/contexts/ItemContext";
@@ -27,10 +21,12 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-
-  const { loading, error, data } = useQuery(query[qualityControlCoatedItemJson.query], {
-    variables: { id: itemId }
-  });
+  const { loading, error, data } = useQuery(
+    query[qualityControlCoatedItemJson.query],
+    {
+      variables: { id: itemId }
+    }
+  );
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -54,7 +50,8 @@ export default pageInfo => {
     }
   });
 
-  const finalInspection = access.finalInspection && ["qualityControl", "done"].includes(stage)
+  const finalInspection =
+    access.finalInspection && ["qualityControl", "done"].includes(stage);
 
   return (
     <Canvas showForm={!!data}>
@@ -85,6 +82,7 @@ export default pageInfo => {
             Operator
           </Title>
         )}
+
         <Form
           jsonVariables={[geometry]}
           componentsId={opId.current}
@@ -101,9 +99,7 @@ export default pageInfo => {
           stageType={geometry}
           getQueryBy={itemId}
           saveButton={true}
-          backButton={!finalInspection && (() =>
-            history.push(`/`))
-          }
+          backButton={!finalInspection && (() => history.push(`/`))}
         />
       </Paper>
       {finalInspection && (
@@ -133,9 +129,7 @@ export default pageInfo => {
             getQueryBy={itemId}
             saveVariables={{ itemId: itemId }}
             saveButton={true}
-            backButton={() =>
-              history.push(`/`)
-            }
+            backButton={() => history.push(`/`)}
           />
         </Paper>
       )}

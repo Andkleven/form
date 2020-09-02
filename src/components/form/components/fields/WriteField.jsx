@@ -217,6 +217,11 @@ export default ({ setState, state, ...props }) => {
   //   console.log("indent", props.indent);
   //   console.log("indent", props.indent);
   // }
+  // if (props.ignoreMin === undefined) {
+  //   console.log(props.min);
+  // }
+  // console.log(props.ignoreMin === undefined ? props.min : undefined);
+
   return (
     <div className={indent && "ml-3"}>
       <Input

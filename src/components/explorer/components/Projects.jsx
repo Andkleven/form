@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
-import { Col, ProgressBar, Button, Modal } from "react-bootstrap";
+import { Col, ProgressBar, Button } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
@@ -332,23 +332,6 @@ export default ({
                       Duplicate
                     </Link>
                   )}
-                  {props.access &&
-                    props.access.receiptControl &&
-                    project.productionLine === "packer" && (
-                      <Link
-                        to={`/project-receipt-control/${project.id}`}
-                        key={`projectSpecs${indexProject}-2`}
-                        iconProps={{
-                          icon: ["fad", "receipt"],
-                          swapOpacity: true,
-                          size: iconSize,
-                          style: iconStyle
-                        }}
-                        style={{ marginRight: ".75em", ...rowStyle }}
-                      >
-                        Receipt Control
-                      </Link>
-                    )}
                   {!!stage &&
                     // Array of stages with batching here
                     batchingStages.includes(stage) && (
