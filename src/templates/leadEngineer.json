@@ -20,21 +20,14 @@
               "fieldName": "steel",
               "label": "Steel",
               "type": "select",
-              "options": [
-                "Carbon",
-                "Duplex"
-              ],
+              "options": ["Carbon", "Duplex"],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
-              "options": [
-                "Garnet",
-                "Grit",
-                "Aluminum Oxide"
-              ],
+              "options": ["Garnet", "Grit", "Aluminum Oxide"],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -217,10 +210,7 @@
               "fieldName": "itemRubberCementsBeforeCoating",
               "label": "Item Rubber Cement Before Coating",
               "type": "select",
-              "options": [
-                "75051",
-                "Soap"
-              ]
+              "options": ["75051", "Soap"]
             },
             {
               "showField": {
@@ -229,10 +219,7 @@
               "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Agent Before Coating",
               "type": "select",
-              "options": [
-                "75051",
-                "Soap"
-              ]
+              "options": ["75051", "Soap"]
             }
           ]
         }
@@ -299,10 +286,7 @@
               "type": "select",
               "required": true,
               "notSingleEdit": true,
-              "options": [
-                "OD",
-                "ID"
-              ]
+              "options": ["OD", "ID"]
             }
           ]
         },
@@ -346,7 +330,7 @@
         {
           "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
-          "repeatStartWithOneGroup": true,
+          "repeatStartWith": 1,
           "delete": true,
           "addButton": "Add step",
           "indexVariablePageTitle": 0,

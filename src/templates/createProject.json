@@ -12,76 +12,52 @@
           "queryPath": "projects",
           "fields": [
             {
-              "fieldName": "projectName",
-              "label": "Project Name"
-            },
-            {
               "fieldName": "projectNumber",
+              "required": true,
               "label": "Project Number"
             },
             {
+              "fieldName": "purchaseOrderNumber",
+              "required": true,
+              "label": "Purchase order Number"
+            },
+            {
               "fieldName": "client",
+              "required": true,
               "label": "Client"
-            }
-          ]
-        },
-        {
-          "repeatStartWithOneGroup": true,
-          "repeat": true,
-          "delete": true,
-          "addButton": "ITP Document Number",
-          "queryPath": "projects.0.itpDocumentNumbers",
-          "fields": [
-            {
-              "fieldName": "itpDocumentNumber",
-              "label": "ITP Document Number"
-            }
-          ]
-        },
-        {
-          "queryPath": "projects",
-          "fields": [
-            {
-              "fieldName": "projectManager",
-              "label": "Project Manager",
-              "type": "select",
-              "options": [
-                "Option 1",
-                "Option 2",
-                "Option 3"
-              ]
             },
             {
-              "fieldName": "supervisor",
-              "label": "Supervisor",
-              "type": "select",
-              "userRole": [
-                "supervisor"
-              ]
+              "fieldName": "endClient",
+              "required": true,
+              "label": "End Client"
             },
             {
-              "fieldName": "leadEngineer",
-              "label": "Lead Engineer",
+              "fieldName": "projectLead",
+              "label": "Project Lead",
               "type": "select",
-              "userRole": [
-                "lead"
-              ]
+              "required": true,
+              "userRole": ["lead"]
             },
             {
               "fieldName": "supervisingEngineer",
               "label": "Supervising Engineer",
               "type": "select",
-              "userRole": [
-                "lead"
-              ]
+              "required": true,
+              "userRole": ["lead"]
+            },
+            {
+              "fieldName": "supervisor",
+              "label": "Supervisor",
+              "type": "select",
+              "required": true,
+              "options": ["test"]
             },
             {
               "fieldName": "qualityControl",
               "label": "Quality Control",
               "type": "select",
-              "userRole": [
-                "quality"
-              ]
+              "required": true,
+              "userRole": ["quality"]
             },
             {
               "fieldName": "numberOfDescriptions",
@@ -102,50 +78,45 @@
       ]
     },
     {
-      "stageQueryPath": [
-        "projects.0.descriptions",
-        "data.stageCoating"
-      ],
+      "stageQueryPath": ["projects.0.descriptions", "data.stageCoating"],
       "pages": [
         {
           "pageTitle": "Description",
-          "queryPath": [
-            "projects.0.descriptions",
-            ""
-          ],
+          "queryPath": ["projects.0.descriptions", ""],
           "fields": [
-            {
-              "fieldName": "description",
-              "label": "Description Name",
-              "required": true
-            },
             {
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
-              "options": [
-                "Mould",
-                "Coated Item"
-              ],
+              "options": ["Mould", "Coated Item", "Slip on", "B2P", "Dual"],
               "required": true
             },
             {
-              "fieldName": "ifsActivityCodes",
-              "label": "IFS Activity Codes"
-            },
+              "fieldName": "descriptionNameMaterialNo",
+              "label": "Description name/ Material no.",
+              "required": true
+            }
+          ]
+        },
+        {
+          "repeatStartWith": 1,
+          "repeat": true,
+          "delete": true,
+          "addButton": "Specification",
+          "queryPath": ["projects.0.descriptions", "specifications"],
+          "fields": [
             {
-              "fieldName": "CPS",
-              "label": "CPS"
+              "fieldName": "specification",
+              "label": "Specification {}",
+              "indexVariableLabel": true,
+              "required": true
             }
           ]
         },
         {
           "label": "File Upload",
           "type": "files",
-          "queryPath": [
-            "projects.0.descriptions",
-            "uploadFiles"
-          ],
+          "queryPath": ["projects.0.descriptions", "uploadFiles"],
           "description": true
         }
       ]

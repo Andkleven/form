@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorCoatedItemJson from "templates/coatedItem/operatorCoatedItem.json";
-import operatorMouldJson from "templates/mould/operatorMould.json";
-import qualityControlCoatedItemJson from "templates/coatedItem/qualityControlCoatedItem.json";
-import qualityControlMouldJson from "templates/mould/qualityControlMould.json";
+import operatorCoatedItemJson from "templates/operator.json";
+import qualityControlCoatedItemJson from "templates/qualityControl.json";
 import history from "functions/history";
 import Title from "components/design/fonts/Title";
 import { getAccess } from "functions/user.ts";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
-import {
-  objectifyQuery,
-  formDataStructure
-} from "functions/general";
+import { objectifyQuery, formDataStructure } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
 import { ItemContext } from "components/contexts/ItemContext";
@@ -26,9 +21,12 @@ export default pageInfo => {
 
   const { item, setItem } = useContext(ItemContext);
 
-  const { loading, error, data } = useQuery(query[qualityControlCoatedItemJson.query], {
-    variables: { id: itemId }
-  });
+  const { loading, error, data } = useQuery(
+    query[qualityControlCoatedItemJson.query],
+    {
+      variables: { id: itemId }
+    }
+  );
 
   useEffect(() => {
     if (item.id === null) {
@@ -99,9 +97,7 @@ export default pageInfo => {
           stageType={"qualityControl"}
           getQueryBy={itemId}
           saveButton={true}
-          backButton={() =>
-            history.push(`/`)
-          }
+          backButton={() => history.push(`/`)}
         />
       </Paper>
     </Canvas>

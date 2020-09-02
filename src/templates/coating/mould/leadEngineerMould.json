@@ -20,21 +20,14 @@
               "fieldName": "steel",
               "label": "Steel",
               "type": "select",
-              "options": [
-                "Carbon",
-                "Duplex"
-              ],
+              "options": ["Carbon", "Duplex"],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
-              "options": [
-                "Garnet",
-                "Grit",
-                "Aluminum Oxide"
-              ],
+              "options": ["Garnet", "Grit", "Aluminum Oxide"],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -211,10 +204,7 @@
               "fieldName": "rubberCementsBeforeCoating",
               "label": "Rubber Agent Before Coating",
               "type": "select",
-              "options": [
-                "75051",
-                "Soap"
-              ]
+              "options": ["75051", "Soap"]
             }
           ]
         }
@@ -292,7 +282,7 @@
         {
           "queryPath": "leadEngineers.0.vulcanizationSteps",
           "repeat": true,
-          "repeatStartWithOneGroup": true,
+          "repeatStartWith": 1,
           "delete": true,
           "addButton": "Add Step",
           "indexVariablePageTitle": 0,

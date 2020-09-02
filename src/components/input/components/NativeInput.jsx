@@ -66,10 +66,7 @@ export default ({
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
               readOnly={readOnly}
               value={value}
-              onChange={e => {
-                console.log(3);
-                onChangeInput(e);
-              }}
+              onChange={onChangeInput}
               onBlur={onBlur}
               type={type !== "comment" ? type : ""}
               as={type === "comment" ? "textarea" : "input"}

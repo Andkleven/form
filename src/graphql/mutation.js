@@ -12,15 +12,11 @@ const ORDER = gql`
           id
           data
         }
-        samples {
-          id
-          data
-        }
         descriptions {
           id
           data
-          rubberOds{
-            id 
+          specifications {
+            id
             data
           }
           items {
@@ -30,7 +26,7 @@ const ORDER = gql`
             leadEngineers {
               id
               data
-             }
+            }
           }
           uploadFiles {
             id
@@ -90,7 +86,7 @@ const ITEM = gql`
         leadEngineers {
           id
           data
-         }
+        }
         seen {
           seen
         }
@@ -179,8 +175,8 @@ const OPERATOR_BATCHING = gql`
         descriptions {
           id
           data
-          rubberOds{
-            id 
+          specifications {
+            id
             data
           }
           items {
@@ -481,7 +477,7 @@ const DELETE_SEEN = gql`
 const VERIFY_TOKEN = gql`
   mutation verifyToken($token: String) {
     verifyToken(token: $token) {
-      payload 
+      payload
     }
   }
 `;

@@ -93,7 +93,7 @@ const multiFieldGroup = (
           props.thisChapter,
           finalChapter.current
         ) &&
-        (props.repeatStartWithOneGroup ? (
+        (props.repeatStartWith ? (
           !!index && (
             <DeleteButton index={index} deleteHandler={deleteHandler} />
           )
@@ -441,7 +441,8 @@ export default React.memo(props => {
   }
 
   if (
-    props.repeatStartWithOneGroup &&
+    props.repeatStartWith &&
+    getProperties(props.repeatStartWith, props.jsonVariables) &&
     writeChapter(
       props.allWaysShow,
       editChapter,
@@ -454,25 +455,32 @@ export default React.memo(props => {
       (Array.isArray(objectPath.get(documentData.current, props.path)) &&
         objectPath.get(documentData.current, props.path).length === 0))
   ) {
-    if (!fieldGroups[`${props.path}.${0} `]) {
-      setFieldGroups(prevState => {
-        return {
-          ...prevState,
-          [`${props.repeatStepList}-${0}-${props.path}-${
-            props.queryPath
-          }-repeat-fragment`]: multiFieldGroup(
-            props,
-            0,
-            deleteHandler,
-            editChapter,
-            finalChapter,
-            hidden
-          )
-        };
-      });
+    let temporaryMultiFieldGroup = {};
+    for (
+      let index = 0;
+      index < writeChapter(props.repeatStartWith, props.jsonVariables);
+      index++
+    ) {
+      temporaryMultiFieldGroup[
+        `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
+      ] = multiFieldGroup(
+        props,
+        index,
+        deleteHandler,
+        editChapter,
+        finalChapter,
+        hidden
+      );
+      addData(index);
     }
-    addData(0);
+    setFieldGroups(prevState => {
+      return {
+        ...prevState,
+        ...temporaryMultiFieldGroup
+      };
+    });
   }
+
   const Components = useMemo(
     () =>
       CustomComponents[

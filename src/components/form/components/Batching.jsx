@@ -2,12 +2,10 @@ import React from "react";
 import objectPath from "object-path";
 import {
   findValue,
-  coatedItemOrMould,
   reshapeStageSting,
   camelCaseToNormal
 } from "functions/general";
-import operatorCoatedItemJson from "templates/operatorCoatedItem.json";
-import operatorMouldJson from "templates/coating/mould/operatorMould.json";
+import operatorCoatedItemJson from "templates/operator.json";
 import Line from "components/design/Line";
 import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
@@ -140,12 +138,8 @@ export default props => {
 
   const Items = ({ description }) => {
     return objectPath.get(description, "items").map((item, index) => {
-      let itemJson = coatedItemOrMould(
-        description.data.geometry,
-        operatorCoatedItemJson,
-        operatorMouldJson
-      );
-      let chapter = itemJson["chapters"][reshapeStageSting(props.stage)];
+      let chapter =
+        operatorCoatedItemJson["chapters"][reshapeStageSting(props.stage)];
       let batchingData = allFields(chapter, item);
       if (item.stage === props.stage) {
         const disabled =
