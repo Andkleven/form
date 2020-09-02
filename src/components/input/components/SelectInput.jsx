@@ -36,8 +36,12 @@ export default props => {
 
   options.map((option, index) => {
     if (index > 0) {
-      // const label = camelCaseToNormal(option.value);
-      const label = option.value;
+      let label;
+      if (props.selectAutoFormat) {
+        label = camelCaseToNormal(option.value);
+      } else {
+        label = option.value;
+      }
       return (option.label = label);
     } else {
       const label = "―";

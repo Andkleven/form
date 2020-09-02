@@ -133,6 +133,7 @@ export default ({ view = "items", ...props }) => {
 
   const Stage = (
     <Input
+      selectAutoFormat
       noComment={true}
       className="mb-1"
       key="stageTermInput"
@@ -159,6 +160,7 @@ export default ({ view = "items", ...props }) => {
 
   const Type = (
     <Input
+      selectAutoFormat
       noComment={true}
       className="mb-1"
       key="itemTermInput"
