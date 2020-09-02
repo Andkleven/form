@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
+import { dialog } from "components/Dialog";
 
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
@@ -131,7 +132,36 @@ export default ({ setState, state, ...props }) => {
         <TinyButton
           className="text-secondary"
           icon="times"
-          onClick={event => cancelEdit(event)}
+          onClick={event => {
+            if (
+              JSON.stringify(props.backendData) !==
+              JSON.stringify(documentData.current)
+            ) {
+              dialog({
+                message: "Do you want to save your changes?",
+                buttons: [
+                  {
+                    label: "Save and continue",
+                    variant: "success",
+                    type: "submit",
+                    onClick: () => {
+                      props.submitData(documentData.current, false);
+                      setEditChapter(0);
+                    }
+                  },
+                  {
+                    label: "Discard and continue",
+                    variant: "danger",
+                    onClick: () => {
+                      cancelEdit(event);
+                    }
+                  }
+                ]
+              });
+            } else {
+              cancelEdit(event);
+            }
+          }}
           tooltip="Cancel"
         >
           Cancel
