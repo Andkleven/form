@@ -11,18 +11,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
-
-
+import { dialog } from "components/Dialog";
 
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   // const timer = useRef(0)
-  const {
-    documentData,
-    documentDataDispatch
-  } = useContext(DocumentDataContext);
+  const { documentData, documentDataDispatch } = useContext(
+    DocumentDataContext
+  );
 
   const addUser = useCallback(() => {
     documentDataDispatch({
@@ -38,7 +36,6 @@ export default ({ setState, state, ...props }) => {
     setState(value);
   };
 
-
   const onChangeDate = data => {
     onChange(data);
   };
@@ -49,11 +46,13 @@ export default ({ setState, state, ...props }) => {
   const onChangeFile = value => {
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
-    let spiltPath = props.path.split(".")
+    let spiltPath = props.path.split(".");
     documentDataDispatch({
       type: "add",
       newState: userInfo.username,
-      path: `${spiltPath.slice(0, -1).join(".")}.data.${spiltPath[spiltPath.length - 1]}userField`
+      path: `${spiltPath.slice(0, -1).join(".")}.data.${
+        spiltPath[spiltPath.length - 1]
+      }userField`
     });
   };
 
@@ -133,7 +132,36 @@ export default ({ setState, state, ...props }) => {
         <TinyButton
           className="text-secondary"
           icon="times"
-          onClick={event => cancelEdit(event)}
+          onClick={event => {
+            if (
+              JSON.stringify(props.backendData) !==
+              JSON.stringify(documentData.current)
+            ) {
+              dialog({
+                message: "Do you want to save your changes?",
+                buttons: [
+                  {
+                    label: "Save and continue",
+                    variant: "success",
+                    type: "submit",
+                    onClick: () => {
+                      props.submitData(documentData.current, false);
+                      setEditChapter(0);
+                    }
+                  },
+                  {
+                    label: "Discard and continue",
+                    variant: "danger",
+                    onClick: () => {
+                      cancelEdit(event);
+                    }
+                  }
+                ]
+              });
+            } else {
+              cancelEdit(event);
+            }
+          }}
           tooltip="Cancel"
         >
           Cancel
