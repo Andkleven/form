@@ -29,16 +29,19 @@ export default ({
   onKeyPress,
   ...props
 }) => {
+  // Format datetime values
+  // https://momentjs.com/docs/#/parsing/special-formats/
   switch (type) {
     case "date":
-      value = value && moment(value).format("yyyy-MM-DD");
+      value = value && moment(value).format(moment.HTML5_FMT.DATE);
       break;
     case "datetime-local":
-      value = value && moment(value).format("yyyy-MM-DDThh:mm");
+      value = value && moment(value).format(moment.HTML5_FMT.DATETIME_LOCAL);
       break;
     default:
       break;
   }
+
   return (
     <>
       <Form.Group
