@@ -15,17 +15,14 @@ import DepthButton from "components/button/DepthButton";
 
 export default ({ addOrRemove, ...props }) => {
   const { documentData } = useContext(DocumentDataContext);
-  const {
-    finalChapter,
-    editChapter
-  } = useContext(ChapterContext);
+  const { finalChapter, editChapter } = useContext(ChapterContext);
   const DeleteButton = props => (
     <DepthButton
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
       // key={`${props.index}-DepthButton`}
       onClick={() => props.deleteHandler(props.index)}
       className="w-100 mt-1 mb-3"
-    // style={{ position: "relative", bottom: ".9em" }}
+      // style={{ position: "relative", bottom: ".9em" }}
     >
       Remove
     </DepthButton>
@@ -54,7 +51,16 @@ export default ({ addOrRemove, ...props }) => {
             <Fragment key={`${index}-repeat-fragment`}>
               {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
                 <>
-                  <Subtitle className={!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && "mt-3"}>
+                  <Subtitle
+                    className={
+                      !writeChapter(
+                        props.allWaysShow,
+                        editChapter,
+                        props.thisChapter,
+                        finalChapter.current
+                      ) && "mt-3"
+                    }
+                  >
                     {variableString(index + 1, props.pageTitle)}
                   </Subtitle>
                   <Line></Line>
@@ -78,21 +84,26 @@ export default ({ addOrRemove, ...props }) => {
                 }
                 indexId={`${props.indexId}-${index}`}
               />
-              {!!props.delete && !!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
-                props.repeatStartWithOneGroup ? (
-                  !!index && (
+              {!!props.delete &&
+                !!writeChapter(
+                  props.allWaysShow,
+                  editChapter,
+                  props.thisChapter,
+                  finalChapter.current
+                ) &&
+                (props.repeatStartWith ? (
+                  index < props.repeatStartWith && (
                     <DeleteButton
                       index={index}
                       deleteHandler={props.deleteHandler}
                     />
                   )
                 ) : (
-                    <DeleteButton
-                      index={index}
-                      deleteHandler={props.deleteHandler}
-                    />
-                  )
-              )}
+                  <DeleteButton
+                    index={index}
+                    deleteHandler={props.deleteHandler}
+                  />
+                ))}
             </Fragment>
           );
         });

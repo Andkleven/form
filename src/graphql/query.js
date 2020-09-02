@@ -96,8 +96,8 @@ const BATCHING_OPERATOR = gql`
       descriptions {
         id
         data
-        rubberOds{
-          id 
+        specifications {
+          id
           data
         }
         items {
@@ -167,8 +167,8 @@ const BATCHING_VULCANIZATION = gql`
       descriptions {
         id
         data
-        rubberOds{
-          id 
+        specifications {
+          id
           data
         }
         items {
@@ -254,15 +254,11 @@ const GET_ORDER_GEOMETRY = gql`
         id
         data
       }
-      samples {
-        id
-        data
-      }
       descriptions {
         id
         data
-        rubberOds{
-          id 
+        specifications {
+          id
           data
         }
         items {
@@ -331,8 +327,8 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
     descriptions(id: $id) {
       id
       data
-      rubberOds{
-        id 
+      specifications {
+        id
         data
       }
       items {
@@ -420,119 +416,118 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
 const GET_OPERATOR_BY_ITEM = gql`
   query($id: Int) {
     items(id: $id) {
+      id
+      itemId
+      unique
+      qrCode
+      repair
+      stage
+      leadEngineers {
         id
-        itemId
-        unique
-        qrCode
-        repair
-        stage
-        leadEngineers {
+        data
+        measurementPointActualTdvs {
           id
           data
-          measurementPointActualTdvs {
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
             id
             data
-          }
-          vulcanizationSteps {
-            id
-            data
-            coatingLayers {
+            cumulativeThickness {
               id
               data
-              cumulativeThickness {
-                id
-                data
-              }
             }
           }
-          rubberCements {
-            id
-            data
-          }
-          additionalCustomTests {
-            id
-            data
-          }
-          finalInspectionCustomTests {
-            id
-            data
-          }
-          finalInspectionDimensionsChecks {
+        }
+        rubberCements {
+          id
+          data
+        }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
+          id
+          data
+        }
+        finalInspectionDimensionsChecks {
+          id
+          data
+        }
+      }
+      operators {
+        id
+        data
+        surfaceCleanlinessImage
+        rubberCementOperators {
+          id
+          data
+          mixDates {
             id
             data
           }
         }
-        operators {
+        measurementPointActualTdvs {
           id
           data
-          surfaceCleanlinessImage
-          rubberCementOperators {
+        }
+        vulcanizationOperators {
+          id
+          data
+          coatingOperators {
             id
             data
-            mixDates {
+            layers {
               id
               data
-            }
-          }
-          measurementPointActualTdvs {
-            id
-            data
-          }
-          vulcanizationOperators {
-            id
-            data
-            coatingOperators {
-              id
-              data
-              layers {
-                id
-                data
-              }
-              measurementPointOperators {
-                id
-                data
-              }
             }
             measurementPointOperators {
               id
               data
             }
           }
-          additionalCustomTestOperators {
+          measurementPointOperators {
             id
             data
           }
         }
-        finalInspectionQualityControls {
+        additionalCustomTestOperators {
           id
           data
-          measurementPointQualityControls {
-            id
-            data
-          }
-          hardnessQualityControls {
-            id
-            data
-          }
-          peelTestQualityControls {
-            id
-            data
-          }
-          finalInspectionCustomTestQualityControls {
-            id
-            data
-          }
-          finalInspectionDimensionsCheckQualityControls {
-            id
-            data
-          }
-          uploadFiles {
-            id
-            file
-            fileDescription
-          }
         }
-      
+      }
+      finalInspectionQualityControls {
+        id
+        data
+        measurementPointQualityControls {
+          id
+          data
+        }
+        hardnessQualityControls {
+          id
+          data
+        }
+        peelTestQualityControls {
+          id
+          data
+        }
+        finalInspectionCustomTestQualityControls {
+          id
+          data
+        }
+        finalInspectionDimensionsCheckQualityControls {
+          id
+          data
+        }
+        uploadFiles {
+          id
+          file
+          fileDescription
+        }
+      }
     }
   }
 `;
@@ -547,8 +542,8 @@ const OPERATOR_PROJECTS = gql`
       descriptions {
         id
         data
-        rubberOds{
-          id 
+        specifications {
+          id
           data
         }
         items {

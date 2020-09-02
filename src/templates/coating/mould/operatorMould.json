@@ -394,10 +394,7 @@
       ]
     },
     "coatingStepLayer": {
-      "specChapter": [
-        "leadEngineers.0.vulcanizationSteps",
-        "coatingLayers"
-      ],
+      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -430,7 +427,7 @@
               "page": true,
               "queryPath": "mixDates",
               "repeat": true,
-              "repeatStartWithOneGroup": true,
+              "repeatStartWith": 1,
               "delete": true,
               "addButton": "Add Rubber Cement",
               "fields": [
@@ -476,7 +473,7 @@
             "layers"
           ],
           "repeat": true,
-          "repeatStartWithOneGroup": true,
+          "repeatStartWith": 1,
           "delete": true,
           "addButton": "Extra Layer",
           "fields": [
@@ -515,10 +512,7 @@
       "pages": [
         {
           "pageTitle": "Vulcanization",
-          "queryPath": [
-            "operators.0.vulcanizationOperators",
-            ""
-          ],
+          "queryPath": ["operators.0.vulcanizationOperators", ""],
           "fields": [
             {
               "specValueList": [
