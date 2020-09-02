@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorCoatedItemJson from "templates/coatedItem/operator.json";
-import qualityControlCoatedItemJson from "templates/coatedItem/qualityControl.json";
+import operatorCoatedItemJson from "templates/operator.json";
+import qualityControlCoatedItemJson from "templates/qualityControl.json";
 import history from "functions/history";
 import Title from "components/design/fonts/Title";
 import { getAccess } from "functions/user.ts";
