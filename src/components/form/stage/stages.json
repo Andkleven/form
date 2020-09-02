@@ -1,5 +1,6 @@
 {
   "all": [
+    "start",
     "actualSteelMeasurement",
     "steelPreparation1",
     "steelPreparation2",
@@ -16,7 +17,7 @@
   ],
   "coatedItem": {
     "actualSteelMeasurement": {
-      "queryPath": ""
+      "queryPath": "leadEngineers.0.data.measurementPoint"
     },
     "steelPreparation1": {
       "queryPath": "leadEngineers.0.data.mediaBlasting"
@@ -61,9 +62,6 @@
       "step": true
     },
     "touchUp": {
-      "queryPath": ""
-    },
-    "qualityControl": {
       "queryPath": ""
     },
     "done": {
@@ -116,6 +114,11 @@
     "touchUp": {
       "queryPath": ""
     },
+    "done": {
+      "queryPath": ""
+    }
+  },
+  "qualityControl": {
     "qualityControl": {
       "queryPath": ""
     },

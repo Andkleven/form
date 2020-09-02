@@ -26,7 +26,6 @@ export default props => {
             {...field}
             key={`${index}-${field.queryPath}-page`}
             edit={props.edit}
-            finalChapter={props.finalChapter}
             optionsData={props.optionsData}
             backendData={props.backendData}
             repeatStepList={props.repeatStepList}

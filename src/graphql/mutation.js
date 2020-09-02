@@ -29,6 +29,7 @@ const ORDER = gql`
             unique
             leadEngineers {
               id
+              data
              }
           }
           uploadFiles {
@@ -88,6 +89,7 @@ const ITEM = gql`
         stage
         leadEngineers {
           id
+          data
          }
         seen {
           seen

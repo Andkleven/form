@@ -265,7 +265,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           props.allWaysShow,
           chapterContext.editChapter,
           props.thisChapter,
-          chapterContext.finalChapter
+          chapterContext.finalChapter.current
         ) ? (
           <Form.Text className="text-muted">{props.subtext}</Form.Text>
         ) : null}

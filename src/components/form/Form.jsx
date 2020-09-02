@@ -27,9 +27,11 @@ function useStore(init = {}) {
     switch (action.type) {
       case "setState":
         state.current = cloneDeep(action.newState);
-        Object.values(resetState.current).forEach(func => {
-          func();
-        });
+        if (!action.notReRender) {
+          Object.values(resetState.current).forEach(func => {
+            func();
+          });
+        }
         break;
       case "add":
         objectPath.set(
@@ -87,7 +89,7 @@ export default ({ saveVariables = {}, ...props }) => {
   const renderMath = useRef({});
   const lastData = useRef(false);
   const stagePath = useRef(false);
-  const [finalChapter, setFinalChapter] = useState(0);
+  const finalChapter = useRef(0);
 
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -104,7 +106,7 @@ export default ({ saveVariables = {}, ...props }) => {
     (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
       !lastData.current)
   ) {
-    setFinalChapter(0);
+    finalChapter.current = 0;
     lastData.current = cloneDeep(props.data);
     documentDataDispatch({
       type: "setState",
@@ -208,17 +210,16 @@ export default ({ saveVariables = {}, ...props }) => {
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[props.document.mutation],
     {
-      update: props.updateCache
-        ? props.updateCache
-        : !props.data ||
-          !props.data[Object.keys(props.data)[0]] ||
-          !props.data[Object.keys(props.data)[0]].length
-        ? props.firstQueryPath
-          ? createWithVariable
-          : create
-        : props.firstQueryPath
-        ? updateWithVariable
-        : update,
+      update: props.updateCache ? props.updateCache : update,
+      // !props.data ||
+      //   !props.data[Object.keys(props.data)[0]] ||
+      //   !props.data[Object.keys(props.data)[0]].length
+      //   ? props.firstQueryPath
+      //     ? createWithVariable
+      //     : create
+      //   : props.firstQueryPath
+      //     ? updateWithVariable
+      //     : update,
       onError: () => {},
       onCompleted: props.reRender
     }
@@ -228,6 +229,7 @@ export default ({ saveVariables = {}, ...props }) => {
     (data, submit) => {
       renderFunction.current = {};
       setEditChapter(0);
+      finalChapter.current = 0;
       setLoading(true);
       if (documentData.current) {
         if (submit && !props.stage && stagePath && !editChapter) {
@@ -296,7 +298,7 @@ export default ({ saveVariables = {}, ...props }) => {
 
   timer.current = setTimeout(() => {
     setLoading(false);
-  }, 2000);
+  }, 1000);
   useEffect(() => {
     return () => {
       clearTimeout(timer.current);
@@ -322,7 +324,6 @@ export default ({ saveVariables = {}, ...props }) => {
         <ChapterContext.Provider
           value={{
             finalChapter,
-            setFinalChapter,
             editChapter,
             setEditChapter
           }}

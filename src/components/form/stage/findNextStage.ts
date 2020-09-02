@@ -63,9 +63,7 @@ export default (specData: object, stage: string, stageType: string): object => {
         return { stage: `${crossroads}${step + 1}`, stageWithoutNumber: `${crossroads}`, number: [step, 0] };
       }
     }
-    if (stagesJson[stageType][thisStage] === undefined) {
-      index++;
-    } else if (stagesJson[stageType][thisStage]["layer"]) {
+    if (stagesJson[stageType][thisStage] && stagesJson[stageType][thisStage]["layer"]) {
       layer += 1
       query = findValue(
         specData,

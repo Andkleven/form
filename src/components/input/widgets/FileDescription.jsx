@@ -13,7 +13,7 @@ export default ({ ...props }) => {
   } = useContext(ChapterContext);
   const FileName = () => (
     <div
-      className={(writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "mb-2") || ""}
+      className={(writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && "mb-2") || ""}
       style={{
         wordBreak: "break-word"
       }}
@@ -27,13 +27,13 @@ export default ({ ...props }) => {
     </div>
   );
 
-  if (props.description && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter)) {
+  if (props.description && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
     return (
       <div className="mt-2">
-        <div className={(writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && "pt-2") || ""}>
+        <div className={(writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && "pt-2") || ""}>
           <div className="d-flex justify-content-between">
             <FileName />
-            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter) && (
+            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
               <TinyButton
                 onClick={() => props.deleteHandler(props.index)}
                 icon="trash-alt"

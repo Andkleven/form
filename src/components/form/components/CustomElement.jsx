@@ -125,7 +125,7 @@ const CustomLead = props => {
         props.allWaysShow,
         editChapter,
         props.thisChapter,
-        finalChapter
+        finalChapter.current
       )
     ) {
       renderMath.current[`${props.repeatStepList}-CustomLead`] = thickness;
@@ -153,7 +153,7 @@ const CustomLead = props => {
       props.allWaysShow,
       editChapter,
       props.thisChapter,
-      finalChapter
+      finalChapter.current
     ) &&
     toleranceMin &&
     toleranceMax &&

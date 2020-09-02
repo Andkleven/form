@@ -179,7 +179,7 @@ export default () => {
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {
         description.items.forEach((item, itemIndex) => {
-          let stage = getStartStage(description.data.geometry);
+          let stage = getStartStage(description.data.geometry, item);
           data["projects"][projectIndex]["descriptions"][descriptionIndex][
             "items"
           ][itemIndex]["stage"] = stage;

@@ -59,7 +59,7 @@ const multiFieldGroup = (
                 props.allWaysShow,
                 editChapter,
                 props.thisChapter,
-                finalChapter
+                finalChapter.current
               ) && "mt-3"
             }
           >
@@ -91,7 +91,7 @@ const multiFieldGroup = (
           props.allWaysShow,
           editChapter,
           props.thisChapter,
-          finalChapter
+          finalChapter.current
         ) &&
         (props.repeatStartWithOneGroup ? (
           !!index && (
@@ -105,12 +105,9 @@ const multiFieldGroup = (
 };
 
 export default React.memo(props => {
-  const {
-    setFinalChapter,
-    finalChapter,
-    editChapter,
-    setEditChapter
-  } = useContext(ChapterContext);
+  const { finalChapter, editChapter, setEditChapter } = useContext(
+    ChapterContext
+  );
   const { documentDataDispatch, documentData, renderFunction } = useContext(
     DocumentDataContext
   );
@@ -120,8 +117,8 @@ export default React.memo(props => {
     `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
   ]);
 
-  if (props.finalChapter && props.finalChapter > finalChapter) {
-    setFinalChapter(props.finalChapter);
+  if (props.finalChapter && props.finalChapter > finalChapter.current) {
+    finalChapter.current = props.finalChapter;
   }
   const deleteData = useCallback(
     index => {
@@ -367,7 +364,7 @@ export default React.memo(props => {
         props.allWaysShow,
         editChapter,
         props.thisChapter,
-        finalChapter
+        finalChapter.current
       ) &&
       (props.showPage === undefined ||
         (props.showPage && getProperties(props.showPage, props.jsonVariables)))
@@ -402,7 +399,7 @@ export default React.memo(props => {
         props.allWaysShow,
         editChapter,
         props.thisChapter,
-        finalChapter
+        finalChapter.current
       ) &&
       (props.showPage === undefined ||
         (props.showPage && getProperties(props.showPage, props.jsonVariables)))
@@ -449,7 +446,7 @@ export default React.memo(props => {
       props.allWaysShow,
       editChapter,
       props.thisChapter,
-      finalChapter
+      finalChapter.current
     ) &&
     (!objectPath.get(props.backendData, props.path) ||
       objectPath.get(props.backendData, props.path).length === 0) &&
@@ -577,10 +574,10 @@ export default React.memo(props => {
       props.allWaysShow,
       editChapter,
       props.thisChapter,
-      finalChapter
+      finalChapter.current
     ) &&
     props.edit;
-  // && props.thisChapter !== finalChapter;
+  // && props.thisChapter !== finalChapter.current;
   const showTitle =
     !props.stopLoop &&
     props.pageTitle &&
@@ -594,7 +591,7 @@ export default React.memo(props => {
   const showCancelTab =
     showLine &&
     !!editChapter &&
-    props.thisChapter !== finalChapter &&
+    props.thisChapter !== finalChapter.current &&
     props.pageTitle;
   const editAllActive =
     props.showSubmitButton && editChapter && props.thisChapter === editChapter;
@@ -722,7 +719,7 @@ export default React.memo(props => {
             props.allWaysShow,
             editChapter,
             props.thisChapter,
-            finalChapter
+            finalChapter.current
           ) ? (
             <DepthButton
               iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}

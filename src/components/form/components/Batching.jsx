@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import objectPath from "object-path";
 import { useMutation } from "@apollo/react-hooks";
 import { Button } from "react-bootstrap";
-import { Form } from "react-bootstrap";
 import {
   findValue,
   coatedItemOrMould,
@@ -107,44 +106,44 @@ export default props => {
     }
   };
 
-  const allRequiredSatisfied = (itemData, chapter) => {
-    let allRequiredFulfilled = true;
-    chapter.pages.forEach(page => {
-      page.fields.forEach(field => {
-        if (field.fieldName && field.required && !field.specValueList) {
-          let value = findValue(
-            itemData,
-            Array.isArray(props.json.batching.dataPath)
-              ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
-              : [props.json.batching.dataPath, `data.${field.fieldName}`],
-            props.repeatStepList
-          );
-          if ([null, undefined, "", false].includes(value)) {
-            allRequiredFulfilled = false;
-          }
-          let min;
-          let max;
-          if (field.routeToSpecMin) {
-            min = objectPath.get(itemData, field.routeToSpecMin);
-          } else if (field.min) {
-            min = field.min;
-          }
-          if (field.routeToSpecMax) {
-            max = objectPath.get(itemData, field.routeToSpecMax);
-          } else if (field.max) {
-            max = field.max;
-          }
-          if (min !== undefined && value < min) {
-            allRequiredFulfilled = false;
-          }
-          if (max !== undefined && max < value) {
-            allRequiredFulfilled = false;
-          }
-        }
-      });
-    });
-    return allRequiredFulfilled;
-  };
+  // const allRequiredSatisfied = (itemData, chapter) => {
+  //   let allRequiredFulfilled = true;
+  //   chapter.pages.forEach(page => {
+  //     page.fields.forEach(field => {
+  //       if (field.fieldName && field.required && !field.specValueList) {
+  //         let value = findValue(
+  //           itemData,
+  //           Array.isArray(props.json.batching.dataPath)
+  //             ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
+  //             : [props.json.batching.dataPath, `data.${field.fieldName}`],
+  //           props.repeatStepList
+  //         );
+  //         if ([null, undefined, "", false].includes(value)) {
+  //           allRequiredFulfilled = false;
+  //         }
+  //         let min;
+  //         let max;
+  //         if (field.routeToSpecMin) {
+  //           min = objectPath.get(itemData, field.routeToSpecMin);
+  //         } else if (field.min) {
+  //           min = field.min;
+  //         }
+  //         if (field.routeToSpecMax) {
+  //           max = objectPath.get(itemData, field.routeToSpecMax);
+  //         } else if (field.max) {
+  //           max = field.max;
+  //         }
+  //         if (min !== undefined && value < min) {
+  //           allRequiredFulfilled = false;
+  //         }
+  //         if (max !== undefined && max < value) {
+  //           allRequiredFulfilled = false;
+  //         }
+  //       }
+  //     });
+  //   });
+  //   return allRequiredFulfilled;
+  // };
 
   const Items = ({ description }) => {
     return objectPath.get(description, "items").map((item, index) => {
@@ -162,52 +161,50 @@ export default props => {
             !props.batchingData ||
             JSON.stringify(batchingData) === JSON.stringify(props.batchingData)
           );
-
         return (
           <CheckInput
             className="mt-3"
             disabled={disabled}
             onChangeInput={e => handleClick(e, item, description, batchingData)}
-            // key={`${index}-batching-check`}
-            id={`${index}-batching-check`}
+            id={`${index}-${description.id}-batching-check`}
             checked={
               props.batchingListIds.find(id => Number(id) === Number(item.id))
                 ? true
                 : false
             }
             label={`${item.itemId}`}
-            labelAppend={
-              props.partialBatching &&
-              allRequiredSatisfied(item, chapter) && (
-                <div className="d-flex align-items-center">
-                  <div className="d-inline text-secondary">(Done)</div>
-                  <Button
-                    variant="link"
-                    className="p-0 m-0 ml-2"
-                    style={{ height: "1.5em" }}
-                    key={`${index}-fragment-batching-button`}
-                    onClick={() => {
-                      submitStage({
-                        variables: {
-                          stage: FindNextStage(
-                            item,
-                            props.stage,
-                            description.data.geometry
-                          )["stage"],
-                          id: item.id
-                        }
-                      });
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={["fas", "arrow-square-right"]}
-                      className="mr-2"
-                    />
-                    Send to next stage
-                  </Button>
-                </div>
-              )
-            }
+          // labelAppend={
+          //   props.partialBatching &&
+          //   allRequiredSatisfied(item, chapter) && (
+          //     <div className="d-flex align-items-center">
+          //       <div className="d-inline text-secondary">(Done)</div>
+          //       <Button
+          //         variant="link"
+          //         className="p-0 m-0 ml-2"
+          //         style={{ height: "1.5em" }}
+          //         key={`${index}-${item.id}-fragment-batching-button`}
+          //         onClick={() => {
+          //           submitStage({
+          //             variables: {
+          //               stage: FindNextStage(
+          //                 item,
+          //                 props.stage,
+          //                 description.data.geometry
+          //               )["stage"],
+          //               id: item.id
+          //             }
+          //           });
+          //         }}
+          //       >
+          //         <FontAwesomeIcon
+          //           icon={["fas", "arrow-square-right"]}
+          //           className="mr-2"
+          //         />
+          //         Send to next stage
+          //       </Button>
+          //     </div>
+          //   )
+          // }
           />
         );
       } else if (item.stage === props.stage) {
@@ -261,7 +258,7 @@ export default props => {
             ) {
               return (
                 <div
-                  key={`${index}-${description.data.geometry}-batching-description`}
+                  key={`${index}-${description.id}-batching-description`}
                   className="mb-3"
                 >
                   {!!description &&

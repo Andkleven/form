@@ -23,6 +23,7 @@ const queries = {
         id
         data
         items {
+          id
           itemId
         }
       }

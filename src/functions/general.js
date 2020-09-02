@@ -289,6 +289,35 @@ export const objectifyQuery = (query) => {
   }
 };
 
+export const getBatchingData = (query, batching) => {
+  if (query) {
+    let newObject = {};
+    const objectifyEntries = (query, oldPath = null) => {
+      let path;
+      Object.keys(query).forEach((key) => {
+        path = oldPath === null ? key : oldPath + "." + key;
+        if (Array.isArray(query[key])) {
+          query[key].forEach((value, index) => {
+            objectifyEntries(value, path + "." + index.toString());
+          });
+        } else if (key === "data") {
+          let data = {};
+          Object.keys(batching).forEach(fieldName => {
+            if (![null, undefined].includes(query.data[fieldName]) && ![null, undefined].includes(batching[fieldName])) {
+              data[fieldName] = query.data[fieldName]
+            }
+          })
+          if (Object.keys(data).length !== 0) {
+            objectPath.set(newObject, path, { ...data })
+          }
+        }
+      });
+    };
+    objectifyEntries(query);
+    return newObject;
+  }
+};
+
 export const calculateMaxMin = (
   min,
   routeToSpecMin,
@@ -383,6 +412,7 @@ export const getDataToBatching = (
   path,
   descriptionId,
   repeatStepList,
+  batchingData
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
@@ -393,7 +423,7 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path,
     );
-    return { [key]: newData };
+    return getBatchingData({ [key]: newData }, batchingData)
   }
   return { [key]: [] };
 };
@@ -520,10 +550,14 @@ export function getBatchingJson(
   return batchingJson;
 }
 
-export function getStartStage(geometry) {
+export function getStartStage(geometry, item) {
   let stage = undefined;
   switch (geometry) {
     case "Coated Item":
+      if (item && objectPath.get(item, "leadEngineers.0.data.measurementPoint") === 0) {
+        stage = "steelPreparation1"
+        break;
+      }
       stage = Object.keys(stages["coatedItem"])[0];
       break;
     case "Mould":
