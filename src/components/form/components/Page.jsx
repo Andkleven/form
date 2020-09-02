@@ -8,7 +8,15 @@ import React, {
 } from "react";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
-import { getRepeatNumber, isNumberAndNotNaN, writeChapter, getProperties, variableString, getRepeatStepList, isLastCharacterNumber } from "functions/general";
+import {
+  getRepeatNumber,
+  isNumberAndNotNaN,
+  writeChapter,
+  getProperties,
+  variableString,
+  getRepeatStepList,
+  isLastCharacterNumber
+} from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
@@ -19,9 +27,7 @@ import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
-import useHidden from "functions/useHidden"
-
-
+import useHidden from "functions/useHidden";
 
 const DeleteButton = ({ index, deleteHandler }) => (
   <DepthButton
@@ -33,69 +39,83 @@ const DeleteButton = ({ index, deleteHandler }) => (
   </DepthButton>
 );
 
-const multiFieldGroup = (props, index, deleteHandler, editChapter, finalChapter, hidden) => {
-  return (<Fragment key={`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`}>
-    {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
-      <>
-        <Subtitle className={!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && "mt-3"}>
-          {variableString(index + 1, props.pageTitle)}
-        </Subtitle>
-        <Line></Line>
-      </>
-    ) : null}
-    <FieldGroup
-      {...props}
-      repeatStepList={getRepeatStepList(props.repeatStepList, index)}
-      repeatStep={index}
-      path={props.path ? `${props.path}.${index}` : null}
-      file={
-        objectPath.get(
-          props.backendData,
-          props.path ? `${props.path}.${index}.data` : null
+const multiFieldGroup = (
+  props,
+  index,
+  deleteHandler,
+  editChapter,
+  finalChapter,
+  hidden
+) => {
+  return (
+    <Fragment
+      key={`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`}
+    >
+      {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
+        <>
+          <Subtitle
+            className={
+              !writeChapter(
+                props.allWaysShow,
+                editChapter,
+                props.thisChapter,
+                finalChapter.current
+              ) && "mt-3"
+            }
+          >
+            {variableString(index + 1, props.pageTitle)}
+          </Subtitle>
+          <Line></Line>
+        </>
+      ) : null}
+      <FieldGroup
+        {...props}
+        repeatStepList={getRepeatStepList(props.repeatStepList, index)}
+        repeatStep={index}
+        path={props.path ? `${props.path}.${index}` : null}
+        file={
+          objectPath.get(
+            props.backendData,
+            props.path ? `${props.path}.${index}.data` : null
+          ) &&
+          objectPath.get(
+            props.backendData,
+            props.path ? `${props.path}.${index}.data` : null
+          ).file
+        }
+        indexId={`${props.indexId}-${index}`}
+      />
+      {!!props.delete &&
+        !hidden &&
+        !!writeChapter(
+          props.allWaysShow,
+          editChapter,
+          props.thisChapter,
+          finalChapter.current
         ) &&
-        objectPath.get(
-          props.backendData,
-          props.path ? `${props.path}.${index}.data` : null
-        ).file
-      }
-      indexId={`${props.indexId}-${index}`}
-    />
-    {!!props.delete && !hidden && !!writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
-      props.repeatStartWithOneGroup ? (
-        !!index && (
-          <DeleteButton
-            index={index}
-            deleteHandler={deleteHandler}
-          />
-        )
-      ) : (
-          <DeleteButton
-            index={index}
-            deleteHandler={deleteHandler}
-          />
-        )
-    )}
-  </Fragment>
+        (props.repeatStartWithOneGroup ? (
+          !!index && (
+            <DeleteButton index={index} deleteHandler={deleteHandler} />
+          )
+        ) : (
+          <DeleteButton index={index} deleteHandler={deleteHandler} />
+        ))}
+    </Fragment>
   );
-}
-
-
-
+};
 
 export default React.memo(props => {
-  const {
-    finalChapter,
-    editChapter,
-    setEditChapter
-  } = useContext(ChapterContext);
-  const {
-    documentDataDispatch,
-    documentData,
-    renderFunction
-  } = useContext(DocumentDataContext);
+  const { finalChapter, editChapter, setEditChapter } = useContext(
+    ChapterContext
+  );
+  const { documentDataDispatch, documentData, renderFunction } = useContext(
+    DocumentDataContext
+  );
 
-  const [fieldGroups, setFieldGroups] = useState({})
-  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [`${props.label}-${props.prepend}-${props.queryPath}-page-hidden`])
+  const [fieldGroups, setFieldGroups] = useState({});
+  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [
+    `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
+  ]);
 
   if (props.finalChapter && props.finalChapter > finalChapter.current) {
     finalChapter.current = props.finalChapter;
@@ -105,21 +125,21 @@ export default React.memo(props => {
       documentDataDispatch({
         type: "delete",
         path: `${props.path}.${index}`,
-        notReRender: true,
+        notReRender: true
         // resetRenderFunction: true
       });
     },
-    [
-      props.path,
-      documentDataDispatch
-    ])
+    [props.path, documentDataDispatch]
+  );
   const deleteHandler = useCallback(
     index => {
       setFieldGroups(prevState => {
-        delete prevState[`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`]
-        return { ...prevState }
-      })
-      deleteData(index)
+        delete prevState[
+          `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
+        ];
+        return { ...prevState };
+      });
+      deleteData(index);
     },
     [
       deleteData,
@@ -127,18 +147,29 @@ export default React.memo(props => {
       setFieldGroups,
       props.queryPath,
       props.repeatStepList
-    ])
+    ]
+  );
 
   useEffect(() => {
-    let temporaryMultiFieldGroup = {}
-    if (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables))) {
+    let temporaryMultiFieldGroup = {};
+    if (
+      props.showPage === undefined ||
+      (props.showPage && getProperties(props.showPage, props.jsonVariables))
+    ) {
       if (props.repeat) {
-        let arrayData = objectPath.get(documentData.current, props.path)
-        if (
-          Array.isArray(arrayData)
-        ) {
+        let arrayData = objectPath.get(documentData.current, props.path);
+        if (Array.isArray(arrayData)) {
           for (let index = 0; index < arrayData.length; index++) {
-            temporaryMultiFieldGroup[`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden)
+            temporaryMultiFieldGroup[
+              `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
+            ] = multiFieldGroup(
+              props,
+              index,
+              deleteHandler,
+              editChapter,
+              finalChapter,
+              hidden
+            );
           }
         } else if (!props.queryPath) {
           let repeatNumber = getRepeatNumber(
@@ -148,7 +179,9 @@ export default React.memo(props => {
             props.editRepeatStepListRepeat
           );
           for (let index = 0; index < repeatNumber; index++) {
-            temporaryMultiFieldGroup[`${props.repeatStepList}-${index}-${props.path}.${props.queryPath}-repeat-fragment`] = (
+            temporaryMultiFieldGroup[
+              `${props.repeatStepList}-${index}-${props.path}.${props.queryPath}-repeat-fragment`
+            ] = (
               <FieldGroup
                 key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
                 {...props}
@@ -161,7 +194,11 @@ export default React.memo(props => {
           }
         }
       } else {
-        temporaryMultiFieldGroup[`${props.repeatStepList}-${0}-${props.path}.${props.queryPath}-repeat-fragment`] = (
+        temporaryMultiFieldGroup[
+          `${props.repeatStepList}-${0}-${props.path}.${
+            props.queryPath
+          }-repeat-fragment`
+        ] = (
           <FieldGroup
             {...props}
             key={`${props.path}.${props.queryPath}`}
@@ -184,18 +221,35 @@ export default React.memo(props => {
       }
       if (Object.keys(temporaryMultiFieldGroup).length) {
         setFieldGroups(prevState => {
-          return { ...prevState, ...temporaryMultiFieldGroup }
-        })
+          return { ...prevState, ...temporaryMultiFieldGroup };
+        });
       }
     }
-
-  }, [documentData, props, deleteHandler, setFieldGroups, editChapter, finalChapter, hidden])
+  }, [
+    documentData,
+    props,
+    deleteHandler,
+    setFieldGroups,
+    editChapter,
+    finalChapter,
+    hidden
+  ]);
 
   const addData = useCallback(
     pushOnIndex => {
       setFieldGroups(prevState => {
-        return { ...prevState, [`${props.repeatStepList}-${pushOnIndex}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, pushOnIndex, deleteHandler, editChapter, finalChapter, hidden) }
-      })
+        return {
+          ...prevState,
+          [`${props.repeatStepList}-${pushOnIndex}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(
+            props,
+            pushOnIndex,
+            deleteHandler,
+            editChapter,
+            finalChapter,
+            hidden
+          )
+        };
+      });
       documentDataDispatch({
         type: "add",
         newState: {},
@@ -216,10 +270,23 @@ export default React.memo(props => {
   );
 
   const addHandler = useCallback(() => {
-    let index = objectPath.get(documentData.current, props.path) === undefined ? 0 : objectPath.get(documentData.current, props.path).length
+    let index =
+      objectPath.get(documentData.current, props.path) === undefined
+        ? 0
+        : objectPath.get(documentData.current, props.path).length;
     setFieldGroups(prevState => {
-      return { ...prevState, [`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, index, deleteHandler, editChapter, finalChapter, hidden) }
-    })
+      return {
+        ...prevState,
+        [`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(
+          props,
+          index,
+          deleteHandler,
+          editChapter,
+          finalChapter,
+          hidden
+        )
+      };
+    });
     documentDataDispatch({
       type: "add",
       newState: {},
@@ -247,24 +314,35 @@ export default React.memo(props => {
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
-      newValue = newValue ? newValue : 0
+      newValue = newValue ? newValue : 0;
       let oldValue = objectPath.get(documentData.current, props.path, false);
       oldValue = oldValue ? oldValue.length : 0;
-      let temporaryMultiFieldGroup = {}
+      let temporaryMultiFieldGroup = {};
       if (oldValue < newValue) {
         for (let i = oldValue; i < newValue; i++) {
-          temporaryMultiFieldGroup[`${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`] = multiFieldGroup(props, i, deleteHandler, editChapter, finalChapter, hidden)
+          temporaryMultiFieldGroup[
+            `${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`
+          ] = multiFieldGroup(
+            props,
+            i,
+            deleteHandler,
+            editChapter,
+            finalChapter,
+            hidden
+          );
           addData(i);
         }
       } else if (newValue < oldValue) {
         for (let i = oldValue - 1; i > newValue - 1; i--) {
-          temporaryMultiFieldGroup[`${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`] = null
+          temporaryMultiFieldGroup[
+            `${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`
+          ] = null;
           deleteData(i);
         }
       }
       setFieldGroups(prevState => {
-        return { ...prevState, ...temporaryMultiFieldGroup }
-      })
+        return { ...prevState, ...temporaryMultiFieldGroup };
+      });
     },
     [
       deleteHandler,
@@ -282,8 +360,14 @@ export default React.memo(props => {
     if (
       props.repeatGroupWithQuery &&
       !props.repeatGroupWithQuerySpecData &&
-      writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) &&
-      (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables)))
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      ) &&
+      (props.showPage === undefined ||
+        (props.showPage && getProperties(props.showPage, props.jsonVariables)))
     ) {
       renderFunction.current[`${props.path} -Page`] = autoRepeat;
     }
@@ -309,12 +393,19 @@ export default React.memo(props => {
   ]);
 
   useEffect(() => {
-    if (props.repeatGroupWithQuery && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) &&
-      (props.showPage === undefined || (props.showPage && getProperties(props.showPage, props.jsonVariables)))) {
+    if (
+      props.repeatGroupWithQuery &&
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      ) &&
+      (props.showPage === undefined ||
+        (props.showPage && getProperties(props.showPage, props.jsonVariables)))
+    ) {
       if (!props.repeatGroupWithQuerySpecData) {
-        autoRepeat(
-          documentData.current
-        );
+        autoRepeat(documentData.current);
       } else if (props.repeatGroupWithQuerySpecData) {
         autoRepeat(props.specData);
       }
@@ -334,9 +425,6 @@ export default React.memo(props => {
     documentData
   ]);
 
-
-
-
   if (
     objectPath.get(documentData.current, props.path, null) === null &&
     objectPath.get(props.backendData, props.path, null) === null &&
@@ -354,20 +442,44 @@ export default React.memo(props => {
 
   if (
     props.repeatStartWithOneGroup &&
-    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) &&
+    writeChapter(
+      props.allWaysShow,
+      editChapter,
+      props.thisChapter,
+      finalChapter.current
+    ) &&
     (!objectPath.get(props.backendData, props.path) ||
       objectPath.get(props.backendData, props.path).length === 0) &&
-    (objectPath.get(documentData.current, props.path) === undefined || (Array.isArray(objectPath.get(documentData.current, props.path)) &&
-      objectPath.get(documentData.current, props.path).length === 0))
+    (objectPath.get(documentData.current, props.path) === undefined ||
+      (Array.isArray(objectPath.get(documentData.current, props.path)) &&
+        objectPath.get(documentData.current, props.path).length === 0))
   ) {
     if (!fieldGroups[`${props.path}.${0} `]) {
       setFieldGroups(prevState => {
-        return { ...prevState, [`${props.repeatStepList}-${0}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(props, 0, deleteHandler, editChapter, finalChapter, hidden) }
-      })
+        return {
+          ...prevState,
+          [`${props.repeatStepList}-${0}-${props.path}-${
+            props.queryPath
+          }-repeat-fragment`]: multiFieldGroup(
+            props,
+            0,
+            deleteHandler,
+            editChapter,
+            finalChapter,
+            hidden
+          )
+        };
+      });
     }
     addData(0);
   }
-  const Components = useMemo(() => CustomComponents[getProperties(props.customComponent, props.jsonVariables)], [props.customComponent, props.jsonVariables]);
+  const Components = useMemo(
+    () =>
+      CustomComponents[
+        getProperties(props.customComponent, props.jsonVariables)
+      ],
+    [props.customComponent, props.jsonVariables]
+  );
 
   const SubmitButton = () => {
     return (
@@ -411,7 +523,10 @@ export default React.memo(props => {
         iconProps={{ icon: ["fas", "times"], className: "text-secondary" }}
         short
         onClick={() => {
-          if ((JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
+          if (
+            JSON.stringify(props.backendData) !==
+            JSON.stringify(documentData.current)
+          ) {
             dialog({
               message: "Do you want to save your changes?",
               buttons: [
@@ -455,7 +570,12 @@ export default React.memo(props => {
   const showEditAll =
     props.showEditButton &&
     !props.stopLoop &&
-    !writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) &&
+    !writeChapter(
+      props.allWaysShow,
+      editChapter,
+      props.thisChapter,
+      finalChapter.current
+    ) &&
     props.edit;
   // && props.thisChapter !== finalChapter.current;
   const showTitle =
@@ -491,7 +611,7 @@ export default React.memo(props => {
   return (
     <div
       className={`${finalPage && "mb-5"} ${props.className} `}
-    // className={`${ !props.finalChapter && "" } ${ props.className } `}
+      // className={`${ !props.finalChapter && "" } ${ props.className } `}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (
@@ -502,7 +622,10 @@ export default React.memo(props => {
         {showEditAll ? (
           <TabButton
             onClick={() => {
-              if ((JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
+              if (
+                JSON.stringify(props.backendData) !==
+                JSON.stringify(documentData.current)
+              ) {
                 dialog({
                   message: "Do you want to save your changes?",
                   buttons: [
@@ -546,49 +669,58 @@ export default React.memo(props => {
             Edit all
           </TabButton>
         ) : (
-            showCancelTab && (
-              <TabButton
-                onClick={() => {
-                  if ((JSON.stringify(props.backendData) !== JSON.stringify(documentData.current))) {
-                    dialog({
-                      message: "Do you want to save your changes?",
-                      buttons: [
-                        {
-                          label: "Save and continue",
-                          variant: "success",
-                          type: "submit",
-                          onClick: () => {
-                            props.submitData(documentData.current, false);
-                            setEditChapter(0);
-                          }
-                        },
-                        {
-                          label: "Discard and continue",
-                          variant: "danger",
-                          onClick: () => {
-                            cancel();
-                          }
+          showCancelTab && (
+            <TabButton
+              onClick={() => {
+                if (
+                  JSON.stringify(props.backendData) !==
+                  JSON.stringify(documentData.current)
+                ) {
+                  dialog({
+                    message: "Do you want to save your changes?",
+                    buttons: [
+                      {
+                        label: "Save and continue",
+                        variant: "success",
+                        type: "submit",
+                        onClick: () => {
+                          props.submitData(documentData.current, false);
+                          setEditChapter(0);
                         }
-                      ]
-                    });
-                  } else {
-                    cancel();
-                  }
-                }}
-              >
-                Cancel
-              </TabButton>
-            )
-          )}
+                      },
+                      {
+                        label: "Discard and continue",
+                        variant: "danger",
+                        onClick: () => {
+                          cancel();
+                        }
+                      }
+                    ]
+                  });
+                } else {
+                  cancel();
+                }
+              }}
+            >
+              Cancel
+            </TabButton>
+          )
+        )}
       </div>
       {showLine && <Line />}
-      {!!Components && (
-        <Components {...props} />
-      )}
+      {!!Components && <Components {...props} />}
       {props.fields ? (
         <>
           {Object.values(fieldGroups)}
-          {!!props.addButton && props.repeat && !hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) ? (
+          {!!props.addButton &&
+          props.repeat &&
+          !hidden &&
+          writeChapter(
+            props.allWaysShow,
+            editChapter,
+            props.thisChapter,
+            finalChapter.current
+          ) ? (
             <DepthButton
               iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}
               type="button"
@@ -604,46 +736,46 @@ export default React.memo(props => {
           <Input
             {...props}
             noComment
-          // noComment={readMf}
-          // TinyButtons={
-          //   readMf ? (
-          //     <TinyButton color="primary" onClick={onEditMf}>
-          //       Edit
-          //     </TinyButton>
-          //   ) : (
-          //     <div className="d-none d-sm-inline">
-          //       <TinyButton color="success" onClick={onSubmitMf}>
-          //         Submit
-          //       </TinyButton>
-          //       <TinyButton color="secondary" onClick={onCancelMf}>
-          //         Cancel
-          //       </TinyButton>
-          //     </div>
-          //   )
-          // }
-          // BigButtons={
-          //   !readMf && (
-          //     <div className="d-flex d-sm-none my-1">
-          //       <Button
-          //         className="w-100 m-0 px-0 text-light"
-          //         variant="success"
-          //         onClick={onSubmitMf}
-          //       >
-          //         <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
-          //         Submit
-          //       </Button>
-          //       <div className="px-1" />
-          //       <Button
-          //         className="w-100 m-0 px-0"
-          //         variant="secondary"
-          //         onClick={onCancelMf}
-          //       >
-          //         <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
-          //         Cancel
-          //       </Button>
-          //     </div>
-          //   )
-          // }
+            // noComment={readMf}
+            // TinyButtons={
+            //   readMf ? (
+            //     <TinyButton color="primary" onClick={onEditMf}>
+            //       Edit
+            //     </TinyButton>
+            //   ) : (
+            //     <div className="d-none d-sm-inline">
+            //       <TinyButton color="success" onClick={onSubmitMf}>
+            //         Submit
+            //       </TinyButton>
+            //       <TinyButton color="secondary" onClick={onCancelMf}>
+            //         Cancel
+            //       </TinyButton>
+            //     </div>
+            //   )
+            // }
+            // BigButtons={
+            //   !readMf && (
+            //     <div className="d-flex d-sm-none my-1">
+            //       <Button
+            //         className="w-100 m-0 px-0 text-light"
+            //         variant="success"
+            //         onClick={onSubmitMf}
+            //       >
+            //         <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
+            //         Submit
+            //       </Button>
+            //       <div className="px-1" />
+            //       <Button
+            //         className="w-100 m-0 px-0"
+            //         variant="secondary"
+            //         onClick={onCancelMf}
+            //       >
+            //         <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
+            //         Cancel
+            //       </Button>
+            //     </div>
+            //   )
+            // }
           />
         </>
       ) : null}
