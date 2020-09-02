@@ -92,13 +92,13 @@ const InputShell = ({
       </div>
     </div>
   ) : (
-      <div>
-        <div className={props.tight ? "mb-0" : "mb-3"}>
-          {props.children}
-          {props.BigButtons}
-        </div>
+    <div>
+      <div className={props.tight ? "mb-0" : "mb-3"}>
+        {props.children}
+        {props.BigButtons}
       </div>
-    );
+    </div>
+  );
 };
 
 const Comment = ({ onKeyPress, onChange, defaultValue, ...props }) => {
@@ -129,12 +129,6 @@ const InputType = props => {
   const disabled = readOnly;
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return <CheckInput {...props} />;
-    // } else if (useCustomDate) {
-    //   if (props.type === "date") {
-    //     return <Date {...props} />;
-    //   } else if (props.type === "datetime-local") {
-    //     return <Datetime {...props} readOnly={readOnly} />;
-    //   }
   } else if (props.type === "select") {
     return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {

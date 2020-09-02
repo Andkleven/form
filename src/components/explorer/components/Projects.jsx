@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
-import { Col, ProgressBar, Button } from "react-bootstrap";
+import { Col, ProgressBar, Button, Modal } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
 import { useMutation } from "react-apollo";
 import mutations from "graphql/mutation";
@@ -39,6 +39,8 @@ export default ({
   stage = false,
   ...props
 }) => {
+  const [showCreate, setShowCreate] = useState(false);
+
   // Delete projects
   const user = getUser();
   const deleteProjectFromCache = (
@@ -187,52 +189,79 @@ export default ({
       {loading && <Loading />}
       {props.access && props.access.specs && (
         <>
-          {props.productionLine.includes("coating") && (
+          {!showCreate ? (
             <Link
-              to="/project/coating/0"
+              onClick={() => {
+                setShowCreate(true);
+              }}
               iconProps={{
                 icon: ["fad", "folder-plus"],
                 size: iconSize,
                 style: iconStyle
               }}
               style={rowStyle}
-              force
             >
-              Create new project (coating)
+              Create new project
             </Link>
-          )}
-          {props.productionLine.includes("packer") && (
-            <>
-              {props.access.specs && (
+          ) : (
+            <div
+              className="d-flex align-items-center flex-wrap"
+              style={rowStyle}
+            >
+              {/* <div style={{ marginRight: "1.5em" }} className="pt-2 pb-1">
+                Project type:
+              </div> */}
+              {props.productionLine.includes("coating") && (
                 <Link
-                  to="/project/packer/0"
+                  to="/project/coating/0"
                   iconProps={{
-                    icon: ["fad", "folder-plus"],
+                    icon: ["fad", "paint-roller"],
                     size: iconSize,
                     style: iconStyle
                   }}
-                  style={rowStyle}
+                  style={{ marginRight: "1.5em" }}
                   force
                 >
-                  Create new project (packer)
+                  Coating
                 </Link>
               )}
-              {props.access.receiptControl && (
-                <Link
-                  to="/project-receipt-control/0"
-                  iconProps={{
-                    icon: ["fad", "folder-plus"],
-                    size: iconSize,
-                    style: iconStyle
-                  }}
-                  style={rowStyle}
-                  force
-                >
-                  Create new project (packer)(RC)
-                </Link>
+              {props.productionLine.includes("packer") && (
+                <>
+                  {props.access.specs && (
+                    <Link
+                      to="/project/packer/0"
+                      iconProps={{
+                        icon: ["fad", "box-full"],
+                        size: iconSize,
+                        style: iconStyle
+                      }}
+                      style={{ marginRight: "1.5em" }}
+                      force
+                    >
+                      Packer
+                    </Link>
+                  )}
+                </>
               )}
-            </>
+              <Link
+                onClick={() => setShowCreate(false)}
+                iconProps={{
+                  icon: ["fas", "times"],
+                  size: iconSize,
+                  style: iconStyle
+                }}
+                color="danger"
+              >
+                Cancel
+              </Link>
+            </div>
           )}
+
+          {/* <Modal>
+            <Modal.Body>
+              Test
+            </Modal.Body>
+          </Modal> */}
         </>
       )}
       {results && results.length > 0 ? (

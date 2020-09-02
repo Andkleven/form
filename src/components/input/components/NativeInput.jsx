@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
+import moment from "moment";
 // import Duplicate from "../widgets/Duplicate";
 export default ({
   type,
@@ -28,11 +29,23 @@ export default ({
   onKeyPress,
   ...props
 }) => {
+  switch (type) {
+    case "date":
+      console.log("date");
+      value = value && moment(value).format("yyyy-MM-DD");
+      break;
+    case "datetime-local":
+      console.log("datetime-local");
+      value = value && moment(value).format("yyyy-MM-DDThh:mm");
+      break;
+    default:
+      break;
+  }
   return (
     <>
       <Form.Group
         className="mb-0"
-      // controlId={`input-group-${type}-${props.name}-${repeatStepList}`}
+        // controlId={`input-group-${type}-${props.name}-${repeatStepList}`}
       >
         <div className="d-flex">
           <InputGroup className="d-flex">
