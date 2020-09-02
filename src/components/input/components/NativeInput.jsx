@@ -29,6 +29,7 @@ export default ({
   onKeyPress,
   ...props
 }) => {
+  // Format date value
   switch (type) {
     case "date":
       value = value && moment(value).format("yyyy-MM-DD");
@@ -39,6 +40,7 @@ export default ({
     default:
       break;
   }
+
   return (
     <>
       <Form.Group
