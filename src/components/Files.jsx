@@ -9,7 +9,7 @@ import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Line from "components/design/Line";
 import { useSpring, animated, config } from "react-spring";
-import Div100vh, { use100vh } from "react-div-100vh";
+import { use100vh } from "react-div-100vh";
 import Loading from "components/Loading";
 import useOutsideClick from "hooks/useOutsideClick";
 

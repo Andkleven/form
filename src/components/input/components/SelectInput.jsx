@@ -36,7 +36,12 @@ export default props => {
 
   options.map((option, index) => {
     if (index > 0) {
-      const label = camelCaseToNormal(option.value);
+      let label;
+      if (props.selectAutoFormat) {
+        label = camelCaseToNormal(option.value);
+      } else {
+        label = option.value;
+      }
       return (option.label = label);
     } else {
       const label = "―";
@@ -64,8 +69,8 @@ export default props => {
         props.value && props.placeholder && !props.label && !props.prepend
           ? `${props.placeholder}: ${camelCaseToNormal(props.value)}`
           : props.value
-            ? camelCaseToNormal(props.value)
-            : placeholder
+          ? camelCaseToNormal(props.value)
+          : placeholder
     },
     isSearchable: true,
     placeholder: placeholder,

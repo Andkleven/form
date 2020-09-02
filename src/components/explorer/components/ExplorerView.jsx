@@ -7,6 +7,7 @@ import DarkButton from "components/button/DarkButton";
 import { getUser } from "functions/user";
 import DepthButton from "components/button/DepthButton";
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import { relativeTimeRounding } from "moment";
 
 const createStages = data => {
   let stages = [];
@@ -87,22 +88,52 @@ export default ({ view = "items", ...props }) => {
         </DepthButton>
       </div>
       {scan && (
-        <BarcodeScannerComponent
-          className="rounded"
-          width={"100%"}
-          onUpdate={(err, result) => {
-            if (result) {
-              setSearchTerm(result.text);
-              setScan(false);
-            }
-          }}
-        />
+        <>
+          <div className="rounded">
+            <BarcodeScannerComponent
+              width={"100%"}
+              onUpdate={(err, result) => {
+                if (result) {
+                  setSearchTerm(result.text);
+                  setScan(false);
+                }
+              }}
+            />
+          </div>
+          <div
+            className="w-100 d-flex flex-column justify-content-center align-items-center mb-3"
+            // style={{ position: "relative", height: 0, bottom: 0, zIndex: 0 }}
+          >
+            <div>
+              <b>Camera not working? Try to...</b>
+              <ul className="">
+                <li>Enable the webcam</li>
+                <li>Check browser permissions</li>
+                <li>Use another browser</li>
+                <li>Contact your administrator</li>
+              </ul>
+            </div>
+            <div className="text-center">
+              <div className="mt-2">
+                <small>
+                  <i>Note to developers:</i>
+                </small>
+              </div>
+              <div>
+                <small>
+                  <i>This only works in production</i>
+                </small>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </>
   );
 
   const Stage = (
     <Input
+      selectAutoFormat
       noComment={true}
       className="mb-1"
       key="stageTermInput"
@@ -129,6 +160,7 @@ export default ({ view = "items", ...props }) => {
 
   const Type = (
     <Input
+      selectAutoFormat
       noComment={true}
       className="mb-1"
       key="itemTermInput"
