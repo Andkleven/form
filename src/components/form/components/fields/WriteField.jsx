@@ -12,17 +12,14 @@ import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
 
-
-
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   // const timer = useRef(0)
-  const {
-    documentData,
-    documentDataDispatch
-  } = useContext(DocumentDataContext);
+  const { documentData, documentDataDispatch } = useContext(
+    DocumentDataContext
+  );
 
   const addUser = useCallback(() => {
     documentDataDispatch({
@@ -38,7 +35,6 @@ export default ({ setState, state, ...props }) => {
     setState(value);
   };
 
-
   const onChangeDate = data => {
     onChange(data);
   };
@@ -49,11 +45,13 @@ export default ({ setState, state, ...props }) => {
   const onChangeFile = value => {
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
-    let spiltPath = props.path.split(".")
+    let spiltPath = props.path.split(".");
     documentDataDispatch({
       type: "add",
       newState: userInfo.username,
-      path: `${spiltPath.slice(0, -1).join(".")}.data.${spiltPath[spiltPath.length - 1]}userField`
+      path: `${spiltPath.slice(0, -1).join(".")}.data.${
+        spiltPath[spiltPath.length - 1]
+      }userField`
     });
   };
 
@@ -189,6 +187,11 @@ export default ({ setState, state, ...props }) => {
   //   console.log("indent", props.indent);
   //   console.log("indent", props.indent);
   // }
+  // if (props.ignoreMin === undefined) {
+  //   console.log(props.min);
+  // }
+  // console.log(props.ignoreMin === undefined ? props.min : undefined);
+
   return (
     <div className={indent && "ml-3"}>
       <Input

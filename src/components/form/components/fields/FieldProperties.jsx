@@ -23,10 +23,15 @@ import {
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
-import useHidden from "functions/useHidden"
+import useHidden from "functions/useHidden";
 
 export default React.memo(({ ...props }) => {
-  const { documentData, renderFunction, documentDataDispatch, resetState } = useContext(DocumentDataContext);
+  const {
+    documentData,
+    renderFunction,
+    documentDataDispatch,
+    resetState
+  } = useContext(DocumentDataContext);
   const { editChapter, finalChapter } = useContext(ChapterContext);
 
   const getNewPath = useCallback(() => {
@@ -36,43 +41,65 @@ export default React.memo(({ ...props }) => {
     return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
   }, [props.path, props.fieldName, props.type]);
   const [state, setState] = useState("");
-  const hidden = useHidden(props.backendData, getProperties(props.readOnlyFieldIf, props.jsonVariables)
-    , [`${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`])
+  const hidden = useHidden(
+    props.backendData,
+    getProperties(props.readOnlyFieldIf, props.jsonVariables),
+    [
+      `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
+    ]
+  );
   const [label, setLabel] = useState("");
-  const setFirstValue = useRef(true)
+  const setFirstValue = useRef(true);
 
-  const updateState = useCallback(
-    () => {
-      let documentDataState = objectPath.get(documentData.current,
-        getNewPath(),
-        props.type === "checkbox" ? false : ""
-      )
-      if (props.type === "date" || props.type === "datetime-local") {
-        documentDataState = documentDataState ? new Date(documentDataState) : null
-      }
-      if (props.path && props.fieldName && documentDataState !== state) {
-        setState(documentDataState)
-      }
-    },
-    [props.path, props.fieldName, documentData, state, getNewPath, props.type]
-  )
+  const updateState = useCallback(() => {
+    let documentDataState = objectPath.get(
+      documentData.current,
+      getNewPath(),
+      props.type === "checkbox" ? false : ""
+    );
+    if (props.type === "date" || props.type === "datetime-local") {
+      documentDataState = documentDataState
+        ? new Date(documentDataState)
+        : null;
+    }
+    if (props.path && props.fieldName && documentDataState !== state) {
+      setState(documentDataState);
+    }
+  }, [
+    props.path,
+    props.fieldName,
+    documentData,
+    state,
+    getNewPath,
+    props.type
+  ]);
   useEffect(() => {
-    const effect = resetState.current
-    if (!hidden && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+    const effect = resetState.current;
+    if (
+      !hidden &&
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      )
+    ) {
       effect[
         `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
       ] = updateState;
     }
     return () => {
-      if (effect[
-        `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
-      ]) {
+      if (
+        effect[
+          `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
+        ]
+      ) {
         // eslint-disable-next-line
         delete effect[
           `${props.path}-${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-resetState`
         ];
       }
-    }
+    };
   }, [
     updateState,
     props.label,
@@ -85,7 +112,7 @@ export default React.memo(({ ...props }) => {
     hidden,
     resetState,
     props.prepend
-  ])
+  ]);
 
   useEffect(() => {
     if (props.path && props.fieldName) {
@@ -96,14 +123,13 @@ export default React.memo(({ ...props }) => {
       );
       if (setFirstValue.current) {
         if (props.type === "date" || props.type === "datetime-local") {
-          backendDate = backendDate ? new Date(backendDate) : null
+          backendDate = backendDate ? new Date(backendDate) : null;
         }
         setState(backendDate);
         // documentDataDispatch({ type: "add", newState: backendDate, path: getNewPath(), notReRender: true });
-        setFirstValue.current = false
+        setFirstValue.current = false;
       }
     }
-
   }, [
     props.fieldName,
     documentDataDispatch,
@@ -154,18 +180,18 @@ export default React.memo(({ ...props }) => {
         getProperties(props.subtext, props.jsonVariables),
         props.specSubtextList
           ? findValue(
-            props.specData,
-            props.specSubtextList,
-            props.repeatStepList,
-            props.editRepeatStepSubtextList
-          )
+              props.specData,
+              props.specSubtextList,
+              props.repeatStepList,
+              props.editRepeatStepSubtextList
+            )
           : props.mathSubtext
-            ? Math[props.mathSubtext](
+          ? Math[props.mathSubtext](
               props.specData,
               props.repeatStepList,
               props.decimal ? props.decimal : 0
             )
-            : null,
+          : null,
         isNumber(props.maxInput) ? props.maxInput : max,
         isNumber(props.minInput) ? props.minInput : min,
         getProperties(props.unit, props.jsonVariables),
@@ -199,7 +225,9 @@ export default React.memo(({ ...props }) => {
       setLabel(
         variableLabel(
           getProperties(props.label, props.jsonVariables),
-          getProperties(props.variableLabelSpec, props.jsonVariables) ? props.specData : data,
+          getProperties(props.variableLabelSpec, props.jsonVariables)
+            ? props.specData
+            : data,
           getProperties(props.queryVariableLabel, props.jsonVariables),
           props.repeatStepList,
           props.editRepeatStepListVariableLabel,
@@ -222,16 +250,29 @@ export default React.memo(({ ...props }) => {
   );
   useEffect(() => {
     setLabel(props.label);
-  }, [setLabel, props.label])
+  }, [setLabel, props.label]);
 
   useEffect(() => {
-    if ((getProperties(props.queryVariableLabel, props.jsonVariables) || props.indexVariableLabel) && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+    if (
+      (getProperties(props.queryVariableLabel, props.jsonVariables) ||
+        props.indexVariableLabel) &&
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      )
+    ) {
       renderFunction.current[
         `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
       ] = getLabel;
     }
     return () => {
-      if (renderFunction.current[`${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`]) {
+      if (
+        renderFunction.current[
+          `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
+        ]
+      ) {
         // eslint-disable-next-line
         delete renderFunction.current[
           `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties`
@@ -256,7 +297,6 @@ export default React.memo(({ ...props }) => {
 
   useEffect(() => {
     getLabel(props.backendData);
-
   }, [props.backendData, getLabel]);
 
   if (props.specValueList) {
@@ -277,13 +317,9 @@ export default React.memo(({ ...props }) => {
       />
     );
   } else if (hidden) {
-    return null
+    return null;
   } else if (props.labelOnly) {
-    return (
-      <small className={`text-secondary`}>
-        {label}
-      </small>
-    );
+    return <small className={`text-secondary`}>{label}</small>;
   } else if (props.mathSpec) {
     return (
       <ReadField
@@ -313,7 +349,7 @@ export default React.memo(({ ...props }) => {
       subtext: subtext,
       file: props.type === "file" ? props.file : null,
       indexId: `${props.indexId}-${props.index}`,
-      index: props.index,
+      index: props.index
     };
     if (props.isSubtitle) {
       return (
@@ -321,7 +357,7 @@ export default React.memo(({ ...props }) => {
           <div className={props.indent && `ml-3`}>
             <Subtitle small className="mt-3">{`${label} ${
               props.repeatStep + 1
-              }`}</Subtitle>
+            }`}</Subtitle>
             {/* Hidden ReadOnlyField */}
             {/* <ReadOnlyField {...commonProps} className="d-none" /> */}
           </div>
@@ -329,13 +365,27 @@ export default React.memo(({ ...props }) => {
         </>
       );
     } else if (props.size === "md") {
-      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+      if (
+        writeChapter(
+          props.allWaysShow,
+          editChapter,
+          props.thisChapter,
+          finalChapter.current
+        )
+      ) {
         return <ReadOnlyField {...commonProps} noLine className={`mb-3`} />;
       } else {
         return <ReadOnlyField {...commonProps} />;
       }
     } else if ((!props.size && props.math) || props.size === "sm") {
-      if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+      if (
+        writeChapter(
+          props.allWaysShow,
+          editChapter,
+          props.thisChapter,
+          finalChapter.current
+        )
+      ) {
         return (
           <small>
             <ReadOnlyField
@@ -352,7 +402,12 @@ export default React.memo(({ ...props }) => {
       return <ReadOnlyField noLine {...commonProps} className={`mb-3`} />;
     }
   } else if (
-    writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) ||
+    writeChapter(
+      props.allWaysShow,
+      editChapter,
+      props.thisChapter,
+      finalChapter.current
+    ) ||
     `${props.repeatStepList}-${props.fieldName}` === editChapter
   ) {
     return (

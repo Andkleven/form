@@ -47,7 +47,6 @@ export default (specData: object, stage: string, stageType: string): object => {
       step = Number(stepLayer);
     }
   }
-
   let stages = stagesJson.all;
   let index = stages.indexOf(thisStage);
   let nextStage;
@@ -68,11 +67,23 @@ export default (specData: object, stage: string, stageType: string): object => {
         stagesJson[stageType][crossroads]["editIndexList"]
       );
       if (!emptyField(query)) {
-        return {
-          stage: `${crossroads}${step + 1}`,
-          stageWithoutNumber: `${crossroads}`,
-          number: [step, 0]
-        };
+        if (crossroads.split("Step")[1]) {
+          if (![null, undefined].includes(crossroads.split("Layer")[1])) {
+            return {
+              stage: `${crossroads.split("Step")[0]}Step${
+                step + 1
+              }Layer${layer}`,
+              stageWithoutNumber: `${crossroads.split("Step")[0]}StepLayer`,
+              number: [step, layer - 1]
+            };
+          }
+          return {
+            stage: `${crossroads}${step + 1}`,
+            stageWithoutNumber: `${crossroads}`,
+            number: [step]
+          };
+        }
+        return { stage: crossroads, stageWithoutNumber: crossroads };
       }
     }
     if (

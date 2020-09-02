@@ -35,26 +35,16 @@
       "queryPath": "leadEngineers.0.data.itemRubberCementsBeforeCoating"
     },
     "coatingStepLayer": {
-      "queryPath": [
-        "leadEngineers.0.vulcanizationSteps",
-        "coatingLayers",
-        ""
-      ],
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", "coatingLayers", ""],
       "step": true,
       "layer": true
     },
     "vulcanizationStep": {
-      "queryPath": [
-        "leadEngineers.0.vulcanizationSteps",
-        ""
-      ],
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "step": true
     },
     "measurementPointStep": {
-      "queryPath": [
-        "leadEngineers.0.vulcanizationSteps",
-        ""
-      ],
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "editIndexList": {
         "0": 1
       },
@@ -64,7 +54,7 @@
     "touchUp": {
       "queryPath": ""
     },
-    "done": {
+    "qualityControl": {
       "queryPath": ""
     }
   },
@@ -85,26 +75,16 @@
       "queryPath": "leadEngineers.0.data.itemRubberCementsBeforeCoating"
     },
     "coatingStepLayer": {
-      "queryPath": [
-        "leadEngineers.0.vulcanizationSteps",
-        "coatingLayers",
-        ""
-      ],
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", "coatingLayers", ""],
       "step": true,
       "layer": true
     },
     "vulcanizationStep": {
-      "queryPath": [
-        "leadEngineers.0.vulcanizationSteps",
-        ""
-      ],
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "step": true
     },
     "measurementPointStep": {
-      "queryPath": [
-        "leadEngineers.0.vulcanizationSteps",
-        ""
-      ],
+      "queryPath": ["leadEngineers.0.vulcanizationSteps", ""],
       "editIndexList": {
         "0": 1
       },
@@ -114,7 +94,7 @@
     "touchUp": {
       "queryPath": ""
     },
-    "done": {
+    "qualityControl": {
       "queryPath": ""
     }
   },

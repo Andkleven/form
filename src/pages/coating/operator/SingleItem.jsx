@@ -10,10 +10,7 @@ import qualityControlMouldJson from "templates/coating/mould/qualityControlMould
 import Form from "components/form/Form";
 import history from "functions/history";
 import Paper from "components/layout/Paper";
-import {
-  objectifyQuery,
-  formDataStructure
-} from "functions/general";
+import { objectifyQuery, formDataStructure } from "functions/general";
 import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
 import { ItemContext } from "components/contexts/ItemContext";
@@ -27,10 +24,12 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-
-  const { loading, error, data } = useQuery(query[qualityControlCoatedItemJson.query], {
-    variables: { id: itemId }
-  });
+  const { loading, error, data } = useQuery(
+    query[qualityControlCoatedItemJson.query],
+    {
+      variables: { id: itemId }
+    }
+  );
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -54,7 +53,8 @@ export default pageInfo => {
     }
   });
 
-  const finalInspection = access.finalInspection && ["qualityControl", "done"].includes(stage)
+  const finalInspection =
+    access.finalInspection && ["qualityControl", "done"].includes(stage);
 
   return (
     <Canvas showForm={!!data}>
@@ -85,6 +85,7 @@ export default pageInfo => {
             Operator
           </Title>
         )}
+
         <Form
           jsonVariables={[geometry]}
           componentsId={opId.current}
@@ -101,9 +102,7 @@ export default pageInfo => {
           stageType={geometry}
           getQueryBy={itemId}
           saveButton={true}
-          backButton={!finalInspection && (() =>
-            history.push(`/`))
-          }
+          backButton={!finalInspection && (() => history.push(`/`))}
         />
       </Paper>
       {finalInspection && (
@@ -133,9 +132,7 @@ export default pageInfo => {
             getQueryBy={itemId}
             saveVariables={{ itemId: itemId }}
             saveButton={true}
-            backButton={() =>
-              history.push(`/`)
-            }
+            backButton={() => history.push(`/`)}
           />
         </Paper>
       )}
