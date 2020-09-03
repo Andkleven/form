@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import Math from "components/form/functions/math";
-import { writeChapter } from "functions/general"
+import { writeChapter } from "functions/general";
 import ReadField from "components/form/components/fields/ReadField";
 
 import "styles/styles.css";
 
-
 export default ({ backendData, ...props }) => {
   const [value, setValue] = useState("");
   const { editChapter, finalChapter } = useContext(ChapterContext);
-  const { documentData, renderFunction, mathDispatch, mathStore, renderMath } = useContext(DocumentDataContext);
+  const {
+    documentData,
+    renderFunction,
+    mathDispatch,
+    mathStore,
+    renderMath
+  } = useContext(DocumentDataContext);
   const math = useCallback(() => {
     const getValueFromMath = Math[props.math](
       Object.keys(documentData.current).length === 0
@@ -18,14 +23,14 @@ export default ({ backendData, ...props }) => {
         : documentData.current,
       props.repeatStepList,
       props.decimal ? props.decimal : 0,
-      mathStore.current
+      mathStore.current,
+      props.jsonVariables
     );
-    mathDispatch({ path: props.path, newState: getValueFromMath })
+    mathDispatch({ path: props.path, newState: getValueFromMath });
     setValue(getValueFromMath);
-    Object.values(renderMath.current)
-      .forEach(func => {
-        func();
-      });
+    Object.values(renderMath.current).forEach(func => {
+      func();
+    });
   }, [
     documentData,
     props.decimal,
@@ -35,18 +40,30 @@ export default ({ backendData, ...props }) => {
     mathDispatch,
     props.path,
     renderMath,
-    mathStore
+    mathStore,
+    props.jsonVariables
   ]);
 
   useEffect(() => {
-    if (writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+    if (
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      )
+    ) {
       renderFunction.current[
         `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
       ] = math;
     }
 
     return () => {
-      if (renderFunction.current[`${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`]) {
+      if (
+        renderFunction.current[
+          `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
+        ]
+      ) {
         // eslint-disable-next-line
         delete renderFunction.current[
           `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`

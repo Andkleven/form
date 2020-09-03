@@ -42,13 +42,9 @@ export default React.memo(({ ...props }) => {
   }, [props.path, props.fieldName, props.type]);
 
   const [state, setState] = useState("");
-  const hidden = useHidden(
-    props.backendData,
-    getProperties(props.readOnlyFieldIf, props.jsonVariables),
-    [
-      `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
-    ]
-  );
+  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [
+    `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
+  ]);
 
   const [label, setLabel] = useState("");
   const setFirstValue = useRef(true);

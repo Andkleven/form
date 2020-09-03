@@ -721,6 +721,9 @@ export default React.memo(props => {
           {!!props.addButton &&
           props.repeat &&
           objectPath.get(documentData.current, props.readOnlyFieldIf, false) &&
+          (props.showPage === undefined ||
+            (props.showPage &&
+              getProperties(props.showPage, props.jsonVariables))) &&
           writeChapter(
             props.allWaysShow,
             editChapter,

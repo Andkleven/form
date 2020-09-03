@@ -4,7 +4,7 @@
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
-      "stageQueryPath": "leadEngineers.0.data.stage",
+      "stageQueryPath": "leadEngineers.0.data.steelPreparation",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
@@ -115,7 +115,7 @@
               "default": {
                 "coatedItem": 50,
                 "mould": 50,
-                "slipon": 5,
+                "slipon": 3,
                 "b2P": 5,
                 "dual": 5
               },
@@ -246,6 +246,11 @@
               "fieldName": "primer1",
               "label": "Primer 1",
               "type": "select",
+              "default": {
+                "slipon": 360,
+                "b2P": 360,
+                "dual": 360
+              },
               "options": [
                 "Chemosil 211",
                 "Chemosil 231",
@@ -257,6 +262,11 @@
               "fieldName": "primer2",
               "label": "Primer 2",
               "type": "select",
+              "default": {
+                "slipon": 411,
+                "b2P": 411,
+                "dual": 411
+              },
               "options": [
                 "Chemosil 211",
                 "Chemosil 231",
@@ -288,7 +298,7 @@
     },
     {
       "showChapter": { "coatedItem": true, "mould": true },
-      "stageQueryPath": "leadEngineers.0.data.stage1",
+      "stageQueryPath": "leadEngineers.0.data.coatingVulcanization",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanization",
@@ -397,7 +407,7 @@
           "delete": true,
           "addButton": "Add step",
           "indexVariablePageTitle": 0,
-          "pageTitle": "Item {}",
+          "pageTitle": "Vulcanization {}",
           "fields": [
             {
               "fieldName": "vulcanizationOption",
@@ -592,20 +602,286 @@
       ]
     },
     {
-      "stageQueryPath": "leadEngineers.0.data.stage2",
+      "showChapter": { "slipon": true, "b2P": true, "dual": true },
+      "stageQueryPath": "leadEngineers.0.data.coatingVulcanization",
+      "pages": [
+        {
+          "pageTitle": "Coating and Vulcanization",
+          "queryPath": "leadEngineers",
+          "fields": [
+            {
+              "fieldName": "elementLength",
+              "label": "Element length",
+              "type": "number",
+              "required": true,
+              "unit": "mm"
+            },
+            {
+              "fieldName": "measurementPoints",
+              "label": "Measurement points",
+              "math": "mathMeasurementPoints",
+              "decimal": 0
+            },
+            {
+              "fieldName": "pipeOd",
+              "label": "Pipe OD",
+              "required": true,
+              "type": "select",
+              "options": [
+                "2.375*2*(3/8)",
+                "2.375*2*(7/8)",
+                "3.5",
+                "4",
+                "4.5",
+                "5.5",
+                "6.625*6*(5/8)",
+                "7",
+                "7.625*7*(5/8)",
+                "8.625*8*(5/8)",
+                "9.625*9*(5/8)",
+                "10.75",
+                "11.75",
+                "11.875*11*(7/8)",
+                "13.375*13*(3/8)"
+              ]
+            },
+            {
+              "fieldName": "rubberOd",
+              "label": "Rubber OD",
+              "required": true
+            },
+            {
+              "showField": { "b2P": true },
+              "fieldName": "compoundNoRubberType",
+              "label": "Compound no/Rubber type",
+              "required": true,
+              "type": "select",
+              "options": [
+                "35-5265",
+                "35-5265/5266",
+                "35-5266",
+                "35-4063",
+                "35-4064",
+                "35-4050",
+                "12-3278"
+              ]
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNo1",
+              "label": "Compound no 1",
+              "math": "mathCompoundNo1"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNo2",
+              "label": "Compound no 2",
+              "required": true,
+              "type": "select",
+              "options": ["35-5265", "35-4064", "35-5265/5266", "35-4046"]
+            },
+            {
+              "showField": { "slipon": true },
+              "fieldName": "compoundNoOd",
+              "label": "Compound no OD",
+              "required": true,
+              "type": "select",
+              "options": [
+                "35-5265",
+                "35-5265/5266",
+                "35-5266",
+                "35-4063",
+                "35-4064",
+                "35-4050",
+                "12-3278"
+              ]
+            },
+            {
+              "showField": { "slipon": true },
+              "fieldName": "compoundNoId",
+              "label": "Compound no ID",
+              "math": "mathCompoundNoId"
+            },
+            {
+              "showField": { "b2P": true, "dual": true },
+              "fieldName": "cable",
+              "label": "Cable",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "coreSampleCode",
+              "label": "Core sample code",
+              "required": true,
+              "math": "mathCoreSampleCode"
+            },
+            {
+              "fieldName": "packingSpecification",
+              "label": "Packing specification",
+              "required": true,
+              "math": "mathPackingSpecification"
+            },
+            {
+              "fieldName": "barrier1",
+              "label": "Barrier 1",
+              "required": true
+            },
+            {
+              "fieldName": "barrier2",
+              "label": "Barrier 2",
+              "required": true
+            },
+            {
+              "fieldName": "description",
+              "label": "Description",
+              "math": "mathDescription"
+            },
+            {
+              "fieldName": "idDriftSize",
+              "label": "ID Drift size"
+            },
+            {
+              "fieldName": "noOfRings",
+              "label": "No. of rings",
+              "notSingleEdit": true,
+              "type": "number"
+            },
+            {
+              "fieldName": "ringType",
+              "label": "Ring type",
+              "type": "select",
+              "options": ["end rings", "center ring", "rings", "K2"]
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.ringMaterials",
+          "notAddButton": true,
+          "repeatGroupWithQuery": "leadEngineers.0.data.noOfRings",
+          "repeat": true,
+          "fields": [
+            {
+              "fieldName": "ringMaterial",
+              "indexVariableLabel": true,
+              "label": "Ring material {}"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers",
+          "fields": [
+            {
+              "fieldName": "screwMaterialType",
+              "label": "Screw material type",
+              "type": "select",
+              "options": ["Black 10.9", "Black 10.9/A4", "Inc718", "Inc625"]
+            },
+            {
+              "fieldName": "screwSize",
+              "label": "Screw size",
+              "type": "select",
+              "options": ["M10", "M16"]
+            },
+            {
+              "fieldName": "screwLength",
+              "label": "Screw length",
+              "type": "select",
+              "options": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ]
+            },
+            {
+              "fieldName": "screwDescription",
+              "label": "Screw description",
+              "math": "mathScrewDescription"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.ultrasounds",
+          "repeat": true,
+          "repeatStartWith": 1,
+          "delete": true,
+          "addButton": "Add Ultrasound",
+          "fields": [
+            {
+              "indexVariableLabel": true,
+              "fieldName": "ultrasound",
+              "label": "Ultrasound {}",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.vulcanizationSteps",
+          "repeat": true,
+          "repeatStartWith": 1,
+          "delete": true,
+          "addButton": "Add step",
+          "indexVariablePageTitle": 0,
+          "pageTitle": "Vulcanization {}",
+          "fields": [
+            {
+              "fieldName": "vulcanizationOption",
+              "label": "Vulcanization Option",
+              "type": "select",
+              "required": true,
+              "options": ["Hot Air", "Steam Autoclave"]
+            },
+            {
+              "fieldName": "programNumber",
+              "label": "Program Number",
+              "math": "mathProgramNumber",
+              "type": "Number"
+            },
+            {
+              "fieldName": "numberOfLayers",
+              "label": "Number of Layers",
+              "required": true,
+              "type": "Number",
+              "minInput": 0,
+              "maxInput": 4,
+              "notSingleEdit": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stageQueryPath": "leadEngineers.0.data.finalInspection",
       "pages": [
         {
           "pageTitle": "Final Inspection",
           "queryPath": "leadEngineers",
-          "repeat": true,
           "fields": [
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "hardnessOfOuterLayer",
               "label": "Hardness of Outer Layer",
               "unit": "Shore A",
               "prepend": "Min"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "numberOfHardnessOfOuterLayer",
               "label": "Number of Hardness of Outer Layer",
               "type": "number",
@@ -613,10 +889,319 @@
               "min": 0
             },
             {
+              "showField": { "slipon": true, "b2P": true, "dual": true },
+              "fieldName": "asBuilt",
+              "label": "As built",
+              "type": "select",
+              "options": [
+                "D00498980 - Swell packer standard",
+                "D00498984 - Swell packer standard with 1 center ring",
+                "D001142450 - Swell packer K2 with 2 center ringer",
+                "D00498983 - Swell packer K2 with 1 center ring",
+                "D00498982 - Swell packer K2 standard",
+                "D00498985 - Swell packer Cable standard",
+                "D00498986 - Swell packer Cable with 1 center ring",
+                "D01062602 - Swell packer Cable with 2 center ring"
+              ]
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "typeOfAsBuilt",
+              "label": "Type of As built",
+              "type": "select",
+              "options": ["3"]
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "totalLength",
+              "label": "Total length",
+              "subtext": "Dwg Ref. L1"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "totalLengthPinMakeUpLoss",
+              "label": "Total length - Pin make up loss",
+              "subtext": "Dwg Ref. L1 - Thread"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "handlingSpacePinEnd",
+              "label": "Handling space pin end",
+              "subtext": "Dwg Ref. L2"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "handlingSpacePinBox",
+              "label": "Handling space pin box",
+              "subtext": "Dwg Ref. L3"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498980 - Swell packer standard",
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D00498982 - Swell packer K2 standard",
+                  "D00498985 - Swell packer Cable standard"
+                ]
+              },
+              "fieldName": "packerElementLength",
+              "label": "Packer element length",
+              "subtext": "Dwg Ref. L4"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D01062602 - Swell packer Cable with 2 center ring",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D00498983 - Swell packer K2 with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer"
+                ]
+              },
+              "fieldName": "packerElementLengthTotal",
+              "label": "Packer element length total",
+              "subtext": "Dwg Ref. L4"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementLength1",
+              "label": "Packer element length #1",
+              "subtext": "Dwg Ref. L4.1"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementLength2",
+              "label": "Packer element length #2",
+              "subtext": "Dwg Ref. L4.2"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementLength3",
+              "label": "Packer element length #3",
+              "subtext": "Dwg Ref. L4.3"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D00498983 - Swell packer K2 with 1 center ring"
+                ]
+              },
+              "fieldName": "packerElement1Length",
+              "label": "Packer element  #1, length",
+              "subtext": "Dwg Ref. L4.1"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D00498983 - Swell packer K2 with 1 center ring"
+                ]
+              },
+              "fieldName": "packerElement2Length",
+              "label": "Packer element  #2, length",
+              "subtext": "Dwg Ref. L4.2"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D001142450 - Swell packer K2 with 2 center ringer"
+                ]
+              },
+              "fieldName": "packerElement3Length",
+              "label": "Packer element  #3, length",
+              "subtext": "Dwg Ref. L4.3"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "basePipeOd",
+              "label": "Base pipe OD",
+              "subtext": "Dwg Ref. D1"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498980 - Swell packer standard",
+                  "D00498982 - Swell packer K2 standard",
+                  "D00498985 - Swell packer Cable standard"
+                ]
+              },
+              "fieldName": "packerElementOd",
+              "label": "Packer element OD",
+              "subtext": "Dwg Ref. D2"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D00498983 - Swell packer K2 with 1 center ring",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementOd1",
+              "label": "Packer element OD #1",
+              "subtext": "Dwg Ref. D2"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D00498983 - Swell packer K2 with 1 center ring",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementOd2",
+              "label": "Packer element OD #2",
+              "subtext": "Dwg Ref. D3"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementOd3",
+              "label": "Packer element OD #3",
+              "subtext": "Dwg Ref. D4"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "endRingOd",
+              "label": "End-ring OD",
+              "subtext": "Dwg Ref. D2"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "endRingLength",
+              "label": "End-ring Length",
+              "subtext": "Dwg Ref. XX"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D00498983 - Swell packer K2 with 1 center ring",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "centerRingOd",
+              "label": "Center-ring OD",
+              "subtext": "Dwg Ref. D3"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498984 - Swell packer standard with 1 center ring",
+                  "D001142450 - Swell packer K2 with 2 center ringer",
+                  "D00498983 - Swell packer K2 with 1 center ring",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "centerRingLength",
+              "label": "Center-ring Length",
+              "subtext": "Dwg Ref. XX"
+            },
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "couplingLength",
+              "label": "Coupling length",
+              "subtext": "Dwg Ref. XX"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498985 - Swell packer Cable standard",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "controlLine1",
+              "label": "Control line #1",
+              "subtext": "Dwg Ref. CL1"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498985 - Swell packer Cable standard",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "controlLine2",
+              "label": "Control line #2",
+              "subtext": "Dwg Ref. CL2"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498985 - Swell packer Cable standard",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "controlLine3",
+              "label": "Control line #3",
+              "subtext": "Dwg Ref. CL3"
+            },
+            {
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.asBuilt": [
+                  "D00498985 - Swell packer Cable standard",
+                  "D00498986 - Swell packer Cable with 1 center ring",
+                  "D01062602 - Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "controlLine4",
+              "label": "Control line #4",
+              "subtext": "Dwg Ref. CL4"
+            },
+
+            {
+              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "fieldName": "custom",
+              "label": "Custom (Others)",
+              "subtext": "Dwg Ref. XX"
+            },
+
+            {
+              "showField": { "slipon": true },
+              "fieldName": "elementId",
+              "label": "Element ID"
+            },
+            {
+              "showField": { "slipon": true },
+              "fieldName": "elementOd",
+              "label": "Element OD"
+            },
+            {
               "fieldName": "identificationMarking",
               "label": "Identification Marking"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "peelTest",
               "label": "Peel Test",
               "unit": "N/25mm",
@@ -624,6 +1209,7 @@
               "subtext": "ISO 813 bS6374-5"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "numberOfPeelTest",
               "label": "Number of Peel Test",
               "type": "number",
@@ -649,24 +1235,28 @@
               "subtext": "APS. Final measurments are within tolerances."
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "visualInspection",
               "label": "Visual Inspection",
               "type": "checkbox",
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "sparkTest",
               "label": "Spark Test",
               "type": "checkbox",
               "subtext": "TR 2028. No Holidays."
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "hammerTest",
               "label": "Hammer Test",
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch."
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "simpleFinalDimensionsCheck",
               "label": "Simple Final Dimensions Check",
               "type": "checkbox",
@@ -675,6 +1265,7 @@
           ]
         },
         {
+          "showPage": { "coatedItem": true, "mould": true },
           "queryPath": "leadEngineers.0.finalInspectionDimensionsChecks",
           "repeat": true,
           "delete": true,

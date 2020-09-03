@@ -3,22 +3,23 @@ import objectPath from "object-path";
 import { DocumentDataContext } from "components/form/Form";
 export default (backendData, readOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(DocumentDataContext);
-  const [hidden, setHidden] = useState(
-    readOnlyFieldIf
-      ? !objectPath.get(documentData.current, readOnlyFieldIf, false)
-      : false
-  );
+  const [hidden, setHidden] = useState(false);
+
   const updateReadOnly = useCallback(() => {
-    setHidden(
-      !objectPath.get(
-        Object.keys(documentData.current).length === 0
-          ? backendData
-          : documentData.current,
-        readOnlyFieldIf,
-        false
-      )
-    );
-  }, [setHidden, backendData, readOnlyFieldIf, documentData]);
+    if (
+      typeof readOnlyFieldIf === "object" &&
+      readOnlyFieldIf !== null &&
+      !(readOnlyFieldIf instanceof Array)
+    ) {
+      let key = Object.keys(readOnlyFieldIf)[0];
+      let value = objectPath.get(documentData.current, key, undefined);
+      setHidden(
+        value === undefined ? true : !readOnlyFieldIf[key].includes(value)
+      );
+    } else {
+      setHidden(!objectPath.get(documentData.current, readOnlyFieldIf, false));
+    }
+  }, [setHidden, readOnlyFieldIf, documentData]);
 
   useEffect(() => {
     if (readOnlyFieldIf) {

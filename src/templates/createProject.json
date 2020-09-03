@@ -14,7 +14,12 @@
             {
               "fieldName": "projectNumber",
               "required": true,
-              "label": "Project Number"
+              "label": "Project Number/PO number"
+            },
+            {
+              "fieldName": "projectName",
+              "required": true,
+              "label": "Project Name"
             },
             {
               "fieldName": "purchaseOrderNumber",
@@ -27,9 +32,19 @@
               "label": "Client"
             },
             {
-              "fieldName": "endClient",
-              "required": true,
-              "label": "End Client"
+              "fieldName": "projectManager",
+              "label": "Project Manager",
+              "type": "select",
+              "options": [
+                "Finn Gustavsen",
+                "Kristin Grimnes",
+                "Jan Lilleland",
+                "Kolbjørn Walderhaug",
+                "Kjetil Smedberg",
+                "Tom Alexander Hansen",
+                "Kristoffer Mikaelsen",
+                "Eva Eline Bækken"
+              ]
             },
             {
               "fieldName": "projectLead",
@@ -49,8 +64,7 @@
               "fieldName": "supervisor",
               "label": "Supervisor",
               "type": "select",
-              "required": true,
-              "options": ["test"]
+              "userRole": ["supervisor"]
             },
             {
               "fieldName": "qualityControl",
@@ -106,10 +120,13 @@
           "queryPath": ["projects.0.descriptions", "specifications"],
           "fields": [
             {
-              "fieldName": "specification",
-              "label": "Specification {}",
-              "indexVariableLabel": true,
-              "required": true
+              "fieldName": "specificationTitle",
+              "label": "Title {}",
+              "indexVariableLabel": true
+            },
+            {
+              "fieldName": "specificationCriteria",
+              "prepend": "criteria"
             }
           ]
         },

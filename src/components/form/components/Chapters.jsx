@@ -29,9 +29,9 @@ export default ({ stagePath, ...props }) => {
     thisStage = ""
   ) => {
     if (
-      props.showChapter === undefined ||
-      (props.showChapter &&
-        getProperties(props.showChapter, props.jsonVariables))
+      pageInfo.showChapter === undefined ||
+      (pageInfo.showChapter &&
+        getProperties(pageInfo.showChapter, props.jsonVariables))
     ) {
       let chapter; // new chapter to add to document
       let allRequiredFieldSatisfied = false;
@@ -99,12 +99,13 @@ export default ({ stagePath, ...props }) => {
       }
       count += 1;
       return chapter ? (
-        <Fragment key={`${count} -canvas - chapterFragment`}>
+        <Fragment key={`${count}-canvas-chapterFragment`}>
           {allRequiredFieldSatisfied && !editChapter && <AutoScroll />}
           {chapter}
         </Fragment>
       ) : null;
     } else {
+      count += 1;
       return null;
     }
   };
