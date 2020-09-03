@@ -84,7 +84,7 @@
                 "coatedItem": true,
                 "mould": false,
                 "slipon": true,
-                "b2P": false,
+                "b2P": true,
                 "dual": true
               }
             },
@@ -368,7 +368,8 @@
               "label": "Measurement Point Actual Steel {}",
               "required": true,
               "type": "number",
-              "unit": "mm"
+              "unit": "mm",
+              "decimal": 1
             },
             {
               "fieldName": "referencePoint",

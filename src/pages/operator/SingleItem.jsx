@@ -56,13 +56,13 @@ export default pageInfo => {
   return (
     <Canvas showForm={!!data}>
       <Overview />
-      {access.specs && (
+      {access.specs && !finalInspection && (
         <Paper className="mb-3">
           <Title big align="center">
             Lead Engineer
           </Title>
-
           <Form
+            update={true}
             jsonVariables={[geometry]}
             componentsId={"leadEngineersPage"}
             edit={access.itemEdit}
@@ -84,6 +84,7 @@ export default pageInfo => {
         )}
 
         <Form
+          update={true}
           jsonVariables={[geometry]}
           componentsId={opId.current}
           document={operatorCoatedItemJson}
@@ -108,6 +109,7 @@ export default pageInfo => {
             Quality Control
           </Title>
           <Form
+            update={true}
             jsonVariables={[geometry]}
             componentsId={"finalInspectionQualityControls"}
             document={qualityControlCoatedItemJson}

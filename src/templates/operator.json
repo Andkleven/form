@@ -23,7 +23,8 @@
               "label": "Measurement Point Actual Steel {}",
               "required": true,
               "type": "number",
-              "unit": "mm"
+              "unit": "mm",
+              "decimal": 1
             }
           ]
         }

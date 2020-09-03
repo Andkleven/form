@@ -69,6 +69,7 @@ export default pageInfo => {
           itemId={itemId}
           sendItemId={true}
           saveButton={true}
+          update={true}
         />
       </Paper>
       <Paper>
@@ -85,6 +86,7 @@ export default pageInfo => {
               "items.0.finalInspectionQualityControls"
             )
           }
+          update={true}
           jsonVariables={[geometry]}
           edit={getAccess().itemEdit}
           specData={
