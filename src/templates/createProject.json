@@ -106,7 +106,8 @@
                 "B2P",
                 "Dual"
               ],
-              "required": true
+              "required": true,
+              "notCustom": true
             },
             {
               "fieldName": "descriptionNameMaterialNo",

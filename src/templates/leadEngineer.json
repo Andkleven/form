@@ -676,6 +676,7 @@
               "showField": { "b2P": true },
               "fieldName": "compoundNoRubberType",
               "label": "Compound no/Rubber type",
+              "notCustom": true,
               "required": true,
               "type": "select",
               "options": [
@@ -692,6 +693,8 @@
               "showField": { "dual": true },
               "fieldName": "compoundNo1",
               "label": "Compound no 1",
+              "required": true,
+              "notCustom": true,
               "type": "select",
               "options": ["35-4063", "35-5265", "35-5265/5266"]
             },
@@ -699,6 +702,7 @@
               "showField": { "dual": true },
               "fieldName": "compoundNo2",
               "label": "Compound no 2",
+              "notCustom": true,
               "required": true,
               "type": "select",
               "options": ["35-5265", "35-4064", "35-5265/5266"]
@@ -707,6 +711,7 @@
               "showField": { "slipon": true, "slipon2": true, "slipon3": true },
               "fieldName": "compoundNoOd",
               "label": "Compound no OD",
+              "notCustom": true,
               "required": true,
               "type": "select",
               "options": [
@@ -746,6 +751,7 @@
             {
               "fieldName": "barrier1",
               "label": "Barrier 1",
+              "notCustom": true,
               "required": true,
               "type": "select",
               "options": [
@@ -802,6 +808,7 @@
               "fieldName": "barrier2",
               "label": "Barrier 2",
               "required": true,
+              "notCustom": true,
               "showField": { "dual": true },
               "type": "select",
               "options": [

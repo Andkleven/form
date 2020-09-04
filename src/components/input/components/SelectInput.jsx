@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import Creatable from "react-select/creatable";
-// import Select from "react-select";
+import Select from "react-select";
 import { camelCaseToNormal } from "functions/general";
 
 // import Duplicate from "./widgets/Duplicate";
@@ -87,7 +87,11 @@ export default props => {
   return (
     <>
       <div className="d-flex text-dark">
-        <Creatable {...selectProps} />
+        {props.notCustom ? (
+          <Select {...selectProps} />
+        ) : (
+          <Creatable {...selectProps} />
+        )}
       </div>
 
       {/* Extra semi-hidden input to enable native form control for required */}
