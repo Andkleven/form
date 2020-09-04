@@ -74,7 +74,7 @@ export default ({
               rows={type === "comment" ? "5" : undefined}
               min={props.ignoreMin ? undefined : min}
               max={props.ignoreMax ? undefined : max}
-              step={step}
+              step={step ? step : undefined}
               placeholder={placeholder}
               onKeyPress={onKeyPress}
             ></Form.Control>

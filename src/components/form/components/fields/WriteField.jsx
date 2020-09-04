@@ -12,13 +12,14 @@ import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
 import { isStringInstance, isNumber } from "functions/general";
 import { dialog } from "components/Dialog";
+const cloneDeep = require("clone-deep");
 
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   // const timer = useRef(0)
-  const { documentData, documentDataDispatch } = useContext(
+  const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
 
@@ -31,6 +32,9 @@ export default ({ setState, state, ...props }) => {
   }, [documentDataDispatch, props.path, userInfo.username]);
 
   const onChange = value => {
+    if (!screenshotData.current) {
+      screenshotData.current = cloneDeep(documentData.current);
+    }
     addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
@@ -134,8 +138,9 @@ export default ({ setState, state, ...props }) => {
           icon="times"
           onClick={event => {
             if (
-              JSON.stringify(props.backendData) !==
-              JSON.stringify(documentData.current)
+              screenshotData.current &&
+              JSON.stringify(screenshotData.current) !==
+                JSON.stringify(documentData.current)
             ) {
               dialog({
                 message: "Do you want to save your changes?",

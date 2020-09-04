@@ -92,7 +92,6 @@ const BATCHING_OPERATOR = gql`
       id
       data
       leadEngineerDone
-      productionLine
       descriptions {
         id
         data
@@ -163,7 +162,6 @@ const BATCHING_VULCANIZATION = gql`
       id
       data
       leadEngineerDone
-      productionLine
       descriptions {
         id
         data
@@ -249,7 +247,6 @@ const GET_ORDER_GEOMETRY = gql`
       id
       data
       leadEngineerDone
-      productionLine
       itpDocumentNumbers {
         id
         data
@@ -535,7 +532,6 @@ const GET_OPERATOR_BY_ITEM = gql`
 const OPERATOR_PROJECTS = gql`
   query($leadEngineerDone: Boolean) {
     projects(leadEngineerDone: $leadEngineerDone) {
-      productionLine
       leadEngineerDone
       data
       id

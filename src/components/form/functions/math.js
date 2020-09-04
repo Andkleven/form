@@ -456,7 +456,7 @@ const packerType = {
     },
     "12-3278": {
       geometry: "WS ES",
-      programNumber: "Steam autoclave 12 or 20 Hot air",
+      programNumber: { steamAutoclave: "12", hotAir: "20" },
       coreSampleCode: "",
       packingSpecification: "PP4"
     }
@@ -512,29 +512,29 @@ const packerType = {
       packingSpecification: "PP4"
     }
   },
-  compoundNo2: {
-    "35-5265": {
+  compoundNo1compoundNo2: {
+    "35-406335-5265": {
       geometry: "WS NT/OS",
       compoundNo1: "35-4063",
       programNumber: "14",
       coreSampleCode: "A/M",
       packingSpecification: "PP4"
     },
-    "35-4064": {
+    "35-526535-4064": {
       geometry: "OS/WS LT",
       compoundNo1: "35-5265",
       programNumber: "14",
       coreSampleCode: "M/B",
       packingSpecification: "PP3"
     },
-    "35-5265/5266": {
+    "35-406335-5265/5266": {
       geometry: "WS NT/OS L",
       compoundNo1: "35-4063",
       programNumber: "14",
       coreSampleCode: "A/N",
       packingSpecification: "PP4"
     },
-    "35-4046": {
+    "35-5265/526635-4046": {
       geometry: "OS L/ WS LT",
       compoundNo1: "35-5265/5266",
       programNumber: "14",
@@ -547,16 +547,32 @@ const packerType = {
 const geometryToType = {
   b2P: "compoundNoRubberType",
   slipon: "compoundNoOd",
-  dual: "compoundNo2"
+  slipon2: "compoundNoOd",
+  slipon3: "compoundNoOd",
+  dual: ["compoundNo1", "compoundNo2"]
 };
 
 function getType(values, jsonVariables, fieldToGet) {
   let geometry = removeSpace(lowerCaseFirstLetter(jsonVariables[0]));
   let field = geometryToType[geometry];
-  let value = objectPath.get(values, `leadEngineers.0.data.${field}`);
-  return value && packerType[field][value]
-    ? packerType[field][value][fieldToGet]
-    : "";
+  let value = "";
+  if (Array.isArray(field)) {
+    let name = "";
+    field.forEach(filedName => {
+      name = name + filedName;
+      value =
+        value + objectPath.get(values, `leadEngineers.0.data.${filedName}`);
+    });
+    field = name;
+  } else {
+    value = objectPath.get(values, `leadEngineers.0.data.${field}`);
+  }
+  let returnValue =
+    value && packerType[field][value]
+      ? packerType[field][value][fieldToGet]
+      : "";
+
+  return returnValue;
 }
 
 const mathCoreSampleCode = (
@@ -586,7 +602,25 @@ const mathProgramNumber = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return getType(values, jsonVariables, "programNumber");
+  let programNumber = getType(values, jsonVariables, "programNumber");
+  if (
+    programNumber &&
+    typeof programNumber === "object" &&
+    programNumber !== null &&
+    !(programNumber instanceof Array)
+  ) {
+    let extraField = removeSpace(
+      lowerCaseFirstLetter(
+        objectPath.get(
+          values,
+          `leadEngineers.0.vulcanizationSteps.${repeatStepList[0]}.data.vulcanizationOption`,
+          ""
+        )
+      )
+    );
+    programNumber = programNumber[extraField];
+  }
+  return programNumber;
 };
 
 const mathCompoundNoId = (
@@ -609,10 +643,6 @@ const mathCompoundNo1 = (
   return getType(values, jsonVariables, "compoundNo1");
 };
 
-function addHyphen(string, showHyphen) {
-  return showHyphen ? string + "-" : string;
-}
-
 const mathDescription = (
   values,
   repeatStepList,
@@ -620,25 +650,20 @@ const mathDescription = (
   mathStore = null,
   jsonVariables = null
 ) => {
+  let geometry = removeSpace(lowerCaseFirstLetter(jsonVariables[0]));
   let rubberType = getType(values, jsonVariables, "geometry");
-  let elementLength = objectPath.get(
-    values,
-    `leadEngineers.0.data.elementLength`,
-    ""
-  );
-  let rubberOd = objectPath.get(values, `leadEngineers.0.data.rubberOd`, "");
+  let elementLength =
+    objectPath.get(values, `leadEngineers.0.data.elementLength`, "") / 1000;
   let pipeOd = objectPath.get(values, `leadEngineers.0.data.pipeOd`, "");
+  let rubberOd = objectPath.get(values, `leadEngineers.0.data.rubberOd`, "");
   let barrier1 = objectPath.get(values, `leadEngineers.0.data.barrier1`, "");
-  let barrier2 = objectPath.get(values, `leadEngineers.0.data.barrier2`, "");
-
-  return (
-    addHyphen(rubberType, elementLength) +
-    addHyphen(elementLength, rubberOd) +
-    addHyphen(rubberOd, pipeOd) +
-    addHyphen(pipeOd, barrier1) +
-    addHyphen(barrier1, barrier2) +
-    barrier2
-  );
+  if (jsonVariables === geometry) {
+    return `${
+      rubberOd && pipeOd ? jsonVariables[0] : ""
+    } ${rubberType} ${barrier1}x${elementLength}M ${pipeOd}/${rubberOd}`;
+  } else {
+    return `${jsonVariables[0]} ${rubberType} ${barrier1} ${pipeOd}/${rubberOd} ${elementLength}M`;
+  }
 };
 
 const mathScrewDescription = (
@@ -667,7 +692,238 @@ const mathScrewDescription = (
   );
 };
 
+const barrierCriteria = {
+  "0A": {
+    increasedOdForWholeElement: { total: 0, min: 0, max: 0 },
+    increasedOdForEnds: { total: 0.9, min: 0.79, max: 1.01 }
+  },
+  "1A": {
+    increasedOdForWholeElement: { total: 0.45, min: 0.34, max: 0.56 },
+    increasedOdForEnds: { total: 1.35, min: 1.24, max: 1.46 }
+  },
+  "2A": {
+    increasedOdForWholeElement: { total: 0.9, min: 0.79, max: 1.01 },
+    increasedOdForEnds: { total: 1.8, min: 1.69, max: 1.91 }
+  },
+  "3A": {
+    increasedOdForWholeElement: { total: 1.35, min: 1.24, max: 1.46 },
+    increasedOdForEnds: { total: 2.25, min: 2.14, max: 2.36 }
+  },
+  "4A": {
+    increasedOdForWholeElement: { total: 1.8, min: 1.69, max: 1.91 },
+    increasedOdForEnds: { total: 2.7, min: 2.59, max: 2.81 }
+  },
+  "5A": {
+    increasedOdForWholeElement: { total: 2.25, min: 2.14, max: 2.36 },
+    increasedOdForEnds: { total: 3.15, min: 3.04, max: 3.26 }
+  },
+  "6A": {
+    increasedOdForWholeElement: { total: 2.7, min: 2.59, max: 2.81 },
+    increasedOdForEnds: { total: 3.6, min: 3.49, max: 3.71 }
+  },
+  "7A": {
+    increasedOdForWholeElement: { total: 3.15, min: 3.04, max: 3.26 },
+    increasedOdForEnds: { total: 4.05, min: 3.94, max: 4.16 }
+  },
+  "8A": {
+    increasedOdForWholeElement: { total: 3.6, min: 3.49, max: 3.71 },
+    increasedOdForEnds: { total: 4.5, min: 4.39, max: 4.61 }
+  },
+  "0B": {
+    increasedOdForWholeElement: { total: 0, min: 0, max: 0 },
+    increasedOdForEnds: { total: 0.1, min: 0.08, max: 0.13 }
+  },
+  "1B": {
+    increasedOdForWholeElement: { total: 0.05, min: 0.03, max: 0.08 },
+    increasedOdForEnds: { total: 0.15, min: 0.13, max: 0.18 }
+  },
+  "2B": {
+    increasedOdForWholeElement: { total: 0.1, min: 0.08, max: 0.13 },
+    increasedOdForEnds: { total: 0.2, min: 0.18, max: 0.23 }
+  },
+  "3B": {
+    increasedOdForWholeElement: { total: 0.15, min: 0.13, max: 0.18 },
+    increasedOdForEnds: { total: 0.25, min: 0.23, max: 0.28 }
+  },
+  "4B": {
+    increasedOdForWholeElement: { total: 0.2, min: 0.18, max: 0.23 },
+    increasedOdForEnds: { total: 0.3, min: 0.28, max: 0.33 }
+  },
+  "5B": {
+    increasedOdForWholeElement: { total: 0.25, min: 0.23, max: 0.28 },
+    increasedOdForEnds: { total: 0.35, min: 0.33, max: 0.38 }
+  },
+  "6B": {
+    increasedOdForWholeElement: { total: 0.3, min: 0.28, max: 0.33 },
+    increasedOdForEnds: { total: 0.4, min: 0.38, max: 0.43 }
+  },
+  "7B": {
+    increasedOdForWholeElement: { total: 0.35, min: 0.33, max: 0.38 },
+    increasedOdForEnds: { total: 0.45, min: 0.43, max: 0.48 }
+  },
+  "8B": {
+    increasedOdForWholeElement: { total: 0.4, min: 0.38, max: 0.43 },
+    increasedOdForEnds: { total: 0.5, min: 0.48, max: 0.53 }
+  },
+  "0C": {
+    increasedOdForWholeElement: { total: 0, min: 0, max: 0 },
+    increasedOdForEnds: { total: 0.2, min: 0.18, max: 0.23 }
+  },
+  "1C": {
+    increasedOdForWholeElement: { total: 0.1, min: 0.08, max: 0.13 },
+    increasedOdForEnds: { total: 0.25, min: 0.23, max: 0.28 }
+  },
+  "2C": {
+    increasedOdForWholeElement: { total: 0.2, min: 0.18, max: 0.23 },
+    increasedOdForEnds: { total: 0.2, min: 0.28, max: 0.33 }
+  },
+  "3C": {
+    increasedOdForWholeElement: { total: 0.25, min: 0.23, max: 0.28 },
+    increasedOdForEnds: { total: 0.36, min: 0.33, max: 0.38 }
+  },
+  "4C": {
+    increasedOdForWholeElement: { total: 0.2, min: 0.28, max: 0.33 },
+    increasedOdForEnds: { total: 0.41, min: 0.38, max: 0.43 }
+  },
+  "5C": {
+    increasedOdForWholeElement: { total: 0.36, min: 0.33, max: 0.38 },
+    increasedOdForEnds: { total: 0.46, min: 0.43, max: 0.48 }
+  },
+  "6C": {
+    increasedOdForWholeElement: { total: 0.41, min: 0.38, max: 0.43 },
+    increasedOdForEnds: { total: 0.51, min: 0.48, max: 0.53 }
+  },
+  "7C": {
+    increasedOdForWholeElement: { total: 0.46, min: 0.43, max: 0.48 },
+    increasedOdForEnds: { total: 0.56, min: 0.53, max: 0.58 }
+  },
+  "8C": {
+    increasedOdForWholeElement: { total: 0.51, min: 0.48, max: 0.53 },
+    increasedOdForEnds: { total: 0.61, min: 0.58, max: 0.63 }
+  }
+};
+
+const mathIncreasedOdForWholeElementTotal = (values, field) => {
+  let barrier = objectPath.get(values, `leadEngineers.0.data.${field}`, "");
+  return barrier && barrierCriteria[barrier]
+    ? barrierCriteria[barrier].increasedOdForWholeElement.total + "mm"
+    : "";
+};
+
+const mathIncreasedOdForWholeElement = (values, field) => {
+  let barrier = objectPath.get(values, `leadEngineers.0.data.${field}`, "");
+  return barrier && barrierCriteria[barrier]
+    ? barrierCriteria[barrier].increasedOdForWholeElement.min +
+        "-" +
+        barrierCriteria[barrier].increasedOdForWholeElement.max +
+        "mm"
+    : "";
+};
+
+const mathIncreasedOdForEndsTotal = (values, field) => {
+  let barrier = objectPath.get(values, `leadEngineers.0.data.${field}`, "");
+  return barrier && barrierCriteria[barrier]
+    ? barrierCriteria[barrier].increasedOdForEnds.total + "mm"
+    : "";
+};
+
+const increasedOdForEnds = (values, field) => {
+  let barrier = objectPath.get(values, `leadEngineers.0.data.${field}`, "");
+  return barrier && barrierCriteria[barrier]
+    ? barrierCriteria[barrier].increasedOdForEnds.min +
+        "-" +
+        barrierCriteria[barrier].increasedOdForEnds.max +
+        "mm"
+    : "";
+};
+const mathIncreasedOdForWholeElementTotal1 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForWholeElementTotal(values, "barrier1");
+};
+
+const mathIncreasedOdForWholeElement1 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForWholeElement(values, "barrier1");
+};
+
+const mathIncreasedOdForEndsTotal1 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForEndsTotal(values, "barrier1");
+};
+
+const increasedOdForEnds1 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return increasedOdForEnds(values, "barrier1");
+};
+const mathIncreasedOdForWholeElementTotal2 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForWholeElementTotal(values, "barrier2");
+};
+
+const mathIncreasedOdForWholeElement2 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForWholeElement(values, "barrier2");
+};
+
+const mathIncreasedOdForEndsTotal2 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForEndsTotal(values, "barrier2");
+};
+
+const increasedOdForEnds2 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return increasedOdForEnds(values, "barrier2");
+};
+
 const Math = {
+  increasedOdForEnds2,
+  mathIncreasedOdForEndsTotal2,
+  mathIncreasedOdForWholeElement2,
+  mathIncreasedOdForWholeElementTotal2,
+  increasedOdForEnds1,
+  mathIncreasedOdForEndsTotal1,
+  mathIncreasedOdForWholeElement1,
+  mathIncreasedOdForWholeElementTotal1,
   mathScrewDescription,
   mathDescription,
   mathCompoundNo1,

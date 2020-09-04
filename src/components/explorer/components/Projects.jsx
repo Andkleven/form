@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
@@ -39,8 +39,6 @@ export default ({
   stage = false,
   ...props
 }) => {
-  const [showCreate, setShowCreate] = useState(false);
-
   // Delete projects
   const user = getUser();
   const deleteProjectFromCache = (
@@ -83,7 +81,6 @@ export default ({
         new {
           id
           leadEngineerDone
-          productionLine
           data
           descriptions {
             id
@@ -188,411 +185,338 @@ export default ({
       {headline && <h6>{headline}</h6>}
       {loading && <Loading />}
       {props.access && props.access.specs && (
-        <>
-          {!showCreate ? (
-            <Link
-              onClick={() => {
-                setShowCreate(true);
-              }}
-              iconProps={{
-                icon: ["fad", "folder-plus"],
-                size: iconSize,
-                style: iconStyle
-              }}
-              style={rowStyle}
-            >
-              Create new project
-            </Link>
-          ) : (
-            <div
-              className="d-flex align-items-center flex-wrap"
-              style={rowStyle}
-            >
-              {/* <div style={{ marginRight: "1.5em" }} className="pt-2 pb-1">
-                Project type:
-              </div> */}
-              {props.productionLine.includes("coating") && (
-                <Link
-                  to="/project/coating/0"
-                  iconProps={{
-                    icon: ["fad", "paint-roller"],
-                    size: iconSize,
-                    style: iconStyle
-                  }}
-                  style={{ marginRight: "1.5em" }}
-                  force
-                >
-                  Coating
-                </Link>
-              )}
-              {props.productionLine.includes("packer") && (
-                <>
-                  {props.access.specs && (
-                    <Link
-                      to="/project/packer/0"
-                      iconProps={{
-                        icon: ["fad", "box-full"],
-                        size: iconSize,
-                        style: iconStyle
-                      }}
-                      style={{ marginRight: "1.5em" }}
-                      force
-                    >
-                      Packer
-                    </Link>
-                  )}
-                </>
-              )}
-              <Link
-                onClick={() => setShowCreate(false)}
-                iconProps={{
-                  icon: ["fas", "times"],
-                  size: iconSize,
-                  style: iconStyle
-                }}
-                color="danger"
-              >
-                Cancel
-              </Link>
-            </div>
-          )}
-
-          {/* <Modal>
-            <Modal.Body>
-              Test
-            </Modal.Body>
-          </Modal> */}
-        </>
+        <Link
+          to="/project/0"
+          iconProps={{
+            icon: ["fad", "folder-plus"],
+            size: iconSize,
+            style: iconStyle
+          }}
+          style={rowStyle}
+        >
+          Create new project
+        </Link>
       )}
       {results && results.length > 0 ? (
         results.map((project, indexProject) => {
-          if (
-            project.productionLine &&
-            props.productionLine.includes(project.productionLine.toString())
-          ) {
-            return (
-              <Tree
-                iconSize={iconSize}
-                iconStyle={iconStyle}
-                rowStyle={rowStyle}
-                defaultOpen
-                key={`${project.data.projectName} ${indexProject} `}
-                name={
-                  <div className="text-wrap">
-                    {project.data.projectName}
-                    <div className="d-inline text-secondary">
-                      {`${
-                        (numberOfChildren(data, project.data.projectName) &&
-                          ` ∙ ${project.descriptions.length}/${numberOfChildren(
-                            data,
-                            project.data.projectName
-                          )} Descriptions`) ||
-                        " ∙ No descriptions"
-                      } `}
-                    </div>
+          return (
+            <Tree
+              iconSize={iconSize}
+              iconStyle={iconStyle}
+              rowStyle={rowStyle}
+              defaultOpen
+              key={`${project.data.projectName} ${indexProject} `}
+              name={
+                <div className="text-wrap">
+                  {project.data.projectName}
+                  <div className="d-inline text-secondary">
+                    {`${
+                      (numberOfChildren(data, project.data.projectName) &&
+                        ` ∙ ${project.descriptions.length}/${numberOfChildren(
+                          data,
+                          project.data.projectName
+                        )} Descriptions`) ||
+                      " ∙ No descriptions"
+                    } `}
                   </div>
-                  // + `(${ countProjectItems(project) } items)`
-                }
-                badge={
-                  project.leadEngineerDone &&
-                  newInProject(project, user) && <Badge>New</Badge>
-                }
-              >
-                <div className="d-flex align-items-center flex-wrap">
-                  {props.access && props.access.specs && (
-                    <Link
-                      to={`/project/${project.productionLine}/${project.id}`}
-                      key={`projectSpecs${indexProject}-1`}
-                      iconProps={{
-                        icon: ["fad", "file-invoice"],
-                        swapOpacity: true,
-                        size: iconSize,
-                        style: iconStyle
-                      }}
-                      style={{ marginRight: ".75em", ...rowStyle }}
-                    >
-                      Specifications
-                    </Link>
-                  )}
-                  {props.access && props.access.specs && (
-                    <Link
-                      key={`projectSpecs${indexProject} -0`}
-                      onClick={() => {
-                        copyProject({ variables: { id: project.id } });
-                        window.location.reload(false);
-                      }}
-                      iconProps={{
-                        icon: ["fad", "copy"],
-                        swapOpacity: true,
-                        size: iconSize,
-                        style: iconStyle
-                      }}
-                      style={{ marginRight: ".75em", ...rowStyle }}
-                    >
-                      Duplicate
-                    </Link>
-                  )}
-                  {!!stage &&
-                    // Array of stages with batching here
-                    batchingStages.includes(stage) && (
-                      <>
-                        <Link
-                          // to={`/project/${project["id"]}`}
-                          to={`/batching/${stage}/${project["id"]}`}
-                          key={`projectBatching${indexProject}`}
-                          iconProps={{
-                            icon: ["fad", "cubes"],
-                            size: iconSize,
-                            style: iconStyle
-                          }}
-                          style={{ marginRight: ".75em", ...rowStyle }}
-                        >
-                          Batching
-                        </Link>
-                      </>
-                    )}
+                </div>
+                // + `(${ countProjectItems(project) } items)`
+              }
+              badge={
+                project.leadEngineerDone &&
+                newInProject(project, user) && <Badge>New</Badge>
+              }
+            >
+              <div className="d-flex align-items-center flex-wrap">
+                {props.access && props.access.specs && (
                   <Link
-                    to={`#`}
-                    key={`projectExport${indexProject}`}
+                    to={`/project/${project.id}`}
+                    key={`projectSpecs${indexProject}-1`}
                     iconProps={{
-                      icon: ["fad", "download"],
+                      icon: ["fad", "file-invoice"],
                       swapOpacity: true,
                       size: iconSize,
                       style: iconStyle
                     }}
-                    color="primary"
                     style={{ marginRight: ".75em", ...rowStyle }}
-                    onClick={() => alert("Export not implemented yet.")}
                   >
-                    Export
+                    Specifications
                   </Link>
-                  {props.access && props.access.specs && (
-                    <Link
-                      to={`#`}
-                      color="danger"
-                      key={`project${indexProject}DeleteLinkButton`}
-                      iconProps={{
-                        icon: ["fas", "trash-alt"],
-                        size: iconSize,
-                        style: iconStyle
-                      }}
-                      style={{ marginRight: ".75em", ...rowStyle }}
-                      onClick={() => {
-                        const confirmation = window.prompt(
-                          "To delete a project is irreversible. Enter the project name to confirm deletion:",
-                          ""
-                        );
-                        if (
-                          confirmation === project.data.projectName &&
-                          window.confirm(
-                            `Are you sure? The project "${project.data.projectName}" will be gone forever.`
-                          )
-                        ) {
-                          deleteProject({ variables: { id: project["id"] } });
-                          window.location.reload(false);
-                          // refetch();
-                        } else if (
-                          confirmation !== project.data.projectName &&
-                          confirmation !== null
-                        ) {
-                          alert(
-                            "Entered name doesn't match. Project not deleted."
-                          );
-                        }
-                      }}
-                    >
-                      Delete project
-                    </Link>
+                )}
+                {props.access && props.access.specs && (
+                  <Link
+                    key={`projectSpecs${indexProject} -0`}
+                    onClick={() => {
+                      copyProject({ variables: { id: project.id } });
+                      window.location.reload(false);
+                    }}
+                    iconProps={{
+                      icon: ["fad", "copy"],
+                      swapOpacity: true,
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: ".75em", ...rowStyle }}
+                  >
+                    Duplicate
+                  </Link>
+                )}
+                {!!stage &&
+                  // Array of stages with batching here
+                  batchingStages.includes(stage) && (
+                    <>
+                      <Link
+                        // to={`/project/${project["id"]}`}
+                        to={`/batching/${stage}/${project["id"]}`}
+                        key={`projectBatching${indexProject}`}
+                        iconProps={{
+                          icon: ["fad", "cubes"],
+                          size: iconSize,
+                          style: iconStyle
+                        }}
+                        style={{ marginRight: ".75em", ...rowStyle }}
+                      >
+                        Batching
+                      </Link>
+                    </>
                   )}
-                </div>
-                {project.descriptions &&
-                  project.leadEngineerDone &&
-                  project.descriptions.map((description, indexDescription) => {
-                    return (
-                      <Tree
-                        iconSize={iconSize}
-                        iconStyle={iconStyle}
-                        rowStyle={rowStyle}
-                        // defaultOpen
-                        key={`project${indexProject}Description${indexDescription}`}
-                        // name={description.data.geometry}
-                        name={
-                          <div className="text-wrap">
-                            {description.data.description}
-                            <div className="d-inline text-secondary">
-                              {` ∙ ${description.data.geometry}${
-                                (numberOfChildren(
+                <Link
+                  to={`#`}
+                  key={`projectExport${indexProject}`}
+                  iconProps={{
+                    icon: ["fad", "download"],
+                    swapOpacity: true,
+                    size: iconSize,
+                    style: iconStyle
+                  }}
+                  color="primary"
+                  style={{ marginRight: ".75em", ...rowStyle }}
+                  onClick={() => alert("Export not implemented yet.")}
+                >
+                  Export
+                </Link>
+                {props.access && props.access.specs && (
+                  <Link
+                    to={`#`}
+                    color="danger"
+                    key={`project${indexProject}DeleteLinkButton`}
+                    iconProps={{
+                      icon: ["fas", "trash-alt"],
+                      size: iconSize,
+                      style: iconStyle
+                    }}
+                    style={{ marginRight: ".75em", ...rowStyle }}
+                    onClick={() => {
+                      const confirmation = window.prompt(
+                        "To delete a project is irreversible. Enter the project name to confirm deletion:",
+                        ""
+                      );
+                      if (
+                        confirmation === project.data.projectName &&
+                        window.confirm(
+                          `Are you sure? The project "${project.data.projectName}" will be gone forever.`
+                        )
+                      ) {
+                        deleteProject({ variables: { id: project["id"] } });
+                        window.location.reload(false);
+                        // refetch();
+                      } else if (
+                        confirmation !== project.data.projectName &&
+                        confirmation !== null
+                      ) {
+                        alert(
+                          "Entered name doesn't match. Project not deleted."
+                        );
+                      }
+                    }}
+                  >
+                    Delete project
+                  </Link>
+                )}
+              </div>
+              {project.descriptions &&
+                project.leadEngineerDone &&
+                project.descriptions.map((description, indexDescription) => {
+                  return (
+                    <Tree
+                      iconSize={iconSize}
+                      iconStyle={iconStyle}
+                      rowStyle={rowStyle}
+                      // defaultOpen
+                      key={`project${indexProject}Description${indexDescription}`}
+                      // name={description.data.geometry}
+                      name={
+                        <div className="text-wrap">
+                          {description.data.description}
+                          <div className="d-inline text-secondary">
+                            {` ∙ ${description.data.geometry}${
+                              (numberOfChildren(
+                                data,
+                                project.data.projectName,
+                                description.data.description
+                              ) &&
+                                ` ∙ ${
+                                  description.items.length
+                                }/${numberOfChildren(
                                   data,
                                   project.data.projectName,
                                   description.data.description
-                                ) &&
-                                  ` ∙ ${
-                                    description.items.length
-                                  }/${numberOfChildren(
-                                    data,
-                                    project.data.projectName,
-                                    description.data.description
-                                  )} Items`) ||
-                                " ∙ No items"
-                              }`}
-                            </div>
+                                )} Items`) ||
+                              " ∙ No items"
+                            }`}
                           </div>
-                        }
-                        badge={
-                          newInDescription(description, user) && (
-                            <Badge>New</Badge>
-                          )
-                        }
-                      >
-                        <ItemGrid className="mb-n3">
-                          {props.access &&
-                            (props.access.itemRead || props.access.itemWrite) &&
-                            description.items &&
-                            description.items.map((item, indexItem) => {
-                              return (
-                                <Col
-                                  key={`itemContainer${indexItem}`}
-                                  xs="12"
-                                  md="6"
-                                  lg="4"
-                                  className="text-truncate pr-2 mb-1 p-1"
-                                >
-                                  {newItem(item, user) && (
-                                    <div className="d-flex justify-content-end">
-                                      <div
-                                        style={{
-                                          position: "relative",
-                                          top: ".65em",
-                                          right: "1.2em"
-                                        }}
-                                        className="d-flex justify-content-center align-items-center"
-                                      >
-                                        <Badge>New</Badge>
-                                      </div>
-                                    </div>
-                                  )}
-                                  <div
-                                    className="shadow-sm p-1"
-                                    style={{
-                                      borderStyle: "solid",
-                                      borderColor: "rgba(0, 0, 0, 0.35)",
-                                      // borderColor: "red",
-                                      borderRadius: ".5em",
-                                      borderWidth: ".05em",
-                                      backgroundColor:
-                                        "rgba(255, 255, 255, 0.075)"
-                                    }}
-                                  >
-                                    <div className="px-1 mt-n1">
-                                      <Link
-                                        onClick={() => handleItemClick(item)}
-                                        to={`/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`}
-                                        key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
-                                        iconProps={{
-                                          icon: ["fad", "cube"],
-                                          size: iconSize,
-                                          style: iconStyle
-                                        }}
-                                        style={{ zIndex: 1, ...rowStyle }}
-                                        className="text-light text-wrap text-decoration-none w-100"
-                                      >
-                                        <div className="d-inline">
-                                          <div className="d-inline">
-                                            {item.itemId ? (
-                                              <div className="d-inline">
-                                                {item.itemId}
-                                              </div>
-                                            ) : (
-                                              <div className="text-secondary d-inline">
-                                                No Item ID (Index ID: {item.id})
-                                              </div>
-                                            )}
-                                          </div>
-                                          <ProgressBar
-                                            animated={progress(item) < 100}
-                                            variant={
-                                              progress(item) >= 100
-                                                ? "success"
-                                                : "primary"
-                                            }
-                                            now={progress(item)}
-                                            className="mt-2 shadow-sm w-100"
-                                            style={{
-                                              height: "1.5em",
-                                              backgroundColor:
-                                                "rgba(0, 0, 0, 0.25)"
-                                            }}
-                                          />
-                                          <div
-                                            align="center"
-                                            style={{
-                                              position: "relative",
-                                              bottom: "1.4em",
-                                              height: 0,
-                                              zIndex: 0,
-                                              opacity: 0.75
-                                            }}
-                                          >
-                                            <small className="text-decoration-none">
-                                              {displayStage(item)}
-                                            </small>
-                                          </div>
-                                        </div>
-                                      </Link>
-                                    </div>
-                                    {/* <ButtonGroup className="w-100" size="sm"> */}
-                                    <div className="w-100 d-flex">
-                                      <ReportButton
-                                        size="sm"
-                                        variant={
-                                          progress(item) >= 100
-                                            ? "success"
-                                            : "primary"
-                                        }
-                                        className="w-100 m-1"
-                                        style={{
-                                          position: "relative"
-                                        }}
-                                        project={project}
-                                        description={description}
-                                        item={item}
-                                      >
-                                        <FontAwesomeIcon
-                                          icon={["fas", "file-download"]}
-                                          className="mr-2"
-                                        ></FontAwesomeIcon>
-                                        Report
-                                      </ReportButton>
-                                      <Button
-                                        size="sm"
-                                        variant="danger"
-                                        className="m-1"
-                                        style={{
-                                          position: "relative"
-                                        }}
-                                        disabled
-                                      >
-                                        <FontAwesomeIcon
-                                          icon={["fas", "trash-alt"]}
-                                        ></FontAwesomeIcon>
-                                      </Button>
-                                      {/* </ButtonGroup> */}
+                        </div>
+                      }
+                      badge={
+                        newInDescription(description, user) && (
+                          <Badge>New</Badge>
+                        )
+                      }
+                    >
+                      <ItemGrid className="mb-n3">
+                        {props.access &&
+                          (props.access.itemRead || props.access.itemWrite) &&
+                          description.items &&
+                          description.items.map((item, indexItem) => {
+                            return (
+                              <Col
+                                key={`itemContainer${indexItem}`}
+                                xs="12"
+                                md="6"
+                                lg="4"
+                                className="text-truncate pr-2 mb-1 p-1"
+                              >
+                                {newItem(item, user) && (
+                                  <div className="d-flex justify-content-end">
+                                    <div
+                                      style={{
+                                        position: "relative",
+                                        top: ".65em",
+                                        right: "1.2em"
+                                      }}
+                                      className="d-flex justify-content-center align-items-center"
+                                    >
+                                      <Badge>New</Badge>
                                     </div>
                                   </div>
-                                </Col>
-                              );
-                            })}
-                        </ItemGrid>
-                      </Tree>
-                    );
-                  })}
-              </Tree>
-            );
-          } else {
-            let a = showNoItemsFound;
-            showNoItemsFound = false;
-            return <NoItemsFound show={a} key={project.id} />;
-          }
+                                )}
+                                <div
+                                  className="shadow-sm p-1"
+                                  style={{
+                                    borderStyle: "solid",
+                                    borderColor: "rgba(0, 0, 0, 0.35)",
+                                    // borderColor: "red",
+                                    borderRadius: ".5em",
+                                    borderWidth: ".05em",
+                                    backgroundColor:
+                                      "rgba(255, 255, 255, 0.075)"
+                                  }}
+                                >
+                                  <div className="px-1 mt-n1">
+                                    <Link
+                                      onClick={() => handleItemClick(item)}
+                                      to={`/single-item/${project.id}/${description.id}/${item.id}/${description.data.geometry}`}
+                                      key={`project${indexProject}Description${indexDescription}Item${indexItem}`}
+                                      iconProps={{
+                                        icon: ["fad", "cube"],
+                                        size: iconSize,
+                                        style: iconStyle
+                                      }}
+                                      style={{ zIndex: 1, ...rowStyle }}
+                                      className="text-light text-wrap text-decoration-none w-100"
+                                    >
+                                      <div className="d-inline">
+                                        <div className="d-inline">
+                                          {item.itemId ? (
+                                            <div className="d-inline">
+                                              {item.itemId}
+                                            </div>
+                                          ) : (
+                                            <div className="text-secondary d-inline">
+                                              No Item ID (Index ID: {item.id})
+                                            </div>
+                                          )}
+                                        </div>
+                                        <ProgressBar
+                                          animated={progress(item) < 100}
+                                          variant={
+                                            progress(item) >= 100
+                                              ? "success"
+                                              : "primary"
+                                          }
+                                          now={progress(item)}
+                                          className="mt-2 shadow-sm w-100"
+                                          style={{
+                                            height: "1.5em",
+                                            backgroundColor:
+                                              "rgba(0, 0, 0, 0.25)"
+                                          }}
+                                        />
+                                        <div
+                                          align="center"
+                                          style={{
+                                            position: "relative",
+                                            bottom: "1.4em",
+                                            height: 0,
+                                            zIndex: 0,
+                                            opacity: 0.75
+                                          }}
+                                        >
+                                          <small className="text-decoration-none">
+                                            {displayStage(item)}
+                                          </small>
+                                        </div>
+                                      </div>
+                                    </Link>
+                                  </div>
+                                  {/* <ButtonGroup className="w-100" size="sm"> */}
+                                  <div className="w-100 d-flex">
+                                    <ReportButton
+                                      size="sm"
+                                      variant={
+                                        progress(item) >= 100
+                                          ? "success"
+                                          : "primary"
+                                      }
+                                      className="w-100 m-1"
+                                      style={{
+                                        position: "relative"
+                                      }}
+                                      project={project}
+                                      description={description}
+                                      item={item}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={["fas", "file-download"]}
+                                        className="mr-2"
+                                      ></FontAwesomeIcon>
+                                      Report
+                                    </ReportButton>
+                                    <Button
+                                      size="sm"
+                                      variant="danger"
+                                      className="m-1"
+                                      style={{
+                                        position: "relative"
+                                      }}
+                                      disabled
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={["fas", "trash-alt"]}
+                                      ></FontAwesomeIcon>
+                                    </Button>
+                                    {/* </ButtonGroup> */}
+                                  </div>
+                                </div>
+                              </Col>
+                            );
+                          })}
+                      </ItemGrid>
+                    </Tree>
+                  );
+                })}
+            </Tree>
+          );
         })
       ) : (
         <NoItemsFound show={showNoItemsFound} />

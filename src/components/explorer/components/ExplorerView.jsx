@@ -7,7 +7,6 @@ import DarkButton from "components/button/DarkButton";
 import { getUser } from "functions/user";
 import DepthButton from "components/button/DepthButton";
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
-import { relativeTimeRounding } from "moment";
 
 const createStages = data => {
   let stages = [];

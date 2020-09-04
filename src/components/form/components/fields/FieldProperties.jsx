@@ -59,7 +59,7 @@ export default React.memo(({ ...props }) => {
     if (props.type === "date" || props.type === "datetime-local") {
       documentDataState = documentDataState
         ? new Date(documentDataState)
-        : null;
+        : undefined;
     }
     if (props.path && props.fieldName && documentDataState !== state) {
       setState(documentDataState);
@@ -128,7 +128,7 @@ export default React.memo(({ ...props }) => {
       );
       if (setFirstValue.current) {
         if (props.type === "date" || props.type === "datetime-local") {
-          backendDate = backendDate ? new Date(backendDate) : null;
+          backendDate = backendDate ? new Date(backendDate) : undefined;
         }
         setState(backendDate);
         documentDataDispatch({
@@ -360,7 +360,7 @@ export default React.memo(({ ...props }) => {
           : false,
       label: label,
       subtext: subtext,
-      file: props.type === "file" ? props.file : null,
+      file: props.type === "file" ? props.file : undefined,
       indexId: `${props.indexId}-${props.index}`,
       index: props.index
     };
@@ -440,7 +440,7 @@ export default React.memo(({ ...props }) => {
         max={max}
         label={label}
         subtext={subtext}
-        file={props.type === "file" ? props.file : null}
+        file={props.type === "file" ? props.file : undefined}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}
       />

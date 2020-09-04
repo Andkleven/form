@@ -134,7 +134,6 @@ export const search = (data, filters, search) => {
           results.data = project.data;
           results.id = project.id;
           results.leadEngineerDone = project.leadEngineerDone;
-          results.productionLine = project.productionLine;
           matches.push(results);
         }
       }

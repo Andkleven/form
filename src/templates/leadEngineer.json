@@ -61,6 +61,8 @@
                 "coatedItem": "ISO 8502-4",
                 "mould": "ISO 8502-4",
                 "slipon": "SO 8502-4",
+                "slipon2": "SO 8502-4",
+                "slipon3": "SO 8502-4",
                 "b2P": "SO 8502-4",
                 "dual": "SO 8502-4"
               },
@@ -84,6 +86,8 @@
                 "coatedItem": true,
                 "mould": false,
                 "slipon": true,
+                "slipon2": true,
+                "slipon3": true,
                 "b2P": true,
                 "dual": true
               }
@@ -109,6 +113,8 @@
                 "coatedItem": "µm",
                 "mould": "µm",
                 "slipon": "Ra",
+                "slipon2": "Ra",
+                "slipon3": "Ra",
                 "b2P": "Ra",
                 "dual": "Ra"
               },
@@ -116,6 +122,8 @@
                 "coatedItem": 50,
                 "mould": 50,
                 "slipon": 3,
+                "slipon2": 3,
+                "slipon3": 3,
                 "b2P": 5,
                 "dual": 5
               },
@@ -131,6 +139,8 @@
                 "coatedItem": "µm",
                 "mould": "µm",
                 "slipon": "Ra",
+                "slipon2": "Ra",
+                "slipon3": "Ra",
                 "b2P": "Ra",
                 "dual": "Ra"
               },
@@ -138,6 +148,8 @@
                 "coatedItem": 100,
                 "mould": 100,
                 "slipon": 15,
+                "slipon2": 15,
+                "slipon3": 15,
                 "b2P": 15,
                 "dual": 15
               },
@@ -248,6 +260,8 @@
               "type": "select",
               "default": {
                 "slipon": "Chemosil 360",
+                "slipon2": "Chemosil 360",
+                "slipon3": "Chemosil 360",
                 "b2P": "Chemosil 360",
                 "dual": "Chemosil 360"
               },
@@ -264,6 +278,8 @@
               "type": "select",
               "default": {
                 "slipon": "Chemosil 411",
+                "slipon2": "Chemosil 411",
+                "slipon3": "Chemosil 411",
                 "b2P": "Chemosil 411",
                 "dual": "Chemosil 411"
               },
@@ -602,7 +618,13 @@
       ]
     },
     {
-      "showChapter": { "slipon": true, "b2P": true, "dual": true },
+      "showChapter": {
+        "slipon": true,
+        "slipon2": true,
+        "slipon3": true,
+        "b2P": true,
+        "dual": true
+      },
       "stageQueryPath": "leadEngineers.0.data.coatingVulcanization",
       "pages": [
         {
@@ -670,7 +692,8 @@
               "showField": { "dual": true },
               "fieldName": "compoundNo1",
               "label": "Compound no 1",
-              "math": "mathCompoundNo1"
+              "type": "select",
+              "options": ["35-4063", "35-5265", "35-5265/5266"]
             },
             {
               "showField": { "dual": true },
@@ -678,10 +701,10 @@
               "label": "Compound no 2",
               "required": true,
               "type": "select",
-              "options": ["35-5265", "35-4064", "35-5265/5266", "35-4046"]
+              "options": ["35-5265", "35-4064", "35-5265/5266"]
             },
             {
-              "showField": { "slipon": true },
+              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
               "fieldName": "compoundNoOd",
               "label": "Compound no OD",
               "required": true,
@@ -697,7 +720,7 @@
               ]
             },
             {
-              "showField": { "slipon": true },
+              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
               "fieldName": "compoundNoId",
               "label": "Compound no ID",
               "math": "mathCompoundNoId"
@@ -723,12 +746,117 @@
             {
               "fieldName": "barrier1",
               "label": "Barrier 1",
-              "required": true
+              "required": true,
+              "type": "select",
+              "options": [
+                "0A",
+                "1A",
+                "2A",
+                "3A",
+                "4A",
+                "5A",
+                "6A",
+                "7A",
+                "8A",
+                "0B",
+                "1B",
+                "2B",
+                "3B",
+                "4B",
+                "5B",
+                "6B",
+                "7B",
+                "8B",
+                "0C",
+                "1C",
+                "2C",
+                "3C",
+                "4C",
+                "5C",
+                "6C",
+                "7C",
+                "8C"
+              ]
+            },
+            {
+              "fieldName": "increasedOdForWholeElementTotal1",
+              "label": "Increased OD for Whole element Total",
+              "math": "mathIncreasedOdForWholeElementTotal1"
+            },
+            {
+              "fieldName": "mathIncreasedOdForWholeElement1",
+              "label": "Increased OD for Whole element",
+              "math": "mathIncreasedOdForWholeElement1"
+            },
+            {
+              "fieldName": "increasedOdForEndsTotal1",
+              "label": "Increased OD for Ends Total",
+              "math": "mathIncreasedOdForEndsTotal1"
+            },
+            {
+              "fieldName": "increasedOdForEnds1",
+              "label": "Increased OD for Ends",
+              "math": "increasedOdForEnds1"
             },
             {
               "fieldName": "barrier2",
               "label": "Barrier 2",
-              "required": true
+              "required": true,
+              "showField": { "dual": true },
+              "type": "select",
+              "options": [
+                "0A",
+                "1A",
+                "2A",
+                "3A",
+                "4A",
+                "5A",
+                "6A",
+                "7A",
+                "8A",
+                "0B",
+                "1B",
+                "2B",
+                "3B",
+                "4B",
+                "5B",
+                "6B",
+                "7B",
+                "8B",
+                "0C",
+                "1C",
+                "2C",
+                "3C",
+                "4C",
+                "5C",
+                "6C",
+                "7C",
+                "8C"
+              ]
+            },
+            {
+              "fieldName": "increasedOdForWholeElementTotal2",
+              "label": "Increased OD for Whole element Total",
+              "showField": { "dual": true },
+              "math": "mathIncreasedOdForWholeElementTotal2"
+            },
+            {
+              "fieldName": "mathIncreasedOdForWholeElement2",
+              "label": "Increased OD for Whole element",
+              "showField": { "dual": true },
+              "math": "mathIncreasedOdForWholeElement2"
+            },
+            {
+              "fieldName": "increasedOdForEndsTotal2",
+              "label": "Increased OD for Ends Total",
+              "showField": { "dual": true },
+              "math": "mathIncreasedOdForEndsTotal2"
+            },
+            {
+              "fieldName": "increasedOdForEnds2",
+              "label": "Increased OD for Ends",
+              "showField": { "dual": true },
+              "math": "increasedOdForEnds2"
             },
             {
               "fieldName": "description",
@@ -738,31 +866,25 @@
             {
               "fieldName": "idDriftSize",
               "label": "ID Drift size"
-            },
-            {
-              "fieldName": "noOfRings",
-              "label": "No. of rings",
-              "notSingleEdit": true,
-              "type": "number"
-            },
-            {
-              "fieldName": "ringType",
-              "label": "Ring type",
-              "type": "select",
-              "options": ["end rings", "center ring", "rings", "K2"]
             }
           ]
         },
         {
           "queryPath": "leadEngineers.0.ringMaterials",
-          "notAddButton": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.noOfRings",
+          "repeatStartWith": 1,
+          "delete": true,
           "repeat": true,
           "fields": [
             {
+              "fieldName": "ringType",
+              "label": "Ring type",
+              "type": "select",
+              "options": ["end rings", "center ring", "rings", "K2"]
+            },
+            {
               "fieldName": "ringMaterial",
               "indexVariableLabel": true,
-              "label": "Ring material {}"
+              "label": "Ring material"
             }
           ]
         },
@@ -880,7 +1002,13 @@
               "min": 0
             },
             {
-              "showField": { "slipon": true, "b2P": true, "dual": true },
+              "showField": {
+                "slipon": true,
+                "slipon2": true,
+                "slipon3": true,
+                "b2P": true,
+                "dual": true
+              },
               "fieldName": "asBuilt",
               "label": "As built",
               "type": "select",
@@ -1171,12 +1299,12 @@
             },
 
             {
-              "showField": { "slipon": true },
+              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
               "fieldName": "elementId",
               "label": "Element ID"
             },
             {
-              "showField": { "slipon": true },
+              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
               "fieldName": "elementOd",
               "label": "Element OD"
             },

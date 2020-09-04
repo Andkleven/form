@@ -22,11 +22,6 @@
               "label": "Project Name"
             },
             {
-              "fieldName": "purchaseOrderNumber",
-              "required": true,
-              "label": "Purchase order Number"
-            },
-            {
               "fieldName": "client",
               "required": true,
               "label": "Client"
@@ -102,7 +97,15 @@
               "fieldName": "geometry",
               "label": "Geometry",
               "type": "select",
-              "options": ["Mould", "Coated Item", "Slip on", "B2P", "Dual"],
+              "options": [
+                "Mould",
+                "Coated Item",
+                "Slip on",
+                "Slip on 2",
+                "Slip on 3",
+                "B2P",
+                "Dual"
+              ],
               "required": true
             },
             {

@@ -13,7 +13,7 @@ import { Form } from "react-bootstrap";
 import { getStartStage } from "functions/general";
 
 export default ({ descriptionName = "description", ...props }) => {
-  const [state, setState] = useState(props.value ? props.value : null);
+  const [state, setState] = useState(props.value ? props.value : undefined);
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
@@ -103,7 +103,14 @@ export default ({ descriptionName = "description", ...props }) => {
   const formProps = {
     onSubmit: e => {
       e.preventDefault();
-      handleSubmit(props.setStage ? getStartStage(props.geometry, props.items.find(item => item.id === props.id)) : undefined);
+      handleSubmit(
+        props.setStage
+          ? getStartStage(
+              props.geometry,
+              props.items.find(item => item.id === props.id)
+            )
+          : undefined
+      );
     }
   };
 

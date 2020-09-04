@@ -58,14 +58,11 @@ export default () => {
             </Route>
 
             {/* Create Project (Lead Engineer) */}
-            <Route
-              path="/project/:productionLine/:id"
-              component={CreateProject}
-            />
+            <Route path="/project/:id" component={CreateProject} />
 
             {/* Create Items (Lead Engineer) */}
             <Route
-              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry/:productionLine"
+              path="/lead-engineer/:projectId/:descriptionId/:itemId/:unique/:geometry"
               component={LeadEngineerPage}
             />
 

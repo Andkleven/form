@@ -1,13 +1,7 @@
 {
   "admin": {
     "displayName": "Administrator",
-    "levels": [
-      "general"
-    ],
-    "productionLine": [
-      "coating",
-      "packer"
-    ],
+    "levels": ["general"],
     "access": {
       "receiptControl": true,
       "specs": true,
@@ -21,12 +15,7 @@
   },
   "lead": {
     "displayName": "Lead Engineer",
-    "levels": [
-      "general"
-    ],
-    "productionLine": [
-      "coating"
-    ],
+    "levels": ["general"],
     "access": {
       "receiptControl": false,
       "specs": true,
@@ -40,12 +29,7 @@
   },
   "supervisor": {
     "displayName": "Supervisor",
-    "levels": [
-      "general"
-    ],
-    "productionLine": [
-      "coating"
-    ],
+    "levels": ["general"],
     "access": {
       "receiptControl": false,
       "specs": false,
@@ -59,12 +43,7 @@
   },
   "operator": {
     "displayName": "Operator",
-    "levels": [
-      "general"
-    ],
-    "productionLine": [
-      "coating"
-    ],
+    "levels": ["general"],
     "access": {
       "receiptControl": false,
       "specs": false,
@@ -78,12 +57,7 @@
   },
   "quality": {
     "displayName": "Quality Control",
-    "levels": [
-      "general"
-    ],
-    "productionLine": [
-      "coating"
-    ],
+    "levels": ["general"],
     "access": {
       "receiptControl": false,
       "specs": false,
@@ -97,12 +71,7 @@
   },
   "offsite": {
     "displayName": "Offsite Responsible",
-    "levels": [
-      "project"
-    ],
-    "productionLine": [
-      "coating"
-    ],
+    "levels": ["project"],
     "access": {
       "receiptControl": false,
       "specs": false,
@@ -116,12 +85,7 @@
   },
   "spectator": {
     "displayName": "Spectator",
-    "levels": [
-      "general"
-    ],
-    "productionLine": [
-      "coating"
-    ],
+    "levels": ["general"],
     "access": {
       "receiptControl": false,
       "specs": false,

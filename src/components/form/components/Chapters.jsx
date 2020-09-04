@@ -15,10 +15,9 @@ import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
-export default ({ stagePath, ...props }) => {
+export default React.memo(({ stagePath, ...props }) => {
   const { editChapter } = useContext(ChapterContext);
   const { documentData } = useContext(DocumentDataContext);
-
   const stopLoop = useRef(false); // Flips to true for last chapter with input
   let finalChapter = 0;
   let count = 0;
@@ -177,4 +176,4 @@ export default ({ stagePath, ...props }) => {
       ) : null}
     </>
   );
-};
+});

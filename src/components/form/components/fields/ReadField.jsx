@@ -13,7 +13,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
   if (display) {
     readOnly = true;
   }
-  const { documentData, documentDataDispatch, save } =
+  const { documentData, documentDataDispatch, save, screenshotData } =
     !display && useContext(DocumentDataContext);
   const chapterContext = useContext(ChapterContext);
 
@@ -41,8 +41,9 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         {...props}
         onClick={() => {
           if (
-            documentData &&
-            JSON.stringify(props.backendData) !==
+            screenshotData &&
+            screenshotData.current &&
+            JSON.stringify(screenshotData.current) !==
               JSON.stringify(documentData.current)
           ) {
             dialog({

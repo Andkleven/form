@@ -23,9 +23,11 @@ function useStore(init = {}) {
   const state = useRef(init);
   const renderFunction = useRef({});
   const resetState = useRef({});
+  const screenshotData = useRef(false);
   const reducer = action => {
     switch (action.type) {
       case "setState":
+        screenshotData.current = false;
         state.current = cloneDeep(action.newState);
         if (!action.notReRender) {
           Object.values(resetState.current).forEach(func => {
@@ -56,7 +58,7 @@ function useStore(init = {}) {
     }
     return state.current;
   };
-  return [state, reducer, renderFunction, resetState];
+  return [state, reducer, renderFunction, resetState, screenshotData];
 }
 function useMathStore(init = {}) {
   const state = useRef(init);
@@ -82,7 +84,8 @@ export default ({ saveVariables = {}, ...props }) => {
     documentData,
     documentDataDispatch,
     renderFunction,
-    resetState
+    resetState,
+    screenshotData
   ] = useStore();
   const [mathStore, mathDispatch] = useMathStore();
   const nextStage = useRef(true);
@@ -90,6 +93,7 @@ export default ({ saveVariables = {}, ...props }) => {
   const lastData = useRef(false);
   const stagePath = useRef(false);
   const finalChapter = useRef(0);
+  const repeatStepList = useRef(0);
 
   const { data: optionsData } = useQuery(
     props.document.optionsQuery
@@ -100,6 +104,13 @@ export default ({ saveVariables = {}, ...props }) => {
       skip: !props.optionsQuery
     }
   );
+
+  useEffect(() => {
+    if (repeatStepList.current !== props.repeatStepList) {
+      finalChapter.current = 0;
+    }
+    repeatStepList.current = props.repeatStepList;
+  }, [props.repeatStepList]);
 
   if (
     props.data &&
@@ -312,7 +323,6 @@ export default ({ saveVariables = {}, ...props }) => {
   }, [timer, setLoading]);
 
   const [when, setWhen] = useState(false);
-
   if (props.data) {
     return (
       <DocumentDataContext.Provider
@@ -325,7 +335,8 @@ export default ({ saveVariables = {}, ...props }) => {
           submitData,
           mathStore,
           mathDispatch,
-          renderMath
+          renderMath,
+          screenshotData
         }}
       >
         <ChapterContext.Provider
@@ -342,12 +353,13 @@ export default ({ saveVariables = {}, ...props }) => {
             onSubmit={e => {
               formSubmit(e);
             }}
-            onChange={() =>
+            onChange={() => {
               setWhen(
-                JSON.stringify(props.data) !==
-                  JSON.stringify(documentData.current)
-              )
-            }
+                screenshotData.current &&
+                  JSON.stringify(screenshotData.current) !==
+                    JSON.stringify(documentData.current)
+              );
+            }}
           >
             <RouteGuard
               // TODO: Make `when` true when data is unsaved

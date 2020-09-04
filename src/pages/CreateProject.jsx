@@ -23,14 +23,14 @@ import Loading from "components/Loading";
 const cloneDeep = require("clone-deep");
 
 export default () => {
-  const { id, productionLine } = useParams();
+  const { id } = useParams();
   const [_id, set_id] = useState(Number(id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
   const [geometryData, setGeometryData] = useState(0);
   const [projectsData, setProjectData] = useState(0);
-  const [fixedData, setFixedData] = useState(null);
+  const [fixedData, setFixedData] = useState("");
 
   const setState = counter => {
     setCounter(counter);
@@ -248,7 +248,6 @@ export default () => {
           repeatStepList={[counter - 1]}
           getQueryBy={_id}
           optionsQuery={true}
-          addValuesToData={{ "projects.0.productionLine": productionLine }}
         />
         {geometryData && geometryData.items && geometryData.items.length ? (
           <>
@@ -271,7 +270,7 @@ export default () => {
                 history.push(
                   `/lead-engineer/${_id}/${geometryData.id}/${
                     geometryData.items.find(item => item.unique === false).id
-                  }/0/${geometryData.data.geometry}/${productionLine}`
+                  }/0/${geometryData.data.geometry}`
                 )
               }
               style={{ marginBottom: 2 }}
@@ -286,7 +285,7 @@ export default () => {
               items={geometryData.items}
               submitItem={item => {
                 history.push(
-                  `/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}/${productionLine}`
+                  `/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
                 );
               }}
               submitDelete={id => {
