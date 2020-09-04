@@ -247,9 +247,9 @@
               "label": "Primer 1",
               "type": "select",
               "default": {
-                "slipon": 360,
-                "b2P": 360,
-                "dual": 360
+                "slipon": "Chemosil 360",
+                "b2P": "Chemosil 360",
+                "dual": "Chemosil 360"
               },
               "options": [
                 "Chemosil 211",
@@ -263,9 +263,9 @@
               "label": "Primer 2",
               "type": "select",
               "default": {
-                "slipon": 411,
-                "b2P": 411,
-                "dual": 411
+                "slipon": "Chemosil 411",
+                "b2P": "Chemosil 411",
+                "dual": "Chemosil 411"
               },
               "options": [
                 "Chemosil 211",
@@ -852,15 +852,6 @@
               "label": "Program Number",
               "math": "mathProgramNumber",
               "type": "Number"
-            },
-            {
-              "fieldName": "numberOfLayers",
-              "label": "Number of Layers",
-              "required": true,
-              "type": "Number",
-              "minInput": 0,
-              "maxInput": 4,
-              "notSingleEdit": true
             }
           ]
         }
@@ -903,13 +894,6 @@
                 "D00498986 - Swell packer Cable with 1 center ring",
                 "D01062602 - Swell packer Cable with 2 center ring"
               ]
-            },
-            {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
-              "fieldName": "typeOfAsBuilt",
-              "label": "Type of As built",
-              "type": "select",
-              "options": ["3"]
             },
             {
               "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",

@@ -125,8 +125,8 @@
               "indexVariableLabel": true
             },
             {
-              "fieldName": "specificationCriteria",
-              "prepend": "criteria"
+              "fieldName": "specificationValue",
+              "prepend": "value"
             }
           ]
         },
