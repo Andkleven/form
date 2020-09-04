@@ -149,7 +149,7 @@ export default () => {
             getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
             batchingData
           )}
-          updateCache={() => update}
+          updateBatchingCache={() => update}
           saveButton={!!batchingListIds.length}
           readOnlyFields={!batchingListIds[0]}
           batchingListIds={batchingListIds}

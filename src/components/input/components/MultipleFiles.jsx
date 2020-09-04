@@ -11,7 +11,6 @@ import objectPath from "object-path";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import { writeChapter } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const cloneDeep = require("clone-deep");
 
 const baseStyle = {
   flex: 1,

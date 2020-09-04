@@ -41,7 +41,6 @@ export default ({
     default:
       break;
   }
-
   return (
     <>
       <Form.Group

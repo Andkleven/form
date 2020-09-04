@@ -76,7 +76,33 @@ function useMathStore(init = {}) {
 export const ChapterContext = createContext();
 export const DocumentDataContext = createContext();
 
-export default ({ saveVariables = {}, ...props }) => {
+export default ({
+  saveVariables = false,
+  edit = true,
+  readOnlySheet = false,
+  document,
+  allData,
+  data,
+  getQueryBy,
+  repeatStepList,
+  notEditButton,
+  jsonVariables,
+  chapterAlwaysInWrite,
+  backButton,
+  stageType,
+  specData,
+  saveButton,
+  stage,
+  optionsQuery,
+  firstQueryPath,
+  secondQueryPath,
+  updateBatchingCache,
+  update,
+  reRender,
+  addValuesToData,
+  removeEmptyField,
+  batchingListIds
+}) => {
   const [loading, setLoading] = useState(true);
   const timer = useRef();
   const [editChapter, setEditChapter] = useState(0);
@@ -93,151 +119,151 @@ export default ({ saveVariables = {}, ...props }) => {
   const lastData = useRef(false);
   const stagePath = useRef(false);
   const finalChapter = useRef(0);
-  const repeatStepList = useRef(0);
+  const saveVariablesForm = useRef(saveVariables ? saveVariables : {});
+  const repeatStepListLocal = useRef(0);
+
+  useEffect(() => {
+    saveVariablesForm.current = saveVariables ? saveVariables : {};
+  }, [saveVariablesForm, saveVariables]);
 
   const { data: optionsData } = useQuery(
-    props.document.optionsQuery
-      ? query[props.document.optionsQuery]
-      : query["DEFAULT"],
+    document.optionsQuery ? query[document.optionsQuery] : query["DEFAULT"],
     {
       variables: {},
-      skip: !props.optionsQuery
+      skip: !optionsQuery
     }
   );
 
   useEffect(() => {
-    if (repeatStepList.current !== props.repeatStepList) {
+    if (repeatStepListLocal.current !== repeatStepList) {
       finalChapter.current = 0;
     }
-    repeatStepList.current = props.repeatStepList;
-  }, [props.repeatStepList]);
+    repeatStepListLocal.current = repeatStepList;
+  }, [repeatStepList]);
 
   if (
-    props.data &&
-    (JSON.stringify(props.data) !== JSON.stringify(lastData.current) ||
+    data &&
+    (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
       !lastData.current)
   ) {
     finalChapter.current = 0;
-    lastData.current = cloneDeep(props.data);
+    lastData.current = cloneDeep(data);
     documentDataDispatch({
       type: "setState",
-      newState: props.data
+      newState: data
     });
   }
 
-  const update = (cache, { data }) => {
+  const updateCache = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      query: query[document.query],
+      variables: { id: getQueryBy }
     });
-    let array = objectPath.get(oldData, props.document.queryPath);
+    let array = objectPath.get(oldData, document.queryPath);
     let index = array.findIndex(
-      x => x.id === data[props.document.queryPath.split(/[.]+/).pop()].new.id
+      x => x.id === data[document.queryPath.split(/[.]+/).pop()].new.id
     );
     objectPath.set(
       oldData,
-      `${props.document.queryPath}.${index}`,
-      data[props.document.queryPath.split(/[.]+/).pop()].new
+      `${document.queryPath}.${index}`,
+      data[document.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      query: query[document.query],
+      variables: { id: getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
 
   const updateWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      query: query[document.query],
+      variables: { id: getQueryBy }
     });
     let secondQueryPath = "";
-    let newData = data[props.firstQueryPath.split(/[.]+/).pop()];
-    if (props.secondQueryPath.trim()) {
-      newData = data[props.secondQueryPath.split(/[.]+/).pop()];
-      secondQueryPath = `.${props.repeatStepList}.${props.secondQueryPath}`;
+    let newData = data[firstQueryPath.split(/[.]+/).pop()];
+    if (secondQueryPath.trim()) {
+      newData = data[secondQueryPath.split(/[.]+/).pop()];
+      secondQueryPath = `.${repeatStepList}.${secondQueryPath}`;
     }
-    let array = objectPath.get(
-      oldData,
-      [props.firstQueryPath] + secondQueryPath
-    );
+    let array = objectPath.get(oldData, [firstQueryPath] + secondQueryPath);
     let index = 0;
-    if (props.secondQueryPath.trim()) {
+    if (secondQueryPath.trim()) {
       index = array.findIndex(x => x.id === newData.new.id);
     } else {
       index = array.findIndex(x => x.id === newData.new.id);
     }
     objectPath.set(
       oldData,
-      `${props.firstQueryPath}${secondQueryPath}.${index}`,
+      `${firstQueryPath}${secondQueryPath}.${index}`,
       newData.new
     );
-    let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = firstQueryPath.split(/[.]+/).splice(0, 1)[0];
 
     cache.writeQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      query: query[document.query],
+      variables: { id: getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
 
   const create = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      query: query[document.query],
+      variables: { id: getQueryBy }
     });
     objectPath.push(
       oldData,
-      props.document.queryPath,
-      data[props.document.queryPath.split(/[.]+/).pop()].new
+      document.queryPath,
+      data[document.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = props.document.queryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy },
+      query: query[document.query],
+      variables: { id: getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
 
   const createWithVariable = (cache, { data }) => {
     const oldData = cache.readQuery({
-      query: query[props.document.query],
-      variables: { id: props.getQueryBy }
+      query: query[document.query],
+      variables: { id: getQueryBy }
     });
     objectPath.push(
       oldData,
-      `${props.firstQueryPath}.${props.repeatStepList}.${props.secondQueryPath}`,
-      data[props.secondQueryPath.split(/[.]+/).pop()].new
+      `${firstQueryPath}.${repeatStepList}.${secondQueryPath}`,
+      data[secondQueryPath.split(/[.]+/).pop()].new
     );
-    let saveData = props.firstQueryPath.split(/[.]+/).splice(0, 1)[0];
+    let saveData = firstQueryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
-      query: props.document.query,
-      variables: { id: props.getQueryBy },
+      query: document.query,
+      variables: { id: getQueryBy },
       data: { [saveData]: oldData[saveData] }
     });
   };
 
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
-    mutations[props.document.mutation],
+    mutations[document.mutation],
     {
-      update: props.updateCache
-        ? props.updateCache
-        : props.update
-        ? props.firstQueryPath
+      update: updateBatchingCache
+        ? updateBatchingCache
+        : update
+        ? firstQueryPath
           ? updateWithVariable
           : update
-        : !props.data ||
-          !props.data[Object.keys(props.data)[0]] ||
-          !props.data[Object.keys(props.data)[0]].length
-        ? props.firstQueryPath
+        : !data ||
+          !data[Object.keys(data)[0]] ||
+          !data[Object.keys(data)[0]].length
+        ? firstQueryPath
           ? createWithVariable
           : create
-        : props.firstQueryPath
+        : firstQueryPath
         ? updateWithVariable
-        : update,
+        : updateCache,
       onError: () => {},
-      onCompleted: props.reRender
+      onCompleted: reRender
     }
   );
 
@@ -247,56 +273,44 @@ export default ({ saveVariables = {}, ...props }) => {
       setEditChapter(0);
       finalChapter.current = 0;
       setLoading(true);
-      if (documentData.current) {
-        if (submit && !props.stage && stagePath && !editChapter) {
-          objectPath.set(documentData.current, stagePath.current, true);
+      if (data) {
+        if (submit && !stage && stagePath && !editChapter) {
+          objectPath.set(data, stagePath.current, true);
         }
-        if (props.addValuesToData) {
-          Object.keys(props.addValuesToData).forEach(key => {
-            objectPath.set(
-              documentData.current,
-              key,
-              props.addValuesToData[key]
-            );
+        if (addValuesToData) {
+          Object.keys(addValuesToData).forEach(key => {
+            objectPath.set(data, key, addValuesToData[key]);
           });
         }
-        let variables = stringifyQuery(
-          cloneDeep(documentData.current),
-          props.removeEmptyField
-        );
+        let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
         mutation({
           variables: {
             ...variables,
-            ...saveVariables,
-            itemIdList: props.batchingListIds
-              ? props.batchingListIds
-              : undefined,
+            ...saveVariablesForm.current,
+            itemIdList: batchingListIds ? batchingListIds : undefined,
             stage:
-              isStringInstance(props.stage) &&
+              isStringInstance(stage) &&
               submit &&
               nextStage.current &&
               !editChapter
-                ? FindNextStage(props.specData, props.stage, props.stageType)[
-                    "stage"
-                  ]
-                : props.stage
+                ? FindNextStage(specData, stage, stageType)["stage"]
+                : stage
           }
         });
       }
     },
     [
-      props.removeEmptyField,
-      documentData,
+      removeEmptyField,
       stagePath,
       editChapter,
       mutation,
-      props.addValuesToData,
+      addValuesToData,
       nextStage,
-      props.batchingListIds,
-      props.stageType,
-      props.specData,
-      props.stage,
-      saveVariables,
+      batchingListIds,
+      stageType,
+      specData,
+      stage,
+      saveVariablesForm,
       renderFunction
     ]
   );
@@ -323,7 +337,8 @@ export default ({ saveVariables = {}, ...props }) => {
   }, [timer, setLoading]);
 
   const [when, setWhen] = useState(false);
-  if (props.data) {
+
+  if (data) {
     return (
       <DocumentDataContext.Provider
         value={{
@@ -332,7 +347,6 @@ export default ({ saveVariables = {}, ...props }) => {
           renderFunction,
           resetState,
           save,
-          submitData,
           mathStore,
           mathDispatch,
           renderMath,
@@ -347,7 +361,7 @@ export default ({ saveVariables = {}, ...props }) => {
           }}
         >
           {loading && <Loading />}
-          <Title>{props.document.documentTitle}</Title>
+          <Title>{document.documentTitle}</Title>
           <Form
             ref={formRef}
             onSubmit={e => {
@@ -384,16 +398,24 @@ export default ({ saveVariables = {}, ...props }) => {
               ]}
             />
             <Chapters
-              {...props}
-              backendData={props.data}
+              jsonVariables={jsonVariables}
+              chapterAlwaysInWrite={chapterAlwaysInWrite}
+              stage={stage}
+              notEditButton={notEditButton}
+              repeatStepList={repeatStepListLocal.current}
+              backButton={backButton}
+              document={document}
+              stageType={stageType}
+              specData={specData}
+              saveButton={saveButton}
+              allData={allData}
+              backendData={data}
               optionsData={optionsData}
               submitData={submitData}
               nextStage={nextStage}
               stagePath={stagePath}
-              edit={props.edit === undefined ? true : props.edit}
-              readOnlySheet={
-                props.readOnlySheet === undefined ? false : props.readOnlySheet
-              }
+              edit={edit}
+              readOnlySheet={readOnlySheet}
             />
             {loadingMutation && <Loading />}
             {errorMutation && (

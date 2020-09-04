@@ -256,7 +256,7 @@ export default () => {
               getQueryBy={_id}
               counter={counter - 1}
               geometry={geometryData.data.geometry}
-              setStage={fixedData["projects"][0]["leadEngineerDone"]}
+              setStage={fixedData.projects[0].leadEngineerDone}
             />
             {projectExists && <ItemCounter className="my-3" />}
             <DepthButton
@@ -268,7 +268,9 @@ export default () => {
               className="text-center w-100 mt-3"
               onClick={() =>
                 history.push(
-                  `/lead-engineer/${_id}/${geometryData.id}/${
+                  `/lead-engineer/${fixedData.projects[0].id}/${
+                    geometryData.id
+                  }/${
                     geometryData.items.find(item => item.unique === false).id
                   }/0/${geometryData.data.geometry}`
                 )

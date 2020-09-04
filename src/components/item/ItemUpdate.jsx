@@ -13,7 +13,7 @@ import { Form } from "react-bootstrap";
 import { getStartStage } from "functions/general";
 
 export default ({ descriptionName = "description", ...props }) => {
-  const [state, setState] = useState(props.value ? props.value : undefined);
+  const [state, setState] = useState(props.value ? props.value : "");
 
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({

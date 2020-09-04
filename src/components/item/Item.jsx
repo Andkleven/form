@@ -56,7 +56,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
             size="sm"
             tooltip="Rename"
             short
-            iconProps={{ icon: ["fas", "pen"], size: "sm", maxHeight: "100%" }}
+            iconProps={{ icon: ["fas", "pen"], size: "sm", maxheight: "100%" }}
             className="btn text-primary"
             onClick={handleShowRename}
           ></DepthButton>
@@ -67,7 +67,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
             iconProps={{
               icon: ["fas", "trash"],
               size: "sm",
-              maxHeight: "100%"
+              maxheight: "100%"
             }}
             className="btn text-danger"
             // onClick={submitDelete.bind(this, item.id)}

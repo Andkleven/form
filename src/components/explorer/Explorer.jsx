@@ -24,7 +24,9 @@ export default ({
   },
   ...props
 }) => {
-  let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"]);
+  let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
+    variables: { orderByLatestProject: true }
+  });
 
   data = objectifyQuery(data);
 

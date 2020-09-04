@@ -530,8 +530,11 @@ const GET_OPERATOR_BY_ITEM = gql`
 `;
 
 const OPERATOR_PROJECTS = gql`
-  query($leadEngineerDone: Boolean) {
-    projects(leadEngineerDone: $leadEngineerDone) {
+  query($leadEngineerDone: Boolean, $orderByLatestProject: Boolean) {
+    projects(
+      leadEngineerDone: $leadEngineerDone
+      orderByLatestProject: $orderByLatestProject
+    ) {
       leadEngineerDone
       data
       id

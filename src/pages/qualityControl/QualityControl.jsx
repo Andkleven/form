@@ -66,8 +66,7 @@ export default pageInfo => {
           stageType={geometry}
           edit={getAccess().itemEdit}
           getQueryBy={itemId}
-          itemId={itemId}
-          sendItemId={true}
+          saveVariables={{ itemId: itemId }}
           saveButton={true}
           update={true}
         />

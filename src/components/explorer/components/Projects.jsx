@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
 import Badge from "components/design/NotificationBadge";
 import gql from "graphql-tag";
-import Loading from "components/Loading";
+// import Loading from "components/Loading";
 
 const NoItemsFound = ({ show }) => {
   return (
@@ -64,44 +64,44 @@ export default ({
     update: deleteProjectFromCache
   });
 
-  const update = (cache, { data: { copyProject } }) => {
-    const oldData = cache.readQuery({
-      query: query["OPERATOR_PROJECTS"]
-    });
-    oldData.projects.push(copyProject.new);
-    cache.writeQuery({
-      query: query["OPERATOR_PROJECTS"],
-      data: { ...oldData }
-    });
-  };
+  // const update = (cache, { data: { copyProject } }) => {
+  //   const oldData = cache.readQuery({
+  //     query: query["OPERATOR_PROJECTS"]
+  //   });
+  //   oldData.projects.push(copyProject.new);
+  //   cache.writeQuery({
+  //     query: query["OPERATOR_PROJECTS"],
+  //     data: { ...oldData }
+  //   });
+  // };
 
-  const COPY_PROJECT = gql`
-    mutation($id: Int) {
-      copyProject(id: $id) {
-        new {
-          id
-          leadEngineerDone
-          data
-          descriptions {
-            id
-            data
-            items {
-              id
-              itemId
-              stage
-              seen {
-                id
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
+  // const COPY_PROJECT = gql`
+  //   mutation($id: Int) {
+  //     copyProject(id: $id) {
+  //       new {
+  //         id
+  //         leadEngineerDone
+  //         data
+  //         descriptions {
+  //           id
+  //           data
+  //           items {
+  //             id
+  //             itemId
+  //             stage
+  //             seen {
+  //               id
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `;
 
-  const [copyProject, { loading }] = useMutation(COPY_PROJECT, {
-    update
-  });
+  // const [copyProject, { loading }] = useMutation(COPY_PROJECT, {
+  //   update
+  // });
 
   // Notification badge logic
   // _______________________________________________________________________
@@ -183,7 +183,7 @@ export default ({
   return (
     <div className={props.className}>
       {headline && <h6>{headline}</h6>}
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
       {props.access && props.access.specs && (
         <Link
           to="/project/0"
