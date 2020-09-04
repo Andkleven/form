@@ -243,7 +243,7 @@ export default ({
                     Specifications
                   </Link>
                 )}
-                {props.access && props.access.specs && (
+                {/* {props.access && props.access.specs && (
                   <Link
                     key={`projectSpecs${indexProject} -0`}
                     onClick={() => {
@@ -260,14 +260,14 @@ export default ({
                   >
                     Duplicate
                   </Link>
-                )}
+                )} */}
                 {!!stage &&
                   // Array of stages with batching here
                   batchingStages.includes(stage) && (
                     <>
                       <Link
                         // to={`/project/${project["id"]}`}
-                        to={`/batching/${stage}/${project["id"]}`}
+                        to={`/batching/${stage}/${project.id}`}
                         key={`projectBatching${indexProject}`}
                         iconProps={{
                           icon: ["fad", "cubes"],

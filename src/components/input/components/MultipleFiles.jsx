@@ -1,4 +1,10 @@
-import React, { useMemo, useState, useEffect, useContext, useCallback } from "react";
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useContext,
+  useCallback
+} from "react";
 import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
@@ -60,48 +66,49 @@ export default ({ ...props }) => {
       });
     }
   });
-  const {
-    finalChapter,
-    editChapter
-  } = useContext(ChapterContext);
+  const { finalChapter, editChapter } = useContext(ChapterContext);
 
   const { documentDataDispatch, resetState } = useContext(DocumentDataContext);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setFiles([]);
-
   }, [props.componentsId, setFiles]);
 
-  const setBackendFiles = useCallback(
-    () => {
-      let oldFiles = objectPath.get(props.backendData, props.path);
-      if (oldFiles) {
-        oldFiles = oldFiles.map(oldFile => ({
-          ...oldFile,
-          file: {
-            name: oldFile.file.name || oldFile.file.split("/")[1]
-          }
-        }));
-        setFiles(oldFiles);
-        objectPath.set(props.backendData, props.path, cloneDeep(oldFiles));
-      }
-    },
-    [props.path, props.backendData],
-  )
+  const setBackendFiles = useCallback(() => {
+    let oldFiles = objectPath.get(props.backendData, props.path);
+    if (oldFiles) {
+      oldFiles = oldFiles.map(oldFile => ({
+        ...oldFile,
+        file: {
+          name: oldFile.file.name || oldFile.file.split("/")[1]
+        }
+      }));
+      setFiles(oldFiles);
+    }
+  }, [props.path, props.backendData]);
 
   useEffect(() => {
-    resetState.current[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`] = setBackendFiles;
+    resetState.current[
+      `${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`
+    ] = setBackendFiles;
     return () => {
       // eslint-disable-next-line
-      delete resetState.current[`${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`];
-    }
-  }, [setBackendFiles, props.repeatStepList, props.path, props.label, resetState]);
+      delete resetState.current[
+        `${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`
+      ];
+    };
+  }, [
+    setBackendFiles,
+    props.repeatStepList,
+    props.path,
+    props.label,
+    resetState
+  ]);
 
   useEffect(() => {
-    setBackendFiles()
-  }, [setBackendFiles])
-
+    setBackendFiles();
+  }, [setBackendFiles]);
 
   useEffect(() => {
     documentDataDispatch({ type: "add", path: props.path, newState: files });
@@ -135,7 +142,12 @@ export default ({ ...props }) => {
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
-        {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
+        {writeChapter(
+          props.allWaysShow,
+          editChapter,
+          props.thisChapter,
+          finalChapter.current
+        ) && (
           <div {...getRootProps({ style })}>
             <div
               // htmlFor={props.label || props.prepend}
@@ -158,9 +170,25 @@ export default ({ ...props }) => {
         )}
         {files.length ? (
           <aside>
-            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
+            {writeChapter(
+              props.allWaysShow,
+              editChapter,
+              props.thisChapter,
+              finalChapter.current
+            ) && (
               <>
-                <label className={`${writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) ? `mt-3` : ``}`}>
+                <label
+                  className={`${
+                    writeChapter(
+                      props.allWaysShow,
+                      editChapter,
+                      props.thisChapter,
+                      finalChapter.current
+                    )
+                      ? `mt-3`
+                      : ``
+                  }`}
+                >
                   Uploaded files
                 </label>
                 <hr className="w-100 m-0" />
@@ -180,13 +208,18 @@ export default ({ ...props }) => {
             </ul>
           </aside>
         ) : (
-            !writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
-              <div className="text-secondary">
-                <FontAwesomeIcon icon="file-times" className="mr-2" />
-                <div className="d-inline">No files uploaded.</div>
-              </div>
-            )
-          )}
+          !writeChapter(
+            props.allWaysShow,
+            editChapter,
+            props.thisChapter,
+            finalChapter.current
+          ) && (
+            <div className="text-secondary">
+              <FontAwesomeIcon icon="file-times" className="mr-2" />
+              <div className="d-inline">No files uploaded.</div>
+            </div>
+          )
+        )}
       </section>
     </div>
   );
