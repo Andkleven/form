@@ -103,6 +103,9 @@ export default props => {
               position: "absolute",
               pointerEvents: "none"
             }}
+            onChange={() => {
+              console.error("Her er jeg");
+            }}
             value={props.value}
             required={props.required}
           />
