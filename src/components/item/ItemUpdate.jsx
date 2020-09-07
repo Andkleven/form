@@ -107,7 +107,9 @@ export default ({ descriptionName = "description", ...props }) => {
         props.setStage
           ? getStartStage(
               props.geometry,
-              props.items.find(item => item.id === props.id)
+              props.items
+                ? props.items.find(item => item.id === props.id)
+                : undefined
             )
           : undefined
       );
