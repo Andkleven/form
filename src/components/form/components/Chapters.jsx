@@ -15,22 +15,6 @@ import AutoScroll from "components/AutoScroll";
 
 // import objectPath from "object-path";
 
-function useTraceUpdate(props) {
-  const prev = useRef(props);
-  useEffect(() => {
-    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-      if (prev.current[k] !== v) {
-        ps[k] = [prev.current[k], v];
-      }
-      return ps;
-    }, {});
-    if (Object.keys(changedProps).length > 0) {
-      console.log("Changed props:", changedProps);
-    }
-    prev.current = props;
-  });
-}
-
 export default React.memo(
   ({
     stagePath,
@@ -57,26 +41,7 @@ export default React.memo(
     const stopLoop = useRef(false); // Flips to true for last chapter with input
     let finalChapter = 0;
     let count = 0;
-    useTraceUpdate({
-      stagePath,
-      backendData,
-      optionsData,
-      submitData,
-      nextStage,
-      edit,
-      readOnlySheet,
-      jsonVariables,
-      chapterAlwaysInWrite,
-      stage,
-      notEditButton,
-      repeatStepList,
-      backButton,
-      document,
-      stageType,
-      specData,
-      saveButton,
-      allData
-    });
+
     const getNewChapter = (
       repeatStepListLocal,
       pageInfo,
