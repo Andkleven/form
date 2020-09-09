@@ -23,6 +23,7 @@ export default ({ setState, state, ...props }) => {
     DocumentDataContext
   );
   console.log(documentData.current);
+  console.log(props.path);
 
   const addUser = useCallback(() => {
     documentDataDispatch({
