@@ -39,7 +39,7 @@ export default () => {
     variables: { id: _id }
   });
 
-  const dosePathExist = useCallback(
+  const pathExists = useCallback(
     path => {
       return !!(fixedData && objectPath.get(fixedData, path));
     },
@@ -126,7 +126,7 @@ export default () => {
     errorDelete
   ]);
 
-  const projectExists = dosePathExist("projects.0");
+  const projectExists = pathExists("projects.0");
 
   const ItemCounter = ({ className }) => {
     const percentage = numberOfItems / projectsData.totalNumberOfItems;
@@ -180,20 +180,6 @@ export default () => {
     });
   };
 
-  const itemsDone = data => {
-    let done = true;
-    data.projects.forEach(project => {
-      project.descriptions.forEach(description => {
-        description.items.forEach(item => {
-          if (item.leadEngineers && item.leadEngineers.length === 0) {
-            done = false;
-          }
-        });
-      });
-    });
-    return done;
-  };
-
   const onlyUnique = () => {
     let onlyUnique = true;
     data.projects.forEach(project => {
@@ -208,7 +194,30 @@ export default () => {
     return onlyUnique;
   };
 
-  const sent = dosePathExist("projects.0.leadEngineerDone");
+  const itemsDone = data => {
+    let done = false;
+
+    let itemCount = 0;
+    let finishedItemCount = 0;
+
+    data.projects.forEach(project => {
+      project.descriptions.forEach(description => {
+        description.items.forEach(item => {
+          console.log(item.leadEngineers);
+          itemCount += 1;
+          if (JSON.parse(item.leadEngineers[0].data).finalInspection) {
+            finishedItemCount += 1;
+          }
+        });
+      });
+    });
+
+    done = itemCount === finishedItemCount;
+
+    return done;
+  };
+
+  const sent = pathExists("projects.0.leadEngineerDone");
 
   const sendable =
     projectExists &&
@@ -218,9 +227,13 @@ export default () => {
     Number(numberOfItems) === Number(projectsData.totalNumberOfItems) &&
     itemsDone(data);
 
+  // console.log(data);
+
+  // const sendable = leadEngineers.0.data.finalInspection
+
   useEffect(() => {
-    if (!error && !loading && dosePathExist("projects.0.descriptions")) {
-      if (dosePathExist(`projects.0.descriptions.${counter - 1}.items`)) {
+    if (!error && !loading && pathExists("projects.0.descriptions")) {
+      if (pathExists(`projects.0.descriptions.${counter - 1}.items`)) {
         setGeometryData(fixedData.projects[0].descriptions[counter - 1]);
       } else {
         setGeometryData(0);
@@ -232,7 +245,7 @@ export default () => {
       });
       setNumberOfItems(countNumberOfItems);
     }
-  }, [counter, fixedData, error, loading, dosePathExist]);
+  }, [counter, fixedData, error, loading, pathExists]);
 
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;

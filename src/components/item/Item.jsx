@@ -41,7 +41,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
             className="btn h-100 text-left w-100"
             onClick={() => submitItem(item)}
           >
-            <div className="w-100 h-100">
+            <div className="w-100 h-100 d-flex justify-content-between align-items-center">
               <div
                 style={{ wordBreak: "break-word" }}
                 className="h-100 d-flex align-items-center"
@@ -50,7 +50,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
               </div>
               {item.unique && (
                 <div className="text-secondary">
-                  <FontAwesomeIcon icon={["fas", "fingerprint"]} />
+                  {/* <FontAwesomeIcon icon={["fas", "fingerprint"]} /> */}
                   <i className="ml-2 d-none d-sm-inline">Unique</i>
                 </div>
               )}

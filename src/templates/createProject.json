@@ -110,7 +110,7 @@
             },
             {
               "fieldName": "descriptionNameMaterialNo",
-              "label": "Description name/ Material no.",
+              "label": "Description name/Material number",
               "required": true
             }
           ]
