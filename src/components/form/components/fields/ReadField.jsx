@@ -4,7 +4,7 @@ import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import { convertDatetimeToString } from "functions/datetime";
-import { writeChapter, getProperties } from "functions/general";
+import { writeChapter, getProperties, getSpecComment } from "functions/general";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
@@ -208,6 +208,15 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
     false
   );
 
+  const leComment = getSpecComment(
+    props.specData,
+    props.routeToSpecMax,
+    props.routeToSpecMin,
+    props.specValueList,
+    props.repeatStepList,
+    props.editRepeatStepValueList
+  );
+
   return (
     <div
       className={className}
@@ -221,13 +230,23 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
         <Col xs="12" sm="6" className={showAboveBreakpoint()}>
           <Value {...props} />
         </Col>
-        {savedComment && (
+        {!!savedComment && (
           <>
             <Col xs="12" sm="6" className={showAboveBreakpoint()}>
               <div className="text-muted">Comment</div>
             </Col>
             <Col xs="12" sm="6" className={showAboveBreakpoint()}>
               <div className="text-muted">"{savedComment}"</div>
+            </Col>
+          </>
+        )}
+        {!!leComment && (
+          <>
+            <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+              <div className="text-muted">Comment from Lead Engineer</div>
+            </Col>
+            <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+              <div className="text-muted">"{leComment}"</div>
             </Col>
           </>
         )}
@@ -245,12 +264,22 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             )}
           </div>
         </Col>
-        {savedComment && (
+        {!!savedComment && (
           <Col xs="12" className={`${showUnderBreakpoint()}`}>
             <div className="d-flex justify-content-between align-items-center text-muted">
               <div>
                 <small>Comment</small>
                 <div>"{savedComment}"</div>
+              </div>
+            </div>
+          </Col>
+        )}
+        {!!leComment && (
+          <Col xs="12" className={`${showUnderBreakpoint()}`}>
+            <div className="d-flex justify-content-between align-items-center text-muted">
+              <div>
+                <small>Comment from Lead Engineer</small>
+                <div>"{leComment}"</div>
               </div>
             </div>
           </Col>

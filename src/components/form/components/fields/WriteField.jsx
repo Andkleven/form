@@ -6,11 +6,11 @@ import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
 import CheckInput from "components/input/components/CheckInput";
 import "styles/styles.css";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import { USER } from "constants.js";
-import { isStringInstance, isNumber } from "functions/general";
+import { isStringInstance, isNumber, getSpecComment } from "functions/general";
 import { dialog } from "components/Dialog";
 const cloneDeep = require("clone-deep");
 
@@ -227,6 +227,25 @@ export default ({ setState, state, ...props }) => {
   // }
   // console.log(props.ignoreMin === undefined ? props.min : undefined);
 
+  const leComment = getSpecComment(
+    props.specData,
+    props.routeToSpecMax,
+    props.routeToSpecMin,
+    props.specValueList,
+    props.repeatStepList,
+    props.editRepeatStepValueList
+  );
+
+  const breakpoint = "sm";
+
+  const showUnderBreakpoint = () => {
+    return `d-inline d-${breakpoint}-none`;
+  };
+
+  const showAboveBreakpoint = () => {
+    return `d-none d-${breakpoint}-inline`;
+  };
+
   return (
     <div className={indent && "ml-3"}>
       <Input
@@ -262,6 +281,27 @@ export default ({ setState, state, ...props }) => {
         />
       )}
       {props.submitButton ? <LightLine /> : null}
+
+      {!!leComment && (
+        <Row className="mb-3 mt-n3">
+          {/* Large */}
+          <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+            <div className="text-muted">Comment from Lead Engineer</div>
+          </Col>
+          <Col xs="12" sm="6" className={showAboveBreakpoint()}>
+            <div className="text-muted">"{leComment}"</div>
+          </Col>
+          {/* Small */}
+          <Col xs="12" className={`${showUnderBreakpoint()}`}>
+            <div className="d-flex justify-content-between align-items-center text-muted">
+              <div>
+                <small>Comment from Lead Engineer</small>
+                <div>"{leComment}"</div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      )}
     </div>
   );
 };
