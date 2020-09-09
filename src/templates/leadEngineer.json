@@ -27,7 +27,7 @@
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
-              "options": ["Garnet", "Grit", "Aluminum Oxide"],
+              "options": ["Garnet", "Grit", "Aluminum Oxide", "Rubbing"],
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
@@ -110,8 +110,8 @@
               "label": "Surface Profile (Roughness)",
               "prepend": "Min",
               "unit": {
-                "coatedItem": "µm",
-                "mould": "µm",
+                "coatedItem": "Rz",
+                "mould": "Rz",
                 "slipon": "Ra",
                 "slipon2": "Ra",
                 "slipon3": "Ra",
@@ -136,8 +136,8 @@
               "label": "Surface Profile (Roughness)",
               "prepend": "Max",
               "unit": {
-                "coatedItem": "µm",
-                "mould": "µm",
+                "coatedItem": "Rz",
+                "mould": "Rz",
                 "slipon": "Ra",
                 "slipon2": "Ra",
                 "slipon3": "Ra",
