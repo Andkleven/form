@@ -253,7 +253,7 @@ export default ({
         : update
         ? firstQueryPath
           ? updateWithVariable
-          : update
+          : updateCache
         : !data ||
           !data[Object.keys(data)[0]] ||
           !data[Object.keys(data)[0]].length
