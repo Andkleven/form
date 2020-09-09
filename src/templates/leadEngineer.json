@@ -1020,14 +1020,14 @@
               "label": "As built",
               "type": "select",
               "options": [
-                "D00498980 - Swell packer standard",
-                "D00498984 - Swell packer standard with 1 center ring",
-                "D001142450 - Swell packer K2 with 2 center ringer",
-                "D00498983 - Swell packer K2 with 1 center ring",
-                "D00498982 - Swell packer K2 standard",
-                "D00498985 - Swell packer Cable standard",
-                "D00498986 - Swell packer Cable with 1 center ring",
-                "D01062602 - Swell packer Cable with 2 center ring"
+                "Swell packer standard",
+                "Swell packer standard with 1 center ring",
+                "Swell packer K2 with 2 center ringer",
+                "Swell packer K2 with 1 center ring",
+                "Swell packer K2 standard",
+                "Swell packer Cable standard",
+                "Swell packer Cable with 1 center ring",
+                "Swell packer Cable with 2 center ring"
               ]
             },
             {
@@ -1057,10 +1057,10 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498980 - Swell packer standard",
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D00498982 - Swell packer K2 standard",
-                  "D00498985 - Swell packer Cable standard"
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
                 ]
               },
               "fieldName": "packerElementLength",
@@ -1070,10 +1070,10 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D01062602 - Swell packer Cable with 2 center ring",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D00498983 - Swell packer K2 with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 with 2 center ringer"
                 ]
               },
               "fieldName": "packerElementLengthTotal",
@@ -1083,8 +1083,8 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "packerElementLength1",
@@ -1094,8 +1094,8 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "packerElementLength2",
@@ -1105,7 +1105,7 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "packerElementLength3",
@@ -1115,9 +1115,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D00498983 - Swell packer K2 with 1 center ring"
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring"
                 ]
               },
               "fieldName": "packerElement1Length",
@@ -1127,9 +1127,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D00498983 - Swell packer K2 with 1 center ring"
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring"
                 ]
               },
               "fieldName": "packerElement2Length",
@@ -1139,7 +1139,7 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D001142450 - Swell packer K2 with 2 center ringer"
+                  "Swell packer K2 with 2 center ringer"
                 ]
               },
               "fieldName": "packerElement3Length",
@@ -1155,9 +1155,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498980 - Swell packer standard",
-                  "D00498982 - Swell packer K2 standard",
-                  "D00498985 - Swell packer Cable standard"
+                  "Swell packer standard",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
                 ]
               },
               "fieldName": "packerElementOd",
@@ -1167,11 +1167,11 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D00498983 - Swell packer K2 with 1 center ring",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "packerElementOd1",
@@ -1181,11 +1181,11 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D00498983 - Swell packer K2 with 1 center ring",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "packerElementOd2",
@@ -1195,8 +1195,8 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "packerElementOd3",
@@ -1218,11 +1218,11 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D00498983 - Swell packer K2 with 1 center ring",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "centerRingOd",
@@ -1232,11 +1232,11 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498984 - Swell packer standard with 1 center ring",
-                  "D001142450 - Swell packer K2 with 2 center ringer",
-                  "D00498983 - Swell packer K2 with 1 center ring",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "centerRingLength",
@@ -1252,9 +1252,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498985 - Swell packer Cable standard",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "controlLine1",
@@ -1264,9 +1264,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498985 - Swell packer Cable standard",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "controlLine2",
@@ -1276,9 +1276,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498985 - Swell packer Cable standard",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "controlLine3",
@@ -1288,9 +1288,9 @@
             {
               "readOnlyFieldIf": {
                 "leadEngineers.0.data.asBuilt": [
-                  "D00498985 - Swell packer Cable standard",
-                  "D00498986 - Swell packer Cable with 1 center ring",
-                  "D01062602 - Swell packer Cable with 2 center ring"
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
                 ]
               },
               "fieldName": "controlLine4",

@@ -524,11 +524,7 @@ export const getStepFromStage = stage => {
 };
 
 export function getRepeatStepList(repeatStepList, index) {
-  return repeatStepList !== undefined && repeatStepList !== null
-    ? [...repeatStepList, index]
-    : repeatStepList
-    ? [...repeatStepList, index]
-    : [index];
+  return repeatStepList ? [...repeatStepList, index] : [index];
 }
 
 export function isLastCharacterNumber(str) {

@@ -14,6 +14,8 @@ import Overview from "components/layout/Overview";
 import { ItemContext } from "components/contexts/ItemContext";
 import Loading from "components/Loading";
 
+const access = getAccess().access;
+
 export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
   const [fixedData, setFixedData] = useState(null);
@@ -64,6 +66,7 @@ export default pageInfo => {
           }
           stage={fixedData && fixedData.items[0].stage}
           stageType={geometry}
+          readOnlySheet={!access.itemWrite}
           edit={getAccess().itemEdit}
           getQueryBy={itemId}
           saveVariables={{ itemId: itemId }}
