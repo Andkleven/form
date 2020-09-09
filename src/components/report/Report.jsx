@@ -71,7 +71,7 @@ export const Report = ({ project, description, item }) => {
                 values={p.supervisingEngineer}
               />
               <Entry label="Quality Control" values={p.qualityControl} />
-              <Entry label="Description" values={d.description} />
+              <Entry label="Description" values={d.descriptionNameMaterialNo} />
               <Entry label="Geometry" values={d.geometry} />
               <Entry label="IFS Activity Codes" values={d.ifsActivityCodes} />
               <Entry label="CPS" values={d.CPS} />

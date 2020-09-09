@@ -130,6 +130,8 @@ export default () => {
   };
   const multipleItems = MultipleItems();
 
+  // console.log(descriptionQuery);
+
   const Info = () => {
     return (
       <div>
@@ -151,7 +153,7 @@ export default () => {
             {(descriptionQuery &&
               descriptionQuery.data &&
               JSON.parse(descriptionQuery.data.descriptions[0].data)
-                .description) ||
+                .descriptionNameMaterialNo) ||
               "N/A"}
           </div>
           <div className="text-muted mb-n2">

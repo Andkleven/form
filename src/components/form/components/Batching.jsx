@@ -254,7 +254,7 @@ export default props => {
                     ) && (
                       <>
                         <div>
-                          {description.data.description}{" "}
+                          {description.data.descriptionNameMaterialNo}{" "}
                           <div className="text-secondary d-inline">
                             ({description.data.geometry})
                           </div>
