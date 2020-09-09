@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Navbar, Dropdown } from "react-bootstrap";
 import emblem from "images/emblem.png";
 import "styles/styles.css";
@@ -7,7 +7,7 @@ import { getUser, getAccess } from "functions/user";
 import { camelCaseToNormal } from "functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { ItemContext } from "components/contexts/ItemContext";
+// import { ItemContext } from "components/contexts/ItemContext";
 import Repair from "components/repair/Repair";
 import Files from "components/Files";
 
@@ -25,7 +25,7 @@ export default props => {
   const [showRepair, setShowRepair] = useState(false);
   const [showFiles, setShowFiles] = useState(false);
 
-  const { item } = useContext(ItemContext);
+  // const { item } = useContext(ItemContext);
 
   const NavLink = ({ title, link, icon, disabled, hidden }) => (
     <LinkContainer to={link} className="p-0">
@@ -78,10 +78,10 @@ export default props => {
                     title={`Repair`}
                     onClick={() => setShowRepair(true)}
                     icon="tools"
-                  // hidden
+                    // hidden
                   />
                   <Repair
-                    id={item.id}
+                    id={itemId}
                     show={showRepair}
                     setShow={setShowRepair}
                   />
@@ -123,8 +123,8 @@ export default props => {
                   <div className="d-inline">
                     {user !== {}
                       ? `${camelCaseToNormal(
-                        user.username
-                      )} (${camelCaseToNormal(user.role.toLowerCase())})`
+                          user.username
+                        )} (${camelCaseToNormal(user.role.toLowerCase())})`
                       : "role • name"}
                   </div>
                   <FontAwesomeIcon icon="user" className="ml-2" />

@@ -347,20 +347,20 @@ export default ({
                       // name={description.data.geometry}
                       name={
                         <div className="text-wrap">
-                          {description.data.description}
+                          {description.data.descriptionNameMaterialNo}
                           <div className="d-inline text-secondary">
                             {` ∙ ${description.data.geometry}${
                               (numberOfChildren(
                                 data,
                                 project.data.projectName,
-                                description.data.description
+                                description.data.descriptionNameMaterialNo
                               ) &&
                                 ` ∙ ${
                                   description.items.length
                                 }/${numberOfChildren(
                                   data,
                                   project.data.projectName,
-                                  description.data.description
+                                  description.data.descriptionNameMaterialNo
                                 )} Items`) ||
                               " ∙ No items"
                             }`}

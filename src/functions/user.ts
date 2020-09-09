@@ -25,13 +25,14 @@ interface Access {
  * @return {object} Access
  */
 export function getAccess(customAccess: Access): Access {
+  // TODO: Clean up indexing - seems to be a weird change in data structure that broke this function...
   let access: object = {};
 
   const user = getUser();
 
   try {
     const role = user["role"].toLowerCase();
-    access = roles[role];
+    access = roles[role].access;
     if (customAccess) {
       access = { ...access, ...customAccess };
     }

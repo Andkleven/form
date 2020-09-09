@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import Paper from "components/layout/Paper";
 import { useSpring, animated } from "react-spring";
@@ -44,11 +44,11 @@ export default () => {
   const [show, setShow] = useState(false);
   const [height, setHeight] = useState(0);
 
-  const measuredRef = useCallback(node => {
+  const measuredRef = node => {
     if (node !== null) {
       setHeight(node.getBoundingClientRect().height);
     }
-  }, []);
+  };
 
   const marginHeight = 50;
   const hiddenLength = height + marginHeight;
@@ -101,31 +101,42 @@ export default () => {
   //   }
   // });
 
-  const MultipleItems = () => {
+  const Items = () => {
     if (
       !descriptionQuery.loading &&
       !descriptionQuery.error &&
-      descriptionQuery.data &&
+      !!descriptionQuery.data &&
       params.unique === "0"
     ) {
       let items = [];
 
       descriptionQuery &&
-        objectPath.get(descriptionQuery, "data.descriptions.0.items", [])
+        objectPath
+          .get(descriptionQuery, "data.descriptions.0.items", [])
           .forEach(item => {
             item && items.push(item.itemId);
           });
-      if (items.length < 2) {
+
+      if (items.length < 1) {
         return null;
       }
 
       let string = items.join(", ");
 
       return string;
+    } else if (
+      !descriptionQuery.loading &&
+      !descriptionQuery.error &&
+      !!descriptionQuery.data
+    ) {
+      const index = descriptionQuery.data.descriptions[0].items.findIndex(
+        item => String(item.id) === String(params.itemId)
+      );
+      return descriptionQuery.data.descriptions[0].items[index].itemId;
     }
     return null;
   };
-  const multipleItems = MultipleItems()
+  const items = Items();
 
   const Info = () => {
     return (
@@ -134,9 +145,9 @@ export default () => {
           <div className="text-muted mb-n2">
             <small>Project:</small>
           </div>
-          {}
           <div>
-            {(projectQuery && objectPath.get(projectQuery, "data.projects.0.data") &&
+            {(projectQuery &&
+              objectPath.get(projectQuery, "data.projects.0.data") &&
               JSON.parse(projectQuery.data.projects[0].data).projectName) ||
               "N/A"}
           </div>
@@ -144,19 +155,26 @@ export default () => {
             <small>Description:</small>
           </div>
           <div>
-            {(descriptionQuery && descriptionQuery.data &&
+            {(descriptionQuery &&
+              descriptionQuery.data &&
               JSON.parse(descriptionQuery.data.descriptions[0].data)
-                .description) ||
+                .descriptionNameMaterialNo) ||
               "N/A"}
           </div>
           <div className="text-muted mb-n2">
-            <small>{multipleItems ? "Items:" : "Item:"}</small>
+            <small>Geometry:</small>
           </div>
           <div>
-            {multipleItems
-              ? multipleItems
-              : "N/A"}
+            {(descriptionQuery &&
+              descriptionQuery.data &&
+              JSON.parse(descriptionQuery.data.descriptions[0].data)
+                .geometry) ||
+              "N/A"}
           </div>
+          <div className="text-muted mb-n2">
+            <small>{items ? "Items:" : "Item:"}</small>
+          </div>
+          <div>{items ? items : "N/A"}</div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
         {/* <pre>
@@ -166,8 +184,7 @@ export default () => {
             2
           )}
         </pre> */}
-        {/*
-        <div>Item:</div>
+        {/* <div>Item:</div>
         <pre>{JSON.stringify(params, null, 2)}</pre>
         <div>
           <pre>{JSON.stringify(projectQuery.data, null, 2)}</pre>
