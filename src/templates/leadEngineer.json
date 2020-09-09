@@ -60,7 +60,6 @@
               "subtext": {
                 "coatedItem": "ISO 8502-4",
                 "mould": "ISO 8502-4",
-                "slipon": "SO 8502-4",
                 "slipon2": "SO 8502-4",
                 "slipon3": "SO 8502-4",
                 "b2P": "SO 8502-4",
@@ -85,7 +84,6 @@
               "default": {
                 "coatedItem": true,
                 "mould": false,
-                "slipon": true,
                 "slipon2": true,
                 "slipon3": true,
                 "b2P": true,
@@ -112,7 +110,6 @@
               "unit": {
                 "coatedItem": "Rz",
                 "mould": "Rz",
-                "slipon": "Ra",
                 "slipon2": "Ra",
                 "slipon3": "Ra",
                 "b2P": "Ra",
@@ -121,7 +118,6 @@
               "default": {
                 "coatedItem": 50,
                 "mould": 50,
-                "slipon": 3,
                 "slipon2": 3,
                 "slipon3": 3,
                 "b2P": 5,
@@ -138,7 +134,6 @@
               "unit": {
                 "coatedItem": "Rz",
                 "mould": "Rz",
-                "slipon": "Ra",
                 "slipon2": "Ra",
                 "slipon3": "Ra",
                 "b2P": "Ra",
@@ -147,7 +142,6 @@
               "default": {
                 "coatedItem": 100,
                 "mould": 100,
-                "slipon": 15,
                 "slipon2": 15,
                 "slipon3": 15,
                 "b2P": 15,
@@ -259,7 +253,6 @@
               "label": "Primer 1",
               "type": "select",
               "default": {
-                "slipon": "Chemosil 360",
                 "slipon2": "Chemosil 360",
                 "slipon3": "Chemosil 360",
                 "b2P": "Chemosil 360",
@@ -277,7 +270,6 @@
               "label": "Primer 2",
               "type": "select",
               "default": {
-                "slipon": "Chemosil 411",
                 "slipon2": "Chemosil 411",
                 "slipon3": "Chemosil 411",
                 "b2P": "Chemosil 411",
@@ -619,7 +611,6 @@
     },
     {
       "showChapter": {
-        "slipon": true,
         "slipon2": true,
         "slipon3": true,
         "b2P": true,
@@ -708,7 +699,7 @@
               "options": ["35-5265", "35-4064", "35-5265/5266"]
             },
             {
-              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
+              "showField": { "slipon2": true, "slipon3": true },
               "fieldName": "compoundNoOd",
               "label": "Compound no OD",
               "notCustom": true,
@@ -725,7 +716,7 @@
               ]
             },
             {
-              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
+              "showField": { "slipon2": true, "slipon3": true },
               "fieldName": "compoundNoId",
               "label": "Compound no ID",
               "math": "mathCompoundNoId"
@@ -1010,7 +1001,6 @@
             },
             {
               "showField": {
-                "slipon": true,
                 "slipon2": true,
                 "slipon3": true,
                 "b2P": true,
@@ -1306,12 +1296,12 @@
             },
 
             {
-              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
+              "showField": { "slipon2": true, "slipon3": true },
               "fieldName": "elementId",
               "label": "Element ID"
             },
             {
-              "showField": { "slipon": true, "slipon2": true, "slipon3": true },
+              "showField": { "slipon2": true, "slipon3": true },
               "fieldName": "elementOd",
               "label": "Element OD"
             },

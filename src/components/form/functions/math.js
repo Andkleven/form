@@ -546,7 +546,6 @@ const packerType = {
 
 const geometryToType = {
   b2P: "compoundNoRubberType",
-  slipon: "compoundNoOd",
   slipon2: "compoundNoOd",
   slipon3: "compoundNoOd",
   dual: ["compoundNo1", "compoundNo2"]
