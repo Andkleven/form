@@ -171,9 +171,9 @@ export const Report = ({ project, description, item }) => {
                       values={[
                         "ISO 8503-4",
                         leData.surfaceProfileMax &&
-                          `${leData.surfaceProfileMax}µm`,
+                          `${leData.surfaceProfileMax}Rz`,
                         opData.surfaceProfileMax &&
-                          `${opData.surfaceProfileMax}µm`,
+                          `${opData.surfaceProfileMax}Rz`,
                         opData.surfaceProfileMaxUserField
                       ]}
                     />

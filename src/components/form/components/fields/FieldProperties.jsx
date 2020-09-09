@@ -330,7 +330,7 @@ export default React.memo(({ ...props }) => {
   } else if (hidden) {
     return null;
   } else if (props.labelOnly) {
-    return <small className={`text-secondary`}>{label}</small>;
+    return <span className={`text-secondary`}>{label}</span>;
   } else if (props.mathSpec) {
     return (
       <ReadField

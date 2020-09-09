@@ -171,7 +171,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           indent && "ml-3 ml-sm-0"
         }`}
       >
-        <div>
+        <div style={{ wordBreak: "break-word" }}>
           {(props.type !== "checkbox" &&
             ![null, false, "null", undefined, ""].includes(props.value) &&
             `${props.value}${showUnit}`) ||

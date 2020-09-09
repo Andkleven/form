@@ -220,7 +220,7 @@
               "placeholder": "Result",
               "label": "Surface Profile (Roughness)",
               "subtext": "Between 50.0µm and 100.0µm",
-              "unit": "µm",
+              "unit": "Rz",
               "type": "number"
             },
             {

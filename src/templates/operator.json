@@ -232,7 +232,7 @@
               "label": "Surface Profile (Roughness)",
               "routeToSpecMin": "leadEngineers.0.data.surfaceProfileMin",
               "routeToSpecMax": "leadEngineers.0.data.surfaceProfileMax",
-              "unit": "µm",
+              "unit": "Rz",
               "type": "number"
             },
             {

@@ -27,9 +27,10 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
   const handleShowRename = () => setShowRename(true);
 
   return (
-    <animated.div style={spring}>
+    <animated.div style={spring} className="h-100">
       <div className="h-100">
         <DepthButtonGroup
+          outerClass="h-100"
           key={`item-${item.itemId}`}
           className="w-100 h-100"
           style={{ padding: "2px 2px" }}
@@ -37,11 +38,14 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
           <DepthButton
             size="sm"
             tooltip={`Open "${item.itemId}"`}
-            className="btn d-flex justify-content-left align-items-center h-100 text-left text-truncate w-100"
+            className="btn h-100 text-left w-100"
             onClick={() => submitItem(item)}
           >
-            <div className="d-flex justify-content-between w-100">
-              <div>
+            <div className="w-100 h-100">
+              <div
+                style={{ wordBreak: "break-word" }}
+                className="h-100 d-flex align-items-center"
+              >
                 {item.itemId || <i className="text-secondary">Unnamed</i>}
               </div>
               {item.unique && (
