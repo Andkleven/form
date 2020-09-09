@@ -17,8 +17,11 @@ export default props => {
       )
     ) {
       return null;
-    } else if (field.showField && !getProperties(field.showField, props.jsonVariables)) {
-      return null
+    } else if (
+      field.showField &&
+      !getProperties(field.showField, props.jsonVariables)
+    ) {
+      return null;
     } else if (field.page) {
       if (getProperties(field.page, props.jsonVariables)) {
         return (
@@ -38,14 +41,14 @@ export default props => {
           />
         );
       } else {
-        return null
+        return null;
       }
     } else {
       return (
         <FieldProperties
           key={`${index}-${field.fieldName}-field-properties`}
-          {...field}
           {...props}
+          {...field}
           index={index}
         />
       );

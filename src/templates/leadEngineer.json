@@ -864,25 +864,39 @@
             {
               "fieldName": "idDriftSize",
               "label": "ID Drift size"
-            }
-          ]
-        },
-        {
-          "queryPath": "leadEngineers.0.ringMaterials",
-          "repeatStartWith": 1,
-          "delete": true,
-          "repeat": true,
-          "fields": [
+            },
             {
               "fieldName": "ringType",
               "label": "Ring type",
               "type": "select",
               "options": ["end rings", "center ring", "rings", "K2"]
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.ringMaterials",
+          "delete": true,
+          "repeat": true,
+          "addButton": "Add rings material no.",
+          "readOnlyFieldIf": {
+            "leadEngineers.0.data.ringType": ["center ring", "end rings"]
+          },
+          "fields": [
+            {
+              "fieldName": "centerRingMaterial",
+              "indexVariableLabel": true,
+              "label": "Center rings material no. {}",
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.ringType": "center ring"
+              }
             },
             {
-              "fieldName": "ringMaterial",
+              "fieldName": "endRingMaterial",
               "indexVariableLabel": true,
-              "label": "Ring material"
+              "label": "End rings material no. {}",
+              "readOnlyFieldIf": {
+                "leadEngineers.0.data.ringType": "end rings"
+              }
             }
           ]
         },

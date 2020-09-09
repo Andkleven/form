@@ -115,13 +115,33 @@ export default React.memo(props => {
     screenshotData
   } = useContext(DocumentDataContext);
   const [fieldGroups, setFieldGroups] = useState({});
-  const hidden = useHidden(props.backendData, props.readOnlyFieldIf, [
+  const hidden = useHidden(props.readOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
   ]);
 
   if (props.finalChapter && props.finalChapter > finalChapter.current) {
     finalChapter.current = props.finalChapter;
   }
+
+  const updateReadOnly = useCallback(() => {
+    if (
+      typeof props.readOnlyFieldIf === "object" &&
+      props.readOnlyFieldIf !== null &&
+      !(props.readOnlyFieldIf instanceof Array)
+    ) {
+      let key = Object.keys(props.readOnlyFieldIf)[0];
+      let value = objectPath.get(documentData.current, key, undefined);
+      return value === undefined
+        ? true
+        : !props.readOnlyFieldIf[key].includes(value);
+    } else {
+      return !objectPath.get(
+        documentData.current,
+        props.readOnlyFieldIf,
+        false
+      );
+    }
+  }, [props.readOnlyFieldIf, documentData]);
 
   const deleteData = useCallback(
     index => {
@@ -727,7 +747,7 @@ export default React.memo(props => {
           {Object.values(fieldGroups)}
           {!!props.addButton &&
           props.repeat &&
-          objectPath.get(documentData.current, props.readOnlyFieldIf, false) &&
+          !updateReadOnly() &&
           (props.showPage === undefined ||
             (props.showPage &&
               getProperties(props.showPage, props.jsonVariables))) &&

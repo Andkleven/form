@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorCoatedItemJson from "templates/operator.json";
-import leadEngineersCoatedItemJson from "templates/leadEngineer.json";
-import qualityControlCoatedItemJson from "templates/qualityControl.json";
+import operatorJson from "templates/operator.json";
+import leadEngineersJson from "templates/leadEngineer.json";
+import qualityControlJson from "templates/qualityControl.json";
 import Form from "components/form/Form";
 import history from "functions/history";
 import Paper from "components/layout/Paper";
@@ -14,19 +14,20 @@ import { ItemContext } from "components/contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 
+const access = getAccess();
+leadEngineersJson.queryPath = "items.0.leadEngineers";
+leadEngineersJson.query = qualityControlJson.query;
+operatorJson.query = qualityControlJson.query;
+
 export default pageInfo => {
-  const access = getAccess();
   const { itemId, geometry } = pageInfo.match.params;
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-  const { loading, error, data } = useQuery(
-    query[qualityControlCoatedItemJson.query],
-    {
-      variables: { id: itemId }
-    }
-  );
+  const { loading, error, data } = useQuery(query[qualityControlJson.query], {
+    variables: { id: itemId }
+  });
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -66,7 +67,7 @@ export default pageInfo => {
             jsonVariables={[geometry]}
             componentsId={"leadEngineersPage"}
             edit={access.itemEdit}
-            document={leadEngineersCoatedItemJson}
+            document={leadEngineersJson}
             reRender={() => setReRender(!reRender)}
             data={
               fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
@@ -87,7 +88,7 @@ export default pageInfo => {
           update={true}
           jsonVariables={[geometry]}
           componentsId={opId.current}
-          document={operatorCoatedItemJson}
+          document={operatorJson}
           reRender={() => setReRender(!reRender)}
           data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           specData={
@@ -112,7 +113,7 @@ export default pageInfo => {
             update={true}
             jsonVariables={[geometry]}
             componentsId={"finalInspectionQualityControls"}
-            document={qualityControlCoatedItemJson}
+            document={qualityControlJson}
             data={
               fixedData &&
               formDataStructure(

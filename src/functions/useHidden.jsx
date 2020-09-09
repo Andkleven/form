@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 import objectPath from "object-path";
 import { DocumentDataContext } from "components/form/Form";
-export default (backendData, readOnlyFieldIf, keyName) => {
+export default (readOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(DocumentDataContext);
   const [hidden, setHidden] = useState(false);
 

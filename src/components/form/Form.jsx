@@ -114,6 +114,7 @@ export default ({
     screenshotData
   ] = useStore();
   const [mathStore, mathDispatch] = useMathStore();
+  const [when, setWhen] = useState(false);
   const nextStage = useRef(true);
   const renderMath = useRef({});
   const lastData = useRef(false);
@@ -252,7 +253,7 @@ export default ({
         : update
         ? firstQueryPath
           ? updateWithVariable
-          : update
+          : updateCache
         : !data ||
           !data[Object.keys(data)[0]] ||
           !data[Object.keys(data)[0]].length
@@ -270,6 +271,8 @@ export default ({
   const submitData = useCallback(
     (data, submit) => {
       renderFunction.current = {};
+      screenshotData.current = false;
+      setWhen(false);
       setEditChapter(0);
       finalChapter.current = 0;
       setLoading(true);
@@ -300,6 +303,8 @@ export default ({
       }
     },
     [
+      setWhen,
+      screenshotData,
       removeEmptyField,
       stagePath,
       editChapter,
@@ -329,14 +334,13 @@ export default ({
   timer.current = setTimeout(() => {
     setLoading(false);
   }, 1000);
+
   useEffect(() => {
     return () => {
       clearTimeout(timer.current);
       setLoading(true);
     };
   }, [timer, setLoading]);
-
-  const [when, setWhen] = useState(false);
 
   if (data) {
     return (
