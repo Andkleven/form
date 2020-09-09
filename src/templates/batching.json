@@ -52,14 +52,8 @@
       "dataPath": "operators.0.vulcanizationOperators"
     },
     "document": {
-      "queryPath": [
-        "operators.0.vulcanizationOperators",
-        ""
-      ],
-      "specQueryPath": [
-        "leadEngineers.0.vulcanizationOperators",
-        ""
-      ],
+      "queryPath": ["operators.0.vulcanizationOperators", ""],
+      "specQueryPath": ["leadEngineers.vulcanizationOperators", ""],
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_VULCANIZATION",
       "chapters": ""

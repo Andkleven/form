@@ -4,7 +4,7 @@
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
     {
-      "stageQueryPath": "leadEngineers.0.data.steelPreparation",
+      "stageQueryPath": "leadEngineers.data.steelPreparation",
       "pages": [
         {
           "pageTitle": "Steel Preparation",
@@ -21,14 +21,14 @@
               "label": "Steel",
               "type": "select",
               "options": ["Carbon", "Duplex"],
-              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+              "readOnlyFieldIf": "leadEngineers.data.mediaBlasting"
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
               "options": ["Garnet", "Grit", "Aluminum Oxide", "Rubbing"],
-              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+              "readOnlyFieldIf": "leadEngineers.data.mediaBlasting"
             },
             {
               "fieldName": "relativeHumidity",
@@ -38,7 +38,7 @@
               "prepend": "Max",
               "unit": "%",
               "subtext": "ISO 8502-4",
-              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+              "readOnlyFieldIf": "leadEngineers.data.mediaBlasting"
             },
             {
               "fieldName": "airTemperature",
@@ -48,7 +48,7 @@
               "prepend": "Min",
               "type": "Number",
               "subtext": "ISP 8502-4",
-              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+              "readOnlyFieldIf": "leadEngineers.data.mediaBlasting"
             },
             {
               "fieldName": "steelTemperature",
@@ -65,7 +65,7 @@
                 "b2P": "SO 8502-4",
                 "dual": "SO 8502-4"
               },
-              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+              "readOnlyFieldIf": "leadEngineers.data.mediaBlasting"
             },
             {
               "fieldName": "temperatureOverDewPoint",
@@ -75,7 +75,7 @@
               "prepend": "Min",
               "type": "Number",
               "subtext": "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature",
-              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+              "readOnlyFieldIf": "leadEngineers.data.mediaBlasting"
             },
             {
               "fieldName": "additionalTests",
@@ -97,7 +97,7 @@
               "prepend": "Max",
               "unit": "µS/cm",
               "subtext": "ISO 8502-9",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -125,7 +125,7 @@
               },
               "type": "Number",
               "subtext": "ISO 8503-4",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests"
             },
             {
               "fieldName": "surfaceProfileMax",
@@ -149,7 +149,7 @@
               },
               "type": "Number",
               "subtext": "ISO 8503-4",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests"
             },
             {
               "fieldName": "solubleSaltLevel",
@@ -159,7 +159,7 @@
               "prepend": "Max",
               "unit": "mg/m²",
               "subtext": "ISO 8502-5/9",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -173,7 +173,7 @@
               "min": 1,
               "max": 5,
               "subtext": "ISO 8502-3, Whole number between 1-5",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -184,7 +184,7 @@
               "label": "Inspection of Steel Surface",
               "type": "checkbox",
               "subtext": "ISO 8501-3, Welds to be grade P3",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -196,7 +196,7 @@
               "placeholder": "Min",
               "type": "checkbox",
               "subtext": "ASTM D 4285, No oil and no water",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -208,7 +208,7 @@
               "placeholder": "Max",
               "type": "checkbox",
               "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -219,7 +219,7 @@
               "label": "UV Test",
               "type": "checkbox",
               "subtext": "No reflecting light",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+              "readOnlyFieldIf": "leadEngineers.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -228,10 +228,10 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.additionalCustomTests",
+          "queryPath": "leadEngineers.additionalCustomTests",
           "repeat": true,
           "delete": true,
-          "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+          "readOnlyFieldIf": "leadEngineers.data.additionalTests",
           "addButton": "Custom Test",
           "fields": [
             {
@@ -306,7 +306,7 @@
     },
     {
       "showChapter": { "coatedItem": true, "mould": true },
-      "stageQueryPath": "leadEngineers.0.data.coatingVulcanization",
+      "stageQueryPath": "leadEngineers.data.coatingVulcanization",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanization",
@@ -375,14 +375,14 @@
             "coatedItem": true,
             "mould": false
           },
-          "queryPath": "leadEngineers.0.measurementPointActualTdvs",
+          "queryPath": "leadEngineers.measurementPointActualTdvs",
           "repeat": true,
           "notAddButton": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
           "fields": [
             {
               "fieldName": "measurementPointActual",
-              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "queryVariableLabel": "leadEngineers.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
               "required": true,
               "type": "number",
@@ -396,7 +396,7 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.rubberCements",
+          "queryPath": "leadEngineers.rubberCements",
           "repeat": true,
           "delete": true,
           "addButton": "Add Item Rubber Cement",
@@ -409,7 +409,7 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.vulcanizationSteps",
+          "queryPath": "leadEngineers.vulcanizationSteps",
           "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
@@ -451,7 +451,7 @@
               "repeat": true,
               "notAddButton": true,
               "repeatGroupWithQuery": [
-                "leadEngineers.0.vulcanizationSteps",
+                "leadEngineers.vulcanizationSteps",
                 "data.numberOfLayers"
               ],
               "fields": [
@@ -586,7 +586,7 @@
                   "queryPath": "cumulativeThickness",
                   "repeat": true,
                   "notAddButton": true,
-                  "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+                  "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
                   "fields": [
                     {
                       "fieldName": "cumulativeThickness",
@@ -616,7 +616,7 @@
         "b2P": true,
         "dual": true
       },
-      "stageQueryPath": "leadEngineers.0.data.coatingVulcanization",
+      "stageQueryPath": "leadEngineers.data.coatingVulcanization",
       "pages": [
         {
           "pageTitle": "Coating and Vulcanization",
@@ -874,12 +874,12 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.ringMaterials",
+          "queryPath": "leadEngineers.ringMaterials",
           "delete": true,
           "repeat": true,
           "addButton": "Add rings material no.",
           "readOnlyFieldIf": {
-            "leadEngineers.0.data.ringType": ["center ring", "end rings"]
+            "leadEngineers.data.ringType": ["center ring", "end rings"]
           },
           "fields": [
             {
@@ -887,7 +887,7 @@
               "indexVariableLabel": true,
               "label": "Center rings material no. {}",
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.ringType": "center ring"
+                "leadEngineers.data.ringType": "center ring"
               }
             },
             {
@@ -895,7 +895,7 @@
               "indexVariableLabel": true,
               "label": "End rings material no. {}",
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.ringType": "end rings"
+                "leadEngineers.data.ringType": "end rings"
               }
             }
           ]
@@ -951,7 +951,7 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.ultrasounds",
+          "queryPath": "leadEngineers.ultrasounds",
           "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
@@ -966,7 +966,7 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.vulcanizationSteps",
+          "queryPath": "leadEngineers.vulcanizationSteps",
           "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
@@ -992,7 +992,7 @@
       ]
     },
     {
-      "stageQueryPath": "leadEngineers.0.data.finalInspection",
+      "stageQueryPath": "leadEngineers.data.finalInspection",
       "pages": [
         {
           "pageTitle": "Final Inspection",
@@ -1035,32 +1035,32 @@
               ]
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "totalLength",
               "label": "Total length",
               "subtext": "Dwg Ref. L1"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "totalLengthPinMakeUpLoss",
               "label": "Total length - Pin make up loss",
               "subtext": "Dwg Ref. L1 - Thread"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "handlingSpacePinEnd",
               "label": "Handling space pin end",
               "subtext": "Dwg Ref. L2"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "handlingSpacePinBox",
               "label": "Handling space pin box",
               "subtext": "Dwg Ref. L3"
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard",
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 standard",
@@ -1073,7 +1073,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable with 2 center ring",
                   "Swell packer Cable with 1 center ring",
                   "Swell packer K2 with 1 center ring",
@@ -1086,7 +1086,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
                 ]
@@ -1097,7 +1097,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
                 ]
@@ -1108,7 +1108,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable with 2 center ring"
                 ]
               },
@@ -1118,7 +1118,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring"
@@ -1130,7 +1130,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring"
@@ -1142,7 +1142,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer K2 with 2 center ringer"
                 ]
               },
@@ -1151,14 +1151,14 @@
               "subtext": "Dwg Ref. L4.3"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "basePipeOd",
               "label": "Base pipe OD",
               "subtext": "Dwg Ref. D1"
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard",
                   "Swell packer K2 standard",
                   "Swell packer Cable standard"
@@ -1170,7 +1170,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
@@ -1184,7 +1184,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
@@ -1198,7 +1198,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer Cable with 2 center ring"
                 ]
@@ -1208,20 +1208,20 @@
               "subtext": "Dwg Ref. D4"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "endRingOd",
               "label": "End-ring OD",
               "subtext": "Dwg Ref. D2"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "endRingLength",
               "label": "End-ring Length",
               "subtext": "Dwg Ref. XX"
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
@@ -1235,7 +1235,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
@@ -1248,14 +1248,14 @@
               "subtext": "Dwg Ref. XX"
             },
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "couplingLength",
               "label": "Coupling length",
               "subtext": "Dwg Ref. XX"
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
@@ -1267,7 +1267,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
@@ -1279,7 +1279,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
@@ -1291,7 +1291,7 @@
             },
             {
               "readOnlyFieldIf": {
-                "leadEngineers.0.data.asBuilt": [
+                "leadEngineers.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
@@ -1303,7 +1303,7 @@
             },
 
             {
-              "readOnlyFieldIf": "leadEngineers.0.data.asBuilt",
+              "readOnlyFieldIf": "leadEngineers.data.asBuilt",
               "fieldName": "custom",
               "label": "Custom (Others)",
               "subtext": "Dwg Ref. XX"
@@ -1389,7 +1389,7 @@
         },
         {
           "showPage": { "coatedItem": true, "mould": true },
-          "queryPath": "leadEngineers.0.finalInspectionDimensionsChecks",
+          "queryPath": "leadEngineers.finalInspectionDimensionsChecks",
           "repeat": true,
           "delete": true,
           "addButton": "Advanced Final Dimensions Check",
@@ -1413,7 +1413,7 @@
           ]
         },
         {
-          "queryPath": "leadEngineers.0.finalInspectionCustomTests",
+          "queryPath": "leadEngineers.finalInspectionCustomTests",
           "repeat": true,
           "delete": true,
           "addButton": "Custom Test",

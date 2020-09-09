@@ -554,7 +554,7 @@ export function getStartStage(geometry, item) {
     case "Coated Item":
       if (
         item &&
-        objectPath.get(item, "leadEngineers.0.data.measurementPoint") === 0
+        objectPath.get(item, "leadEngineers.data.measurementPoint") === 0
       ) {
         stage = "steelPreparation1";
         break;

@@ -206,8 +206,8 @@ export default () => {
           console.log(item.leadEngineers);
           itemCount += 1;
           if (
-            item.leadEngineers[0] &&
-            JSON.parse(item.leadEngineers[0].data).finalInspection
+            item.leadEngineers &&
+            JSON.parse(item.leadEngineers.data).finalInspection
           ) {
             finishedItemCount += 1;
           }
@@ -232,7 +232,7 @@ export default () => {
 
   // console.log(data);
 
-  // const sendable = leadEngineers.0.data.finalInspection
+  // const sendable = leadEngineers.data.finalInspection
 
   useEffect(() => {
     if (!error && !loading && pathExists("projects.0.descriptions")) {

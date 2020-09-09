@@ -11,7 +11,7 @@
         {
           "pageTitle": "Actual Steel OD",
           "queryPath": "operators.0.measurementPointActualTdvs",
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
           "notAddButton": true,
@@ -19,7 +19,7 @@
             {
               "fieldName": "measurementPointActual",
               "variableLabelSpec": true,
-              "queryVariableLabel": "leadEngineers.0.data.targetDescriptionValue",
+              "queryVariableLabel": "leadEngineers.data.targetDescriptionValue",
               "label": "Measurement Point Actual Steel {}",
               "required": true,
               "type": "number",
@@ -38,21 +38,21 @@
           "queryPath": "operators",
           "fields": [
             {
-              "specValueList": "leadEngineers.0.data.blastMedia",
+              "specValueList": "leadEngineers.data.blastMedia",
               "label": "Blast Media"
             },
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
               "required": true,
-              "routeToSpecMax": "leadEngineers.0.data.relativeHumidity",
+              "routeToSpecMax": "leadEngineers.data.relativeHumidity",
               "type": "number",
               "unit": "%"
             },
             {
               "fieldName": "airTemperature",
               "label": "Air Temperature",
-              "routeToSpecMin": "leadEngineers.0.data.airTemperature",
+              "routeToSpecMin": "leadEngineers.data.airTemperature",
               "unit": "°C",
               "type": "number",
               "required": true
@@ -60,7 +60,7 @@
             {
               "fieldName": "steelTemperature",
               "label": "Steel Temperature",
-              "routeToSpecMin": "leadEngineers.0.data.steelTemperature",
+              "routeToSpecMin": "leadEngineers.data.steelTemperature",
               "unit": "°C",
               "type": "number",
               "required": true
@@ -68,7 +68,7 @@
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
-              "routeToSpecMin": "leadEngineers.0.data.temperatureOverDewPoint",
+              "routeToSpecMin": "leadEngineers.data.temperatureOverDewPoint",
               "unit": "°C",
               "type": "number",
               "required": true
@@ -114,7 +114,7 @@
           "fields": [
             {
               "fieldName": "inspectionOfSteelSurface",
-              "showFieldSpecPath": "leadEngineers.0.data.inspectionOfSteelSurface",
+              "showFieldSpecPath": "leadEngineers.data.inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
               "subtext": "ISO 8501-3, Welds to be grade P3",
               "required": true,
@@ -123,21 +123,21 @@
             {
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
-              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
-              "routeToSpecMax": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.data.solubleSaltLevel",
+              "routeToSpecMax": "leadEngineers.data.solubleSaltLevel",
               "placeholder": "Result",
               "unit": "mg/m²",
               "required": true,
               "type": "number"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.data.solubleSaltLevel",
               "fieldName": "equipmentIDSolubleSaltLevel",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.solubleSaltLevel",
+              "showFieldSpecPath": "leadEngineers.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
               "prepend": "Next Calibration Date",
               "type": "date",
@@ -146,7 +146,7 @@
             {
               "fieldName": "surfaceCleanliness",
               "label": "Surface Cleanliness",
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "showFieldSpecPath": "leadEngineers.data.surfaceCleanliness",
               "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
               "required": true,
               "unit": "Sa"
@@ -154,13 +154,13 @@
             {
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
+              "showFieldSpecPath": "leadEngineers.data.surfaceCleanliness",
               "indent": true,
               "label": "Surface Cleanliness Image",
               "type": "file"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.data.compressedAirCheck",
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
               "subtext": "ASTM D 4285, No oil and no water",
@@ -168,13 +168,13 @@
               "type": "checkbox"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.data.compressedAirCheck",
               "fieldName": "equipmentIdCompressedAirCheck",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.compressedAirCheck",
+              "showFieldSpecPath": "leadEngineers.data.compressedAirCheck",
               "fieldName": "nextCalibrationDateCompressedAirCheck",
               "type": "date",
               "prepend": "Next Calibration Date",
@@ -182,7 +182,7 @@
             },
             {
               "fieldName": "uvTest",
-              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.data.uvTest",
               "label": "UV Test",
               "required": true,
               "subtext": "No reflecting light",
@@ -190,12 +190,12 @@
             },
             {
               "fieldName": "equipmentIDUvTest",
-              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.data.uvTest",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.uvTest",
+              "showFieldSpecPath": "leadEngineers.data.uvTest",
               "fieldName": "nextCalibrationDateUvTest",
               "type": "date",
               "prepend": "Next Calibration Date",
@@ -203,22 +203,22 @@
             },
             {
               "fieldName": "blastMediaConductivity",
-              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.data.blastMediaConductivity",
               "label": "Blast Media Conductivity",
-              "routeToSpecMax": "leadEngineers.0.data.blastMediaConductivity",
+              "routeToSpecMax": "leadEngineers.data.blastMediaConductivity",
               "placeholder": "Result",
               "required": true,
               "unit": "µS/cm",
               "type": "number"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.data.blastMediaConductivity",
               "required": true,
               "fieldName": "equipmentIDBlastMediaConductivity",
               "prepend": "Equipment ID"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.blastMediaConductivity",
+              "showFieldSpecPath": "leadEngineers.data.blastMediaConductivity",
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
               "type": "date",
               "prepend": "Next Calibration Date",
@@ -226,30 +226,30 @@
             },
             {
               "fieldName": "surfaceProfileRoughness",
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMax",
+              "showFieldSpecPath": "leadEngineers.data.surfaceProfileMax",
               "required": true,
               "placeholder": "Result",
               "label": "Surface Profile (Roughness)",
-              "routeToSpecMin": "leadEngineers.0.data.surfaceProfileMin",
-              "routeToSpecMax": "leadEngineers.0.data.surfaceProfileMax",
+              "routeToSpecMin": "leadEngineers.data.surfaceProfileMin",
+              "routeToSpecMax": "leadEngineers.data.surfaceProfileMax",
               "unit": "Rz",
               "type": "number"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
+              "showFieldSpecPath": "leadEngineers.data.surfaceProfileMin",
               "required": true,
               "fieldName": "equipmentIDSurfaceProfileRoughness",
               "prepend": "Equipment ID"
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
+              "showFieldSpecPath": "leadEngineers.data.surfaceProfileMin",
               "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
               "type": "date",
               "prepend": "Next Calibration Date",
               "required": true
             },
             {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceProfileMin",
+              "showFieldSpecPath": "leadEngineers.data.surfaceProfileMin",
               "fieldName": "referencePlateId",
               "prepend": "Reference Plate Id (Optional)"
             },
@@ -261,8 +261,8 @@
               "min": 1,
               "max": 5,
               "placeholder": "Result",
-              "showFieldSpecPath": "leadEngineers.0.data.dustTest",
-              "routeToSpecMax": "leadEngineers.0.data.dustTest",
+              "showFieldSpecPath": "leadEngineers.data.dustTest",
+              "routeToSpecMax": "leadEngineers.data.dustTest",
               "type": "number"
             },
             {
@@ -277,19 +277,19 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.additionalCustomTests",
+          "repeatGroupWithQuery": "leadEngineers.additionalCustomTests",
           "queryPath": "operators.0.additionalCustomTestOperators",
           "fields": [
             {
               "specValueList": [
-                "leadEngineers.0.additionalCustomTests",
+                "leadEngineers.additionalCustomTests",
                 "data.name"
               ],
               "label": "Custom Test Name"
             },
             {
               "specValueList": [
-                "leadEngineers.0.additionalCustomTests",
+                "leadEngineers.additionalCustomTests",
                 "data.criteria"
               ],
               "label": "Custom Test Criteria"
@@ -311,7 +311,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "specValueList": "leadEngineers.0.data.primer1",
+              "specValueList": "leadEngineers.data.primer1",
               "label": "Primer Number"
             },
             {
@@ -344,7 +344,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "specValueList": "leadEngineers.0.data.primer2",
+              "specValueList": "leadEngineers.data.primer2",
               "label": "Primer Number:"
             },
             {
@@ -377,7 +377,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "specValueList": "leadEngineers.0.data.itemRubberCementsBeforeCoating",
+              "specValueList": "leadEngineers.data.itemRubberCementsBeforeCoating",
               "label": "Item Rubber Cement:"
             },
             {
@@ -410,7 +410,7 @@
           "queryPath": "operators",
           "fields": [
             {
-              "specValueList": "leadEngineers.0.data.rubberCementsBeforeCoating",
+              "specValueList": "leadEngineers.data.rubberCementsBeforeCoating",
               "label": "Rubber Agent:"
             },
             {
@@ -436,7 +436,7 @@
       ]
     },
     "coatingStepLayer": {
-      "specChapter": ["leadEngineers.0.vulcanizationSteps", "coatingLayers"],
+      "specChapter": ["leadEngineers.vulcanizationSteps", "coatingLayers"],
       "queryPath": [
         "operators.0.vulcanizationOperators",
         "coatingOperators",
@@ -459,14 +459,14 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
+          "repeatGroupWithQuery": "leadEngineers.rubberCements",
           "queryPath": "operators.0.rubberCementOperators",
           "fields": [
             {
               "specValueList": [
                 "",
                 "",
-                "leadEngineers.0.rubberCements",
+                "leadEngineers.rubberCements",
                 "data.rubberCement"
               ],
               "label": {
@@ -497,7 +497,7 @@
           "fields": [
             {
               "specValueList": [
-                "leadEngineers.0.vulcanizationSteps",
+                "leadEngineers.vulcanizationSteps",
                 "coatingLayers",
                 "data.compoundNumber"
               ],
@@ -509,7 +509,7 @@
             },
             {
               "specValueList": [
-                "leadEngineers.0.vulcanizationSteps",
+                "leadEngineers.vulcanizationSteps",
                 "coatingLayers",
                 "data.appliedThickness"
               ],
@@ -550,7 +550,7 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
           "queryPath": [
             "operators.0.vulcanizationOperators",
             "coatingOperators",
@@ -563,7 +563,7 @@
               "queryVariableLabel": [
                 "",
                 "",
-                "leadEngineers.0.measurementPointActualTdvs",
+                "leadEngineers.measurementPointActualTdvs",
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
@@ -599,14 +599,14 @@
           "fields": [
             {
               "specValueList": [
-                "leadEngineers.0.vulcanizationSteps",
+                "leadEngineers.vulcanizationSteps",
                 "data.vulcanizationOption"
               ],
               "label": "Vulcanization Type"
             },
             {
               "specValueList": [
-                "leadEngineers.0.vulcanizationSteps",
+                "leadEngineers.vulcanizationSteps",
                 "data.programNumber"
               ],
               "label": "Program Number"
@@ -641,7 +641,7 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
           "queryPath": [
             "operators.0.vulcanizationOperators",
             "measurementPointOperators"
@@ -653,7 +653,7 @@
               "queryVariableLabel": {
                 "coatedItem": [
                   "",
-                  "leadEngineers.0.measurementPointActualTdvs",
+                  "leadEngineers.measurementPointActualTdvs",
                   "data.referencePoint"
                 ]
               },

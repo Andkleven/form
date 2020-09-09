@@ -13,14 +13,14 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
+          "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
           "queryPath": "finalInspectionQualityControls.0.measurementPointQualityControls",
           "fields": [
             {
               "fieldName": "measurementPoint",
               "queryVariableLabel": {
                 "coatedItem": [
-                  "leadEngineers.0.measurementPointActualTdvs",
+                  "leadEngineers.measurementPointActualTdvs",
                   "data.referencePoint"
                 ]
               },
@@ -57,7 +57,7 @@
               "type": "checkbox",
               "required": true,
               "subtext": "APS. Final measurements are within tolerances.",
-              "showFieldSpecPath": "leadEngineers.0.data.totalOd"
+              "showFieldSpecPath": "leadEngineers.data.totalOd"
             },
             {
               "showField": {
@@ -68,7 +68,7 @@
               "type": "checkbox",
               "required": true,
               "subtext": "APS. Final measurements are within tolerances.",
-              "showFieldSpecPath": "leadEngineers.0.data.totalCoatingThickness"
+              "showFieldSpecPath": "leadEngineers.data.totalCoatingThickness"
             },
             {
               "fieldName": "visualInspection",
@@ -76,7 +76,7 @@
               "type": "checkbox",
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted.",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.0.data.visualInspection"
+              "showFieldSpecPath": "leadEngineers.data.visualInspection"
             },
             {
               "fieldName": "simpleFinalDimensionsCheck",
@@ -84,7 +84,7 @@
               "subtext": "APS. All parts in accordance to drawings.",
               "type": "checkbox",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.0.data.simpleFinalDimensionsCheck"
+              "showFieldSpecPath": "leadEngineers.data.simpleFinalDimensionsCheck"
             },
             {
               "fieldName": "sparkTest",
@@ -92,7 +92,7 @@
               "subtext": "TR 2028. No Holidays.",
               "type": "checkbox",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.0.data.sparkTest"
+              "showFieldSpecPath": "leadEngineers.data.sparkTest"
             },
             {
               "fieldName": "hammerTest",
@@ -100,13 +100,13 @@
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch.",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.0.data.hammerTest"
+              "showFieldSpecPath": "leadEngineers.data.hammerTest"
             },
             {
               "fieldName": "identificationMarking",
               "label": "Identification Marking",
               "subtext": "ID matches 123.",
-              "showFieldSpecPath": "leadEngineers.0.data.identificationMarking",
+              "showFieldSpecPath": "leadEngineers.data.identificationMarking",
               "required": true,
               "type": "checkbox"
             },
@@ -122,7 +122,7 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.numberOfHardnessOfOuterLayer",
+          "repeatGroupWithQuery": "leadEngineers.data.numberOfHardnessOfOuterLayer",
           "fields": [
             {
               "fieldName": "hardnessOfOuterLayer",
@@ -139,7 +139,7 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.data.numberOfPeelTest",
+          "repeatGroupWithQuery": "leadEngineers.data.numberOfPeelTest",
           "fields": [
             {
               "fieldName": "peelTest",
@@ -162,23 +162,23 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.finalInspectionDimensionsChecks",
+          "repeatGroupWithQuery": "leadEngineers.finalInspectionDimensionsChecks",
           "queryPath": "finalInspectionQualityControls.0.finalInspectionDimensionsCheckQualityControls",
           "fields": [
             {
               "fieldName": "finalInspectionDimensionsChecks",
               "variableLabelSpec": true,
               "queryVariableLabel": [
-                "leadEngineers.0.finalInspectionDimensionsChecks",
+                "leadEngineers.finalInspectionDimensionsChecks",
                 "data.finalDimensionsReference"
               ],
               "label": "Final Dimensions Reference {}",
               "routeToSpecMin": [
-                "leadEngineers.0.finalInspectionDimensionsChecks",
+                "leadEngineers.finalInspectionDimensionsChecks",
                 "data.finalDimensionsMin"
               ],
               "routeToSpecMax": [
-                "leadEngineers.0.finalInspectionDimensionsChecks",
+                "leadEngineers.finalInspectionDimensionsChecks",
                 "data.finalDimensionsMax"
               ]
             }
@@ -188,19 +188,19 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.0.finalInspectionCustomTests",
+          "repeatGroupWithQuery": "leadEngineers.finalInspectionCustomTests",
           "queryPath": "finalInspectionQualityControls.0.finalInspectionCustomTestQualityControls",
           "fields": [
             {
               "specValueList": [
-                "leadEngineers.0.finalInspectionCustomTests",
+                "leadEngineers.finalInspectionCustomTests",
                 "data.name"
               ],
               "label": "Custom Test Name"
             },
             {
               "specValueList": [
-                "leadEngineers.0.finalInspectionCustomTests",
+                "leadEngineers.finalInspectionCustomTests",
                 "data.criteria"
               ],
               "label": "Custom Test Criteria"
