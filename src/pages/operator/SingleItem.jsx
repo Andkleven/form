@@ -15,7 +15,7 @@ import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 
 export default pageInfo => {
-  const access = getAccess().access;
+  const access = getAccess();
   const { itemId, geometry } = pageInfo.match.params;
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);

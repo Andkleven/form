@@ -42,7 +42,7 @@ export default ({
         iconStyle={iconStyle}
         rowStyle={rowStyle}
         data={data}
-        access={getAccess().access}
+        access={getAccess()}
       />
     );
   }

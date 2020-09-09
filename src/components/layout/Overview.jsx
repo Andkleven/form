@@ -44,11 +44,11 @@ export default () => {
   const [show, setShow] = useState(false);
   const [height, setHeight] = useState(0);
 
-  const measuredRef = useCallback(node => {
+  const measuredRef = node => {
     if (node !== null) {
       setHeight(node.getBoundingClientRect().height);
     }
-  }, []);
+  };
 
   const marginHeight = 50;
   const hiddenLength = height + marginHeight;
@@ -85,6 +85,8 @@ export default () => {
 
   const params = useParams();
 
+  console.log(params);
+
   const projectQuery = useQuery(queries.project, {
     variables: {
       id: params.projectId
@@ -111,7 +113,8 @@ export default () => {
       let items = [];
 
       descriptionQuery &&
-        objectPath.get(descriptionQuery, "data.descriptions.0.items", [])
+        objectPath
+          .get(descriptionQuery, "data.descriptions.0.items", [])
           .forEach(item => {
             item && items.push(item.itemId);
           });
@@ -125,7 +128,7 @@ export default () => {
     }
     return null;
   };
-  const multipleItems = MultipleItems()
+  const multipleItems = MultipleItems();
 
   const Info = () => {
     return (
@@ -136,7 +139,8 @@ export default () => {
           </div>
           {}
           <div>
-            {(projectQuery && objectPath.get(projectQuery, "data.projects.0.data") &&
+            {(projectQuery &&
+              objectPath.get(projectQuery, "data.projects.0.data") &&
               JSON.parse(projectQuery.data.projects[0].data).projectName) ||
               "N/A"}
           </div>
@@ -144,7 +148,8 @@ export default () => {
             <small>Description:</small>
           </div>
           <div>
-            {(descriptionQuery && descriptionQuery.data &&
+            {(descriptionQuery &&
+              descriptionQuery.data &&
               JSON.parse(descriptionQuery.data.descriptions[0].data)
                 .description) ||
               "N/A"}
@@ -152,11 +157,7 @@ export default () => {
           <div className="text-muted mb-n2">
             <small>{multipleItems ? "Items:" : "Item:"}</small>
           </div>
-          <div>
-            {multipleItems
-              ? multipleItems
-              : "N/A"}
-          </div>
+          <div>{multipleItems ? multipleItems : "N/A"}</div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
         {/* <pre>
