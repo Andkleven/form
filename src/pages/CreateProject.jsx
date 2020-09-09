@@ -205,7 +205,10 @@ export default () => {
         description.items.forEach(item => {
           console.log(item.leadEngineers);
           itemCount += 1;
-          if (JSON.parse(item.leadEngineers[0].data).finalInspection) {
+          if (
+            item.leadEngineers[0] &&
+            JSON.parse(item.leadEngineers[0].data).finalInspection
+          ) {
             finishedItemCount += 1;
           }
         });
