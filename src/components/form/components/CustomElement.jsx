@@ -31,7 +31,7 @@ const CustomCoating = props => {
           value={`${props.repeatStepList[0] + 1} of ${
             objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
               .length
-            }`}
+          }`}
         />
       </b>
       <b>
@@ -56,14 +56,14 @@ const CustomCoating = props => {
 };
 
 const CustomLead = props => {
-  const { documentData, renderMath, mathStore } = useContext(DocumentDataContext);
+  const { documentData, renderMath, mathStore } = useContext(
+    DocumentDataContext
+  );
   const { finalChapter, editChapter } = useContext(ChapterContext);
   const [status, setStatus] = useState("danger");
   const [toleranceMin, setToleranceMin] = useState(0);
   const [toleranceMax, setToleranceMax] = useState(0);
   const [layersThickness, setLayersThickness] = useState(0);
-
-
 
   const thickness = useCallback(() => {
     let toleranceMinTemporary = math["mathToleranceMin"](
@@ -86,8 +86,17 @@ const CustomLead = props => {
       steps.forEach((step, stepIndex) => {
         step.coatingLayers &&
           step.coatingLayers.forEach((coatingLayer, coatingLayerIndex) => {
-            if (!objectPath.get(documentData.current, `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.layersUnique`)) {
-              layersThicknessTemporary += Number(objectPath.get(mathStore.current, `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`)
+            if (
+              !objectPath.get(
+                documentData.current,
+                `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.layersUnique`
+              )
+            ) {
+              layersThicknessTemporary += Number(
+                objectPath.get(
+                  mathStore.current,
+                  `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`
+                )
               );
             }
           });
@@ -103,14 +112,15 @@ const CustomLead = props => {
     }
     setStatus(() =>
       toleranceMinTemporary <= layersThicknessTemporary &&
-        layersThicknessTemporary <= toleranceMaxTemporary
+      layersThicknessTemporary <= toleranceMaxTemporary
         ? "success"
         : "warning"
     );
     setToleranceMin(toleranceMinTemporary);
     setToleranceMax(toleranceMaxTemporary);
     setLayersThickness(layersThicknessTemporary);
-  }, [mathStore,
+  }, [
+    mathStore,
     documentData,
     setStatus,
     setToleranceMin,
@@ -146,7 +156,6 @@ const CustomLead = props => {
     props.thisChapter,
     finalChapter
   ]);
-
 
   if (
     writeChapter(
@@ -194,6 +203,7 @@ const ActualSteelThickness = props => {
               `leadEngineers.0.data.targetDescriptionValue`
             )}`}
             value={measurementPointActual.data.measurementPointActual}
+            unit={"mm"}
           />
         );
       });
