@@ -524,10 +524,10 @@ export const getStepFromStage = stage => {
 };
 
 export function getRepeatStepList(repeatStepList, index) {
-  return repeatStepList !== undefined && repeatStepList !== null
+  return repeatStepList
     ? [...repeatStepList, index]
-    : repeatStepList
-    ? [...repeatStepList, index]
+    : repeatStepList === 0
+    ? [repeatStepList, index]
     : [index];
 }
 

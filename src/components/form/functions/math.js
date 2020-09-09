@@ -546,7 +546,6 @@ const packerType = {
 
 const geometryToType = {
   b2P: "compoundNoRubberType",
-  slipon: "compoundNoOd",
   slipon2: "compoundNoOd",
   slipon3: "compoundNoOd",
   dual: ["compoundNo1", "compoundNo2"]
@@ -662,7 +661,7 @@ const mathDescription = (
       rubberOd && pipeOd ? jsonVariables[0] : ""
     } ${rubberType} ${barrier1}x${elementLength}M ${pipeOd}/${rubberOd}`;
   } else {
-    return `${jsonVariables[0]} ${rubberType} ${barrier1} ${pipeOd}/${rubberOd} ${elementLength}M`;
+    return `${jsonVariables[0]} ${rubberType} ${barrier1} ${pipeOd}/${rubberOd} x ${elementLength}M`;
   }
 };
 
