@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import Paper from "components/layout/Paper";
 import { useSpring, animated } from "react-spring";
@@ -169,8 +169,7 @@ export default () => {
             2
           )}
         </pre> */}
-        {/*
-        <div>Item:</div>
+        {/* <div>Item:</div>
         <pre>{JSON.stringify(params, null, 2)}</pre>
         <div>
           <pre>{JSON.stringify(projectQuery.data, null, 2)}</pre>
