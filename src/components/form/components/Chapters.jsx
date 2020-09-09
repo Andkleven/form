@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useContext, useEffect } from "react";
+import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
   removeSpace,
