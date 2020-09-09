@@ -89,8 +89,6 @@ export default React.memo(
             chapter = null;
           } else {
             chapter = pageInfo.pages.map((info, index) => {
-              console.log(createPath(info.queryPath, repeatStepListLocal));
-              console.log(info.queryPath);
               let showEditButton = !notEditButton && !index ? true : false;
               let showSubmitButton =
                 index === pageInfo.pages.length - 1 ? true : false;

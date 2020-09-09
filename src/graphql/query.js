@@ -279,41 +279,43 @@ const GET_ORDER_GEOMETRY = gql`
 
 const GET_LEAD_ENGINEER = gql`
   query getLeadEngineer($id: Int) {
-    leadEngineer(item: $id) {
-      id
-      data
-      measurementPointActualTdvs {
+    items(id: $id) {
+      leadEngineer {
         id
         data
-      }
-      vulcanizationSteps {
-        id
-        data
-        coatingLayers {
+        measurementPointActualTdvs {
           id
           data
-
-          cumulativeThickness {
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
             id
             data
+
+            cumulativeThickness {
+              id
+              data
+            }
           }
         }
-      }
-      rubberCements {
-        id
-        data
-      }
-      additionalCustomTests {
-        id
-        data
-      }
-      finalInspectionCustomTests {
-        id
-        data
-      }
-      finalInspectionDimensionsChecks {
-        id
-        data
+        rubberCements {
+          id
+          data
+        }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
+          id
+          data
+        }
+        finalInspectionDimensionsChecks {
+          id
+          data
+        }
       }
     }
   }

@@ -123,8 +123,6 @@ export default ({
   const saveVariablesForm = useRef(saveVariables ? saveVariables : {});
   const repeatStepListLocal = useRef(0);
 
-  console.log(data);
-
   useEffect(() => {
     saveVariablesForm.current = saveVariables ? saveVariables : {};
   }, [saveVariablesForm, saveVariables]);

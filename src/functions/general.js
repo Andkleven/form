@@ -262,6 +262,8 @@ export const objectifyQuery = query => {
           query[key].forEach((value, index) => {
             objectifyEntries(value, path + "." + index.toString());
           });
+        } else if (typeof query[key] === "object") {
+          objectifyEntries(query[key], path);
         } else if (key === "data") {
           let isData;
           if (isStringInstance(query[key])) {

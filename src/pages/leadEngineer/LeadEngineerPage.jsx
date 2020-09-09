@@ -5,7 +5,7 @@ import leadEngineersJson from "templates/leadEngineer.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import history from "functions/history";
-import { objectifyQuery } from "functions/general";
+import { objectifyQuery, formDataStructure } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
 import Loading from "components/Loading";
@@ -39,7 +39,9 @@ export default pageInfo => {
           componentsId={"leadEngineersPage"}
           document={leadEngineersJson}
           reRender={() => setReRender(!reRender)}
-          data={fixedData}
+          data={
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
+          }
           jsonVariables={[geometry]}
           saveVariables={{
             descriptionId:
