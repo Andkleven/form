@@ -360,7 +360,7 @@ export default ({
                                 }/${numberOfChildren(
                                   data,
                                   project.data.projectName,
-                                  description.data..descriptionNameMaterialNo
+                                  description.data.descriptionNameMaterialNo
                                 )} Items`) ||
                               " ∙ No items"
                             }`}
