@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import leadEngineersCoatedItemJson from "templates/leadEngineer.json";
+import leadEngineersJson from "templates/leadEngineer.json";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import history from "functions/history";
@@ -9,8 +9,6 @@ import { objectifyQuery } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
 import Loading from "components/Loading";
-
-let leadEngineersJson = leadEngineersCoatedItemJson;
 
 export default pageInfo => {
   const {
@@ -26,6 +24,7 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[leadEngineersJson.query], {
     variables: { id: itemId }
   });
+
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);

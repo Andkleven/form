@@ -9,7 +9,7 @@ const ITEM = gql`
       qrCode
       repair
       stage
-      leadEngineers {
+      leadEngineer {
         id
         data
         measurementPointActualTdvs {
@@ -45,7 +45,7 @@ const ITEM = gql`
           }
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -106,7 +106,7 @@ const BATCHING_OPERATOR = gql`
           qrCode
           repair
           stage
-          leadEngineers {
+          leadEngineer {
             id
             data
             measurementPointActualTdvs {
@@ -142,7 +142,7 @@ const BATCHING_OPERATOR = gql`
               }
             }
           }
-          operators {
+          operator {
             id
             data
             additionalCustomTestOperators {
@@ -176,7 +176,7 @@ const BATCHING_VULCANIZATION = gql`
           qrCode
           repair
           stage
-          leadEngineers {
+          leadEngineer {
             id
             data
             measurementPointActualTdvs {
@@ -212,7 +212,7 @@ const BATCHING_VULCANIZATION = gql`
               }
             }
           }
-          operators {
+          operator {
             vulcanizationSteps {
               id
               data
@@ -262,7 +262,7 @@ const GET_ORDER_GEOMETRY = gql`
           id
           itemId
           unique
-          leadEngineers {
+          leadEngineer {
             id
             data
           }
@@ -279,7 +279,7 @@ const GET_ORDER_GEOMETRY = gql`
 
 const GET_LEAD_ENGINEER = gql`
   query getLeadEngineer($id: Int) {
-    leadEngineers(item: $id) {
+    leadEngineer(item: $id) {
       id
       data
       measurementPointActualTdvs {
@@ -332,7 +332,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
         id
         itemId
         stage
-        leadEngineers {
+        leadEngineer {
           id
           data
           measurementPointActualTdvs {
@@ -368,7 +368,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             }
           }
         }
-        operators {
+        operator {
           id
           data
           surfaceCleanlinessImage
@@ -419,7 +419,7 @@ const GET_OPERATOR_BY_ITEM = gql`
       qrCode
       repair
       stage
-      leadEngineers {
+      leadEngineer {
         id
         data
         measurementPointActualTdvs {
@@ -455,7 +455,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -496,7 +496,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      finalInspectionQualityControls {
+      finalInspectionQualityControl {
         id
         data
         measurementPointQualityControls {
@@ -568,7 +568,7 @@ const QUALITY_CONTROL = gql`
       qrCode
       repair
       stage
-      leadEngineers {
+      leadEngineer {
         id
         data
         measurementPointActualTdvs {
@@ -604,7 +604,7 @@ const QUALITY_CONTROL = gql`
           }
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -645,7 +645,7 @@ const QUALITY_CONTROL = gql`
           data
         }
       }
-      finalInspectionQualityControls {
+      finalInspectionQualityControl {
         id
         data
         measurementPointQualityControls {

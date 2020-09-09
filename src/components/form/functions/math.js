@@ -20,7 +20,7 @@ const whatTooReturn = (value, decimal, array = [true]) => {
 const qualityControlMeasurementPointMould = (allData, tolerance, decimal) => {
   let orderedTotalRubberThickness = findValue(
     allData,
-    `items.0.leadEngineers.data.orderedTotalRubberThickness`
+    `items.0.leadEngineer.data.orderedTotalRubberThickness`
   );
   let value = orderedTotalRubberThickness + tolerance;
 
@@ -60,13 +60,13 @@ const qualityControlMeasurementPointCoatingItem = (
   let measurementPointActual = Number(
     findValue(
       allData,
-      `items.0.leadEngineers.measurementPointActualTdvs.${repeatStepList[0]}.data.measurementPointActual`
+      `items.0.leadEngineer.measurementPointActualTdvs.${repeatStepList[0]}.data.measurementPointActual`
     )
   );
 
   let targetDescriptionValue = findValue(
     allData,
-    `items.0.leadEngineers.data.targetDescriptionValue`
+    `items.0.leadEngineer.data.targetDescriptionValue`
   );
   let value;
   if (targetDescriptionValue.toLowerCase() === "od") {
@@ -124,14 +124,12 @@ const mathCumulativeThickness = (
     let coatingLength =
       objectPath.get(
         mathStore,
-        `leadEngineers.vulcanizationSteps.${
-          repeatStepList[0] - 1
-        }.coatingLayers`
+        `leadEngineer.vulcanizationSteps.${repeatStepList[0] - 1}.coatingLayers`
       ).length - 1;
     previousCumulativeThickness = Number(
       objectPath.get(
         mathStore,
-        `leadEngineers.vulcanizationSteps.${
+        `leadEngineer.vulcanizationSteps.${
           repeatStepList[0] - 1
         }.coatingLayers.${coatingLength}.cumulativeThickness.${
           repeatStepList[2]
@@ -143,7 +141,7 @@ const mathCumulativeThickness = (
     previousCumulativeThickness = Number(
       objectPath.get(
         mathStore,
-        `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
+        `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
           repeatStepList[1] - 1
         }.cumulativeThickness.${repeatStepList[2]}.data.cumulativeThickness`,
         0
@@ -153,7 +151,7 @@ const mathCumulativeThickness = (
     previousCumulativeThickness = Number(
       objectPath.get(
         values,
-        `leadEngineers.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`,
+        `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`,
         0
       )
     );
@@ -162,15 +160,15 @@ const mathCumulativeThickness = (
   let appliedThickness = Number(
     findValue(
       values,
-      `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
+      `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
     )
   );
   let layersUnique = findValue(
     values,
-    `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
+    `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
   );
 
-  let tvd = findValue(values, `leadEngineers.data.targetDescriptionValue`);
+  let tvd = findValue(values, `leadEngineer.data.targetDescriptionValue`);
 
   let cumulativeThickness = 0;
   if (layersUnique) {
@@ -204,7 +202,7 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
     for (let i = 0; i < repeatStepList[0]; i++) {
       let coatingLayers = findValue(
         values,
-        `leadEngineers.vulcanizationSteps.${i}.coatingLayers`
+        `leadEngineer.vulcanizationSteps.${i}.coatingLayers`
       );
       coatingLayers.forEach((data, index) => sumProposedThickness([i, index]));
     }
@@ -223,7 +221,7 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
     previousCumulativeThickness = Number(
       findValue(
         values,
-        `leadEngineers.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
+        `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
       )
     );
   }
@@ -231,15 +229,15 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
   let appliedThickness = Number(
     findValue(
       values,
-      `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
+      `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
     )
   );
   let layersUnique = findValue(
     values,
-    `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
+    `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
   );
 
-  let tvd = findValue(values, `leadEngineers.data.targetDescriptionValue`);
+  let tvd = findValue(values, `leadEngineer.data.targetDescriptionValue`);
 
   let cumulativeThickness = 0;
   if (layersUnique) {
@@ -274,13 +272,13 @@ const mathShrinkThickness = (
   let shrink = Number(
     findValue(
       values,
-      `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.shrink`
+      `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.shrink`
     )
   );
   let shrunkThickness = Number(
     findValue(
       values,
-      `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
+      `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
     )
   );
   if (shrink) {
@@ -300,11 +298,11 @@ const mathToleranceMin = (
   jsonVariables = null
 ) => {
   let toleranceMinPercent = Number(
-    findValue(values, "leadEngineers.data.toleranceMinPercent")
+    findValue(values, "leadEngineer.data.toleranceMinPercent")
   );
 
   let orderedTotalRubberThickness = Number(
-    findValue(values, "leadEngineers.data.orderedTotalRubberThickness")
+    findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
   return whatTooReturn(
     orderedTotalRubberThickness -
@@ -322,10 +320,10 @@ const mathToleranceMax = (
   jsonVariables = null
 ) => {
   let toleranceMaxPercent = Number(
-    findValue(values, "leadEngineers.data.toleranceMaxPercent")
+    findValue(values, "leadEngineer.data.toleranceMaxPercent")
   );
   let orderedTotalRubberThickness = Number(
-    findValue(values, "leadEngineers.data.orderedTotalRubberThickness")
+    findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
   return whatTooReturn(
     orderedTotalRubberThickness +
@@ -346,7 +344,7 @@ const mathLayer = (
   for (let index = 0; index < repeatStepList[0]; index++) {
     layers += objectPath.get(
       values,
-      `leadEngineers.vulcanizationSteps.${index}.coatingLayers`
+      `leadEngineer.vulcanizationSteps.${index}.coatingLayers`
     ).length;
   }
   layers += repeatStepList[1] + 1;
@@ -357,7 +355,7 @@ const mathMeasurementPoint = (data, repeatStepList) => {
   let layerThickness = 0;
   const coatingLayers = index => {
     objectPath
-      .get(data, `leadEngineers.vulcanizationSteps.${index}.coatingLayers`)
+      .get(data, `leadEngineer.vulcanizationSteps.${index}.coatingLayers`)
       .forEach((coatingLayer, index2) => {
         layerThickness += Number(mathShrinkThickness(data, [index, index2], 0));
       });
@@ -371,7 +369,7 @@ const mathMeasurementPoint = (data, repeatStepList) => {
 const mathMeasurementPointMin = (allData, data, repeatStepList) => {
   let layerThickness = mathMeasurementPoint(data, repeatStepList);
   let toleranceMinPercent = Number(
-    objectPath.get(data, `leadEngineers.data.toleranceMinPercent`)
+    objectPath.get(data, `leadEngineer.data.toleranceMinPercent`)
   );
   return layerThickness - (layerThickness * toleranceMinPercent) / 100;
 };
@@ -379,7 +377,7 @@ const mathMeasurementPointMin = (allData, data, repeatStepList) => {
 const mathMeasurementPointMax = (allData, data, repeatStepList) => {
   let layerThickness = mathMeasurementPoint(data, repeatStepList);
   let toleranceMaxPercent = Number(
-    objectPath.get(data, `leadEngineers.data.toleranceMaxPercent`)
+    objectPath.get(data, `leadEngineer.data.toleranceMaxPercent`)
   );
   return layerThickness + (layerThickness * toleranceMaxPercent) / 100;
 };
@@ -394,7 +392,7 @@ const mathPeelTest = (
   let peelTest = Number(
     findValue(
       values,
-      `finalInspectionQualityControls.0.peelTestQualityControls.${repeatStepList[0]}.data.peelTest`
+      `finalInspectionQualityControl.peelTestQualityControls.${repeatStepList[0]}.data.peelTest`
     )
   );
 
@@ -409,7 +407,7 @@ const mathMeasurementPoints = (
   jsonVariables = null
 ) => {
   let elementLength = Number(
-    findValue(values, `leadEngineers.data.elementLength`)
+    findValue(values, `leadEngineer.data.elementLength`)
   );
   return whatTooReturn(elementLength / 1000, decimal, [elementLength]);
 };
@@ -557,11 +555,11 @@ function getType(values, jsonVariables, fieldToGet) {
     let name = "";
     field.forEach(filedName => {
       name = name + filedName;
-      value = value + objectPath.get(values, `leadEngineers.data.${filedName}`);
+      value = value + objectPath.get(values, `leadEngineer.data.${filedName}`);
     });
     field = name;
   } else {
-    value = objectPath.get(values, `leadEngineers.data.${field}`);
+    value = objectPath.get(values, `leadEngineer.data.${field}`);
   }
   let returnValue =
     value && packerType[field][value]
@@ -609,7 +607,7 @@ const mathProgramNumber = (
       lowerCaseFirstLetter(
         objectPath.get(
           values,
-          `leadEngineers.vulcanizationSteps.${repeatStepList[0]}.data.vulcanizationOption`,
+          `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.data.vulcanizationOption`,
           ""
         )
       )
@@ -649,10 +647,10 @@ const mathDescription = (
   let geometry = removeSpace(lowerCaseFirstLetter(jsonVariables[0]));
   let rubberType = getType(values, jsonVariables, "geometry");
   let elementLength =
-    objectPath.get(values, `leadEngineers.data.elementLength`, "") / 1000;
-  let pipeOd = objectPath.get(values, `leadEngineers.data.pipeOd`, "");
-  let rubberOd = objectPath.get(values, `leadEngineers.data.rubberOd`, "");
-  let barrier1 = objectPath.get(values, `leadEngineers.data.barrier1`, "");
+    objectPath.get(values, `leadEngineer.data.elementLength`, "") / 1000;
+  let pipeOd = objectPath.get(values, `leadEngineer.data.pipeOd`, "");
+  let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
+  let barrier1 = objectPath.get(values, `leadEngineer.data.barrier1`, "");
   if (jsonVariables === geometry) {
     return `${
       rubberOd && pipeOd ? jsonVariables[0] : ""
@@ -671,15 +669,11 @@ const mathScrewDescription = (
 ) => {
   let screwMaterialType = objectPath.get(
     values,
-    `leadEngineers.data.screwMaterialType`,
+    `leadEngineer.data.screwMaterialType`,
     ""
   );
-  let screwSize = objectPath.get(values, `leadEngineers.data.screwSize`, "");
-  let screwLength = objectPath.get(
-    values,
-    `leadEngineers.data.screwLength`,
-    ""
-  );
+  let screwSize = objectPath.get(values, `leadEngineer.data.screwSize`, "");
+  let screwLength = objectPath.get(values, `leadEngineer.data.screwLength`, "");
   return (
     screwMaterialType &&
     screwSize &&
@@ -800,14 +794,14 @@ const barrierCriteria = {
 };
 
 const mathIncreasedOdForWholeElementTotal = (values, field) => {
-  let barrier = objectPath.get(values, `leadEngineers.data.${field}`, "");
+  let barrier = objectPath.get(values, `leadEngineer.data.${field}`, "");
   return barrier && barrierCriteria[barrier]
     ? barrierCriteria[barrier].increasedOdForWholeElement.total + "mm"
     : "";
 };
 
 const mathIncreasedOdForWholeElement = (values, field) => {
-  let barrier = objectPath.get(values, `leadEngineers.data.${field}`, "");
+  let barrier = objectPath.get(values, `leadEngineer.data.${field}`, "");
   return barrier && barrierCriteria[barrier]
     ? barrierCriteria[barrier].increasedOdForWholeElement.min +
         "-" +
@@ -817,14 +811,14 @@ const mathIncreasedOdForWholeElement = (values, field) => {
 };
 
 const mathIncreasedOdForEndsTotal = (values, field) => {
-  let barrier = objectPath.get(values, `leadEngineers.data.${field}`, "");
+  let barrier = objectPath.get(values, `leadEngineer.data.${field}`, "");
   return barrier && barrierCriteria[barrier]
     ? barrierCriteria[barrier].increasedOdForEnds.total + "mm"
     : "";
 };
 
 const increasedOdForEnds = (values, field) => {
-  let barrier = objectPath.get(values, `leadEngineers.data.${field}`, "");
+  let barrier = objectPath.get(values, `leadEngineer.data.${field}`, "");
   return barrier && barrierCriteria[barrier]
     ? barrierCriteria[barrier].increasedOdForEnds.min +
         "-" +

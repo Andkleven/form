@@ -217,27 +217,25 @@ export default React.memo(props => {
         }
       } else {
         temporaryMultiFieldGroup[
-          `${props.repeatStepList}-${0}-${props.path}.${
-            props.queryPath
-          }-repeat-fragment`
+          `${props.repeatStepList}-${props.path}.${props.queryPath}-repeat-fragment`
         ] = (
           <FieldGroup
             {...props}
             key={`${props.path}.${props.queryPath}`}
             repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
             file={
-              objectPath.get(props.backendData, props.path + ".0.data") &&
-              objectPath.get(props.backendData, props.path + ".0.data").file
+              objectPath.get(props.backendData, props.path + ".data") &&
+              objectPath.get(props.backendData, props.path + ".data").file
             }
             path={
               props.path
                 ? isLastCharacterNumber(props.path)
                   ? props.path
-                  : `${props.path}.0`
+                  : `${props.path}`
                 : null
             }
             repeatStep={0}
-            indexId={`${props.indexId}-0`}
+            indexId={`${props.indexId}`}
           />
         );
       }

@@ -25,14 +25,14 @@ export const Report = ({ project, description, item }) => {
   const i = item;
   let le = null;
   let leData = null;
-  if (i.leadEngineers) {
-    le = i.leadEngineers;
+  if (i.leadEngineer) {
+    le = i.leadEngineer;
     leData = JSON.parse(le.data);
   }
   let op = null;
   let opData = null;
-  if (i.operators) {
-    op = i.operators[0];
+  if (i.operator) {
+    op = i.operator;
     opData = JSON.parse(op.data);
   }
 
@@ -410,8 +410,8 @@ export default ({ project, description, item, ...props }) => {
   if (data) {
     // Delete
     const i = data["items"][0];
-    // const le = i.leadEngineers;
-    const op = i.operators[0];
+    // const le = i.leadEngineer;
+    const op = i.operator;
 
     return (
       <>

@@ -14,12 +14,11 @@ import { ItemContext } from "components/contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 
-const access = getAccess();
-leadEngineersJson.queryPath = "items.0.leadEngineers";
-leadEngineersJson.query = qualityControlJson.query;
-operatorJson.query = qualityControlJson.query;
-
 export default pageInfo => {
+  const access = getAccess();
+  leadEngineersJson.queryPath = "items.0.leadEngineer";
+  leadEngineersJson.query = qualityControlJson.query;
+  operatorJson.query = qualityControlJson.query;
   const { itemId, geometry } = pageInfo.match.params;
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
@@ -70,7 +69,7 @@ export default pageInfo => {
             document={leadEngineersJson}
             reRender={() => setReRender(!reRender)}
             data={
-              fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+              fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
             }
             saveVariables={{ itemId: itemId }}
             getQueryBy={itemId}
@@ -90,9 +89,9 @@ export default pageInfo => {
           componentsId={opId.current}
           document={operatorJson}
           reRender={() => setReRender(!reRender)}
-          data={fixedData && formDataStructure(fixedData, "items.0.operators")}
+          data={fixedData && formDataStructure(fixedData, "items.0.operator")}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
           saveVariables={{ itemId: itemId }}
           edit={access.itemEdit}
@@ -112,18 +111,18 @@ export default pageInfo => {
           <Form
             update={true}
             jsonVariables={[geometry]}
-            componentsId={"finalInspectionQualityControls"}
+            componentsId={"finalInspectionQualityControl"}
             document={qualityControlJson}
             data={
               fixedData &&
               formDataStructure(
                 fixedData,
-                "items.0.finalInspectionQualityControls"
+                "items.0.finalInspectionQualityControl"
               )
             }
             edit={access.itemEdit}
             specData={
-              fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+              fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
             }
             reRender={() => setReRender(!reRender)}
             allData={fixedData}
