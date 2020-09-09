@@ -334,6 +334,7 @@ export default ({
   timer.current = setTimeout(() => {
     setLoading(false);
   }, 1000);
+
   useEffect(() => {
     return () => {
       clearTimeout(timer.current);
