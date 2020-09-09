@@ -85,8 +85,6 @@ export default () => {
 
   const params = useParams();
 
-  console.log(params);
-
   const projectQuery = useQuery(queries.project, {
     variables: {
       id: params.projectId
@@ -103,11 +101,11 @@ export default () => {
   //   }
   // });
 
-  const MultipleItems = () => {
+  const Items = () => {
     if (
       !descriptionQuery.loading &&
       !descriptionQuery.error &&
-      descriptionQuery.data &&
+      !!descriptionQuery.data &&
       params.unique === "0"
     ) {
       let items = [];
@@ -118,19 +116,27 @@ export default () => {
           .forEach(item => {
             item && items.push(item.itemId);
           });
-      if (items.length < 2) {
+
+      if (items.length < 1) {
         return null;
       }
 
       let string = items.join(", ");
 
       return string;
+    } else if (
+      !descriptionQuery.loading &&
+      !descriptionQuery.error &&
+      !!descriptionQuery.data
+    ) {
+      const index = descriptionQuery.data.descriptions[0].items.findIndex(
+        item => String(item.id) === String(params.itemId)
+      );
+      return descriptionQuery.data.descriptions[0].items[index].itemId;
     }
     return null;
   };
-  const multipleItems = MultipleItems();
-
-  // console.log(descriptionQuery);
+  const items = Items();
 
   const Info = () => {
     return (
@@ -139,7 +145,6 @@ export default () => {
           <div className="text-muted mb-n2">
             <small>Project:</small>
           </div>
-          {}
           <div>
             {(projectQuery &&
               objectPath.get(projectQuery, "data.projects.0.data") &&
@@ -157,9 +162,19 @@ export default () => {
               "N/A"}
           </div>
           <div className="text-muted mb-n2">
-            <small>{multipleItems ? "Items:" : "Item:"}</small>
+            <small>Geometry:</small>
           </div>
-          <div>{multipleItems ? multipleItems : "N/A"}</div>
+          <div>
+            {(descriptionQuery &&
+              descriptionQuery.data &&
+              JSON.parse(descriptionQuery.data.descriptions[0].data)
+                .geometry) ||
+              "N/A"}
+          </div>
+          <div className="text-muted mb-n2">
+            <small>{items ? "Items:" : "Item:"}</small>
+          </div>
+          <div>{items ? items : "N/A"}</div>
         </div>
         {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
         {/* <pre>
