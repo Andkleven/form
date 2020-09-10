@@ -161,12 +161,17 @@ export default ({
       variables: { id: getQueryBy }
     });
     let array = objectPath.get(oldData, document.queryPath);
-    let index = array.findIndex(
-      x => x.id === data[document.queryPath.split(/[.]+/).pop()].new.id
-    );
+    let index;
+    if (Array.isArray(array)) {
+      index = array.findIndex(
+        x => x.id === data[document.queryPath.split(/[.]+/).pop()].new.id
+      );
+    } else {
+      index = "";
+    }
     objectPath.set(
       oldData,
-      `${document.queryPath}.${index}`,
+      index ? `${document.queryPath}.${index}` : `${document.queryPath}`,
       data[document.queryPath.split(/[.]+/).pop()].new
     );
     let saveData = document.queryPath.split(/[.]+/).splice(0, 1)[0];
@@ -189,15 +194,19 @@ export default ({
       secondQueryPath = `.${repeatStepList}.${secondQueryPath}`;
     }
     let array = objectPath.get(oldData, [firstQueryPath] + secondQueryPath);
-    let index = 0;
-    if (secondQueryPath.trim()) {
-      index = array.findIndex(x => x.id === newData.new.id);
-    } else {
-      index = array.findIndex(x => x.id === newData.new.id);
+    let index = null;
+    if (Array.isArray(array)) {
+      if (secondQueryPath.trim()) {
+        index = array.findIndex(x => x.id === newData.new.id);
+      } else {
+        index = array.findIndex(x => x.id === newData.new.id);
+      }
     }
     objectPath.set(
       oldData,
-      `${firstQueryPath}${secondQueryPath}.${index}`,
+      index === null
+        ? `${firstQueryPath}${secondQueryPath}`
+        : `${firstQueryPath}${secondQueryPath}.${index}`,
       newData.new
     );
     let saveData = firstQueryPath.split(/[.]+/).splice(0, 1)[0];
@@ -286,6 +295,7 @@ export default ({
           });
         }
         let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
+        console.log(variables);
         mutation({
           variables: {
             ...variables,

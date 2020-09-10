@@ -1,5 +1,5 @@
 {
-  "queryPath": "leadEngineer",
+  "queryPath": "items.0.leadEngineer",
   "mutation": "LEAD_ENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [

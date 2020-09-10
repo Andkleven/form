@@ -29,13 +29,13 @@ const queries = {
     query($id: Int) {
       items(id: $id) {
         id
-        operator {
+        operators {
           uploadFiles {
             file
             fileDescription
           }
         }
-        finalInspectionQualityControl {
+        finalInspectionQualityControls {
           id
           data
           measurementPointQualityControls {
@@ -98,16 +98,16 @@ export default ({ show, setShow, children }) => {
     itemData &&
     itemData.items &&
     itemData.items[0] &&
-    itemData.items[0].operator &&
-    itemData.items[0].operator &&
-    itemData.items[0].operator.uploadFiles;
+    itemData.items[0].operators &&
+    itemData.items[0].operators &&
+    itemData.items[0].operators.uploadFiles;
   const qcFiles =
     itemData &&
     itemData.items &&
     itemData.items[0] &&
-    itemData.items[0].finalInspectionQualityControl &&
-    itemData.items[0].finalInspectionQualityControl &&
-    itemData.items[0].finalInspectionQualityControl.uploadFiles;
+    itemData.items[0].finalInspectionQualityControls &&
+    itemData.items[0].finalInspectionQualityControls &&
+    itemData.items[0].finalInspectionQualityControls.uploadFiles;
   const fileGroups = [
     { label: "Lead Engineer", files: leFiles },
     { label: "Operator", files: opFiles },

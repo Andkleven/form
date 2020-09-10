@@ -17,34 +17,34 @@
   ],
   "coatedItem": {
     "actualSteelMeasurement": {
-      "queryPath": "leadEngineer.data.measurementPoint"
+      "queryPath": "leadEngineers.data.measurementPoint"
     },
     "steelPreparation1": {
-      "queryPath": "leadEngineer.data.mediaBlasting"
+      "queryPath": "leadEngineers.data.mediaBlasting"
     },
     "steelPreparation2": {
-      "queryPath": "leadEngineer.data.additionalTests"
+      "queryPath": "leadEngineers.data.additionalTests"
     },
     "primer1": {
-      "queryPath": "leadEngineer.data.primer1"
+      "queryPath": "leadEngineers.data.primer1"
     },
     "primer2": {
-      "queryPath": "leadEngineer.data.primer2"
+      "queryPath": "leadEngineers.data.primer2"
     },
     "itemRubberCementsBeforeCoating": {
-      "queryPath": "leadEngineer.data.itemRubberCementsBeforeCoating"
+      "queryPath": "leadEngineers.data.itemRubberCementsBeforeCoating"
     },
     "coatingStepLayer": {
-      "queryPath": ["leadEngineer.vulcanizationSteps", "coatingLayers", ""],
+      "queryPath": ["leadEngineers.vulcanizationSteps", "coatingLayers", ""],
       "step": true,
       "layer": true
     },
     "vulcanizationStep": {
-      "queryPath": ["leadEngineer.vulcanizationSteps", ""],
+      "queryPath": ["leadEngineers.vulcanizationSteps", ""],
       "step": true
     },
     "measurementPointStep": {
-      "queryPath": ["leadEngineer.vulcanizationSteps", ""],
+      "queryPath": ["leadEngineers.vulcanizationSteps", ""],
       "editIndexList": {
         "0": 1
       },
@@ -60,31 +60,31 @@
   },
   "mould": {
     "steelPreparation1": {
-      "queryPath": "leadEngineer.data.mediaBlasting"
+      "queryPath": "leadEngineers.data.mediaBlasting"
     },
     "steelPreparation2": {
-      "queryPath": "leadEngineer.data.additionalTests"
+      "queryPath": "leadEngineers.data.additionalTests"
     },
     "primer1": {
-      "queryPath": "leadEngineer.data.primer1"
+      "queryPath": "leadEngineers.data.primer1"
     },
     "primer2": {
-      "queryPath": "leadEngineer.data.primer2"
+      "queryPath": "leadEngineers.data.primer2"
     },
     "rubberCementsBeforeCoating": {
-      "queryPath": "leadEngineer.data.itemRubberCementsBeforeCoating"
+      "queryPath": "leadEngineers.data.itemRubberCementsBeforeCoating"
     },
     "coatingStepLayer": {
-      "queryPath": ["leadEngineer.vulcanizationSteps", "coatingLayers", ""],
+      "queryPath": ["leadEngineers.vulcanizationSteps", "coatingLayers", ""],
       "step": true,
       "layer": true
     },
     "vulcanizationStep": {
-      "queryPath": ["leadEngineer.vulcanizationSteps", ""],
+      "queryPath": ["leadEngineers.vulcanizationSteps", ""],
       "step": true
     },
     "measurementPointStep": {
-      "queryPath": ["leadEngineer.vulcanizationSteps", ""],
+      "queryPath": ["leadEngineers.vulcanizationSteps", ""],
       "editIndexList": {
         "0": 1
       },

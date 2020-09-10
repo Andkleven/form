@@ -59,9 +59,9 @@ export default pageInfo => {
           componentsId={"SingleItem"}
           document={operatorCoatedItemJson}
           reRender={() => setReRender(!reRender)}
-          data={fixedData && formDataStructure(fixedData, "items.0.operator")}
+          data={fixedData && formDataStructure(fixedData, "items.0.operators")}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           stage={fixedData && fixedData.items[0].stage}
           stageType={geometry}
@@ -78,20 +78,20 @@ export default pageInfo => {
           Quality Control
         </Title>
         <Form
-          componentsId={"finalInspectionQualityControl"}
+          componentsId={"finalInspectionQualityControls"}
           document={qualityControlCoatedItemJson}
           data={
             fixedData &&
             formDataStructure(
               fixedData,
-              "items.0.finalInspectionQualityControl"
+              "items.0.finalInspectionQualityControls"
             )
           }
           update={true}
           jsonVariables={[geometry]}
           edit={getAccess().itemEdit}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
           }
           reRender={() => setReRender(!reRender)}
           allData={fixedData}

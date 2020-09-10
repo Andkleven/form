@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import ProjectPage from "pages/leadEngineer/CreateProject";
+import ProjectPage from "pages/leadEngineers/CreateProject";
 import Explorer from "components/explorer/Explorer";
 import {
   ProjectContext,

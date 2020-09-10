@@ -45,7 +45,7 @@ const ITEM = gql`
           }
         }
       }
-      operator {
+      operators {
         id
         data
         surfaceCleanlinessImage
@@ -142,7 +142,7 @@ const BATCHING_OPERATOR = gql`
               }
             }
           }
-          operator {
+          operators {
             id
             data
             additionalCustomTestOperators {
@@ -212,7 +212,7 @@ const BATCHING_VULCANIZATION = gql`
               }
             }
           }
-          operator {
+          operators {
             vulcanizationSteps {
               id
               data
@@ -370,7 +370,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             }
           }
         }
-        operator {
+        operators {
           id
           data
           surfaceCleanlinessImage
@@ -457,7 +457,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      operator {
+      operators {
         id
         data
         surfaceCleanlinessImage
@@ -498,7 +498,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      finalInspectionQualityControl {
+      finalInspectionQualityControls {
         id
         data
         measurementPointQualityControls {
@@ -606,7 +606,7 @@ const QUALITY_CONTROL = gql`
           }
         }
       }
-      operator {
+      operators {
         id
         data
         surfaceCleanlinessImage
@@ -647,7 +647,7 @@ const QUALITY_CONTROL = gql`
           data
         }
       }
-      finalInspectionQualityControl {
+      finalInspectionQualityControls {
         id
         data
         measurementPointQualityControls {

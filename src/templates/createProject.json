@@ -9,7 +9,7 @@
       "pages": [
         {
           "pageTitle": "Project",
-          "queryPath": "projects",
+          "queryPath": "projects.0",
           "fields": [
             {
               "fieldName": "projectNumber",

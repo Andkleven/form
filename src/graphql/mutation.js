@@ -96,7 +96,7 @@ const ITEM = gql`
 
 const LEAD_ENGINEER = gql`
   mutation leadEngineer(
-    $leadEngineer: [LeadEngineerInput]
+    $leadEngineer: LeadEngineerInput
     $descriptionId: Int
     $itemId: Int
   ) {
@@ -157,13 +157,13 @@ const LEAD_ENGINEER_DONE = gql`
 
 const OPERATOR_BATCHING = gql`
   mutation operatorsBaching(
-    $operator: [OperatorBachingInput]
+    $operators: [OperatorBachingInput]
     $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
     $itemIdList: [Int]!
     $stage: String
   ) {
     operatorsBaching(
-      operator: $operator
+      operators: $operators
       vulcanizationOperators: $vulcanizationOperators
       itemIdList: $itemIdList
       stage: $stage
@@ -182,7 +182,7 @@ const OPERATOR_BATCHING = gql`
             id
             itemId
             stage
-            operator {
+            operators {
               id
               data
               additionalCustomTestOperators {
@@ -202,8 +202,12 @@ const OPERATOR_BATCHING = gql`
 `;
 
 const OPERATOR = gql`
-  mutation operator($operator: [OperatorInput], $stage: String, $itemId: Int) {
-    operator(operator: $operator, stage: $stage, itemId: $itemId) {
+  mutation operators(
+    $operators: [OperatorInput]
+    $stage: String
+    $itemId: Int
+  ) {
+    operators(operators: $operators, stage: $stage, itemId: $itemId) {
       new {
         item {
           id
@@ -248,7 +252,7 @@ const OPERATOR = gql`
               data
             }
           }
-          operator {
+          operators {
             id
             data
             surfaceCleanlinessImage
@@ -289,7 +293,7 @@ const OPERATOR = gql`
               data
             }
           }
-          finalInspectionQualityControl {
+          finalInspectionQualityControls {
             id
             data
             measurementPointQualityControls {
@@ -325,13 +329,13 @@ const OPERATOR = gql`
 `;
 
 const QUALITY_CONTROL = gql`
-  mutation finalInspectionQualityControl(
-    $finalInspectionQualityControl: [FinalInspectionQualityControlInput]
+  mutation finalInspectionQualityControls(
+    $finalInspectionQualityControls: [FinalInspectionQualityControlInput]
     $itemId: Int
     $stage: String
   ) {
-    finalInspectionQualityControl(
-      finalInspectionQualityControl: $finalInspectionQualityControl
+    finalInspectionQualityControls(
+      finalInspectionQualityControls: $finalInspectionQualityControls
       itemId: $itemId
       stage: $stage
     ) {
@@ -379,7 +383,7 @@ const QUALITY_CONTROL = gql`
               data
             }
           }
-          operator {
+          operators {
             id
             data
             surfaceCleanlinessImage
@@ -420,7 +424,7 @@ const QUALITY_CONTROL = gql`
               data
             }
           }
-          finalInspectionQualityControl {
+          finalInspectionQualityControls {
             id
             data
             measurementPointQualityControls {

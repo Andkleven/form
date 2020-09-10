@@ -14,10 +14,10 @@ export const search = (data, filters, search) => {
 
   // Do not search unless filters or search active
   const activeItemFilters =
-    (filters.stage && filters.stage !== "leadEngineer" && 1) || 0;
+    (filters.stage && filters.stage !== "leadEngineers" && 1) || 0;
   const activeDescriptionFilters = (filters.geometry && 1) || 0;
   const activeProjectFilters =
-    (["leadEngineer"].includes(filters.stage) && 1) || 0;
+    (["leadEngineers"].includes(filters.stage) && 1) || 0;
   // const activeFilters = filters && Object.keys(filters).length;
   const activeFilters =
     activeItemFilters + activeDescriptionFilters + activeProjectFilters;
@@ -63,7 +63,7 @@ export const search = (data, filters, search) => {
       return true;
     }
 
-    if (filters.stage === "leadEngineer") {
+    if (filters.stage === "leadEngineers") {
       if (project.leadEngineerDone === false) {
         return true;
       }

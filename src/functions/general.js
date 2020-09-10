@@ -262,7 +262,7 @@ export const objectifyQuery = query => {
           query[key].forEach((value, index) => {
             objectifyEntries(value, path + "." + index.toString());
           });
-        } else if (typeof query[key] === "object") {
+        } else if (typeof query[key] === "object" && query[key] !== null) {
           objectifyEntries(query[key], path);
         } else if (key === "data") {
           let isData;
@@ -375,6 +375,8 @@ export const stringifyQuery = (query, removeEmptyField = false) => {
         if (isData) {
           objectPath.set(newObject, path, isData);
         }
+      } else if (typeof query[key] === "object" && query[key] !== null) {
+        loopThroughQuery(query[key], path);
       }
     });
   };
@@ -556,7 +558,7 @@ export function getStartStage(geometry, item) {
     case "Coated Item":
       if (
         item &&
-        objectPath.get(item, "leadEngineer.data.measurementPoint") === 0
+        objectPath.get(item, "leadEngineers.data.measurementPoint") === 0
       ) {
         stage = "steelPreparation1";
         break;

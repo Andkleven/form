@@ -24,11 +24,9 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[leadEngineersJson.query], {
     variables: { id: itemId }
   });
-
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
-
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
   return (
@@ -42,6 +40,7 @@ export default pageInfo => {
           data={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
+          update={true}
           jsonVariables={[geometry]}
           saveVariables={{
             descriptionId:

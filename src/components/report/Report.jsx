@@ -25,14 +25,14 @@ export const Report = ({ project, description, item }) => {
   const i = item;
   let le = null;
   let leData = null;
-  if (i.leadEngineer) {
-    le = i.leadEngineer;
+  if (i.leadEngineers) {
+    le = i.leadEngineers;
     leData = JSON.parse(le.data);
   }
   let op = null;
   let opData = null;
-  if (i.operator) {
-    op = i.operator;
+  if (i.operators) {
+    op = i.operators;
     opData = JSON.parse(op.data);
   }
 
@@ -65,7 +65,7 @@ export const Report = ({ project, description, item }) => {
               <Entry label="ITP Document Number" values={p.itpDocumentNumber} />
               <Entry label="Project Manager" values={p.projectManager} />
               <Entry label="Supervisor" values={p.supervisor} />
-              <Entry label="Lead Engineer" values={p.leadEngineer} />
+              <Entry label="Lead Engineer" values={p.leadEngineers} />
               <Entry
                 label="Supervising Engineer"
                 values={p.supervisingEngineer}
@@ -410,8 +410,8 @@ export default ({ project, description, item, ...props }) => {
   if (data) {
     // Delete
     const i = data["items"][0];
-    // const le = i.leadEngineer;
-    const op = i.operator;
+    // const le = i.leadEngineers;
+    const op = i.operators;
 
     return (
       <>

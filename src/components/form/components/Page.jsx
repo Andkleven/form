@@ -452,10 +452,11 @@ export default React.memo(props => {
       Number(props.path.split(".")[props.path.split(".").length - 1])
     )
   ) {
+    console.log(props.path);
     documentDataDispatch({
       type: "add",
       notReRender: true,
-      newState: [],
+      newState: props.repeat ? [] : {},
       path: props.path
     });
   }
