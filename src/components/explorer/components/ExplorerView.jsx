@@ -38,12 +38,11 @@ export default ({ view = "items", ...props }) => {
   const user = getUser();
   const stages = createStages(props.data);
 
-  const [filters, setFilters] = useState(props.defaultFilters || {});
-  const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
-  const [projectTerm, setProjectTerm] = useState("");
-  const [scan, setScan] = useState(false);
-  let results = search(props.data, filters, searchTerm);
+  let results = props.data.projects;
 
+  // Project Search
+  // ______________________________________________________
+  const [projectTerm, setProjectTerm] = useState("");
   const projectIndexes = results
     .map((project, index) => {
       const searchables = [
@@ -74,6 +73,22 @@ export default ({ view = "items", ...props }) => {
         return false;
       })
       .filter(project => project !== false);
+  }
+  // ______________________________________________________
+
+  const [filters, setFilters] = useState(props.defaultFilters || {});
+  const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
+  const [scan, setScan] = useState(false);
+
+  function isEmpty(obj) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  }
+
+  if (isEmpty(filters) && searchTerm === "") {
+    results = search({ projects: results }, filters, searchTerm);
   }
 
   const clearAll = () => {
