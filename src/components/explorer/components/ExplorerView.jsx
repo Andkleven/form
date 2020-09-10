@@ -122,14 +122,14 @@ export default ({ view = "items", ...props }) => {
               }}
             >
               <FontAwesomeIcon
-                icon="search"
+                icon={["fas", "search"]}
                 className="text-dark"
                 size="sm"
                 style={{ opacity: 0.75 }}
               />
             </div>
             <FontAwesomeIcon
-              icon="folder"
+              icon={["fad", "folder"]}
               style={{ position: "relative", top: "0.09em" }}
             />
           </>
@@ -152,20 +152,20 @@ export default ({ view = "items", ...props }) => {
                   width: 0,
                   height: 0,
                   position: "relative",
-                  bottom: "1em",
-                  left: ".3em",
+                  bottom: ".8em",
+                  left: ".5em",
                   zIndex: 99
                 }}
               >
                 <FontAwesomeIcon
-                  icon="search"
+                  icon={["fas", "search"]}
                   className="text-dark"
                   size="sm"
                   style={{ opacity: 0.75 }}
                 />
               </div>
               <FontAwesomeIcon
-                icon="file-invoice"
+                icon={["fad", "cube"]}
                 style={{ position: "relative", top: "0.09em" }}
               />
             </>
