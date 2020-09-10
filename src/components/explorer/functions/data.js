@@ -12,7 +12,7 @@ export const indexDescription = (
 ) => {
   const projectIndex = indexProject(data, projectName);
   const index = data["projects"][projectIndex]["descriptions"].findIndex(
-    element => element["data"]["description"] === descriptionName
+    element => element["data"]["descriptionNameMaterialNo"] === descriptionName
   );
   return index;
 };

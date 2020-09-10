@@ -176,6 +176,64 @@ export default ({
   };
   // _______________________________________________________________________
 
+  // Sorting
+  // _______________________________________________________________________
+  function projectsAlphabetically(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const bandA = a.data.projectName.toUpperCase();
+    const bandB = b.data.projectName.toUpperCase();
+
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+  function descriptionsAlphabetically(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const bandA = a.data.descriptionNameMaterialNo.toUpperCase();
+    const bandB = b.data.descriptionNameMaterialNo.toUpperCase();
+
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+  function itemsAlphabetically(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const bandA = a.itemId.toUpperCase();
+    const bandB = b.itemId.toUpperCase();
+
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  console.log(results);
+
+  // Sort projects
+  results.sort(projectsAlphabetically);
+  // Sort descriptions
+  results.forEach(project => {
+    project.descriptions = project.descriptions.sort(
+      descriptionsAlphabetically
+    );
+    // Sort items
+    project.descriptions.forEach(description => {
+      description.items = description.items.sort(itemsAlphabetically);
+    });
+  });
+  // _______________________________________________________________________
+
   // Batching stages
   const batchingStages = Object.keys(batching);
   let showNoItemsFound = true;
@@ -211,12 +269,14 @@ export default ({
                   {project.data.projectName}
                   <div className="d-inline text-secondary">
                     {`${
-                      (numberOfChildren(data, project.data.projectName) &&
+                      (project.leadEngineerDone &&
+                        numberOfChildren(data, project.data.projectName) &&
                         ` ∙ ${project.descriptions.length}/${numberOfChildren(
                           data,
                           project.data.projectName
                         )} Descriptions`) ||
-                      " ∙ No descriptions"
+                      ""
+                      // " ∙ No descriptions"
                     } `}
                   </div>
                 </div>
