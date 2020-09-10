@@ -53,8 +53,6 @@ export default ({ view = "items", ...props }) => {
       let match = false;
 
       searchables.forEach(searchable => {
-        console.log("projectTerm", projectTerm);
-        console.log("\tsearchable", searchable);
         if (!match) {
           if (searchable.toLowerCase().includes(projectTerm.toLowerCase())) {
             match = true;
@@ -316,6 +314,10 @@ export default ({ view = "items", ...props }) => {
     SPECTATOR: filterStandard
   };
 
+  const searchActive =
+    projectTerm !== "" || !isEmpty(filters) || searchTerm !== "";
+  console.log(searchActive);
+
   return (
     <>
       {(!!filterConfig[user.role]["simple"] ||
@@ -365,6 +367,7 @@ export default ({ view = "items", ...props }) => {
         results={results}
         data={props.data}
         stage={filters.stage}
+        searchActive={searchActive}
       />
     </>
   );

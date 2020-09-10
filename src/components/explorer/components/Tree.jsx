@@ -15,6 +15,11 @@ export default memo(
     badge
   }) => {
     const [isOpen, setOpen] = useState(defaultOpen);
+    if (defaultOpen && !isOpen) {
+      setOpen(true);
+    } else if (!defaultOpen && isOpen) {
+      setOpen(false);
+    }
     // const previous = usePrevious(isOpen);
     const [bind, { height: viewHeight }] = useMeasure();
     const {

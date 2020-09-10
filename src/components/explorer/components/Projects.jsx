@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReportButton } from "./Projects/ReportButton";
 import Badge from "components/design/NotificationBadge";
 import gql from "graphql-tag";
-// import Loading from "components/Loading";
 
 const NoItemsFound = ({ show }) => {
   return (
@@ -37,6 +36,7 @@ export default ({
   headline = "Projects",
   refetch,
   stage = false,
+  searchActive = false,
   ...props
 }) => {
   // Delete projects
@@ -204,7 +204,7 @@ export default ({
               iconSize={iconSize}
               iconStyle={iconStyle}
               rowStyle={rowStyle}
-              defaultOpen
+              defaultOpen={searchActive}
               key={`${project.data.projectName} ${indexProject} `}
               name={
                 <div className="text-wrap">
@@ -342,7 +342,7 @@ export default ({
                       iconSize={iconSize}
                       iconStyle={iconStyle}
                       rowStyle={rowStyle}
-                      // defaultOpen
+                      defaultOpen={searchActive}
                       key={`project${indexProject}Description${indexDescription}`}
                       // name={description.data.geometry}
                       name={
