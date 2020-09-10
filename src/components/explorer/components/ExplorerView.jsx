@@ -316,7 +316,6 @@ export default ({ view = "items", ...props }) => {
 
   const searchActive =
     projectTerm !== "" || !isEmpty(filters) || searchTerm !== "";
-  console.log(searchActive);
 
   return (
     <>
