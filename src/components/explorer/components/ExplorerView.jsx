@@ -89,7 +89,7 @@ export default ({ view = "items", ...props }) => {
     return true;
   }
 
-  if (isEmpty(filters) && searchTerm === "") {
+  if (!(isEmpty(filters) && searchTerm === "")) {
     results = search({ projects: results }, filters, searchTerm);
   }
 
