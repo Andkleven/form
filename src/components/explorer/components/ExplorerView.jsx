@@ -53,8 +53,10 @@ export default ({ view = "items", ...props }) => {
       let match = false;
 
       searchables.forEach(searchable => {
+        console.log("projectTerm", projectTerm);
+        console.log("\tsearchable", searchable);
         if (!match) {
-          if (searchable.includes(projectTerm)) {
+          if (searchable.toLowerCase().includes(projectTerm.toLowerCase())) {
             match = true;
           }
         }
