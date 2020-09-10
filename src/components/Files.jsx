@@ -179,11 +179,6 @@ const File = ({ file, ...props }) => {
   const extension = filename.substr(filename.lastIndexOf(".") + 1);
   const filenameShort = filename.replace(`.${extension}`, "");
 
-  // console.log(file);
-  // console.log("filename:", filename);
-  // console.log("description:", description);
-  // console.log("extension:", extension);
-
   const imageExtensions = ["png", "jpg", "webp", "jpeg", "gif", "tif"];
   const isImage = imageExtensions.includes(extension.toLowerCase());
   const isPdf = extension.toLowerCase() === "pdf";
@@ -191,6 +186,7 @@ const File = ({ file, ...props }) => {
   const [show, setShow] = useState(false);
 
   // Fetching
+  // TODO: Move fetch into content
   const [
     {
       response: { url },
@@ -302,19 +298,6 @@ const File = ({ file, ...props }) => {
   const descriptionRef = useRef(null);
   const imageRef = useRef(null);
 
-  // const [overflow, setOverflow] = useState(false);
-
-  // useEffect(() => {
-  //   console.log("Ref:", descriptionRef.current);
-  //   setOverflow(
-  //     descriptionRef.current &&
-  //       (descriptionRef.current.offsetHeight <
-  //         descriptionRef.current.scrollHeight ||
-  //         descriptionRef.current.offsetWidth <
-  //           descriptionRef.current.scrollWidth)
-  //   );
-  // }, [setOverflow, descriptionRef]);
-
   const Content = () => {
     useOutsideClick([imageRef, descriptionRef], () => {
       setShow(false);
@@ -325,7 +308,6 @@ const File = ({ file, ...props }) => {
         <div
           style={{
             position: "fixed",
-            // width: "100%",
             top: 0,
             bottom: 0,
             right: 0,
@@ -343,10 +325,8 @@ const File = ({ file, ...props }) => {
             className="text-white p-3 m-1 align-self-start"
             style={{
               position: "fixed",
-              // top: 0,
               right: 0,
               zIndex: 1000
-              // height: 0
             }}
           >
             <FontAwesomeIcon
@@ -358,8 +338,8 @@ const File = ({ file, ...props }) => {
               className="mx-1"
             />
           </Button>
-          <Container className="d-flex px-3 h-100">
-            <div className="my-auto d-flex flex-column">
+          <Container className="d-flex px-3 h-100 align-items-center w-100">
+            <div className="my-auto d-flex flex-column align-items-center w-100">
               <img
                 ref={imageRef}
                 className="rounded shadow my-3 mx-auto"
@@ -369,11 +349,8 @@ const File = ({ file, ...props }) => {
                   maxHeight: use100vh() * 0.9,
                   position: "static"
                 }}
-                // src="https://upload.wikimedia.org/wikipedia/commons/c/cc/ESC_large_ISS022_ISS022-E-11387-edit_01.JPG"
-                // src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg"
-                // src="https://cdn.pixabay.com/photo/2017/08/23/15/39/square-2673252_960_720.png"
-                src="https://www.formsbirds.com/formhtml/7c23a80196dad560ce9a/bgluzw5c7638fa0287eae70124/bg1.png"
-                alt="Placeholder"
+                src={url}
+                alt={filename}
               />
               <div
                 ref={descriptionRef}

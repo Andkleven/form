@@ -428,7 +428,13 @@ export default ({
                                       <div className="d-inline">
                                         <div className="d-inline">
                                           {item.itemId ? (
-                                            <div className="d-inline">
+                                            <div
+                                              className="d-inline"
+                                              style={{
+                                                maxWidth: "100%",
+                                                wordBreak: "break-word"
+                                              }}
+                                            >
                                               {item.itemId}
                                             </div>
                                           ) : (

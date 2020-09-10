@@ -40,8 +40,30 @@ export default ({ view = "items", ...props }) => {
 
   const [filters, setFilters] = useState(props.defaultFilters || {});
   const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
+  const [projectTerm, setProjectTerm] = useState("");
   const [scan, setScan] = useState(false);
-  const results = search(props.data, filters, searchTerm);
+  let results = search(props.data, filters, searchTerm);
+
+  const projectIndexes = results
+    .map((project, index) => {
+      if (project["data"]["projectNumber"].includes(projectTerm)) {
+        return index;
+      }
+
+      return false;
+    })
+    .filter(Number);
+
+  if (projectTerm !== "") {
+    results = results
+      .map((project, index) => {
+        if (projectIndexes.includes(index)) {
+          return project;
+        }
+        return false;
+      })
+      .filter(project => project !== false);
+  }
 
   const clearAll = () => {
     setFilters({});
@@ -52,23 +74,78 @@ export default ({ view = "items", ...props }) => {
 
   const Search = (
     <>
+      <Input
+        noComment={true}
+        className="mb-1 w-100"
+        placeholder="Search for a project"
+        tight
+        value={projectTerm}
+        onChangeInput={e => {
+          setProjectTerm(e.target.value);
+        }}
+        unit={
+          <>
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                position: "relative",
+                bottom: ".8em",
+                left: ".5em",
+                zIndex: 99
+              }}
+            >
+              <FontAwesomeIcon
+                icon="search"
+                className="text-dark"
+                size="sm"
+                style={{ opacity: 0.75 }}
+              />
+            </div>
+            <FontAwesomeIcon
+              icon="folder"
+              style={{ position: "relative", top: "0.09em" }}
+            />
+          </>
+        }
+      />
       <div className="d-flex flex-column flex-sm-row w-100">
         <Input
           noComment={true}
           className="mb-1 w-100"
-          placeholder="Search"
+          placeholder="Search for an item"
           tight
           value={searchTerm}
           onChangeInput={e => {
             setSearchTerm(e.target.value);
           }}
           unit={
-            <FontAwesomeIcon
-              icon="search"
-              style={{ position: "relative", top: "0.09em" }}
-            />
+            <>
+              <div
+                style={{
+                  width: 0,
+                  height: 0,
+                  position: "relative",
+                  bottom: "1em",
+                  left: ".3em",
+                  zIndex: 99
+                }}
+              >
+                <FontAwesomeIcon
+                  icon="search"
+                  className="text-dark"
+                  size="sm"
+                  style={{ opacity: 0.75 }}
+                />
+              </div>
+              <FontAwesomeIcon
+                icon="file-invoice"
+                style={{ position: "relative", top: "0.09em" }}
+              />
+            </>
           }
         />
+
         <DepthButton
           short
           className="mb-1 mb-sm-0 ml-sm-1 h-100"
