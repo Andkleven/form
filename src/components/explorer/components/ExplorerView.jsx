@@ -111,7 +111,7 @@ export default ({ view = "items", ...props }) => {
         onChangeInput={e => {
           setProjectTerm(e.target.value);
         }}
-        unit={
+        prepend={
           <>
             <div
               style={{
@@ -147,7 +147,7 @@ export default ({ view = "items", ...props }) => {
           onChangeInput={e => {
             setSearchTerm(e.target.value);
           }}
-          unit={
+          prepend={
             <>
               <div
                 style={{
