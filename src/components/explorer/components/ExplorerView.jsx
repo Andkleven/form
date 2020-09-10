@@ -46,11 +46,22 @@ export default ({ view = "items", ...props }) => {
 
   const projectIndexes = results
     .map((project, index) => {
-      if (project["data"]["projectNumber"].includes(projectTerm)) {
-        return index;
-      }
+      const searchables = [
+        project["data"]["projectNumber"],
+        project["data"]["projectName"]
+      ];
 
-      return false;
+      let match = false;
+
+      searchables.forEach(searchable => {
+        if (!match) {
+          if (searchable.includes(projectTerm)) {
+            match = true;
+          }
+        }
+      });
+
+      return match && index;
     })
     .filter(Number);
 
