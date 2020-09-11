@@ -157,13 +157,13 @@ const LEAD_ENGINEER_DONE = gql`
 
 const OPERATOR_BATCHING = gql`
   mutation operatorsBaching(
-    $operators: [OperatorBachingInput]
+    $operator: OperatorBachingInput
     $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
     $itemIdList: [Int]!
     $stage: String
   ) {
     operatorsBaching(
-      operators: $operators
+      operator: $operator
       vulcanizationOperators: $vulcanizationOperators
       itemIdList: $itemIdList
       stage: $stage
@@ -182,7 +182,7 @@ const OPERATOR_BATCHING = gql`
             id
             itemId
             stage
-            operators {
+            operator {
               id
               data
               additionalCustomTestOperators {
@@ -202,20 +202,10 @@ const OPERATOR_BATCHING = gql`
 `;
 
 const OPERATOR = gql`
-  mutation operators(
-    $operators: [OperatorInput]
-    $stage: String
-    $itemId: Int
-  ) {
-    operators(operators: $operators, stage: $stage, itemId: $itemId) {
+  mutation operator($operator: OperatorInput, $stage: String, $itemId: Int) {
+    operator(operator: $operator, stage: $stage, itemId: $itemId) {
       new {
         item {
-          id
-          itemId
-          unique
-          qrCode
-          repair
-          stage
           leadEngineer {
             id
             data
@@ -252,7 +242,7 @@ const OPERATOR = gql`
               data
             }
           }
-          operators {
+          operator {
             id
             data
             surfaceCleanlinessImage
@@ -293,7 +283,7 @@ const OPERATOR = gql`
               data
             }
           }
-          finalInspectionQualityControls {
+          finalInspectionQualityControl {
             id
             data
             measurementPointQualityControls {
@@ -329,129 +319,121 @@ const OPERATOR = gql`
 `;
 
 const QUALITY_CONTROL = gql`
-  mutation finalInspectionQualityControls(
-    $finalInspectionQualityControls: [FinalInspectionQualityControlInput]
+  mutation finalInspectionQualityControl(
+    $finalInspectionQualityControl: FinalInspectionQualityControlInput
     $itemId: Int
     $stage: String
   ) {
-    finalInspectionQualityControls(
-      finalInspectionQualityControls: $finalInspectionQualityControls
+    finalInspectionQualityControl(
+      finalInspectionQualityControl: $finalInspectionQualityControl
       itemId: $itemId
       stage: $stage
     ) {
       new {
-        item {
+        leadEngineer {
           id
-          itemId
-          unique
-          qrCode
-          repair
-          stage
-          leadEngineer {
+          data
+          measurementPointActualTdvs {
             id
             data
-            measurementPointActualTdvs {
+          }
+          vulcanizationSteps {
+            id
+            data
+            coatingLayers {
               id
               data
-            }
-            vulcanizationSteps {
-              id
-              data
-              coatingLayers {
+              cumulativeThickness {
                 id
                 data
-                cumulativeThickness {
-                  id
-                  data
-                }
               }
             }
-            rubberCements {
-              id
-              data
-            }
-            additionalCustomTests {
-              id
-              data
-            }
-            finalInspectionCustomTests {
-              id
-              data
-            }
-            finalInspectionDimensionsChecks {
+          }
+          rubberCements {
+            id
+            data
+          }
+          additionalCustomTests {
+            id
+            data
+          }
+          finalInspectionCustomTests {
+            id
+            data
+          }
+          finalInspectionDimensionsChecks {
+            id
+            data
+          }
+        }
+        operator {
+          id
+          data
+          surfaceCleanlinessImage
+          rubberCementOperators {
+            id
+            data
+            mixDates {
               id
               data
             }
           }
-          operators {
+          measurementPointActualTdvs {
             id
             data
-            surfaceCleanlinessImage
-            rubberCementOperators {
+          }
+          vulcanizationOperators {
+            id
+            data
+            coatingOperators {
               id
               data
-              mixDates {
+              layers {
                 id
                 data
-              }
-            }
-            measurementPointActualTdvs {
-              id
-              data
-            }
-            vulcanizationOperators {
-              id
-              data
-              coatingOperators {
-                id
-                data
-                layers {
-                  id
-                  data
-                }
-                measurementPointOperators {
-                  id
-                  data
-                }
               }
               measurementPointOperators {
                 id
                 data
               }
             }
-            additionalCustomTestOperators {
+            measurementPointOperators {
               id
               data
             }
           }
-          finalInspectionQualityControls {
+          additionalCustomTestOperators {
             id
             data
-            measurementPointQualityControls {
-              id
-              data
-            }
-            hardnessQualityControls {
-              id
-              data
-            }
-            peelTestQualityControls {
-              id
-              data
-            }
-            finalInspectionCustomTestQualityControls {
-              id
-              data
-            }
-            finalInspectionDimensionsCheckQualityControls {
-              id
-              data
-            }
-            uploadFiles {
-              id
-              file
-              fileDescription
-            }
+          }
+        }
+        finalInspectionQualityControl {
+          id
+          data
+          measurementPointQualityControls {
+            id
+            data
+          }
+          hardnessQualityControls {
+            id
+            data
+          }
+          peelTestQualityControls {
+            id
+            data
+          }
+          finalInspectionCustomTestQualityControls {
+            id
+            data
+          }
+          finalInspectionDimensionsCheckQualityControls {
+            id
+            data
+          }
+          uploadFiles {
+            id
+            file
+            fileDescription
           }
         }
       }

@@ -22,6 +22,9 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
+
+  // console.log(documentData.current);
+
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",

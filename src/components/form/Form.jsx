@@ -156,6 +156,7 @@ export default ({
   }
 
   const updateCache = (cache, { data }) => {
+    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
@@ -167,22 +168,24 @@ export default ({
         x => x.id === data[document.queryPath.split(/[.]+/).pop()].new.id
       );
     } else {
-      index = "";
+      index = null;
     }
     objectPath.set(
       oldData,
-      index ? `${document.queryPath}.${index}` : `${document.queryPath}`,
+      index === null
+        ? `${document.queryPath}`
+        : `${document.queryPath}.${index}`,
       data[document.queryPath.split(/[.]+/).pop()].new
     );
-    let saveData = document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: query[document.query],
       variables: { id: getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { ...oldData }
     });
   };
 
   const updateWithVariable = (cache, { data }) => {
+    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
@@ -219,10 +222,16 @@ export default ({
   };
 
   const create = (cache, { data }) => {
+    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
     });
+    console.log(
+      document.queryPath,
+      data,
+      document.queryPath.split(/[.]+/).pop()
+    );
     objectPath.push(
       oldData,
       document.queryPath,
@@ -237,6 +246,7 @@ export default ({
   };
 
   const createWithVariable = (cache, { data }) => {
+    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
@@ -253,7 +263,8 @@ export default ({
       data: { [saveData]: oldData[saveData] }
     });
   };
-
+  console.log(data);
+  console.log(specData);
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[document.mutation],
     {
@@ -294,6 +305,7 @@ export default ({
             objectPath.set(data, key, addValuesToData[key]);
           });
         }
+        console.log(data);
         let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
         console.log(variables);
         mutation({

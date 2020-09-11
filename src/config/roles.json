@@ -41,7 +41,7 @@
       "finished": true
     }
   },
-  "operators": {
+  "operator": {
     "displayName": "Operator",
     "levels": ["general"],
     "access": {

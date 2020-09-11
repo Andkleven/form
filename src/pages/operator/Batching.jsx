@@ -85,6 +85,7 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
+  console.log(fixedData);
   return (
     <Canvas>
       <Paper>

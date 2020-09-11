@@ -1,11 +1,11 @@
 {
   "steelPreparation1": {
     "batching": {
-      "dataPath": "operators"
+      "dataPath": "operator"
     },
     "document": {
-      "queryPath": "operators",
-      "specQueryPath": "leadEngineers",
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_OPERATOR",
       "chapters": ""
@@ -13,11 +13,11 @@
   },
   "primer1": {
     "batching": {
-      "dataPath": "operators"
+      "dataPath": "operator"
     },
     "document": {
-      "queryPath": "operators",
-      "specQueryPath": "leadEngineers",
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_OPERATOR",
       "chapters": ""
@@ -25,11 +25,11 @@
   },
   "primer2": {
     "batching": {
-      "dataPath": "operators"
+      "dataPath": "operator"
     },
     "document": {
-      "queryPath": "operators",
-      "specQueryPath": "leadEngineers",
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_OPERATOR",
       "chapters": ""
@@ -37,11 +37,11 @@
   },
   "rubberCementsBeforeCoating": {
     "batching": {
-      "dataPath": "operators"
+      "dataPath": "operator"
     },
     "document": {
-      "queryPath": "operators",
-      "specQueryPath": "leadEngineers",
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_OPERATOR",
       "chapters": ""
@@ -49,11 +49,11 @@
   },
   "vulcanizationStep": {
     "batching": {
-      "dataPath": "operators.vulcanizationOperators"
+      "dataPath": "operator.vulcanizationOperators"
     },
     "document": {
-      "queryPath": ["operators.vulcanizationOperators", ""],
-      "specQueryPath": ["leadEngineers.vulcanizationOperators", ""],
+      "queryPath": ["operator.vulcanizationOperators", ""],
+      "specQueryPath": ["leadEngineer.vulcanizationOperators", ""],
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_VULCANIZATION",
       "chapters": ""
@@ -61,11 +61,11 @@
   },
   "touchUp": {
     "batching": {
-      "dataPath": "operators"
+      "dataPath": "operator"
     },
     "document": {
-      "queryPath": "operators",
-      "specQueryPath": "leadEngineers",
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_OPERATOR",
       "chapters": ""

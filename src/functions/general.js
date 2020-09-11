@@ -289,6 +289,7 @@ export const objectifyQuery = query => {
 };
 
 export const getBatchingData = (query, batching) => {
+  console.log(query, batching);
   if (query) {
     let newObject = {};
     const objectifyEntries = (query, oldPath = null) => {
@@ -312,6 +313,8 @@ export const getBatchingData = (query, batching) => {
           if (Object.keys(data).length !== 0) {
             objectPath.set(newObject, path, { ...data });
           }
+        } else if (typeof query[key] === "object" && query[key] !== null) {
+          objectifyEntries(query[key], path);
         }
       });
     };
@@ -558,7 +561,7 @@ export function getStartStage(geometry, item) {
     case "Coated Item":
       if (
         item &&
-        objectPath.get(item, "leadEngineers.data.measurementPoint") === 0
+        objectPath.get(item, "leadEngineer.data.measurementPoint") === 0
       ) {
         stage = "steelPreparation1";
         break;

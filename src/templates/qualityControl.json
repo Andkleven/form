@@ -1,26 +1,26 @@
 {
-  "queryPath": "items.0.finalInspectionQualityControls",
-  "specQueryPath": "items.0.leadEngineers",
+  "queryPath": "items.0.finalInspectionQualityControl",
+  "specQueryPath": "items.0.leadEngineer",
   "mutation": "QUALITY_CONTROL",
   "chapterByStage": true,
   "query": "QUALITY_CONTROL",
   "chapters": {
     "qualityControl": {
-      "queryPath": "finalInspectionQualityControls",
+      "queryPath": "finalInspectionQualityControl",
       "pages": [
         {
           "pageTitle": "Final Inspection",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.data.measurementPoint",
-          "queryPath": "finalInspectionQualityControls.measurementPointQualityControls",
+          "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
+          "queryPath": "finalInspectionQualityControl.measurementPointQualityControls",
           "fields": [
             {
               "fieldName": "measurementPoint",
               "queryVariableLabel": {
                 "coatedItem": [
-                  "leadEngineers.measurementPointActualTdvs",
+                  "leadEngineer.measurementPointActualTdvs",
                   "data.referencePoint"
                 ]
               },
@@ -46,7 +46,7 @@
           ]
         },
         {
-          "queryPath": "finalInspectionQualityControls",
+          "queryPath": "finalInspectionQualityControl",
           "fields": [
             {
               "showField": {
@@ -57,7 +57,7 @@
               "type": "checkbox",
               "required": true,
               "subtext": "APS. Final measurements are within tolerances.",
-              "showFieldSpecPath": "leadEngineers.data.totalOd"
+              "showFieldSpecPath": "leadEngineer.data.totalOd"
             },
             {
               "showField": {
@@ -68,7 +68,7 @@
               "type": "checkbox",
               "required": true,
               "subtext": "APS. Final measurements are within tolerances.",
-              "showFieldSpecPath": "leadEngineers.data.totalCoatingThickness"
+              "showFieldSpecPath": "leadEngineer.data.totalCoatingThickness"
             },
             {
               "fieldName": "visualInspection",
@@ -76,7 +76,7 @@
               "type": "checkbox",
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted.",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.data.visualInspection"
+              "showFieldSpecPath": "leadEngineer.data.visualInspection"
             },
             {
               "fieldName": "simpleFinalDimensionsCheck",
@@ -84,7 +84,7 @@
               "subtext": "APS. All parts in accordance to drawings.",
               "type": "checkbox",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.data.simpleFinalDimensionsCheck"
+              "showFieldSpecPath": "leadEngineer.data.simpleFinalDimensionsCheck"
             },
             {
               "fieldName": "sparkTest",
@@ -92,7 +92,7 @@
               "subtext": "TR 2028. No Holidays.",
               "type": "checkbox",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.data.sparkTest"
+              "showFieldSpecPath": "leadEngineer.data.sparkTest"
             },
             {
               "fieldName": "hammerTest",
@@ -100,13 +100,13 @@
               "type": "checkbox",
               "subtext": "TR 2028. No change in audible pitch.",
               "required": true,
-              "showFieldSpecPath": "leadEngineers.data.hammerTest"
+              "showFieldSpecPath": "leadEngineer.data.hammerTest"
             },
             {
               "fieldName": "identificationMarking",
               "label": "Identification Marking",
               "subtext": "ID matches 123.",
-              "showFieldSpecPath": "leadEngineers.data.identificationMarking",
+              "showFieldSpecPath": "leadEngineer.data.identificationMarking",
               "required": true,
               "type": "checkbox"
             },
@@ -118,11 +118,11 @@
           ]
         },
         {
-          "queryPath": "finalInspectionQualityControls.hardnessQualityControls",
+          "queryPath": "finalInspectionQualityControl.hardnessQualityControls",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.data.numberOfHardnessOfOuterLayer",
+          "repeatGroupWithQuery": "leadEngineer.data.numberOfHardnessOfOuterLayer",
           "fields": [
             {
               "fieldName": "hardnessOfOuterLayer",
@@ -135,11 +135,11 @@
           ]
         },
         {
-          "queryPath": "finalInspectionQualityControls.peelTestQualityControls",
+          "queryPath": "finalInspectionQualityControl.peelTestQualityControls",
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.data.numberOfPeelTest",
+          "repeatGroupWithQuery": "leadEngineer.data.numberOfPeelTest",
           "fields": [
             {
               "fieldName": "peelTest",
@@ -162,23 +162,23 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.finalInspectionDimensionsChecks",
-          "queryPath": "finalInspectionQualityControls.finalInspectionDimensionsCheckQualityControls",
+          "repeatGroupWithQuery": "leadEngineer.finalInspectionDimensionsChecks",
+          "queryPath": "finalInspectionQualityControl.finalInspectionDimensionsCheckQualityControls",
           "fields": [
             {
               "fieldName": "finalInspectionDimensionsChecks",
               "variableLabelSpec": true,
               "queryVariableLabel": [
-                "leadEngineers.finalInspectionDimensionsChecks",
+                "leadEngineer.finalInspectionDimensionsChecks",
                 "data.finalDimensionsReference"
               ],
               "label": "Final Dimensions Reference {}",
               "routeToSpecMin": [
-                "leadEngineers.finalInspectionDimensionsChecks",
+                "leadEngineer.finalInspectionDimensionsChecks",
                 "data.finalDimensionsMin"
               ],
               "routeToSpecMax": [
-                "leadEngineers.finalInspectionDimensionsChecks",
+                "leadEngineer.finalInspectionDimensionsChecks",
                 "data.finalDimensionsMax"
               ]
             }
@@ -188,19 +188,19 @@
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQuery": "leadEngineers.finalInspectionCustomTests",
-          "queryPath": "finalInspectionQualityControls.finalInspectionCustomTestQualityControls",
+          "repeatGroupWithQuery": "leadEngineer.finalInspectionCustomTests",
+          "queryPath": "finalInspectionQualityControl.finalInspectionCustomTestQualityControls",
           "fields": [
             {
               "specValueList": [
-                "leadEngineers.finalInspectionCustomTests",
+                "leadEngineer.finalInspectionCustomTests",
                 "data.name"
               ],
               "label": "Custom Test Name"
             },
             {
               "specValueList": [
-                "leadEngineers.finalInspectionCustomTests",
+                "leadEngineer.finalInspectionCustomTests",
                 "data.criteria"
               ],
               "label": "Custom Test Criteria"
@@ -214,7 +214,7 @@
         {
           "label": "File Upload",
           "type": "files",
-          "queryPath": "finalInspectionQualityControls.uploadFiles",
+          "queryPath": "finalInspectionQualityControl.uploadFiles",
           "description": true
         }
       ]

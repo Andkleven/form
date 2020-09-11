@@ -10,7 +10,7 @@ import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 
 const createStages = data => {
   let stages = [];
-  let leadEngineers = false;
+  let leadEngineer = false;
   let qualityControl = false;
 
   data.projects.forEach(project => {
@@ -22,11 +22,11 @@ const createStages = data => {
               : !stages.includes(item.stage) && stages.push(item.stage);
           });
         })
-      : (leadEngineers = true);
+      : (leadEngineer = true);
   });
 
   // Add LE & QC stages
-  leadEngineers && stages.unshift("leadEngineers");
+  leadEngineer && stages.unshift("leadEngineer");
   qualityControl && stages.push("qualityControl");
 
   return stages;

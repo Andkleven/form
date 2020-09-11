@@ -49,7 +49,7 @@ export default pageInfo => {
 
   return (
     <Canvas showForm={!!data}>
-      <Overview />
+      {/* <Overview /> */}
       <Paper className="mb-3">
         <Title big align="center">
           Operator
@@ -59,9 +59,9 @@ export default pageInfo => {
           componentsId={"SingleItem"}
           document={operatorCoatedItemJson}
           reRender={() => setReRender(!reRender)}
-          data={fixedData && formDataStructure(fixedData, "items.0.operators")}
+          data={fixedData && formDataStructure(fixedData, "items.0.operator")}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
           stage={fixedData && fixedData.items[0].stage}
           stageType={geometry}
@@ -78,20 +78,20 @@ export default pageInfo => {
           Quality Control
         </Title>
         <Form
-          componentsId={"finalInspectionQualityControls"}
+          componentsId={"finalInspectionQualityControl"}
           document={qualityControlCoatedItemJson}
           data={
             fixedData &&
             formDataStructure(
               fixedData,
-              "items.0.finalInspectionQualityControls"
+              "items.0.finalInspectionQualityControl"
             )
           }
           update={true}
           jsonVariables={[geometry]}
           edit={getAccess().itemEdit}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
           reRender={() => setReRender(!reRender)}
           allData={fixedData}

@@ -45,7 +45,7 @@ const ITEM = gql`
           }
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -142,7 +142,7 @@ const BATCHING_OPERATOR = gql`
               }
             }
           }
-          operators {
+          operator {
             id
             data
             additionalCustomTestOperators {
@@ -212,7 +212,7 @@ const BATCHING_VULCANIZATION = gql`
               }
             }
           }
-          operators {
+          operator {
             vulcanizationSteps {
               id
               data
@@ -280,6 +280,7 @@ const GET_ORDER_GEOMETRY = gql`
 const GET_LEAD_ENGINEER = gql`
   query getLeadEngineer($id: Int) {
     items(id: $id) {
+      id
       leadEngineer {
         id
         data
@@ -370,7 +371,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             }
           }
         }
-        operators {
+        operator {
           id
           data
           surfaceCleanlinessImage
@@ -457,7 +458,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -498,7 +499,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      finalInspectionQualityControls {
+      finalInspectionQualityControl {
         id
         data
         measurementPointQualityControls {
@@ -606,7 +607,7 @@ const QUALITY_CONTROL = gql`
           }
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -647,7 +648,7 @@ const QUALITY_CONTROL = gql`
           data
         }
       }
-      finalInspectionQualityControls {
+      finalInspectionQualityControl {
         id
         data
         measurementPointQualityControls {
