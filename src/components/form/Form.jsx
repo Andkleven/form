@@ -161,11 +161,11 @@ export default ({
       query: query[document.query],
       variables: { id: getQueryBy }
     });
-    let array = objectPath.get(oldData, document.queryPath);
+    let array = objectPath.get(oldData, document.getOldValue);
     let index;
     if (Array.isArray(array)) {
       index = array.findIndex(
-        x => x.id === data[document.queryPath.split(/[.]+/).pop()].new.id
+        x => x.id === objectPath.get(data, document.getNewValue).id
       );
     } else {
       index = null;
@@ -173,9 +173,9 @@ export default ({
     objectPath.set(
       oldData,
       index === null
-        ? `${document.queryPath}`
-        : `${document.queryPath}.${index}`,
-      data[document.queryPath.split(/[.]+/).pop()].new
+        ? `${document.getOldValue}`
+        : `${document.getOldValue}.${index}`,
+      objectPath.get(data, document.getNewValue)
     );
     cache.writeQuery({
       query: query[document.query],
@@ -185,7 +185,6 @@ export default ({
   };
 
   const updateWithVariable = (cache, { data }) => {
-    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
@@ -222,16 +221,11 @@ export default ({
   };
 
   const create = (cache, { data }) => {
-    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
     });
-    console.log(
-      document.queryPath,
-      data,
-      document.queryPath.split(/[.]+/).pop()
-    );
+
     objectPath.push(
       oldData,
       document.queryPath,
@@ -246,7 +240,6 @@ export default ({
   };
 
   const createWithVariable = (cache, { data }) => {
-    console.log(2134);
     const oldData = cache.readQuery({
       query: query[document.query],
       variables: { id: getQueryBy }
@@ -263,8 +256,7 @@ export default ({
       data: { [saveData]: oldData[saveData] }
     });
   };
-  console.log(data);
-  console.log(specData);
+
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[document.mutation],
     {

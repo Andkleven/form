@@ -206,6 +206,12 @@ const OPERATOR = gql`
     operator(operator: $operator, stage: $stage, itemId: $itemId) {
       new {
         item {
+          id
+          stage
+          itemId
+          unique
+          qrCode
+          repair
           leadEngineer {
             id
             data
@@ -330,110 +336,118 @@ const QUALITY_CONTROL = gql`
       stage: $stage
     ) {
       new {
-        leadEngineer {
+        item {
           id
-          data
-          measurementPointActualTdvs {
+          stage
+          itemId
+          unique
+          qrCode
+          repair
+          leadEngineer {
             id
             data
-          }
-          vulcanizationSteps {
-            id
-            data
-            coatingLayers {
+            measurementPointActualTdvs {
               id
               data
-              cumulativeThickness {
+            }
+            vulcanizationSteps {
+              id
+              data
+              coatingLayers {
+                id
+                data
+                cumulativeThickness {
+                  id
+                  data
+                }
+              }
+            }
+            rubberCements {
+              id
+              data
+            }
+            additionalCustomTests {
+              id
+              data
+            }
+            finalInspectionCustomTests {
+              id
+              data
+            }
+            finalInspectionDimensionsChecks {
+              id
+              data
+            }
+          }
+          operator {
+            id
+            data
+            surfaceCleanlinessImage
+            rubberCementOperators {
+              id
+              data
+              mixDates {
                 id
                 data
               }
             }
-          }
-          rubberCements {
-            id
-            data
-          }
-          additionalCustomTests {
-            id
-            data
-          }
-          finalInspectionCustomTests {
-            id
-            data
-          }
-          finalInspectionDimensionsChecks {
-            id
-            data
-          }
-        }
-        operator {
-          id
-          data
-          surfaceCleanlinessImage
-          rubberCementOperators {
-            id
-            data
-            mixDates {
+            measurementPointActualTdvs {
               id
               data
             }
-          }
-          measurementPointActualTdvs {
-            id
-            data
-          }
-          vulcanizationOperators {
-            id
-            data
-            coatingOperators {
+            vulcanizationOperators {
               id
               data
-              layers {
+              coatingOperators {
                 id
                 data
+                layers {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
               }
               measurementPointOperators {
                 id
                 data
               }
             }
-            measurementPointOperators {
+            additionalCustomTestOperators {
               id
               data
             }
           }
-          additionalCustomTestOperators {
+          finalInspectionQualityControl {
             id
             data
-          }
-        }
-        finalInspectionQualityControl {
-          id
-          data
-          measurementPointQualityControls {
-            id
-            data
-          }
-          hardnessQualityControls {
-            id
-            data
-          }
-          peelTestQualityControls {
-            id
-            data
-          }
-          finalInspectionCustomTestQualityControls {
-            id
-            data
-          }
-          finalInspectionDimensionsCheckQualityControls {
-            id
-            data
-          }
-          uploadFiles {
-            id
-            file
-            fileDescription
+            measurementPointQualityControls {
+              id
+              data
+            }
+            hardnessQualityControls {
+              id
+              data
+            }
+            peelTestQualityControls {
+              id
+              data
+            }
+            finalInspectionCustomTestQualityControls {
+              id
+              data
+            }
+            finalInspectionDimensionsCheckQualityControls {
+              id
+              data
+            }
+            uploadFiles {
+              id
+              file
+              fileDescription
+            }
           }
         }
       }

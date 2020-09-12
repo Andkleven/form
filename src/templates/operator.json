@@ -2,8 +2,8 @@
   "mutation": "OPERATOR",
   "query": "GET_OPERATOR_BY_ITEM",
   "chapterByStage": true,
-  "specQueryPath": "items",
-  "queryPath": "items.0",
+  "getNewValue": "operator.new.item",
+  "getOldValue": "items",
   "chapters": {
     "actualSteelMeasurement": {
       "queryPath": "operator",

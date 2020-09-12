@@ -1,5 +1,6 @@
 {
-  "queryPath": "projects",
+  "getNewValue": "project",
+  "getOldValue": "project.new",
   "mutation": "ORDER",
   "query": "GET_ORDER_GEOMETRY",
   "optionsQuery": "USERS",

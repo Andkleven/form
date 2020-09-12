@@ -289,7 +289,6 @@ export const objectifyQuery = query => {
 };
 
 export const getBatchingData = (query, batching) => {
-  console.log(query, batching);
   if (query) {
     let newObject = {};
     const objectifyEntries = (query, oldPath = null) => {
@@ -412,7 +411,8 @@ export const getDataToBatching = (
   path,
   descriptionId,
   repeatStepList,
-  batchingData
+  batchingData,
+  specData = false
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
@@ -423,7 +423,9 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path
     );
-    return getBatchingData({ [key]: newData }, batchingData);
+    return specData
+      ? { [key]: newData }
+      : getBatchingData({ [key]: newData }, batchingData);
   }
   return { [key]: [] };
 };

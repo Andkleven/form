@@ -1,6 +1,6 @@
 {
-  "queryPath": "items.0.finalInspectionQualityControl",
-  "specQueryPath": "items.0.leadEngineer",
+  "getNewValue": "finalInspectionQualityControl.new.item",
+  "getOldValue": "items",
   "mutation": "QUALITY_CONTROL",
   "chapterByStage": true,
   "query": "QUALITY_CONTROL",

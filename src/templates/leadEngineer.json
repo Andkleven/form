@@ -1,5 +1,6 @@
 {
-  "queryPath": "items.0.leadEngineer",
+  "getNewValue": "leadEngineer.new",
+  "getOldValue": "items.0",
   "mutation": "LEAD_ENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
