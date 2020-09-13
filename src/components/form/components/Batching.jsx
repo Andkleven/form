@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import objectPath from "object-path";
 import {
   findValue,
@@ -7,10 +7,13 @@ import {
 } from "functions/general";
 import operatorCoatedItemJson from "templates/operator.json";
 import Line from "components/design/Line";
+import findNextStage from "components/form/stage/findNextStage.ts";
 import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
 
 export default props => {
+  const itemsInStage = useRef(false);
+
   const allFields = (chapter, itemData) => {
     let batchingData = {};
     chapter.pages.forEach(page => {
@@ -57,7 +60,16 @@ export default props => {
   };
 
   const add = (item, description, batchingData) => {
-    props.setBatchingListIds(prevState => [...prevState, Number(item.id)]);
+    props.setBatchingListIds(prevState => {
+      return {
+        ...prevState,
+        [item.id]: findNextStage(
+          { leadEngineer: item.leadEngineer },
+          item.stage,
+          description.data.geometry
+        ).stage
+      };
+    });
     props.setNewDescriptionId(prevState => [
       ...prevState,
       Number(description.id)
@@ -70,18 +82,18 @@ export default props => {
     }
   };
   const remove = item => {
-    if (props.batchingListIds.length === 1) {
+    if (Object.keys(props.batchingListIds).length === 1) {
       props.setBatchingData(false);
     }
     if (props.finishedItem) {
       props.setFinishedItem(0);
     }
 
-    let index = props.batchingListIds.indexOf(Number(item.id));
+    let index = Object.keys(props.batchingListIds).indexOf(item.id);
     if (-1 < index) {
       props.setBatchingListIds(prevState => {
-        prevState.splice(index, 1);
-        return [...prevState];
+        delete prevState[Object.keys(prevState)[index]];
+        return { ...prevState };
       });
       props.setNewDescriptionId(prevState => {
         prevState.splice(index, 1);
@@ -117,7 +129,9 @@ export default props => {
             onChangeInput={e => handleClick(e, item, description, batchingData)}
             id={`${index}-${description.id}-batching-check`}
             value={
-              props.batchingListIds.find(id => Number(id) === Number(item.id))
+              Object.keys(props.batchingListIds).find(
+                id => Number(id) === Number(item.id)
+              )
                 ? true
                 : false
             }
@@ -136,24 +150,19 @@ export default props => {
     });
   };
 
-  return (
-    <div>
-      <h3 style={{ position: "relative", top: ".15em" }}>
-        {props.partialBatching && "Partial"} Batching for{" "}
-        {camelCaseToNormal(props.stage)}
-      </h3>
-      <Line></Line>
-      <p>Pick what items to batch below:</p>
-      {props.data &&
+  const CheckInputs = ({ data, descriptionId }) => (
+    <>
+      {data &&
         objectPath
-          .get(props.data, "projects.0.descriptions")
+          .get(data, "projects.0.descriptions")
           .map((description, index) => {
             if (
-              (props.descriptionId &&
-                Number(description.id) === Number(props.descriptionId)) ||
-              !props.descriptionId ||
-              Number(props.descriptionId) === 0
+              (descriptionId &&
+                Number(description.id) === Number(descriptionId)) ||
+              !descriptionId ||
+              Number(descriptionId) === 0
             ) {
+              itemsInStage.current = true;
               return (
                 <div
                   key={`${index}-${description.id}-batching-description`}
@@ -180,9 +189,28 @@ export default props => {
                 </div>
               );
             } else {
+              itemsInStage.current = false;
               return null;
             }
           })}
+    </>
+  );
+
+  return (
+    <div>
+      <h3 style={{ position: "relative", top: ".15em" }}>
+        {props.partialBatching && "Partial"} Batching for{" "}
+        {camelCaseToNormal(props.stage)}
+      </h3>
+      <Line></Line>
+      {itemsInStage.current ? (
+        <>
+          <p>Pick what items to batch below:</p>
+          <CheckInputs data={props.data} descriptionId={props.descriptionId} />
+        </>
+      ) : (
+        <p>No items on this stage</p>
+      )}
     </div>
   );
 };

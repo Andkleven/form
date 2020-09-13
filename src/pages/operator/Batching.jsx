@@ -22,7 +22,7 @@ export default () => {
   const { stage, projectId, descriptionId, geometryDefault } = useParams();
 
   const [batchingData, setBatchingData] = useState(false);
-  const [batchingListIds, setBatchingListIds] = useState([]);
+  const [batchingListIds, setBatchingListIds] = useState({});
   const [fixedData, setFixedData] = useState(null);
   const [newDescriptionId, setNewDescriptionId] = useState([]);
   const [reRender, setReRender] = useState(false);
@@ -126,35 +126,37 @@ export default () => {
           chapterAlwaysInWrite={true}
           componentsId={"leadEngineersPage"}
           stageType={geometry}
-          notSubmitButton={!batchingListIds.length}
+          notSubmitButton={!Object.keys(batchingListIds).length}
           document={batchingJson.document}
           reRender={() => {
-            setBatchingListIds([]);
+            setBatchingListIds({});
             setBatchingData(false);
             setReRender(!reRender);
           }}
           data={getDataToBatching(
             fixedData,
-            batchingListIds,
+            Object.keys(batchingListIds),
             batchingJson.document.queryPath,
             newDescriptionId[0],
             getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
             batchingData
           )}
-          stage={stage}
           specData={getDataToBatching(
             fixedData,
-            batchingListIds,
+            Object.keys(batchingListIds),
             batchingJson.document.specQueryPath,
             newDescriptionId[0],
             getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
             batchingData,
             true
           )}
+          saveVariables={{
+            itemIdList: Object.keys(batchingListIds),
+            stages: Object.values(batchingListIds)
+          }}
           updateBatchingCache={() => update}
-          saveButton={!!batchingListIds.length}
-          readOnlyFields={!batchingListIds[0]}
-          batchingListIds={batchingListIds}
+          saveButton={!!Object.keys(batchingListIds).length}
+          readOnlyFields={!Object.keys(batchingListIds)}
         />
       </Paper>
     </Canvas>

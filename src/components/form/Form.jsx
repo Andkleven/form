@@ -238,7 +238,6 @@ export default ({
           variables: {
             ...variables,
             ...saveVariablesForm.current,
-            itemIdList: batchingListIds ? batchingListIds : undefined,
             stage:
               isStringInstance(stage) &&
               submit &&
@@ -259,7 +258,6 @@ export default ({
       mutation,
       addValuesToData,
       nextStage,
-      batchingListIds,
       stageType,
       specData,
       stage,

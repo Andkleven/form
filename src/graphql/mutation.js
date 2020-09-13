@@ -167,14 +167,14 @@ const OPERATOR_BATCHING = gql`
   mutation operatorsBaching(
     $operator: OperatorBachingInput
     $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
-    $itemIdList: [Int]!
-    $stage: String
+    $itemIdList: [String]!
+    $stages: [String]!
   ) {
     operatorsBaching(
       operator: $operator
       vulcanizationOperators: $vulcanizationOperators
       itemIdList: $itemIdList
-      stage: $stage
+      stages: $stages
     ) {
       batching {
         id
