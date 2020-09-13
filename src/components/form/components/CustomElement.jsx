@@ -13,7 +13,7 @@ const CustomCoating = props => {
     layers += Number(
       objectPath.get(
         props.specData,
-        `leadEngineers.0.vulcanizationSteps.${i}.data.numberOfLayers`
+        `leadEngineer.vulcanizationSteps.${i}.data.numberOfLayers`
       )
     );
   }
@@ -29,7 +29,7 @@ const CustomCoating = props => {
           backendData={props.backendData}
           label={"Step"}
           value={`${props.repeatStepList[0] + 1} of ${
-            objectPath.get(props.specData, "leadEngineers.0.vulcanizationSteps")
+            objectPath.get(props.specData, "leadEngineer.vulcanizationSteps")
               .length
           }`}
         />
@@ -42,10 +42,7 @@ const CustomCoating = props => {
           noLine
           label={"Layer"}
           value={`${layers} of ${sumFieldInObject(
-            objectPath.get(
-              props.specData,
-              "leadEngineers.0.vulcanizationSteps"
-            ),
+            objectPath.get(props.specData, "leadEngineer.vulcanizationSteps"),
             "numberOfLayers"
           )}`}
         />
@@ -80,7 +77,7 @@ const CustomLead = props => {
     let layersThicknessTemporary = 0.0;
     let steps = objectPath.get(
       documentData.current,
-      "leadEngineers.0.vulcanizationSteps"
+      "leadEngineer.vulcanizationSteps"
     );
     if (Array.isArray(steps)) {
       steps.forEach((step, stepIndex) => {
@@ -89,13 +86,13 @@ const CustomLead = props => {
             if (
               !objectPath.get(
                 documentData.current,
-                `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.layersUnique`
+                `leadEngineer.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.layersUnique`
               )
             ) {
               layersThicknessTemporary += Number(
                 objectPath.get(
                   mathStore.current,
-                  `leadEngineers.0.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`
+                  `leadEngineer.vulcanizationSteps.${stepIndex}.coatingLayers.${coatingLayerIndex}.data.shrunkThickness`
                 )
               );
             }
@@ -104,7 +101,7 @@ const CustomLead = props => {
     }
     let targetDescriptionValue = objectPath.get(
       documentData.current,
-      "leadEngineers.0.data.targetDescriptionValue",
+      "leadEngineer.data.targetDescriptionValue",
       null
     );
     if (targetDescriptionValue) {
@@ -191,7 +188,7 @@ const CustomLead = props => {
 const ActualSteelThickness = props => {
   if (props.repeatStepList[1] === 0) {
     return objectPath
-      .get(props.backendData, `operators.0.measurementPointActualTdvs`)
+      .get(props.backendData, `operator.measurementPointActualTdvs`)
       .map((measurementPointActual, index) => {
         return (
           <ReadField
@@ -200,7 +197,7 @@ const ActualSteelThickness = props => {
             readOnly={true}
             label={`Measurement Point Actual Steel ${objectPath.get(
               props.specData,
-              `leadEngineers.0.data.targetDescriptionValue`
+              `leadEngineer.data.targetDescriptionValue`
             )}`}
             value={measurementPointActual.data.measurementPointActual}
             unit={"mm"}

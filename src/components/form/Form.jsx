@@ -94,8 +94,6 @@ export default ({
   saveButton,
   stage,
   optionsQuery,
-  firstQueryPath,
-  secondQueryPath,
   updateBatchingCache,
   update,
   reRender,
@@ -160,52 +158,26 @@ export default ({
       query: query[document.query],
       variables: { id: getQueryBy }
     });
-    let array = objectPath.get(oldData, document.queryPath);
-    let index = array.findIndex(
-      x => x.id === data[document.queryPath.split(/[.]+/).pop()].new.id
-    );
-    objectPath.set(
-      oldData,
-      `${document.queryPath}.${index}`,
-      data[document.queryPath.split(/[.]+/).pop()].new
-    );
-    let saveData = document.queryPath.split(/[.]+/).splice(0, 1)[0];
-    cache.writeQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy },
-      data: { [saveData]: oldData[saveData] }
-    });
-  };
-
-  const updateWithVariable = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy }
-    });
-    let secondQueryPath = "";
-    let newData = data[firstQueryPath.split(/[.]+/).pop()];
-    if (secondQueryPath.trim()) {
-      newData = data[secondQueryPath.split(/[.]+/).pop()];
-      secondQueryPath = `.${repeatStepList}.${secondQueryPath}`;
-    }
-    let array = objectPath.get(oldData, [firstQueryPath] + secondQueryPath);
-    let index = 0;
-    if (secondQueryPath.trim()) {
-      index = array.findIndex(x => x.id === newData.new.id);
+    let array = objectPath.get(oldData, document.getOldValue);
+    let index;
+    if (Array.isArray(array)) {
+      index = array.findIndex(
+        x => x.id === objectPath.get(data, document.getNewValue).id
+      );
     } else {
-      index = array.findIndex(x => x.id === newData.new.id);
+      index = null;
     }
     objectPath.set(
       oldData,
-      `${firstQueryPath}${secondQueryPath}.${index}`,
-      newData.new
+      index === null
+        ? `${document.getOldValue}`
+        : `${document.getOldValue}.${index}`,
+      objectPath.get(data, document.getNewValue)
     );
-    let saveData = firstQueryPath.split(/[.]+/).splice(0, 1)[0];
-
     cache.writeQuery({
       query: query[document.query],
       variables: { id: getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { ...oldData }
     });
   };
 
@@ -216,32 +188,13 @@ export default ({
     });
     objectPath.push(
       oldData,
-      document.queryPath,
-      data[document.queryPath.split(/[.]+/).pop()].new
+      document.getOldValue,
+      objectPath.get(data, document.getNewValue)
     );
-    let saveData = document.queryPath.split(/[.]+/).splice(0, 1)[0];
     cache.writeQuery({
       query: query[document.query],
       variables: { id: getQueryBy },
-      data: { [saveData]: oldData[saveData] }
-    });
-  };
-
-  const createWithVariable = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy }
-    });
-    objectPath.push(
-      oldData,
-      `${firstQueryPath}.${repeatStepList}.${secondQueryPath}`,
-      data[secondQueryPath.split(/[.]+/).pop()].new
-    );
-    let saveData = firstQueryPath.split(/[.]+/).splice(0, 1)[0];
-    cache.writeQuery({
-      query: document.query,
-      variables: { id: getQueryBy },
-      data: { [saveData]: oldData[saveData] }
+      data: { ...oldData }
     });
   };
 
@@ -251,17 +204,11 @@ export default ({
       update: updateBatchingCache
         ? updateBatchingCache
         : update
-        ? firstQueryPath
-          ? updateWithVariable
-          : updateCache
+        ? updateCache
         : !data ||
           !data[Object.keys(data)[0]] ||
           !data[Object.keys(data)[0]].length
-        ? firstQueryPath
-          ? createWithVariable
-          : create
-        : firstQueryPath
-        ? updateWithVariable
+        ? create
         : updateCache,
       onError: () => {},
       onCompleted: reRender

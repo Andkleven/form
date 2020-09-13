@@ -9,7 +9,7 @@ const ITEM = gql`
       qrCode
       repair
       stage
-      leadEngineers {
+      leadEngineer {
         id
         data
         measurementPointActualTdvs {
@@ -17,6 +17,18 @@ const ITEM = gql`
           data
         }
         rubberCements {
+          id
+          data
+        }
+        ultrasounds {
+          id
+          data
+        }
+        tracks {
+          id
+          data
+        }
+        ringMaterials {
           id
           data
         }
@@ -45,7 +57,7 @@ const ITEM = gql`
           }
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -106,7 +118,7 @@ const BATCHING_OPERATOR = gql`
           qrCode
           repair
           stage
-          leadEngineers {
+          leadEngineer {
             id
             data
             measurementPointActualTdvs {
@@ -122,6 +134,18 @@ const BATCHING_OPERATOR = gql`
               data
             }
             finalInspectionDimensionsChecks {
+              id
+              data
+            }
+            ultrasounds {
+              id
+              data
+            }
+            tracks {
+              id
+              data
+            }
+            ringMaterials {
               id
               data
             }
@@ -142,7 +166,7 @@ const BATCHING_OPERATOR = gql`
               }
             }
           }
-          operators {
+          operator {
             id
             data
             additionalCustomTestOperators {
@@ -176,7 +200,7 @@ const BATCHING_VULCANIZATION = gql`
           qrCode
           repair
           stage
-          leadEngineers {
+          leadEngineer {
             id
             data
             measurementPointActualTdvs {
@@ -192,6 +216,18 @@ const BATCHING_VULCANIZATION = gql`
               data
             }
             finalInspectionDimensionsChecks {
+              id
+              data
+            }
+            ultrasounds {
+              id
+              data
+            }
+            tracks {
+              id
+              data
+            }
+            ringMaterials {
               id
               data
             }
@@ -212,7 +248,7 @@ const BATCHING_VULCANIZATION = gql`
               }
             }
           }
-          operators {
+          operator {
             vulcanizationSteps {
               id
               data
@@ -247,10 +283,6 @@ const GET_ORDER_GEOMETRY = gql`
       id
       data
       leadEngineerDone
-      itpDocumentNumbers {
-        id
-        data
-      }
       descriptions {
         id
         data
@@ -262,7 +294,7 @@ const GET_ORDER_GEOMETRY = gql`
           id
           itemId
           unique
-          leadEngineers {
+          leadEngineer {
             id
             data
           }
@@ -279,41 +311,56 @@ const GET_ORDER_GEOMETRY = gql`
 
 const GET_LEAD_ENGINEER = gql`
   query getLeadEngineer($id: Int) {
-    leadEngineers(item: $id) {
+    items(id: $id) {
       id
-      data
-      measurementPointActualTdvs {
+      leadEngineer {
         id
         data
-      }
-      vulcanizationSteps {
-        id
-        data
-        coatingLayers {
+        measurementPointActualTdvs {
           id
           data
-
-          cumulativeThickness {
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
             id
             data
+
+            cumulativeThickness {
+              id
+              data
+            }
           }
         }
-      }
-      rubberCements {
-        id
-        data
-      }
-      additionalCustomTests {
-        id
-        data
-      }
-      finalInspectionCustomTests {
-        id
-        data
-      }
-      finalInspectionDimensionsChecks {
-        id
-        data
+        rubberCements {
+          id
+          data
+        }
+        ultrasounds {
+          id
+          data
+        }
+        tracks {
+          id
+          data
+        }
+        ringMaterials {
+          id
+          data
+        }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
+          id
+          data
+        }
+        finalInspectionDimensionsChecks {
+          id
+          data
+        }
       }
     }
   }
@@ -332,7 +379,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
         id
         itemId
         stage
-        leadEngineers {
+        leadEngineer {
           id
           data
           measurementPointActualTdvs {
@@ -340,6 +387,18 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             data
           }
           rubberCements {
+            id
+            data
+          }
+          ultrasounds {
+            id
+            data
+          }
+          tracks {
+            id
+            data
+          }
+          ringMaterials {
             id
             data
           }
@@ -368,7 +427,7 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             }
           }
         }
-        operators {
+        operator {
           id
           data
           surfaceCleanlinessImage
@@ -419,7 +478,7 @@ const GET_OPERATOR_BY_ITEM = gql`
       qrCode
       repair
       stage
-      leadEngineers {
+      leadEngineer {
         id
         data
         measurementPointActualTdvs {
@@ -442,6 +501,18 @@ const GET_OPERATOR_BY_ITEM = gql`
           id
           data
         }
+        ultrasounds {
+          id
+          data
+        }
+        tracks {
+          id
+          data
+        }
+        ringMaterials {
+          id
+          data
+        }
         additionalCustomTests {
           id
           data
@@ -455,7 +526,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -496,7 +567,7 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
       }
-      finalInspectionQualityControls {
+      finalInspectionQualityControl {
         id
         data
         measurementPointQualityControls {
@@ -568,7 +639,7 @@ const QUALITY_CONTROL = gql`
       qrCode
       repair
       stage
-      leadEngineers {
+      leadEngineer {
         id
         data
         measurementPointActualTdvs {
@@ -576,6 +647,18 @@ const QUALITY_CONTROL = gql`
           data
         }
         rubberCements {
+          id
+          data
+        }
+        ultrasounds {
+          id
+          data
+        }
+        tracks {
+          id
+          data
+        }
+        ringMaterials {
           id
           data
         }
@@ -604,7 +687,7 @@ const QUALITY_CONTROL = gql`
           }
         }
       }
-      operators {
+      operator {
         id
         data
         surfaceCleanlinessImage
@@ -645,7 +728,7 @@ const QUALITY_CONTROL = gql`
           data
         }
       }
-      finalInspectionQualityControls {
+      finalInspectionQualityControl {
         id
         data
         measurementPointQualityControls {

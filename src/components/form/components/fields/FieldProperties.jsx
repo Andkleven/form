@@ -42,7 +42,7 @@ export default React.memo(({ ...props }) => {
   }, [props.path, props.fieldName, props.type]);
 
   const [state, setState] = useState("");
-  const hidden = useHidden(props.readOnlyFieldIf, [
+  const hidden = useHidden(props.writeOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
   ]);
 

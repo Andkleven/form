@@ -7,10 +7,6 @@ const ORDER = gql`
         id
         data
         leadEngineerDone
-        itpDocumentNumbers {
-          id
-          data
-        }
         descriptions {
           id
           data
@@ -22,7 +18,7 @@ const ORDER = gql`
             id
             itemId
             unique
-            leadEngineers {
+            leadEngineer {
               id
               data
             }
@@ -82,7 +78,7 @@ const ITEM = gql`
         qrCode
         repair
         stage
-        leadEngineers {
+        leadEngineer {
           id
           data
         }
@@ -95,13 +91,13 @@ const ITEM = gql`
 `;
 
 const LEAD_ENGINEER = gql`
-  mutation leadEngineers(
-    $leadEngineers: [LeadEngineerInput]
+  mutation leadEngineer(
+    $leadEngineer: LeadEngineerInput
     $descriptionId: Int
     $itemId: Int
   ) {
-    leadEngineers(
-      leadEngineers: $leadEngineers
+    leadEngineer(
+      leadEngineer: $leadEngineer
       descriptionId: $descriptionId
       itemId: $itemId
     ) {
@@ -113,6 +109,18 @@ const LEAD_ENGINEER = gql`
           data
         }
         additionalCustomTests {
+          id
+          data
+        }
+        ultrasounds {
+          id
+          data
+        }
+        tracks {
+          id
+          data
+        }
+        ringMaterials {
           id
           data
         }
@@ -157,13 +165,13 @@ const LEAD_ENGINEER_DONE = gql`
 
 const OPERATOR_BATCHING = gql`
   mutation operatorsBaching(
-    $operators: [OperatorBachingInput]
+    $operator: OperatorBachingInput
     $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
     $itemIdList: [Int]!
     $stage: String
   ) {
     operatorsBaching(
-      operators: $operators
+      operator: $operator
       vulcanizationOperators: $vulcanizationOperators
       itemIdList: $itemIdList
       stage: $stage
@@ -182,7 +190,7 @@ const OPERATOR_BATCHING = gql`
             id
             itemId
             stage
-            operators {
+            operator {
               id
               data
               additionalCustomTestOperators {
@@ -202,21 +210,17 @@ const OPERATOR_BATCHING = gql`
 `;
 
 const OPERATOR = gql`
-  mutation operators(
-    $operators: [OperatorInput]
-    $stage: String
-    $itemId: Int
-  ) {
-    operators(operators: $operators, stage: $stage, itemId: $itemId) {
+  mutation operator($operator: OperatorInput, $stage: String, $itemId: Int) {
+    operator(operator: $operator, stage: $stage, itemId: $itemId) {
       new {
         item {
           id
+          stage
           itemId
           unique
           qrCode
           repair
-          stage
-          leadEngineers {
+          leadEngineer {
             id
             data
             measurementPointActualTdvs {
@@ -239,6 +243,18 @@ const OPERATOR = gql`
               id
               data
             }
+            ultrasounds {
+              id
+              data
+            }
+            tracks {
+              id
+              data
+            }
+            ringMaterials {
+              id
+              data
+            }
             additionalCustomTests {
               id
               data
@@ -252,7 +268,7 @@ const OPERATOR = gql`
               data
             }
           }
-          operators {
+          operator {
             id
             data
             surfaceCleanlinessImage
@@ -293,7 +309,7 @@ const OPERATOR = gql`
               data
             }
           }
-          finalInspectionQualityControls {
+          finalInspectionQualityControl {
             id
             data
             measurementPointQualityControls {
@@ -329,25 +345,25 @@ const OPERATOR = gql`
 `;
 
 const QUALITY_CONTROL = gql`
-  mutation finalInspectionQualityControls(
-    $finalInspectionQualityControls: [FinalInspectionQualityControlInput]
+  mutation finalInspectionQualityControl(
+    $finalInspectionQualityControl: FinalInspectionQualityControlInput
     $itemId: Int
     $stage: String
   ) {
-    finalInspectionQualityControls(
-      finalInspectionQualityControls: $finalInspectionQualityControls
+    finalInspectionQualityControl(
+      finalInspectionQualityControl: $finalInspectionQualityControl
       itemId: $itemId
       stage: $stage
     ) {
       new {
         item {
           id
+          stage
           itemId
           unique
           qrCode
           repair
-          stage
-          leadEngineers {
+          leadEngineer {
             id
             data
             measurementPointActualTdvs {
@@ -370,6 +386,18 @@ const QUALITY_CONTROL = gql`
               id
               data
             }
+            ultrasounds {
+              id
+              data
+            }
+            tracks {
+              id
+              data
+            }
+            ringMaterials {
+              id
+              data
+            }
             additionalCustomTests {
               id
               data
@@ -383,7 +411,7 @@ const QUALITY_CONTROL = gql`
               data
             }
           }
-          operators {
+          operator {
             id
             data
             surfaceCleanlinessImage
@@ -424,7 +452,7 @@ const QUALITY_CONTROL = gql`
               data
             }
           }
-          finalInspectionQualityControls {
+          finalInspectionQualityControl {
             id
             data
             measurementPointQualityControls {

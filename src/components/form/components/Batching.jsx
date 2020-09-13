@@ -29,7 +29,7 @@ export default props => {
             itemData,
             Array.isArray(props.json.batching.dataPath)
               ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
-              : [props.json.batching.dataPath, `data.${field.fieldName}`],
+              : `${props.json.batching.dataPath}.data.${field.fieldName}`,
             props.repeatStepList
           );
         }
@@ -40,13 +40,13 @@ export default props => {
           batchingData[field.fieldName + "min"] = field.min;
         }
         if (field.routeToSpecMax) {
-          batchingData[field.fieldName + "routeToSpecMax"] = objectPath.get(
+          batchingData[field.fieldName] = objectPath.get(
             itemData,
             field.routeToSpecMax
           );
         }
         if (field.routeToSpecMin) {
-          batchingData[field.fieldName + "routeToSpecMin"] = objectPath.get(
+          batchingData[field.fieldName] = objectPath.get(
             itemData,
             field.routeToSpecMin
           );
@@ -152,6 +152,7 @@ export default props => {
           <CheckInput
             className="mt-3"
             disabled={disabled}
+            key={`${index}-${item.itemId}`}
             onChangeInput={e => handleClick(e, item, description, batchingData)}
             id={`${index}-${description.id}-batching-check`}
             checked={
@@ -197,7 +198,7 @@ export default props => {
       } else if (item.stage === props.stage) {
         // samme stage, men forskjellig data
         return (
-          <div>
+          <div key={`${index}-${item.itemId}`}>
             <s className="text-muted">
               {item.itemId}
               {/* <div className="d-inline text-secondary">
@@ -260,7 +261,10 @@ export default props => {
                           </div>
                         </div>
                         <LightLine></LightLine>
-                        <Items description={description} />
+                        <Items
+                          key={`${index}-${description.id}-batching`}
+                          description={description}
+                        />
                       </>
                     )}
                 </div>

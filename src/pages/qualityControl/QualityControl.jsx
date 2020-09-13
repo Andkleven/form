@@ -14,9 +14,8 @@ import Overview from "components/layout/Overview";
 import { ItemContext } from "components/contexts/ItemContext";
 import Loading from "components/Loading";
 
-const access = getAccess().access;
-
 export default pageInfo => {
+  const access = getAccess().access;
   const { itemId, geometry } = pageInfo.match.params;
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(null);
@@ -29,7 +28,6 @@ export default pageInfo => {
       variables: { id: itemId }
     }
   );
-
   useEffect(() => {
     if (item.id === null) {
       setItem({
@@ -60,9 +58,9 @@ export default pageInfo => {
           componentsId={"SingleItem"}
           document={operatorCoatedItemJson}
           reRender={() => setReRender(!reRender)}
-          data={fixedData && formDataStructure(fixedData, "items.0.operators")}
+          data={fixedData && formDataStructure(fixedData, "items.0.operator")}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
           stage={fixedData && fixedData.items[0].stage}
           stageType={geometry}
@@ -79,20 +77,20 @@ export default pageInfo => {
           Quality Control
         </Title>
         <Form
-          componentsId={"finalInspectionQualityControls"}
+          componentsId={"finalInspectionQualityControl"}
           document={qualityControlCoatedItemJson}
           data={
             fixedData &&
             formDataStructure(
               fixedData,
-              "items.0.finalInspectionQualityControls"
+              "items.0.finalInspectionQualityControl"
             )
           }
           update={true}
           jsonVariables={[geometry]}
           edit={getAccess().itemEdit}
           specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineers")
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
           reRender={() => setReRender(!reRender)}
           allData={fixedData}

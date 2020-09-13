@@ -199,15 +199,13 @@ export default () => {
 
     let itemCount = 0;
     let finishedItemCount = 0;
-
     data.projects.forEach(project => {
       project.descriptions.forEach(description => {
         description.items.forEach(item => {
-          console.log(item.leadEngineers);
           itemCount += 1;
           if (
-            item.leadEngineers[0] &&
-            JSON.parse(item.leadEngineers[0].data).finalInspection
+            item.leadEngineer &&
+            JSON.parse(item.leadEngineer.data).finalInspection
           ) {
             finishedItemCount += 1;
           }
@@ -232,7 +230,7 @@ export default () => {
 
   // console.log(data);
 
-  // const sendable = leadEngineers.0.data.finalInspection
+  // const sendable = leadEngineer.data.finalInspection
 
   useEffect(() => {
     if (!error && !loading && pathExists("projects.0.descriptions")) {

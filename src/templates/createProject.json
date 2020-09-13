@@ -1,5 +1,6 @@
 {
-  "queryPath": "projects",
+  "getOldValue": "projects",
+  "getNewValue": "projects.new",
   "mutation": "ORDER",
   "query": "GET_ORDER_GEOMETRY",
   "optionsQuery": "USERS",
@@ -9,7 +10,7 @@
       "pages": [
         {
           "pageTitle": "Project",
-          "queryPath": "projects",
+          "queryPath": "projects.0",
           "fields": [
             {
               "fieldName": "projectNumber",

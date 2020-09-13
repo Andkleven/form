@@ -262,6 +262,8 @@ export const objectifyQuery = query => {
           query[key].forEach((value, index) => {
             objectifyEntries(value, path + "." + index.toString());
           });
+        } else if (typeof query[key] === "object" && query[key] !== null) {
+          objectifyEntries(query[key], path);
         } else if (key === "data") {
           let isData;
           if (isStringInstance(query[key])) {
@@ -310,6 +312,8 @@ export const getBatchingData = (query, batching) => {
           if (Object.keys(data).length !== 0) {
             objectPath.set(newObject, path, { ...data });
           }
+        } else if (typeof query[key] === "object" && query[key] !== null) {
+          objectifyEntries(query[key], path);
         }
       });
     };
@@ -373,6 +377,8 @@ export const stringifyQuery = (query, removeEmptyField = false) => {
         if (isData) {
           objectPath.set(newObject, path, isData);
         }
+      } else if (typeof query[key] === "object" && query[key] !== null) {
+        loopThroughQuery(query[key], path);
       }
     });
   };
@@ -405,7 +411,8 @@ export const getDataToBatching = (
   path,
   descriptionId,
   repeatStepList,
-  batchingData
+  batchingData,
+  specData = false
 ) => {
   let key = batchingKey(path);
   if (fixedData && batchingListIds[0]) {
@@ -416,15 +423,18 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path
     );
-    return getBatchingData({ [key]: newData }, batchingData);
+    return specData
+      ? { [key]: newData }
+      : getBatchingData({ [key]: newData }, batchingData);
   }
   return { [key]: [] };
 };
 
 export const formDataStructure = (data, path) => {
   let lastPath = path.split(".");
+  let newData = objectPath.get(data, path, null);
   return {
-    [lastPath[lastPath.length - 1]]: objectPath.get(data, path, null)
+    [lastPath[lastPath.length - 1]]: newData === null ? {} : newData
   };
 };
 
@@ -554,7 +564,7 @@ export function getStartStage(geometry, item) {
     case "Coated Item":
       if (
         item &&
-        objectPath.get(item, "leadEngineers.0.data.measurementPoint") === 0
+        objectPath.get(item, "leadEngineer.data.measurementPoint") === 0
       ) {
         stage = "steelPreparation1";
         break;

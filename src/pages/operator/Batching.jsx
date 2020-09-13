@@ -85,6 +85,7 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
+  console.log(fixedData);
   return (
     <Canvas>
       <Paper>
@@ -147,7 +148,8 @@ export default () => {
             batchingJson.document.specQueryPath,
             newDescriptionId[0],
             getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
-            batchingData
+            batchingData,
+            true
           )}
           updateBatchingCache={() => update}
           saveButton={!!batchingListIds.length}

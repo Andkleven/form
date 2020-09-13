@@ -23,6 +23,8 @@ export default ({ setState, state, ...props }) => {
     DocumentDataContext
   );
 
+  // console.log(documentData.current);
+
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
