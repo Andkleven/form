@@ -149,7 +149,8 @@ export default ({
     lastData.current = cloneDeep(data);
     documentDataDispatch({
       type: "setState",
-      newState: data
+      newState: data,
+      notReRender: true
     });
   }
 
