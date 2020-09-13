@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Tree from "components/explorer/components/Tree";
 import Link from "../../design/fonts/Link";
 import ItemGrid from "components/layout/ItemGrid";
@@ -217,8 +217,6 @@ export default ({
     }
     return comparison;
   }
-
-  console.log(results);
 
   // Sort projects
   results.sort(projectsAlphabetically);

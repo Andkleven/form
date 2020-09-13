@@ -3,7 +3,6 @@ import ItemUpdate from "components/item/ItemUpdate";
 import { Modal } from "react-bootstrap";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSpring, animated } from "react-spring";
 
 export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
@@ -30,7 +29,7 @@ export default ({ item, unique, submitItem, submitDelete, id, ...props }) => {
     <animated.div style={spring} className="h-100">
       <div className="h-100">
         <DepthButtonGroup
-          outerClass="h-100"
+          outerclass="h-100"
           key={`item-${item.itemId}`}
           className="w-100 h-100"
           style={{ padding: "2px 2px" }}
