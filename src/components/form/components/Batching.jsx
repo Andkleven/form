@@ -155,7 +155,7 @@ export default props => {
             key={`${index}-${item.itemId}`}
             onChangeInput={e => handleClick(e, item, description, batchingData)}
             id={`${index}-${description.id}-batching-check`}
-            checked={
+            value={
               props.batchingListIds.find(id => Number(id) === Number(item.id))
                 ? true
                 : false

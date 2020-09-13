@@ -244,7 +244,7 @@ export default ({ view = "items", ...props }) => {
       options={stages}
       select="select"
       tight
-      value={filters.stage}
+      value={filters.stage ? filters.stage : ""}
       onChangeSelect={e => {
         if (e) {
           setTimeout(() => {}, 1000);

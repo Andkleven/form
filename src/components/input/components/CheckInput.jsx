@@ -16,7 +16,7 @@ export default props => (
             `custom-${props.type}-${props.fieldName}-${props.repeatStepList}`
           }
           label={props.label}
-          checked={props.value || props.checked}
+          checked={props.value}
           name={props.name}
           onChange={props.onChangeInput}
           onBlur={props.onBlur}

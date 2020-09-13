@@ -49,6 +49,7 @@ export default ({ setState, state, ...props }) => {
   const onChangeSelect = e => {
     onChange(e.value);
   };
+
   const onChangeFile = value => {
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
