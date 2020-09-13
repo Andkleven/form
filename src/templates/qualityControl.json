@@ -30,12 +30,12 @@
                 "mould": "Measurement Point"
               },
               "calculateMin": {
-                "coatedItem": "qualityControlMeasurementPointCoatingItemMin",
-                "mould": "qualityControlMeasurementPointMouldMin"
+                "coatedItem": "mathQualityControlMeasurementPointCoatingItemMin",
+                "mould": "mathQualityControlMeasurementPointMouldMin"
               },
               "calculateMax": {
-                "coatedItem": "qualityControlMeasurementPointCoatingItemMax",
-                "mould": "qualityControlMeasurementPointMouldMax"
+                "coatedItem": "mathQualityControlMeasurementPointCoatingItemMax",
+                "mould": "mathQualityControlMeasurementPointMouldMax"
               },
               "ignoreMin": true,
               "ignoreMax": true,

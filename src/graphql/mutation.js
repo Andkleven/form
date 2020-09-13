@@ -112,6 +112,18 @@ const LEAD_ENGINEER = gql`
           id
           data
         }
+        ultrasounds {
+          id
+          data
+        }
+        tracks {
+          id
+          data
+        }
+        ringMaterials {
+          id
+          data
+        }
         finalInspectionCustomTests {
           id
           data

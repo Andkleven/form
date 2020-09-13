@@ -1,6 +1,6 @@
 {
   "getNewValue": "leadEngineer.new",
-  "getOldValue": "items.0",
+  "getOldValue": "items.0.leadEngineer",
   "mutation": "LEAD_ENGINEER",
   "query": "GET_LEAD_ENGINEER",
   "chapters": [
@@ -285,7 +285,8 @@
             },
             {
               "showField": {
-                "coatedItem": true
+                "coatedItem": true,
+                "mould": true
               },
               "fieldName": "itemRubberCementsBeforeCoating",
               "label": "Item Rubber Cement Before Coating",
@@ -294,10 +295,11 @@
             },
             {
               "showField": {
+                "coatedItem": true,
                 "mould": true
               },
-              "fieldName": "rubberCementsBeforeCoating",
-              "label": "Rubber Agent Before Coating",
+              "fieldName": "releaseCementsBeforeCoating",
+              "label": "Release Agent Before Coating",
               "type": "select",
               "options": ["75051", "Soap"]
             }
@@ -733,6 +735,7 @@
               "fieldName": "numberOfTracks",
               "label": "Number of tracks",
               "type": "Number",
+              "notSingleEdit": true,
               "writeOnlyFieldIf": "leadEngineer.data.cable",
               "minInput": 1,
               "maxInput": 4
@@ -809,7 +812,7 @@
               "math": "mathIncreasedOdForWholeElementTotal1"
             },
             {
-              "fieldName": "mathIncreasedOdForWholeElement1",
+              "fieldName": "increasedOdForWholeElement1",
               "label": "Increased OD for Whole element",
               "math": "mathIncreasedOdForWholeElement1"
             },
@@ -821,7 +824,7 @@
             {
               "fieldName": "increasedOdForEnds1",
               "label": "Increased OD for Ends",
-              "math": "increasedOdForEnds1"
+              "math": "mathIncreasedOdForEnds1"
             },
             {
               "fieldName": "barrier2",
@@ -867,7 +870,7 @@
               "math": "mathIncreasedOdForWholeElementTotal2"
             },
             {
-              "fieldName": "mathIncreasedOdForWholeElement2",
+              "fieldName": "increasedOdForWholeElement2",
               "label": "Increased OD for Whole element",
               "showField": { "dual": true },
               "math": "mathIncreasedOdForWholeElement2"
@@ -882,7 +885,7 @@
               "fieldName": "increasedOdForEnds2",
               "label": "Increased OD for Ends",
               "showField": { "dual": true },
-              "math": "increasedOdForEnds2"
+              "math": "mathIncreasedOdForEnds2"
             },
             {
               "fieldName": "description",
@@ -1050,6 +1053,7 @@
               },
               "fieldName": "asBuilt",
               "label": "As built",
+              "notSingleEdit": true,
               "type": "select",
               "options": [
                 "Swell packer standard",

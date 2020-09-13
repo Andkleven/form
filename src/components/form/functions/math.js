@@ -30,7 +30,7 @@ const qualityControlMeasurementPointMould = (allData, tolerance, decimal) => {
   ]);
 };
 
-const qualityControlMeasurementPointMouldMin = (
+const mathQualityControlMeasurementPointMouldMin = (
   allData,
   data,
   repeatStepList
@@ -40,7 +40,7 @@ const qualityControlMeasurementPointMouldMin = (
   );
   return qualityControlMeasurementPointMould(allData, toleranceMin, 1);
 };
-const qualityControlMeasurementPointMouldMax = (
+const mathQualityControlMeasurementPointMouldMax = (
   allData,
   data,
   repeatStepList
@@ -81,7 +81,7 @@ const qualityControlMeasurementPointCoatingItem = (
   ]);
 };
 
-const qualityControlMeasurementPointCoatingItemMin = (
+const mathQualityControlMeasurementPointCoatingItemMin = (
   allData,
   data,
   repeatStepList
@@ -96,7 +96,7 @@ const qualityControlMeasurementPointCoatingItemMin = (
     1
   );
 };
-const qualityControlMeasurementPointCoatingItemMax = (
+const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
   data,
   repeatStepList
@@ -409,7 +409,8 @@ const mathMeasurementPoints = (
   let elementLength = Number(
     findValue(values, `leadEngineer.data.elementLength`)
   );
-  return whatTooReturn(elementLength / 1000, decimal, [elementLength]);
+  return elementLength / 1000;
+  // return elementLength && Math.floor(elementLength / 1000);
 };
 
 const packerType = {
@@ -651,12 +652,20 @@ const mathDescription = (
   let pipeOd = objectPath.get(values, `leadEngineer.data.pipeOd`, "");
   let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
   let barrier1 = objectPath.get(values, `leadEngineer.data.barrier1`, "");
+  let cable = objectPath.get(values, `leadEngineer.data.cable`, "");
+  let numberOfTracks = objectPath.get(
+    values,
+    `leadEngineer.data.numberOfTracks`,
+    ""
+  );
   if (jsonVariables === geometry) {
     return `${
       rubberOd && pipeOd ? jsonVariables[0] : ""
     } ${rubberType} ${barrier1}x${elementLength}M ${pipeOd}/${rubberOd}`;
   } else {
-    return `${jsonVariables[0]} ${rubberType} ${barrier1} ${pipeOd}/${rubberOd} x ${elementLength}M`;
+    return `${jsonVariables[0]} ${rubberType} ${barrier1} ${
+      cable && `CL${numberOfTracks}`
+    } ${pipeOd}/${rubberOd} x ${elementLength}M`;
   }
 };
 
@@ -856,7 +865,7 @@ const mathIncreasedOdForEndsTotal1 = (
   return mathIncreasedOdForEndsTotal(values, "barrier1");
 };
 
-const increasedOdForEnds1 = (
+const mathIncreasedOdForEnds1 = (
   values,
   repeatStepList,
   decimal,
@@ -895,7 +904,7 @@ const mathIncreasedOdForEndsTotal2 = (
   return mathIncreasedOdForEndsTotal(values, "barrier2");
 };
 
-const increasedOdForEnds2 = (
+const mathIncreasedOdForEnds2 = (
   values,
   repeatStepList,
   decimal,
@@ -906,11 +915,11 @@ const increasedOdForEnds2 = (
 };
 
 const Math = {
-  increasedOdForEnds2,
+  mathIncreasedOdForEnds2,
   mathIncreasedOdForEndsTotal2,
   mathIncreasedOdForWholeElement2,
   mathIncreasedOdForWholeElementTotal2,
-  increasedOdForEnds1,
+  mathIncreasedOdForEnds1,
   mathIncreasedOdForEndsTotal1,
   mathIncreasedOdForWholeElement1,
   mathIncreasedOdForWholeElementTotal1,
@@ -927,10 +936,10 @@ const Math = {
   mathShrinkThickness,
   mathToleranceMin,
   mathToleranceMax,
-  qualityControlMeasurementPointCoatingItemMin,
-  qualityControlMeasurementPointCoatingItemMax,
-  qualityControlMeasurementPointMouldMin,
-  qualityControlMeasurementPointMouldMax,
+  mathQualityControlMeasurementPointCoatingItemMin,
+  mathQualityControlMeasurementPointCoatingItemMax,
+  mathQualityControlMeasurementPointMouldMin,
+  mathQualityControlMeasurementPointMouldMax,
   mathLayer,
   mathMeasurementPointMin,
   mathMeasurementPointMax,
