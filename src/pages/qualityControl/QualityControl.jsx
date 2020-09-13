@@ -48,7 +48,7 @@ export default pageInfo => {
 
   return (
     <Canvas showForm={!!data}>
-      {/* <Overview /> */}
+      <Overview />
       <Paper className="mb-3">
         <Title big align="center">
           Operator

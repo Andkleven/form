@@ -31,7 +31,7 @@ export default pageInfo => {
   if (error) return <p>Error :(</p>;
   return (
     <Canvas showForm={!!data}>
-      {/* <Overview /> */}
+      <Overview />
       <Paper full>
         <Form
           componentsId={"leadEngineersPage"}

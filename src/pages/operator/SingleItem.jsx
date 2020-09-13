@@ -55,7 +55,7 @@ export default pageInfo => {
 
   return (
     <Canvas showForm={!!data}>
-      {/* <Overview /> */}
+      <Overview />
       {access.specs && !finalInspection && (
         <Paper className="mb-3">
           <Title big align="center">
