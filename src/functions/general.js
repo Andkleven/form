@@ -432,8 +432,9 @@ export const getDataToBatching = (
 
 export const formDataStructure = (data, path) => {
   let lastPath = path.split(".");
+  let newData = objectPath.get(data, path, null);
   return {
-    [lastPath[lastPath.length - 1]]: objectPath.get(data, path, null)
+    [lastPath[lastPath.length - 1]]: newData === null ? {} : newData
   };
 };
 

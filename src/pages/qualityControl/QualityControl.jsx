@@ -28,7 +28,6 @@ export default pageInfo => {
       variables: { id: itemId }
     }
   );
-
   useEffect(() => {
     if (item.id === null) {
       setItem({

@@ -115,7 +115,7 @@ export default React.memo(props => {
     screenshotData
   } = useContext(DocumentDataContext);
   const [fieldGroups, setFieldGroups] = useState({});
-  const hidden = useHidden(props.readOnlyFieldIf, [
+  const hidden = useHidden(props.writeOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
   ]);
 
@@ -125,23 +125,23 @@ export default React.memo(props => {
 
   const updateReadOnly = useCallback(() => {
     if (
-      typeof props.readOnlyFieldIf === "object" &&
-      props.readOnlyFieldIf !== null &&
-      !(props.readOnlyFieldIf instanceof Array)
+      typeof props.writeOnlyFieldIf === "object" &&
+      props.writeOnlyFieldIf !== null &&
+      !(props.writeOnlyFieldIf instanceof Array)
     ) {
-      let key = Object.keys(props.readOnlyFieldIf)[0];
+      let key = Object.keys(props.writeOnlyFieldIf)[0];
       let value = objectPath.get(documentData.current, key, undefined);
       return value === undefined
         ? true
-        : !props.readOnlyFieldIf[key].includes(value);
+        : !props.writeOnlyFieldIf[key].includes(value);
     } else {
       return !objectPath.get(
         documentData.current,
-        props.readOnlyFieldIf,
+        props.writeOnlyFieldIf,
         false
       );
     }
-  }, [props.readOnlyFieldIf, documentData]);
+  }, [props.writeOnlyFieldIf, documentData]);
 
   const deleteData = useCallback(
     index => {

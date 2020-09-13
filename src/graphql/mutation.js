@@ -7,10 +7,6 @@ const ORDER = gql`
         id
         data
         leadEngineerDone
-        itpDocumentNumbers {
-          id
-          data
-        }
         descriptions {
           id
           data
@@ -235,6 +231,18 @@ const OPERATOR = gql`
               id
               data
             }
+            ultrasounds {
+              id
+              data
+            }
+            tracks {
+              id
+              data
+            }
+            ringMaterials {
+              id
+              data
+            }
             additionalCustomTests {
               id
               data
@@ -363,6 +371,18 @@ const QUALITY_CONTROL = gql`
               }
             }
             rubberCements {
+              id
+              data
+            }
+            ultrasounds {
+              id
+              data
+            }
+            tracks {
+              id
+              data
+            }
+            ringMaterials {
               id
               data
             }

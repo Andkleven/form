@@ -16,7 +16,6 @@ import Overview from "components/layout/Overview";
 
 export default pageInfo => {
   const access = getAccess();
-  leadEngineersJson.queryPath = "items.0.leadEngineer";
   leadEngineersJson.query = qualityControlJson.query;
   operatorJson.query = qualityControlJson.query;
   const { itemId, geometry } = pageInfo.match.params;
@@ -27,6 +26,7 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
+
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);

@@ -22,14 +22,14 @@
               "label": "Steel",
               "type": "select",
               "options": ["Carbon", "Duplex"],
-              "readOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
               "options": ["Garnet", "Grit", "Aluminum Oxide", "Rubbing"],
-              "readOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
               "fieldName": "relativeHumidity",
@@ -39,7 +39,7 @@
               "prepend": "Max",
               "unit": "%",
               "subtext": "ISO 8502-4",
-              "readOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
               "fieldName": "airTemperature",
@@ -49,7 +49,7 @@
               "prepend": "Min",
               "type": "Number",
               "subtext": "ISP 8502-4",
-              "readOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
               "fieldName": "steelTemperature",
@@ -66,7 +66,7 @@
                 "b2P": "SO 8502-4",
                 "dual": "SO 8502-4"
               },
-              "readOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
               "fieldName": "temperatureOverDewPoint",
@@ -76,7 +76,7 @@
               "prepend": "Min",
               "type": "Number",
               "subtext": "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature",
-              "readOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
               "fieldName": "additionalTests",
@@ -98,7 +98,7 @@
               "prepend": "Max",
               "unit": "µS/cm",
               "subtext": "ISO 8502-9",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -126,7 +126,7 @@
               },
               "type": "Number",
               "subtext": "ISO 8503-4",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests"
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests"
             },
             {
               "fieldName": "surfaceProfileMax",
@@ -150,7 +150,7 @@
               },
               "type": "Number",
               "subtext": "ISO 8503-4",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests"
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests"
             },
             {
               "fieldName": "solubleSaltLevel",
@@ -160,7 +160,7 @@
               "prepend": "Max",
               "unit": "mg/m²",
               "subtext": "ISO 8502-5/9",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -174,7 +174,7 @@
               "min": 1,
               "max": 5,
               "subtext": "ISO 8502-3, Whole number between 1-5",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -185,7 +185,7 @@
               "label": "Inspection of Steel Surface",
               "type": "checkbox",
               "subtext": "ISO 8501-3, Welds to be grade P3",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -197,7 +197,7 @@
               "placeholder": "Min",
               "type": "checkbox",
               "subtext": "ASTM D 4285, No oil and no water",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -209,7 +209,7 @@
               "placeholder": "Max",
               "type": "checkbox",
               "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -220,7 +220,7 @@
               "label": "UV Test",
               "type": "checkbox",
               "subtext": "No reflecting light",
-              "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
               "showField": {
                 "coatedItem": true,
                 "mould": true
@@ -232,7 +232,7 @@
           "queryPath": "leadEngineer.additionalCustomTests",
           "repeat": true,
           "delete": true,
-          "readOnlyFieldIf": "leadEngineer.data.additionalTests",
+          "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
           "addButton": "Custom Test",
           "fields": [
             {
@@ -729,6 +729,33 @@
               "type": "checkbox"
             },
             {
+              "showField": { "b2P": true, "dual": true },
+              "fieldName": "numberOfTracks",
+              "label": "Number of tracks",
+              "type": "Number",
+              "writeOnlyFieldIf": "leadEngineer.data.cable",
+              "minInput": 1,
+              "maxInput": 4
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineer.tracks",
+          "repeat": true,
+          "repeatGroupWithQuery": "leadEngineer.data.numberOfTracks",
+          "writeOnlyFieldIf": "leadEngineer.data.cable",
+          "fields": [
+            {
+              "fieldName": "track",
+              "indexVariableLabel": true,
+              "label": "Track {}"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineer",
+          "fields": [
+            {
               "fieldName": "coreSampleCode",
               "label": "Core sample code",
               "required": true,
@@ -879,7 +906,7 @@
           "delete": true,
           "repeat": true,
           "addButton": "Add rings material no.",
-          "readOnlyFieldIf": {
+          "writeOnlyFieldIf": {
             "leadEngineer.data.ringType": ["center ring", "end rings"]
           },
           "fields": [
@@ -887,7 +914,7 @@
               "fieldName": "centerRingMaterial",
               "indexVariableLabel": true,
               "label": "Center rings material no. {}",
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.ringType": "center ring"
               }
             },
@@ -895,7 +922,7 @@
               "fieldName": "endRingMaterial",
               "indexVariableLabel": true,
               "label": "End rings material no. {}",
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.ringType": "end rings"
               }
             }
@@ -1036,31 +1063,31 @@
               ]
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "totalLength",
               "label": "Total length",
               "subtext": "Dwg Ref. L1"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "totalLengthPinMakeUpLoss",
               "label": "Total length - Pin make up loss",
               "subtext": "Dwg Ref. L1 - Thread"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpacePinEnd",
               "label": "Handling space pin end",
               "subtext": "Dwg Ref. L2"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpacePinBox",
               "label": "Handling space pin box",
               "subtext": "Dwg Ref. L3"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard",
                   "Swell packer standard with 1 center ring",
@@ -1073,7 +1100,7 @@
               "subtext": "Dwg Ref. L4"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable with 2 center ring",
                   "Swell packer Cable with 1 center ring",
@@ -1086,7 +1113,7 @@
               "subtext": "Dwg Ref. L4"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
@@ -1097,7 +1124,7 @@
               "subtext": "Dwg Ref. L4.1"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable with 1 center ring",
                   "Swell packer Cable with 2 center ring"
@@ -1108,7 +1135,7 @@
               "subtext": "Dwg Ref. L4.2"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable with 2 center ring"
                 ]
@@ -1118,7 +1145,7 @@
               "subtext": "Dwg Ref. L4.3"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
@@ -1130,7 +1157,7 @@
               "subtext": "Dwg Ref. L4.1"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
@@ -1142,7 +1169,7 @@
               "subtext": "Dwg Ref. L4.2"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer K2 with 2 center ringer"
                 ]
@@ -1152,13 +1179,13 @@
               "subtext": "Dwg Ref. L4.3"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "basePipeOd",
               "label": "Base pipe OD",
               "subtext": "Dwg Ref. D1"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard",
                   "Swell packer K2 standard",
@@ -1170,7 +1197,7 @@
               "subtext": "Dwg Ref. D2"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
@@ -1184,7 +1211,7 @@
               "subtext": "Dwg Ref. D2"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
@@ -1198,7 +1225,7 @@
               "subtext": "Dwg Ref. D3"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer Cable with 2 center ring"
@@ -1209,19 +1236,19 @@
               "subtext": "Dwg Ref. D4"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingOd",
               "label": "End-ring OD",
               "subtext": "Dwg Ref. D2"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLength",
               "label": "End-ring Length",
               "subtext": "Dwg Ref. XX"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
@@ -1235,7 +1262,7 @@
               "subtext": "Dwg Ref. D3"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
@@ -1249,13 +1276,13 @@
               "subtext": "Dwg Ref. XX"
             },
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "couplingLength",
               "label": "Coupling length",
               "subtext": "Dwg Ref. XX"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
@@ -1267,7 +1294,7 @@
               "subtext": "Dwg Ref. CL1"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
@@ -1279,7 +1306,7 @@
               "subtext": "Dwg Ref. CL2"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
@@ -1291,7 +1318,7 @@
               "subtext": "Dwg Ref. CL3"
             },
             {
-              "readOnlyFieldIf": {
+              "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable standard",
                   "Swell packer Cable with 1 center ring",
@@ -1304,7 +1331,7 @@
             },
 
             {
-              "readOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "custom",
               "label": "Custom (Others)",
               "subtext": "Dwg Ref. XX"

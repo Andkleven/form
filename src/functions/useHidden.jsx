@@ -1,28 +1,28 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 import objectPath from "object-path";
 import { DocumentDataContext } from "components/form/Form";
-export default (readOnlyFieldIf, keyName) => {
+export default (writeOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(DocumentDataContext);
   const [hidden, setHidden] = useState(false);
 
   const updateReadOnly = useCallback(() => {
     if (
-      typeof readOnlyFieldIf === "object" &&
-      readOnlyFieldIf !== null &&
-      !(readOnlyFieldIf instanceof Array)
+      typeof writeOnlyFieldIf === "object" &&
+      writeOnlyFieldIf !== null &&
+      !(writeOnlyFieldIf instanceof Array)
     ) {
-      let key = Object.keys(readOnlyFieldIf)[0];
+      let key = Object.keys(writeOnlyFieldIf)[0];
       let value = objectPath.get(documentData.current, key, undefined);
       setHidden(
-        value === undefined ? true : !readOnlyFieldIf[key].includes(value)
+        value === undefined ? true : !writeOnlyFieldIf[key].includes(value)
       );
     } else {
-      setHidden(!objectPath.get(documentData.current, readOnlyFieldIf, false));
+      setHidden(!objectPath.get(documentData.current, writeOnlyFieldIf, false));
     }
-  }, [setHidden, readOnlyFieldIf, documentData]);
+  }, [setHidden, writeOnlyFieldIf, documentData]);
 
   useEffect(() => {
-    if (readOnlyFieldIf) {
+    if (writeOnlyFieldIf) {
       renderFunction.current[keyName] = updateReadOnly;
     }
     return () => {
@@ -31,12 +31,12 @@ export default (readOnlyFieldIf, keyName) => {
         delete renderFunction.current[keyName];
       }
     };
-  }, [readOnlyFieldIf, updateReadOnly, keyName, renderFunction]);
+  }, [writeOnlyFieldIf, updateReadOnly, keyName, renderFunction]);
 
   useEffect(() => {
-    if (readOnlyFieldIf) {
+    if (writeOnlyFieldIf) {
       updateReadOnly();
     }
-  }, [readOnlyFieldIf, updateReadOnly]);
+  }, [writeOnlyFieldIf, updateReadOnly]);
   return hidden;
 };
