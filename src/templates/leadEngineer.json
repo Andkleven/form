@@ -739,25 +739,7 @@
               "writeOnlyFieldIf": "leadEngineer.data.cable",
               "minInput": 1,
               "maxInput": 4
-            }
-          ]
-        },
-        {
-          "queryPath": "leadEngineer.tracks",
-          "repeat": true,
-          "repeatGroupWithQuery": "leadEngineer.data.numberOfTracks",
-          "writeOnlyFieldIf": "leadEngineer.data.cable",
-          "fields": [
-            {
-              "fieldName": "track",
-              "indexVariableLabel": true,
-              "label": "Track {}"
-            }
-          ]
-        },
-        {
-          "queryPath": "leadEngineer",
-          "fields": [
+            },
             {
               "fieldName": "coreSampleCode",
               "label": "Core sample code",
