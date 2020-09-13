@@ -38,10 +38,58 @@ export default ({ view = "items", ...props }) => {
   const user = getUser();
   const stages = createStages(props.data);
 
+  let results = props.data.projects;
+
+  // Project Search
+  // ______________________________________________________
+  const [projectTerm, setProjectTerm] = useState("");
+  const projectIndexes = results
+    .map((project, index) => {
+      const searchables = [
+        project["data"]["projectNumber"],
+        project["data"]["projectName"]
+      ];
+
+      let match = false;
+
+      searchables.forEach(searchable => {
+        if (!match) {
+          if (searchable.toLowerCase().includes(projectTerm.toLowerCase())) {
+            match = true;
+          }
+        }
+      });
+
+      return match && index;
+    })
+    .filter(Number);
+
+  if (projectTerm !== "") {
+    results = results
+      .map((project, index) => {
+        if (projectIndexes.includes(index)) {
+          return project;
+        }
+        return false;
+      })
+      .filter(project => project !== false);
+  }
+  // ______________________________________________________
+
   const [filters, setFilters] = useState(props.defaultFilters || {});
   const [searchTerm, setSearchTerm] = useState(props.defaultSearch || "");
   const [scan, setScan] = useState(false);
-  const results = search(props.data, filters, searchTerm);
+
+  function isEmpty(obj) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  }
+
+  if (!(isEmpty(filters) && searchTerm === "")) {
+    results = search({ projects: results }, filters, searchTerm);
+  }
 
   const clearAll = () => {
     setFilters({});
@@ -52,23 +100,78 @@ export default ({ view = "items", ...props }) => {
 
   const Search = (
     <>
+      <Input
+        noComment={true}
+        className="mb-1 w-100"
+        placeholder="Search for a project"
+        tight
+        value={projectTerm}
+        onChangeInput={e => {
+          setProjectTerm(e.target.value);
+        }}
+        prepend={
+          <>
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                position: "relative",
+                bottom: ".8em",
+                left: ".5em",
+                zIndex: 99
+              }}
+            >
+              <FontAwesomeIcon
+                icon={["fas", "search"]}
+                className="text-dark"
+                size="sm"
+                style={{ opacity: 0.75 }}
+              />
+            </div>
+            <FontAwesomeIcon
+              icon={["fad", "folder"]}
+              style={{ position: "relative", top: "0.09em" }}
+            />
+          </>
+        }
+      />
       <div className="d-flex flex-column flex-sm-row w-100">
         <Input
           noComment={true}
           className="mb-1 w-100"
-          placeholder="Search"
+          placeholder="Search for an item"
           tight
           value={searchTerm}
           onChangeInput={e => {
             setSearchTerm(e.target.value);
           }}
-          unit={
-            <FontAwesomeIcon
-              icon="search"
-              style={{ position: "relative", top: "0.09em" }}
-            />
+          prepend={
+            <>
+              <div
+                style={{
+                  width: 0,
+                  height: 0,
+                  position: "relative",
+                  bottom: ".8em",
+                  left: ".5em",
+                  zIndex: 99
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={["fas", "search"]}
+                  className="text-dark"
+                  size="sm"
+                  style={{ opacity: 0.75 }}
+                />
+              </div>
+              <FontAwesomeIcon
+                icon={["fad", "cube"]}
+                style={{ position: "relative", top: "0.09em" }}
+              />
+            </>
           }
         />
+
         <DepthButton
           short
           className="mb-1 mb-sm-0 ml-sm-1 h-100"
@@ -211,6 +314,9 @@ export default ({ view = "items", ...props }) => {
     SPECTATOR: filterStandard
   };
 
+  const searchActive =
+    projectTerm !== "" || !isEmpty(filters) || searchTerm !== "";
+
   return (
     <>
       {(!!filterConfig[user.role]["simple"] ||
@@ -260,6 +366,7 @@ export default ({ view = "items", ...props }) => {
         results={results}
         data={props.data}
         stage={filters.stage}
+        searchActive={searchActive}
       />
     </>
   );

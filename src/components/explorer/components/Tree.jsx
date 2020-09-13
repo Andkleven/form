@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { useSpring, a } from "react-spring";
 import { useMeasure } from "../styles/helpers";
 import { Frame, Title, Content } from "../styles/styles";
@@ -15,6 +15,7 @@ export default memo(
     badge
   }) => {
     const [isOpen, setOpen] = useState(defaultOpen);
+
     // const previous = usePrevious(isOpen);
     const [bind, { height: viewHeight }] = useMeasure();
     const {
@@ -47,6 +48,14 @@ export default memo(
     });
 
     const icon = `${children && (isOpen ? `folder-open` : `folder`)}`;
+
+    useEffect(() => {
+      if (defaultOpen) {
+        setOpen(true);
+      } else if (!defaultOpen) {
+        setOpen(false);
+      }
+    }, [defaultOpen]);
 
     return (
       <Frame>
