@@ -232,6 +232,8 @@ export default React.memo(({ ...props }) => {
 
   const getLabel = useCallback(
     (data = documentData.current) => {
+      console.log(props.queryVariableLabel);
+      console.log(getProperties(props.queryVariableLabel, props.jsonVariables));
       setLabel(
         variableLabel(
           getProperties(props.label, props.jsonVariables),
