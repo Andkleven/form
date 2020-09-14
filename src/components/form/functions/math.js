@@ -653,17 +653,18 @@ const mathDescription = (
   let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
   let barrier1 = objectPath.get(values, `leadEngineer.data.barrier1`, "");
   let cable = objectPath.get(values, `leadEngineer.data.cable`, "");
+  let K2 = objectPath.get(values, `leadEngineer.data.K2`, "");
   let numberOfTracks = objectPath.get(
     values,
     `leadEngineer.data.numberOfTracks`,
     ""
   );
   if (jsonVariables === geometry) {
-    return `${
+    return `${K2} ${
       rubberOd && pipeOd ? jsonVariables[0] : ""
     } ${rubberType} ${barrier1}x${elementLength}M ${pipeOd}/${rubberOd}`;
   } else {
-    return `${jsonVariables[0]} ${rubberType} ${barrier1} ${
+    return `${K2} ${jsonVariables[0]} ${rubberType} ${barrier1} ${
       cable && `CL${numberOfTracks}`
     } ${pipeOd}/${rubberOd} x ${elementLength}M`;
   }

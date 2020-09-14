@@ -443,9 +443,7 @@
               "fieldName": "numberOfLayers",
               "label": "Number of Layers",
               "required": true,
-              "type": "Number",
-              "minInput": 0,
-              "maxInput": 30,
+              "type": "Number"
               "notSingleEdit": true
             },
             {
@@ -737,8 +735,8 @@
               "type": "Number",
               "notSingleEdit": true,
               "writeOnlyFieldIf": "leadEngineer.data.cable",
-              "minInput": 1,
-              "maxInput": 4
+              "min": 1,
+              "max": 10
             },
             {
               "fieldName": "coreSampleCode",
