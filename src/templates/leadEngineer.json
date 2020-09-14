@@ -443,7 +443,9 @@
               "fieldName": "numberOfLayers",
               "label": "Number of Layers",
               "required": true,
-              "type": "Number"
+              "type": "Number",
+              "minInput": 0,
+              "maxInput": 30,
               "notSingleEdit": true
             },
             {
