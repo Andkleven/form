@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
 import objectPath from "object-path";
 import {
   findValue,
   reshapeStageSting,
-  camelCaseToNormal
+  camelCaseToNormal,
+  allNull
 } from "functions/general";
 import operatorCoatedItemJson from "templates/operator.json";
 import Line from "components/design/Line";
@@ -12,8 +13,6 @@ import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
 
 export default props => {
-  const itemsInStage = useRef(false);
-
   const allFields = (chapter, itemData) => {
     let batchingData = {};
     chapter.pages.forEach(page => {
@@ -150,52 +149,50 @@ export default props => {
     });
   };
 
-  const CheckInputs = ({ data, descriptionId }) => (
-    <>
-      {data &&
-        objectPath
-          .get(data, "projects.0.descriptions")
-          .map((description, index) => {
-            if (
-              (descriptionId &&
-                Number(description.id) === Number(descriptionId)) ||
-              !descriptionId ||
-              Number(descriptionId) === 0
-            ) {
-              itemsInStage.current = true;
-              return (
-                <div
-                  key={`${index}-${description.id}-batching-description`}
-                  className="mb-3"
-                >
-                  {!!description &&
-                    !Items({ description }).every(
-                      element => element === null
-                    ) && (
-                      <>
-                        <div>
-                          {description.data.descriptionNameMaterialNo}{" "}
-                          <div className="text-secondary d-inline">
-                            ({description.data.geometry})
-                          </div>
+  const checkInputs = (data, descriptionId) => {
+    if (data) {
+      return objectPath
+        .get(data, "projects.0.descriptions")
+        .map((description, index) => {
+          if (
+            (descriptionId &&
+              Number(description.id) === Number(descriptionId)) ||
+            !descriptionId ||
+            Number(descriptionId) === 0
+          ) {
+            return (
+              <div
+                key={`${index}-${description.id}-batching-description`}
+                className="mb-3"
+              >
+                {!!description &&
+                  !Items({ description }).every(
+                    element => element === null
+                  ) && (
+                    <>
+                      <div>
+                        {description.data.descriptionNameMaterialNo}{" "}
+                        <div className="text-secondary d-inline">
+                          ({description.data.geometry})
                         </div>
-                        <LightLine></LightLine>
-                        <Items
-                          key={`${index}-${description.id}-batching`}
-                          description={description}
-                        />
-                      </>
-                    )}
-                </div>
-              );
-            } else {
-              itemsInStage.current = false;
-              return null;
-            }
-          })}
-    </>
-  );
-
+                      </div>
+                      <LightLine></LightLine>
+                      <Items
+                        key={`${index}-${description.id}-batching`}
+                        description={description}
+                      />
+                    </>
+                  )}
+              </div>
+            );
+          } else {
+            return null;
+          }
+        });
+    } else {
+      return [null];
+    }
+  };
   return (
     <div>
       <h3 style={{ position: "relative", top: ".15em" }}>
@@ -203,13 +200,13 @@ export default props => {
         {camelCaseToNormal(props.stage)}
       </h3>
       <Line></Line>
-      {itemsInStage.current ? (
+      {checkInputs(props.data, props.descriptionId).every(allNull) ? (
+        <p>No items on this stage</p>
+      ) : (
         <>
           <p>Pick what items to batch below:</p>
-          <CheckInputs data={props.data} descriptionId={props.descriptionId} />
+          {checkInputs(props.data, props.descriptionId)}
         </>
-      ) : (
-        <p>No items on this stage</p>
       )}
     </div>
   );

@@ -85,7 +85,6 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-
   return (
     <Canvas>
       <Paper>
@@ -133,6 +132,7 @@ export default () => {
             setBatchingData(false);
             setReRender(!reRender);
           }}
+          resetData={true}
           data={getDataToBatching(
             fixedData,
             Object.keys(batchingListIds),
@@ -156,7 +156,7 @@ export default () => {
           }}
           updateBatchingCache={() => update}
           saveButton={!!Object.keys(batchingListIds).length}
-          readOnlyFields={!Object.keys(batchingListIds)}
+          readOnlyFields={!Object.keys(batchingListIds).length}
         />
       </Paper>
     </Canvas>

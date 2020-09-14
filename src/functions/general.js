@@ -102,6 +102,8 @@ export const allFalse = element => !element;
 
 export const allTrue = element => element;
 
+export const allNull = element => element === null;
+
 export const allZeroOrNaN = element => element === 0 || isNaN(element);
 
 export const removeSpace = string => string.replace(/\s/g, "");
@@ -353,6 +355,12 @@ export const calculateMaxMin = (
     newMax = Number(Math[calculateMax](allData, data, repeatStepList));
   } else {
     newMax = max;
+  }
+  if (isNumber(newMin)) {
+    newMin = Number(newMin.toFixed(0));
+  }
+  if (isNumber(newMax)) {
+    newMax = Number(newMax.toFixed(0));
   }
   return { min: newMin, max: newMax };
 };

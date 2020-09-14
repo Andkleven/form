@@ -31,6 +31,7 @@ export default props => {
             edit={props.edit}
             optionsData={props.optionsData}
             backendData={props.backendData}
+            jsonVariables={props.jsonVariables}
             repeatStepList={props.repeatStepList}
             submitData={props.submitData}
             thisChapter={props.thisChapter}

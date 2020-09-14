@@ -80,6 +80,7 @@ export default ({
   saveVariables = false,
   edit = true,
   readOnlySheet = false,
+  resetData = false,
   document,
   allData,
   data,
@@ -150,7 +151,7 @@ export default ({
     documentDataDispatch({
       type: "setState",
       newState: data,
-      notReRender: true
+      notReRender: !resetData
     });
   }
 

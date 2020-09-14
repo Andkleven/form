@@ -383,7 +383,7 @@
             {
               "fieldName": "itemRubberCementsBeforeCoatingMixDate",
               "required": true,
-              "label": "Batch Number",
+              "label": "Mix Date",
               "type": "date"
             },
             {
@@ -402,21 +402,21 @@
         }
       ]
     },
-    "rubberCementsBeforeCoating": {
+    "releaseCementsBeforeCoating": {
       "queryPath": "operator",
       "pages": [
         {
-          "pageTitle": "Rubber Agent",
+          "pageTitle": "Release Cements Before Coating",
           "queryPath": "operator",
           "fields": [
             {
-              "specValueList": "leadEngineer.data.rubberCementsBeforeCoating",
-              "label": "Rubber Agent:"
+              "specValueList": "leadEngineer.data.releaseCementsBeforeCoating",
+              "label": "Rubber Agent"
             },
             {
               "fieldName": "rubberCementsBeforeCoatingMixDate",
               "required": true,
-              "label": "Batch Number",
+              "label": "Mix Date",
               "type": "date"
             },
             {
@@ -661,7 +661,8 @@
               "calculateMax": "mathMeasurementPointMax",
               "type": "number",
               "required": true,
-              "unit": "mm"
+              "unit": "mm",
+              "decimal": 1
             }
           ]
         }
