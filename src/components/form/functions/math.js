@@ -399,7 +399,7 @@ const mathPeelTest = (
   return peelTest ? (peelTest * 9.81).toFixed(2) : null;
 };
 
-const mathMeasurementPoints = (
+const mathMeasurementPointsPinSide = (
   values,
   repeatStepList,
   decimal,
@@ -407,10 +407,22 @@ const mathMeasurementPoints = (
   jsonVariables = null
 ) => {
   let elementLength = Number(
-    findValue(values, `leadEngineer.data.elementLength`)
+    findValue(values, `leadEngineer.data.elementLengthPinSide`)
   );
-  return elementLength / 1000;
-  // return elementLength && Math.floor(elementLength / 1000);
+  return elementLength && Number(String(elementLength / 1000).split(".")[0]);
+};
+
+const mathMeasurementPointsBoxSide = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  let elementLength = Number(
+    findValue(values, `leadEngineer.data.elementLengthBoxSide`)
+  );
+  return elementLength && Number(String(elementLength / 1000).split(".")[0]);
 };
 
 const packerType = {
@@ -512,28 +524,28 @@ const packerType = {
   compoundNo1compoundNo2: {
     "35-406335-5265": {
       geometry: "WS NT/OS",
-      compoundNo1: "35-4063",
+      compoundNoPinSide: "35-4063",
       programNumber: "14",
       coreSampleCode: "A/M",
       packingSpecification: "PP4"
     },
     "35-526535-4064": {
       geometry: "OS/WS LT",
-      compoundNo1: "35-5265",
+      compoundNoPinSide: "35-5265",
       programNumber: "14",
       coreSampleCode: "M/B",
       packingSpecification: "PP3"
     },
     "35-406335-5265/5266": {
       geometry: "WS NT/OS L",
-      compoundNo1: "35-4063",
+      compoundNoPinSide: "35-4063",
       programNumber: "14",
       coreSampleCode: "A/N",
       packingSpecification: "PP4"
     },
     "35-5265/526635-4046": {
       geometry: "OS L/ WS LT",
-      compoundNo1: "35-5265/5266",
+      compoundNoPinSide: "35-5265/5266",
       programNumber: "14",
       coreSampleCode: "N/B",
       packingSpecification: "PP3"
@@ -545,7 +557,7 @@ const geometryToType = {
   b2P: "compoundNoRubberType",
   slipon2: "compoundNoOd",
   slipon3: "compoundNoOd",
-  dual: ["compoundNo1", "compoundNo2"]
+  dual: ["compoundNoPinSide", "compoundNoBoxSide"]
 };
 
 function getType(values, jsonVariables, fieldToGet) {
@@ -635,7 +647,7 @@ const mathCompoundNo1 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return getType(values, jsonVariables, "compoundNo1");
+  return getType(values, jsonVariables, "compoundNoPinSide");
 };
 
 const mathDescription = (
@@ -651,8 +663,16 @@ const mathDescription = (
     objectPath.get(values, `leadEngineer.data.elementLength`, "") / 1000;
   let pipeOd = objectPath.get(values, `leadEngineer.data.pipeOd`, "");
   let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
-  let barrier1 = objectPath.get(values, `leadEngineer.data.barrier1`, "");
-  let barrier2 = objectPath.get(values, `leadEngineer.data.barrier2`, "");
+  let barrierPinSide = objectPath.get(
+    values,
+    `leadEngineer.data.barrierPinSide`,
+    ""
+  );
+  let barrierBoxSide = objectPath.get(
+    values,
+    `leadEngineer.data.barrierBoxSide`,
+    ""
+  );
   let cable = objectPath.get(values, `leadEngineer.data.cable`, "");
   let K2 = objectPath.get(values, `leadEngineer.data.K2`, "");
   let numberOfTracks = objectPath.get(
@@ -663,11 +683,11 @@ const mathDescription = (
   if (jsonVariables === "dual") {
     return `${K2} ${
       rubberOd && pipeOd ? jsonVariables[0] : ""
-    } ${rubberType} ${barrier1}x${elementLength}M ${
-      barrier2 ? `/ ${geometry} ${barrier2}x${elementLength}M` : ""
+    } ${rubberType} ${barrierPinSide}x${elementLength}M ${
+      barrierBoxSide ? `/ ${geometry} ${barrierBoxSide}x${elementLength}M` : ""
     } ${pipeOd}/${rubberOd}`;
   } else {
-    return `${K2} ${jsonVariables[0]} ${rubberType} ${barrier1} ${
+    return `${K2} ${jsonVariables[0]} ${rubberType} ${barrierPinSide} ${
       cable && `CL${numberOfTracks}`
     } ${pipeOd}/${rubberOd} x ${elementLength}M`;
   }
@@ -846,7 +866,7 @@ const mathIncreasedOdForWholeElementTotal1 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return mathIncreasedOdForWholeElementTotal(values, "barrier1");
+  return mathIncreasedOdForWholeElementTotal(values, "barrierPinSide");
 };
 
 const mathIncreasedOdForWholeElement1 = (
@@ -856,7 +876,7 @@ const mathIncreasedOdForWholeElement1 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return mathIncreasedOdForWholeElement(values, "barrier1");
+  return mathIncreasedOdForWholeElement(values, "barrierPinSide");
 };
 
 const mathIncreasedOdForEndsTotal1 = (
@@ -866,7 +886,7 @@ const mathIncreasedOdForEndsTotal1 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return mathIncreasedOdForEndsTotal(values, "barrier1");
+  return mathIncreasedOdForEndsTotal(values, "barrierPinSide");
 };
 
 const mathIncreasedOdForEnds1 = (
@@ -876,7 +896,7 @@ const mathIncreasedOdForEnds1 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return increasedOdForEnds(values, "barrier1");
+  return increasedOdForEnds(values, "barrierPinSide");
 };
 const mathIncreasedOdForWholeElementTotal2 = (
   values,
@@ -885,7 +905,7 @@ const mathIncreasedOdForWholeElementTotal2 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return mathIncreasedOdForWholeElementTotal(values, "barrier2");
+  return mathIncreasedOdForWholeElementTotal(values, "barrierBoxSide");
 };
 
 const mathIncreasedOdForWholeElement2 = (
@@ -895,7 +915,7 @@ const mathIncreasedOdForWholeElement2 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return mathIncreasedOdForWholeElement(values, "barrier2");
+  return mathIncreasedOdForWholeElement(values, "barrierBoxSide");
 };
 
 const mathIncreasedOdForEndsTotal2 = (
@@ -905,7 +925,7 @@ const mathIncreasedOdForEndsTotal2 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return mathIncreasedOdForEndsTotal(values, "barrier2");
+  return mathIncreasedOdForEndsTotal(values, "barrierBoxSide");
 };
 
 const mathIncreasedOdForEnds2 = (
@@ -915,7 +935,7 @@ const mathIncreasedOdForEnds2 = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  return increasedOdForEnds(values, "barrier2");
+  return increasedOdForEnds(values, "barrierBoxSide");
 };
 
 const Math = {
@@ -934,7 +954,8 @@ const Math = {
   mathProgramNumber,
   mathPackingSpecification,
   mathCoreSampleCode,
-  mathMeasurementPoints,
+  mathMeasurementPointsPinSide,
+  mathMeasurementPointsBoxSide,
   mathCumulativeThicknessAll,
   mathCumulativeThickness,
   mathShrinkThickness,

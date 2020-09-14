@@ -112,10 +112,6 @@ const LEAD_ENGINEER = gql`
           id
           data
         }
-        ultrasounds {
-          id
-          data
-        }
         tracks {
           id
           data
@@ -240,10 +236,6 @@ const OPERATOR = gql`
               }
             }
             rubberCements {
-              id
-              data
-            }
-            ultrasounds {
               id
               data
             }
@@ -383,10 +375,6 @@ const QUALITY_CONTROL = gql`
               }
             }
             rubberCements {
-              id
-              data
-            }
-            ultrasounds {
               id
               data
             }

@@ -626,17 +626,30 @@
           "queryPath": "leadEngineer",
           "fields": [
             {
-              "fieldName": "elementLength",
-              "label": "Element length",
+              "fieldName": "elementLengthPinSide",
+              "label": "Element length pin side",
               "type": "number",
               "required": true,
               "unit": "mm"
             },
             {
-              "fieldName": "measurementPoints",
-              "label": "Measurement points",
-              "math": "mathMeasurementPoints",
-              "decimal": 0
+              "fieldName": "measurementPointsPinSide",
+              "label": "Measurement points pin side",
+              "math": "mathMeasurementPointsPinSide"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "elementLengthBoxSide",
+              "label": "Element length box side",
+              "type": "number",
+              "required": true,
+              "unit": "mm"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "measurementPointsBoxSide",
+              "label": "Measurement points box side",
+              "math": "mathMeasurementPointsBoxSide"
             },
             {
               "fieldName": "pipeOd",
@@ -685,8 +698,8 @@
             },
             {
               "showField": { "dual": true },
-              "fieldName": "compoundNo1",
-              "label": "Compound no 1",
+              "fieldName": "compoundNoPinSide",
+              "label": "Compound no Pin side",
               "required": true,
               "notCustom": true,
               "type": "select",
@@ -694,8 +707,8 @@
             },
             {
               "showField": { "dual": true },
-              "fieldName": "compoundNo2",
-              "label": "Compound no 2",
+              "fieldName": "compoundNoBoxSide",
+              "label": "Compound no box side",
               "notCustom": true,
               "required": true,
               "type": "select",
@@ -753,8 +766,8 @@
               "math": "mathPackingSpecification"
             },
             {
-              "fieldName": "barrier1",
-              "label": "Barrier 1",
+              "fieldName": "barrierPinSide",
+              "label": "Barrier pin side",
               "notCustom": true,
               "required": true,
               "type": "select",
@@ -809,8 +822,8 @@
               "math": "mathIncreasedOdForEnds1"
             },
             {
-              "fieldName": "barrier2",
-              "label": "Barrier 2",
+              "fieldName": "barrierBoxSide",
+              "label": "Barrier box side",
               "required": true,
               "notCustom": true,
               "showField": { "dual": true },
@@ -955,19 +968,17 @@
               "fieldName": "screwDescription",
               "label": "Screw description",
               "math": "mathScrewDescription"
-            }
-          ]
-        },
-        {
-          "queryPath": "leadEngineer.ultrasounds",
-          "repeat": true,
-          "repeatStartWith": 1,
-          "delete": true,
-          "addButton": "Add Ultrasound",
-          "fields": [
+            },
             {
-              "fieldName": "ultrasound",
-              "label": "Ultrasound {}",
+              "fieldName": "ultrasoundPinSide",
+              "label": "Ultrasound pin side",
+              "type": "checkbox",
+              "default": true
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "ultrasoundBoxSide",
+              "label": "Ultrasound box side",
               "type": "checkbox",
               "default": true
             }

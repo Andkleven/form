@@ -20,10 +20,6 @@ const ITEM = gql`
           id
           data
         }
-        ultrasounds {
-          id
-          data
-        }
         tracks {
           id
           data
@@ -137,10 +133,6 @@ const BATCHING_OPERATOR = gql`
               id
               data
             }
-            ultrasounds {
-              id
-              data
-            }
             tracks {
               id
               data
@@ -216,10 +208,6 @@ const BATCHING_VULCANIZATION = gql`
               data
             }
             finalInspectionDimensionsChecks {
-              id
-              data
-            }
-            ultrasounds {
               id
               data
             }
@@ -337,10 +325,6 @@ const GET_LEAD_ENGINEER = gql`
           id
           data
         }
-        ultrasounds {
-          id
-          data
-        }
         tracks {
           id
           data
@@ -387,10 +371,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             data
           }
           rubberCements {
-            id
-            data
-          }
-          ultrasounds {
             id
             data
           }
@@ -498,10 +478,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           }
         }
         rubberCements {
-          id
-          data
-        }
-        ultrasounds {
           id
           data
         }
@@ -647,10 +623,6 @@ const QUALITY_CONTROL = gql`
           data
         }
         rubberCements {
-          id
-          data
-        }
-        ultrasounds {
           id
           data
         }
