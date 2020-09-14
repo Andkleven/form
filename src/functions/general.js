@@ -180,7 +180,6 @@ export const variableString = (variable, string) => {
   } else {
     let firstName = string.split("{")[0];
     let lastName = string.split("}")[string.split("}").length - 1];
-    console.log(variable);
     newString = firstName + variable + lastName;
   }
   return newString;
@@ -194,14 +193,6 @@ export const variableLabel = (
   editRepeatStepListVariableLabel = {},
   index = undefined
 ) => {
-  console.log(
-    label,
-    value,
-    queryVariableLabel,
-    repeatStepList,
-    editRepeatStepListVariableLabel,
-    index
-  );
   if (!label) {
     return "";
   }
@@ -214,7 +205,6 @@ export const variableLabel = (
       repeatStepList,
       editRepeatStepListVariableLabel
     );
-    console.log(variableLabel);
   } else {
     variableLabel = index + 1;
   }
@@ -644,7 +634,6 @@ export function useTraceUpdate(props) {
       return ps;
     }, {});
     if (Object.keys(changedProps).length > 0) {
-      console.log("Changed props:", changedProps);
     }
     prev.current = props;
   });
