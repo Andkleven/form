@@ -626,6 +626,19 @@
           "queryPath": "leadEngineer",
           "fields": [
             {
+              "fieldName": "elementLength",
+              "label": "Element length",
+              "type": "number",
+              "required": true,
+              "unit": "mm"
+            },
+            {
+              "fieldName": "MeasurementPoints",
+              "label": "Measurement points",
+              "math": "mathMeasurementPoints"
+            },
+            {
+              "showField": { "dual": true },
               "fieldName": "elementLengthPinSide",
               "label": "Element length pin side",
               "type": "number",
@@ -633,6 +646,7 @@
               "unit": "mm"
             },
             {
+              "showField": { "dual": true },
               "fieldName": "measurementPointsPinSide",
               "label": "Measurement points pin side",
               "math": "mathMeasurementPointsPinSide"

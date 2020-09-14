@@ -399,6 +399,23 @@ const mathPeelTest = (
   return peelTest ? (peelTest * 9.81).toFixed(2) : null;
 };
 
+const floor = number => {
+  return Number(String(number).split(".")[0]);
+};
+
+const mathMeasurementPoints = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  let elementLength = Number(
+    findValue(values, `leadEngineer.data.elementLength`)
+  );
+  return elementLength && floor(elementLength / 1000);
+};
+
 const mathMeasurementPointsPinSide = (
   values,
   repeatStepList,
@@ -409,7 +426,7 @@ const mathMeasurementPointsPinSide = (
   let elementLength = Number(
     findValue(values, `leadEngineer.data.elementLengthPinSide`)
   );
-  return elementLength && Number(String(elementLength / 1000).split(".")[0]);
+  return elementLength && floor(elementLength / 1000);
 };
 
 const mathMeasurementPointsBoxSide = (
@@ -422,7 +439,7 @@ const mathMeasurementPointsBoxSide = (
   let elementLength = Number(
     findValue(values, `leadEngineer.data.elementLengthBoxSide`)
   );
-  return elementLength && Number(String(elementLength / 1000).split(".")[0]);
+  return elementLength && floor(elementLength / 1000);
 };
 
 const packerType = {
@@ -661,6 +678,9 @@ const mathDescription = (
   let rubberType = getType(values, jsonVariables, "geometry");
   let elementLength =
     objectPath.get(values, `leadEngineer.data.elementLength`, "") / 1000;
+  if (elementLength) {
+    elementLength = floor(elementLength);
+  }
   let pipeOd = objectPath.get(values, `leadEngineer.data.pipeOd`, "");
   let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
   let barrierPinSide = objectPath.get(
@@ -681,13 +701,15 @@ const mathDescription = (
     ""
   );
   if (jsonVariables === "dual") {
-    return `${K2} ${
+    return `${K2 ? "K2" : ""} ${
       rubberOd && pipeOd ? jsonVariables[0] : ""
     } ${rubberType} ${barrierPinSide}x${elementLength}M ${
       barrierBoxSide ? `/ ${geometry} ${barrierBoxSide}x${elementLength}M` : ""
     } ${pipeOd}/${rubberOd}`;
   } else {
-    return `${K2} ${jsonVariables[0]} ${rubberType} ${barrierPinSide} ${
+    return `${K2 ? "K2" : ""} ${
+      jsonVariables[0]
+    } ${rubberType} ${barrierPinSide} ${
       cable && `CL${numberOfTracks}`
     } ${pipeOd}/${rubberOd} x ${elementLength}M`;
   }
@@ -956,6 +978,7 @@ const Math = {
   mathCoreSampleCode,
   mathMeasurementPointsPinSide,
   mathMeasurementPointsBoxSide,
+  mathMeasurementPoints,
   mathCumulativeThicknessAll,
   mathCumulativeThickness,
   mathShrinkThickness,
