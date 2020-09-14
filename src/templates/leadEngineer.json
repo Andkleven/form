@@ -968,7 +968,8 @@
             {
               "fieldName": "ultrasound",
               "label": "Ultrasound {}",
-              "type": "checkbox"
+              "type": "checkbox",
+              "default": true
             }
           ]
         },

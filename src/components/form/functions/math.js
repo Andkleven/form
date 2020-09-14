@@ -652,6 +652,7 @@ const mathDescription = (
   let pipeOd = objectPath.get(values, `leadEngineer.data.pipeOd`, "");
   let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
   let barrier1 = objectPath.get(values, `leadEngineer.data.barrier1`, "");
+  let barrier2 = objectPath.get(values, `leadEngineer.data.barrier2`, "");
   let cable = objectPath.get(values, `leadEngineer.data.cable`, "");
   let K2 = objectPath.get(values, `leadEngineer.data.K2`, "");
   let numberOfTracks = objectPath.get(
@@ -659,10 +660,12 @@ const mathDescription = (
     `leadEngineer.data.numberOfTracks`,
     ""
   );
-  if (jsonVariables === geometry) {
+  if (jsonVariables === "dual") {
     return `${K2} ${
       rubberOd && pipeOd ? jsonVariables[0] : ""
-    } ${rubberType} ${barrier1}x${elementLength}M ${pipeOd}/${rubberOd}`;
+    } ${rubberType} ${barrier1}x${elementLength}M ${
+      barrier2 ? `/ ${geometry} ${barrier2}x${elementLength}M` : ""
+    } ${pipeOd}/${rubberOd}`;
   } else {
     return `${K2} ${jsonVariables[0]} ${rubberType} ${barrier1} ${
       cable && `CL${numberOfTracks}`
