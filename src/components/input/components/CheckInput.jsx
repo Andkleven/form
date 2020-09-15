@@ -38,7 +38,6 @@ export default props => (
       </div>
       <TinyButton
         className="bg-light text-secondary rounded-right"
-        style={{ borderLeft: "none", margin: 4 }}
         type="button"
         title="Batch"
         onClick={() => props.batchClick()}
