@@ -314,6 +314,7 @@ export default ({ setState, state, ...props }) => {
             className="d-flex justify-content-center align-items-center flex-column"
             style={{ width: "100%", height: "100%" }}
           >
+            <h4 style={{ position: "relative", top: ".15em" }}>Batching</h4>
             {props.itemIdsRef.current &&
               props.itemIdsRef.current.map((description, indexDescription) => (
                 <div

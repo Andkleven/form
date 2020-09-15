@@ -36,14 +36,16 @@ export default props => (
           </>
         ) : null}
       </div>
-      <TinyButton
-        className="bg-light text-secondary rounded-right"
-        type="button"
-        title="Batch"
-        onClick={() => props.batchClick()}
-      >
-        Batch
-      </TinyButton>
+      {props.batchClick && (
+        <TinyButton
+          className="bg-light text-secondary"
+          type="button"
+          title="Batch"
+          onClick={() => props.batchClick()}
+        >
+          Batch
+        </TinyButton>
+      )}
       {props.TinyButtons}
     </div>
     {props.subtext && (
