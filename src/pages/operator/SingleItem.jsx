@@ -19,6 +19,7 @@ export default pageInfo => {
   leadEngineersJson.query = qualityControlJson.query;
   operatorJson.query = qualityControlJson.query;
   const { itemId, geometry } = pageInfo.match.params;
+  const itemIdsRef = useRef();
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
@@ -55,7 +56,7 @@ export default pageInfo => {
 
   return (
     <Canvas showForm={!!data}>
-      <Overview />
+      <Overview itemIdsRef={itemIdsRef} />
       {access.specs && !finalInspection && (
         <Paper className="mb-3">
           <Title big align="center">
@@ -63,6 +64,7 @@ export default pageInfo => {
           </Title>
           <Form
             update={true}
+            itemIdsRef={itemIdsRef}
             jsonVariables={[geometry]}
             componentsId={"leadEngineersPage"}
             edit={access.itemEdit}
@@ -72,6 +74,7 @@ export default pageInfo => {
               fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
             }
             saveVariables={{ itemId: itemId }}
+            itemId={itemId}
             getQueryBy={itemId}
           />
         </Paper>
@@ -85,6 +88,8 @@ export default pageInfo => {
 
         <Form
           update={true}
+          itemId={itemId}
+          itemIdsRef={itemIdsRef}
           jsonVariables={[geometry]}
           componentsId={opId.current}
           document={operatorJson}
@@ -109,6 +114,7 @@ export default pageInfo => {
             Quality Control
           </Title>
           <Form
+            itemIdsRef={itemIdsRef}
             update={true}
             jsonVariables={[geometry]}
             componentsId={"finalInspectionQualityControl"}
@@ -128,6 +134,7 @@ export default pageInfo => {
             allData={fixedData}
             stage={fixedData && fixedData.items[0].stage}
             stageType={"qualityControl"}
+            itemId={itemId}
             getQueryBy={itemId}
             saveVariables={{ itemId: itemId }}
             saveButton={true}

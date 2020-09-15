@@ -39,6 +39,12 @@ export default props => {
             readOnlyFields={props.readOnlyFields}
             showEditButton={false}
             path={`${props.path}.${field.queryPath}`}
+            update={props.update}
+            updateCache={props.updateCache}
+            create={props.create}
+            document={props.document}
+            itemIdsRef={props.itemIdsRef}
+            itemId={props.itemId}
           />
         );
       } else {

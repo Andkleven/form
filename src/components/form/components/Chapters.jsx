@@ -34,7 +34,12 @@ export default React.memo(
     stageType,
     specData,
     saveButton,
-    allData
+    allData,
+    update,
+    updateCache,
+    create,
+    itemIdsRef,
+    itemId
   }) => {
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
@@ -102,8 +107,12 @@ export default React.memo(
                   backendData={backendData}
                   optionsData={optionsData}
                   submitData={submitData}
+                  document={document}
                   nextStage={nextStage}
                   edit={edit}
+                  update={update}
+                  updateCache={updateCache}
+                  create={create}
                   specData={specData}
                   readOnlySheet={readOnlySheet}
                   jsonVariables={jsonVariables}
@@ -122,6 +131,8 @@ export default React.memo(
                   noSaveButton={document.noSaveButton}
                   finalChapter={finalChapter}
                   showSubmitButton={showSubmitButton}
+                  itemIdsRef={itemIdsRef}
+                  itemId={itemId}
                 />
               );
             });

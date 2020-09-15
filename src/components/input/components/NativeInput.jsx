@@ -1,9 +1,11 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import moment from "moment";
+import BatchButton from "components/button/BatchButton";
 // import Duplicate from "../widgets/Duplicate";
 export default ({
   type,
+  batchClick,
   label,
   name,
   value,
@@ -17,6 +19,7 @@ export default ({
   isValid,
   isInvalid,
   required,
+  itemIdsRef,
   min,
   max,
   // onChange,
@@ -87,6 +90,7 @@ export default ({
                 {append}
               </InputGroup.Append>
             )}
+            <BatchButton batchClick={batchClick} />
           </InputGroup>
         </div>
         {subtext && <Form.Text className="text-muted">{subtext}</Form.Text>}

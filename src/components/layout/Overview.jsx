@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import Paper from "components/layout/Paper";
 import { useSpring, animated } from "react-spring";
@@ -14,6 +14,14 @@ const queries = {
       projects(id: $id) {
         id
         data
+        descriptions {
+          id
+          data
+          items {
+            id
+            itemId
+          }
+        }
       }
     }
   `,
@@ -39,7 +47,7 @@ const queries = {
   `
 };
 
-export default () => {
+export default ({ itemIdsRef }) => {
   // const [show, setShow] = useState(true);
   const [show, setShow] = useState(false);
   const [height, setHeight] = useState(0);
@@ -95,6 +103,15 @@ export default () => {
       id: params.descriptionId
     }
   });
+
+  useEffect(() => {
+    if (projectQuery && itemIdsRef) {
+      itemIdsRef.current =
+        projectQuery &&
+        objectPath.get(projectQuery, "data.projects.0.descriptions");
+    }
+  }, [projectQuery, itemIdsRef]);
+
   // const itemQuery = useQuery(queries.item, {
   //   variables: {
   //     id: params.itemId

@@ -1,29 +1,64 @@
 import React, { useContext, useCallback, useEffect, useState } from "react";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
+import Paper from "components/layout/Paper";
 import Input from "components/input/Input";
 import TinyButton from "components/button/TinyButton";
+import Div100vh from "react-div-100vh";
 import LightLine from "components/design/LightLine";
+import Loading from "components/Loading";
 import CheckInput from "components/input/components/CheckInput";
 import "styles/styles.css";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
+import mutations from "graphql/mutation";
+import { useMutation } from "@apollo/react-hooks";
 import { USER } from "constants.js";
-import { isStringInstance, isNumber, getSpecComment } from "functions/general";
+import {
+  isStringInstance,
+  isNumber,
+  getSpecComment,
+  stringifyQuery
+} from "functions/general";
 import { dialog } from "components/Dialog";
+
 const cloneDeep = require("clone-deep");
 
 export default ({ setState, state, ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
-  // const timer = useRef(0)
+  const [itemIdList, setItemIdList] = useState([Number(props.itemId)]);
+  const [batching, setBatching] = useState(false);
   const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
+  const [mutation, { loading, error }] = useMutation(
+    mutations[props.document.mutation],
+    {
+      onError: () => {},
+      onCompleted: () => {
+        setItemIdList([Number(props.itemId)]);
+        setBatching(false);
+      }
+    }
+  );
 
-  // console.log(documentData.current);
+  const submitData = useCallback(() => {
+    let variables = {};
+    let idPath = props.path.split("data")[0] + "id";
+    let id = objectPath.get(documentData.current, idPath);
+    objectPath.set(variables, idPath, id);
+    objectPath.set(variables, props.path, state);
+    objectPath.set(variables, props.path + userField, userInfo.username);
+    mutation({
+      variables: {
+        ...stringifyQuery(variables),
+        itemIdList
+      }
+    });
+  }, [itemIdList, mutation, userInfo, props.path, state, documentData]);
 
   const addUser = useCallback(() => {
     documentDataDispatch({
@@ -116,12 +151,6 @@ export default ({ setState, state, ...props }) => {
     });
     setEditChapter(0);
   };
-
-  // const submitEdit = (event, data) => {
-  //   event.persist();
-  //   event.preventDefault();
-  //   props.submitHandler(data);
-  // };
 
   const TinyButtons = () => {
     return props.submitButton ? (
@@ -219,17 +248,6 @@ export default ({ setState, state, ...props }) => {
   const indent =
     (!props.label && props.prepend && props.indent !== false) || props.indent;
 
-  // if (props.label === "Vulcanization Option") {
-  //   console.log("label", props.label);
-  //   console.log("prepend", props.prepend);
-  //   console.log("indent", props.indent);
-  //   console.log("indent", props.indent);
-  // }
-  // if (props.ignoreMin === undefined) {
-  //   console.log(props.min);
-  // }
-  // console.log(props.ignoreMin === undefined ? props.min : undefined);
-
   const leComment = getSpecComment(
     props.specData,
     props.routeToSpecMax,
@@ -249,10 +267,113 @@ export default ({ setState, state, ...props }) => {
     return `d-none d-${breakpoint}-inline`;
   };
 
+  const add = item => {
+    setItemIdList(prevState => {
+      return [...prevState, Number(item.id)];
+    });
+  };
+  const remove = item => {
+    let index = itemIdList.indexOf(Number(item.id));
+    if (-1 < index) {
+      setItemIdList(prevState => {
+        prevState.splice(index, 1);
+        return [...prevState];
+      });
+    }
+  };
+  const handleClick = (e, item) => {
+    if (e.target.checked) {
+      add(item);
+    } else {
+      remove(item);
+    }
+  };
+
+  const batchClick = () => {
+    setBatching(prevState => !prevState);
+    setItemIdList([Number(props.itemId)]);
+  };
+
   return (
     <div className={indent && "ml-3"}>
+      {batching && props.itemIdsRef && (
+        <Div100vh
+          style={{
+            height: "100%",
+            width: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999
+          }}
+        >
+          <Paper
+            className="d-flex justify-content-center align-items-center flex-column"
+            style={{ width: "100%", height: "100%" }}
+          >
+            {props.itemIdsRef.current &&
+              props.itemIdsRef.current.map((description, indexDescription) => (
+                <div
+                  key={`${indexDescription}-${description.id}-batching-description`}
+                  className="mt-3"
+                >
+                  <div>
+                    {JSON.parse(description.data).descriptionNameMaterialNo}{" "}
+                    <div className="text-secondary d-inline">
+                      ({JSON.parse(description.data).geometry})
+                    </div>
+                  </div>
+                  <LightLine></LightLine>
+                  {description.items.map((item, indexItem) => (
+                    <CheckInput
+                      key={`${indexItem}-${indexDescription}`}
+                      id={`CheckInput-${indexItem}-${indexDescription}-${props.path}`}
+                      onChangeInput={e => handleClick(e, item)}
+                      disabled={Number(item.id) === Number(props.itemId)}
+                      value={
+                        itemIdList.find(id => Number(id) === Number(item.id))
+                          ? true
+                          : false
+                      }
+                      label={`Batch-${item.itemId}`}
+                      TinyButtons={TinyButtons()}
+                      BigButtons={BigButtons()}
+                    />
+                  ))}
+                </div>
+              ))}
+            <div className="d-flex justify-content-center align-items-center flex-column">
+              <TinyButton
+                className="text-success"
+                icon="check"
+                onClick={() => submitData()}
+              >
+                Submit
+              </TinyButton>
+              <TinyButton
+                className="text-secondary"
+                tooltip="Cancel"
+                onClick={() => setBatching(prevState => !prevState)}
+              >
+                Cancel
+              </TinyButton>
+              {error && (
+                <div className="text-light w-100">
+                  <div className="bg-secondary p-2 rounded mb-1 shadow border">
+                    {error && <>{`${error}`}</>}
+                  </div>
+                </div>
+              )}
+            </div>
+          </Paper>
+        </Div100vh>
+      )}
       <Input
         {...props}
+        batchClick={props.itemIdsRef && batchClick}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
         value={state === undefined ? "" : state}
@@ -272,6 +393,7 @@ export default ({ setState, state, ...props }) => {
         documentData={documentData}
         documentDataDispatch={documentDataDispatch}
       />
+
       {props.ignoreRequired && (
         <CheckInput
           onChangeInput={onChangeIgnoreRequired}
@@ -283,6 +405,7 @@ export default ({ setState, state, ...props }) => {
           tight={props.submitButton}
         />
       )}
+      {loading && <Loading />}
       {props.submitButton ? <LightLine /> : null}
 
       {!!leComment && (

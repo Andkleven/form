@@ -95,11 +95,13 @@ const LEAD_ENGINEER = gql`
     $leadEngineer: LeadEngineerInput
     $descriptionId: Int
     $itemId: Int
+    $itemIdList: [Int]
   ) {
     leadEngineer(
       leadEngineer: $leadEngineer
       descriptionId: $descriptionId
       itemId: $itemId
+      itemIdList: $itemIdList
     ) {
       new {
         id
@@ -206,8 +208,18 @@ const OPERATOR_BATCHING = gql`
 `;
 
 const OPERATOR = gql`
-  mutation operator($operator: OperatorInput, $stage: String, $itemId: Int) {
-    operator(operator: $operator, stage: $stage, itemId: $itemId) {
+  mutation operator(
+    $operator: OperatorInput
+    $stage: String
+    $itemId: Int
+    $itemIdList: [Int]
+  ) {
+    operator(
+      operator: $operator
+      stage: $stage
+      itemId: $itemId
+      itemIdList: $itemIdList
+    ) {
       new {
         item {
           id
@@ -341,11 +353,13 @@ const QUALITY_CONTROL = gql`
     $finalInspectionQualityControl: FinalInspectionQualityControlInput
     $itemId: Int
     $stage: String
+    $itemIdList: [Int]
   ) {
     finalInspectionQualityControl(
       finalInspectionQualityControl: $finalInspectionQualityControl
       itemId: $itemId
       stage: $stage
+      itemIdList: $itemIdList
     ) {
       new {
         item {

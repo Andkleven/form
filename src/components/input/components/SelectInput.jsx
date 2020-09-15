@@ -1,6 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import Creatable from "react-select/creatable";
+import BatchButton from "components/button/BatchButton";
 import Select from "react-select";
 import { camelCaseToNormal } from "functions/general";
 
@@ -88,9 +89,15 @@ export default props => {
     <>
       <div className="d-flex text-dark">
         {props.notCustom ? (
-          <Select {...selectProps} />
+          <>
+            <Select {...selectProps} />
+            <BatchButton batchClick={props.batchClick} />
+          </>
         ) : (
-          <Creatable {...selectProps} />
+          <>
+            <Creatable {...selectProps} />
+            <BatchButton batchClick={props.batchClick} />
+          </>
         )}
       </div>
 

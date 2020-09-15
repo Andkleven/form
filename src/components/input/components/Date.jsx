@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
+import BatchButton from "components/button/BatchButton";
 import { isStringInstance } from "functions/general";
 import DatePicker, {
   CalendarContainer,
@@ -93,6 +94,7 @@ function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
           id={`custom-${type}-${label}-${repeatStepList}`}
           name={name}
         />
+        <BatchButton batchClick={props.batchClick} />
       </div>
       <Form.Text className="text-muted">{props.subtext}</Form.Text>
       <Form.Control.Feedback type="invalid">

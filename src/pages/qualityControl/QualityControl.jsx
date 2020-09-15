@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import operatorCoatedItemJson from "templates/operator.json";
@@ -19,7 +19,7 @@ export default pageInfo => {
   const { itemId, geometry } = pageInfo.match.params;
   const [fixedData, setFixedData] = useState(null);
   const [reRender, setReRender] = useState(null);
-
+  const itemIdsRef = useRef();
   const { item, setItem } = useContext(ItemContext);
 
   const { loading, error, data } = useQuery(
@@ -45,10 +45,9 @@ export default pageInfo => {
 
   if (loading) return <Loading />;
   if (error) return <p>Error :(</p>;
-
   return (
     <Canvas showForm={!!data}>
-      <Overview />
+      <Overview itemIdsRef={itemIdsRef} />
       <Paper className="mb-3">
         <Title big align="center">
           Operator
@@ -66,10 +65,12 @@ export default pageInfo => {
           stageType={geometry}
           readOnlySheet={!access.itemWrite}
           edit={getAccess().itemEdit}
+          itemId={itemId}
           getQueryBy={itemId}
           saveVariables={{ itemId: itemId }}
           saveButton={true}
           update={true}
+          itemIdsRef={itemIdsRef}
         />
       </Paper>
       <Paper>
@@ -78,6 +79,7 @@ export default pageInfo => {
         </Title>
         <Form
           componentsId={"finalInspectionQualityControl"}
+          itemIdsRef={itemIdsRef}
           document={qualityControlCoatedItemJson}
           data={
             fixedData &&
@@ -97,6 +99,7 @@ export default pageInfo => {
           stage={fixedData && fixedData.items[0].stage}
           saveVariables={{ itemId: itemId }}
           stageType={"qualityControl"}
+          itemId={itemId}
           getQueryBy={itemId}
           saveButton={true}
           backButton={() => history.push(`/`)}

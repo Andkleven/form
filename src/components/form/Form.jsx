@@ -100,7 +100,8 @@ export default ({
   reRender,
   addValuesToData,
   removeEmptyField,
-  batchingListIds
+  itemIdsRef,
+  itemId
 }) => {
   const [loading, setLoading] = useState(true);
   const timer = useRef();
@@ -352,6 +353,9 @@ export default ({
               jsonVariables={jsonVariables}
               chapterAlwaysInWrite={chapterAlwaysInWrite}
               stage={stage}
+              update={update}
+              updateCache={updateCache}
+              create={create}
               notEditButton={notEditButton}
               repeatStepList={repeatStepListLocal.current}
               backButton={backButton}
@@ -367,6 +371,8 @@ export default ({
               stagePath={stagePath}
               edit={edit}
               readOnlySheet={readOnlySheet}
+              itemIdsRef={itemIdsRef}
+              itemId={itemId}
             />
             {loadingMutation && <Loading />}
             {errorMutation && (
