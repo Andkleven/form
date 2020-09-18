@@ -400,7 +400,13 @@ const mathPeelTest = (
 };
 
 const floor = number => {
-  return Number(String(number).split(".")[0]);
+  let value;
+  try {
+    value = Number(String(number).split(".")[0]);
+  } catch (error) {
+    value = 0;
+  }
+  return value;
 };
 
 const mathMeasurementPoints = (
@@ -538,31 +544,27 @@ const packerType = {
       packingSpecification: "PP4"
     }
   },
-  compoundNo1compoundNo2: {
+  compoundNoPinSidecompoundNoBoxSide: {
     "35-406335-5265": {
-      geometry: "WS NT/OS",
-      compoundNoPinSide: "35-4063",
+      geometry: ["WS NT", "OS"],
       programNumber: "14",
       coreSampleCode: "A/M",
       packingSpecification: "PP4"
     },
     "35-526535-4064": {
-      geometry: "OS/WS LT",
-      compoundNoPinSide: "35-5265",
+      geometry: ["OS", "WS LT"],
       programNumber: "14",
       coreSampleCode: "M/B",
       packingSpecification: "PP3"
     },
     "35-406335-5265/5266": {
-      geometry: "WS NT/OS L",
-      compoundNoPinSide: "35-4063",
+      geometry: ["WS NT", "OS L"],
       programNumber: "14",
       coreSampleCode: "A/N",
       packingSpecification: "PP4"
     },
     "35-5265/526635-4046": {
-      geometry: "OS L/ WS LT",
-      compoundNoPinSide: "35-5265/5266",
+      geometry: ["OS L", " WS LT"],
       programNumber: "14",
       coreSampleCode: "N/B",
       packingSpecification: "PP3"
@@ -591,6 +593,7 @@ function getType(values, jsonVariables, fieldToGet) {
   } else {
     value = objectPath.get(values, `leadEngineer.data.${field}`);
   }
+  console.log(packerType, field, value, fieldToGet);
   let returnValue =
     value && packerType && packerType[field] && packerType[field][value]
       ? packerType[field][value][fieldToGet]
@@ -657,16 +660,6 @@ const mathCompoundNoId = (
   return getType(values, jsonVariables, "compoundNoId");
 };
 
-const mathCompoundNo1 = (
-  values,
-  repeatStepList,
-  decimal,
-  mathStore = null,
-  jsonVariables = null
-) => {
-  return getType(values, jsonVariables, "compoundNoPinSide");
-};
-
 const mathDescription = (
   values,
   repeatStepList,
@@ -676,13 +669,18 @@ const mathDescription = (
 ) => {
   let geometry = removeSpace(lowerCaseFirstLetter(jsonVariables[0]));
   let rubberType = getType(values, jsonVariables, "geometry");
-  let elementLength =
-    objectPath.get(values, `leadEngineer.data.elementLength`, "") / 1000;
-  if (elementLength) {
-    elementLength = floor(elementLength);
-  }
+  let elementLength = floor(
+    objectPath.get(values, `leadEngineer.data.elementLength`, "") / 1000
+  );
+  let elementLengthPinSide = floor(
+    objectPath.get(values, `leadEngineer.data.elementLengthPinSide`, "") / 1000
+  );
+  let elementLengthBoxSide = floor(
+    objectPath.get(values, `leadEngineer.data.elementLengthBoxSide`, "") / 1000
+  );
   let pipeOd = objectPath.get(values, `leadEngineer.data.pipeOd`, "");
   let rubberOd = objectPath.get(values, `leadEngineer.data.rubberOd`, "");
+  let barrier = objectPath.get(values, `leadEngineer.data.barrier`, "");
   let barrierPinSide = objectPath.get(
     values,
     `leadEngineer.data.barrierPinSide`,
@@ -700,18 +698,19 @@ const mathDescription = (
     `leadEngineer.data.numberOfTracks`,
     ""
   );
-  if (jsonVariables[0] === "dual") {
-    return `${K2 ? "K2" : ""} ${
-      rubberOd && pipeOd ? jsonVariables[0] : ""
-    } ${rubberType} ${barrierPinSide}x${elementLength}M ${
-      barrierBoxSide ? `/ ${geometry} ${barrierBoxSide}x${elementLength}M` : ""
-    } ${pipeOd}/${rubberOd}`;
+  console.log(rubberType);
+  if (geometry === "dual") {
+    return `${K2 ? "K2" : ""} SP ${jsonVariables[0]} ${
+      rubberType[0]
+    } ${barrierPinSide}x${elementLengthPinSide}M / ${
+      rubberType[1]
+    } ${barrierBoxSide}x${elementLengthBoxSide}M ${pipeOd}x${rubberOd}`;
   } else {
     return `${K2 ? "K2" : ""} ${
-      jsonVariables[0]
-    } ${rubberType} ${barrierPinSide} ${
+      geometry === "b2p" ? "SP" : jsonVariables[0]
+    } ${rubberType} ${barrier} ${
       cable && `CL${numberOfTracks}`
-    } ${pipeOd}/${rubberOd} x ${elementLength}M`;
+    } ${pipeOd}x${rubberOd}x${elementLength}M`;
   }
 };
 
@@ -881,6 +880,45 @@ const increasedOdForEnds = (values, field) => {
         "mm"
     : "";
 };
+const mathIncreasedOdForWholeElementTotal0 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForWholeElementTotal(values, "barrier");
+};
+
+const mathIncreasedOdForWholeElement0 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForWholeElement(values, "barrier");
+};
+
+const mathIncreasedOdForEndsTotal0 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return mathIncreasedOdForEndsTotal(values, "barrier");
+};
+
+const mathIncreasedOdForEnds0 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  return increasedOdForEnds(values, "barrier");
+};
 const mathIncreasedOdForWholeElementTotal1 = (
   values,
   repeatStepList,
@@ -969,9 +1007,12 @@ const Math = {
   mathIncreasedOdForEndsTotal1,
   mathIncreasedOdForWholeElement1,
   mathIncreasedOdForWholeElementTotal1,
+  mathIncreasedOdForEnds0,
+  mathIncreasedOdForEndsTotal0,
+  mathIncreasedOdForWholeElement0,
+  mathIncreasedOdForWholeElementTotal0,
   mathScrewDescription,
   mathDescription,
-  mathCompoundNo1,
   mathCompoundNoId,
   mathProgramNumber,
   mathPackingSpecification,

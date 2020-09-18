@@ -776,6 +776,68 @@
               "math": "mathPackingSpecification"
             },
             {
+              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
+              "fieldName": "barrier",
+              "label": "Barrier",
+              "notCustom": true,
+              "required": true,
+              "type": "select",
+              "options": [
+                "0A",
+                "1A",
+                "2A",
+                "3A",
+                "4A",
+                "5A",
+                "6A",
+                "7A",
+                "8A",
+                "0B",
+                "1B",
+                "2B",
+                "3B",
+                "4B",
+                "5B",
+                "6B",
+                "7B",
+                "8B",
+                "0C",
+                "1C",
+                "2C",
+                "3C",
+                "4C",
+                "5C",
+                "6C",
+                "7C",
+                "8C"
+              ]
+            },
+            {
+              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
+              "fieldName": "increasedOdForWholeElementTotal",
+              "label": "Increased OD for Whole element Total",
+              "math": "mathIncreasedOdForWholeElementTotal0"
+            },
+            {
+              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
+              "fieldName": "increasedOdForWholeElement",
+              "label": "Increased OD for Whole element",
+              "math": "mathIncreasedOdForWholeElement0"
+            },
+            {
+              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
+              "fieldName": "increasedOdForEndsTotal",
+              "label": "Increased OD for Ends Total",
+              "math": "mathIncreasedOdForEndsTotal0"
+            },
+            {
+              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
+              "fieldName": "increasedOdForEnds",
+              "label": "Increased OD for Ends",
+              "math": "mathIncreasedOdForEnds0"
+            },
+            {
+              "showField": { "dual": true },
               "fieldName": "barrierPinSide",
               "label": "Barrier pin side",
               "notCustom": true,
@@ -812,21 +874,25 @@
               ]
             },
             {
+              "showField": { "dual": true },
               "fieldName": "increasedOdForWholeElementTotal1",
               "label": "Increased OD for Whole element Total",
               "math": "mathIncreasedOdForWholeElementTotal1"
             },
             {
+              "showField": { "dual": true },
               "fieldName": "increasedOdForWholeElement1",
               "label": "Increased OD for Whole element",
               "math": "mathIncreasedOdForWholeElement1"
             },
             {
+              "showField": { "dual": true },
               "fieldName": "increasedOdForEndsTotal1",
               "label": "Increased OD for Ends Total",
               "math": "mathIncreasedOdForEndsTotal1"
             },
             {
+              "showField": { "dual": true },
               "fieldName": "increasedOdForEnds1",
               "label": "Increased OD for Ends",
               "math": "mathIncreasedOdForEnds1"
