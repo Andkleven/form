@@ -120,7 +120,7 @@
           "repeatStartWith": 1,
           "repeat": true,
           "delete": true,
-          "addButton": "Specification",
+          "addButton": "Reference documents/codes",
           "queryPath": ["projects.0.descriptions", "specifications"],
           "fields": [
             {
