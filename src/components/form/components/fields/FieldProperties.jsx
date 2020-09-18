@@ -312,7 +312,6 @@ export default React.memo(({ ...props }) => {
   }, [props.backendData, getLabel]);
 
   if (props.specValueList) {
-    console.log(removePathFunc(props.specRemovePath, props.specValueList));
     return (
       <ReadField
         {...props}

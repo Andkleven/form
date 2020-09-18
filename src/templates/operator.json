@@ -528,12 +528,14 @@
               "fieldName": "rubberThickness",
               "label": "Rubber Thickness",
               "type": "Number",
+              "notBatch": true,
               "required": true
             },
             {
               "fieldName": "mixDate",
               "label": "Mix Date",
               "type": "date",
+              "notBatch": true,
               "required": true
             }
           ]
@@ -566,6 +568,7 @@
               "mathSubtext": "mathCumulativeThicknessAll",
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
+              "notBatch": true,
               "required": true
             }
           ]
@@ -581,6 +584,7 @@
               "fieldName": "layerApplied",
               "label": "Layer Applied",
               "type": "datetime-local",
+              "notBatch": true,
               "required": true
             }
           ]
@@ -660,6 +664,7 @@
               "calculateMin": "mathMeasurementPointMin",
               "calculateMax": "mathMeasurementPointMax",
               "type": "number",
+              "notBatch": true,
               "required": true,
               "unit": "mm",
               "decimal": 1

@@ -323,7 +323,7 @@ export default ({ setState, state, ...props }) => {
 
   return (
     <div className={indent && "ml-3"}>
-      {batching && props.itemIdsRef && (
+      {batching && props.itemIdsRef && props.notBatch && (
         <Div100vh
           style={{
             height: "100%",
