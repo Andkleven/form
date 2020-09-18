@@ -118,11 +118,9 @@ export default React.memo(props => {
   const hidden = useHidden(props.writeOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
   ]);
-
   if (props.finalChapter && props.finalChapter > finalChapter.current) {
     finalChapter.current = props.finalChapter;
   }
-
   const updateReadOnly = useCallback(() => {
     if (
       typeof props.writeOnlyFieldIf === "object" &&
@@ -217,7 +215,7 @@ export default React.memo(props => {
         }
       } else {
         temporaryMultiFieldGroup[
-          `${props.repeatStepList}-${props.path}.${props.queryPath}-repeat-fragment`
+          `${props.repeatStepList}-${props.path}.${props.queryPath}-repeat-fragment7`
         ] = (
           <FieldGroup
             {...props}

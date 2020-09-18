@@ -321,7 +321,11 @@ export default ({
                 )} */}
                 {!!stage &&
                   // Array of stages with batching here
-                  batchingStages.includes(stage) && (
+                  batchingStages.includes(
+                    stage.split("Step")[1]
+                      ? stage.split("Step")[0] + "Step"
+                      : stage
+                  ) && (
                     <>
                       <Link
                         // to={`/project/${project["id"]}`}

@@ -1,0 +1,130 @@
+{
+  "queryPath": "projects",
+  "mutation": "ORDER",
+  "query": "GET_ORDER_GEOMETRY",
+  "optionsQuery": "USERS",
+  "chapters": [
+    {
+      "stageQueryPath": "projects.0.data.stageCoating",
+      "pages": [
+        {
+          "pageTitle": "Project",
+          "queryPath": "projects",
+          "fields": [
+            {
+              "fieldName": "projectName",
+              "label": "Project Name"
+            },
+            {
+              "fieldName": "projectNumber",
+              "label": "Project Number"
+            },
+            {
+              "fieldName": "client",
+              "label": "Client"
+            }
+          ]
+        },
+        {
+          "repeatStartWith": 1,
+          "repeat": true,
+          "delete": true,
+          "addButton": "ITP Document Number",
+          "queryPath": "projects.0.itpDocumentNumbers",
+          "fields": [
+            {
+              "fieldName": "itpDocumentNumber",
+              "label": "ITP Document Number"
+            }
+          ]
+        },
+        {
+          "queryPath": "projects",
+          "fields": [
+            {
+              "fieldName": "projectManager",
+              "label": "Project Manager",
+              "type": "select",
+              "options": ["Option 1", "Option 2", "Option 3"]
+            },
+            {
+              "fieldName": "supervisor",
+              "label": "Supervisor",
+              "type": "select",
+              "userRole": ["supervisor"]
+            },
+            {
+              "fieldName": "leadEngineer",
+              "label": "Lead Engineer",
+              "type": "select",
+              "userRole": ["lead"]
+            },
+            {
+              "fieldName": "supervisingEngineer",
+              "label": "Supervising Engineer",
+              "type": "select",
+              "userRole": ["lead"]
+            },
+            {
+              "fieldName": "qualityControl",
+              "label": "Quality Control",
+              "type": "select",
+              "userRole": ["quality"]
+            },
+            {
+              "fieldName": "numberOfDescriptions",
+              "label": "Number of Descriptions",
+              "type": "Number",
+              "required": true,
+              "min": 1
+            },
+            {
+              "fieldName": "totalNumberOfItems",
+              "label": "Total Number of Items",
+              "type": "Number",
+              "required": true,
+              "min": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stageQueryPath": ["projects.0.descriptions", "data.stageCoating"],
+      "pages": [
+        {
+          "pageTitle": "Description",
+          "queryPath": ["projects.0.descriptions", ""],
+          "fields": [
+            {
+              "fieldName": "description",
+              "label": "Description Name",
+              "required": true
+            },
+            {
+              "fieldName": "geometry",
+              "label": "Geometry",
+              "type": "select",
+              "options": ["Mould", "Coated Item"],
+              "required": true
+            },
+            {
+              "fieldName": "ifsActivityCodes",
+              "label": "IFS Activity Codes"
+            },
+            {
+              "fieldName": "CPS",
+              "label": "CPS"
+            }
+          ]
+        },
+        {
+          "label": "File Upload",
+          "type": "files",
+          "queryPath": ["projects.0.descriptions", "uploadFiles"],
+          "description": true
+        }
+      ]
+    }
+  ]
+}

@@ -592,7 +592,7 @@ function getType(values, jsonVariables, fieldToGet) {
     value = objectPath.get(values, `leadEngineer.data.${field}`);
   }
   let returnValue =
-    value && packerType[field][value]
+    value && packerType && packerType[field] && packerType[field][value]
       ? packerType[field][value][fieldToGet]
       : "";
 
@@ -700,7 +700,7 @@ const mathDescription = (
     `leadEngineer.data.numberOfTracks`,
     ""
   );
-  if (jsonVariables === "dual") {
+  if (jsonVariables[0] === "dual") {
     return `${K2 ? "K2" : ""} ${
       rubberOd && pipeOd ? jsonVariables[0] : ""
     } ${rubberType} ${barrierPinSide}x${elementLength}M ${

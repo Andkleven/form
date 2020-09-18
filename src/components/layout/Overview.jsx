@@ -20,6 +20,7 @@ const queries = {
           items {
             id
             itemId
+            stage
           }
         }
       }

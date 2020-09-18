@@ -47,13 +47,27 @@
       "chapters": ""
     }
   },
+  "itemRubberCementsBeforeCoating": {
+    "batching": {
+      "dataPath": "operator"
+    },
+    "document": {
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
+      "mutation": "OPERATOR_BATCHING",
+      "query": "BATCHING_OPERATOR",
+      "chapters": ""
+    }
+  },
   "vulcanizationStep": {
     "batching": {
-      "dataPath": "operator.vulcanizationOperators"
+      "dataPath": ["operator.vulcanizationOperators"],
+      "removePath": "operator.",
+      "specRemovePath": "leadEngineer."
     },
     "document": {
       "queryPath": ["operator.vulcanizationOperators", ""],
-      "specQueryPath": ["leadEngineer.vulcanizationOperators", ""],
+      "specQueryPath": ["leadEngineer.vulcanizationSteps", ""],
       "mutation": "OPERATOR_BATCHING",
       "query": "BATCHING_VULCANIZATION",
       "chapters": ""

@@ -19,7 +19,8 @@ import {
   variableLabel,
   isNumber,
   writeChapter,
-  getProperties
+  getProperties,
+  removePathFunc
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
@@ -79,6 +80,7 @@ export default React.memo(({ ...props }) => {
     documentDataDispatch,
     props.type
   ]);
+
   useEffect(() => {
     if (
       !hidden &&
@@ -310,6 +312,7 @@ export default React.memo(({ ...props }) => {
   }, [props.backendData, getLabel]);
 
   if (props.specValueList) {
+    console.log(removePathFunc(props.specRemovePath, props.specValueList));
     return (
       <ReadField
         {...props}
@@ -320,7 +323,7 @@ export default React.memo(({ ...props }) => {
         unit={unit.current}
         value={findValue(
           props.specData,
-          props.specValueList,
+          removePathFunc(props.specRemovePath, props.specValueList),
           props.repeatStepList,
           props.editRepeatStepValueList
         )}

@@ -393,7 +393,7 @@ export const stringifyQuery = (query, removeEmptyField = false) => {
   return newObject;
 };
 
-export const batchingKey = path => {
+export const batchingKey = (path, repeatStepList) => {
   let splitWordInJson;
   let key;
   if (Array.isArray(path)) {
@@ -405,11 +405,23 @@ export const batchingKey = path => {
       splitWordInJson = path[path.length - 2].split(/[.]+/);
       key = splitWordInJson[splitWordInJson.length - 1];
     }
+    key = `${key}.${repeatStepList[0]}`;
   } else {
     splitWordInJson = path.split(/[.]+/);
     key = splitWordInJson[splitWordInJson.length - 1];
   }
   return key;
+};
+
+export const removePathFunc = (removePath, path) => {
+  if (removePath) {
+    if (Array.isArray(path)) {
+      return [path[0].replace(removePath, ""), ...path.slice(1, 10)];
+    } else {
+      return path.replace(removePath, "");
+    }
+  }
+  return path;
 };
 
 export const getDataToBatching = (
@@ -421,18 +433,19 @@ export const getDataToBatching = (
   batchingData,
   specData = false
 ) => {
-  let key = batchingKey(path);
-  if (fixedData && batchingListIds[0]) {
+  let key = batchingKey(path, repeatStepList);
+  if (fixedData && batchingListIds[0] && descriptionId[0]) {
     let newData = fixedData.projects[0].descriptions
-      .find(description => Number(description.id) === Number(descriptionId))
+      .find(description => Number(description.id) === Number(descriptionId[0]))
       .items.find(item => Number(item.id) === Number(batchingListIds[0]));
     newData = objectPath.get(
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path
     );
-    return specData
-      ? { [key]: newData }
-      : getBatchingData({ [key]: newData }, batchingData);
+    console.log(key, newData);
+    let mergeData = {};
+    objectPath.set(mergeData, key, newData);
+    return specData ? mergeData : getBatchingData(mergeData, batchingData);
   }
   return { [key]: [] };
 };
@@ -533,11 +546,16 @@ export function productionLineJson(productionLine, coatingJson, packerJson) {
 }
 
 export const getStepFromStage = stage => {
-  let step = null;
-  if (stage.split("Step")[1]) {
-    step = Number(stage.split("Step")[1]);
+  let step = [];
+  if (stage.split("Step")[1] && stage.split("Layer")[1]) {
+    step.push(Number(stage.split("Step")[1].spilt("Layer")[0] - 1));
+  } else if (stage.split("Step")[1]) {
+    step.push(Number(stage.split("Step")[1] - 1));
   }
-  return step;
+  if (stage.split("Layer")[1]) {
+    step.push(Number(stage.split("Layer")[1] - 1));
+  }
+  return step === [] ? null : step;
 };
 
 export function getRepeatStepList(repeatStepList, index) {
@@ -589,6 +607,7 @@ export function getStartStage(geometry, item) {
 
 export function getSpecComment(
   specData,
+  removePath,
   routeToSpecMax = null,
   routeToSpecMin = null,
   specValueList = null,
@@ -599,7 +618,11 @@ export function getSpecComment(
   const getComment = path => {
     comment = objectPath.get(
       specData,
-      `${createPath(path, repeatStepList, editRepeatStepValueList)}Comment`,
+      `${createPath(
+        removePathFunc(removePath, path),
+        repeatStepList,
+        editRepeatStepValueList
+      )}Comment`,
       ""
     );
   };

@@ -81,9 +81,12 @@ export default ({
   edit = true,
   readOnlySheet = false,
   resetData = false,
+  stages,
   document,
   allData,
   data,
+  specRemovePath,
+  removePath,
   getQueryBy,
   repeatStepList,
   notEditButton,
@@ -121,7 +124,7 @@ export default ({
   const stagePath = useRef(false);
   const finalChapter = useRef(0);
   const saveVariablesForm = useRef(saveVariables ? saveVariables : {});
-  const repeatStepListLocal = useRef(0);
+  const repeatStepListLocal = useRef(repeatStepList);
 
   useEffect(() => {
     saveVariablesForm.current = saveVariables ? saveVariables : {};
@@ -217,7 +220,6 @@ export default ({
       onCompleted: reRender
     }
   );
-
   const submitData = useCallback(
     (data, submit) => {
       renderFunction.current = {};
@@ -236,10 +238,21 @@ export default ({
           });
         }
         let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
+        console.log(
+          isStringInstance(stage),
+          submit,
+          nextStage.current,
+          !editChapter,
+          stages
+        );
         mutation({
           variables: {
             ...variables,
             ...saveVariablesForm.current,
+            stages:
+              stages && submit && nextStage.current && !editChapter
+                ? stages
+                : undefined,
             stage:
               isStringInstance(stage) &&
               submit &&
@@ -252,6 +265,7 @@ export default ({
       }
     },
     [
+      stages,
       setWhen,
       screenshotData,
       removeEmptyField,
@@ -282,7 +296,6 @@ export default ({
   timer.current = setTimeout(() => {
     setLoading(false);
   }, 1000);
-
   useEffect(() => {
     return () => {
       clearTimeout(timer.current);
@@ -354,6 +367,7 @@ export default ({
               chapterAlwaysInWrite={chapterAlwaysInWrite}
               stage={stage}
               update={update}
+              removePath={removePath}
               updateCache={updateCache}
               create={create}
               notEditButton={notEditButton}
@@ -373,6 +387,7 @@ export default ({
               readOnlySheet={readOnlySheet}
               itemIdsRef={itemIdsRef}
               itemId={itemId}
+              specRemovePath={specRemovePath}
             />
             {loadingMutation && <Loading />}
             {errorMutation && (

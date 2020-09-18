@@ -1,0 +1,575 @@
+{
+  "queryPath": "leadEngineers",
+  "mutation": "LEAD_ENGINEER",
+  "query": "GET_LEAD_ENGINEER",
+  "chapters": [
+    {
+      "stageQueryPath": "leadEngineers.0.data.stage",
+      "pages": [
+        {
+          "pageTitle": "Steel Preparation",
+          "queryPath": "leadEngineers",
+          "fields": [
+            {
+              "fieldName": "mediaBlasting",
+              "label": "Media Blasting",
+              "type": "checkbox",
+              "default": true
+            },
+            {
+              "fieldName": "steel",
+              "label": "Steel",
+              "type": "select",
+              "options": ["Carbon", "Duplex"],
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "blastMedia",
+              "label": "Blast Media",
+              "type": "select",
+              "options": ["Garnet", "Grit", "Aluminum Oxide", "Rubbing"],
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "relativeHumidity",
+              "label": "Relative Humidity",
+              "default": 85,
+              "type": "Number",
+              "prepend": "Max",
+              "unit": "%",
+              "subtext": "ISO 8502-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "airTemperature",
+              "label": "Air Temperature",
+              "default": 15,
+              "unit": "°C",
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "steelTemperature",
+              "label": "Steel Temperature",
+              "default": 15,
+              "unit": "°C",
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "temperatureOverDewPoint",
+              "label": "Temperature over Dew Point",
+              "default": 3,
+              "unit": "°C",
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
+              "fieldName": "additionalTests",
+              "label": "Additional Tests",
+              "type": "checkbox",
+              "default": false
+            },
+            {
+              "fieldName": "blastMediaConductivity",
+              "label": "Blast Media Conductivity",
+              "type": "Number",
+              "prepend": "Max",
+              "unit": "µS/cm",
+              "subtext": "ISO 8502-9",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceProfileMin",
+              "label": "Surface Profile Min (Roughness)",
+              "prepend": "Min",
+              "unit": "Rz",
+              "default": 50,
+              "type": "Number",
+              "subtext": "ISO 8503-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceProfileMax",
+              "label": "Surface Profile Max (Roughness)",
+              "prepend": "Max",
+              "unit": "Rz",
+              "default": 100,
+              "type": "Number",
+              "subtext": "ISO 8503-4",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "solubleSaltLevel",
+              "label": "Soluble Salt Level",
+              "default": 20,
+              "type": "Number",
+              "prepend": "Max",
+              "unit": "mg/m²",
+              "subtext": "ISO 8502-5/9",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "dustTest",
+              "label": "Dust Test",
+              "min": 1,
+              "max": 5,
+              "type": "Number",
+              "prepend": "Max",
+              "subtext": "ISO 8502-3, Whole number between 1-5",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "inspectionOfSteelSurface",
+              "label": "Inspection of Steel Surface",
+              "type": "checkbox",
+              "subtext": "ISO 8501-3, Welds to be grade P3",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "compressedAirCheck",
+              "label": "Compressed Air Check",
+              "placeholder": "Min",
+              "type": "checkbox",
+              "subtext": "ASTM D 4285, No oil and no water",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceCleanliness",
+              "label": "Surface Cleanliness",
+              "placeholder": "Max",
+              "type": "checkbox",
+              "subtext": "ISO 8501-1, Min. Sa 2,5 (Rust grade A or B)",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            },
+            {
+              "fieldName": "uvTest",
+              "label": "UV Test",
+              "type": "checkbox",
+              "subtext": "No reflecting light",
+              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.additionalCustomTests",
+          "repeat": true,
+          "delete": true,
+          "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
+          "addButton": "Custom Test",
+          "fields": [
+            {
+              "fieldName": "name",
+              "prepend": "Name",
+              "label": "Custom Test"
+            },
+            {
+              "fieldName": "criteria",
+              "prepend": "Criteria"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers",
+          "fields": [
+            {
+              "fieldName": "primer1",
+              "label": "Primer 1",
+              "type": "select",
+              "options": [
+                "Chemosil 211",
+                "Chemosil 231",
+                "Chemosil 360",
+                "Chemosil 411"
+              ]
+            },
+            {
+              "fieldName": "primer2",
+              "label": "Primer 2",
+              "type": "select",
+              "options": [
+                "Chemosil 211",
+                "Chemosil 231",
+                "Chemosil 360",
+                "Chemosil 411"
+              ]
+            },
+            {
+              "fieldName": "rubberCementsBeforeCoating",
+              "label": "Rubber Agent Before Coating",
+              "type": "select",
+              "options": ["75051", "Soap"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stageQueryPath": "leadEngineers.0.data.stage1",
+      "pages": [
+        {
+          "pageTitle": "Coating and Vulcanization",
+          "query": "GET_LEAD_ENGINEER",
+          "queryPath": "leadEngineers",
+          "mutation": "LEAD_ENGINEER",
+          "fields": [
+            {
+              "fieldName": "orderedTotalRubberThickness",
+              "label": "Ordered Total Rubber Thickness",
+              "type": "number",
+              "required": true,
+              "unit": "mm"
+            },
+            {
+              "fieldName": "toleranceMinPercent",
+              "prepend": "Lower Deviation",
+              "unit": "%",
+              "type": "Number",
+              "min": 0
+            },
+            {
+              "fieldName": "toleranceMin",
+              "prepend": "Tolerated Minimum",
+              "unit": "mm",
+              "math": "mathToleranceMin",
+              "type": "number"
+            },
+            {
+              "fieldName": "toleranceMaxPercent",
+              "prepend": "Upper Deviation",
+              "unit": "%",
+              "type": "Number",
+              "min": 0
+            },
+            {
+              "fieldName": "toleranceMax",
+              "math": "mathToleranceMax",
+              "prepend": "Tolerated Maximum",
+              "unit": "mm",
+              "type": "number"
+            },
+            {
+              "fieldName": "measurementPoint",
+              "label": "Measurement Points",
+              "type": "Number",
+              "subtext": "Pre-Coating",
+              "required": true,
+              "minInput": 0,
+              "maxInput": 10
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.rubberCements",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Add Rubber Agent",
+          "fields": [
+            {
+              "fieldName": "rubberCement",
+              "label": "Rubber Agent",
+              "notLabel": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.vulcanizationSteps",
+          "repeat": true,
+          "repeatStartWith": 1,
+          "delete": true,
+          "addButton": "Add Step",
+          "indexVariablePageTitle": 0,
+          "pageTitle": "Step {}",
+          "fields": [
+            {
+              "fieldName": "vulcanizationOption",
+              "label": "Vulcanization Option",
+              "required": true,
+              "type": "select",
+              "options": [
+                "Air Autoclave",
+                "Heating Blankets",
+                "Heating Cables",
+                "Hot Air",
+                "Steam Autoclave"
+              ]
+            },
+            {
+              "fieldName": "programNumber",
+              "required": true,
+              "label": "Program Number",
+              "type": "Number"
+            },
+            {
+              "fieldName": "numberOfLayers",
+              "required": true,
+              "label": "Number of Layers",
+              "type": "Number",
+              "minInput": 0,
+              "maxInput": 30
+            },
+            {
+              "page": true,
+              "indexVariablePageTitle": 0,
+              "queryPath": "coatingLayers",
+              "repeat": true,
+              "notAddButton": true,
+              "repeatGroupWithQuery": [
+                "leadEngineers.0.vulcanizationSteps",
+                "data.numberOfLayers"
+              ],
+              "fields": [
+                {
+                  "fieldName": "layer",
+                  "label": "Layer",
+                  "math": "mathLayer",
+                  "isSubtitle": true,
+                  "indent": "true"
+                },
+                {
+                  "indent": true,
+                  "fieldName": "compoundNumber",
+                  "required": true,
+                  "label": "Compound Number",
+                  "type": "select",
+                  "options": [
+                    "73165 3mm",
+                    "73165 4mm",
+                    "73165 6mm",
+                    "73165 Strips",
+                    "73185 3mm",
+                    "73185 4mm",
+                    "73185 6mm",
+                    "73185 Strips",
+                    "73585 3mm",
+                    "73585 4mm",
+                    "73585 6mm",
+                    "73585 Strips",
+                    "73529 3mm",
+                    "73529 4mm",
+                    "73529 6mm",
+                    "73529 Strips",
+                    "73780 3mm",
+                    "73780 4mm",
+                    "73780 6mm",
+                    "73780 Strips",
+                    "73785 3mm",
+                    "73785 4mm",
+                    "73785 6mm",
+                    "73785 Strips",
+                    "73815 3mm",
+                    "73815 4mm",
+                    "73815 6mm",
+                    "73815 Strips",
+                    "73915 3mm",
+                    "73915 4mm",
+                    "73915 6mm",
+                    "73915 Strips",
+                    "73961 3mm",
+                    "73961 4mm",
+                    "73961 6mm",
+                    "73961 Strips",
+                    "73982 3mm",
+                    "73982 4mm",
+                    "73982 6mm",
+                    "73982 Strips",
+                    "76027 3mm",
+                    "76027 4mm",
+                    "76027 6mm",
+                    "76027 Strips",
+                    "76159 3mm",
+                    "76159 4mm",
+                    "76159 6mm",
+                    "76159 Strips",
+                    "76183 3mm",
+                    "76183 4mm",
+                    "76183 6mm",
+                    "76183 Strips",
+                    "76187 3mm",
+                    "76187 4mm",
+                    "76187 6mm",
+                    "76187 Strips",
+                    "76198 3mm",
+                    "76198 4mm",
+                    "76198 6mm",
+                    "76198 Strips",
+                    "76207 3mm",
+                    "76207 4mm",
+                    "76207 6mm",
+                    "76207 Strips",
+                    "97500 3mm",
+                    "97500 4mm",
+                    "97500 6mm",
+                    "97500 Strips",
+                    "97520 3mm",
+                    "97520 4mm",
+                    "97520 6mm",
+                    "97520 Strips",
+                    "97522 3mm",
+                    "97522 4mm",
+                    "97522 6mm",
+                    "97522 Strips"
+                  ]
+                },
+                {
+                  "indent": true,
+                  "fieldName": "appliedThickness",
+                  "label": "Applied Thickness",
+                  "unit": "mm",
+                  "decimal": 1,
+                  "type": "Number"
+                },
+                {
+                  "indent": true,
+                  "fieldName": "shrink",
+                  "label": "Shrink",
+                  "unit": "%",
+                  "type": "Number",
+                  "default": 0
+                },
+                {
+                  "indent": true,
+                  "fieldName": "shrunkThickness",
+                  "label": "Shrunk Thickness",
+                  "math": "mathShrinkThickness",
+                  "type": "Number",
+                  "unit": "mm",
+                  "decimal": 1
+                },
+                {
+                  "indent": true,
+                  "fieldName": "layersUnique",
+                  "label": "Exclude layer from calculations",
+                  "type": "checkbox"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "customComponent": "CustomLead"
+        }
+      ]
+    },
+    {
+      "stageQueryPath": "leadEngineers.0.data.stage2",
+      "pages": [
+        {
+          "pageTitle": "Final Inspection",
+          "queryPath": "leadEngineers",
+          "fields": [
+            {
+              "fieldName": "hardnessOfOuterLayer",
+              "label": "Hardness of Outer Layer",
+              "unit": "Shore A",
+              "prepend": "Min"
+            },
+            {
+              "fieldName": "numberOfHardnessOfOuterLayer",
+              "label": "Number of Hardness of Outer Layer",
+              "type": "number",
+              "max": 30,
+              "min": 0
+            },
+            {
+              "fieldName": "identificationMarking",
+              "label": "Identification Marking"
+            },
+            {
+              "fieldName": "peelTest",
+              "label": "Peel Test",
+              "unit": "N/25mm",
+              "prepend": "Min",
+              "subtext": "ISO 813 bS6374-5"
+            },
+            {
+              "fieldName": "numberOfPeelTest",
+              "label": "Number of Peel Test",
+              "type": "number",
+              "max": 30,
+              "min": 0
+            },
+            {
+              "fieldName": "totalCoatingThickness",
+              "label": "Total Coating Thickness",
+              "type": "checkbox",
+              "subtext": "APS. Final measurments are within tolerances."
+            },
+            {
+              "fieldName": "visualInspection",
+              "label": "Visual Inspection",
+              "type": "checkbox",
+              "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
+            },
+            {
+              "fieldName": "sparkTest",
+              "label": "Spark Test",
+              "type": "checkbox",
+              "subtext": "TR 2028. No Holidays."
+            },
+            {
+              "fieldName": "hammerTest",
+              "label": "Hammer Test",
+              "type": "checkbox",
+              "subtext": "TR 2028. No change in audible pitch."
+            },
+            {
+              "fieldName": "simpleFinalDimensionsCheck",
+              "label": "Simple Final Dimensions Check",
+              "type": "checkbox",
+              "subtext": "APS. All parts in accordance to drawings (no references or min-max)."
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.finalInspectionDimensionsChecks",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Advanced Final Dimensions Check",
+          "fields": [
+            {
+              "fieldName": "finalDimensionsReference",
+              "label": "Final Dimensions Reference"
+            },
+            {
+              "fieldName": "finalDimensionsMin",
+              "prepend": "Min",
+              "unit": "mm",
+              "type": "Number"
+            },
+            {
+              "fieldName": "finalDimensionsMax",
+              "prepend": "Max",
+              "unit": "mm",
+              "type": "Number"
+            }
+          ]
+        },
+        {
+          "queryPath": "leadEngineers.0.finalInspectionCustomTests",
+          "repeat": true,
+          "delete": true,
+          "addButton": "Final Inspection Custom Test",
+          "fields": [
+            {
+              "fieldName": "name",
+              "label": "Custom Test",
+              "prepend": "Name"
+            },
+            {
+              "fieldName": "criteria",
+              "prepend": "Criteria"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

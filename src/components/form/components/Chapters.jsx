@@ -3,7 +3,8 @@ import {
   createPath,
   removeSpace,
   lowerCaseFirstLetter,
-  getProperties
+  getProperties,
+  removePathFunc
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -23,6 +24,7 @@ export default React.memo(
     submitData,
     nextStage,
     edit,
+    removePath,
     readOnlySheet,
     jsonVariables,
     chapterAlwaysInWrite,
@@ -39,7 +41,8 @@ export default React.memo(
     updateCache,
     create,
     itemIdsRef,
-    itemId
+    itemId,
+    specRemovePath
   }) => {
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
@@ -122,7 +125,11 @@ export default React.memo(
                   notEditButton={notEditButton}
                   repeatStepList={repeatStepListLocal}
                   backButton={backButton}
-                  path={createPath(info.queryPath, repeatStepListLocal)}
+                  removePath={removePath}
+                  path={createPath(
+                    removePathFunc(removePath, info.queryPath),
+                    repeatStepListLocal
+                  )}
                   thisChapter={count + 1}
                   stopLoop={stopLoop.current}
                   showEditButton={showEditButton}
@@ -133,6 +140,7 @@ export default React.memo(
                   showSubmitButton={showSubmitButton}
                   itemIdsRef={itemIdsRef}
                   itemId={itemId}
+                  specRemovePath={specRemovePath}
                 />
               );
             });

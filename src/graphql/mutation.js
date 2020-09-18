@@ -166,7 +166,7 @@ const OPERATOR_BATCHING = gql`
     $operator: OperatorBachingInput
     $vulcanizationOperators: [UnderCategoriesOfLeadEngineerInput]
     $itemIdList: [String]!
-    $stages: [String]!
+    $stages: [String]
   ) {
     operatorsBaching(
       operator: $operator

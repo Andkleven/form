@@ -19,6 +19,7 @@ export default props => {
       page.fields.forEach(field => {
         let specValueList = field.specValueList;
         if (specValueList) {
+          // console.log(field.specValueList, itemData, props.repeatStepList);
           batchingData[
             Array.isArray(specValueList)
               ? specValueList[specValueList.length - 1].split(".")[
@@ -27,6 +28,13 @@ export default props => {
               : specValueList.split(".")[specValueList.split(".").length - 1]
           ] = findValue(itemData, field.specValueList, props.repeatStepList);
         } else if (field.fieldName && !props.partialBatching) {
+          // console.log(
+          //   Array.isArray(props.json.batching.dataPath)
+          //     ? [...props.json.batching.dataPath, `data.${field.fieldName}`]
+          //     : `${props.json.batching.dataPath}.data.${field.fieldName}`,
+          //   itemData,
+          //   props.repeatStepList
+          // );
           batchingData[field.fieldName] = findValue(
             itemData,
             Array.isArray(props.json.batching.dataPath)

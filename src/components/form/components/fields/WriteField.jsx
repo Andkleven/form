@@ -19,7 +19,8 @@ import {
   isStringInstance,
   isNumber,
   getSpecComment,
-  stringifyQuery
+  stringifyQuery,
+  allNull
 } from "functions/general";
 import { dialog } from "components/Dialog";
 
@@ -34,6 +35,7 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
+
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
     {
@@ -67,12 +69,11 @@ export default ({ setState, state, ...props }) => {
       path: props.path + userField
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
-
   const onChange = value => {
+    addUser();
     if (!screenshotData.current) {
       screenshotData.current = cloneDeep(documentData.current);
     }
-    addUser();
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
   };
@@ -250,6 +251,7 @@ export default ({ setState, state, ...props }) => {
 
   const leComment = getSpecComment(
     props.specData,
+    props.specRemovePath,
     props.routeToSpecMax,
     props.routeToSpecMin,
     props.specValueList,
@@ -294,6 +296,31 @@ export default ({ setState, state, ...props }) => {
     setItemIdList([Number(props.itemId)]);
   };
 
+  const Items = (description, indexDescription) => {
+    return description.items.map((item, indexItem) => {
+      if (props.stage === item.stage) {
+        return (
+          <CheckInput
+            key={`${indexItem}-${indexDescription}`}
+            id={`CheckInput-${indexItem}-${indexDescription}-${props.path}`}
+            onChangeInput={e => handleClick(e, item)}
+            disabled={Number(item.id) === Number(props.itemId)}
+            value={
+              itemIdList.find(id => Number(id) === Number(item.id))
+                ? true
+                : false
+            }
+            label={`${item.itemId}`}
+            TinyButtons={TinyButtons()}
+            BigButtons={BigButtons()}
+          />
+        );
+      } else {
+        return null;
+      }
+    });
+  };
+
   return (
     <div className={indent && "ml-3"}>
       {batching && props.itemIdsRef && (
@@ -314,38 +341,31 @@ export default ({ setState, state, ...props }) => {
             className="d-flex justify-content-center align-items-center flex-column"
             style={{ width: "100%", height: "100%" }}
           >
-            <h4 style={{ position: "relative", top: ".15em" }}>Batching</h4>
+            <h4 style={{ position: "relative", top: ".15em" }}>
+              Batching for {props.label}
+            </h4>
             {props.itemIdsRef.current &&
-              props.itemIdsRef.current.map((description, indexDescription) => (
-                <div
-                  key={`${indexDescription}-${description.id}-batching-description`}
-                  className="mt-3"
-                >
-                  <div>
-                    {JSON.parse(description.data).descriptionNameMaterialNo}{" "}
-                    <div className="text-secondary d-inline">
-                      ({JSON.parse(description.data).geometry})
+              props.itemIdsRef.current.map((description, indexDescription) => {
+                if (!Items(description, indexDescription).every(allNull)) {
+                  return (
+                    <div
+                      key={`${indexDescription}-${description.id}-batching-description`}
+                      className="mt-3"
+                    >
+                      <div>
+                        {JSON.parse(description.data).descriptionNameMaterialNo}{" "}
+                        <div className="text-secondary d-inline">
+                          ({JSON.parse(description.data).geometry})
+                        </div>
+                      </div>
+                      <LightLine></LightLine>
+                      {Items(description, indexDescription)}
                     </div>
-                  </div>
-                  <LightLine></LightLine>
-                  {description.items.map((item, indexItem) => (
-                    <CheckInput
-                      key={`${indexItem}-${indexDescription}`}
-                      id={`CheckInput-${indexItem}-${indexDescription}-${props.path}`}
-                      onChangeInput={e => handleClick(e, item)}
-                      disabled={Number(item.id) === Number(props.itemId)}
-                      value={
-                        itemIdList.find(id => Number(id) === Number(item.id))
-                          ? true
-                          : false
-                      }
-                      label={`Batch-${item.itemId}`}
-                      TinyButtons={TinyButtons()}
-                      BigButtons={BigButtons()}
-                    />
-                  ))}
-                </div>
-              ))}
+                  );
+                } else {
+                  return null;
+                }
+              })}
             <div className="d-flex justify-content-center align-items-center flex-column">
               <TinyButton
                 className="text-success"

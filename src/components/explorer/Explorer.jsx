@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ExplorerView from "components/explorer/components/ExplorerView";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
@@ -24,9 +24,15 @@ export default ({
   },
   ...props
 }) => {
-  let { loading, error, data } = useQuery(query["OPERATOR_PROJECTS"], {
+  let { loading, error, data, refetch } = useQuery(query["OPERATOR_PROJECTS"], {
     variables: { orderByLatestProject: true }
   });
+
+  useEffect(() => {
+    if (data && !loading && !error) {
+      refetch();
+    }
+  }, [refetch, data, loading, error]);
 
   data = objectifyQuery(data);
 

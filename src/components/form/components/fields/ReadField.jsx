@@ -210,6 +210,7 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
 
   const leComment = getSpecComment(
     props.specData,
+    props.specRemovePath,
     props.routeToSpecMax,
     props.routeToSpecMin,
     props.specValueList,

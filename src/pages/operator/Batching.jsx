@@ -33,7 +33,6 @@ export default () => {
       setGeometry(geometryDefault);
     }
   }, [geometryDefault]);
-
   let batchingJson = getBatchingJson(
     geometry,
     operatorCoatedItemJson,
@@ -85,6 +84,18 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
+  // console.log(batchingData);
+  console.log(
+    getDataToBatching(
+      fixedData,
+      Object.keys(batchingListIds),
+      batchingJson.document.specQueryPath,
+      newDescriptionId,
+      getStepFromStage(stage) ? getStepFromStage(stage) : null,
+      batchingData,
+      true
+    )
+  );
   return (
     <Canvas>
       <Paper>
@@ -111,15 +122,17 @@ export default () => {
           setBatchingListIds={setBatchingListIds}
           stage={stage}
           repeatStepList={
-            getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+            getStepFromStage(stage) ? getStepFromStage(stage) : [0]
           }
           descriptionId={descriptionId}
           newDescriptionId={newDescriptionId}
           setNewDescriptionId={setNewDescriptionId}
         />
         <Form
+          removePath={batchingJson.batching.removePath}
+          specRemovePath={batchingJson.batching.specRemovePath}
           repeatStepList={
-            getStepFromStage(stage) ? [getStepFromStage(stage)] : [0]
+            getStepFromStage(stage) ? getStepFromStage(stage) : [0]
           }
           jsonVariables={[geometry]}
           chapterAlwaysInWrite={true}
@@ -128,6 +141,11 @@ export default () => {
           notSubmitButton={!Object.keys(batchingListIds).length}
           document={batchingJson.document}
           reRender={() => {
+            if (Number(descriptionId)) {
+              setNewDescriptionId([Number(descriptionId)]);
+            } else {
+              setNewDescriptionId([]);
+            }
             setBatchingListIds({});
             setBatchingData(false);
             setReRender(!reRender);
@@ -137,22 +155,25 @@ export default () => {
             fixedData,
             Object.keys(batchingListIds),
             batchingJson.document.queryPath,
-            newDescriptionId[0],
-            getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
+            newDescriptionId,
+            getStepFromStage(stage) ? getStepFromStage(stage) : null,
             batchingData
           )}
           specData={getDataToBatching(
             fixedData,
             Object.keys(batchingListIds),
             batchingJson.document.specQueryPath,
-            newDescriptionId[0],
-            getStepFromStage(stage) ? [getStepFromStage(stage)] : null,
+            newDescriptionId,
+            getStepFromStage(stage) ? getStepFromStage(stage) : null,
             batchingData,
             true
           )}
+          stages={Object.values(batchingListIds)}
           saveVariables={{
-            itemIdList: Object.keys(batchingListIds),
-            stages: Object.values(batchingListIds)
+            step: getStepFromStage(stage)
+              ? getStepFromStage(stage)[0]
+              : undefined,
+            itemIdList: Object.keys(batchingListIds)
           }}
           updateBatchingCache={() => update}
           saveButton={!!Object.keys(batchingListIds).length}

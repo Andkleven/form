@@ -237,7 +237,7 @@ const BATCHING_VULCANIZATION = gql`
             }
           }
           operator {
-            vulcanizationSteps {
+            vulcanizationOperators {
               id
               data
             }
