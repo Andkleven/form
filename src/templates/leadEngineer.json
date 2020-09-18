@@ -21,7 +21,7 @@
               "fieldName": "steel",
               "label": "Steel",
               "type": "select",
-              "options": ["Carbon", "Duplex"],
+              "options": ["Carbon", "Carbon - Q125", "Duplex"],
               "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {

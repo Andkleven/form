@@ -1,6 +1,7 @@
 {
   "all": [
     "start",
+    "steelMeasurement",
     "actualSteelMeasurement",
     "steelPreparation1",
     "steelPreparation2",
@@ -11,10 +12,71 @@
     "coatingStepLayer",
     "vulcanizationStep",
     "measurementPointStep",
+    "grindingStep",
+    "ultrasound",
+    "grinding",
+    "ringAssembly",
+    "barrier",
+    "completionPhase",
     "touchUp",
     "qualityControl",
     "done"
   ],
+  "packer": {
+    "actualSteelMeasurement": {
+      "queryPath": "leadEngineer.data.elementLength"
+    },
+    "steelPreparation1": {
+      "queryPath": "leadEngineer.data.mediaBlasting"
+    },
+    "steelPreparation2": {
+      "queryPath": "leadEngineer.data.additionalTests"
+    },
+    "primer1": {
+      "queryPath": "leadEngineer.data.primer1"
+    },
+    "primer2": {
+      "queryPath": "leadEngineer.data.primer2"
+    },
+    "coatingStepLayer": {
+      "queryPath": ["leadEngineer.vulcanizationSteps", "coatingLayers", ""],
+      "step": true,
+      "layer": true
+    },
+    "vulcanizationStep": {
+      "queryPath": ["leadEngineer.vulcanizationSteps", ""],
+      "step": true
+    },
+    "grindingStep": {
+      "queryPath": ["leadEngineer.vulcanizationSteps", ""],
+      "editIndexList": {
+        "0": 1
+      },
+      "crossroads": "vulcanizationStep",
+      "step": true
+    },
+    "ultrasound": {
+      "queryPath": "leadEngineer.data.ultrasound"
+    },
+    "grinding": {
+      "queryPath": ""
+    },
+    "ringAssembly": {
+      "queryPath": ""
+    },
+    "barrier": {
+      "queryPath": ""
+    },
+    "completionPhase": {
+      "queryPath": ""
+    },
+    "touchUp": {
+      "queryPath": ""
+    },
+    "qualityControl": {
+      "queryPath": ""
+    }
+  },
   "coatedItem": {
     "actualSteelMeasurement": {
       "queryPath": "leadEngineer.data.measurementPoint"
