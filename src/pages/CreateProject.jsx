@@ -35,9 +35,17 @@ export default () => {
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[createProject.query], {
-    variables: { id: _id }
-  });
+  const { loading, error, data, refetch } = useQuery(
+    query[createProject.query],
+    {
+      variables: { id: _id }
+    }
+  );
+  useEffect(() => {
+    if (data && !loading && !error) {
+      refetch();
+    }
+  }, [refetch, data, loading, error]);
 
   const pathExists = useCallback(
     path => {

@@ -238,13 +238,7 @@ export default ({
           });
         }
         let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
-        console.log(
-          isStringInstance(stage),
-          submit,
-          nextStage.current,
-          !editChapter,
-          stages
-        );
+
         mutation({
           variables: {
             ...variables,
