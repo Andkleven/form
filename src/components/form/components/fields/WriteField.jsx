@@ -323,7 +323,7 @@ export default ({ setState, state, ...props }) => {
 
   return (
     <div className={indent && "ml-3"}>
-      {batching && props.itemIdsRef && props.notBatch && (
+      {batching && props.itemIdsRef && (
         <Div100vh
           style={{
             height: "100%",
@@ -394,7 +394,7 @@ export default ({ setState, state, ...props }) => {
       )}
       <Input
         {...props}
-        batchClick={props.itemIdsRef && batchClick}
+        batchClick={props.itemIdsRef && !props.notBatch && batchClick}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
         value={state === undefined ? "" : state}
