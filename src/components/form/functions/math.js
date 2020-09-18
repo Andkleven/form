@@ -593,7 +593,6 @@ function getType(values, jsonVariables, fieldToGet) {
   } else {
     value = objectPath.get(values, `leadEngineer.data.${field}`);
   }
-  console.log(packerType, field, value, fieldToGet);
   let returnValue =
     value && packerType && packerType[field] && packerType[field][value]
       ? packerType[field][value][fieldToGet]
@@ -698,7 +697,6 @@ const mathDescription = (
     `leadEngineer.data.numberOfTracks`,
     ""
   );
-  console.log(rubberType);
   if (geometry === "dual") {
     return `${K2 ? "K2" : ""} SP ${jsonVariables[0]} ${
       rubberType[0]
