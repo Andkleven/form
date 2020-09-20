@@ -5,6 +5,30 @@
   "getNewValue": "operator.new.item",
   "getOldValue": "items",
   "chapters": {
+    "steelMeasurement": {
+      "queryPath": "operator",
+      "pages": [
+        {
+          "pageTitle": "Steel measurements",
+          "queryPath": "operator.measurementPointPackers",
+          "repeatGroupWithQuery": "leadEngineer.data.elementLength",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "fieldName": "measurementPoint",
+              "label": "Measurement Point  {}",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        }
+      ]
+    },
     "actualSteelMeasurement": {
       "queryPath": "operator",
       "pages": [
@@ -85,6 +109,7 @@
               "type": "date"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "blastMediaBatchNumber",
               "required": true,
               "label": "Blast Media Batch Number"
@@ -113,6 +138,7 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "inspectionOfSteelSurface",
               "showFieldSpecPath": "leadEngineer.data.inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
@@ -121,6 +147,7 @@
               "type": "checkbox"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
@@ -131,12 +158,14 @@
               "type": "number"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
               "fieldName": "equipmentIDSolubleSaltLevel",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
               "prepend": "Next Calibration Date",
@@ -144,6 +173,7 @@
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "surfaceCleanliness",
               "label": "Surface Cleanliness",
               "showFieldSpecPath": "leadEngineer.data.surfaceCleanliness",
@@ -152,6 +182,7 @@
               "unit": "Sa"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
               "showFieldSpecPath": "leadEngineer.data.surfaceCleanliness",
@@ -160,6 +191,7 @@
               "type": "file"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.compressedAirCheck",
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
@@ -168,12 +200,14 @@
               "type": "checkbox"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.compressedAirCheck",
               "fieldName": "equipmentIdCompressedAirCheck",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.compressedAirCheck",
               "fieldName": "nextCalibrationDateCompressedAirCheck",
               "type": "date",
@@ -181,6 +215,7 @@
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "uvTest",
               "showFieldSpecPath": "leadEngineer.data.uvTest",
               "label": "UV Test",
@@ -189,12 +224,14 @@
               "type": "checkbox"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "equipmentIDUvTest",
               "showFieldSpecPath": "leadEngineer.data.uvTest",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.uvTest",
               "fieldName": "nextCalibrationDateUvTest",
               "type": "date",
@@ -202,6 +239,7 @@
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "blastMediaConductivity",
               "showFieldSpecPath": "leadEngineer.data.blastMediaConductivity",
               "label": "Blast Media Conductivity",
@@ -212,12 +250,14 @@
               "type": "number"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.blastMediaConductivity",
               "required": true,
               "fieldName": "equipmentIDBlastMediaConductivity",
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.blastMediaConductivity",
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
               "type": "date",
@@ -249,11 +289,13 @@
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
               "fieldName": "referencePlateId",
               "prepend": "Reference Plate Id (Optional)"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "dustTest",
               "label": "Dust Test",
               "required": true,
@@ -452,6 +494,122 @@
           "noLine": true
         },
         {
+          "showPage": {
+            "dual": true,
+            "slipon2": true,
+            "slipon3": true,
+            "b2p": true
+          },
+          "queryPath": [
+            "operator.vulcanizationOperators",
+            "coatingOperators",
+            ""
+          ],
+          "fields": [
+            {
+              "showField": { "dual": true },
+              "specValueList": "leadEngineer.data.compoundNoPinSide",
+              "label": "Rubber pin side"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoPinSideBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoPinSideMixDate",
+              "label": "Mix date",
+              "type": "date"
+            },
+            {
+              "showField": { "dual": true },
+              "specValueList": "leadEngineer.data.compoundNoBoxSide",
+              "label": "Rubber box side"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoBoxSideBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoBoxSideMixDate",
+              "label": "Mix date",
+              "type": "date"
+            },
+            {
+              "showField": { "b2P": true },
+              "specValueList": "leadEngineer.data.compoundNoRubberType",
+              "label": "Rubber"
+            },
+            {
+              "showField": { "b2P": true },
+              "fieldName": "compoundNoRubberTypeBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "b2P": true },
+              "fieldName": "compoundNoRubberTypeMixDate",
+              "label": "Mix date",
+              "type": "date"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "specValueList": "leadEngineer.data.compoundNoId",
+              "label": "ID Rubber"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoIdBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoIdMixDate",
+              "label": "Mix date",
+              "type": "date"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "IdRubberThickness",
+              "label": "ID Rubber thickness",
+              "type": "number"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "specValueList": "leadEngineer.data.compoundNoOd",
+              "label": "OD Rubber"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoOdBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoOdMixDate",
+              "label": "Mix date",
+              "type": "date"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "OdRubberThickness",
+              "label": "OD Rubber thickness",
+              "type": "number"
+            },
+            {
+              "fieldName": "appliedCuringTape",
+              "label": "Applied curing tape",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "showPage": {
+            "coatedItem": true,
+            "mould": true
+          },
           "repeat": true,
           "notAddButton": true,
           "repeatGroupWithQuerySpecData": true,
@@ -490,6 +648,10 @@
           ]
         },
         {
+          "showPage": {
+            "coatedItem": true,
+            "mould": true
+          },
           "fields": [
             {
               "specValueList": [
@@ -514,6 +676,10 @@
           ]
         },
         {
+          "showPage": {
+            "coatedItem": true,
+            "mould": true
+          },
           "queryPath": [
             "operator.vulcanizationOperators",
             "coatingOperators",
@@ -542,8 +708,7 @@
         },
         {
           "showPage": {
-            "coatedItem": true,
-            "mould": false
+            "coatedItem": true
           },
           "repeat": true,
           "notAddButton": true,
@@ -673,6 +838,302 @@
         }
       ]
     },
+    "grindingStep": {
+      "pages": [
+        {
+          "pageTitle": "Grinding between Vulcanization",
+          "queryPath": ["operator.grindings", ""],
+          "fields": [
+            {
+              "fieldName": "elementLengthAfterGrinding ",
+              "required": true,
+              "label": "Element length after grinding",
+              "type": "number"
+            },
+            {
+              "fieldName": "elementCenterDiameter",
+              "required": true,
+              "label": "Element center diameter",
+              "type": "number"
+            },
+            {
+              "fieldName": "pinDiameter",
+              "required": true,
+              "label": "Pin diameter"
+            },
+            {
+              "fieldName": "boxDiameter",
+              "required": true,
+              "label": "Box diameter"
+            },
+            {
+              "fieldName": "equipmentIdGrinding",
+              "required": true,
+              "label": "Equipment ID",
+              "type": "date"
+            },
+            {
+              "fieldName": "coreSample",
+              "label": "Core Sample",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
+    "ultrasound": {
+      "pages": [
+        {
+          "pageTitle": "Grinding between Vulcanization",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "ultraSoundBeforeGrinding",
+              "required": true,
+              "label": "Ultra sound before grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "ultraSoundAfterGrinding",
+              "required": true,
+              "label": "Ultra sound after grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "probe",
+              "required": true,
+              "label": "Probe"
+            },
+            {
+              "fieldName": "equipmentName",
+              "required": true,
+              "label": "Equipment name"
+            },
+            {
+              "fieldName": "ultrasoundEquipmentId",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "dueCalibrationDate",
+              "required": true,
+              "label": "Due calibration  date",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "testInformationResult",
+              "required": true,
+              "label": "Test information/result"
+            },
+            {
+              "fieldName": "deviation",
+              "label": "Deviation",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "repeat": true,
+          "delete": true,
+          "writeOnlyFieldIf": "operator.data.deviation",
+          "pageTitle": "Grinding between Vulcanization",
+          "addButton": "deviation",
+          "queryPath": "operator.deviations",
+          "fields": [
+            {
+              "fieldName": "deviation",
+              "required": true,
+              "label": "Deviation"
+            }
+          ]
+        },
+        {
+          "writeOnlyFieldIf": "operator.data.deviation",
+          "fieldName": "length",
+          "required": true,
+          "label": "Length"
+        },
+        {
+          "writeOnlyFieldIf": "operator.data.deviation",
+          "fieldName": "depth",
+          "required": true,
+          "label": "Depth"
+        },
+        {
+          "writeOnlyFieldIf": "operator.data.deviation",
+          "fieldName": "size",
+          "required": true,
+          "label": "Size"
+        },
+        {
+          "fieldName": "approved",
+          "required": true,
+          "label": "Approved",
+          "type": "checkbox"
+        },
+        {
+          "fieldName": "inspectorsCertificateNo",
+          "required": true,
+          "label": "Inspectors certificate no."
+        },
+        {
+          "fieldName": "inspectorsCertificateDueDate",
+          "required": true,
+          "label": "Inspectors certificate due date",
+          "type": "datetime-local"
+        }
+      ]
+    },
+    "grinding": {
+      "pages": [
+        {
+          "pageTitle": "Grinding",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "elementLengthAfterGrinding ",
+              "required": true,
+              "label": "Element length after grinding",
+              "type": "number"
+            },
+            {
+              "fieldName": "elementCenterDiameter",
+              "required": true,
+              "label": "Element center diameter",
+              "type": "number"
+            },
+            {
+              "fieldName": "pinDiameter",
+              "required": true,
+              "label": "Pin diameter",
+              "type": "number"
+            },
+            {
+              "fieldName": "boxDiameter",
+              "required": true,
+              "label": "Box diameter",
+              "type": "number"
+            },
+            {
+              "fieldName": "equipmentIdGrinding",
+              "required": true,
+              "label": "Equipment ID",
+              "type": "date"
+            },
+            {
+              "fieldName": "coreSample",
+              "label": "Core Sample",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
+    "ringAssembly": {
+      "pages": [
+        {
+          "pageTitle": "Ring Assembly",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "equipmentIdTorqueWrench",
+              "required": true,
+              "label": "Equipment ID(Torque wrench)"
+            },
+            {
+              "fieldName": "calibrationDateTorqueWrench",
+              "required": true,
+              "label": "Calibration date",
+              "type": "date"
+            },
+            {
+              "mathSpec": "mathTorque",
+              "label": "Torque",
+              "unit": "Nm"
+            },
+            {
+              "showFieldSpecPath": "leadEngineer.data.K2",
+              "fieldName": "controlOfK2RingFlaps",
+              "label": "Control of K2 ring flaps",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "endRingInstallation",
+              "required": true,
+              "label": "End ring installation",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "internalCleaning",
+              "required": true,
+              "label": "Internal cleaning",
+              "type": "checkbox"
+            },
+            {
+              "specValueList": "leadEngineer.data.idDriftSize",
+              "label": "ID Drift size"
+            },
+            {
+              "fieldName": "driftIdEquipmentId",
+              "required": true,
+              "label": "Drift ID/Equipment ID"
+            },
+            {
+              "fieldName": "driftIdCalibrationDate",
+              "required": true,
+              "label": "Calibration date(Drift ID)",
+              "type": "date"
+            }
+          ]
+        }
+      ]
+    },
+    "barrier": {
+      "pages": [
+        {
+          "pageTitle": "Barrier",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "specValueList": "leadEngineer.data.barrier",
+              "label": "Barrier type"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.blastMediaConductivity": ["0A", "0B", "0C"]
+              },
+              "specValueList": "leadEngineer.data.barrier",
+              "label": "Tolerance end"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.blastMediaConductivity": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathShrinkThickness",
+              "label": "Target thickness ends"
+            }
+          ]
+        }
+      ]
+    },
+    "completionPhase": {
+      "pages": [
+        {
+          "pageTitle": "Completion phase",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "marking",
+              "required": true,
+              "label": "Marking",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
     "touchUp": {
       "pages": [
         {
@@ -680,6 +1141,7 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "touchUp",
               "required": true,
               "label": "Touch-Up",
@@ -687,10 +1149,66 @@
               "subtext": "Check if touch-up is performed"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "touchUpPerformed",
               "required": true,
               "label": "Touch Up Performed",
               "type": "datetime-local"
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true,
+                "slipon2": true,
+                "slipon3": true
+              },
+              "fieldName": "cleaningPerformed",
+              "required": true,
+              "label": "Cleaning performed",
+              "type": "checkbox"
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true,
+                "slipon2": true,
+                "slipon3": true
+              },
+              "fieldName": "appliedThreadDop",
+              "required": true,
+              "label": "Applied thread dop",
+              "type": "select",
+              "options": ["Mercasol", "Kendex orange"]
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true,
+                "slipon2": true,
+                "slipon3": true
+              },
+              "label": "Packed specification"
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true,
+                "slipon2": true,
+                "slipon3": true
+              },
+              "mathSpec": "mathPackingSpecification",
+              "label": "Cleaning performed"
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true,
+                "slipon2": true,
+                "slipon3": true
+              },
+              "fieldName": "packedInAccordantToSpec",
+              "label": "Packed in accordant to spec",
+              "type": "checkbox"
             }
           ]
         }

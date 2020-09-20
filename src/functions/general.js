@@ -669,3 +669,30 @@ export function useTraceUpdate(props) {
     prev.current = props;
   });
 }
+
+export function showFieldSpec(
+  specData,
+  showFieldSpecPath,
+  repeatStepList,
+  editRepeatStepValueList
+) {
+  if (typeof showFieldSpecPath === "object" && showFieldSpecPath !== null) {
+    let path = Object.keys(showFieldSpecPath)[0];
+    let specValue = findValue(
+      specData,
+      path,
+      repeatStepList,
+      editRepeatStepValueList
+    );
+    return showFieldSpecPath[path].includes(specValue);
+  } else {
+    return [null, undefined, "", false].includes(
+      findValue(
+        specData,
+        showFieldSpecPath,
+        repeatStepList,
+        editRepeatStepValueList
+      )
+    );
+  }
+}

@@ -65,6 +65,18 @@ const ITEM = gql`
             data
           }
         }
+        measurementPointPackers {
+          id
+          data
+        }
+        grindings {
+          id
+          data
+        }
+        deviations {
+          id
+          data
+        }
         measurementPointActualTdvs {
           id
           data
@@ -419,6 +431,18 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
               data
             }
           }
+          measurementPointPackers {
+            id
+            data
+          }
+          grindings {
+            id
+            data
+          }
+          deviations {
+            id
+            data
+          }
           measurementPointActualTdvs {
             id
             data
@@ -513,6 +537,18 @@ const GET_OPERATOR_BY_ITEM = gql`
             id
             data
           }
+        }
+        measurementPointPackers {
+          id
+          data
+        }
+        grindings {
+          id
+          data
+        }
+        deviations {
+          id
+          data
         }
         measurementPointActualTdvs {
           id
@@ -670,6 +706,18 @@ const QUALITY_CONTROL = gql`
             id
             data
           }
+        }
+        measurementPointPackers {
+          id
+          data
+        }
+        grindings {
+          id
+          data
+        }
+        deviations {
+          id
+          data
         }
         measurementPointActualTdvs {
           id

@@ -697,16 +697,17 @@ const mathDescription = (
     `leadEngineer.data.numberOfTracks`,
     ""
   );
+  console.log(rubberType);
   if (geometry === "dual") {
     return `${K2 ? "K2" : ""} SP ${jsonVariables[0]} ${
-      rubberType[0]
+      rubberType && rubberType[0]
     } ${barrierPinSide}x${elementLengthPinSide}M / ${
-      rubberType[1]
+      rubberType && rubberType[1]
     } ${barrierBoxSide}x${elementLengthBoxSide}M ${pipeOd}x${rubberOd}`;
   } else {
-    return `${K2 ? "K2" : ""} ${
-      geometry === "b2p" ? "SP" : jsonVariables[0]
-    } ${rubberType} ${barrier} ${
+    return `${K2 ? "K2" : ""} ${geometry === "b2p" ? "SP" : jsonVariables[0]} ${
+      rubberType && rubberType
+    } ${barrier} ${
       cable && `CL${numberOfTracks}`
     } ${pipeOd}x${rubberOd}x${elementLength}M`;
   }
@@ -996,7 +997,27 @@ const mathIncreasedOdForEnds2 = (
   return increasedOdForEnds(values, "barrierBoxSide");
 };
 
+const mathTorque = (values, repeatStepList, decimal) => {
+  let screwSize = findValue(values, `leadEngineer.data.screwSize`);
+  let screwLength = findValue(values, `leadEngineer.data.screwLength`);
+  let steel = findValue(values, `leadEngineer.data.steel`);
+  if (steel === "Carbon - Q125") {
+    return 125;
+  }
+  let screwLengthNumber = Number(screwLength.split("M")[1]);
+  if (screwSize === "M10") {
+    if (10 <= screwLengthNumber <= 13) {
+      return 25;
+    } else if (screwLengthNumber <= 20) {
+      return 45;
+    }
+  } else if (screwSize === "M16") {
+    return 110;
+  }
+};
+
 const Math = {
+  mathTorque,
   mathIncreasedOdForEnds2,
   mathIncreasedOdForEndsTotal2,
   mathIncreasedOdForWholeElement2,

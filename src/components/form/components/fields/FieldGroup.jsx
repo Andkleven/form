@@ -1,19 +1,17 @@
 import React from "react";
 import FieldProperties from "components/form/components/fields/FieldProperties";
 import Page from "components/form/components/Page";
-import { findValue, getProperties } from "functions/general";
+import { getProperties, showFieldSpec } from "functions/general";
 
 export default props => {
   return props.fields.map((field, index) => {
     if (
       field.showFieldSpecPath &&
-      [null, undefined, "", false].includes(
-        findValue(
-          props.specData,
-          field.showFieldSpecPath,
-          props.repeatStepList,
-          field.editRepeatStepValueList
-        )
+      showFieldSpec(
+        props.specData,
+        field.showFieldSpecPath,
+        props.repeatStepList,
+        field.editRepeatStepValueList
       )
     ) {
       return null;

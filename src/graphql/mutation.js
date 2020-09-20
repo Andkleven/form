@@ -284,6 +284,18 @@ const OPERATOR = gql`
                 data
               }
             }
+            measurementPointPackers {
+              id
+              data
+            }
+            grindings {
+              id
+              data
+            }
+            deviations {
+              id
+              data
+            }
             measurementPointActualTdvs {
               id
               data
@@ -424,6 +436,18 @@ const QUALITY_CONTROL = gql`
                 id
                 data
               }
+            }
+            measurementPointPackers {
+              id
+              data
+            }
+            grindings {
+              id
+              data
+            }
+            deviations {
+              id
+              data
             }
             measurementPointActualTdvs {
               id
