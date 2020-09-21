@@ -69,6 +69,62 @@ const ITEM = gql`
           id
           data
         }
+        measurementPointPackerPinSides {
+          id
+          data
+        }
+        measurementPointPackerBoxSides {
+          id
+          data
+        }
+        measurementPointPackerCoatings {
+          id
+          data
+        }
+        measurementPointPackerCoatingPinSides {
+          id
+          data
+        }
+        measurementPointPackerCoatingBoxSides {
+          id
+          data
+        }
+        measurementPointBeforeBarriers {
+          id
+          data
+        }
+        measurementPointAfterBarriers {
+          id
+          data
+        }
+        measurementPointBeforeBarrierPinSides {
+          id
+          data
+        }
+        measurementPointBeforeBarrierBoxSides {
+          id
+          data
+        }
+        measurementPointAfterBarrierPinSides {
+          id
+          data
+        }
+        measurementPointAfterBarrierBoxSides {
+          id
+          data
+        }
+        measurementPointCompletionPhases {
+          id
+          data
+        }
+        measurementPointCompletionPhasePinSides {
+          id
+          data
+        }
+        measurementPointCompletionPhaseBoxSides {
+          id
+          data
+        }
         grindings {
           id
           data
@@ -435,6 +491,62 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             id
             data
           }
+          measurementPointPackerPinSides {
+            id
+            data
+          }
+          measurementPointPackerBoxSides {
+            id
+            data
+          }
+          measurementPointPackerCoatings {
+            id
+            data
+          }
+          measurementPointPackerCoatingPinSides {
+            id
+            data
+          }
+          measurementPointPackerCoatingBoxSides {
+            id
+            data
+          }
+          measurementPointBeforeBarriers {
+            id
+            data
+          }
+          measurementPointAfterBarriers {
+            id
+            data
+          }
+          measurementPointBeforeBarrierPinSides {
+            id
+            data
+          }
+          measurementPointBeforeBarrierBoxSides {
+            id
+            data
+          }
+          measurementPointAfterBarrierPinSides {
+            id
+            data
+          }
+          measurementPointAfterBarrierBoxSides {
+            id
+            data
+          }
+          measurementPointCompletionPhases {
+            id
+            data
+          }
+          measurementPointCompletionPhasePinSides {
+            id
+            data
+          }
+          measurementPointCompletionPhaseBoxSides {
+            id
+            data
+          }
           grindings {
             id
             data
@@ -539,6 +651,62 @@ const GET_OPERATOR_BY_ITEM = gql`
           }
         }
         measurementPointPackers {
+          id
+          data
+        }
+        measurementPointPackerPinSides {
+          id
+          data
+        }
+        measurementPointPackerBoxSides {
+          id
+          data
+        }
+        measurementPointPackerCoatings {
+          id
+          data
+        }
+        measurementPointPackerCoatingPinSides {
+          id
+          data
+        }
+        measurementPointPackerCoatingBoxSides {
+          id
+          data
+        }
+        measurementPointBeforeBarriers {
+          id
+          data
+        }
+        measurementPointAfterBarriers {
+          id
+          data
+        }
+        measurementPointBeforeBarrierPinSides {
+          id
+          data
+        }
+        measurementPointBeforeBarrierBoxSides {
+          id
+          data
+        }
+        measurementPointAfterBarrierPinSides {
+          id
+          data
+        }
+        measurementPointAfterBarrierBoxSides {
+          id
+          data
+        }
+        measurementPointCompletionPhases {
+          id
+          data
+        }
+        measurementPointCompletionPhasePinSides {
+          id
+          data
+        }
+        measurementPointCompletionPhaseBoxSides {
           id
           data
         }
@@ -708,6 +876,62 @@ const QUALITY_CONTROL = gql`
           }
         }
         measurementPointPackers {
+          id
+          data
+        }
+        measurementPointPackerPinSides {
+          id
+          data
+        }
+        measurementPointPackerBoxSides {
+          id
+          data
+        }
+        measurementPointPackerCoatings {
+          id
+          data
+        }
+        measurementPointPackerCoatingPinSides {
+          id
+          data
+        }
+        measurementPointPackerCoatingBoxSides {
+          id
+          data
+        }
+        measurementPointBeforeBarriers {
+          id
+          data
+        }
+        measurementPointAfterBarriers {
+          id
+          data
+        }
+        measurementPointBeforeBarrierPinSides {
+          id
+          data
+        }
+        measurementPointBeforeBarrierBoxSides {
+          id
+          data
+        }
+        measurementPointAfterBarrierPinSides {
+          id
+          data
+        }
+        measurementPointAfterBarrierBoxSides {
+          id
+          data
+        }
+        measurementPointCompletionPhases {
+          id
+          data
+        }
+        measurementPointCompletionPhasePinSides {
+          id
+          data
+        }
+        measurementPointCompletionPhaseBoxSides {
           id
           data
         }

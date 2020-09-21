@@ -195,6 +195,7 @@ export default React.memo(props => {
           let repeatNumber = getRepeatNumber(
             props.specData,
             props.repeatGroupWithQuery,
+            props.repeatGroupWithQueryMath,
             props.repeatStepList,
             props.editRepeatStepListRepeat
           );
@@ -329,6 +330,7 @@ export default React.memo(props => {
       let newValue = getRepeatNumber(
         data,
         props.repeatGroupWithQuery,
+        props.repeatGroupWithQueryMath,
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
@@ -376,7 +378,7 @@ export default React.memo(props => {
   );
   useEffect(() => {
     if (
-      props.repeatGroupWithQuery &&
+      (props.repeatGroupWithQuery || props.repeatGroupWithQueryMath) &&
       !props.repeatGroupWithQuerySpecData &&
       writeChapter(
         props.allWaysShow,
@@ -399,6 +401,7 @@ export default React.memo(props => {
     props.showPage,
     props.jsonVariables,
     props.repeatGroupWithQuery,
+    props.repeatGroupWithQueryMath,
     props.path,
     props.editRepeatStepListRepeat,
     props.repeatGroupWithQuerySpecData,

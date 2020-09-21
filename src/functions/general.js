@@ -461,15 +461,21 @@ export const formDataStructure = (data, path) => {
 export const getRepeatNumber = (
   data,
   repeatGroupWithQuery,
+  repeatGroupWithQueryMath,
   repeatStepList,
   editRepeatStepListRepeat
 ) => {
-  let newValue = findValue(
-    data,
-    repeatGroupWithQuery,
-    repeatStepList,
-    editRepeatStepListRepeat
-  );
+  let newValue;
+  if (repeatGroupWithQuery) {
+    newValue = findValue(
+      data,
+      repeatGroupWithQuery,
+      repeatStepList,
+      editRepeatStepListRepeat
+    );
+  } else if (repeatGroupWithQueryMath) {
+    newValue = Math[repeatGroupWithQueryMath](data, repeatStepList, 0);
+  }
   if (Array.isArray(newValue)) {
     newValue = newValue.length;
   }

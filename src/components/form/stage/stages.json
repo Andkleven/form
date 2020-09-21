@@ -10,6 +10,7 @@
     "releaseCementsBeforeCoating",
     "itemRubberCementsBeforeCoating",
     "coatingStepLayer",
+    "coating",
     "vulcanizationStep",
     "measurementPointStep",
     "grindingStep",

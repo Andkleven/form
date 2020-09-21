@@ -112,6 +112,7 @@ export default ({ addOrRemove, ...props }) => {
       let repeatNumber = getRepeatNumber(
         props.specData,
         props.repeatGroupWithQuery,
+        props.repeatGroupWithQueryMath,
         props.repeatStepList,
         props.editRepeatStepListRepeat
       );
