@@ -9,7 +9,7 @@
       "queryPath": "operator",
       "pages": [
         {
-          "pageTitle": "Actual Steel OD",
+          "pageTitle": "Actual Steel",
           "queryPath": "operator.measurementPointActualTdvs",
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
@@ -24,7 +24,8 @@
               "required": true,
               "type": "number",
               "unit": "mm",
-              "decimal": 1
+              "decimal": 1,
+              "notBatch": true
             }
           ]
         }
