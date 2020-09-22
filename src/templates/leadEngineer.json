@@ -748,16 +748,6 @@
               "math": "mathCompoundNoId"
             },
             {
-              "showField": { "b2P": true, "dual": true },
-              "fieldName": "numberOfTracks",
-              "label": "Number of tracks",
-              "type": "Number",
-              "notSingleEdit": true,
-              "writeOnlyFieldIf": "leadEngineer.data.cable",
-              "min": 1,
-              "max": 10
-            },
-            {
               "fieldName": "coreSampleCode",
               "label": "Core sample code",
               "required": true,
@@ -774,6 +764,14 @@
               "fieldName": "cable",
               "label": "Cable",
               "type": "checkbox"
+            },
+            {
+              "showField": { "b2P": true, "dual": true },
+              "fieldName": "numberOfTracks",
+              "label": "Number of tracks",
+              "type": "Number",
+              "notSingleEdit": true,
+              "writeOnlyFieldIf": "leadEngineer.data.cable"
             },
             {
               "showField": { "b2P": true, "slipon2": true, "slipon3": true },

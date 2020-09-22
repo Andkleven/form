@@ -442,7 +442,6 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path
     );
-    console.log(key, newData);
     let mergeData = {};
     objectPath.set(mergeData, key, newData);
     return specData ? mergeData : getBatchingData(mergeData, batchingData);

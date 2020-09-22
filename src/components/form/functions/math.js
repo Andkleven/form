@@ -697,7 +697,6 @@ const mathDescription = (
     `leadEngineer.data.numberOfTracks`,
     ""
   );
-  console.log(rubberType);
   if (geometry === "dual") {
     return `${K2 ? "K2" : ""} SP ${jsonVariables[0]} ${
       rubberType && rubberType[0]

@@ -1195,6 +1195,13 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "drillingHasBeenCompleted",
+              "label": "Drilling has been completed",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
               "fieldName": "equipmentIdTorqueWrench",
               "required": true,
               "label": "Equipment ID(Torque wrench)"
@@ -1421,7 +1428,7 @@
             },
             {
               "specValueList": "leadEngineer.data.barrierBoxSide",
-              "label": "barrier box side type",
+              "label": "Barrier box side type",
               "showFieldSpecPath": "leadEngineer.data.barrierBoxSide"
             },
             {
@@ -1523,7 +1530,32 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
               },
               "fieldName": "measurementBeforeAppliedBarrier",
               "label": "Measurement {} before applied barrier",
@@ -1535,7 +1567,32 @@
             },
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
               },
               "indexVariableLabel": true,
               "label": "Target measurement {}",
@@ -1549,7 +1606,32 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
               },
               "fieldName": "noOfLayersApplied",
               "label": "No. of layers applied",
@@ -1587,32 +1669,7 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierPinSide": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
               },
               "fieldName": "measurementBoxBeforeAppliedBarrier",
               "label": "Measurement {} box before applied barrier",
@@ -1634,32 +1691,7 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
               "fieldName": "measurementPinBeforeAppliedBarrier",
               "label": "Measurement {} pin before applied barrier",
@@ -1681,32 +1713,92 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierPinSide": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementBoxBeforeAfterBarrier",
+              "label": "Measurement {} box before after barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointAfterBarriers",
+          "repeatGroupWithQuery": "operator.data.noOfLayersApplied",
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "indexVariableLabel": true,
+              "fieldName": "endMeasurement",
+              "label": "End measurement {}",
+              "required": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "showPage": { "dual": true },
+          "queryPath": "operator.measurementPointBeforeBarrierPinSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementBoxBeforeAppliedBarrier",
+              "label": "Measurement {} box before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "dual": true },
+          "queryPath": "operator.measurementPointBeforeBarrierBoxSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPinBeforeAppliedBarrier",
+              "label": "Measurement {} pin before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "dual": true },
+          "queryPath": "operator.measurementPointAfterBarrierPinSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
               },
               "fieldName": "measurementBoxBeforeAfterBarrier",
               "label": "Measurement {} box before after barrier",
@@ -1728,32 +1820,7 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
               "fieldName": "measurementPinBeforeAfterBarrier",
               "label": "Measurement {} pin before after barrier",
@@ -1766,7 +1833,95 @@
           ]
         },
         {
-          "showPage": { "b2P": true, "slipon2": true, "slipon3": true },
+          "showPage": { "b2p": true },
+          "queryPath": "operator.measurementPointPackers",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementBoxBeforeAppliedBarrier",
+              "label": "Measurement {} box before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "b2p": true },
+          "queryPath": "operator.measurementPointPackers",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPinBeforeAppliedBarrier",
+              "label": "Measurement {} pin before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "b2p": true },
+          "queryPath": "operator.measurementPointPackers",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementBoxBeforeAfterBarrier",
+              "label": "Measurement {} box before after barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "b2p": true },
+          "queryPath": "operator.measurementPointPackers",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPinBeforeAfterBarrier",
+              "label": "Measurement {} pin before after barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "slipon2": true, "slipon3": true },
           "queryPath": "operator.measurementPointBeforeBarriers",
           "repeatGroupWithQueryMath": "measurementPointPackers",
           "repeatGroupWithQuerySpecData": true,
@@ -1813,7 +1968,7 @@
           ]
         },
         {
-          "showPage": { "b2P": true, "slipon2": true, "slipon3": true },
+          "showPage": { "slipon2": true, "slipon3": true },
           "queryPath": "operator.measurementPointAfterBarriers",
           "repeatGroupWithQueryMath": "measurementPointPackers",
           "repeatGroupWithQuerySpecData": true,
@@ -1860,7 +2015,7 @@
           ]
         },
         {
-          "showPage": { "b2P": true, "slipon2": true, "slipon3": true },
+          "showPage": { "slipon2": true, "slipon3": true },
           "queryPath": "operator",
           "fields": [
             {
