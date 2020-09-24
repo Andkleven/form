@@ -963,6 +963,7 @@
             },
             {
               "fieldName": "idDriftSize",
+              "required": true,
               "label": "ID Drift size"
             }
           ]
@@ -977,6 +978,7 @@
             {
               "fieldName": "ringType",
               "label": "Ring type",
+              "required": true,
               "type": "select",
               "options": ["End rings", "Center ring"]
             },
@@ -986,6 +988,7 @@
                 "leadEngineer.ringMaterials",
                 "data.ringType"
               ],
+              "required": true,
               "label": "{} material no."
             }
           ]
@@ -1001,6 +1004,7 @@
             {
               "fieldName": "screwMaterialType",
               "label": "Screw material type",
+              "required": true,
               "type": "select",
               "options": ["Black 10.9", "Black 10.9/A4", "Inc718", "Inc625"]
             },
@@ -1008,11 +1012,13 @@
               "fieldName": "screwSize",
               "label": "Screw size",
               "type": "select",
+              "required": true,
               "options": ["M10", "M16"]
             },
             {
               "fieldName": "screwLength",
               "label": "Screw length",
+              "required": true,
               "type": "select",
               "options": [
                 10,
@@ -1044,6 +1050,13 @@
               "math": "mathScrewDescription"
             },
             {
+              "fieldName": "ultrasound",
+              "label": "Ultrasound",
+              "type": "checkbox",
+              "default": true
+            },
+            {
+              "showField": { "dual": true },
               "fieldName": "ultrasoundPinSide",
               "label": "Ultrasound pin side",
               "type": "checkbox",

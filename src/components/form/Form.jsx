@@ -221,23 +221,26 @@ export default ({
     }
   );
   const submitData = useCallback(
-    (data, submit) => {
+    submit => {
       renderFunction.current = {};
       screenshotData.current = false;
       setWhen(false);
       setEditChapter(0);
       finalChapter.current = 0;
       setLoading(true);
-      if (data) {
+      if (documentData.current) {
         if (submit && !stage && stagePath && !editChapter) {
-          objectPath.set(data, stagePath.current, true);
+          objectPath.set(documentData.current, stagePath.current, true);
         }
         if (addValuesToData) {
           Object.keys(addValuesToData).forEach(key => {
-            objectPath.set(data, key, addValuesToData[key]);
+            objectPath.set(documentData.current, key, addValuesToData[key]);
           });
         }
-        let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
+        let variables = stringifyQuery(
+          cloneDeep(documentData.current),
+          removeEmptyField
+        );
         mutation({
           variables: {
             ...variables,
@@ -258,6 +261,7 @@ export default ({
       }
     },
     [
+      documentData,
       stages,
       setWhen,
       screenshotData,

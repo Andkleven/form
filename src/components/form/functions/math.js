@@ -266,7 +266,8 @@ const mathShrinkThickness = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let partOfNumber = 0;
   let shrink = Number(
@@ -295,7 +296,8 @@ const mathToleranceMin = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let toleranceMinPercent = Number(
     findValue(values, "leadEngineer.data.toleranceMinPercent")
@@ -317,7 +319,8 @@ const mathToleranceMax = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let toleranceMaxPercent = Number(
     findValue(values, "leadEngineer.data.toleranceMaxPercent")
@@ -338,7 +341,8 @@ const mathLayer = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let layers = 0;
   for (let index = 0; index < repeatStepList[0]; index++) {
@@ -387,7 +391,8 @@ const mathPeelTest = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let peelTest = Number(
     findValue(
@@ -414,7 +419,8 @@ const mathMeasurementPoints = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let elementLength = Number(
     findValue(values, `leadEngineer.data.elementLength`)
@@ -427,7 +433,8 @@ const mathMeasurementPointsPinSide = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let elementLength = Number(
     findValue(values, `leadEngineer.data.elementLengthPinSide`)
@@ -440,7 +447,8 @@ const mathMeasurementPointsBoxSide = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let elementLength = Number(
     findValue(values, `leadEngineer.data.elementLengthBoxSide`)
@@ -606,7 +614,8 @@ const mathCoreSampleCode = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return getType(values, jsonVariables, "coreSampleCode");
 };
@@ -616,7 +625,8 @@ const mathPackingSpecification = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return getType(values, jsonVariables, "packingSpecification");
 };
@@ -626,7 +636,8 @@ const mathProgramNumber = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let programNumber = getType(values, jsonVariables, "programNumber");
   if (
@@ -654,7 +665,8 @@ const mathCompoundNoId = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return getType(values, jsonVariables, "compoundNoId");
 };
@@ -664,7 +676,8 @@ const mathDescription = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let geometry = removeSpace(lowerCaseFirstLetter(jsonVariables[0]));
   let rubberType = getType(values, jsonVariables, "geometry");
@@ -704,7 +717,7 @@ const mathDescription = (
       rubberType && rubberType[1]
     } ${barrierBoxSide}x${elementLengthBoxSide}M ${pipeOd}x${rubberOd}`;
   } else {
-    return `${K2 ? "K2" : ""} ${geometry === "b2p" ? "SP" : jsonVariables[0]} ${
+    return `${K2 ? "K2" : ""} ${geometry === "b2P" ? "SP" : jsonVariables[0]} ${
       rubberType && rubberType
     } ${barrier} ${
       cable && `CL${numberOfTracks}`
@@ -717,7 +730,8 @@ const mathScrewDescription = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   let screwMaterialType = objectPath.get(
     values,
@@ -883,7 +897,8 @@ const mathIncreasedOdForWholeElementTotal0 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForWholeElementTotal(values, "barrier");
 };
@@ -893,7 +908,8 @@ const mathIncreasedOdForWholeElement0 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForWholeElement(values, "barrier");
 };
@@ -903,7 +919,8 @@ const mathIncreasedOdForEndsTotal0 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForEndsTotal(values, "barrier");
 };
@@ -913,7 +930,8 @@ const mathIncreasedOdForEnds0 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return increasedOdForEnds(values, "barrier");
 };
@@ -922,7 +940,8 @@ const mathIncreasedOdForWholeElementTotal1 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForWholeElementTotal(values, "barrierPinSide");
 };
@@ -932,7 +951,8 @@ const mathIncreasedOdForWholeElement1 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForWholeElement(values, "barrierPinSide");
 };
@@ -942,7 +962,8 @@ const mathIncreasedOdForEndsTotal1 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForEndsTotal(values, "barrierPinSide");
 };
@@ -952,7 +973,8 @@ const mathIncreasedOdForEnds1 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return increasedOdForEnds(values, "barrierPinSide");
 };
@@ -961,7 +983,8 @@ const mathIncreasedOdForWholeElementTotal2 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForWholeElementTotal(values, "barrierBoxSide");
 };
@@ -971,7 +994,8 @@ const mathIncreasedOdForWholeElement2 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForWholeElement(values, "barrierBoxSide");
 };
@@ -981,7 +1005,8 @@ const mathIncreasedOdForEndsTotal2 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return mathIncreasedOdForEndsTotal(values, "barrierBoxSide");
 };
@@ -991,9 +1016,89 @@ const mathIncreasedOdForEnds2 = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null
 ) => {
   return increasedOdForEnds(values, "barrierBoxSide");
+};
+
+const mathTargetMeasurement = (
+  values,
+  repeatStepList,
+  decimal,
+  specData,
+  func
+) => {
+  let targetMeasurement = objectPath.get(
+    values,
+    `operator.measurementPointBeforeBarriers.${repeatStepList[0]}.data.measurementBeforeAppliedBarrier`,
+    0
+  );
+  targetMeasurement = targetMeasurement === "" ? 0 : targetMeasurement;
+  let increasedOdForWholeElementTotal = func(specData, repeatStepList, decimal);
+  if (increasedOdForWholeElementTotal) {
+    increasedOdForWholeElementTotal = Number(
+      increasedOdForWholeElementTotal.split("m")[0]
+    );
+  } else {
+    increasedOdForWholeElementTotal = 0;
+  }
+  return whatTooReturn(
+    targetMeasurement + increasedOdForWholeElementTotal,
+    decimal,
+    [targetMeasurement, increasedOdForWholeElementTotal]
+  );
+};
+
+const mathTargetMeasurement0 = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null,
+  specData = null
+) => {
+  return mathTargetMeasurement(
+    values,
+    repeatStepList,
+    decimal,
+    specData,
+    mathIncreasedOdForWholeElementTotal0
+  );
+};
+
+const mathTargetMeasurementPinSide = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null,
+  specData = null
+) => {
+  return mathTargetMeasurement(
+    values,
+    repeatStepList,
+    decimal,
+    specData,
+    mathIncreasedOdForWholeElementTotal1
+  );
+};
+
+const mathTargetMeasurementBoxSide = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null,
+  specData = null
+) => {
+  return mathTargetMeasurement(
+    values,
+    repeatStepList,
+    decimal,
+    specData,
+    mathIncreasedOdForWholeElementTotal2
+  );
 };
 
 const mathTorque = (values, repeatStepList, decimal) => {
@@ -1003,11 +1108,10 @@ const mathTorque = (values, repeatStepList, decimal) => {
   if (steel === "Carbon - Q125") {
     return 125;
   }
-  let screwLengthNumber = Number(screwLength.split("M")[1]);
   if (screwSize === "M10") {
-    if (10 <= screwLengthNumber <= 13) {
+    if (10 <= screwLength <= 13) {
       return 25;
-    } else if (screwLengthNumber <= 20) {
+    } else if (screwLength <= 20) {
       return 45;
     }
   } else if (screwSize === "M16") {
@@ -1016,6 +1120,9 @@ const mathTorque = (values, repeatStepList, decimal) => {
 };
 
 const Math = {
+  mathTargetMeasurementBoxSide,
+  mathTargetMeasurementPinSide,
+  mathTargetMeasurement0,
   mathTorque,
   mathIncreasedOdForEnds2,
   mathIncreasedOdForEndsTotal2,

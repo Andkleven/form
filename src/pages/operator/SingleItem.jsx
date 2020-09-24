@@ -27,7 +27,6 @@ export default pageInfo => {
   const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
-
   useEffect(() => {
     setFixedData(objectifyQuery(data));
   }, [loading, error, data, reRender]);
@@ -50,10 +49,8 @@ export default pageInfo => {
       });
     }
   });
-
   const finalInspection =
     access.finalInspection && ["qualityControl", "done"].includes(stage);
-
   return (
     <Canvas showForm={!!data}>
       <Overview itemIdsRef={itemIdsRef} />

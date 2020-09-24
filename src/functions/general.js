@@ -605,6 +605,7 @@ export function getStartStage(geometry, item) {
       stage = Object.keys(stages["mould"])[0];
       break;
     default:
+      stage = "steelMeasurement";
       break;
   }
   return stage;
@@ -689,7 +690,7 @@ export function showFieldSpec(
       repeatStepList,
       editRepeatStepValueList
     );
-    return showFieldSpecPath[path].includes(specValue);
+    return !showFieldSpecPath[path].includes(specValue);
   } else {
     return [null, undefined, "", false].includes(
       findValue(
@@ -699,5 +700,16 @@ export function showFieldSpec(
         editRepeatStepValueList
       )
     );
+  }
+}
+
+export function getProductionLine(stageType) {
+  stageType = removeSpace(lowerCaseFirstLetter(stageType));
+  if (["b2P", "dual", "slipon2", "slipon3"].includes(stageType)) {
+    return "packer";
+  } else if (["coatedItem", "mould"].includes(stageType)) {
+    return "coating";
+  } else {
+    return stageType;
   }
 }

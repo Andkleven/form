@@ -1,10 +1,9 @@
 import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
-  removeSpace,
-  lowerCaseFirstLetter,
   getProperties,
-  removePathFunc
+  removePathFunc,
+  getProductionLine
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -183,9 +182,8 @@ export default React.memo(
     const stageChapters = () => {
       let i = 0;
       let chapterBasedOnStage = [];
-      let stageList = Object.keys(
-        stagesJson[removeSpace(lowerCaseFirstLetter(stageType))]
-      );
+      let productionLine = getProductionLine(stageType);
+      let stageList = Object.keys(stagesJson[productionLine]);
       let thisStage = findNextStage(specData, undefined, stageType);
 
       while (stopLoop.current === false && i < 50) {

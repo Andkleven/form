@@ -20,10 +20,6 @@ const ITEM = gql`
           id
           data
         }
-        tracks {
-          id
-          data
-        }
         ringMaterials {
           id
           data
@@ -201,10 +197,6 @@ const BATCHING_OPERATOR = gql`
               id
               data
             }
-            tracks {
-              id
-              data
-            }
             ringMaterials {
               id
               data
@@ -276,10 +268,6 @@ const BATCHING_VULCANIZATION = gql`
               data
             }
             finalInspectionDimensionsChecks {
-              id
-              data
-            }
-            tracks {
               id
               data
             }
@@ -393,10 +381,6 @@ const GET_LEAD_ENGINEER = gql`
           id
           data
         }
-        tracks {
-          id
-          data
-        }
         ringMaterials {
           id
           data
@@ -439,10 +423,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             data
           }
           rubberCements {
-            id
-            data
-          }
-          tracks {
             id
             data
           }
@@ -614,10 +594,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           }
         }
         rubberCements {
-          id
-          data
-        }
-        tracks {
           id
           data
         }
@@ -827,10 +803,6 @@ const QUALITY_CONTROL = gql`
           data
         }
         rubberCements {
-          id
-          data
-        }
-        tracks {
           id
           data
         }

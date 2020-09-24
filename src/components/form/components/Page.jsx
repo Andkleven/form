@@ -4,7 +4,8 @@ import React, {
   useCallback,
   useState,
   Fragment,
-  useMemo
+  useMemo,
+  useLayoutEffect
 } from "react";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
@@ -376,7 +377,8 @@ export default React.memo(props => {
       hidden
     ]
   );
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (
       (props.repeatGroupWithQuery || props.repeatGroupWithQueryMath) &&
       !props.repeatGroupWithQuerySpecData &&
@@ -389,12 +391,12 @@ export default React.memo(props => {
       (props.showPage === undefined ||
         (props.showPage && getProperties(props.showPage, props.jsonVariables)))
     ) {
-      renderFunction.current[`${props.path} -Page`] = autoRepeat;
+      renderFunction.current[`${props.path}-Page`] = autoRepeat;
     }
     return () => {
-      if (renderFunction.current[`${props.path} -Page`]) {
+      if (renderFunction.current[`${props.path}-Page`]) {
         // eslint-disable-next-line
-        delete renderFunction.current[`${props.path} -Page`];
+        delete renderFunction.current[`${props.path}-Page`];
       }
     };
   }, [
@@ -415,7 +417,7 @@ export default React.memo(props => {
 
   useEffect(() => {
     if (
-      props.repeatGroupWithQuery &&
+      (props.repeatGroupWithQuery || props.repeatGroupWithQueryMath) &&
       writeChapter(
         props.allWaysShow,
         editChapter,
@@ -427,12 +429,13 @@ export default React.memo(props => {
     ) {
       if (!props.repeatGroupWithQuerySpecData) {
         autoRepeat(documentData.current);
-      } else if (props.repeatGroupWithQuerySpecData) {
+      } else {
         autoRepeat(props.specData);
       }
     }
   }, [
     props.showPage,
+    props.repeatGroupWithQueryMath,
     props.jsonVariables,
     editChapter,
     finalChapter,
@@ -525,7 +528,7 @@ export default React.memo(props => {
   const save = e => {
     e.persist();
     e.preventDefault();
-    props.submitData(documentData.current, false);
+    props.submitData(false);
   };
 
   const SaveButton = () => (
@@ -565,7 +568,7 @@ export default React.memo(props => {
                   variant: "success",
                   type: "submit",
                   onClick: () => {
-                    props.submitData(documentData.current, false);
+                    props.submitData(false);
                     setEditChapter(0);
                   }
                 },
@@ -665,7 +668,7 @@ export default React.memo(props => {
                       variant: "success",
                       type: "submit",
                       onClick: () => {
-                        props.submitData(documentData.current, false);
+                        props.submitData(false);
 
                         documentDataDispatch({
                           type: "setState",
@@ -716,7 +719,7 @@ export default React.memo(props => {
                         variant: "success",
                         type: "submit",
                         onClick: () => {
-                          props.submitData(documentData.current, false);
+                          props.submitData(false);
                           setEditChapter(0);
                         }
                       },

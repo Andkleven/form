@@ -228,8 +228,6 @@ export default () => {
     Number(numberOfItems) === Number(projectsData.totalNumberOfItems) &&
     itemsDone(data);
 
-  // console.log(data);
-
   // const sendable = leadEngineer.data.finalInspection
 
   useEffect(() => {

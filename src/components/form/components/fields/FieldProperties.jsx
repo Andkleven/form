@@ -31,10 +31,10 @@ export default React.memo(({ ...props }) => {
     documentData,
     renderFunction,
     documentDataDispatch,
-    resetState
+    resetState,
+    mathStore
   } = useContext(DocumentDataContext);
   const { editChapter, finalChapter } = useContext(ChapterContext);
-
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
       return `${props.path}.${props.fieldName}`;
@@ -201,7 +201,8 @@ export default React.memo(({ ...props }) => {
           ? Math[props.mathSubtext](
               props.specData,
               props.repeatStepList,
-              props.decimal ? props.decimal : 0
+              props.decimal ? props.decimal : 0,
+              mathStore
             )
           : null,
         isNumber(props.maxInput) ? props.maxInput : max,
@@ -213,6 +214,7 @@ export default React.memo(({ ...props }) => {
         props.allData
       ),
     [
+      mathStore,
       props.jsonVariables,
       props.maxInput,
       props.minInput,
@@ -345,7 +347,9 @@ export default React.memo(({ ...props }) => {
         value={Math[props.mathSpec](
           props.specData,
           props.repeatStepList,
-          props.decimal ? props.decimal : 0
+          props.decimal ? props.decimal : 0,
+          mathStore,
+          props.jsonVariables
         )}
         label={label}
       />

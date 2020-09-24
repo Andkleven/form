@@ -111,6 +111,10 @@
               "type": "checkbox"
             },
             {
+              "showField": {
+                "mould": true,
+                "coatedItem": true
+              },
               "fieldName": "finalInspectionComment",
               "label": "Final Inspection Comment",
               "type": "comment"

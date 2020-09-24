@@ -183,7 +183,7 @@ export default ({ setState, state, ...props }) => {
                     variant: "success",
                     type: "submit",
                     onClick: () => {
-                      props.submitData(documentData.current, false);
+                      props.submitData(false);
                       setEditChapter(0);
                     }
                   },
