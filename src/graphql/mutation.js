@@ -114,10 +114,6 @@ const LEAD_ENGINEER = gql`
           id
           data
         }
-        tracks {
-          id
-          data
-        }
         ringMaterials {
           id
           data
@@ -248,10 +244,6 @@ const OPERATOR = gql`
               }
             }
             rubberCements {
-              id
-              data
-            }
-            tracks {
               id
               data
             }
@@ -389,10 +381,6 @@ const QUALITY_CONTROL = gql`
               }
             }
             rubberCements {
-              id
-              data
-            }
-            tracks {
               id
               data
             }
