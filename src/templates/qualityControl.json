@@ -228,7 +228,7 @@
       "pages": [
         {
           "pageTitle": "Final Inspection",
-          "queryPath": "leadEngineer",
+          "queryPath": "finalInspectionQualityControl",
           "fields": [
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
@@ -554,9 +554,14 @@
       "queryPath": "finalInspectionQualityControl",
       "pages": [
         {
-          "fieldName": "coreSampleApproved",
-          "label": "Core sample approved",
-          "type": "checkbox"
+          "queryPath": "finalInspectionQualityControl",
+          "fields": [
+            {
+              "fieldName": "coreSampleApproved",
+              "label": "Core sample approved",
+              "type": "checkbox"
+            }
+          ]
         }
       ]
     }

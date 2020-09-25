@@ -96,12 +96,12 @@
     "finalInspectionAsBuilt": {
       "queryPath": ""
     },
-    "touchUp": {
+    "touchUpPacker": {
       "queryPath": ""
     }
   },
   "touchUpPacker": {
-    "touchUp": {
+    "touchUpPacker": {
       "queryPath": ""
     },
     "finalInspectionPacker": {
@@ -110,7 +110,7 @@
   },
   "finalInspectionPacker": {
     "finalInspectionPacker": {
-      "queryPath": ""
+      "touchUpPacker": ""
     },
     "done": {
       "queryPath": ""

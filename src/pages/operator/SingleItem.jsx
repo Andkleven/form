@@ -102,8 +102,7 @@ export default pageInfo => {
     itemId: itemId,
     getQueryBy: itemId,
     saveVariables: { itemId: itemId },
-    saveButton: true,
-    backButton: () => history.push(`/`)
+    saveButton: true
   };
 
   const indexStage = fixedData
@@ -152,7 +151,11 @@ export default pageInfo => {
           <Title big align="center">
             Quality Control
           </Title>
-          <Form {...qualityControl} stageType={"qualityControlCoatedItem"} />
+          <Form
+            {...qualityControl}
+            stageType={"qualityControlCoatedItem"}
+            backButton={() => history.push(`/`)}
+          />
         </Paper>
       )}
 
@@ -180,7 +183,11 @@ export default pageInfo => {
             <Title big align="center">
               Quality Control
             </Title>
-            <Form {...qualityControl} stageType={"finalInspectionPacker"} />
+            <Form
+              {...qualityControl}
+              stageType={"finalInspectionPacker"}
+              backButton={() => history.push(`/`)}
+            />
           </Paper>
         )}
     </Canvas>

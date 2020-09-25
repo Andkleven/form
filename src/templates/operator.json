@@ -2926,7 +2926,6 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "touchUp",
               "required": true,
               "label": "Touch-Up",
@@ -2934,12 +2933,21 @@
               "subtext": "Check if touch-up is performed"
             },
             {
-              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "touchUpPerformed",
               "required": true,
               "label": "Touch Up Performed",
               "type": "datetime-local"
-            },
+            }
+          ]
+        }
+      ]
+    },
+    "touchUpPacker": {
+      "pages": [
+        {
+          "pageTitle": "Touch-Up",
+          "queryPath": "operator",
+          "fields": [
             {
               "showField": {
                 "b2P": true,
