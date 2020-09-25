@@ -234,7 +234,6 @@ export const getSubtext = (
     : isNumber(max)
     ? max
     : "";
-
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
   let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
 

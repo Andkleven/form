@@ -190,10 +190,10 @@ export default React.memo(({ ...props }) => {
     () =>
       getSubtext(
         getProperties(props.subtext, props.jsonVariables),
-        props.specSubtextList
+        props.specVariableSubtext
           ? findValue(
               props.specData,
-              props.specSubtextList,
+              props.specVariableSubtext,
               props.repeatStepList,
               props.editRepeatStepSubtextList
             )
@@ -227,7 +227,7 @@ export default React.memo(({ ...props }) => {
       props.repeatStepList,
       props.allData,
       props.specData,
-      props.specSubtextList,
+      props.specVariableSubtext,
       props.editRepeatStepSubtextList,
       props.subtext,
       props.decimal
