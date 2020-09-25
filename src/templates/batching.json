@@ -1,5 +1,6 @@
 {
   "steelPreparation1": {
+    "geometry": ["Mould", "Coated Item", "Slip on 2", "Slip on 3"],
     "batching": {
       "dataPath": "operator"
     },
@@ -12,6 +13,7 @@
     }
   },
   "primer1": {
+    "geometry": ["Mould", "Coated Item", "Slip on 2", "Slip on 3"],
     "batching": {
       "dataPath": "operator"
     },
@@ -24,6 +26,7 @@
     }
   },
   "primer2": {
+    "geometry": ["Mould", "Coated Item", "Slip on 2", "Slip on 3"],
     "batching": {
       "dataPath": "operator"
     },
@@ -36,6 +39,7 @@
     }
   },
   "releaseCementsBeforeCoating": {
+    "geometry": ["Mould", "Coated Item"],
     "batching": {
       "dataPath": "operator"
     },
@@ -48,6 +52,20 @@
     }
   },
   "itemRubberCementsBeforeCoating": {
+    "geometry": ["Mould", "Coated Item"],
+    "batching": {
+      "dataPath": "operator"
+    },
+    "document": {
+      "queryPath": "operator",
+      "specQueryPath": "leadEngineer",
+      "mutation": "OPERATOR_BATCHING",
+      "query": "BATCHING_OPERATOR",
+      "chapters": ""
+    }
+  },
+  "coating": {
+    "geometry": ["Slip on 2", "Slip on 3"],
     "batching": {
       "dataPath": "operator"
     },
@@ -60,6 +78,14 @@
     }
   },
   "vulcanizationStep": {
+    "geometry": [
+      "Mould",
+      "Coated Item",
+      "Slip on 2",
+      "Slip on 3",
+      "B2P",
+      "Dual"
+    ],
     "batching": {
       "dataPath": ["operator.vulcanizationOperators"],
       "removePath": "operator.",
@@ -74,6 +100,7 @@
     }
   },
   "touchUp": {
+    "geometry": ["Mould", "Coated Item"],
     "batching": {
       "dataPath": "operator"
     },

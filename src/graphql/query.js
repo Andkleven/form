@@ -221,9 +221,106 @@ const BATCHING_OPERATOR = gql`
           operator {
             id
             data
-            additionalCustomTestOperators {
+            surfaceCleanlinessImage
+            rubberCementOperators {
               id
               data
+              mixDates {
+                id
+                data
+              }
+            }
+            measurementPointPackers {
+              id
+              data
+            }
+            measurementPointPackerPinSides {
+              id
+              data
+            }
+            measurementPointPackerBoxSides {
+              id
+              data
+            }
+            measurementPointPackerCoatings {
+              id
+              data
+            }
+            measurementPointPackerCoatingPinSides {
+              id
+              data
+            }
+            measurementPointPackerCoatingBoxSides {
+              id
+              data
+            }
+            measurementPointBeforeBarriers {
+              id
+              data
+            }
+            measurementPointAfterBarriers {
+              id
+              data
+            }
+            measurementPointBeforeBarrierPinSides {
+              id
+              data
+            }
+            measurementPointBeforeBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierPinSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointCompletionPhases {
+              id
+              data
+            }
+            measurementPointCompletionPhasePinSides {
+              id
+              data
+            }
+            measurementPointCompletionPhaseBoxSides {
+              id
+              data
+            }
+            grindings {
+              id
+              data
+            }
+            deviations {
+              id
+              data
+            }
+            measurementPointActualTdvs {
+              id
+              data
+            }
+            vulcanizationOperators {
+              id
+              data
+              coatingOperators {
+                id
+                data
+                layers {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
+              measurementPointOperators {
+                id
+                data
+              }
             }
           }
         }
@@ -293,9 +390,108 @@ const BATCHING_VULCANIZATION = gql`
             }
           }
           operator {
+            id
+            data
+            surfaceCleanlinessImage
+            rubberCementOperators {
+              id
+              data
+              mixDates {
+                id
+                data
+              }
+            }
+            measurementPointPackers {
+              id
+              data
+            }
+            measurementPointPackerPinSides {
+              id
+              data
+            }
+            measurementPointPackerBoxSides {
+              id
+              data
+            }
+            measurementPointPackerCoatings {
+              id
+              data
+            }
+            measurementPointPackerCoatingPinSides {
+              id
+              data
+            }
+            measurementPointPackerCoatingBoxSides {
+              id
+              data
+            }
+            measurementPointBeforeBarriers {
+              id
+              data
+            }
+            measurementPointAfterBarriers {
+              id
+              data
+            }
+            measurementPointBeforeBarrierPinSides {
+              id
+              data
+            }
+            measurementPointBeforeBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierPinSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointCompletionPhases {
+              id
+              data
+            }
+            measurementPointCompletionPhasePinSides {
+              id
+              data
+            }
+            measurementPointCompletionPhaseBoxSides {
+              id
+              data
+            }
+            grindings {
+              id
+              data
+            }
+            deviations {
+              id
+              data
+            }
+            measurementPointActualTdvs {
+              id
+              data
+            }
             vulcanizationOperators {
               id
               data
+              coatingOperators {
+                id
+                data
+                layers {
+                  id
+                  data
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
+              }
+              measurementPointOperators {
+                id
+                data
+              }
             }
           }
         }
