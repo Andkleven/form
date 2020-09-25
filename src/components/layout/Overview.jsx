@@ -34,6 +34,7 @@ const queries = {
         items {
           id
           itemId
+          stage
         }
       }
     }
@@ -106,12 +107,10 @@ export default ({ itemIdsRef }) => {
   });
 
   useEffect(() => {
-    if (projectQuery && itemIdsRef) {
-      itemIdsRef.current =
-        projectQuery &&
-        objectPath.get(projectQuery, "data.projects.0.descriptions");
+    if (descriptionQuery && itemIdsRef) {
+      itemIdsRef.current = descriptionQuery;
     }
-  }, [projectQuery, itemIdsRef]);
+  }, [descriptionQuery, itemIdsRef]);
 
   // const itemQuery = useQuery(queries.item, {
   //   variables: {

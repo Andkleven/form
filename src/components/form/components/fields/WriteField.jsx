@@ -345,27 +345,29 @@ export default ({ setState, state, ...props }) => {
               Batching for {props.label}
             </h4>
             {props.itemIdsRef.current &&
-              props.itemIdsRef.current.map((description, indexDescription) => {
-                if (!Items(description, indexDescription).every(allNull)) {
+              props.itemIdsRef.current.items.map((item, indexItem) => {
+                if (props.stage === item.stage) {
                   return (
-                    <div
-                      key={`${indexDescription}-${description.id}-batching-description`}
-                      className="mt-3"
-                    >
-                      <div>
-                        {JSON.parse(description.data).descriptionNameMaterialNo}{" "}
-                        <div className="text-secondary d-inline">
-                          ({JSON.parse(description.data).geometry})
-                        </div>
-                      </div>
-                      <LightLine></LightLine>
-                      {Items(description, indexDescription)}
-                    </div>
+                    <CheckInput
+                      key={`${indexItem}`}
+                      id={`CheckInput-${indexItem}-${props.path}`}
+                      onChangeInput={e => handleClick(e, item)}
+                      disabled={Number(item.id) === Number(props.itemId)}
+                      value={
+                        itemIdList.find(id => Number(id) === Number(item.id))
+                          ? true
+                          : false
+                      }
+                      label={`${item.itemId}`}
+                      TinyButtons={TinyButtons()}
+                      BigButtons={BigButtons()}
+                    />
                   );
                 } else {
                   return null;
                 }
               })}
+
             <div className="d-flex justify-content-center align-items-center flex-column">
               <TinyButton
                 className="text-success"
