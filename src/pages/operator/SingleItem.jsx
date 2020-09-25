@@ -13,6 +13,8 @@ import Canvas from "components/layout/Canvas";
 import { ItemContext } from "components/contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
+import stageJson from "components/form/stage/stages.json";
+stageJson = stageJson["all"];
 
 export default pageInfo => {
   const access = getAccess();
@@ -51,6 +53,52 @@ export default pageInfo => {
   });
   const finalInspection =
     access.finalInspection && ["qualityControl", "done"].includes(stage);
+
+  const operator = {
+    update: true,
+    itemId: itemId,
+    itemIdsRef: itemIdsRef,
+    jsonVariables: [geometry],
+    componentsId: opId.current,
+    document: operatorJson,
+    reRender: () => setReRender(!reRender),
+    data: fixedData && formDataStructure(fixedData, "items.0.operator"),
+    specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
+    saveVariables: { itemId: itemId },
+    edit: access.itemEdit,
+    readOnlySheet: !access.itemWrite,
+    stage: stage,
+    stageType: geometry,
+    getQueryBy: itemId,
+    saveButton: true,
+    backButton: !finalInspection && (() => history.push(`/`))
+  };
+
+  const qualityControl = {
+    itemIdsRef: itemIdsRef,
+    update: true,
+    jsonVariables: [geometry],
+    componentsId: "finalInspectionQualityControl",
+    document: qualityControlJson,
+    data:
+      fixedData &&
+      formDataStructure(fixedData, "items.0.finalInspectionQualityControl"),
+    edit: access.itemEdit,
+    specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
+    reRender: () => setReRender(!reRender),
+    allData: fixedData,
+    stage: fixedData && fixedData.items[0].stage,
+    itemId: itemId,
+    getQueryBy: itemId,
+    saveVariables: { itemId: itemId },
+    saveButton: true,
+    backButton: () => history.push(`/`)
+  };
+
+  const indexStage = fixedData
+    ? stageJson.indexOf(fixedData.items[0].stage)
+    : 0;
+
   return (
     <Canvas showForm={!!data}>
       <Overview itemIdsRef={itemIdsRef} />
@@ -76,69 +124,46 @@ export default pageInfo => {
           />
         </Paper>
       )}
-      <Paper className="mb-3">
-        {access.specs && (
+      {access.specs && (
+        <Paper className="mb-3">
           <Title big align="center">
             Operator
           </Title>
-        )}
+          <Form {...operator} />
+        </Paper>
+      )}
 
-        <Form
-          update={true}
-          itemId={itemId}
-          itemIdsRef={itemIdsRef}
-          jsonVariables={[geometry]}
-          componentsId={opId.current}
-          document={operatorJson}
-          reRender={() => setReRender(!reRender)}
-          data={fixedData && formDataStructure(fixedData, "items.0.operator")}
-          specData={
-            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
-          }
-          saveVariables={{ itemId: itemId }}
-          edit={access.itemEdit}
-          readOnlySheet={!access.itemWrite}
-          stage={stage}
-          stageType={geometry}
-          getQueryBy={itemId}
-          saveButton={true}
-          backButton={!finalInspection && (() => history.push(`/`))}
-        />
-      </Paper>
       {finalInspection && (
         <Paper className="mb-3">
           <Title big align="center">
             Quality Control
           </Title>
-          <Form
-            itemIdsRef={itemIdsRef}
-            update={true}
-            jsonVariables={[geometry]}
-            componentsId={"finalInspectionQualityControl"}
-            document={qualityControlJson}
-            data={
-              fixedData &&
-              formDataStructure(
-                fixedData,
-                "items.0.finalInspectionQualityControl"
-              )
-            }
-            edit={access.itemEdit}
-            specData={
-              fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
-            }
-            reRender={() => setReRender(!reRender)}
-            allData={fixedData}
-            stage={fixedData && fixedData.items[0].stage}
-            stageType={"qualityControl"}
-            itemId={itemId}
-            getQueryBy={itemId}
-            saveVariables={{ itemId: itemId }}
-            saveButton={true}
-            backButton={() => history.push(`/`)}
-          />
+          <Form {...qualityControl} stageType={"qualityControlCoatedItem"} />
         </Paper>
       )}
+      {finalInspection &&
+        stageJson.indexStage["finalInspectionAsBuilt"] <= indexStage && (
+          <Paper className="mb-3">
+            <Title big align="center">
+              Quality Control As built
+            </Title>
+            <Form {...qualityControl} stageType={"finalInspectionAsBuilt"} />
+          </Paper>
+        )}
+      {access.specs && stageJson.indexStage["touchUpPacker"] <= indexStage && (
+        <Paper className="mb-3">
+          <Form {...operator} stageType={"touchUpPacker"} />
+        </Paper>
+      )}
+      {finalInspection &&
+        stageJson.indexStage["finalInspectionPacker"] <= indexStage && (
+          <Paper className="mb-3">
+            <Title big align="center">
+              Quality Control
+            </Title>
+            <Form {...qualityControl} stageType={"finalInspectionPacker"} />
+          </Paper>
+        )}
     </Canvas>
   );
 };

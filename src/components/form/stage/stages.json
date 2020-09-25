@@ -24,7 +24,10 @@
     "barrierBoxSide",
     "completionPhase",
     "touchUp",
-    "qualityControl",
+    "qualityControlCoatedItem",
+    "finalInspectionAsBuilt",
+    "touchUpPacker",
+    "finalInspectionPacker",
     "done"
   ],
   "packer": {
@@ -85,10 +88,31 @@
     "completionPhase": {
       "queryPath": ""
     },
+    "finalInspectionAsBuilt": {
+      "queryPath": ""
+    }
+  },
+  "finalInspectionAsBuilt": {
+    "finalInspectionAsBuilt": {
+      "queryPath": ""
+    },
+    "touchUp": {
+      "queryPath": ""
+    }
+  },
+  "touchUpPacker": {
     "touchUp": {
       "queryPath": ""
     },
-    "qualityControl": {
+    "finalInspectionPacker": {
+      "queryPath": ""
+    }
+  },
+  "finalInspectionPacker": {
+    "finalInspectionPacker": {
+      "queryPath": ""
+    },
+    "done": {
       "queryPath": ""
     }
   },
@@ -134,12 +158,12 @@
     "touchUp": {
       "queryPath": ""
     },
-    "qualityControl": {
+    "qualityControlCoatedItem": {
       "queryPath": ""
     }
   },
-  "qualityControl": {
-    "qualityControl": {
+  "qualityControlCoatedItem": {
+    "qualityControlCoatedItem": {
       "queryPath": ""
     },
     "done": {
