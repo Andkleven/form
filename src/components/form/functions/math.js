@@ -617,7 +617,8 @@ const mathCoreSampleCode = (
   jsonVariables = null,
   specData = null
 ) => {
-  return getType(values, jsonVariables, "coreSampleCode");
+  let type = getType(values, jsonVariables, "coreSampleCode");
+  return type ? type : "Combination does not exist";
 };
 
 const mathPackingSpecification = (
@@ -628,7 +629,8 @@ const mathPackingSpecification = (
   jsonVariables = null,
   specData = null
 ) => {
-  return getType(values, jsonVariables, "packingSpecification");
+  let type = getType(values, jsonVariables, "packingSpecification");
+  return type ? type : "Combination does not exist";
 };
 
 const mathProgramNumber = (

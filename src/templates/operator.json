@@ -1042,6 +1042,7 @@
               "fieldName": "elementLengthAfterGrinding ",
               "required": true,
               "label": "Element length after grinding",
+              "unit": "mm",
               "type": "number"
             },
             {
@@ -1164,7 +1165,9 @@
               "writeOnlyFieldIf": "operator.data.deviation",
               "fieldName": "length",
               "required": true,
-              "label": "Length"
+              "label": "Length",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "operator.data.deviation",
@@ -1272,7 +1275,9 @@
               "writeOnlyFieldIf": "operator.data.deviationPinSide",
               "fieldName": "lengthPinSide",
               "required": true,
-              "label": "Length"
+              "label": "Length",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "operator.data.deviationPinSide",
@@ -1380,7 +1385,9 @@
               "writeOnlyFieldIf": "operator.data.deviationBoxSide",
               "fieldName": "lengthBoxSide",
               "required": true,
-              "label": "Length"
+              "label": "Length",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "operator.data.deviationBoxSide",
@@ -1425,25 +1432,29 @@
               "fieldName": "elementLengthAfterGrinding ",
               "required": true,
               "label": "Element length after grinding",
-              "type": "number"
+              "type": "number",
+              "unit": "mm"
             },
             {
               "fieldName": "elementCenterDiameter",
               "required": true,
               "label": "Element center diameter",
-              "type": "number"
+              "type": "number",
+              "unit": "mm"
             },
             {
               "fieldName": "pinDiameter",
               "required": true,
               "label": "Pin diameter",
-              "type": "number"
+              "type": "number",
+              "unit": "mm"
             },
             {
               "fieldName": "boxDiameter",
               "required": true,
               "label": "Box diameter",
-              "type": "number"
+              "type": "number",
+              "unit": "mm"
             },
             {
               "fieldName": "equipmentIdGrinding",

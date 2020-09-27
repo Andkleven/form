@@ -624,8 +624,8 @@
             {
               "fieldName": "elementLength",
               "label": "Element length",
-              "type": "number",
               "required": true,
+              "type": "number",
               "unit": "mm"
             },
             {
@@ -1174,7 +1174,9 @@
               },
               "fieldName": "packerElementLength",
               "label": "Packer element length",
-              "subtext": "Dwg Ref. L4"
+              "subtext": "Dwg Ref. L4",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1187,7 +1189,9 @@
               },
               "fieldName": "packerElementLengthTotal",
               "label": "Packer element length total",
-              "subtext": "Dwg Ref. L4"
+              "subtext": "Dwg Ref. L4",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1198,7 +1202,9 @@
               },
               "fieldName": "packerElementLength1",
               "label": "Packer element length #1",
-              "subtext": "Dwg Ref. L4.1"
+              "subtext": "Dwg Ref. L4.1",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1209,7 +1215,9 @@
               },
               "fieldName": "packerElementLength2",
               "label": "Packer element length #2",
-              "subtext": "Dwg Ref. L4.2"
+              "subtext": "Dwg Ref. L4.2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1219,7 +1227,9 @@
               },
               "fieldName": "packerElementLength3",
               "label": "Packer element length #3",
-              "subtext": "Dwg Ref. L4.3"
+              "subtext": "Dwg Ref. L4.3",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1231,7 +1241,9 @@
               },
               "fieldName": "packerElement1Length",
               "label": "Packer element  #1, length",
-              "subtext": "Dwg Ref. L4.1"
+              "subtext": "Dwg Ref. L4.1",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1243,7 +1255,9 @@
               },
               "fieldName": "packerElement2Length",
               "label": "Packer element  #2, length",
-              "subtext": "Dwg Ref. L4.2"
+              "subtext": "Dwg Ref. L4.2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1253,7 +1267,9 @@
               },
               "fieldName": "packerElement3Length",
               "label": "Packer element  #3, length",
-              "subtext": "Dwg Ref. L4.3"
+              "subtext": "Dwg Ref. L4.3",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
@@ -1322,7 +1338,9 @@
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLength",
               "label": "End-ring Length",
-              "subtext": "Dwg Ref. XX"
+              "subtext": "Dwg Ref. XX",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1350,13 +1368,17 @@
               },
               "fieldName": "centerRingLength",
               "label": "Center-ring Length",
-              "subtext": "Dwg Ref. XX"
+              "subtext": "Dwg Ref. XX",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "couplingLength",
               "label": "Coupling length",
-              "subtext": "Dwg Ref. XX"
+              "subtext": "Dwg Ref. XX",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {

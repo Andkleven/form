@@ -154,6 +154,7 @@ export default pageInfo => {
           <Form
             {...qualityControl}
             stageType={"qualityControlCoatedItem"}
+            componentsId={"qualityControlCoatedItem"}
             backButton={() => history.push(`/`)}
           />
         </Paper>
@@ -166,14 +167,22 @@ export default pageInfo => {
             <Title big align="center">
               Quality Control As built
             </Title>
-            <Form {...qualityControl} stageType={"finalInspectionAsBuilt"} />
+            <Form
+              {...qualityControl}
+              stageType={"finalInspectionAsBuilt"}
+              componentsId={"finalInspectionAsBuilt"}
+            />
           </Paper>
         )}
       {access.specs &&
         packer &&
         stageJson.indexOf("touchUpPacker") <= indexStage && (
           <Paper className="mb-3">
-            <Form {...operator} stageType={"touchUpPacker"} />
+            <Form
+              {...operator}
+              stageType={"touchUpPacker"}
+              componentsId={"touchUpPacker"}
+            />
           </Paper>
         )}
       {finalInspection &&
@@ -186,6 +195,7 @@ export default pageInfo => {
             <Form
               {...qualityControl}
               stageType={"finalInspectionPacker"}
+              componentsId={"finalInspectionPacker"}
               backButton={() => history.push(`/`)}
             />
           </Paper>
