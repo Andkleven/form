@@ -19,8 +19,7 @@ import {
   isStringInstance,
   isNumber,
   getSpecComment,
-  stringifyQuery,
-  allNull
+  stringifyQuery
 } from "functions/general";
 import { dialog } from "components/Dialog";
 
@@ -296,31 +295,6 @@ export default ({ setState, state, ...props }) => {
     setItemIdList([Number(props.itemId)]);
   };
 
-  const Items = (description, indexDescription) => {
-    return description.items.map((item, indexItem) => {
-      if (props.stage === item.stage) {
-        return (
-          <CheckInput
-            key={`${indexItem}-${indexDescription}`}
-            id={`CheckInput-${indexItem}-${indexDescription}-${props.path}`}
-            onChangeInput={e => handleClick(e, item)}
-            disabled={Number(item.id) === Number(props.itemId)}
-            value={
-              itemIdList.find(id => Number(id) === Number(item.id))
-                ? true
-                : false
-            }
-            label={`${item.itemId}`}
-            TinyButtons={TinyButtons()}
-            BigButtons={BigButtons()}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
-
   return (
     <div className={indent && "ml-3"}>
       {batching && props.itemIdsRef && (
@@ -344,29 +318,34 @@ export default ({ setState, state, ...props }) => {
             <h4 style={{ position: "relative", top: ".15em" }}>
               Batching for {props.label}
             </h4>
+            <h6 style={{ position: "relative", top: ".15em" }}>
+              {props.itemIdsRef.current.descriptions[0].data.geometry}
+            </h6>
             {props.itemIdsRef.current &&
-              props.itemIdsRef.current.items.map((item, indexItem) => {
-                if (props.stage === item.stage) {
-                  return (
-                    <CheckInput
-                      key={`${indexItem}`}
-                      id={`CheckInput-${indexItem}-${props.path}`}
-                      onChangeInput={e => handleClick(e, item)}
-                      disabled={Number(item.id) === Number(props.itemId)}
-                      value={
-                        itemIdList.find(id => Number(id) === Number(item.id))
-                          ? true
-                          : false
-                      }
-                      label={`${item.itemId}`}
-                      TinyButtons={TinyButtons()}
-                      BigButtons={BigButtons()}
-                    />
-                  );
-                } else {
-                  return null;
+              props.itemIdsRef.current.descriptions[0].items.map(
+                (item, indexItem) => {
+                  if (props.stage === item.stage) {
+                    return (
+                      <CheckInput
+                        key={`${indexItem}`}
+                        id={`CheckInput-${indexItem}-${props.path}`}
+                        onChangeInput={e => handleClick(e, item)}
+                        disabled={Number(item.id) === Number(props.itemId)}
+                        value={
+                          itemIdList.find(id => Number(id) === Number(item.id))
+                            ? true
+                            : false
+                        }
+                        label={`${item.itemId}`}
+                        TinyButtons={TinyButtons()}
+                        BigButtons={BigButtons()}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
                 }
-              })}
+              )}
 
             <div className="d-flex justify-content-center align-items-center flex-column">
               <TinyButton

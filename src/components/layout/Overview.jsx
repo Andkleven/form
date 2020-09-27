@@ -5,6 +5,7 @@ import { useSpring, animated } from "react-spring";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import gql from "graphql-tag";
+import { objectifyQuery } from "functions/general";
 import { useQuery } from "react-apollo";
 import objectPath from "object-path";
 
@@ -108,7 +109,7 @@ export default ({ itemIdsRef }) => {
 
   useEffect(() => {
     if (descriptionQuery && itemIdsRef) {
-      itemIdsRef.current = descriptionQuery;
+      itemIdsRef.current = objectifyQuery(descriptionQuery.data);
     }
   }, [descriptionQuery, itemIdsRef]);
 

@@ -16,6 +16,7 @@ import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
+import { USER } from "constants.js";
 
 const cloneDeep = require("clone-deep");
 
@@ -106,6 +107,7 @@ export default ({
   itemIdsRef,
   itemId
 }) => {
+  const userInfo = JSON.parse(localStorage.getItem(USER));
   const [loading, setLoading] = useState(true);
   const timer = useRef();
   const [editChapter, setEditChapter] = useState(0);
@@ -237,6 +239,17 @@ export default ({
             objectPath.set(data, key, addValuesToData[key]);
           });
         }
+        // if (stage && submit) {
+        //   let key = data[Object.keys(data)[0]];
+        //   let path;
+        //   if (Array.isArray(data[key])) {
+        //     path = `${key}.0.data.${stage}`;
+        //   } else {
+        //     path = `${key}.data.${stage}`;
+        //   }
+        //   objectPath.set(data, path, userInfo.username);
+        // }
+        // console.log(data);
         let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
 
         mutation({
