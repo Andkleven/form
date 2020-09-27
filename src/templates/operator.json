@@ -1140,6 +1140,10 @@
               "fieldName": "deviation",
               "label": "Deviation",
               "type": "checkbox"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviation",
+              "viewPdf": true
             }
           ]
         },

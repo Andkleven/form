@@ -25,6 +25,7 @@ import {
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 import useHidden from "functions/useHidden";
+import ViewPdf from "components/input/components/ViewPdf";
 
 export default React.memo(({ ...props }) => {
   const {
@@ -354,6 +355,9 @@ export default React.memo(({ ...props }) => {
         label={label}
       />
     );
+  } else if (props.viewPdf) {
+    console.log(42354543);
+    return <ViewPdf />;
   } else if (props.math) {
     const commonProps = {
       ...props,
