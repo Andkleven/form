@@ -100,7 +100,7 @@
     }
   },
   "touchUp": {
-    "geometry": ["Mould"],
+    "geometry": ["Mould", "Coated Item"],
     "batching": {
       "dataPath": "operator"
     },
