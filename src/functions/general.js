@@ -333,34 +333,34 @@ export const calculateMaxMin = (
   editRepeatStepListMax,
   calculateMax,
   repeatStepList,
-  data,
+  specData,
   allData
 ) => {
   let newMin;
   let newMax;
   if (routeToSpecMin) {
     newMin = Number(
-      findValue(data, routeToSpecMin, repeatStepList, editRepeatStepListMin)
+      findValue(specData, routeToSpecMin, repeatStepList, editRepeatStepListMin)
     );
   } else if (calculateMin) {
-    newMin = Number(Math[calculateMin](allData, data, repeatStepList));
+    newMin = Number(Math[calculateMin](allData, specData, repeatStepList));
   } else {
     newMin = min;
   }
   if (routeToSpecMax) {
     newMax = Number(
-      findValue(data, routeToSpecMax, repeatStepList, editRepeatStepListMax)
+      findValue(specData, routeToSpecMax, repeatStepList, editRepeatStepListMax)
     );
   } else if (calculateMax) {
-    newMax = Number(Math[calculateMax](allData, data, repeatStepList));
+    newMax = Number(Math[calculateMax](allData, specData, repeatStepList));
   } else {
     newMax = max;
   }
   if (isNumber(newMin)) {
-    newMin = Number(newMin.toFixed(0));
+    newMin = Number(newMin.toFixed(1));
   }
   if (isNumber(newMax)) {
-    newMax = Number(newMax.toFixed(0));
+    newMax = Number(newMax.toFixed(1));
   }
   return { min: newMin, max: newMax };
 };

@@ -533,6 +533,13 @@
               "required": true
             },
             {
+              "showField": { "mould": true },
+              "subtext": "{}",
+              "math": "mathMouldThickness",
+              "label": "Cumulative this layer",
+              "mathSubtext": "mathLayerMinMax"
+            },
+            {
               "fieldName": "mixDate",
               "label": "Mix Date",
               "type": "date",
@@ -543,8 +550,7 @@
         },
         {
           "showPage": {
-            "coatedItem": true,
-            "mould": false
+            "coatedItem": true
           },
           "repeat": true,
           "notAddButton": true,
@@ -566,8 +572,8 @@
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
-              "mathSubtext": "mathCumulativeThicknessAll",
-              "subtext": "Target cumulative thickness: {}mm",
+              "calculateMin": "mathLayerMin",
+              "calculateMax": "mathLayerMax",
               "type": "number",
               "notBatch": true,
               "required": true
