@@ -239,17 +239,16 @@ export default ({
             objectPath.set(data, key, addValuesToData[key]);
           });
         }
-        // if (stage && submit) {
-        //   let key = data[Object.keys(data)[0]];
-        //   let path;
-        //   if (Array.isArray(data[key])) {
-        //     path = `${key}.0.data.${stage}`;
-        //   } else {
-        //     path = `${key}.data.${stage}`;
-        //   }
-        //   objectPath.set(data, path, userInfo.username);
-        // }
-        // console.log(data);
+        if (stage && submit) {
+          let key = Object.keys(data)[0];
+          let path;
+          if (Array.isArray(data[key])) {
+            path = `${key}.0.data.${stage}`;
+          } else {
+            path = `${key}.data.${stage}`;
+          }
+          objectPath.set(data, path, { [new Date()]: userInfo.username });
+        }
         let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
 
         mutation({
@@ -285,7 +284,8 @@ export default ({
       specData,
       stage,
       saveVariablesForm,
-      renderFunction
+      renderFunction,
+      userInfo
     ]
   );
 
