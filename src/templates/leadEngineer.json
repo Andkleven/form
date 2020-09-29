@@ -713,7 +713,7 @@
               "required": true,
               "notCustom": true,
               "type": "select",
-              "options": ["35-4063", "35-5265", "35-5265/5266"]
+              "options": ["35-4063", "35-5265", "35-4064", "35-5265/5266"]
             },
             {
               "showField": { "dual": true },
@@ -722,7 +722,7 @@
               "notCustom": true,
               "required": true,
               "type": "select",
-              "options": ["35-5265", "35-4064", "35-5265/5266"]
+              "options": ["35-5265", "35-4064", "35-4063", "35-5265/5266"]
             },
             {
               "showField": { "slipon2": true, "slipon3": true },
@@ -762,6 +762,7 @@
             {
               "showField": { "b2P": true, "dual": true },
               "fieldName": "cable",
+              "notSingleEdit": true,
               "label": "Cable",
               "type": "checkbox"
             },
@@ -770,7 +771,6 @@
               "fieldName": "numberOfTracks",
               "label": "Number of tracks",
               "type": "Number",
-              "notSingleEdit": true,
               "writeOnlyFieldIf": "leadEngineer.data.cable"
             },
             {

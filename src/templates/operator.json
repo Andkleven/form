@@ -631,7 +631,7 @@
             },
             {
               "showField": { "slipon2": true, "slipon3": true },
-              "specValueList": "leadEngineer.data.rubberOd",
+              "mathSpec": "mathCompoundNoId",
               "required": true,
               "label": "ID Rubber"
             },
@@ -1498,35 +1498,39 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": { "slipon2": true, "slipon3": true },
               "fieldName": "drillingHasBeenCompleted",
               "label": "Drilling has been completed",
               "required": true,
               "type": "checkbox"
             },
             {
+              "showField": { "b2P": true, "dual": true },
               "fieldName": "equipmentIdTorqueWrench",
               "required": true,
               "label": "Equipment ID(Torque wrench)"
             },
             {
+              "showField": { "b2P": true, "dual": true },
               "fieldName": "calibrationDateTorqueWrench",
               "required": true,
               "label": "Calibration date",
               "type": "date"
             },
             {
+              "showField": { "b2P": true, "dual": true },
               "mathSpec": "mathTorque",
               "label": "Torque",
               "unit": "Nm"
             },
             {
+              "showField": { "b2P": true, "dual": true },
               "showFieldSpecPath": "leadEngineer.data.K2",
               "fieldName": "controlOfK2RingFlaps",
               "label": "Control of K2 ring flaps",
               "type": "checkbox"
             },
             {
+              "showField": { "b2P": true, "dual": true },
               "fieldName": "endRingInstallation",
               "required": true,
               "label": "End ring installation",
@@ -1542,6 +1546,11 @@
           "pageTitle": "Barrier",
           "queryPath": "operator",
           "fields": [
+            {
+              "fieldName": "startTimeBarrier",
+              "label": "Start time",
+              "type": "datetime-local"
+            },
             {
               "specValueList": "leadEngineer.data.barrier",
               "label": "Barrier type",
@@ -2058,7 +2067,7 @@
               "fieldName": "barrierFinished",
               "label": "Barrier finished",
               "required": true,
-              "type": "date"
+              "type": "datetime-local"
             }
           ]
         }
@@ -2070,6 +2079,11 @@
           "pageTitle": "Barrier Pin side",
           "queryPath": "operator",
           "fields": [
+            {
+              "fieldName": "startTimeBarrierPinSide",
+              "label": "Start time",
+              "type": "datetime-local"
+            },
             {
               "specValueList": "leadEngineer.data.barrierPinSide",
               "label": "barrier pin side type",
@@ -2186,7 +2200,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementBoxBeforeAppliedBarrier",
+              "fieldName": "measurementBoxBeforeAppliedBarrierPinSide",
               "label": "Measurement {} box before applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2199,7 +2213,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementPinBeforeAppliedBarrier",
+              "fieldName": "measurementPinBeforeAppliedBarrierPinSide",
               "label": "Measurement {} pin before applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2246,7 +2260,7 @@
                   "8C"
                 ]
               },
-              "fieldName": "measurementBeforeAppliedBarrier",
+              "fieldName": "measurementBeforeAppliedBarrierPinSide",
               "label": "Measurement {} before applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2312,7 +2326,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementBoxAfterBarrier",
+              "fieldName": "measurementBoxAfterBarrierPinSide",
               "label": "Measurement {} box after applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2325,7 +2339,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementPinAfterBarrier",
+              "fieldName": "measurementPinAfterBarrierPinSide",
               "label": "Measurement {} pin after applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2411,7 +2425,7 @@
                 ]
               },
               "indexVariableLabel": true,
-              "fieldName": "endMeasurement",
+              "fieldName": "endMeasurementPinSide",
               "label": "End measurement {}",
               "required": true,
               "type": "number"
@@ -2435,16 +2449,16 @@
                   "8B"
                 ]
               },
-              "fieldName": "performedAfterVulcanizationOfBBarrier",
+              "fieldName": "performedAfterVulcanizationOfBBarrierPinSide",
               "label": "Performed after vulcanization of B-barrier",
               "required": true,
               "type": "checkbox"
             },
             {
-              "fieldName": "barrierFinished",
+              "fieldName": "barrierFinishedPinSide",
               "label": "Barrier finished",
               "required": true,
-              "type": "date"
+              "type": "datetime-local"
             }
           ]
         }
@@ -2456,6 +2470,16 @@
           "pageTitle": "Barrier Box side",
           "queryPath": "operator",
           "fields": [
+            {
+              "fieldName": "startTimeBarrierBoxSide",
+              "label": "Start time",
+              "type": "datetime-local"
+            },
+            {
+              "specValueList": "leadEngineer.data.barrierBoxSide",
+              "label": "Barrier box side type",
+              "showFieldSpecPath": "leadEngineer.data.barrierBoxSide"
+            },
             {
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierBoxSide": [
@@ -2567,7 +2591,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementBoxBeforeBarrier",
+              "fieldName": "measurementBoxBeforeBarrierBoxSide",
               "label": "Measurement {} box before applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2580,7 +2604,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementPinBeforeBarrier",
+              "fieldName": "measurementPinBeforeBarrierBoxSide",
               "label": "Measurement {} pin before applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2627,7 +2651,7 @@
                   "8C"
                 ]
               },
-              "fieldName": "measurementBeforeAppliedBarrier",
+              "fieldName": "measurementBeforeAppliedBarrierBoxSide",
               "label": "Measurement {} before applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2746,7 +2770,7 @@
                 ]
               },
               "indexVariableLabel": true,
-              "fieldName": "endMeasurement",
+              "fieldName": "endMeasurementBoxSide",
               "label": "End measurement {}",
               "required": true,
               "type": "number"
@@ -2775,7 +2799,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementBoxAfterBarrier",
+              "fieldName": "measurementBoxAfterBarrierBoxSide",
               "label": "Measurement {} box after applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2788,7 +2812,7 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
-              "fieldName": "measurementPinAfterBarrier",
+              "fieldName": "measurementPinAfterBarrierBoxSide",
               "label": "Measurement {} pin after applied barrier",
               "indexVariableLabel": true,
               "required": true,
@@ -2816,16 +2840,16 @@
                   "8B"
                 ]
               },
-              "fieldName": "performedAfterVulcanizationOfBBarrier",
+              "fieldName": "performedAfterVulcanizationOfBBarrierBoxSide",
               "label": "Performed after vulcanization of B-barrier",
               "required": true,
               "type": "checkbox"
             },
             {
-              "fieldName": "barrierFinished",
+              "fieldName": "barrierFinishedBoxSide",
               "label": "Barrier finished",
               "required": true,
-              "type": "date"
+              "type": "datetime-local"
             }
           ]
         }
@@ -2975,23 +2999,10 @@
               "options": ["Mercasol", "Kendex orange"]
             },
             {
-              "showField": {
-                "b2P": true,
-                "dual": true,
-                "slipon2": true,
-                "slipon3": true
-              },
-              "fieldName": "packedSpecification",
-              "required": true,
-              "label": "Packed specification"
+              "label": "Packed specification",
+              "mathSpec": "mathPackingSpecification"
             },
             {
-              "showField": {
-                "b2P": true,
-                "dual": true,
-                "slipon2": true,
-                "slipon3": true
-              },
               "fieldName": "packedInAccordantToSpec",
               "label": "Packed in accordant to spec",
               "required": true,

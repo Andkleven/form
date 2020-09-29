@@ -203,7 +203,8 @@ export default React.memo(({ ...props }) => {
               props.specData,
               props.repeatStepList,
               props.decimal ? props.decimal : 0,
-              mathStore
+              mathStore,
+              props.jsonVariables
             )
           : null,
         isNumber(props.maxInput) ? props.maxInput : max,

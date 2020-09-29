@@ -19,7 +19,6 @@
             },
             {
               "fieldName": "projectName",
-              "required": true,
               "label": "Project Name"
             },
             {
