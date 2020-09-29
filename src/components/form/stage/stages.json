@@ -71,7 +71,7 @@
       "queryPath": "leadEngineer.data.ultrasoundBoxSide"
     },
     "grinding": {
-      "queryPath": "leadEngineer.data.cable"
+      "queryPath": ""
     },
     "ringAssembly": {
       "queryPath": ""
