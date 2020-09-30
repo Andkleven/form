@@ -563,8 +563,8 @@
         {
           "fields": [
             {
-              "fieldName": "ringerPutOn",
-              "label": "Rings put on",
+              "fieldName": "ringsAssembled",
+              "label": "Rings assembled",
               "type": "checkbox",
               "required": true
             }
