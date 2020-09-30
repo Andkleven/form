@@ -1498,6 +1498,7 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": { "b2P": true, "dual": true },
               "fieldName": "drillingHasBeenCompleted",
               "label": "Drilling has been completed",
               "required": true,

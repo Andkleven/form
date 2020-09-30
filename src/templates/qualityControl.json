@@ -231,7 +231,7 @@
           "queryPath": "finalInspectionQualityControl",
           "fields": [
             {
-              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "totalLength",
               "label": "Total length",
               "specVariableSubtext": "leadEngineer.data.totalLength",
