@@ -1494,13 +1494,6 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": { "slipon2": true, "slipon3": true },
-              "fieldName": "drillingHasBeenCompleted",
-              "label": "Drilling has been completed",
-              "required": true,
-              "type": "checkbox"
-            },
-            {
               "showField": { "b2P": true, "dual": true },
               "fieldName": "equipmentIdTorqueWrench",
               "required": true,
@@ -2860,6 +2853,13 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "drillingHasBeenCompleted",
+              "label": "Drilling has been completed",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
               "showField": { "b2P": true, "dual": true },
               "fieldName": "internalCleaning",
               "label": "Internal cleaning",
@@ -3003,7 +3003,7 @@
               },
               "fieldName": "bioDopStorageOil",
               "label": "Bio Dop Storage oil",
-              "mathSpec": "mathPackingSpecification"
+              "type": "checkbox"
             },
             {
               "label": "Packed specification",
