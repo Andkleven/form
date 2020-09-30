@@ -2902,6 +2902,26 @@
           ]
         },
         {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointCompletionPhases",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+          "repeat": true,
+          "notAddButton": true,
+          "fields": [
+            {
+              "fieldName": "odMeasurementPoint",
+              "label": "OD Measurement Point {}",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
           "fields": [
             {
               "showField": { "dual": true },
@@ -2919,7 +2939,7 @@
           "notAddButton": true,
           "fields": [
             {
-              "fieldName": "measurementPoint",
+              "fieldName": "odMeasurementPoint",
               "label": "OD Measurement Point pin side {}",
               "indexVariableLabel": true,
               "required": true,
@@ -2948,7 +2968,7 @@
           "notAddButton": true,
           "fields": [
             {
-              "fieldName": "measurementPoint",
+              "fieldName": "odMeasurementPoint",
               "label": "OD Measurement Point box side {}",
               "indexVariableLabel": true,
               "required": true,
