@@ -713,16 +713,16 @@ const mathDescription = (
     ""
   );
   if (geometry === "dual") {
-    return `${K2 ? "K2" : ""} SP ${jsonVariables[0]} ${
-      rubberType && rubberType[0]
+    return `SP ${K2 ? "K2" : ""} ${jsonVariables[0]} ${
+      rubberType ? rubberType[0] : ""
     } ${barrierPinSide}x${elementLengthPinSide}M / ${
-      rubberType && rubberType[1]
+      rubberType ? rubberType[1] : ""
     } ${barrierBoxSide}x${elementLengthBoxSide}M ${pipeOd}x${rubberOd}`;
   } else {
     return `${K2 ? "K2" : ""} ${geometry === "b2P" ? "SP" : jsonVariables[0]} ${
-      rubberType && rubberType
+      rubberType ? rubberType : ""
     } ${barrier} ${
-      cable && `CL${numberOfTracks}`
+      cable ? `CL${numberOfTracks}` : ""
     } ${pipeOd}x${rubberOd}x${elementLength}M`;
   }
 };

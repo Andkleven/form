@@ -1064,8 +1064,7 @@
             {
               "fieldName": "equipmentIdGrinding",
               "required": true,
-              "label": "Equipment ID",
-              "type": "date"
+              "label": "Equipment ID"
             },
             {
               "showField": { "slipon3": true, "slipon2": true, "b2P": true },
@@ -1127,7 +1126,7 @@
               "fieldName": "dueCalibrationDate",
               "required": true,
               "label": "Due calibration  date",
-              "type": "datetime-local"
+              "type": "date"
             },
             {
               "fieldName": "testInformationResult",
@@ -1461,8 +1460,7 @@
             {
               "fieldName": "equipmentIdGrinding",
               "required": true,
-              "label": "Equipment ID",
-              "type": "date"
+              "label": "Equipment ID"
             },
             {
               "showField": { "slipon3": true, "slipon2": true, "b2P": true },
