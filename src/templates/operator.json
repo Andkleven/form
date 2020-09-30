@@ -1494,7 +1494,7 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": { "b2P": true, "dual": true },
+              "showField": { "slipon2": true, "slipon3": true },
               "fieldName": "drillingHasBeenCompleted",
               "label": "Drilling has been completed",
               "required": true,
@@ -2296,7 +2296,8 @@
               },
               "indexVariableLabel": true,
               "label": "Target measurement {}",
-              "math": "mathTargetMeasurementPinSide"
+              "math": "mathTargetMeasurementPinSide",
+              "decimal": 2
             }
           ]
         },
@@ -2687,7 +2688,8 @@
               },
               "indexVariableLabel": true,
               "label": "Target measurement {}",
-              "math": "mathTargetMeasurementBoxSide"
+              "math": "mathTargetMeasurementBoxSide",
+              "decimal": 2
             }
           ]
         },
