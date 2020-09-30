@@ -696,8 +696,8 @@
           "notAddButton": true,
           "fields": [
             {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point {}",
+              "fieldName": "builtThickness",
+              "label": "Built thickness {}",
               "indexVariableLabel": true,
               "required": true,
               "type": "number",
@@ -725,8 +725,8 @@
           "notAddButton": true,
           "fields": [
             {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point pin side {}",
+              "fieldName": "builtThicknessPinSide",
+              "label": "Built thickness pin side {}",
               "indexVariableLabel": true,
               "required": true,
               "type": "number",
@@ -754,8 +754,8 @@
           "notAddButton": true,
           "fields": [
             {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point box side {}",
+              "fieldName": "builtThicknessBoxSide",
+              "label": "Built thickness box side {}",
               "indexVariableLabel": true,
               "required": true,
               "type": "number",
@@ -1641,8 +1641,8 @@
               "label": "Equipment ID"
             },
             {
-              "fieldName": "dueCalibrationDateBarrier",
-              "label": "Due calibration date",
+              "fieldName": "nextCalibrationDateBarrier",
+              "label": "Next calibration date",
               "type": "date"
             }
           ]
@@ -2168,8 +2168,8 @@
               "label": "Equipment ID"
             },
             {
-              "fieldName": "dueCalibrationDateBarrierPinSide",
-              "label": "Due calibration date",
+              "fieldName": "nextCalibrationDateBarrierPinSide",
+              "label": "Next calibration date",
               "type": "date"
             }
           ]
@@ -2559,8 +2559,8 @@
               "label": "Equipment ID"
             },
             {
-              "fieldName": "dueCalibrationDateBarrierBoxSide",
-              "label": "Due calibration date",
+              "fieldName": "nextCalibrationDateBarrierBoxSide",
+              "label": "Next calibration date",
               "type": "date"
             }
           ]
