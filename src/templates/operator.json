@@ -1100,13 +1100,11 @@
           "fields": [
             {
               "fieldName": "ultraSoundBeforeGrinding",
-              "required": true,
               "label": "Ultra sound before grinding",
               "type": "checkbox"
             },
             {
               "fieldName": "ultraSoundAfterGrinding",
-              "required": true,
               "label": "Ultra sound after grinding",
               "type": "checkbox"
             },
@@ -1706,7 +1704,7 @@
           "fields": [
             {
               "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": [
+                "leadEngineer.data.barrier": [
                   "1A",
                   "2A",
                   "3A",
@@ -2056,7 +2054,6 @@
               },
               "fieldName": "performedAfterVulcanizationOfBBarrier",
               "label": "Performed after vulcanization of B-barrier",
-              "required": true,
               "type": "checkbox"
             }
           ]
@@ -2871,8 +2868,8 @@
             },
             {
               "showField": { "b2P": true, "dual": true },
-              "fieldName": "Cleaning of thread",
-              "label": "cleaningOfThread",
+              "label": "Cleaning of thread",
+              "fieldName": "cleaningOfThread",
               "type": "checkbox",
               "required": true
             },
@@ -2998,6 +2995,15 @@
               "label": "Applied thread dop",
               "type": "select",
               "options": ["Mercasol", "Kendex orange"]
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true
+              },
+              "fieldName": "bioDopStorageOil",
+              "label": "Bio Dop Storage oil",
+              "mathSpec": "mathPackingSpecification"
             },
             {
               "label": "Packed specification",

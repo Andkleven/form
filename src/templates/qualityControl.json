@@ -235,18 +235,14 @@
               "fieldName": "totalLength",
               "label": "Total length",
               "specVariableSubtext": "leadEngineer.data.totalLength",
-              "subtext": "Dwg Ref. L1, Total length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L1, Total length {}"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "totalLengthPinMakeUpLoss",
               "label": "Total length - Pin make up loss",
               "specVariableSubtext": "leadEngineer.data.totalLengthPinMakeUpLoss",
-              "subtext": "Dwg Ref. L1 - Thread, Total length - Pin make up loss {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L1 - Thread, Total length - Pin make up loss {}"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
@@ -274,9 +270,7 @@
               "fieldName": "packerElementLength",
               "specVariableSubtext": "leadEngineer.data.packerElementLength",
               "label": "Packer element length",
-              "subtext": "Dwg Ref. L4, packer element length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4, packer element length {}"
             },
             {
               "showFieldSpecPath": {
@@ -290,9 +284,7 @@
               "fieldName": "packerElementLengthTotal",
               "specVariableSubtext": "leadEngineer.data.packerElementLength",
               "label": "Packer element length total",
-              "subtext": "Dwg Ref. L4, packer element length total, {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4, packer element length total, {}"
             },
             {
               "showFieldSpecPath": {
@@ -304,9 +296,7 @@
               "fieldName": "packerElementLength1",
               "specVariableSubtext": "leadEngineer.data.packerElementLength1",
               "label": "Packer element length #1",
-              "subtext": "Dwg Ref. L4.1, packer element length #1 {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4.1, packer element length #1 {}"
             },
             {
               "showFieldSpecPath": {
@@ -318,9 +308,7 @@
               "fieldName": "packerElementLength2",
               "specVariableSubtext": "leadEngineer.data.packerElementLength2",
               "label": "Packer element length #2",
-              "subtext": "Dwg Ref. L4.2, packer element length #2 {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4.2, packer element length #2 {}"
             },
             {
               "showFieldSpecPath": {
@@ -331,9 +319,7 @@
               "fieldName": "packerElementLength3",
               "specVariableSubtext": "leadEngineer.data.packerElementLength3",
               "label": "Packer element length #3",
-              "subtext": "Dwg Ref. L4.3, packer element length #3 {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4.3, packer element length #3 {}"
             },
             {
               "showFieldSpecPath": {
@@ -346,9 +332,7 @@
               "fieldName": "packerElement1Length",
               "specVariableSubtext": "leadEngineer.data.packerElement1Length",
               "label": "Packer element  #1, length",
-              "subtext": "Dwg Ref. L4.1, packer element  #1, length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4.1, packer element  #1, length {}"
             },
             {
               "showFieldSpecPath": {
@@ -361,9 +345,7 @@
               "fieldName": "packerElement2Length",
               "specVariableSubtext": "leadEngineer.data.packerElement2Length",
               "label": "Packer element  #2, length",
-              "subtext": "Dwg Ref. L4.2, packer element  #2, length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4.2, packer element  #2, length {}"
             },
             {
               "showFieldSpecPath": {
@@ -374,9 +356,7 @@
               "fieldName": "packerElement3Length",
               "specVariableSubtext": "leadEngineer.data.packerElement3Length",
               "label": "Packer element  #3, length",
-              "subtext": "Dwg Ref. L4.3, packer element  #3, length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. L4.3, packer element  #3, length {}"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
@@ -452,9 +432,7 @@
               "fieldName": "endRingLength",
               "specVariableSubtext": "leadEngineer.data.endRingLength",
               "label": "End-ring Length",
-              "subtext": "Dwg Ref. XX, end-ring Length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. XX, end-ring Length {}"
             },
             {
               "showFieldSpecPath": {
@@ -484,18 +462,14 @@
               "fieldName": "centerRingLength",
               "specVariableSubtext": "leadEngineer.data.centerRingLength",
               "label": "Center-ring Length",
-              "subtext": "Dwg Ref. XX, center-ring Length {}",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. XX, center-ring Length {}"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "couplingLength",
               "specVariableSubtext": "leadEngineer.data.couplingLength",
               "label": "Coupling length",
-              "subtext": "Dwg Ref. XX, coupling length",
-              "type": "number",
-              "unit": "mm"
+              "subtext": "Dwg Ref. XX, coupling length"
             },
             {
               "showFieldSpecPath": {
