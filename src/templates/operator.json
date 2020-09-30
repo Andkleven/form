@@ -1495,6 +1495,11 @@
           "fields": [
             {
               "showField": { "b2P": true, "dual": true },
+              "label": "Screw description",
+              "mathSpec": "mathScrewDescription"
+            },
+            {
+              "showField": { "b2P": true, "dual": true },
               "fieldName": "equipmentIdTorqueWrench",
               "required": true,
               "label": "Equipment ID(Torque wrench)"
