@@ -53,7 +53,10 @@ const mathToleranceMin = (
   } else {
     value = measurementPointActual + toleranceMin;
   }
-  return whatTooReturn(value, decimal, [toleranceMin, measurementPointActual]);
+  return whatTooReturn(Number(value), decimal, [
+    toleranceMin,
+    measurementPointActual
+  ]);
 };
 const mathToleranceMax = (
   values,
@@ -78,7 +81,10 @@ const mathToleranceMax = (
   } else {
     value = measurementPointActual + toleranceMax;
   }
-  return whatTooReturn(value, decimal, [toleranceMax, measurementPointActual]);
+  return whatTooReturn(Number(value), decimal, [
+    toleranceMax,
+    measurementPointActual
+  ]);
 };
 
 const mathQualityControlMeasurementPointMouldMin = (

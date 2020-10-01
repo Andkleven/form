@@ -324,7 +324,10 @@ export default () => {
               getQueryBy={_id}
               counter={counter - 1}
               geometry={geometryData.data.geometry}
-              setStage={fixedData["projects"][0]["leadEngineerDone"]}
+              setStage={
+                fixedData &&
+                objectPath.get(fixedData, "projects.0.leadEngineerDone")
+              }
             />
             {projectExists && <ItemCounter className="my-3" />}
           </>
