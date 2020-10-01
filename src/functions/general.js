@@ -675,7 +675,7 @@ export function useTraceUpdate(props) {
   });
 }
 
-export function showFieldSpec(
+export function notShowSpec(
   specData,
   showFieldSpecPath,
   repeatStepList,

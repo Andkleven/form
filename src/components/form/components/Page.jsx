@@ -17,7 +17,7 @@ import {
   variableString,
   getRepeatStepList,
   isLastCharacterNumber,
-  showFieldSpec
+  notShowSpec
 } from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
@@ -178,7 +178,7 @@ export default React.memo(props => {
       (props.showPage === undefined ||
         (props.showPage &&
           getProperties(props.showPage, props.jsonVariables))) &&
-      !showFieldSpec(
+      !notShowSpec(
         props.specData,
         props.showPageSpecPath,
         props.repeatStepList,
@@ -399,7 +399,7 @@ export default React.memo(props => {
       (props.showPage === undefined ||
         (props.showPage &&
           getProperties(props.showPage, props.jsonVariables))) &&
-      !showFieldSpec(
+      !notShowSpec(
         props.specData,
         props.showPageSpecPath,
         props.repeatStepList,
@@ -446,7 +446,7 @@ export default React.memo(props => {
       (props.showPage === undefined ||
         (props.showPage &&
           getProperties(props.showPage, props.jsonVariables))) &&
-      !showFieldSpec(
+      !notShowSpec(
         props.specData,
         props.showPageSpecPath,
         props.repeatStepList,
@@ -498,7 +498,7 @@ export default React.memo(props => {
       props.thisChapter,
       finalChapter.current
     ) &&
-    !showFieldSpec(
+    !notShowSpec(
       props.specData,
       props.showPageSpecPath,
       props.repeatStepList,
@@ -783,7 +783,7 @@ export default React.memo(props => {
           (props.showPage === undefined ||
             (props.showPage &&
               getProperties(props.showPage, props.jsonVariables))) &&
-          !showFieldSpec(
+          !notShowSpec(
             props.specData,
             props.showPageSpecPath,
             props.repeatStepList,

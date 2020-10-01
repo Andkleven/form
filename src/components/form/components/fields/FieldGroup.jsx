@@ -1,13 +1,13 @@
 import React from "react";
 import FieldProperties from "components/form/components/fields/FieldProperties";
 import Page from "components/form/components/Page";
-import { getProperties, showFieldSpec } from "functions/general";
+import { getProperties, notShowSpec } from "functions/general";
 
 export default props => {
   return props.fields.map((field, index) => {
     if (
       field.showFieldSpecPath &&
-      showFieldSpec(
+      notShowSpec(
         props.specData,
         field.showFieldSpecPath,
         props.repeatStepList,
