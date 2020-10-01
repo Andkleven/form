@@ -37,7 +37,7 @@ const mathToleranceMin = (
   mathStore = null,
   jsonVariables = null
 ) => {
-  let value;
+  let value = 0;
   let toleranceMin = Number(mathMin(values, repeatStepList, decimal));
   let measurementPointActual = objectPath.get(
     values,
