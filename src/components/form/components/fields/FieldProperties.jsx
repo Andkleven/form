@@ -357,7 +357,6 @@ export default React.memo(({ ...props }) => {
       />
     );
   } else if (props.viewPdf) {
-    console.log(42354543);
     return <ViewPdf />;
   } else if (props.math) {
     const commonProps = {

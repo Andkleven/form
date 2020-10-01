@@ -379,7 +379,7 @@
           },
           "queryPath": "leadEngineer.measurementPointActualTdvs",
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "fields": [
             {
@@ -451,7 +451,7 @@
               "page": true,
               "queryPath": "coatingLayers",
               "repeat": true,
-              "notAddButton": true,
+
               "repeatGroupWithQuery": [
                 "leadEngineer.vulcanizationSteps",
                 "data.numberOfLayers"
@@ -584,7 +584,7 @@
                   "page": { "coatedItem": true },
                   "queryPath": "cumulativeThickness",
                   "repeat": true,
-                  "notAddButton": true,
+
                   "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
                   "fields": [
                     {

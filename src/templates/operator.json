@@ -14,7 +14,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showField": { "b2P": true, "slipon2": true, "slipon3": true },
@@ -44,7 +44,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "measurementPoint",
@@ -73,7 +73,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "measurementPoint",
@@ -98,7 +98,7 @@
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "measurementPointActual",
@@ -378,7 +378,7 @@
         },
         {
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.additionalCustomTests",
           "queryPath": "operator.additionalCustomTestOperators",
@@ -693,7 +693,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "builtThickness",
@@ -722,7 +722,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "builtThicknessPinSide",
@@ -751,7 +751,6 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
           "fields": [
             {
               "fieldName": "builtThicknessBoxSide",
@@ -798,7 +797,7 @@
             "mould": true
           },
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.rubberCements",
           "queryPath": "operator.rubberCementOperators",
@@ -896,7 +895,7 @@
             "coatedItem": true
           },
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "queryPath": [
@@ -998,7 +997,7 @@
         {
           "pageTitle": "Measurement after Vulcanization",
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "queryPath": [
@@ -1660,7 +1659,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1696,7 +1695,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1788,7 +1787,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1865,37 +1864,36 @@
           "queryPath": "operator.measurementPointAfterBarriers",
           "repeatGroupWithQuery": "operator.data.noOfLayersApplied",
           "repeat": true,
-          "notAddButton": true,
+          "showPageSpecPath": {
+            "leadEngineer.data.barrier": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
           "fields": [
             {
-              "showFieldSpecPath": {
-                "leadEngineer.data.barrier": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
-              },
               "indexVariableLabel": true,
               "fieldName": "endMeasurement",
               "label": "End measurement {}",
@@ -1910,7 +1908,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1958,7 +1956,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2188,7 +2186,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2223,7 +2221,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2315,7 +2313,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2388,37 +2386,36 @@
           "queryPath": "operator.measurementPointAfterBarrierPinSides",
           "repeatGroupWithQuery": "operator.data.noOfLayersAppliedPinSide",
           "repeat": true,
-          "notAddButton": true,
+          "showPageSpecPath": {
+            "leadEngineer.data.barrierPinSide": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
           "fields": [
             {
-              "showFieldSpecPath": {
-                "leadEngineer.data.barrierPinSide": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
-              },
               "indexVariableLabel": true,
               "fieldName": "endMeasurementPinSide",
               "label": "End measurement {}",
@@ -2580,7 +2577,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2615,7 +2612,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2692,6 +2689,17 @@
           ]
         },
         {
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "labelOnly": true,
+              "label": "After applied"
+            }
+          ]
+        },
+        {
           "queryPath": "operator",
           "fields": [
             {
@@ -2730,41 +2738,41 @@
             }
           ]
         },
+
         {
+          "showPageSpecPath": {
+            "leadEngineer.data.barrierBoxSide": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
           "queryPath": "operator.measurementPointAfterBarrierBoxSides",
           "repeatGroupWithQuery": "operator.data.noOfLayersAppliedBoxSide",
           "repeat": true,
-          "notAddButton": true,
           "fields": [
             {
-              "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": [
-                  "1A",
-                  "2A",
-                  "3A",
-                  "4A",
-                  "5A",
-                  "6A",
-                  "7A",
-                  "8A",
-                  "1B",
-                  "2B",
-                  "3B",
-                  "4B",
-                  "5B",
-                  "6B",
-                  "7B",
-                  "8B",
-                  "1C",
-                  "2C",
-                  "3C",
-                  "4C",
-                  "5C",
-                  "6C",
-                  "7C",
-                  "8C"
-                ]
-              },
               "indexVariableLabel": true,
               "fieldName": "endMeasurementBoxSide",
               "label": "End measurement {}",
@@ -2773,23 +2781,13 @@
             }
           ]
         },
-        {
-          "fields": [
-            {
-              "showFieldSpecPath": {
-                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
-              },
-              "labelOnly": true,
-              "label": "After applied"
-            }
-          ]
-        },
+
         {
           "queryPath": "operator.measurementPointAfterBarrierBoxSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2907,7 +2905,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "odMeasurementPoint",
@@ -2936,7 +2934,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "odMeasurementPoint",
@@ -2965,7 +2963,7 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "odMeasurementPoint",

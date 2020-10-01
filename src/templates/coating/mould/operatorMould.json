@@ -266,7 +266,7 @@
         },
         {
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.additionalCustomTests",
           "queryPath": "finalInspectionQualityControls.0.additionalCustomTestOperators",
@@ -409,7 +409,7 @@
         },
         {
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.rubberCements",
           "queryPath": "operators.0.rubberCementOperators",
@@ -556,7 +556,7 @@
         {
           "pageTitle": "Measurement after Vulcanization",
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": [

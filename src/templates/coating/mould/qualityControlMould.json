@@ -11,7 +11,7 @@
         {
           "pageTitle": "Final Inspection",
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.measurementPoint",
           "queryPath": "finalInspectionQualityControls.0.measurementPointQualityControls",
@@ -87,7 +87,7 @@
         {
           "queryPath": "finalInspectionQualityControls.0.hardnessQualityControls",
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.numberOfHardnessOfOuterLayer",
           "fields": [
@@ -104,7 +104,7 @@
         {
           "queryPath": "finalInspectionQualityControls.0.peelTestQualityControls",
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.data.numberOfPeelTest",
           "fields": [
@@ -127,7 +127,7 @@
         },
         {
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.finalInspectionDimensionsChecks",
           "queryPath": "finalInspectionQualityControls.0.finalInspectionDimensionsCheckQualityControls",
@@ -153,7 +153,7 @@
         },
         {
           "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineers.0.finalInspectionCustomTests",
           "queryPath": "finalInspectionQualityControls.0.finalInspectionCustomTestQualityControls",

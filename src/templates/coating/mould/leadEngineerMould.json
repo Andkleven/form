@@ -320,7 +320,7 @@
               "indexVariablePageTitle": 0,
               "queryPath": "coatingLayers",
               "repeat": true,
-              "notAddButton": true,
+
               "repeatGroupWithQuery": [
                 "leadEngineers.0.vulcanizationSteps",
                 "data.numberOfLayers"

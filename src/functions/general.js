@@ -681,6 +681,9 @@ export function showFieldSpec(
   repeatStepList,
   editRepeatStepValueList
 ) {
+  if (!showFieldSpecPath) {
+    return false;
+  }
   if (typeof showFieldSpecPath === "object" && showFieldSpecPath !== null) {
     let path = Object.keys(showFieldSpecPath)[0];
     let specValue = findValue(
