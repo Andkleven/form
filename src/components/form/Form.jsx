@@ -107,6 +107,7 @@ export default ({
   itemIdsRef,
   itemId
 }) => {
+  const stagesChapter = useRef({});
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [loading, setLoading] = useState(true);
   const timer = useRef();
@@ -240,12 +241,15 @@ export default ({
           });
         }
         if (stage && submit) {
+          let thisStage = editChapter
+            ? Object.keys(stagesChapter.current)[editChapter - 1]
+            : stage;
           let key = Object.keys(data)[0];
           let path;
           if (Array.isArray(data[key])) {
-            path = `${key}.0.data.${stage}`;
+            path = `${key}.0.data.${thisStage}`;
           } else {
-            path = `${key}.data.${stage}`;
+            path = `${key}.data.${thisStage}`;
           }
           objectPath.set(data, path, { [new Date()]: userInfo.username });
         }
@@ -394,6 +398,7 @@ export default ({
               readOnlySheet={readOnlySheet}
               itemIdsRef={itemIdsRef}
               itemId={itemId}
+              stagesChapter={stagesChapter}
               specRemovePath={specRemovePath}
             />
             {loadingMutation && <Loading />}
