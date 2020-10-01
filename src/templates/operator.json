@@ -1487,44 +1487,39 @@
       ]
     },
     "ringAssembly": {
+      "showChapter": { "b2P": true, "dual": true },
       "pages": [
         {
           "pageTitle": "Ring Assembly",
           "queryPath": "operator",
           "fields": [
             {
-              "showField": { "b2P": true, "dual": true },
               "label": "Screw description",
               "mathSpec": "mathScrewDescription"
             },
             {
-              "showField": { "b2P": true, "dual": true },
               "fieldName": "equipmentIdTorqueWrench",
               "required": true,
               "label": "Equipment ID(Torque wrench)"
             },
             {
-              "showField": { "b2P": true, "dual": true },
               "fieldName": "calibrationDateTorqueWrench",
               "required": true,
               "label": "Calibration date",
               "type": "date"
             },
             {
-              "showField": { "b2P": true, "dual": true },
               "mathSpec": "mathTorque",
               "label": "Torque",
               "unit": "Nm"
             },
             {
-              "showField": { "b2P": true, "dual": true },
               "showFieldSpecPath": "leadEngineer.data.K2",
               "fieldName": "controlOfK2RingFlaps",
               "label": "Control of K2 ring flaps",
               "type": "checkbox"
             },
             {
-              "showField": { "b2P": true, "dual": true },
               "fieldName": "endRingInstallation",
               "required": true,
               "label": "End ring installation",
