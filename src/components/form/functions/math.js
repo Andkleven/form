@@ -8,7 +8,7 @@ import objectPath from "object-path";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (array.every(allZeroOrNaN)) {
-    return null;
+    return 0;
   } else {
     if (![null, undefined].includes(decimal)) {
       return value.toFixed(decimal);
