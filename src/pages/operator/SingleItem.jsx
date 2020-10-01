@@ -122,7 +122,6 @@ export default pageInfo => {
           </Title>
           <Form
             update={true}
-            itemIdsRef={itemIdsRef}
             jsonVariables={[geometry]}
             componentsId={"leadEngineersPage"}
             edit={access.itemEdit}
