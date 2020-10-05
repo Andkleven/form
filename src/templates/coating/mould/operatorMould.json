@@ -39,6 +39,15 @@
               "type": "number",
               "required": true
             },
+
+            {
+              "fieldName": "dewPoint",
+              "label": "Dew Point",
+              "routeToSpecMin": "leadEngineers.0.data.dewPoint",
+              "unit": "°C",
+              "type": "number",
+              "required": true
+            },
             {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
@@ -434,8 +443,8 @@
                 {
                   "fieldName": "mixDate",
                   "required": true,
-                  "indexVariableLabel": true,
-                  "label": "Mix Date {}",
+                  "label": "Mix Date",
+                  "indent": true,
                   "type": "date"
                 }
               ]
@@ -487,6 +496,7 @@
               "fieldName": "mixDate",
               "label": "Mix Date",
               "type": "date",
+              "indent": true,
               "required": true
             }
           ]

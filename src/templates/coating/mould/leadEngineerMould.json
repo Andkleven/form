@@ -61,6 +61,15 @@
               "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
             },
             {
+              "fieldName": "dewPoint",
+              "label": "Dew Point",
+              "unit": "°C",
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4, Dew Point Temperature",
+              "readOnlyFieldIf": "leadEngineers.0.data.mediaBlasting"
+            },
+            {
               "fieldName": "temperatureOverDewPoint",
               "label": "Temperature over Dew Point",
               "default": 3,
