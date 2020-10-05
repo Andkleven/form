@@ -2,6 +2,14 @@ import React from "react";
 import { useSpring, animated } from "react-spring";
 
 export default ({ ...props }) => {
+  const defaultStyle = {
+    paddingTop: 1,
+    paddingBottom: 1,
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontSize: 13
+  };
+
   const spring = useSpring({
     to: async next => {
       while (true) {
@@ -12,22 +20,10 @@ export default ({ ...props }) => {
           paddingRight: 6,
           fontSize: 15
         });
-        await next({
-          paddingTop: 1,
-          paddingBottom: 1,
-          paddingLeft: 5,
-          paddingRight: 5,
-          fontSize: 14
-        });
+        await next(defaultStyle);
       }
     },
-    from: {
-      paddingTop: 1,
-      paddingBottom: 1,
-      paddingLeft: 5,
-      paddingRight: 5,
-      fontSize: 13
-    },
+    from: defaultStyle,
     config: {
       tension: 175,
       friction: 50,
@@ -45,7 +41,8 @@ export default ({ ...props }) => {
       className="d-flex justify-content-center align-items-center"
     >
       <animated.div
-        style={spring}
+        // style={spring}
+        style={defaultStyle}
         className="bg-info text-white rounded border shadow-sm"
       >
         <b>{props.children}</b>
