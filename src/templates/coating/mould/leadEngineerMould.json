@@ -95,26 +95,6 @@
               "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
             },
             {
-              "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile Min (Roughness)",
-              "prepend": "Min",
-              "unit": "Rz",
-              "default": 50,
-              "type": "Number",
-              "subtext": "ISO 8503-4",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
-            },
-            {
-              "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile Max (Roughness)",
-              "prepend": "Max",
-              "unit": "Rz",
-              "default": 100,
-              "type": "Number",
-              "subtext": "ISO 8503-4",
-              "readOnlyFieldIf": "leadEngineers.0.data.additionalTests"
-            },
-            {
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
               "default": 20,

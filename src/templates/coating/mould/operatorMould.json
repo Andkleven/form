@@ -223,34 +223,6 @@
               "line": true
             },
             {
-              "fieldName": "surfaceProfileRoughness",
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "required": true,
-              "placeholder": "Result",
-              "label": "Surface Profile (Roughness)",
-              "subtext": "Between 50.0µm and 100.0µm",
-              "unit": "Rz",
-              "type": "number"
-            },
-            {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "required": true,
-              "fieldName": "equipmentIDSurfaceProfileRoughness",
-              "prepend": "Equipment ID"
-            },
-            {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
-              "type": "date",
-              "prepend": "Next Calibration Date",
-              "required": true
-            },
-            {
-              "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
-              "fieldName": "referencePlateId",
-              "prepend": "Reference Plate Id (Optional)"
-            },
-            {
               "showFieldSpecPath": "leadEngineers.0.data.surfaceCleanliness",
               "line": true
             },

@@ -234,35 +234,6 @@
               "required": true
             },
             {
-              "fieldName": "surfaceProfileRoughness",
-              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMax",
-              "required": true,
-              "placeholder": "Result",
-              "label": "Surface Profile (Roughness)",
-              "routeToSpecMin": "leadEngineer.data.surfaceProfileMin",
-              "routeToSpecMax": "leadEngineer.data.surfaceProfileMax",
-              "unit": "Rz",
-              "type": "number"
-            },
-            {
-              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
-              "required": true,
-              "fieldName": "equipmentIDSurfaceProfileRoughness",
-              "prepend": "Equipment ID"
-            },
-            {
-              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
-              "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
-              "type": "date",
-              "prepend": "Next Calibration Date",
-              "required": true
-            },
-            {
-              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
-              "fieldName": "referencePlateId",
-              "prepend": "Reference Plate Id (Optional)"
-            },
-            {
               "fieldName": "dustTest",
               "label": "Dust Test",
               "required": true,

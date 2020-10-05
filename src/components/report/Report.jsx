@@ -152,32 +152,6 @@ export const Report = ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.surfaceProfileMin ? (
-                    <Entry
-                      label="Surface Profile Min (Roughness)"
-                      values={[
-                        "ISO 8503-4",
-                        leData.surfaceProfileMin &&
-                          `${leData.surfaceProfileMin}µm`,
-                        opData.surfaceProfileMin &&
-                          `${opData.surfaceProfileMin}µm`,
-                        opData.surfaceProfileMinUserField
-                      ]}
-                    />
-                  ) : null}
-                  {leData.surfaceProfileMax ? (
-                    <Entry
-                      label="Surface Profile Max (Roughness)"
-                      values={[
-                        "ISO 8503-4",
-                        leData.surfaceProfileMax &&
-                          `${leData.surfaceProfileMax}Rz`,
-                        opData.surfaceProfileMax &&
-                          `${opData.surfaceProfileMax}Rz`,
-                        opData.surfaceProfileMaxUserField
-                      ]}
-                    />
-                  ) : null}
                   {leData.solubleSaltLevel ? (
                     <Entry
                       label="Soluble Salt Level"
