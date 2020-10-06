@@ -57,35 +57,30 @@ export default pageInfo => {
   return (
     <Canvas showForm={!!data}>
       <Overview itemIdsRef={itemIdsRef} />
-      {access.specs && !finalInspection && (
-        <Paper className="mb-3">
-          <Title big align="center">
-            Lead Engineer
-          </Title>
-          <Form
-            update={true}
-            itemIdsRef={itemIdsRef}
-            jsonVariables={[geometry]}
-            componentsId={"leadEngineersPage"}
-            edit={access.itemEdit}
-            document={leadEngineersJson}
-            reRender={() => setReRender(!reRender)}
-            data={
-              fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
-            }
-            saveVariables={{ itemId: itemId }}
-            itemId={itemId}
-            getQueryBy={itemId}
-          />
-        </Paper>
-      )}
       <Paper className="mb-3">
-        {access.specs && (
-          <Title big align="center">
-            Operator
-          </Title>
-        )}
-
+        <Title big align="center">
+          Lead Engineer
+        </Title>
+        <Form
+          update={true}
+          itemIdsRef={itemIdsRef}
+          jsonVariables={[geometry]}
+          componentsId={"leadEngineersPage"}
+          edit={access.specs && access.itemEdit}
+          document={leadEngineersJson}
+          reRender={() => setReRender(!reRender)}
+          data={
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
+          }
+          saveVariables={{ itemId: itemId }}
+          itemId={itemId}
+          getQueryBy={itemId}
+        />
+      </Paper>
+      <Paper className="mb-3">
+        <Title big align="center">
+          Operator
+        </Title>
         <Form
           update={true}
           itemId={itemId}

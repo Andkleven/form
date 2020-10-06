@@ -765,50 +765,7 @@ export default React.memo(props => {
         </>
       ) : props.type === "files" ? (
         <>
-          <Input
-            {...props}
-            noComment
-            // noComment={readMf}
-            // TinyButtons={
-            //   readMf ? (
-            //     <TinyButton color="primary" onClick={onEditMf}>
-            //       Edit
-            //     </TinyButton>
-            //   ) : (
-            //     <div className="d-none d-sm-inline">
-            //       <TinyButton color="success" onClick={onSubmitMf}>
-            //         Submit
-            //       </TinyButton>
-            //       <TinyButton color="secondary" onClick={onCancelMf}>
-            //         Cancel
-            //       </TinyButton>
-            //     </div>
-            //   )
-            // }
-            // BigButtons={
-            //   !readMf && (
-            //     <div className="d-flex d-sm-none my-1">
-            //       <Button
-            //         className="w-100 m-0 px-0 text-light"
-            //         variant="success"
-            //         onClick={onSubmitMf}
-            //       >
-            //         <FontAwesomeIcon icon="check" style={{ width: "1.5em" }} />
-            //         Submit
-            //       </Button>
-            //       <div className="px-1" />
-            //       <Button
-            //         className="w-100 m-0 px-0"
-            //         variant="secondary"
-            //         onClick={onCancelMf}
-            //       >
-            //         <FontAwesomeIcon icon="times" style={{ width: "1.5em" }} />
-            //         Cancel
-            //       </Button>
-            //     </div>
-            //   )
-            // }
-          />
+          <Input {...props} noComment />
         </>
       ) : null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
