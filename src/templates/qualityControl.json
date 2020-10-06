@@ -248,14 +248,20 @@
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpacePinEnd",
               "label": "Handling space pin end",
-              "specVariableSubtext": "leadEngineer.data.handlingSpacePinEnd",
-              "subtext": "Dwg Ref. L2, handling space pin end {}"
+              "routeToSpecMin": "leadEngineer.data.handlingSpacePinEndMin",
+              "routeToSpecMax": "leadEngineer.data.handlingSpacePinEndMax",
+              "type": "number",
+              "unit": "mm",
+              "subtext": "Dwg Ref. L2"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpaceBoxEnd",
               "label": "Handling space box end",
-              "specVariableSubtext": "leadEngineer.data.handlingSpaceBoxEnd",
+              "routeToSpecMin": "leadEngineer.data.handlingSpaceBoxEndMin",
+              "routeToSpecMax": "leadEngineer.data.handlingSpaceBoxEndMax",
+              "type": "number",
+              "unit": "mm",
               "subtext": "Dwg Ref. L3, Handling space box end {}"
             },
             {
@@ -268,9 +274,12 @@
                 ]
               },
               "fieldName": "packerElementLength",
-              "specVariableSubtext": "leadEngineer.data.packerElementLength",
               "label": "Packer element length",
-              "subtext": "Dwg Ref. L4, packer element length {}"
+              "subtext": "Dwg Ref. L4",
+              "routeToSpecMin": "leadEngineer.data.packerElementLengthMin",
+              "routeToSpecMax": "leadEngineer.data.packerElementLengthMax",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "showFieldSpecPath": {
@@ -282,9 +291,12 @@
                 ]
               },
               "fieldName": "packerElementLengthTotal",
-              "specVariableSubtext": "leadEngineer.data.packerElementLength",
               "label": "Packer element length total",
-              "subtext": "Dwg Ref. L4, packer element length total, {}"
+              "subtext": "Dwg Ref. L4",
+              "routeToSpecMin": "leadEngineer.data.packerElementLengthTotalMin",
+              "routeToSpecMax": "leadEngineer.data.packerElementLengthTotalMax",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "showFieldSpecPath": {
@@ -294,9 +306,12 @@
                 ]
               },
               "fieldName": "packerElementLength1",
-              "specVariableSubtext": "leadEngineer.data.packerElementLength1",
               "label": "Packer element length #1",
-              "subtext": "Dwg Ref. L4.1, packer element length #1 {}"
+              "subtext": "Dwg Ref. L4.1",
+              "routeToSpecMin": "leadEngineer.data.packerElementLength1Min",
+              "routeToSpecMax": "leadEngineer.data.packerElementLength1Max",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "showFieldSpecPath": {
@@ -306,9 +321,12 @@
                 ]
               },
               "fieldName": "packerElementLength2",
-              "specVariableSubtext": "leadEngineer.data.packerElementLength2",
+              "routeToSpecMin": "leadEngineer.data.packerElementLength2Min",
+              "routeToSpecMax": "leadEngineer.data.packerElementLength2Max",
+              "type": "number",
+              "unit": "mm",
               "label": "Packer element length #2",
-              "subtext": "Dwg Ref. L4.2, packer element length #2 {}"
+              "subtext": "Dwg Ref. L4.2"
             },
             {
               "showFieldSpecPath": {
@@ -317,9 +335,12 @@
                 ]
               },
               "fieldName": "packerElementLength3",
-              "specVariableSubtext": "leadEngineer.data.packerElementLength3",
+              "routeToSpecMin": "leadEngineer.data.packerElementLength3Min",
+              "routeToSpecMax": "leadEngineer.data.packerElementLength3Max",
+              "type": "number",
+              "unit": "mm",
               "label": "Packer element length #3",
-              "subtext": "Dwg Ref. L4.3, packer element length #3 {}"
+              "subtext": "Dwg Ref. L4.3"
             },
             {
               "showFieldSpecPath": {
@@ -374,9 +395,12 @@
                 ]
               },
               "fieldName": "packerElementOd",
-              "specVariableSubtext": "leadEngineer.data.packerElementOd",
+              "routeToSpecMin": "leadEngineer.data.packerElementOdMin",
+              "routeToSpecMax": "leadEngineer.data.packerElementOdMax",
+              "type": "number",
+              "unit": "mm",
               "label": "Packer element OD",
-              "subtext": "Dwg Ref. D2, packer element OD {}"
+              "subtext": "Dwg Ref. D2"
             },
             {
               "showFieldSpecPath": {
@@ -388,10 +412,13 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
+              "routeToSpecMin": "leadEngineer.data.packerElementOd1Min",
+              "routeToSpecMax": "leadEngineer.data.packerElementOd1Max",
+              "type": "number",
+              "unit": "mm",
               "fieldName": "packerElementOd1",
-              "specVariableSubtext": "leadEngineer.data.packerElementOd1",
               "label": "Packer element OD #1",
-              "subtext": "Dwg Ref. D2, packer element OD #1 {}"
+              "subtext": "Dwg Ref. D2"
             },
             {
               "showFieldSpecPath": {
@@ -404,9 +431,12 @@
                 ]
               },
               "fieldName": "packerElementOd2",
-              "specVariableSubtext": "leadEngineer.data.packerElementOd2",
+              "routeToSpecMin": "leadEngineer.data.packerElementOd2Min",
+              "routeToSpecMax": "leadEngineer.data.packerElementOd2Max",
+              "type": "number",
+              "unit": "mm",
               "label": "Packer element OD #2",
-              "subtext": "Dwg Ref. D3, packer element OD #2 {}"
+              "subtext": "Dwg Ref. D3"
             },
             {
               "showFieldSpecPath": {
@@ -416,9 +446,12 @@
                 ]
               },
               "fieldName": "packerElementOd3",
-              "specVariableSubtext": "leadEngineer.data.packerElementOd2",
+              "routeToSpecMin": "leadEngineer.data.packerElementOd3Min",
+              "routeToSpecMax": "leadEngineer.data.packerElementOd3Max",
+              "type": "number",
+              "unit": "mm",
               "label": "Packer element OD #3",
-              "subtext": "Dwg Ref. D4, packer element OD #3 {}"
+              "subtext": "Dwg Ref. D4"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
@@ -445,9 +478,12 @@
                 ]
               },
               "fieldName": "centerRingOd",
-              "specVariableSubtext": "leadEngineer.data.centerRingOd",
+              "routeToSpecMin": "leadEngineer.data.centerRingOdMin",
+              "routeToSpecMax": "leadEngineer.data.centerRingOdMax",
+              "type": "number",
+              "unit": "mm",
               "label": "Center-ring OD",
-              "subtext": "Dwg Ref. D3, center-ring OD {}"
+              "subtext": "Dwg Ref. D3"
             },
             {
               "showFieldSpecPath": {
@@ -460,9 +496,12 @@
                 ]
               },
               "fieldName": "centerRingLength",
-              "specVariableSubtext": "leadEngineer.data.centerRingLength",
+              "routeToSpecMin": "leadEngineer.data.centerRingLengthMin",
+              "routeToSpecMax": "leadEngineer.data.centerRingLengthMax",
+              "type": "number",
+              "unit": "mm",
               "label": "Center-ring Length",
-              "subtext": "Dwg Ref. XX, center-ring Length {}"
+              "subtext": "Dwg Ref. XX"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",

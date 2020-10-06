@@ -111,7 +111,6 @@ export default pageInfo => {
 
   const packer = productionLine === "packer";
   const coatedItem = productionLine === "coatedItem";
-  console.log(fixedData);
 
   return (
     <Canvas showForm={!!data}>

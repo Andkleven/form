@@ -1154,15 +1154,35 @@
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
-              "fieldName": "handlingSpacePinEnd",
-              "label": "Handling space pin end",
-              "subtext": "Dwg Ref. L2"
+              "fieldName": "handlingSpacePinEndMin",
+              "label": "Handling space pin end min",
+              "subtext": "Dwg Ref. L2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
-              "fieldName": "handlingSpaceBoxEnd",
-              "label": "Handling space box end",
-              "subtext": "Dwg Ref. L3"
+              "fieldName": "handlingSpacePinEndMax",
+              "label": "Handling space pin end max",
+              "subtext": "Dwg Ref. L2",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "fieldName": "handlingSpaceBoxEndMin",
+              "label": "Handling space box end min",
+              "subtext": "Dwg Ref. L3",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "fieldName": "handlingSpaceBoxEndMax",
+              "label": "Handling space box end max",
+              "subtext": "Dwg Ref. L3",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1173,9 +1193,26 @@
                   "Swell packer Cable standard"
                 ]
               },
-              "fieldName": "packerElementLength",
-              "label": "Packer element length",
-              "subtext": "Dwg Ref. L4"
+              "fieldName": "packerElementLengthMin",
+              "label": "Packer element length min",
+              "subtext": "Dwg Ref. L4",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
+                ]
+              },
+              "fieldName": "packerElementLengthMax",
+              "label": "Packer element length max",
+              "subtext": "Dwg Ref. L4",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1186,9 +1223,26 @@
                   "Swell packer K2 with 2 center ringer"
                 ]
               },
-              "fieldName": "packerElementLengthTotal",
-              "label": "Packer element length total",
-              "subtext": "Dwg Ref. L4"
+              "fieldName": "packerElementLengthTotalMin",
+              "label": "Packer element length total min",
+              "subtext": "Dwg Ref. L4",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 with 2 center ringer"
+                ]
+              },
+              "fieldName": "packerElementLengthTotalMax",
+              "label": "Packer element length total max",
+              "subtext": "Dwg Ref. L4",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1197,9 +1251,11 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "packerElementLength1",
-              "label": "Packer element length #1",
-              "subtext": "Dwg Ref. L4.1"
+              "fieldName": "packerElementLength1Min",
+              "label": "Packer element length #1 min",
+              "subtext": "Dwg Ref. L4.1",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1208,9 +1264,37 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "packerElementLength2",
-              "label": "Packer element length #2",
-              "subtext": "Dwg Ref. L4.2"
+              "fieldName": "packerElementLength1Max",
+              "label": "Packer element length #1 max",
+              "subtext": "Dwg Ref. L4.1",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementLength2Min",
+              "label": "Packer element length #2 min",
+              "subtext": "Dwg Ref. L4.2",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementLength2Max",
+              "label": "Packer element length #2 max",
+              "subtext": "Dwg Ref. L4.2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1218,9 +1302,23 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "packerElementLength3",
-              "label": "Packer element length #3",
-              "subtext": "Dwg Ref. L4.3"
+              "fieldName": "packerElementLength3Min",
+              "label": "Packer element length #3 min",
+              "subtext": "Dwg Ref. L4.3",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementLength3Max",
+              "label": "Packer element length #3 max",
+              "subtext": "Dwg Ref. L4.3",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1270,9 +1368,25 @@
                   "Swell packer Cable standard"
                 ]
               },
-              "fieldName": "packerElementOd",
-              "label": "Packer element OD",
-              "subtext": "Dwg Ref. D2"
+              "fieldName": "packerElementOdMin",
+              "label": "Packer element OD min",
+              "subtext": "Dwg Ref. D2",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
+                ]
+              },
+              "fieldName": "packerElementOdMax",
+              "label": "Packer element OD max",
+              "subtext": "Dwg Ref. D2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1284,9 +1398,11 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "packerElementOd1",
-              "label": "Packer element OD #1",
-              "subtext": "Dwg Ref. D2"
+              "fieldName": "packerElementOd1Min",
+              "label": "Packer element OD #1 min",
+              "subtext": "Dwg Ref. D2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1298,9 +1414,43 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "packerElementOd2",
-              "label": "Packer element OD #2",
-              "subtext": "Dwg Ref. D3"
+              "fieldName": "packerElementOd1Max",
+              "label": "Packer element OD #1 max",
+              "subtext": "Dwg Ref. D2",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementOd2Min",
+              "label": "Packer element OD #2 min",
+              "subtext": "Dwg Ref. D3",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementOd2Max",
+              "label": "Packer element OD #2 max",
+              "subtext": "Dwg Ref. D3",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1309,9 +1459,24 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "packerElementOd3",
-              "label": "Packer element OD #3",
-              "subtext": "Dwg Ref. D4"
+              "fieldName": "packerElementOd3Min",
+              "label": "Packer element OD #3 min",
+              "subtext": "Dwg Ref. D4",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "packerElementOd3Max",
+              "label": "Packer element OD #3 max",
+              "subtext": "Dwg Ref. D4",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
@@ -1335,9 +1500,11 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "centerRingOd",
-              "label": "Center-ring OD",
-              "subtext": "Dwg Ref. D3"
+              "fieldName": "centerRingOdMin",
+              "label": "Center-ring OD min",
+              "subtext": "Dwg Ref. D3",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1349,9 +1516,43 @@
                   "Swell packer Cable with 2 center ring"
                 ]
               },
-              "fieldName": "centerRingLength",
-              "label": "Center-ring Length",
-              "subtext": "Dwg Ref. XX"
+              "fieldName": "centerRingOdMax",
+              "label": "Center-ring OD max",
+              "subtext": "Dwg Ref. D3",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "centerRingLengthMin",
+              "label": "Center-ring Length min",
+              "subtext": "Dwg Ref. XX",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
+              "fieldName": "centerRingLengthMax",
+              "label": "Center-ring Length max",
+              "subtext": "Dwg Ref. XX",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
