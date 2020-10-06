@@ -71,6 +71,7 @@
             {
               "fieldName": "dewPoint",
               "label": "Dew Point",
+              "default": 12,
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
