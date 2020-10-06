@@ -59,6 +59,7 @@ const ITEM = gql`
     $repair: Boolean
     $stage: String
     $seen: [String]
+    $deleteSeen: Boolean
     $foreignKey: Int
   ) {
     item(
@@ -69,6 +70,7 @@ const ITEM = gql`
       qrCode: $qrCode
       repair: $repair
       seen: $seen
+      deleteSeen: $deleteSeen
       foreignKey: $foreignKey
     ) {
       new {
