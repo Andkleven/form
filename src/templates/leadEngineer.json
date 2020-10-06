@@ -21,7 +21,7 @@
               "fieldName": "steel",
               "label": "Steel",
               "type": "select",
-              "options": ["Carbon", "Carbon - Q125", "Duplex"],
+              "options": ["Carbon", "Carbon - Q125", "Duplex", "Chrome"],
               "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
@@ -673,6 +673,7 @@
                 "4”",
                 "4.5”",
                 "5”",
+                "5,5”",
                 "6.625”",
                 "7”",
                 "7.625”",
@@ -1159,8 +1160,8 @@
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
-              "fieldName": "handlingSpacePinBox",
-              "label": "Handling space pin box",
+              "fieldName": "handlingSpaceBoxEnd",
+              "label": "Handling space box end",
               "subtext": "Dwg Ref. L3"
             },
             {

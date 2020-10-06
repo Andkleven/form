@@ -253,10 +253,10 @@
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
-              "fieldName": "handlingSpacePinBox",
-              "label": "Handling space pin box",
-              "specVariableSubtext": "leadEngineer.data.handlingSpacePinBox",
-              "subtext": "Dwg Ref. L3, handling space pin box {}"
+              "fieldName": "handlingSpaceBoxEnd",
+              "label": "Handling space box end",
+              "specVariableSubtext": "leadEngineer.data.handlingSpaceBoxEnd",
+              "subtext": "Dwg Ref. L3, Handling space box end {}"
             },
             {
               "showFieldSpecPath": {

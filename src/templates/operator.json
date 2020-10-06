@@ -14,70 +14,10 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-
           "fields": [
             {
-              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
               "fieldName": "measurementPoint",
               "label": "Measurement Point {}",
-              "indexVariableLabel": true,
-              "required": true,
-              "type": "number",
-              "notBatch": true,
-              "unit": "mm",
-              "decimal": 1
-            }
-          ]
-        },
-        {
-          "fields": [
-            {
-              "showField": { "dual": true },
-              "labelOnly": true,
-              "label": "Pin side"
-            }
-          ]
-        },
-        {
-          "showField": { "dual": true },
-          "queryPath": "operator.measurementPointPackerPinSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
-          "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
-
-          "fields": [
-            {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point pin side {}",
-              "indexVariableLabel": true,
-              "required": true,
-              "type": "number",
-              "notBatch": true,
-              "unit": "mm",
-              "decimal": 1
-            }
-          ]
-        },
-        {
-          "fields": [
-            {
-              "showField": { "dual": true },
-              "labelOnly": true,
-              "label": "Box side"
-            }
-          ]
-        },
-        {
-          "showField": { "dual": true },
-          "queryPath": "operator.measurementPointPackerBoxSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
-          "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
-
-          "fields": [
-            {
-              "fieldName": "measurementPoint",
-              "label": "Measurement Point box side {}",
               "indexVariableLabel": true,
               "required": true,
               "type": "number",
@@ -543,6 +483,7 @@
       "pages": [
         {
           "pageTitle": "Coating",
+          "queryPath": "operator.ringMaterials",
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.ringMaterials",
           "fields": [
@@ -561,6 +502,7 @@
           ]
         },
         {
+          "queryPath": "operator",
           "fields": [
             {
               "fieldName": "ringsAssembled",
@@ -1505,7 +1447,7 @@
             {
               "fieldName": "calibrationDateTorqueWrench",
               "required": true,
-              "label": "Calibration date",
+              "label": "Next Calibration date",
               "type": "date"
             },
             {
@@ -2878,13 +2820,13 @@
             {
               "fieldName": "calibrationDate",
               "required": true,
-              "label": "Calibration date",
+              "label": "Next Calibration date",
               "type": "date"
             },
             {
-              "fieldName": "driftIdEquipmentId",
+              "fieldName": "equipmentIdCompletionPhase",
               "required": true,
-              "label": "Drift ID/Equipment ID"
+              "label": "Equipment ID"
             },
             {
               "fieldName": "marking",

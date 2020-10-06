@@ -65,14 +65,6 @@ const ITEM = gql`
           id
           data
         }
-        measurementPointPackerPinSides {
-          id
-          data
-        }
-        measurementPointPackerBoxSides {
-          id
-          data
-        }
         measurementPointPackerCoatings {
           id
           data
@@ -231,14 +223,6 @@ const BATCHING_OPERATOR = gql`
               }
             }
             measurementPointPackers {
-              id
-              data
-            }
-            measurementPointPackerPinSides {
-              id
-              data
-            }
-            measurementPointPackerBoxSides {
               id
               data
             }
@@ -402,14 +386,6 @@ const BATCHING_VULCANIZATION = gql`
               }
             }
             measurementPointPackers {
-              id
-              data
-            }
-            measurementPointPackerPinSides {
-              id
-              data
-            }
-            measurementPointPackerBoxSides {
               id
               data
             }
@@ -667,14 +643,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             id
             data
           }
-          measurementPointPackerPinSides {
-            id
-            data
-          }
-          measurementPointPackerBoxSides {
-            id
-            data
-          }
           measurementPointPackerCoatings {
             id
             data
@@ -823,14 +791,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           }
         }
         measurementPointPackers {
-          id
-          data
-        }
-        measurementPointPackerPinSides {
-          id
-          data
-        }
-        measurementPointPackerBoxSides {
           id
           data
         }
@@ -1044,14 +1004,6 @@ const QUALITY_CONTROL = gql`
           }
         }
         measurementPointPackers {
-          id
-          data
-        }
-        measurementPointPackerPinSides {
-          id
-          data
-        }
-        measurementPointPackerBoxSides {
           id
           data
         }

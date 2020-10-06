@@ -210,7 +210,7 @@ export default React.memo(props => {
           );
           for (let index = 0; index < repeatNumber; index++) {
             temporaryMultiFieldGroup[
-              `${props.repeatStepList}-${index}-${props.path}.${props.queryPath}-repeat-fragment`
+              `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
             ] = (
               <FieldGroup
                 key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
@@ -225,7 +225,7 @@ export default React.memo(props => {
         }
       } else {
         temporaryMultiFieldGroup[
-          `${props.repeatStepList}-${props.path}.${props.queryPath}-repeat-fragment7`
+          `${props.repeatStepList}-0-${props.path}-${props.queryPath}-repeat-fragment`
         ] = (
           <FieldGroup
             {...props}
@@ -345,7 +345,7 @@ export default React.memo(props => {
     );
     let oldValue = objectPath.get(documentData.current, props.path, false);
     let temporaryMultiFieldGroup = {};
-    oldValue = oldValue ? oldValue.length : 0;
+    oldValue = oldValue ? (oldValue.length ? oldValue.length : 0) : 0;
     if (oldValue < newValue) {
       for (let i = oldValue; i < newValue; i++) {
         // temporaryMultiFieldGroup[
