@@ -47,7 +47,12 @@ export default memo(
       }
     });
 
-    const icon = `${children && (isOpen ? `folder-open` : `folder`)}`;
+    const icon = `${
+      children &&
+      (isOpen
+        ? `${!!badge ? `folder-open` : `folder-open`}`
+        : `${!!badge ? `folder` : `folder`}`)
+    }`;
 
     useEffect(() => {
       if (defaultOpen) {
@@ -67,18 +72,32 @@ export default memo(
           <FontAwesomeIcon
             icon={icon}
             size={iconSize}
-            className={`text-primary`}
+            className={!!badge ? `text-info` : `text-primary`}
             style={iconStyle}
           />
+          {!!badge && (
+            <div style={{ height: 0, width: 0 }}>
+              <FontAwesomeIcon
+                icon={`sparkles`}
+                size={`xs`}
+                className={``}
+                style={{
+                  position: "relative",
+                  right: "1.55em",
+                  bottom: "1.65em"
+                }}
+              />
+            </div>
+          )}
           <Title className="not-selectable">{name}</Title>
-          {!isOpen && !!badge && (
+          {/* {!isOpen && !!badge && (
             <div
               className="d-flex justify-content-center px-1"
               style={{ width: "5em" }}
             >
               {badge}
             </div>
-          )}
+          )} */}
         </div>
         <Content
           style={{

@@ -180,8 +180,8 @@ export default ({
   // _______________________________________________________________________
   function projectsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.data.projectName.toUpperCase();
-    const bandB = b.data.projectName.toUpperCase();
+    const bandA = a.data.projectNumber.toUpperCase();
+    const bandB = b.data.projectNumber.toUpperCase();
 
     let comparison = 0;
     if (bandA > bandB) {
@@ -263,9 +263,16 @@ export default ({
               defaultOpen={searchActive}
               key={`${project.data.projectName} ${indexProject} `}
               name={
-                <div className="text-wrap">
-                  {project.data.projectName}
-                  <div className="d-inline text-secondary">
+                <div
+                  className="text-wrap my-2 py-2 my-sm-1 py-sm-1"
+                  style={{ wordBreak: "break-word" }}
+                >
+                  <b>{`${project.data.projectNumber}`}</b>
+                  {` ∙ ${project.data.projectName}`}
+                  <div
+                    className="d-inline text-secondary"
+                    style={{ wordBreak: "break-word" }}
+                  >
                     {`${
                       (project.leadEngineerDone &&
                         numberOfChildren(data, project.data.projectName) &&
@@ -280,10 +287,7 @@ export default ({
                 </div>
                 // + `(${ countProjectItems(project) } items)`
               }
-              badge={
-                project.leadEngineerDone &&
-                newInProject(project, user) && <Badge>New</Badge>
-              }
+              badge={project.leadEngineerDone && newInProject(project, user)}
             >
               <div className="d-flex align-items-center flex-wrap">
                 {props.access && props.access.specs && (
@@ -429,11 +433,7 @@ export default ({
                           </div>
                         </div>
                       }
-                      badge={
-                        newInDescription(description, user) && (
-                          <Badge>New</Badge>
-                        )
-                      }
+                      badge={newInDescription(description, user)}
                     >
                       <ItemGrid className="mb-n3">
                         {props.access &&
