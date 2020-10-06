@@ -24,13 +24,13 @@ export default memo(
       transform
     } = useSpring({
       from: {
-        opacity: 0,
-        transform: "translate3d(0,-3px,0)"
+        opacity: 0
+        // transform: "translate3d(0,-0px,0)"
         // height: 0
       },
       to: {
-        opacity: isOpen ? 1 : 0,
-        transform: `translate3d(0px,${isOpen ? 0 : -3}px,0)`
+        opacity: isOpen ? 1 : 0
+        // transform: `translate3d(0px,${isOpen ? 0 : -0}px,0)`
         // height: isOpen ? viewHeight * 1 : 0
       },
       config: {
