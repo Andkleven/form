@@ -92,7 +92,7 @@ export default ({
                 {append}
               </InputGroup.Append>
             )}
-            <BatchButton batchClick={batchClick} />
+            {/* <BatchButton batchClick={batchClick} /> */}
           </InputGroup>
         </div>
         {subtext && <Form.Text className="text-muted">{subtext}</Form.Text>}

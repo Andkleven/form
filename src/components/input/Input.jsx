@@ -27,6 +27,7 @@ const InputShell = ({
   showComment,
   setShowComment,
   documentDataDispatch,
+  batchClick,
   ...props
 }) => {
   const customLabelTypes = ["checkbox", "radio", "switch"];
@@ -81,6 +82,19 @@ const InputShell = ({
                   style={{ position: "relative", top: "2em" }}
                 >
                   {`${showComment ? "Delete" : "Add"} comment`}
+                </TinyButton>
+              )}
+              {batchClick && (
+                <TinyButton
+                  // {...props}
+                  onClick={batchClick}
+                  // icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
+                  className={`text-dark`}
+                  // iconSize="md"
+                  // tooltip={`${showComment ? "Remove" : "Add"} comment`}
+                  style={{ position: "relative", top: "2em" }}
+                >
+                  Batch
                 </TinyButton>
               )}
               {props.TinyButtons}

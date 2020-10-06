@@ -94,7 +94,7 @@ function Datetime({ prepend, label, type, repeatStepList, name, ...props }) {
           id={`custom-${type}-${label}-${repeatStepList}`}
           name={name}
         />
-        <BatchButton batchClick={props.batchClick} />
+        {/* <BatchButton batchClick={props.batchClick} /> */}
       </div>
       <Form.Text className="text-muted">{props.subtext}</Form.Text>
       <Form.Control.Feedback type="invalid">

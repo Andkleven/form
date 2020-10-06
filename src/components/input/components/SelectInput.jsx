@@ -91,12 +91,12 @@ export default props => {
         {props.notCustom ? (
           <>
             <Select {...selectProps} />
-            <BatchButton batchClick={props.batchClick} />
+            {/* <BatchButton batchClick={props.batchClick} /> */}
           </>
         ) : (
           <>
             <Creatable {...selectProps} />
-            <BatchButton batchClick={props.batchClick} />
+            {/* <BatchButton batchClick={props.batchClick} /> */}
           </>
         )}
       </div>
