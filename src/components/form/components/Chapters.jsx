@@ -43,7 +43,9 @@ export default React.memo(
     itemIdsRef,
     itemId,
     specRemovePath,
-    stagesChapter
+    stagesChapter,
+    exitOnSave,
+    setWhen
   }) => {
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
@@ -143,6 +145,8 @@ export default React.memo(
                   itemIdsRef={itemIdsRef}
                   itemId={itemId}
                   specRemovePath={specRemovePath}
+                  exitOnSave={exitOnSave}
+                  setWhen={setWhen}
                 />
               );
             });

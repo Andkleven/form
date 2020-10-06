@@ -17,6 +17,7 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
 import { USER } from "constants.js";
+import { useHistory } from "react-router-dom";
 
 const cloneDeep = require("clone-deep");
 
@@ -105,7 +106,8 @@ export default ({
   addValuesToData,
   removeEmptyField,
   itemIdsRef,
-  itemId
+  itemId,
+  exitOnSave = false
 }) => {
   const stagesChapter = useRef({});
   const userInfo = JSON.parse(localStorage.getItem(USER));
@@ -314,6 +316,8 @@ export default ({
     };
   }, [timer, setLoading]);
 
+  let history = useHistory();
+
   if (data) {
     return (
       <DocumentDataContext.Provider
@@ -342,6 +346,12 @@ export default ({
             ref={formRef}
             onSubmit={e => {
               formSubmit(e);
+              // TODO: Make exitOnSave bypass RouteGuard
+              // (or happen after when is set to true)
+              // if (exitOnSave) {
+              //   setWhen(false);
+              //   history.push("/");
+              // }
             }}
             onChange={() => {
               setWhen(
@@ -400,6 +410,8 @@ export default ({
               itemId={itemId}
               stagesChapter={stagesChapter}
               specRemovePath={specRemovePath}
+              exitOnSave={exitOnSave}
+              setWhen={setWhen}
             />
             {loadingMutation && <Loading />}
             {errorMutation && (

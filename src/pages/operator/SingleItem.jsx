@@ -101,6 +101,7 @@ export default pageInfo => {
           getQueryBy={itemId}
           saveButton={true}
           backButton={!finalInspection && (() => history.push(`/`))}
+          exitOnSave={true}
         />
       </Paper>
       {finalInspection && (

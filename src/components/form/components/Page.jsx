@@ -28,6 +28,7 @@ import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
 import useHidden from "functions/useHidden";
+import { useHistory } from "react-router-dom";
 
 const DeleteButton = ({ index, deleteHandler }) => (
   <DepthButton
@@ -507,12 +508,22 @@ export default React.memo(props => {
     [props.customComponent, props.jsonVariables]
   );
 
+  // let history = useHistory();
+
   const SubmitButton = () => {
     return (
       <DepthButton
         iconProps={{ icon: ["fas", "check"], className: "text-success" }}
         short
         type="submit"
+        // onClick={
+        //   props.exitOnSave
+        //     ? () => {
+        //         props.setWhen(false);
+        //         history.push("/");
+        //       }
+        //     : () => {}
+        // }
       >
         Submit
       </DepthButton>
