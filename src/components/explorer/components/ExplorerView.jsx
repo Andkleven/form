@@ -215,7 +215,7 @@ export default ({ view = "items", ...props }) => {
                 <li>Contact your administrator</li>
               </ul>
             </div>
-            <div className="text-center">
+            {/* <div className="text-center">
               <div className="mt-2">
                 <small>
                   <i>Note to developers:</i>
@@ -226,7 +226,7 @@ export default ({ view = "items", ...props }) => {
                   <i>This only works in production</i>
                 </small>
               </div>
-            </div>
+            </div> */}
           </div>
         </>
       )}

@@ -39,10 +39,6 @@
           "queryPath": "operator",
           "fields": [
             {
-              "specValueList": "leadEngineer.data.blastMedia",
-              "label": "Blast Media"
-            },
-            {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
               "required": true,
@@ -94,6 +90,16 @@
               "type": "date"
             },
             {
+              "fieldName": "steelPreparationPerformed",
+              "label": "Steel Preparation Performed",
+              "required": true,
+              "type": "datetime-local"
+            },
+            {
+              "specValueList": "leadEngineer.data.blastMedia",
+              "label": "Blast Media"
+            },
+            {
               "fieldName": "blastMediaBatchNumber",
               "required": true,
               "label": "Blast Media Batch Number"
@@ -102,12 +108,6 @@
               "fieldName": "mediaBlastingStarted",
               "required": true,
               "label": "Media Blasting Started",
-              "type": "datetime-local"
-            },
-            {
-              "fieldName": "steelPreparationPerformed",
-              "label": "Steel Preparation Performed",
-              "required": true,
               "type": "datetime-local"
             }
           ]
