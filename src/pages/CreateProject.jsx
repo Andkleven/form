@@ -190,13 +190,13 @@ export default () => {
 
   const onlyUnique = () => {
     let onlyUnique = true;
+
     data.projects.forEach(project => {
-      project.descriptions.forEach(description => {
-        description.items.forEach(item => {
-          if (!item.unique) {
-            onlyUnique = false;
-          }
-        });
+      project.descriptions[counter - 1].items.forEach(item => {
+        console.log(item);
+        if (!item.unique) {
+          onlyUnique = false;
+        }
       });
     });
     return onlyUnique;
