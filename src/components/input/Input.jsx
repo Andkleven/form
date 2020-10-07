@@ -66,11 +66,12 @@ const InputShell = ({
         {props.children}
       </div>
       <span
-        className="d-inline d-sm-none ml-n2 mt-n3"
+        className="d-inline d-sm-none mt-n3"
         style={{
           position: "relative",
           bottom: props.BigButtons ? "-.35em" : ".75em",
-          right: ".075em"
+          right: ".55em"
+          // right: ".075em"
         }}
       >
         <Toolbar
@@ -200,16 +201,25 @@ const InputType = ({
     return (
       <div className="d-sm-flex align-items-start">
         <CheckInput {...props} />
-        <Toolbar
-          className="ml-n2 ml-sm-auto"
-          noComment={noComment}
-          hasComment={hasComment}
-          showComment={showComment}
-          setShowComment={setShowComment}
-          documentDataDispatch={documentDataDispatch}
-          batchClick={batchClick}
-          {...props}
-        />
+        <span
+          // className="d-inline d-sm-none mt-n3"
+          style={{
+            position: "relative",
+            // bottom: props.BigButtons ? "-.35em" : ".75em",
+            right: ".55em"
+          }}
+        >
+          <Toolbar
+            className="ml-sm-auto"
+            noComment={noComment}
+            hasComment={hasComment}
+            showComment={showComment}
+            setShowComment={setShowComment}
+            documentDataDispatch={documentDataDispatch}
+            batchClick={batchClick}
+            {...props}
+          />
+        </span>
       </div>
     );
   } else if (props.type === "select") {
