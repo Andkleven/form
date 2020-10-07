@@ -297,11 +297,13 @@ export default ({ setState, state, ...props }) => {
   };
 
   const itemIndex =
+    props.itemIdsRef &&
     props.itemIdsRef.current &&
     props.itemIdsRef.current.descriptions[0].items.findIndex(
       item => item.id === props.itemId
     );
   const itemName =
+    props.itemIdsRef &&
     props.itemIdsRef.current &&
     props.itemIdsRef.current.descriptions[0].items[itemIndex].itemId;
 
@@ -323,7 +325,8 @@ export default ({ setState, state, ...props }) => {
             {/* <h6 style={{ position: "relative", top: ".15em" }}>
               {props.itemIdsRef.current.descriptions[0].data.geometry}
             </h6> */}
-            {props.itemIdsRef.current &&
+            {props.itemIdsRef &&
+              props.itemIdsRef.current &&
               props.itemIdsRef.current.descriptions[0].items.map(
                 (item, indexItem) => {
                   if (props.stage === item.stage) {
