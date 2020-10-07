@@ -180,39 +180,39 @@ export default ({
   // _______________________________________________________________________
   function projectsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.data.projectNumber.toUpperCase();
-    const bandB = b.data.projectNumber.toUpperCase();
+    a = a.data.projectNumber.toUpperCase();
+    b = b.data.projectNumber.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (a > b) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (a < b) {
       comparison = -1;
     }
     return comparison;
   }
   function descriptionsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.data.descriptionNameMaterialNo.toUpperCase();
-    const bandB = b.data.descriptionNameMaterialNo.toUpperCase();
+    a = a.data.descriptionNameMaterialNo.toUpperCase();
+    b = b.data.descriptionNameMaterialNo.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (a > b) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (a < b) {
       comparison = -1;
     }
     return comparison;
   }
   function itemsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.itemId.toUpperCase();
-    const bandB = b.itemId.toUpperCase();
+    a = a.itemId.toUpperCase();
+    b = b.itemId.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (a > b) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (a < b) {
       comparison = -1;
     }
     return comparison;

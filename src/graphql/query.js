@@ -723,6 +723,125 @@ const DEFAULT = gql`
   }
 `;
 
+const REPORT = gql`
+  query($id: Int) {
+    items(id: $id) {
+      id
+      itemId
+      unique
+      qrCode
+      repair
+      stage
+      leadEngineer {
+        id
+        data
+        measurementPointActualTdvs {
+          id
+          data
+        }
+        rubberCements {
+          id
+          data
+        }
+        ringMaterials {
+          id
+          data
+        }
+        additionalCustomTests {
+          id
+          data
+        }
+        finalInspectionCustomTests {
+          id
+          data
+        }
+        finalInspectionDimensionsChecks {
+          id
+          data
+        }
+        vulcanizationSteps {
+          id
+          data
+          coatingLayers {
+            id
+            data
+            cumulativeThickness {
+              id
+              data
+            }
+          }
+        }
+      }
+      operator {
+        id
+        data
+        surfaceCleanlinessImage
+        rubberCementOperators {
+          id
+          data
+          mixDates {
+            id
+            data
+          }
+        }
+        measurementPointActualTdvs {
+          id
+          data
+        }
+        vulcanizationOperators {
+          id
+          data
+          coatingOperators {
+            id
+            data
+            layers {
+              id
+              data
+            }
+            measurementPointOperators {
+              id
+              data
+            }
+          }
+          measurementPointOperators {
+            id
+            data
+          }
+        }
+      }
+      finalInspectionQualityControl {
+        id
+        data
+        measurementPointQualityControls {
+          id
+          data
+        }
+        hardnessQualityControls {
+          id
+          data
+        }
+        peelTestQualityControls {
+          id
+          data
+        }
+        finalInspectionCustomTestQualityControls {
+          id
+          data
+        }
+        finalInspectionDimensionsCheckQualityControls {
+          id
+          data
+        }
+        uploadFiles {
+          id
+          file
+          fileDescription
+        }
+      }
+    }
+  }
+`;
+
 const query = {
   ITEM,
   BATCHING_OPERATOR,
@@ -736,7 +855,8 @@ const query = {
   OPERATOR_PROJECTS,
   QUALITY_CONTROL,
   USERS,
-  DEFAULT
+  DEFAULT,
+  REPORT
 };
 
 export default query;
