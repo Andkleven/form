@@ -56,6 +56,7 @@ const InputShell = ({
             setShowComment={setShowComment}
             documentDataDispatch={documentDataDispatch}
             batchClick={batchClick}
+            {...props}
           />
         </div>
         {props.children}
@@ -70,6 +71,7 @@ const InputShell = ({
         setShowComment={setShowComment}
         documentDataDispatch={documentDataDispatch}
         batchClick={batchClick}
+        {...props}
       />
     </div>
   ) : (
@@ -195,6 +197,7 @@ const InputType = ({
           setShowComment={setShowComment}
           documentDataDispatch={documentDataDispatch}
           batchClick={batchClick}
+          {...props}
         />
       </div>
     );
