@@ -48,31 +48,35 @@ const InputShell = ({
               {props.label || props.prepend}
             </label>
           )}
-          <Toolbar
-            className="d-none d-sm-inline"
-            noComment={noComment}
-            hasComment={hasComment}
-            showComment={showComment}
-            setShowComment={setShowComment}
-            documentDataDispatch={documentDataDispatch}
-            batchClick={batchClick}
-            {...props}
-          />
+          <span className="d-none d-sm-inline">
+            <Toolbar
+              noComment={noComment}
+              hasComment={hasComment}
+              showComment={showComment}
+              setShowComment={setShowComment}
+              documentDataDispatch={documentDataDispatch}
+              batchClick={batchClick}
+              {...props}
+            />
+          </span>
         </div>
         {props.children}
         {props.BigButtons}
       </div>
-      <Toolbar
+      <span
         className="d-inline d-sm-none ml-n2 mt-n3"
         style={{ position: "relative", bottom: ".95em", right: ".075em" }}
-        noComment={noComment}
-        hasComment={hasComment}
-        showComment={showComment}
-        setShowComment={setShowComment}
-        documentDataDispatch={documentDataDispatch}
-        batchClick={batchClick}
-        {...props}
-      />
+      >
+        <Toolbar
+          noComment={noComment}
+          hasComment={hasComment}
+          showComment={showComment}
+          setShowComment={setShowComment}
+          documentDataDispatch={documentDataDispatch}
+          batchClick={batchClick}
+          {...props}
+        />
+      </span>
     </div>
   ) : (
     <div>
