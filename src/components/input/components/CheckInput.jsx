@@ -1,5 +1,5 @@
 import React from "react";
-import TinyButton from "components/button/TinyButton";
+// import TinyButton from "components/button/TinyButton";
 import { Form } from "react-bootstrap";
 
 export default props => (

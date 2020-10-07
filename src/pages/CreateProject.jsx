@@ -193,7 +193,6 @@ export default () => {
 
     data.projects.forEach(project => {
       project.descriptions[counter - 1].items.forEach(item => {
-        console.log(item);
         if (!item.unique) {
           onlyUnique = false;
         }

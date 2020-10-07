@@ -48,7 +48,7 @@ const InputShell = ({
               {props.label || props.prepend}
             </label>
           )}
-          <span className="d-none d-sm-inline">
+          <span className="d-none d-sm-inline ml-auto mb-2">
             <Toolbar
               noComment={noComment}
               hasComment={hasComment}
@@ -61,11 +61,14 @@ const InputShell = ({
           </span>
         </div>
         {props.children}
-        {props.BigButtons}
       </div>
       <span
         className="d-inline d-sm-none ml-n2 mt-n3"
-        style={{ position: "relative", bottom: ".95em", right: ".075em" }}
+        style={{
+          position: "relative",
+          bottom: props.BigButtons ? "-.35em" : ".75em",
+          right: ".075em"
+        }}
       >
         <Toolbar
           noComment={noComment}
@@ -77,6 +80,7 @@ const InputShell = ({
           {...props}
         />
       </span>
+      <div className="mt-3">{props.BigButtons}</div>
     </div>
   ) : (
     <div>

@@ -85,17 +85,17 @@ export default () => {
     });
   };
   // console.log(batchingData);
-  console.log(
-    getDataToBatching(
-      fixedData,
-      Object.keys(batchingListIds),
-      batchingJson.document.specQueryPath,
-      newDescriptionId,
-      getStepFromStage(stage) ? getStepFromStage(stage) : null,
-      batchingData,
-      true
-    )
-  );
+  // console.log(
+  //   getDataToBatching(
+  //     fixedData,
+  //     Object.keys(batchingListIds),
+  //     batchingJson.document.specQueryPath,
+  //     newDescriptionId,
+  //     getStepFromStage(stage) ? getStepFromStage(stage) : null,
+  //     batchingData,
+  //     true
+  //   )
+  // );
   return (
     <Canvas>
       <Paper>
