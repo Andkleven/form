@@ -1,5 +1,8 @@
 import React from "react";
-import { useSpring, animated } from "react-spring";
+import {
+  // useSpring,
+  animated
+} from "react-spring";
 
 export default ({ ...props }) => {
   const defaultStyle = {
@@ -10,27 +13,27 @@ export default ({ ...props }) => {
     fontSize: 13
   };
 
-  const spring = useSpring({
-    to: async next => {
-      while (true) {
-        await next({
-          paddingTop: 1.5,
-          paddingBottom: 1.5,
-          paddingLeft: 6,
-          paddingRight: 6,
-          fontSize: 15
-        });
-        await next(defaultStyle);
-      }
-    },
-    from: defaultStyle,
-    config: {
-      tension: 175,
-      friction: 50,
-      clamp: true,
-      mass: 10
-    }
-  });
+  // const spring = useSpring({
+  //   to: async next => {
+  //     while (true) {
+  //       await next({
+  //         paddingTop: 1.5,
+  //         paddingBottom: 1.5,
+  //         paddingLeft: 6,
+  //         paddingRight: 6,
+  //         fontSize: 15
+  //       });
+  //       await next(defaultStyle);
+  //     }
+  //   },
+  //   from: defaultStyle,
+  //   config: {
+  //     tension: 175,
+  //     friction: 50,
+  //     clamp: true,
+  //     mass: 10
+  //   }
+  // });
 
   return (
     <div

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import Creatable from "react-select/creatable";
-import BatchButton from "components/button/BatchButton";
+// import BatchButton from "components/button/BatchButton";
 import Select from "react-select";
 import { camelCaseToNormal } from "functions/general";
 

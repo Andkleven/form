@@ -28,7 +28,6 @@ import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
 import useHidden from "functions/useHidden";
-import { useHistory } from "react-router-dom";
 
 const DeleteButton = ({ index, deleteHandler }) => (
   <DepthButton

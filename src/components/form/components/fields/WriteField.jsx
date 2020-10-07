@@ -1,15 +1,15 @@
 import React, { useContext, useCallback, useEffect, useState } from "react";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
-import Paper from "components/layout/Paper";
+// import Paper from "components/layout/Paper";
 import Input from "components/input/Input";
 import TinyButton from "components/button/TinyButton";
-import Div100vh from "react-div-100vh";
+// import Div100vh from "react-div-100vh";
 import LightLine from "components/design/LightLine";
 import Loading from "components/Loading";
 import CheckInput from "components/input/components/CheckInput";
 import "styles/styles.css";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ignoreRequiredField, userField } from "config/const";
 import mutations from "graphql/mutation";
@@ -22,6 +22,7 @@ import {
   stringifyQuery
 } from "functions/general";
 import { dialog } from "components/Dialog";
+// import { useParams } from "react-router-dom";
 
 const cloneDeep = require("clone-deep");
 
@@ -295,73 +296,85 @@ export default ({ setState, state, ...props }) => {
     setItemIdList([Number(props.itemId)]);
   };
 
+  const itemIndex =
+    props.itemIdsRef.current &&
+    props.itemIdsRef.current.descriptions[0].items.findIndex(
+      item => item.id === props.itemId
+    );
+  const itemName =
+    props.itemIdsRef.current &&
+    props.itemIdsRef.current.descriptions[0].items[itemIndex].itemId;
+
   return (
     <div className={indent && "ml-3"}>
       {batching && props.itemIdsRef && (
-        <Div100vh
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 9999
-          }}
+        <Modal
+          show
+          centered
+          onHide={() => setBatching(prevState => !prevState)}
         >
-          <Paper
-            className="d-flex justify-content-center align-items-center flex-column"
-            style={{ width: "100%", height: "100%" }}
-          >
-            <h4 style={{ position: "relative", top: ".15em" }}>
-              Batching for {props.label}
-            </h4>
-            <h6 style={{ position: "relative", top: ".15em" }}>
+          <Modal.Header>
+            <span style={{ position: "relative", top: ".15em" }}>
+              Copy current <b>{props.label}</b> from <b>{itemName}</b> to the
+              following:
+            </span>
+          </Modal.Header>
+          <Modal.Body>
+            {/* <h6 style={{ position: "relative", top: ".15em" }}>
               {props.itemIdsRef.current.descriptions[0].data.geometry}
-            </h6>
+            </h6> */}
             {props.itemIdsRef.current &&
               props.itemIdsRef.current.descriptions[0].items.map(
                 (item, indexItem) => {
                   if (props.stage === item.stage) {
-                    return (
-                      <CheckInput
-                        key={`${indexItem}`}
-                        id={`CheckInput-${indexItem}-${props.path}`}
-                        onChangeInput={e => handleClick(e, item)}
-                        disabled={Number(item.id) === Number(props.itemId)}
-                        value={
-                          itemIdList.find(id => Number(id) === Number(item.id))
-                            ? true
-                            : false
-                        }
-                        label={`${item.itemId}`}
-                        TinyButtons={TinyButtons()}
-                        BigButtons={BigButtons()}
-                      />
-                    );
+                    let available = 0;
+                    if (Number(item.id) !== Number(props.itemId)) {
+                      available += 1;
+                      return (
+                        <CheckInput
+                          key={`${indexItem}`}
+                          id={`CheckInput-${indexItem}-${props.path}`}
+                          onChangeInput={e => handleClick(e, item)}
+                          disabled={Number(item.id) === Number(props.itemId)}
+                          value={
+                            itemIdList.find(
+                              id => Number(id) === Number(item.id)
+                            )
+                              ? true
+                              : false
+                          }
+                          label={`${item.itemId}`}
+                          TinyButtons={TinyButtons()}
+                          BigButtons={BigButtons()}
+                        />
+                      );
+                    }
+                    if (available === 0) {
+                      return <i>No similar items at the same stage.</i>;
+                    }
+                    return null;
                   } else {
                     return null;
                   }
                 }
               )}
 
-            <div className="d-flex justify-content-center align-items-center flex-column">
-              <TinyButton
-                className="text-success"
-                icon="check"
+            <div className="d-flex w-100 mt-3">
+              <Button
+                variant="primary"
+                className="w-100"
                 onClick={() => submitData()}
               >
-                Submit
-              </TinyButton>
-              <TinyButton
-                className="text-secondary"
-                tooltip="Cancel"
+                Paste
+              </Button>
+              <div className="ml-1"></div>
+              <Button
+                variant="danger"
+                className="w-100"
                 onClick={() => setBatching(prevState => !prevState)}
               >
                 Cancel
-              </TinyButton>
+              </Button>
               {error && (
                 <div className="text-light w-100">
                   <div className="bg-secondary p-2 rounded mb-1 shadow border">
@@ -370,8 +383,8 @@ export default ({ setState, state, ...props }) => {
                 </div>
               )}
             </div>
-          </Paper>
-        </Div100vh>
+          </Modal.Body>
+        </Modal>
       )}
       <Input
         {...props}

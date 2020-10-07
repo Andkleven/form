@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import moment from "moment";
-import BatchButton from "components/button/BatchButton";
+// import BatchButton from "components/button/BatchButton";
 // import Duplicate from "../widgets/Duplicate";
 export default ({
   type,

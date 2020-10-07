@@ -17,7 +17,7 @@ import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
 import { USER } from "constants.js";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const cloneDeep = require("clone-deep");
 
@@ -316,7 +316,7 @@ export default ({
     };
   }, [timer, setLoading]);
 
-  let history = useHistory();
+  // let history = useHistory();
 
   if (data) {
     return (
