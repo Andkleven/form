@@ -2688,7 +2688,6 @@
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-
           "fields": [
             {
               "showFieldSpecPath": {
