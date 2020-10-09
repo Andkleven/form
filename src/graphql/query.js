@@ -65,18 +65,6 @@ const ITEM = gql`
           id
           data
         }
-        measurementPointPackerCoatings {
-          id
-          data
-        }
-        measurementPointPackerCoatingPinSides {
-          id
-          data
-        }
-        measurementPointPackerCoatingBoxSides {
-          id
-          data
-        }
         measurementPointBeforeBarriers {
           id
           data
@@ -223,18 +211,6 @@ const BATCHING_OPERATOR = gql`
               }
             }
             measurementPointPackers {
-              id
-              data
-            }
-            measurementPointPackerCoatings {
-              id
-              data
-            }
-            measurementPointPackerCoatingPinSides {
-              id
-              data
-            }
-            measurementPointPackerCoatingBoxSides {
               id
               data
             }
@@ -386,18 +362,6 @@ const BATCHING_VULCANIZATION = gql`
               }
             }
             measurementPointPackers {
-              id
-              data
-            }
-            measurementPointPackerCoatings {
-              id
-              data
-            }
-            measurementPointPackerCoatingPinSides {
-              id
-              data
-            }
-            measurementPointPackerCoatingBoxSides {
               id
               data
             }
@@ -643,18 +607,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             id
             data
           }
-          measurementPointPackerCoatings {
-            id
-            data
-          }
-          measurementPointPackerCoatingPinSides {
-            id
-            data
-          }
-          measurementPointPackerCoatingBoxSides {
-            id
-            data
-          }
           measurementPointBeforeBarriers {
             id
             data
@@ -791,18 +743,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           }
         }
         measurementPointPackers {
-          id
-          data
-        }
-        measurementPointPackerCoatings {
-          id
-          data
-        }
-        measurementPointPackerCoatingPinSides {
-          id
-          data
-        }
-        measurementPointPackerCoatingBoxSides {
           id
           data
         }
@@ -1004,18 +944,6 @@ const QUALITY_CONTROL = gql`
           }
         }
         measurementPointPackers {
-          id
-          data
-        }
-        measurementPointPackerCoatings {
-          id
-          data
-        }
-        measurementPointPackerCoatingPinSides {
-          id
-          data
-        }
-        measurementPointPackerCoatingBoxSides {
           id
           data
         }

@@ -36,13 +36,11 @@ function useStore(init = {}) {
         }
         break;
       case "add":
-        // console.log(action);
         objectPath.set(
           state.current,
           action.fieldName ? `${action.path}.${action.fieldName}` : action.path,
           action.newState
         );
-        // console.log(state.current);
         break;
       case "delete":
         objectPath.del(state.current, action.path);

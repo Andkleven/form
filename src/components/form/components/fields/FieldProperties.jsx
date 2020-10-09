@@ -44,6 +44,8 @@ export default React.memo(({ ...props }) => {
   }, [props.path, props.fieldName, props.type]);
 
   const [state, setState] = useState("");
+  const [min, setMin] = useState(null);
+  const [max, setMax] = useState(null);
   const hidden = useHidden(props.writeOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
   ]);
@@ -156,36 +158,81 @@ export default React.memo(({ ...props }) => {
     props.jsonVariables
   ]);
 
-  const { min, max } = useMemo(
-    () =>
-      calculateMaxMin(
-        getProperties(props.min, props.jsonVariables),
-        props.routeToSpecMin,
-        props.editRepeatStepListMin,
-        getProperties(props.calculateMin, props.jsonVariables),
-        getProperties(props.max, props.jsonVariables),
-        props.routeToSpecMax,
-        props.editRepeatStepListMax,
-        getProperties(props.calculateMax, props.jsonVariables),
-        props.repeatStepList,
-        props.specData,
-        props.allData
-      ),
-    [
-      props.jsonVariables,
-      props.min,
+  const minMax = useCallback(() => {
+    let { min, max } = calculateMaxMin(
+      getProperties(props.min, props.jsonVariables),
       props.routeToSpecMin,
       props.editRepeatStepListMin,
-      props.calculateMin,
-      props.max,
+      getProperties(props.calculateMin, props.jsonVariables),
+      getProperties(props.max, props.jsonVariables),
       props.routeToSpecMax,
       props.editRepeatStepListMax,
-      props.calculateMax,
+      getProperties(props.calculateMax, props.jsonVariables),
       props.repeatStepList,
       props.specData,
-      props.allData
-    ]
-  );
+      props.allData,
+      documentData.current
+    );
+    setMin(min ? min : undefined);
+    setMax(max ? max : undefined);
+  }, [
+    documentData,
+    props.jsonVariables,
+    props.min,
+    props.routeToSpecMin,
+    props.editRepeatStepListMin,
+    props.calculateMin,
+    props.max,
+    props.routeToSpecMax,
+    props.editRepeatStepListMax,
+    props.calculateMax,
+    props.repeatStepList,
+    props.specData,
+    props.allData
+  ]);
+  useEffect(() => {
+    if (min === null && max === null) {
+      minMax();
+    }
+  }, [minMax, min, max]);
+
+  useEffect(() => {
+    if (
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      )
+    ) {
+      renderFunction.current[
+        `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+      ] = minMax;
+    }
+    return () => {
+      if (
+        renderFunction.current[
+          `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+        ]
+      ) {
+        // eslint-disable-next-line
+        delete renderFunction.current[
+          `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+        ];
+      }
+    };
+  }, [
+    props.editRepeatStepListRepeat,
+    minMax,
+    getNewPath,
+    props.allWaysShow,
+    editChapter,
+    props.thisChapter,
+    finalChapter,
+    renderFunction,
+    props.routeToSpecMin,
+    props.routeToSpecMax
+  ]);
 
   const subtext = useMemo(
     () =>

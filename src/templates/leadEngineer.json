@@ -673,7 +673,7 @@
                 "4”",
                 "4.5”",
                 "5”",
-                "5,5”",
+                "5.5”",
                 "6.625”",
                 "7”",
                 "7.625”",
@@ -1051,6 +1051,7 @@
               "math": "mathScrewDescription"
             },
             {
+              "showField": { "b2P": true, "slipon2": true, "slipon3": true },
               "fieldName": "ultrasound",
               "label": "Ultrasound",
               "type": "checkbox",
@@ -1363,39 +1364,14 @@
             {
               "writeOnlyFieldIf": {
                 "leadEngineer.data.asBuilt": [
-                  "Swell packer standard",
-                  "Swell packer K2 standard",
-                  "Swell packer Cable standard"
-                ]
-              },
-              "fieldName": "packerElementOdMin",
-              "label": "Packer element OD min",
-              "subtext": "Dwg Ref. D2",
-              "type": "number",
-              "unit": "mm"
-            },
-            {
-              "writeOnlyFieldIf": {
-                "leadEngineer.data.asBuilt": [
-                  "Swell packer standard",
-                  "Swell packer K2 standard",
-                  "Swell packer Cable standard"
-                ]
-              },
-              "fieldName": "packerElementOdMax",
-              "label": "Packer element OD max",
-              "subtext": "Dwg Ref. D2",
-              "type": "number",
-              "unit": "mm"
-            },
-            {
-              "writeOnlyFieldIf": {
-                "leadEngineer.data.asBuilt": [
                   "Swell packer standard with 1 center ring",
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
                   "Swell packer Cable with 1 center ring",
-                  "Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer standard",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
                 ]
               },
               "fieldName": "packerElementOd1Min",
@@ -1411,7 +1387,10 @@
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
                   "Swell packer Cable with 1 center ring",
-                  "Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer standard",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
                 ]
               },
               "fieldName": "packerElementOd1Max",
