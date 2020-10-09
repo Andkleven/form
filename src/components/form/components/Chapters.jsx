@@ -3,7 +3,8 @@ import {
   createPath,
   getProperties,
   removePathFunc,
-  getProductionLine
+  getProductionLine,
+  useTraceUpdate
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -48,7 +49,6 @@ export default React.memo(
     const stopLoop = useRef(false); // Flips to true for last chapter with input
     let finalChapter = 0;
     let count = 0;
-
     const getNewChapter = (
       repeatStepListLocal,
       pageInfo,

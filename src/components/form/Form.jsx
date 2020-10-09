@@ -159,50 +159,56 @@ export default ({
     });
   }
 
-  const updateCache = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy }
-    });
-    let array = objectPath.get(oldData, document.getOldValue);
-    let index;
-    if (Array.isArray(array)) {
-      index = array.findIndex(
-        x => x.id === objectPath.get(data, document.getNewValue).id
+  const updateCache = useCallback(
+    (cache, { data }) => {
+      const oldData = cache.readQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy }
+      });
+      let array = objectPath.get(oldData, document.getOldValue);
+      let index;
+      if (Array.isArray(array)) {
+        index = array.findIndex(
+          x => x.id === objectPath.get(data, document.getNewValue).id
+        );
+      } else {
+        index = null;
+      }
+      objectPath.set(
+        oldData,
+        index === null
+          ? `${document.getOldValue}`
+          : `${document.getOldValue}.${index}`,
+        objectPath.get(data, document.getNewValue)
       );
-    } else {
-      index = null;
-    }
-    objectPath.set(
-      oldData,
-      index === null
-        ? `${document.getOldValue}`
-        : `${document.getOldValue}.${index}`,
-      objectPath.get(data, document.getNewValue)
-    );
-    cache.writeQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy },
-      data: { ...oldData }
-    });
-  };
+      cache.writeQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy },
+        data: { ...oldData }
+      });
+    },
+    [document.getNewValue, document.getOldValue, document.query, getQueryBy]
+  );
 
-  const create = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy }
-    });
-    objectPath.push(
-      oldData,
-      document.getOldValue,
-      objectPath.get(data, document.getNewValue)
-    );
-    cache.writeQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy },
-      data: { ...oldData }
-    });
-  };
+  const create = useCallback(
+    (cache, { data }) => {
+      const oldData = cache.readQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy }
+      });
+      objectPath.push(
+        oldData,
+        document.getOldValue,
+        objectPath.get(data, document.getNewValue)
+      );
+      cache.writeQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy },
+        data: { ...oldData }
+      });
+    },
+    [document.getNewValue, document.getOldValue, document.query, getQueryBy]
+  );
 
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[document.mutation],
