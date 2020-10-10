@@ -49,9 +49,9 @@ const mathToleranceMin = (
     `leadEngineer.targetDescriptionValue`
   );
   if (targetDescriptionValue === "ID") {
-    value = measurementPointActual - toleranceMin*2;
+    value = measurementPointActual - toleranceMin;
   } else {
-    value = measurementPointActual + toleranceMin*2;
+    value = measurementPointActual + toleranceMin;
   }
   return whatTooReturn(Number(value), decimal, [
     toleranceMin,
@@ -77,9 +77,9 @@ const mathToleranceMax = (
     `leadEngineer.targetDescriptionValue`
   );
   if (targetDescriptionValue === "ID") {
-    value = measurementPointActual - toleranceMax*2;
+    value = measurementPointActual - toleranceMax;
   } else {
-    value = measurementPointActual + toleranceMax*2;
+    value = measurementPointActual + toleranceMax;
   }
   return whatTooReturn(Number(value), decimal, [
     toleranceMax,
@@ -277,13 +277,20 @@ const mathMin = (
   mathStore = null,
   jsonVariables = null
 ) => {
+  let targetDescriptionValue = objectPath.get(
+    values,
+    `leadEngineer.targetDescriptionValue`,
+    null
+  );
   let toleranceMinPercent = Number(
     findValue(values, "leadEngineer.data.toleranceMinPercent")
   );
-
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
+  if (targetDescriptionValue) {
+    toleranceMinPercent = toleranceMinPercent*2
+  }
   return whatTooReturn(
     orderedTotalRubberThickness -
       (orderedTotalRubberThickness * toleranceMinPercent) / 100,
@@ -299,12 +306,20 @@ const mathMax = (
   mathStore = null,
   jsonVariables = null
 ) => {
+  let targetDescriptionValue = objectPath.get(
+    values,
+    `leadEngineer.targetDescriptionValue`,
+    null
+  );
   let toleranceMaxPercent = Number(
     findValue(values, "leadEngineer.data.toleranceMaxPercent")
   );
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
+  if (targetDescriptionValue) {
+    toleranceMaxPercent = toleranceMaxPercent*2
+  }
   return whatTooReturn(
     orderedTotalRubberThickness +
       (orderedTotalRubberThickness * toleranceMaxPercent) / 100,

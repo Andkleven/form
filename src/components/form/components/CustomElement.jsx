@@ -106,9 +106,6 @@ const CustomLead = props => {
     );
     if (targetDescriptionValue) {
       layersThicknessTemporary = layersThicknessTemporary * 2.0;
-    } else {
-      toleranceMinTemporary = toleranceMinTemporary/2
-      toleranceMaxTemporary = toleranceMaxTemporary/2
     }
     setStatus(() =>
       toleranceMinTemporary <= layersThicknessTemporary &&
