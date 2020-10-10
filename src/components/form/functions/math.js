@@ -996,6 +996,8 @@ const mathIncreasedOdForEnds2 = (
 };
 
 const Math = {
+  mathMin,
+  mathMax,
   mathMouldThickness,
   mathLayerMinMax,
   mathLayerMin,
