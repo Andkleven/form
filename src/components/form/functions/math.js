@@ -49,9 +49,9 @@ const mathToleranceMin = (
     `leadEngineer.targetDescriptionValue`
   );
   if (targetDescriptionValue === "ID") {
-    value = measurementPointActual - toleranceMin;
+    value = measurementPointActual - toleranceMin*2;
   } else {
-    value = measurementPointActual + toleranceMin;
+    value = measurementPointActual + toleranceMin*2;
   }
   return whatTooReturn(Number(value), decimal, [
     toleranceMin,
@@ -77,9 +77,9 @@ const mathToleranceMax = (
     `leadEngineer.targetDescriptionValue`
   );
   if (targetDescriptionValue === "ID") {
-    value = measurementPointActual - toleranceMax;
+    value = measurementPointActual - toleranceMax*2;
   } else {
-    value = measurementPointActual + toleranceMax;
+    value = measurementPointActual + toleranceMax*2;
   }
   return whatTooReturn(Number(value), decimal, [
     toleranceMax,
@@ -139,26 +139,14 @@ const mathQualityControlMeasurementPointCoatingItemMin = (
   data,
   repeatStepList
 ) => {
-  let toleranceMin = Number(mathMin(allData["items"][0], repeatStepList, 0));
-  return qualityControlMeasurementPointCoatingItem(
-    allData,
-    repeatStepList,
-    toleranceMin,
-    1
-  );
+  return mathToleranceMin(allData["items"][0], repeatStepList, 0)
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
   data,
   repeatStepList
 ) => {
-  let toleranceMax = Number(mathMax(allData["items"][0], repeatStepList, 0));
-  return qualityControlMeasurementPointCoatingItem(
-    allData,
-    repeatStepList,
-    toleranceMax,
-    1
-  );
+  return mathToleranceMax(allData["items"][0], repeatStepList, 0)
 };
 
 const mathThicknessAll = (values, repeatStepList, decimal) => {
