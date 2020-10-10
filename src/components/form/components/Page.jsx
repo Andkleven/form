@@ -5,8 +5,7 @@ import React, {
   useState,
   Fragment,
   useMemo,
-  useLayoutEffect,
-  useRef
+  useLayoutEffect
 } from "react";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
@@ -19,6 +18,7 @@ import {
   getRepeatStepList,
   isLastCharacterNumber,
   notShowSpec,
+  areEqual
 } from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
@@ -31,21 +31,6 @@ import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
 import useHidden from "functions/useHidden";
-function useTraceUpdate(props) {
-  const prev = useRef(props);
-  useEffect(() => {
-    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-      if (prev.current[k] !== v) {
-        ps[k] = [prev.current[k], v];
-      }
-      return ps;
-    }, {});
-    if (Object.keys(changedProps).length > 0) {
-      console.log("Changed props:", changedProps);
-    }
-    prev.current = props;
-  });
-}
 
 
 export default React.memo(({allData,
@@ -95,7 +80,6 @@ indexVariablePageTitle,
 type,
 delete: deleteButton
     }) => {
-
   const DeleteButton = ({ index, deleteHandler }) => (
     <DepthButton
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
@@ -1049,4 +1033,4 @@ delete: deleteButton
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );
-});
+}, areEqual);

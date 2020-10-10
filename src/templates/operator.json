@@ -1753,7 +1753,6 @@
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
           "repeat": true,
-
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1784,7 +1783,7 @@
                   "8C"
                 ]
               },
-              "fieldName": "measurementBeforeAppliedBarrier",
+              "fieldName": "measurementPointBeforeAppliedBarrier",
               "label": "Measurement point {} before applied barrier",
               "indexVariableLabel": true,
               "required": true,

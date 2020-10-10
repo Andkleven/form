@@ -721,3 +721,16 @@ export function getProductionLine(stageType) {
     return stageType;
   }
 }
+
+export function areEqual(prevProps, nextProps, ) {
+  let ignoreList = ["repeatStepList", "jsonVariables", "specData", "backendData"]
+  Object.keys(prevProps).forEach(key => {
+    if (!ignoreList.includes(key)) {
+      if (prevProps[key] !== nextProps[key]) {
+        console.log("Changed props:", key)
+        return false
+      }
+    }
+  })
+  return true
+}

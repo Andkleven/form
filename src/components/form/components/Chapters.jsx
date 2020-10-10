@@ -1,9 +1,10 @@
-import React, { Fragment, useRef, useContext, useEffect } from "react";
+import React, { Fragment, useRef, useContext, Component } from "react";
 import {
   createPath,
   getProperties,
   removePathFunc,
   getProductionLine,
+  areEqual,
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -12,22 +13,7 @@ import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
-function useTraceUpdate(props) {
-  const prev = useRef(props);
-  useEffect(() => {
-    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-      if (prev.current[k] !== v) {
-        ps[k] = [prev.current[k], v];
-      }
-      return ps;
-    }, {});
-    if (Object.keys(changedProps).length > 0) {
-      console.log("Changed props:", changedProps);
-    }
-    prev.current = props;
-  });
-}
-// import objectPath from "object-path";
+
 
 export default React.memo(
   ({
@@ -227,5 +213,5 @@ export default React.memo(
         ) : null}
       </>
     );
-  }
+  }, areEqual
 );
