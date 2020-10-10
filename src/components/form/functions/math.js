@@ -139,14 +139,16 @@ const mathQualityControlMeasurementPointCoatingItemMin = (
   data,
   repeatStepList
 ) => {
-  return mathToleranceMin(allData["items"][0], repeatStepList, 0)
+  let min = mathToleranceMin(allData["items"][0], repeatStepList, 0)
+  return qualityControlMeasurementPointCoatingItem(allData, repeatStepList, min, 0)
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
   data,
   repeatStepList
 ) => {
-  return mathToleranceMax(allData["items"][0], repeatStepList, 0)
+  let max = mathToleranceMax(allData["items"][0], repeatStepList, 0)
+  return qualityControlMeasurementPointCoatingItem(allData, repeatStepList, max, 0)
 };
 
 const mathThicknessAll = (values, repeatStepList, decimal) => {
@@ -288,12 +290,13 @@ const mathMin = (
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
+  let min = orderedTotalRubberThickness -
+      (orderedTotalRubberThickness * toleranceMinPercent) / 100
   if (targetDescriptionValue) {
-    toleranceMinPercent = toleranceMinPercent*2
+    min = min*2
   }
   return whatTooReturn(
-    orderedTotalRubberThickness -
-      (orderedTotalRubberThickness * toleranceMinPercent) / 100,
+    min,
     decimal,
     [toleranceMinPercent, orderedTotalRubberThickness]
   );
@@ -317,12 +320,13 @@ const mathMax = (
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
+  let max = orderedTotalRubberThickness +
+      (orderedTotalRubberThickness * toleranceMaxPercent) / 100
   if (targetDescriptionValue) {
-    toleranceMaxPercent = toleranceMaxPercent*2
+    max = max*2
   }
   return whatTooReturn(
-    orderedTotalRubberThickness +
-      (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+    max,
     decimal,
     [toleranceMaxPercent, orderedTotalRubberThickness]
   );
