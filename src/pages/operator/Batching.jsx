@@ -164,7 +164,6 @@ export default () => {
             itemIdList: Object.keys(batchingListIds)
           }}
           updateBatchingCache={() => update}
-          saveButton={!!Object.keys(batchingListIds).length}
           readOnlyFields={!Object.keys(batchingListIds).length}
         />
       </Paper>

@@ -95,7 +95,6 @@ export default ({
   backButton,
   stageType,
   specData,
-  saveButton,
   stage,
   optionsQuery,
   updateBatchingCache,
@@ -369,22 +368,17 @@ export default ({
               jsonVariables={jsonVariables}
               chapterAlwaysInWrite={chapterAlwaysInWrite}
               stage={stage}
-              update={update}
               removePath={removePath}
-              updateCache={updateCache}
-              create={create}
               notEditButton={notEditButton}
               repeatStepList={repeatStepListLocal.current}
               backButton={backButton}
               document={document}
               stageType={stageType}
               specData={specData}
-              saveButton={saveButton}
               allData={allData}
               backendData={data}
               optionsData={optionsData}
               submitData={submitData}
-              nextStage={nextStage}
               stagePath={stagePath}
               edit={edit}
               readOnlySheet={readOnlySheet}

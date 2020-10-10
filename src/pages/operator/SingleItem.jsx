@@ -81,7 +81,6 @@ export default pageInfo => {
     stage: stage,
     stageType: geometry,
     getQueryBy: itemId,
-    saveButton: true,
     backButton: !finalInspection && (() => history.push(`/`))
   };
 
@@ -102,7 +101,6 @@ export default pageInfo => {
     itemId: itemId,
     getQueryBy: itemId,
     saveVariables: { itemId: itemId },
-    saveButton: true
   };
 
   const indexStage = fixedData

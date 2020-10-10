@@ -1,10 +1,9 @@
-import React, { Fragment, useRef, useContext } from "react";
+import React, { Fragment, useRef, useContext, useEffect } from "react";
 import {
   createPath,
   getProperties,
   removePathFunc,
   getProductionLine,
-  useTraceUpdate
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -13,7 +12,21 @@ import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
-
+function useTraceUpdate(props) {
+  const prev = useRef(props);
+  useEffect(() => {
+    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
+      if (prev.current[k] !== v) {
+        ps[k] = [prev.current[k], v];
+      }
+      return ps;
+    }, {});
+    if (Object.keys(changedProps).length > 0) {
+      console.log("Changed props:", changedProps);
+    }
+    prev.current = props;
+  });
+}
 // import objectPath from "object-path";
 
 export default React.memo(
@@ -22,7 +35,6 @@ export default React.memo(
     backendData,
     optionsData,
     submitData,
-    nextStage,
     edit,
     removePath,
     readOnlySheet,
@@ -35,11 +47,7 @@ export default React.memo(
     document,
     stageType,
     specData,
-    saveButton,
     allData,
-    update,
-    updateCache,
-    create,
     itemIdsRef,
     itemId,
     specRemovePath
@@ -47,6 +55,7 @@ export default React.memo(
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
     const stopLoop = useRef(false); // Flips to true for last chapter with input
+    const repeatStepListLocalRef = useRef([]); 
     let finalChapter = 0;
     let count = 0;
     const getNewChapter = (
@@ -55,6 +64,9 @@ export default React.memo(
       byStage = false,
       thisStage = ""
     ) => {
+      if (repeatStepListLocalRef.current !== repeatStepListLocal) {
+        repeatStepListLocalRef.current = repeatStepListLocal
+      }
       if (
         pageInfo.showChapter === undefined ||
         (pageInfo.showChapter &&
@@ -91,7 +103,6 @@ export default React.memo(
               stopLoop.current = true;
             }
           }
-
           if (allRequiredFieldSatisfied && readOnlySheet) {
             chapter = null;
           } else {
@@ -104,30 +115,20 @@ export default React.memo(
                   key={`${index}-${count}-${repeatStepListLocal}-page`}
                   {...info}
                   allData={allData}
-                  stagePath={stagePath}
-                  stageType={stageType}
                   backendData={backendData}
                   optionsData={optionsData}
                   submitData={submitData}
                   document={document}
-                  nextStage={nextStage}
                   edit={edit}
-                  update={update}
-                  updateCache={updateCache}
-                  create={create}
                   specData={specData}
                   readOnlySheet={readOnlySheet}
                   jsonVariables={jsonVariables}
                   chapterAlwaysInWrite={chapterAlwaysInWrite}
                   stage={stage}
-                  saveButton={saveButton}
-                  notEditButton={notEditButton}
-                  repeatStepList={repeatStepListLocal}
-                  backButton={backButton}
-                  removePath={removePath}
+                  repeatStepList={repeatStepListLocalRef.current}
                   path={createPath(
                     removePathFunc(removePath, info.queryPath),
-                    repeatStepListLocal
+                    repeatStepListLocalRef.current
                   )}
                   thisChapter={count + 1}
                   stopLoop={stopLoop.current}
@@ -135,7 +136,7 @@ export default React.memo(
                   indexId={`${count + 1}- ${index} `}
                   index={index}
                   noSaveButton={document.noSaveButton}
-                  finalChapter={finalChapter}
+                  finalChapterRef={finalChapter}
                   showSubmitButton={showSubmitButton}
                   itemIdsRef={itemIdsRef}
                   itemId={itemId}
