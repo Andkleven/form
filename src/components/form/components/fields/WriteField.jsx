@@ -61,6 +61,7 @@ export default ({ setState, state, ...props }) => {
       }
     });
   }, [itemIdList, mutation, userInfo, props.path, state, documentData]);
+
   const addUser = useCallback(() => {
     documentDataDispatch({
       type: "add",
@@ -68,6 +69,7 @@ export default ({ setState, state, ...props }) => {
       path: props.path + userField
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
+  
   const onChange = value => {
     addUser();
     if (!screenshotData.current) {

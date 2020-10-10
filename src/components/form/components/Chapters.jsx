@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useContext, Component } from "react";
+import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
   getProperties,

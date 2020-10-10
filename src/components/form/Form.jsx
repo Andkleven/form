@@ -12,7 +12,7 @@ import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
-import { stringifyQuery, isStringInstance } from "functions/general";
+import { stringifyQuery, isStringInstance, useTraceUpdate } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
@@ -105,6 +105,33 @@ export default ({
   itemIdsRef,
   itemId
 }) => {
+  // useTraceUpdate({saveVariables,
+  // edit,
+  // readOnlySheet,
+  // resetData,
+  // stages,
+  // document,
+  // allData,
+  // data,
+  // specRemovePath,
+  // removePath,
+  // getQueryBy,
+  // repeatStepList,
+  // notEditButton,
+  // jsonVariables,
+  // chapterAlwaysInWrite,
+  // backButton,
+  // stageType,
+  // specData,
+  // stage,
+  // optionsQuery,
+  // updateBatchingCache,
+  // update,
+  // reRender,
+  // addValuesToData,
+  // removeEmptyField,
+  // itemIdsRef,
+  // itemId})
   const [loading, setLoading] = useState(true);
   const timer = useRef();
   const [editChapter, setEditChapter] = useState(0);
@@ -335,11 +362,13 @@ export default ({
               formSubmit(e);
             }}
             onChange={() => {
-              setWhen(
-                screenshotData.current &&
+              if (!!!screenshotData.current) {
+                setWhen(
+                  screenshotData.current &&
                   JSON.stringify(screenshotData.current) !==
-                    JSON.stringify(documentData.current)
-              );
+                  JSON.stringify(documentData.current)
+                  );
+                }
             }}
           >
             <RouteGuard
