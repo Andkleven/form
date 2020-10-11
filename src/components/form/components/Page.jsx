@@ -98,7 +98,7 @@ delete: deleteButton
     hidden) => {
     return (
       <Fragment
-        key={`${repeatStepList}-${index}-${path}-${queryPath}-repeat-fragment`}
+        key={`${repeatStepList}-${index}-${path}-${queryPath}-fragment`}
       >
         {pageTitle && indexVariablePageTitle !== undefined ? (
           <>
@@ -205,8 +205,6 @@ delete: deleteButton
     thisChapter,
     writeOnlyFieldIf
   ])
-
-
   const { finalChapter, editChapter, setEditChapter } = useContext(
     ChapterContext
   );
@@ -257,7 +255,7 @@ delete: deleteButton
     index => {
       setFieldGroups(prevState => {
         delete prevState[
-          `${repeatStepList}-${index}-${path}-${queryPath}-repeat-fragment`
+          `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
         ];
         return { ...prevState };
       });
@@ -271,7 +269,6 @@ delete: deleteButton
       repeatStepList
     ]
   );
-
   useEffect(() => {
     let temporaryMultiFieldGroup = {};
     if (
@@ -290,7 +287,7 @@ delete: deleteButton
         if (Array.isArray(arrayData)) {
           for (let index = 0; index < arrayData.length; index++) {
             temporaryMultiFieldGroup[
-              `${repeatStepList}-${index}-${path}-${queryPath}-repeat-fragment`
+              `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
             ] = multiFieldGroup(
               index,
               deleteHandler,
@@ -309,7 +306,7 @@ delete: deleteButton
           );
           for (let index = 0; index < repeatNumber; index++) {
             temporaryMultiFieldGroup[
-              `${repeatStepList}-${index}-${path}-${queryPath}-repeat-fragment`
+              `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
             ] = (
               <FieldGroup
               fields={fields}
@@ -347,7 +344,7 @@ delete: deleteButton
         }
       } else {
         temporaryMultiFieldGroup[
-          `${repeatStepList}-0-${path}-${queryPath}-repeat-fragment`
+          `${repeatStepList}-0-${path}-${queryPath}-fragment`
         ] = (
           <FieldGroup
           fields={fields}
@@ -445,7 +442,7 @@ delete: deleteButton
       setFieldGroups(prevState => {
         return {
           ...prevState,
-          [`${repeatStepList}-${pushOnIndex}-${path}-${queryPath}-repeat-fragment`]: multiFieldGroup(
+          [`${repeatStepList}-${pushOnIndex}-${path}-${queryPath}-fragment`]: multiFieldGroup(
             pushOnIndex,
             deleteHandler,
             editChapter,
@@ -484,7 +481,7 @@ delete: deleteButton
     setFieldGroups(prevState => {
       return {
         ...prevState,
-        [`${repeatStepList}-${index}-${path}-${queryPath}-repeat-fragment`]: multiFieldGroup(
+        [`${repeatStepList}-${index}-${path}-${queryPath}-fragment`]: multiFieldGroup(
 
           index,
           deleteHandler,
@@ -531,7 +528,7 @@ delete: deleteButton
     if (oldValue < newValue) {
       for (let i = oldValue; i < newValue; i++) {
         // temporaryMultiFieldGroup[
-        //   `${repeatStepList}-${i}-${path}-${queryPath}-repeat-fragment`
+        //   `${repeatStepList}-${i}-${path}-${queryPath}-fragment`
         // ] = multiFieldGroup(
         //   props,
         //   i,
@@ -545,7 +542,7 @@ delete: deleteButton
     } else if (newValue < oldValue) {
       for (let i = oldValue - 1; i > newValue - 1; i--) {
         temporaryMultiFieldGroup[
-          `${repeatStepList}-${i}-${path}-${queryPath}-repeat-fragment`
+          `${repeatStepList}-${i}-${path}-${queryPath}-fragment`
         ] = null;
         deleteData(i);
       }
@@ -699,7 +696,7 @@ delete: deleteButton
       index++
     ) {
       // temporaryMultiFieldGroup[
-      //   `${repeatStepList}-${index}-${path}-${queryPath}-repeat-fragment`
+      //   `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
       // ] = multiFieldGroup(
       //   props,
       //   index,
