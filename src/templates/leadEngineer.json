@@ -230,7 +230,6 @@
         },
         {
           "queryPath": "leadEngineer.additionalCustomTests",
-          "repeat": true,
           "delete": true,
           "writeOnlyFieldIf": "leadEngineer.data.additionalTests",
           "addButton": "Custom Test",
@@ -378,7 +377,6 @@
             "coatedItem": true
           },
           "queryPath": "leadEngineer.measurementPointActualTdvs",
-          "repeat": true,
 
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "fields": [
@@ -399,7 +397,6 @@
         },
         {
           "queryPath": "leadEngineer.rubberCements",
-          "repeat": true,
           "delete": true,
           "addButton": "Add Item Rubber Cement",
           "fields": [
@@ -412,7 +409,6 @@
         },
         {
           "queryPath": "leadEngineer.vulcanizationSteps",
-          "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
           "addButton": "Add step",
@@ -450,7 +446,6 @@
             {
               "page": true,
               "queryPath": "coatingLayers",
-              "repeat": true,
 
               "repeatGroupWithQuery": [
                 "leadEngineer.vulcanizationSteps",
@@ -583,7 +578,6 @@
                 {
                   "page": { "coatedItem": true },
                   "queryPath": "cumulativeThickness",
-                  "repeat": true,
 
                   "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
                   "fields": [
@@ -972,7 +966,6 @@
         {
           "queryPath": "leadEngineer.ringMaterials",
           "delete": true,
-          "repeat": true,
           "repeatStartWith": 1,
           "addButton": "Add rings material no.",
           "fields": [
@@ -1075,7 +1068,6 @@
         },
         {
           "queryPath": "leadEngineer.vulcanizationSteps",
-          "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
           "addButton": "Add step",
@@ -1674,7 +1666,6 @@
         {
           "showPage": { "coatedItem": true, "mould": true },
           "queryPath": "leadEngineer.finalInspectionDimensionsChecks",
-          "repeat": true,
           "delete": true,
           "addButton": "Advanced Final Dimensions Check",
           "fields": [
@@ -1698,7 +1689,6 @@
         },
         {
           "queryPath": "leadEngineer.finalInspectionCustomTests",
-          "repeat": true,
           "delete": true,
           "addButton": "Custom Test",
           "fields": [

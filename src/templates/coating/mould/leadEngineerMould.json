@@ -159,7 +159,6 @@
         },
         {
           "queryPath": "leadEngineers.0.additionalCustomTests",
-          "repeat": true,
           "delete": true,
           "readOnlyFieldIf": "leadEngineers.0.data.additionalTests",
           "addButton": "Custom Test",
@@ -267,7 +266,6 @@
         },
         {
           "queryPath": "leadEngineers.0.rubberCements",
-          "repeat": true,
           "delete": true,
           "addButton": "Add Rubber Agent",
           "fields": [
@@ -281,7 +279,6 @@
         },
         {
           "queryPath": "leadEngineers.0.vulcanizationSteps",
-          "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
           "addButton": "Add Step",
@@ -319,7 +316,6 @@
               "page": true,
               "indexVariablePageTitle": 0,
               "queryPath": "coatingLayers",
-              "repeat": true,
 
               "repeatGroupWithQuery": [
                 "leadEngineers.0.vulcanizationSteps",
@@ -530,7 +526,6 @@
         },
         {
           "queryPath": "leadEngineers.0.finalInspectionDimensionsChecks",
-          "repeat": true,
           "delete": true,
           "addButton": "Advanced Final Dimensions Check",
           "fields": [
@@ -554,7 +549,6 @@
         },
         {
           "queryPath": "leadEngineers.0.finalInspectionCustomTests",
-          "repeat": true,
           "delete": true,
           "addButton": "Final Inspection Custom Test",
           "fields": [

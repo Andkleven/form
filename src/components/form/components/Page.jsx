@@ -69,7 +69,6 @@ queryPath,
 showPage,
 showPageSpecPath,
 editRepeatStepValueList,
-repeat,
 repeatGroupWithQuery,
 repeatGroupWithQueryMath,
 editRepeatStepListRepeat,
@@ -137,7 +136,6 @@ delete: deleteButton
           writeOnlyFieldIf={writeOnlyFieldIf}
           queryPath={queryPath}
           editRepeatStepValueList={editRepeatStepValueList}
-          repeat={repeat}
           repeatGroupWithQuery={repeatGroupWithQuery}
           repeatGroupWithQueryMath={repeatGroupWithQueryMath}
           editRepeatStepListRepeat={editRepeatStepListRepeat}
@@ -192,7 +190,6 @@ delete: deleteButton
     pageTitle,
     path,
     queryPath,
-    repeat,
     repeatGroupWithQuery,
     repeatGroupWithQueryMath,
     repeatStartWith,
@@ -282,7 +279,7 @@ delete: deleteButton
         editRepeatStepValueList
       )
     ) {
-      if (repeat) {
+      if (repeatGroupWithQuery || repeatGroupWithQueryMath || addButton) {
         let arrayData = objectPath.get(documentData.current, path);
         if (Array.isArray(arrayData)) {
           for (let index = 0; index < arrayData.length; index++) {
@@ -328,7 +325,6 @@ delete: deleteButton
           writeOnlyFieldIf={writeOnlyFieldIf}
           queryPath={queryPath}
           editRepeatStepValueList={editRepeatStepValueList}
-          repeat={repeat}
           repeatGroupWithQuery={repeatGroupWithQuery}
           repeatGroupWithQueryMath={repeatGroupWithQueryMath}
           editRepeatStepListRepeat={editRepeatStepListRepeat}
@@ -366,7 +362,6 @@ delete: deleteButton
           writeOnlyFieldIf={writeOnlyFieldIf}
           queryPath={queryPath}
           editRepeatStepValueList={editRepeatStepValueList}
-          repeat={repeat}
           repeatGroupWithQuery={repeatGroupWithQuery}
           repeatGroupWithQueryMath={repeatGroupWithQueryMath}
           editRepeatStepListRepeat={editRepeatStepListRepeat}
@@ -413,7 +408,6 @@ delete: deleteButton
     pageTitle,
     path,
     queryPath,
-    repeat,
     repeatGroupWithQuery,
     repeatGroupWithQueryMath,
     repeatStartWith,
@@ -663,7 +657,7 @@ delete: deleteButton
     documentDataDispatch({
       type: "add",
       notReRender: true,
-      newState: repeat ? [] : {},
+      newState: (repeatGroupWithQuery || repeatGroupWithQueryMath || addButton) ? [] : {},
       path: path
     });
   }
@@ -971,7 +965,6 @@ delete: deleteButton
           writeOnlyFieldIf={writeOnlyFieldIf}
           queryPath={queryPath}
           editRepeatStepValueList={editRepeatStepValueList}
-          repeat={repeat}
           repeatGroupWithQuery={repeatGroupWithQuery}
           repeatGroupWithQueryMath={repeatGroupWithQueryMath}
           editRepeatStepListRepeat={editRepeatStepListRepeat}
@@ -993,7 +986,7 @@ delete: deleteButton
         <>
           {Object.values(fieldGroups)}
           {!!addButton &&
-          repeat &&
+          (repeatGroupWithQuery || repeatGroupWithQueryMath || addButton) &&
           !updateReadOnly() &&
           (showPage === undefined ||
             (showPage &&

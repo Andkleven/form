@@ -27,7 +27,6 @@
         },
         {
           "repeatStartWith": 1,
-          "repeat": true,
           "delete": true,
           "addButton": "ITP Document Number",
           "queryPath": "projects.0.itpDocumentNumbers",

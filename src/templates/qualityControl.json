@@ -10,7 +10,6 @@
       "pages": [
         {
           "pageTitle": "Final Inspection",
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
@@ -123,7 +122,6 @@
         },
         {
           "queryPath": "finalInspectionQualityControl.hardnessQualityControls",
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.numberOfHardnessOfOuterLayer",
@@ -140,7 +138,6 @@
         },
         {
           "queryPath": "finalInspectionQualityControl.peelTestQualityControls",
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.numberOfPeelTest",
@@ -163,7 +160,6 @@
           ]
         },
         {
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.finalInspectionDimensionsChecks",
@@ -189,7 +185,6 @@
           ]
         },
         {
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.finalInspectionCustomTests",

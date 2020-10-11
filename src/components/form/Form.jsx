@@ -105,33 +105,6 @@ export default ({
   itemIdsRef,
   itemId
 }) => {
-  // useTraceUpdate({saveVariables,
-  // edit,
-  // readOnlySheet,
-  // resetData,
-  // stages,
-  // document,
-  // allData,
-  // data,
-  // specRemovePath,
-  // removePath,
-  // getQueryBy,
-  // repeatStepList,
-  // notEditButton,
-  // jsonVariables,
-  // chapterAlwaysInWrite,
-  // backButton,
-  // stageType,
-  // specData,
-  // stage,
-  // optionsQuery,
-  // updateBatchingCache,
-  // update,
-  // reRender,
-  // addValuesToData,
-  // removeEmptyField,
-  // itemIdsRef,
-  // itemId})
   const [loading, setLoading] = useState(true);
   const timer = useRef();
   const [editChapter, setEditChapter] = useState(0);
@@ -171,13 +144,13 @@ export default ({
     repeatStepListLocal.current = repeatStepList;
   }, [repeatStepList]);
 
-  if (
-    data &&
-    (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
-      !lastData.current)
-  ) {
+  if (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
+    !lastData.current) {
     finalChapter.current = 0;
     lastData.current = cloneDeep(data);
+      }
+
+  if (data && Object.keys(documentData.current).length) {
     documentDataDispatch({
       type: "setState",
       newState: data,

@@ -13,7 +13,6 @@
           "queryPath": "operator.measurementPointPackers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "fieldName": "measurementPoint",
@@ -37,7 +36,6 @@
           "queryPath": "operator.measurementPointActualTdvs",
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -317,7 +315,6 @@
           ]
         },
         {
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.additionalCustomTests",
@@ -483,7 +480,6 @@
       "pages": [
         {
           "pageTitle": "Coating",
-          "queryPath": "operator.ringMaterials",
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.ringMaterials",
           "fields": [
@@ -692,7 +688,6 @@
             "coatedItem": true,
             "mould": true
           },
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.rubberCements",
@@ -713,7 +708,6 @@
             {
               "page": true,
               "queryPath": "mixDates",
-              "repeat": true,
               "repeatStartWith": 1,
               "delete": true,
               "addButton": "Add Rubber",
@@ -767,7 +761,6 @@
             "coatingOperators",
             "layers"
           ],
-          "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
           "addButton": "Extra Layer",
@@ -790,7 +783,6 @@
           "showPage": {
             "coatedItem": true
           },
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
@@ -892,7 +884,6 @@
       "pages": [
         {
           "pageTitle": "Measurement after Vulcanization",
-          "repeat": true,
 
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
@@ -1040,7 +1031,6 @@
           ]
         },
         {
-          "repeat": true,
           "delete": true,
           "writeOnlyFieldIf": "operator.data.deviation",
           "repeatStartWith": 1,
@@ -1150,7 +1140,6 @@
           ]
         },
         {
-          "repeat": true,
           "delete": true,
           "repeatStartWith": 1,
           "writeOnlyFieldIf": "operator.data.deviationPinSide",
@@ -1260,7 +1249,6 @@
           ]
         },
         {
-          "repeat": true,
           "delete": true,
           "repeatStartWith": 1,
           "writeOnlyFieldIf": "operator.data.deviationBoxSide",
@@ -1549,7 +1537,6 @@
           "queryPath": "operator.measurementPointBeforeBarriers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1584,7 +1571,6 @@
           "queryPath": "operator.measurementPointBeforeBarriers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -1708,7 +1694,6 @@
           "showPage": { "b2P": true },
           "queryPath": "operator.measurementPointAfterBarriers",
           "repeatGroupWithQuery": "operator.data.noOfLayersApplied",
-          "repeat": true,
           "showPageSpecPath": {
             "leadEngineer.data.barrier": [
               "1A",
@@ -1752,7 +1737,6 @@
           "queryPath": "operator.measurementPointBeforeBarriers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1808,7 +1792,6 @@
           "queryPath": "operator.measurementPointAfterBarriers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "showFieldSpecPath": {
@@ -1847,7 +1830,6 @@
           "queryPath": "operator.measurementPointAfterBarriers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2080,7 +2062,6 @@
           "queryPath": "operator.measurementPointBeforeBarrierPinSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -2115,7 +2096,6 @@
           "queryPath": "operator.measurementPointBeforeBarrierPinSides",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -2207,7 +2187,6 @@
           "queryPath": "operator.measurementPointAfterBarrierPinSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -2284,7 +2263,6 @@
         {
           "queryPath": "operator.measurementPointAfterBarrierPinSides",
           "repeatGroupWithQuery": "operator.data.noOfLayersAppliedPinSide",
-          "repeat": true,
           "showPageSpecPath": {
             "leadEngineer.data.barrierPinSide": [
               "1A",
@@ -2475,7 +2453,6 @@
           "queryPath": "operator.measurementPointBeforeBarrierBoxSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2509,7 +2486,6 @@
           "queryPath": "operator.measurementPointBeforeBarrierBoxSides",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -2670,7 +2646,6 @@
           },
           "queryPath": "operator.measurementPointAfterBarrierBoxSides",
           "repeatGroupWithQuery": "operator.data.noOfLayersAppliedBoxSide",
-          "repeat": true,
           "fields": [
             {
               "indexVariableLabel": true,
@@ -2686,7 +2661,6 @@
           "queryPath": "operator.measurementPointAfterBarrierBoxSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
           "fields": [
             {
               "showFieldSpecPath": {
@@ -2807,7 +2781,6 @@
           "queryPath": "operator.measurementPointCompletionPhases",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -2836,7 +2809,6 @@
           "queryPath": "operator.measurementPointCompletionPhasePinSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
@@ -2865,7 +2837,6 @@
           "queryPath": "operator.measurementPointCompletionPhaseBoxSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
 
           "fields": [
             {
