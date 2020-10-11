@@ -7,6 +7,9 @@ import {
 import objectPath from "object-path";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
+  if (!(typeof value === "number")) {
+    return 0
+  }
   if (array.every(allZeroOrNaN)) {
     return 0;
   } else {
