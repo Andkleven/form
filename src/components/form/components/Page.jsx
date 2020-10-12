@@ -406,6 +406,7 @@ delete: deleteButton
     jsonVariables,
     optionsData,
     pageTitle,
+    addButton,
     path,
     queryPath,
     repeatGroupWithQuery,
