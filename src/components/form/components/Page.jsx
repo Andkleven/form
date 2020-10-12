@@ -78,7 +78,16 @@ pageTitle,
 indexVariablePageTitle,
 type,
 delete: deleteButton
-    }) => {
+}) => {
+  const { finalChapter, editChapter, setEditChapter } = useContext(
+    ChapterContext
+  );
+  
+  if (finalChapterRef && finalChapterRef > finalChapter.current) {
+    finalChapter.current = finalChapterRef;
+  }
+
+
   const DeleteButton = ({ index, deleteHandler }) => (
     <DepthButton
       iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
@@ -88,12 +97,12 @@ delete: deleteButton
       Remove
     </DepthButton>
   );
-  
+
   const multiFieldGroup = useCallback(
     (index,
     deleteHandler,
     editChapter,
-    finalChapterRef,
+    finalChapter,
     hidden) => {
     return (
       <Fragment
@@ -107,7 +116,7 @@ delete: deleteButton
                   allWaysShow,
                   editChapter,
                   thisChapter,
-                  finalChapterRef.current
+                  finalChapter.current
                 ) && "mt-3"
               }
             >
@@ -160,7 +169,7 @@ delete: deleteButton
             allWaysShow,
             editChapter,
             thisChapter,
-            finalChapterRef.current
+            finalChapter.current
           ) &&
           (repeatStartWith ? (
             !!index && (
@@ -171,7 +180,7 @@ delete: deleteButton
           ))}
       </Fragment>
     )
-  }, [
+    }, [
     allData,
     allWaysShow,
     backendData,
@@ -202,9 +211,6 @@ delete: deleteButton
     thisChapter,
     writeOnlyFieldIf
   ])
-  const { finalChapter, editChapter, setEditChapter } = useContext(
-    ChapterContext
-  );
   const {
     documentDataDispatch,
     documentData,
@@ -215,9 +221,7 @@ delete: deleteButton
   const hidden = useHidden(writeOnlyFieldIf, [
     `${label}-${prepend}-${queryPath}-page-hidden`
   ]);
-  if (finalChapter && finalChapter > finalChapterRef.current) {
-    finalChapterRef.current = finalChapter;
-  }
+  
   const updateReadOnly = useCallback(() => {
     if (
       typeof writeOnlyFieldIf === "object" &&
@@ -568,7 +572,7 @@ delete: deleteButton
         allWaysShow,
         editChapter,
         thisChapter,
-        finalChapterRef.current
+        finalChapter.current
       ) &&
       (showPage === undefined ||
         (showPage &&
@@ -589,6 +593,7 @@ delete: deleteButton
       }
     };
   }, [
+    finalChapter,
     showPage,
     jsonVariables,
     repeatGroupWithQuery,
@@ -597,7 +602,6 @@ delete: deleteButton
     editRepeatStepListRepeat,
     repeatGroupWithQuerySpecData,
     editChapter,
-    finalChapterRef,
     allWaysShow,
     thisChapter,
     autoRepeat,
@@ -615,7 +619,7 @@ delete: deleteButton
         allWaysShow,
         editChapter,
         thisChapter,
-        finalChapterRef.current
+        finalChapter.current
       ) &&
       (showPage === undefined ||
         (showPage &&
@@ -630,11 +634,11 @@ delete: deleteButton
       autoRepeat();
     }
   }, [
+    finalChapter,
     showPage,
     repeatGroupWithQueryMath,
     jsonVariables,
     editChapter,
-    finalChapterRef,
     showPageSpecPath,
     allWaysShow,
     thisChapter,
@@ -670,7 +674,7 @@ delete: deleteButton
       allWaysShow,
       editChapter,
       thisChapter,
-      finalChapterRef.current
+      finalChapter.current
     ) &&
     !notShowSpec(
       specData,
@@ -687,7 +691,7 @@ delete: deleteButton
     let temporaryMultiFieldGroup = {};
     for (
       let index = 0;
-      index < writeChapter(repeatStartWith, jsonVariables);
+      index < getProperties(repeatStartWith, jsonVariables);
       index++
     ) {
       // temporaryMultiFieldGroup[
@@ -812,10 +816,10 @@ delete: deleteButton
       allWaysShow,
       editChapter,
       thisChapter,
-      finalChapterRef.current
+      finalChapter.current
     ) &&
     edit;
-  // && thisChapter !== finalChapterRef.current;
+  // && thisChapter !== finalChapterRef;
   const showTitle =
     !stopLoop &&
     pageTitle &&
@@ -829,14 +833,14 @@ delete: deleteButton
   const showCancelTab =
     showLine &&
     !!editChapter &&
-    thisChapter !== finalChapterRef.current &&
+    thisChapter !== finalChapter.current &&
     pageTitle;
   const editAllActive =
     showSubmitButton && editChapter && thisChapter === editChapter;
   const finalChapterActive =
     showSubmitButton &&
     !editChapter &&
-    thisChapter === finalChapter;
+    thisChapter === finalChapter.current;
   const finalPage = showSubmitButton;
 
   // MultipleFiles logic
@@ -1002,7 +1006,7 @@ delete: deleteButton
             allWaysShow,
             editChapter,
             thisChapter,
-            finalChapterRef.current
+            finalChapter.current
           ) ? (
             <DepthButton
               iconProps={{ icon: ["far", "plus"], className: "text-secondary" }}
@@ -1017,7 +1021,32 @@ delete: deleteButton
       ) : type === "files" ? (
         <>
           <Input
-            noComment
+              noComment
+              path={path}
+              fields={fields}
+              type={type}
+              allData={allData}
+              backendData={backendData}
+              optionsData={optionsData}
+              submitData={submitData}
+              document={document}
+              edit={edit}
+              specData={specData}
+              jsonVariables={jsonVariables}
+              stage={stage}
+              thisChapter={thisChapter}
+              stopLoop={stopLoop}
+              index={index}
+              itemIdsRef={itemIdsRef}
+              itemId={itemId}
+              specRemovePath={specRemovePath}
+              writeOnlyFieldIf={writeOnlyFieldIf}
+              queryPath={queryPath}
+              editRepeatStepValueList={editRepeatStepValueList}
+              repeatGroupWithQuery={repeatGroupWithQuery}
+              repeatGroupWithQueryMath={repeatGroupWithQueryMath}
+              editRepeatStepListRepeat={editRepeatStepListRepeat}
+              repeatStep={index}
           />
         </>
       ) : null}

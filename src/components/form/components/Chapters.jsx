@@ -41,7 +41,6 @@ export default React.memo(
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
     const stopLoop = useRef(false); // Flips to true for last chapter with input
-    const repeatStepListLocalRef = useRef([]); 
     let finalChapter = 0;
     let count = 0;
     const getNewChapter = (
@@ -50,9 +49,6 @@ export default React.memo(
       byStage = false,
       thisStage = ""
     ) => {
-      if (repeatStepListLocalRef.current !== repeatStepListLocal) {
-        repeatStepListLocalRef.current = repeatStepListLocal
-      }
       if (
         pageInfo.showChapter === undefined ||
         (pageInfo.showChapter &&
@@ -64,6 +60,7 @@ export default React.memo(
           (pageInfo.chapterAlwaysInWrite || chapterAlwaysInWrite) &&
           !finalChapter
         ) {
+          console.log(pageInfo.stageQueryPath)
           finalChapter = count + 1;
         }
         if (stopLoop.current) {
@@ -84,6 +81,7 @@ export default React.memo(
               pageInfo.stageQueryPath,
               repeatStepListLocal
             );
+            console.log(pageInfo.stageQueryPath)
             finalChapter = count + 1;
             if (readOnlySheet) {
               stopLoop.current = true;
@@ -111,10 +109,10 @@ export default React.memo(
                   jsonVariables={jsonVariables}
                   chapterAlwaysInWrite={chapterAlwaysInWrite}
                   stage={stage}
-                  repeatStepList={repeatStepListLocalRef.current}
+                  repeatStepList={repeatStepListLocal}
                   path={createPath(
                     removePathFunc(removePath, info.queryPath),
-                    repeatStepListLocalRef.current
+                    repeatStepListLocal
                   )}
                   thisChapter={count + 1}
                   stopLoop={stopLoop.current}

@@ -83,7 +83,12 @@ export default React.memo(({ ...props }) => {
     documentDataDispatch,
     props.type
   ]);
-
+  console.log(
+  props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+)
   useEffect(() => {
     if (
       !hidden &&
