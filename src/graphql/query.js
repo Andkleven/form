@@ -61,10 +61,6 @@ const ITEM = gql`
             data
           }
         }
-        measurementPointPackers {
-          id
-          data
-        }
         measurementPointBeforeBarriers {
           id
           data
@@ -209,10 +205,6 @@ const BATCHING_OPERATOR = gql`
                 id
                 data
               }
-            }
-            measurementPointPackers {
-              id
-              data
             }
             measurementPointBeforeBarriers {
               id
@@ -360,10 +352,6 @@ const BATCHING_VULCANIZATION = gql`
                 id
                 data
               }
-            }
-            measurementPointPackers {
-              id
-              data
             }
             measurementPointBeforeBarriers {
               id
@@ -603,10 +591,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
               data
             }
           }
-          measurementPointPackers {
-            id
-            data
-          }
           measurementPointBeforeBarriers {
             id
             data
@@ -741,10 +725,6 @@ const GET_OPERATOR_BY_ITEM = gql`
             id
             data
           }
-        }
-        measurementPointPackers {
-          id
-          data
         }
         measurementPointBeforeBarriers {
           id
@@ -942,10 +922,6 @@ const QUALITY_CONTROL = gql`
             id
             data
           }
-        }
-        measurementPointPackers {
-          id
-          data
         }
         measurementPointBeforeBarriers {
           id

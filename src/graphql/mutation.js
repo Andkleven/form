@@ -196,10 +196,6 @@ const OPERATOR_BATCHING = gql`
                   data
                 }
               }
-              measurementPointPackers {
-                id
-                data
-              }
               measurementPointBeforeBarriers {
                 id
                 data
@@ -348,10 +344,6 @@ const OPERATOR = gql`
                 id
                 data
               }
-            }
-            measurementPointPackers {
-              id
-              data
             }
             measurementPointBeforeBarriers {
               id
@@ -533,10 +525,6 @@ const QUALITY_CONTROL = gql`
                 id
                 data
               }
-            }
-            measurementPointPackers {
-              id
-              data
             }
             measurementPointBeforeBarriers {
               id
