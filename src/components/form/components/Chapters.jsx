@@ -60,7 +60,6 @@ export default React.memo(
           (pageInfo.chapterAlwaysInWrite || chapterAlwaysInWrite) &&
           !finalChapter
         ) {
-          console.log(pageInfo.stageQueryPath)
           finalChapter = count + 1;
         }
         if (stopLoop.current) {
