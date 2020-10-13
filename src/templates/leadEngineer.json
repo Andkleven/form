@@ -1121,6 +1121,7 @@
               "fieldName": "asBuilt",
               "label": "As built",
               "notSingleEdit": true,
+              "required": true,
               "type": "select",
               "options": [
                 "Swell packer standard",
@@ -1451,14 +1452,30 @@
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
-              "fieldName": "endRingOd",
-              "label": "End-ring OD",
-              "subtext": "Dwg Ref. D2"
+              "fieldName": "endRingOdMin",
+              "label": "End-ring OD min",
+              "subtext": "Dwg Ref. D2",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
-              "fieldName": "endRingLength",
-              "label": "End-ring Length",
+              "fieldName": "endRingOdMax",
+              "label": "End-ring OD max",
+              "subtext": "Dwg Ref. D2",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "fieldName": "endRingLengthMin",
+              "label": "End-ring Length min",
+              "subtext": "Dwg Ref. XX"
+            },
+            {
+              "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
+              "fieldName": "endRingLengthMax",
+              "label": "End-ring Length max",
               "subtext": "Dwg Ref. XX"
             },
             {

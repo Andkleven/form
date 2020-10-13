@@ -10,14 +10,11 @@
       "pages": [
         {
           "pageTitle": "Steel measurements",
-          "queryPath": "operator.measurementPointPackers",
-          "repeatGroupWithQueryMath": "mathMeasurementPoints",
-          "repeatGroupWithQuerySpecData": true,
+          "queryPath": "operator",
           "fields": [
             {
               "fieldName": "measurementPoint",
-              "label": "Measurement Point {}",
-              "indexVariableLabel": true,
+              "label": "Measurement Point",
               "required": true,
               "type": "number",
               "notBatch": true,

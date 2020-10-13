@@ -381,22 +381,7 @@
               "label": "Base pipe OD",
               "subtext": "Dwg Ref. D1, Base pipe OD {}"
             },
-            {
-              "showFieldSpecPath": {
-                "leadEngineer.data.asBuilt": [
-                  "Swell packer standard",
-                  "Swell packer K2 standard",
-                  "Swell packer Cable standard"
-                ]
-              },
-              "fieldName": "packerElementOd",
-              "routeToSpecMin": "leadEngineer.data.packerElementOdMin",
-              "routeToSpecMax": "leadEngineer.data.packerElementOdMax",
-              "type": "number",
-              "unit": "mm",
-              "label": "Packer element OD",
-              "subtext": "Dwg Ref. D2"
-            },
+
             {
               "showFieldSpecPath": {
                 "leadEngineer.data.asBuilt": [
@@ -404,7 +389,10 @@
                   "Swell packer K2 with 2 center ringer",
                   "Swell packer K2 with 1 center ring",
                   "Swell packer Cable with 1 center ring",
-                  "Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer standard",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard"
                 ]
               },
               "routeToSpecMin": "leadEngineer.data.packerElementOd1Min",
@@ -450,17 +438,23 @@
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
-              "specVariableSubtext": "leadEngineer.data.endRingOd",
+              "routeToSpecMin": "leadEngineer.data.endRingOdMin",
+              "routeToSpecMax": "leadEngineer.data.endRingOdMax",
               "fieldName": "endRingOd",
+              "type": "number",
+              "unit": "mm",
               "label": "End-ring OD",
-              "subtext": "Dwg Ref. D2, end-ring OD {}"
+              "subtext": "Dwg Ref. D2"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
-              "fieldName": "endRingLength",
-              "specVariableSubtext": "leadEngineer.data.endRingLength",
+              "routeToSpecMin": "leadEngineer.data.endRingLengthMin",
+              "routeToSpecMax": "leadEngineer.data.endRingLengthMax",
               "label": "End-ring Length",
-              "subtext": "Dwg Ref. XX, end-ring Length {}"
+              "fieldName": "endRingLength",
+              "subtext": "Dwg Ref. XX",
+              "type": "number",
+              "unit": "mm"
             },
             {
               "showFieldSpecPath": {
