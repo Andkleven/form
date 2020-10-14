@@ -160,22 +160,28 @@ export default React.memo(({ ...props }) => {
 
   const minMax = useCallback(() => {
     let { min, max } = calculateMaxMin(
-      getProperties(props.min, props.jsonVariables),
+      props.min,
       props.routeToSpecMin,
+      props.routeToMin,
       props.editRepeatStepListMin,
       getProperties(props.calculateMin, props.jsonVariables),
-      getProperties(props.max, props.jsonVariables),
+      props.max,
       props.routeToSpecMax,
+      props.routeToMax,
       props.editRepeatStepListMax,
       getProperties(props.calculateMax, props.jsonVariables),
       props.repeatStepList,
       props.specData,
       props.allData,
-      documentData.current
+      documentData.current,
+      props.type
     );
-    setMin(min ? min : undefined);
-    setMax(max ? max : undefined);
+    setMin(min || undefined);
+    setMax(max || undefined);
   }, [
+      props.routeToMin,
+    props.routeToMax,
+    props.type,
     documentData,
     props.jsonVariables,
     props.min,
@@ -190,6 +196,7 @@ export default React.memo(({ ...props }) => {
     props.specData,
     props.allData
   ]);
+
   useEffect(() => {
     if (min === null && max === null) {
       minMax();

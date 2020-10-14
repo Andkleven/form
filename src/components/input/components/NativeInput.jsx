@@ -37,9 +37,13 @@ export default ({
   switch (type) {
     case "date":
       value = value && moment(value).format(moment.HTML5_FMT.DATE);
+      min = min && moment(min).format(moment.HTML5_FMT.DATE);
+      max = max && moment(max).format(moment.HTML5_FMT.DATE);
       break;
     case "datetime-local":
       value = value && moment(value).format(moment.HTML5_FMT.DATETIME_LOCAL);
+      min = min && moment(min).format(moment.HTML5_FMT.DATETIME_LOCAL);
+      max = max && moment(max).format(moment.HTML5_FMT.DATETIME_LOCAL);
       break;
     default:
       break;

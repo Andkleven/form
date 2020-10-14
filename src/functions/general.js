@@ -3,6 +3,7 @@ import objectPath from "object-path";
 import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
 import stages from "components/form/stage/stages.json";
+import moment from "moment";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -78,13 +79,14 @@ export const findValue = (
   data,
   oldPath,
   repeatStepList = [],
-  editRepeatStepList = {}
+  editRepeatStepList = {},
+  defaultValue=undefined
 ) => {
   let path = createPath(oldPath, repeatStepList, editRepeatStepList);
   if (emptyField(path)) {
     return null;
   }
-  return objectPath.get(data, path, null);
+  return objectPath.get(data, path, defaultValue);
 };
 
 export const sumFieldInObject = (array, key) => {
@@ -226,12 +228,12 @@ export const getSubtext = (
 ) => {
   let minLocal = subtextMathMin
     ? Math[subtextMathMin](allData, repeatStepList)
-    : isNumber(min)
+    : min
     ? min
     : "";
   let maxLocal = subtextMathMax
     ? Math[subtextMathMax](allData, repeatStepList)
-    : isNumber(max)
+    : max
     ? max
     : "";
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
@@ -325,22 +327,41 @@ export const getBatchingData = (query, batching) => {
 export const calculateMaxMin = (
   min,
   routeToSpecMin,
+  routeToMin,
   editRepeatStepListMin,
   calculateMin,
   max,
   routeToSpecMax,
+  routeToMax,
   editRepeatStepListMax,
   calculateMax,
   repeatStepList,
   data,
   allData,
-  documentData
+  documentData,
+  type
 ) => {
   let newMin;
   let newMax;
-  if (routeToSpecMin) {
+  if (["datetime-local", "date"].includes(type) && min !== undefined) {
+    if (routeToSpecMin || routeToMin) {
+      console.log(documentData)
+      newMin = moment(findValue(routeToMin ? documentData : data, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax))
+      console.log(newMin)
+    } else { 
+      newMin = moment()
+    }
+    if (Object.keys(min).length) {
+      newMin.add(min)
+    }
+    if ("datetime-local" === type) {
+      newMin = newMin.format("DD MM YYYY HH:mm");
+    } else {
+      newMin = newMin.format("DD MM YYYY");
+    }
+  } else if (routeToSpecMin || routeToMin) {
     newMin = Number(
-      findValue(data, routeToSpecMin, repeatStepList, editRepeatStepListMin)
+      findValue(routeToMin ? documentData : data, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMin)
     );
   } else if (calculateMin) {
     newMin = Number(
@@ -349,14 +370,29 @@ export const calculateMaxMin = (
   } else {
     newMin = min;
   }
-  if (routeToSpecMax) {
+  
+  if (routeToSpecMax || routeToMax) {
     newMax = Number(
-      findValue(data, routeToSpecMax, repeatStepList, editRepeatStepListMax)
+      findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax)
     );
   } else if (calculateMax) {
     newMax = Number(
       Math[calculateMax](allData, data, repeatStepList, documentData)
     );
+  } else if (["datetime-local", "date"].includes(type) && max !== undefined) {
+    if (routeToSpecMax || routeToMax) {
+      newMax = moment(findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax, moment()))
+    } else { 
+      newMax = moment()
+    }
+    Object.keys(max).forEach(key => {
+      newMax.add(max[key], key)
+    })
+    if ("datetime-local" === type) {
+      newMin = newMin.format("DD MM YYYY hh:mm");
+    } else {
+      newMin = newMin.format("MM-DD-YYYY");
+    }
   } else {
     newMax = max;
   }
@@ -722,15 +758,14 @@ export function getProductionLine(stageType) {
   }
 }
 
-export function areEqual(prevProps, nextProps,) {
+export function areEqual(prevProps, nextProps) {
   let ignoreList = ["repeatStepList", "jsonVariables", "specData", "backendData"]
   Object.keys(prevProps).forEach(key => {
     if (!ignoreList.includes(key)) {
       if (prevProps[key] !== nextProps[key]) {
-        // console.log("Changed props:", key)
-        return false
+        return true
       }
     }
   })
-  return true
+  return false
 }

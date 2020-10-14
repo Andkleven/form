@@ -65,7 +65,7 @@ export default React.memo(
         if (stopLoop.current) {
           chapter = null;
         } else {
-          allRequiredFieldSatisfied = documentData.current
+          allRequiredFieldSatisfied = Object.keys(documentData.current).length
             ? byStage
               ? thisStage === stage
               : !objectPath.get(
@@ -80,7 +80,6 @@ export default React.memo(
               pageInfo.stageQueryPath,
               repeatStepListLocal
             );
-            console.log(pageInfo.stageQueryPath)
             finalChapter = count + 1;
             if (readOnlySheet) {
               stopLoop.current = true;
@@ -119,7 +118,7 @@ export default React.memo(
                   indexId={`${count + 1}- ${index} `}
                   index={index}
                   noSaveButton={document.noSaveButton}
-                  finalChapterRef={finalChapter}
+                  finalChapterRef={allRequiredFieldSatisfied ? count + 1 : 0}
                   showSubmitButton={showSubmitButton}
                   itemIdsRef={itemIdsRef}
                   itemId={itemId}

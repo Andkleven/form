@@ -82,8 +82,7 @@ delete: deleteButton
   const { finalChapter, editChapter, setEditChapter } = useContext(
     ChapterContext
   );
-  
-  if (finalChapterRef && finalChapterRef < finalChapter.current) {
+  if (finalChapterRef && finalChapterRef > finalChapter.current) {
     finalChapter.current = finalChapterRef;
   }
 

@@ -114,13 +114,16 @@
               "fieldName": "mediaBlastingStarted",
               "required": true,
               "label": "Media Blasting Started",
-              "type": "datetime-local"
+              "type": "datetime-local",
+              "routeToMin": "operator.data.steelPreparationPerformed",
+              "min": {"m": -30}
             },
             {
               "fieldName": "steelPreparationPerformed",
               "label": "Steel Preparation Performed",
               "required": true,
-              "type": "datetime-local"
+              "type": "datetime-local",
+              "min": "now"
             }
           ]
         }

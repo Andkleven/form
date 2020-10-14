@@ -12,7 +12,7 @@ import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
-import { stringifyQuery, isStringInstance, useTraceUpdate } from "functions/general";
+import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
@@ -25,6 +25,7 @@ function useStore(init = {}) {
   const resetState = useRef({});
   const screenshotData = useRef(false);
   const reducer = action => {
+  console.log(action)
     switch (action.type) {
       case "setState":
         screenshotData.current = false;
@@ -150,7 +151,8 @@ export default ({
     lastData.current = cloneDeep(data);
       }
 
-  if (data && Object.keys(documentData.current).length) {
+  if (data && !Object.keys(documentData.current).length) {
+    console.log(1)
     documentDataDispatch({
       type: "setState",
       newState: data,
