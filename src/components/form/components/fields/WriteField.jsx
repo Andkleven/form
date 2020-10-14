@@ -35,7 +35,6 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
-  console.log(documentData.current);
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
     {

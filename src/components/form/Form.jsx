@@ -25,7 +25,6 @@ function useStore(init = {}) {
   const resetState = useRef({});
   const screenshotData = useRef(false);
   const reducer = action => {
-  console.log(action)
     switch (action.type) {
       case "setState":
         screenshotData.current = false;
@@ -152,7 +151,6 @@ export default ({
       }
 
   if (data && !Object.keys(documentData.current).length) {
-    console.log(1)
     documentDataDispatch({
       type: "setState",
       newState: data,

@@ -149,7 +149,14 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               indent && "ml-3 ml-sm-0"
             }`}
           >
+            <div style={{ wordBreak: "break-word" }}>
             <div>{datetimeString}</div>
+             <small>
+            {props.value && props.subtext ? (
+              <div className="text-muted">{props.subtext}</div>
+            ) : null}
+            </small>
+            </div>
             {readOnly ? null : (
               <TinyEditButton
                 {...props}
@@ -181,12 +188,6 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             )}
           {/* {objectPath.get(documentData.current, props.path)} */}
           <small>
-            {/* {props.value && props.max ? (
-              <div className="text-muted">Max: {props.max}</div>
-            ) : null}
-            {props.value && props.min ? (
-              <div className="text-muted">Min: {props.min}</div>
-            ) : null} */}
             {props.value && props.subtext ? (
               <div className="text-muted">{props.subtext}</div>
             ) : null}

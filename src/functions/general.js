@@ -343,15 +343,14 @@ export const calculateMaxMin = (
 ) => {
   let newMin;
   let newMax;
-  if (["datetime-local", "date"].includes(type) && min !== undefined) {
+  if (["datetime-local", "date"].includes(type) && (min !== undefined || routeToSpecMin || routeToMin)) {
     if (routeToSpecMin || routeToMin) {
-      console.log(documentData)
       newMin = moment(findValue(routeToMin ? documentData : data, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax))
-      console.log(newMin)
     } else { 
       newMin = moment()
     }
-    if (Object.keys(min).length) {
+    console.log(newMin)
+    if (min) {
       newMin.add(min)
     }
     if ("datetime-local" === type) {
@@ -371,7 +370,21 @@ export const calculateMaxMin = (
     newMin = min;
   }
   
-  if (routeToSpecMax || routeToMax) {
+  if (["datetime-local", "date"].includes(type) && (max !== undefined  || routeToSpecMax || routeToMax)) {
+    if (routeToSpecMax || routeToMax) {
+      newMax = moment(findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax))
+    } else { 
+      newMax = moment()
+    }
+    if (max) {
+      newMax.add(max)
+    }
+    if ("datetime-local" === type) {
+      newMax = newMax.format("DD MM YYYY HH:mm");
+    } else {
+      newMax = newMax.format("DD MM YYYY");
+    }
+  } else if (routeToSpecMax || routeToMax) {
     newMax = Number(
       findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax)
     );
@@ -379,29 +392,15 @@ export const calculateMaxMin = (
     newMax = Number(
       Math[calculateMax](allData, data, repeatStepList, documentData)
     );
-  } else if (["datetime-local", "date"].includes(type) && max !== undefined) {
-    if (routeToSpecMax || routeToMax) {
-      newMax = moment(findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax, moment()))
-    } else { 
-      newMax = moment()
-    }
-    Object.keys(max).forEach(key => {
-      newMax.add(max[key], key)
-    })
-    if ("datetime-local" === type) {
-      newMin = newMin.format("DD MM YYYY hh:mm");
-    } else {
-      newMin = newMin.format("MM-DD-YYYY");
-    }
   } else {
     newMax = max;
   }
-  if (isNumber(newMin)) {
-    newMin = Number(newMin);
-  }
-  if (isNumber(newMax)) {
-    newMax = Number(newMax);
-  }
+  // if (isNumber(newMin)) {
+  //   newMin = Number(newMin);
+  // }
+  // if (isNumber(newMax)) {
+  //   newMax = Number(newMax);
+  // }
   return { min: newMin, max: newMax };
 };
 
