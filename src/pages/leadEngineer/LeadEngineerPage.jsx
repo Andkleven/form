@@ -36,7 +36,7 @@ export default pageInfo => {
         <Form
           componentsId={"leadEngineersPage"}
           document={leadEngineersJson}
-          reRender={() => setReRender(!reRender)}
+          afterSubmit={() => setReRender(!reRender)}
           data={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }

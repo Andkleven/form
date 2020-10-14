@@ -101,7 +101,7 @@ export default ({
   optionsQuery,
   updateBatchingCache,
   update,
-  reRender,
+  afterSubmit,
   addValuesToData,
   removeEmptyField,
   itemIdsRef,
@@ -227,7 +227,7 @@ export default ({
         ? create
         : updateCache,
       onError: () => {},
-      onCompleted: reRender
+      onCompleted: afterSubmit
     }
   );
   const submitData = useCallback(

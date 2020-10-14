@@ -262,7 +262,7 @@ export default () => {
         <Form
           componentsId={"itemsPage" + counter.toString()}
           document={createProject}
-          reRender={() => setReRender(!reRender)}
+          afterSubmit={() => setReRender(!reRender)}
           data={fixedData}
           repeatStepList={[counter - 1]}
           getQueryBy={id}

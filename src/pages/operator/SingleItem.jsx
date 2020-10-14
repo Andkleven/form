@@ -72,7 +72,7 @@ export default pageInfo => {
     jsonVariables: [geometry],
     componentsId: opId.current,
     document: operatorJson,
-    reRender: () => setReRender(!reRender),
+    afterSubmit: () => setReRender(!reRender),
     data: fixedData && formDataStructure(fixedData, "items.0.operator"),
     specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
     saveVariables: { itemId: itemId },
@@ -95,7 +95,7 @@ export default pageInfo => {
       formDataStructure(fixedData, "items.0.finalInspectionQualityControl"),
     edit: access.itemEdit,
     specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
-    reRender: () => setReRender(!reRender),
+    afterSubmit: () => setReRender(!reRender),
     allData: fixedData,
     stage: fixedData && fixedData.items[0].stage,
     itemId: itemId,
@@ -124,7 +124,7 @@ export default pageInfo => {
           componentsId={"leadEngineersPage"}
           edit={access.specs && access.itemEdit}
           document={leadEngineersJson}
-          reRender={() => setReRender(!reRender)}
+          afterSubmit={() => setReRender(!reRender)}
           data={
             fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
           }
