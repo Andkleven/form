@@ -395,12 +395,12 @@ export const calculateMaxMin = (
   } else {
     newMax = max;
   }
-  // if (isNumber(newMin)) {
-  //   newMin = Number(newMin);
-  // }
-  // if (isNumber(newMax)) {
-  //   newMax = Number(newMax);
-  // }
+  if (isNumber(newMin)) {
+    newMin = Number(newMin);
+  }
+  if (isNumber(newMax)) {
+    newMax = Number(newMax);
+  }
   return { min: newMin, max: newMax };
 };
 
