@@ -141,7 +141,7 @@ export default pageInfo => {
           {...operator}
         />
       </Paper>
-      {finalInspection && (
+      {finalInspection && packer &&  (
         <Paper className="mb-3">
           <Title big align="center">
             Quality Control
