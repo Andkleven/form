@@ -7,8 +7,11 @@ import {
 import objectPath from "object-path";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
+  if (!(typeof value === "number")) {
+    return 0
+  }
   if (array.every(allZeroOrNaN)) {
-    return null;
+    return 0;
   } else {
     if (![null, undefined].includes(decimal)) {
       return value.toFixed(decimal);
@@ -30,14 +33,69 @@ const qualityControlMeasurementPointMould = (allData, tolerance, decimal) => {
   ]);
 };
 
+const mathToleranceMin = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  let value = 0;
+  let toleranceMin = Number(mathMin(values, repeatStepList, decimal));
+  let measurementPointActual = objectPath.get(
+    values,
+    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
+    0
+  );
+  let targetDescriptionValue = objectPath.get(
+    values,
+    `leadEngineer.targetDescriptionValue`
+  );
+  if (targetDescriptionValue === "ID") {
+    value = measurementPointActual - toleranceMin;
+  } else {
+    value = measurementPointActual + toleranceMin;
+  }
+  return whatTooReturn(Number(value), decimal, [
+    toleranceMin,
+    measurementPointActual
+  ]);
+};
+const mathToleranceMax = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  let value;
+  let toleranceMax = Number(mathMax(values, repeatStepList, decimal));
+  let measurementPointActual = objectPath.get(
+    values,
+    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
+    0
+  );
+  let targetDescriptionValue = objectPath.get(
+    values,
+    `leadEngineer.targetDescriptionValue`
+  );
+  if (targetDescriptionValue === "ID") {
+    value = measurementPointActual - toleranceMax;
+  } else {
+    value = measurementPointActual + toleranceMax;
+  }
+  return whatTooReturn(Number(value), decimal, [
+    toleranceMax,
+    measurementPointActual
+  ]);
+};
+
 const mathQualityControlMeasurementPointMouldMin = (
   allData,
   data,
   repeatStepList
 ) => {
-  let toleranceMin = Number(
-    mathToleranceMin(allData["items"][0], repeatStepList, 0)
-  );
+  let toleranceMin = Number(mathMin(allData["items"][0], repeatStepList, 0));
   return qualityControlMeasurementPointMould(allData, toleranceMin, 1);
 };
 const mathQualityControlMeasurementPointMouldMax = (
@@ -45,9 +103,7 @@ const mathQualityControlMeasurementPointMouldMax = (
   data,
   repeatStepList
 ) => {
-  let toleranceMax = Number(
-    mathToleranceMax(allData["items"][0], repeatStepList, 0)
-  );
+  let toleranceMax = Number(mathMax(allData["items"][0], repeatStepList, 0));
   return qualityControlMeasurementPointMould(allData, toleranceMax, 1);
 };
 
@@ -86,114 +142,20 @@ const mathQualityControlMeasurementPointCoatingItemMin = (
   data,
   repeatStepList
 ) => {
-  let toleranceMin = Number(
-    mathToleranceMin(allData["items"][0], repeatStepList, 0)
-  );
-  return qualityControlMeasurementPointCoatingItem(
-    allData,
-    repeatStepList,
-    toleranceMin,
-    1
-  );
+  let min = mathToleranceMin(allData["items"][0], repeatStepList, 0)
+  return qualityControlMeasurementPointCoatingItem(allData, repeatStepList, min, 0)
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
   data,
   repeatStepList
 ) => {
-  let toleranceMax = Number(
-    mathToleranceMax(allData["items"][0], repeatStepList, 0)
-  );
-  return qualityControlMeasurementPointCoatingItem(
-    allData,
-    repeatStepList,
-    toleranceMax,
-    1
-  );
+  let max = mathToleranceMax(allData["items"][0], repeatStepList, 0)
+  return qualityControlMeasurementPointCoatingItem(allData, repeatStepList, max, 0)
 };
 
-const mathCumulativeThickness = (
-  values,
-  repeatStepList,
-  decimal,
-  mathStore
-) => {
-  let previousCumulativeThickness = 0;
-  let previousLayers = 0;
-  if (repeatStepList[0] && repeatStepList[1] === 0) {
-    let coatingLength =
-      objectPath.get(
-        mathStore,
-        `leadEngineer.vulcanizationSteps.${repeatStepList[0] - 1}.coatingLayers`
-      ).length - 1;
-    previousCumulativeThickness = Number(
-      objectPath.get(
-        mathStore,
-        `leadEngineer.vulcanizationSteps.${
-          repeatStepList[0] - 1
-        }.coatingLayers.${coatingLength}.cumulativeThickness.${
-          repeatStepList[2]
-        }.data.cumulativeThickness`,
-        0
-      )
-    );
-  } else if (repeatStepList[1]) {
-    previousCumulativeThickness = Number(
-      objectPath.get(
-        mathStore,
-        `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${
-          repeatStepList[1] - 1
-        }.cumulativeThickness.${repeatStepList[2]}.data.cumulativeThickness`,
-        0
-      )
-    );
-  } else {
-    previousCumulativeThickness = Number(
-      objectPath.get(
-        values,
-        `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`,
-        0
-      )
-    );
-  }
-
-  let appliedThickness = Number(
-    findValue(
-      values,
-      `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
-    )
-  );
-  let layersUnique = findValue(
-    values,
-    `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
-  );
-
-  let tvd = findValue(values, `leadEngineer.data.targetDescriptionValue`);
-
-  let cumulativeThickness = 0;
-  if (layersUnique) {
-    appliedThickness = 0;
-  }
-
-  if (tvd === "OD") {
-    cumulativeThickness =
-      previousCumulativeThickness + (previousLayers + appliedThickness) * 2;
-  } else if (tvd === "ID") {
-    cumulativeThickness =
-      previousCumulativeThickness - (previousLayers + appliedThickness) * 2;
-  } else {
-    cumulativeThickness =
-      previousCumulativeThickness + previousLayers + appliedThickness;
-  }
-  return whatTooReturn(cumulativeThickness, decimal, [
-    previousCumulativeThickness,
-    appliedThickness,
-    layersUnique
-  ]);
-};
-
-const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
-  let previousCumulativeThickness = 0;
+const mathThicknessAll = (values, repeatStepList, decimal) => {
+  let previousThickness = 0;
   let previousLayers = 0;
   if (repeatStepList[0] && repeatStepList[1] === 0) {
     const sumProposedThickness = stepList => {
@@ -209,21 +171,10 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
   }
   if (repeatStepList[1]) {
     for (let i = 0; i < repeatStepList[1]; i++) {
-      previousCumulativeThickness = Number(
-        mathCumulativeThicknessAll(values, [
-          repeatStepList[0],
-          i,
-          repeatStepList[2]
-        ])
+      previousThickness = Number(
+        mathThicknessAll(values, [repeatStepList[0], i, repeatStepList[2]])
       );
     }
-  } else {
-    previousCumulativeThickness = Number(
-      findValue(
-        values,
-        `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
-      )
-    );
   }
 
   let appliedThickness = Number(
@@ -239,26 +190,60 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
 
   let tvd = findValue(values, `leadEngineer.data.targetDescriptionValue`);
 
-  let cumulativeThickness = 0;
+  let thickness = 0;
   if (layersUnique) {
     appliedThickness = 0;
   }
-
   if (tvd === "OD") {
-    cumulativeThickness =
-      previousCumulativeThickness + (previousLayers + appliedThickness) * 2;
+    thickness = previousThickness + (previousLayers + appliedThickness) * 2;
   } else if (tvd === "ID") {
-    cumulativeThickness =
-      previousCumulativeThickness - (previousLayers + appliedThickness) * 2;
+    thickness = previousThickness - (previousLayers + appliedThickness) * 2;
   } else {
-    cumulativeThickness =
-      previousCumulativeThickness + previousLayers + appliedThickness;
+    thickness = previousThickness + previousLayers + appliedThickness;
   }
-  return whatTooReturn(cumulativeThickness, decimal, [
-    previousCumulativeThickness,
-    appliedThickness,
-    layersUnique
-  ]);
+  return thickness ? thickness : 0;
+};
+
+const mathLayerMin = (values, data, repeatStepList) => {
+  let thicknessAll = mathThicknessAll(data, repeatStepList, 1);
+  let measurementPointActual = Number(
+    findValue(
+      data,
+      `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
+    )
+  );
+  let min = Number(findValue(data, `leadEngineer.data.toleranceMinPercent`));
+  return whatTooReturn(
+    measurementPointActual + thicknessAll - (thicknessAll * min) / 100,
+    1,
+    [measurementPointActual, thicknessAll, min]
+  );
+};
+
+const mathLayerMax = (values, data, repeatStepList) => {
+  let thicknessAll = mathThicknessAll(data, repeatStepList, 1);
+  let measurementPointActual = Number(
+    findValue(
+      data,
+      `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
+    )
+  );
+  let max = Number(findValue(data, `leadEngineer.data.toleranceMaxPercent`));
+  return whatTooReturn(
+    measurementPointActual + thicknessAll + (thicknessAll * max) / 100,
+    1,
+    [measurementPointActual, thicknessAll, max]
+  );
+};
+
+const mathLayerMinMax = (values, repeatStepList, decimal) => {
+  let thicknessAll = mathThicknessAll(values, repeatStepList, 1);
+  let min = Number(findValue(values, `leadEngineer.data.toleranceMinPercent`));
+  let max = Number(findValue(values, `leadEngineer.data.toleranceMaxPercent`));
+  min = thicknessAll - (thicknessAll * min) / 100;
+  max = thicknessAll + (thicknessAll * max) / 100;
+
+  return `${min.toFixed(1)}mm - ${max.toFixed(1)}mm`;
 };
 
 const mathShrinkThickness = (
@@ -291,7 +276,7 @@ const mathShrinkThickness = (
   ]);
 };
 
-const mathToleranceMin = (
+const mathMin = (
   values,
   repeatStepList,
   decimal,
@@ -299,22 +284,30 @@ const mathToleranceMin = (
   jsonVariables = null,
   specData = null
 ) => {
+  let targetDescriptionValue = objectPath.get(
+    values,
+    `leadEngineer.targetDescriptionValue`,
+    null
+  );
   let toleranceMinPercent = Number(
     findValue(values, "leadEngineer.data.toleranceMinPercent")
   );
-
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
+  let min = orderedTotalRubberThickness -
+      (orderedTotalRubberThickness * toleranceMinPercent) / 100
+  if (targetDescriptionValue) {
+    min = min*2
+  }
   return whatTooReturn(
-    orderedTotalRubberThickness -
-      (orderedTotalRubberThickness * toleranceMinPercent) / 100,
+    min,
     decimal,
     [toleranceMinPercent, orderedTotalRubberThickness]
   );
 };
 
-const mathToleranceMax = (
+const mathMax = (
   values,
   repeatStepList,
   decimal,
@@ -322,15 +315,24 @@ const mathToleranceMax = (
   jsonVariables = null,
   specData = null
 ) => {
+  let targetDescriptionValue = objectPath.get(
+    values,
+    `leadEngineer.targetDescriptionValue`,
+    null
+  );
   let toleranceMaxPercent = Number(
     findValue(values, "leadEngineer.data.toleranceMaxPercent")
   );
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
+  let max = orderedTotalRubberThickness +
+      (orderedTotalRubberThickness * toleranceMaxPercent) / 100
+  if (targetDescriptionValue) {
+    max = max*2
+  }
   return whatTooReturn(
-    orderedTotalRubberThickness +
-      (orderedTotalRubberThickness * toleranceMaxPercent) / 100,
+    max,
     decimal,
     [toleranceMaxPercent, orderedTotalRubberThickness]
   );
@@ -394,6 +396,49 @@ const mathMeasurementPointMax = (
     objectPath.get(data, `leadEngineer.data.toleranceMaxPercent`)
   );
   return layerThickness + (layerThickness * toleranceMaxPercent) / 100;
+};
+
+const mathMouldThickness = (
+  values,
+  repeatStepList,
+  decimal,
+  mathStore = null,
+  jsonVariables = null
+) => {
+  let lastVulcanizationOperator = false;
+  let thickness = 0;
+  let stop = false;
+  for (const [indexVulcanizationOperators, vulcanizationStep] of objectPath
+    .get(values, `operator.vulcanizationOperators`, [])
+    .entries()) {
+    if (indexVulcanizationOperators === repeatStepList[0]) {
+      lastVulcanizationOperator = true;
+    }
+    let lastCoatingOperator = false;
+    for (const [indexCoatingOperator, coatingOperator] of objectPath
+      .get(vulcanizationStep, `coatingOperators`, [])
+      .entries()) {
+      if (indexCoatingOperator === repeatStepList[1]) {
+        lastCoatingOperator = true;
+      }
+      for (const [indexLayer, layer] of objectPath
+        .get(coatingOperator, `layers`, [])
+        .entries()) {
+        thickness += Number(layer.data.rubberThickness);
+        if (
+          indexLayer === repeatStepList[2] &&
+          lastCoatingOperator &&
+          lastVulcanizationOperator
+        ) {
+          stop = true;
+          break;
+        }
+      }
+      if (stop) break;
+    }
+    if (stop) break;
+  }
+  return thickness.toFixed(1);
 };
 
 const mathPeelTest = (
@@ -1320,6 +1365,12 @@ const mathBarrier1Max = (allData, data, repeatStepList, documentData) => {
 };
 
 const Math = {
+  mathMin,
+  mathMax,
+  mathMouldThickness,
+  mathLayerMinMax,
+  mathLayerMin,
+  mathLayerMax,
   mathBarrier1Min,
   mathBarrier1Max,
   mathBarrier0Min,
@@ -1361,8 +1412,6 @@ const Math = {
   mathMeasurementPointsPinSide,
   mathMeasurementPointsBoxSide,
   mathMeasurementPoints,
-  mathCumulativeThicknessAll,
-  mathCumulativeThickness,
   mathShrinkThickness,
   mathToleranceMin,
   mathToleranceMax,

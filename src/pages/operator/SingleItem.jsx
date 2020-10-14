@@ -107,43 +107,41 @@ export default pageInfo => {
     ? stageJson.indexOf(fixedData.items[0].stage)
     : 0;
 
-  const packer = productionLine === "packer";
+  const packer = productionLine ==="packer";
   const coatedItem = productionLine === "coatedItem";
 
   return (
     <Canvas showForm={!!data}>
       <Overview itemIdsRef={itemIdsRef} />
-      {access.specs && !finalInspection && (
-        <Paper className="mb-3">
-          <Title big align="center">
-            Lead Engineer
-          </Title>
-          <Form
-            update={true}
-            jsonVariables={[geometry]}
-            componentsId={"leadEngineersPage"}
-            edit={access.itemEdit}
-            document={leadEngineersJson}
-            reRender={() => setReRender(!reRender)}
-            data={
-              fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
-            }
-            saveVariables={{ itemId: itemId }}
-            itemId={itemId}
-            getQueryBy={itemId}
-          />
-        </Paper>
-      )}
-      {access.specs && (
-        <Paper className="mb-3">
-          <Title big align="center">
-            Operator
-          </Title>
-          <Form {...operator} />
-        </Paper>
-      )}
-
-      {finalInspection && coatedItem && (
+      <Paper className="mb-3">
+        <Title big align="center">
+          Lead Engineer
+        </Title>
+        <Form
+          update={true}
+          itemIdsRef={itemIdsRef}
+          jsonVariables={[geometry]}
+          componentsId={"leadEngineersPage"}
+          edit={access.specs && access.itemEdit}
+          document={leadEngineersJson}
+          reRender={() => setReRender(!reRender)}
+          data={
+            fixedData && formDataStructure(fixedData, "items.0.leadEngineer")
+          }
+          saveVariables={{ itemId: itemId }}
+          itemId={itemId}
+          getQueryBy={itemId}
+        />
+      </Paper>
+      <Paper className="mb-3">
+        <Title big align="center">
+          Operator
+        </Title>
+        <Form
+          {...operator}
+        />
+      </Paper>
+      {finalInspection && (
         <Paper className="mb-3">
           <Title big align="center">
             Quality Control

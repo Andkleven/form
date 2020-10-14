@@ -180,39 +180,39 @@ export default ({
   // _______________________________________________________________________
   function projectsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.data.projectName.toUpperCase();
-    const bandB = b.data.projectName.toUpperCase();
+    a = a.data.projectNumber.toUpperCase();
+    b = b.data.projectNumber.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (a > b) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (a < b) {
       comparison = -1;
     }
     return comparison;
   }
   function descriptionsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.data.descriptionNameMaterialNo.toUpperCase();
-    const bandB = b.data.descriptionNameMaterialNo.toUpperCase();
+    a = a.data.descriptionNameMaterialNo.toUpperCase();
+    b = b.data.descriptionNameMaterialNo.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (a > b) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (a < b) {
       comparison = -1;
     }
     return comparison;
   }
   function itemsAlphabetically(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.itemId.toUpperCase();
-    const bandB = b.itemId.toUpperCase();
+    a = a.itemId.toUpperCase();
+    b = b.itemId.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (a > b) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (a < b) {
       comparison = -1;
     }
     return comparison;
@@ -263,9 +263,16 @@ export default ({
               defaultOpen={searchActive}
               key={`${project.data.projectName} ${indexProject} `}
               name={
-                <div className="text-wrap">
-                  {project.data.projectName}
-                  <div className="d-inline text-secondary">
+                <div
+                  className="text-wrap my-2 py-2 my-sm-1 py-sm-1"
+                  style={{ wordBreak: "break-word" }}
+                >
+                  <b>{`${project.data.projectNumber}`}</b>
+                  {` ∙ ${project.data.projectName}`}
+                  <div
+                    className="d-inline text-secondary"
+                    style={{ wordBreak: "break-word" }}
+                  >
                     {`${
                       (project.leadEngineerDone &&
                         numberOfChildren(data, project.data.projectName) &&
@@ -280,10 +287,7 @@ export default ({
                 </div>
                 // + `(${ countProjectItems(project) } items)`
               }
-              badge={
-                project.leadEngineerDone &&
-                newInProject(project, user) && <Badge>New</Badge>
-              }
+              badge={project.leadEngineerDone && newInProject(project, user)}
             >
               <div className="d-flex align-items-center flex-wrap">
                 {props.access && props.access.specs && (
@@ -429,11 +433,7 @@ export default ({
                           </div>
                         </div>
                       }
-                      badge={
-                        newInDescription(description, user) && (
-                          <Badge>New</Badge>
-                        )
-                      }
+                      badge={newInDescription(description, user)}
                     >
                       <ItemGrid className="mb-n3">
                         {props.access &&

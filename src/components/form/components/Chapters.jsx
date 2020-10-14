@@ -36,7 +36,10 @@ export default React.memo(
     allData,
     itemIdsRef,
     itemId,
-    specRemovePath
+    specRemovePath,
+    stagesChapter,
+    exitOnSave,
+    setWhen
   }) => {
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
@@ -88,6 +91,7 @@ export default React.memo(
           if (allRequiredFieldSatisfied && readOnlySheet) {
             chapter = null;
           } else {
+            stagesChapter.current[thisStage] = true;
             chapter = pageInfo.pages.map((info, index) => {
               let showEditButton = !notEditButton && !index ? true : false;
               let showSubmitButton =
@@ -123,6 +127,8 @@ export default React.memo(
                   itemIdsRef={itemIdsRef}
                   itemId={itemId}
                   specRemovePath={specRemovePath}
+                  exitOnSave={exitOnSave}
+                  setWhen={setWhen}
                 />
               );
             });

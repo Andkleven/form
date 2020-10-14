@@ -5,6 +5,7 @@ import { useSpring, animated } from "react-spring";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import gql from "graphql-tag";
+import { objectifyQuery } from "functions/general";
 import { useQuery } from "react-apollo";
 import objectPath from "object-path";
 
@@ -34,6 +35,7 @@ const queries = {
         items {
           id
           itemId
+          stage
         }
       }
     }
@@ -106,12 +108,10 @@ export default ({ itemIdsRef }) => {
   });
 
   useEffect(() => {
-    if (projectQuery && itemIdsRef) {
-      itemIdsRef.current =
-        projectQuery &&
-        objectPath.get(projectQuery, "data.projects.0.descriptions");
+    if (descriptionQuery && itemIdsRef) {
+      itemIdsRef.current = objectifyQuery(descriptionQuery.data);
     }
-  }, [projectQuery, itemIdsRef]);
+  }, [descriptionQuery, itemIdsRef]);
 
   // const itemQuery = useQuery(queries.item, {
   //   variables: {

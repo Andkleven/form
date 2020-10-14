@@ -27,6 +27,7 @@ const InputShell = ({
   showComment,
   setShowComment,
   documentDataDispatch,
+  batchClick,
   ...props
 }) => {
   const customLabelTypes = ["checkbox", "radio", "switch"];
@@ -34,7 +35,7 @@ const InputShell = ({
   return !customLabelTypes.includes(props.type) ? (
     <div className={props.className} style={props.style}>
       <div className={props.tight ? "mb-0" : "mb-3"}>
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-sm-flex justify-content-between align-items-center">
           {(props.label || props.prepend) && (
             <label
               htmlFor={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
@@ -47,49 +48,43 @@ const InputShell = ({
               {props.label || props.prepend}
             </label>
           )}
-          {(props.TinyButtons || !noComment) && (
-            <div
-              className={`${!props.label && "ml-auto"}`}
-              style={{ marginBottom: "9px" }}
-            >
-              {!noComment && (
-                <TinyButton
-                  // {...props}
-                  onClick={() => {
-                    if (showComment && hasComment) {
-                      if (
-                        window.confirm(
-                          "The comment will be gone forever. Are you sure?"
-                        )
-                      ) {
-                        setShowComment(!showComment);
-                        documentDataDispatch({
-                          type: "add",
-                          newState: "",
-                          path: `${props.path}Comment`,
-                          notReRender: true
-                        });
-                      }
-                    } else {
-                      setShowComment(!showComment);
-                    }
-                  }}
-                  icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
-                  className={`text-${showComment ? "danger" : "info"}`}
-                  // iconSize="md"
-                  // tooltip={`${showComment ? "Remove" : "Add"} comment`}
-                  style={{ position: "relative", top: "2em" }}
-                >
-                  {`${showComment ? "Delete" : "Add"} comment`}
-                </TinyButton>
-              )}
-              {props.TinyButtons}
-            </div>
-          )}
+          <span
+            className="d-none d-sm-inline ml-auto"
+            style={{ position: "relative", bottom: ".3em" }}
+          >
+            <Toolbar
+              noComment={noComment}
+              hasComment={hasComment}
+              showComment={showComment}
+              setShowComment={setShowComment}
+              documentDataDispatch={documentDataDispatch}
+              batchClick={batchClick}
+              {...props}
+            />
+          </span>
         </div>
         {props.children}
-        {props.BigButtons}
       </div>
+      <span
+        className="d-inline d-sm-none mt-n3"
+        style={{
+          position: "relative",
+          bottom: props.BigButtons ? "-.35em" : ".75em",
+          right: ".55em"
+          // right: ".075em"
+        }}
+      >
+        <Toolbar
+          noComment={noComment}
+          hasComment={hasComment}
+          showComment={showComment}
+          setShowComment={setShowComment}
+          documentDataDispatch={documentDataDispatch}
+          batchClick={batchClick}
+          {...props}
+        />
+      </span>
+      {props.BigButtons && <div className="mt-3">{props.BigButtons}</div>}
     </div>
   ) : (
     <div>
@@ -98,6 +93,72 @@ const InputShell = ({
         {props.BigButtons}
       </div>
     </div>
+  );
+};
+
+const Toolbar = ({
+  noComment,
+  hasComment,
+  showComment,
+  setShowComment,
+  documentDataDispatch,
+  batchClick,
+  ...props
+}) => {
+  return (
+    (props.TinyButtons || !noComment) && (
+      <span
+        className={`${!props.label && "ml-auto"}`}
+        style={{ marginBottom: "9px" }}
+        {...props}
+      >
+        {!noComment && (
+          <TinyButton
+            // {...props}
+            onClick={() => {
+              if (showComment && hasComment) {
+                if (
+                  window.confirm(
+                    "The comment will be gone forever. Are you sure?"
+                  )
+                ) {
+                  setShowComment(!showComment);
+                  documentDataDispatch({
+                    type: "add",
+                    newState: "",
+                    path: `${props.path}Comment`,
+                    notReRender: true
+                  });
+                }
+              } else {
+                setShowComment(!showComment);
+              }
+            }}
+            icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
+            className={`text-${showComment ? "danger" : "info"}`}
+            // iconSize="md"
+            // tooltip={`${showComment ? "Remove" : "Add"} comment`}
+            style={{ position: "relative", top: "2em" }}
+          >
+            {`${showComment ? "Remove" : ""} Comment`}
+          </TinyButton>
+        )}
+        {batchClick && (
+          <TinyButton
+            // {...props}
+            onClick={batchClick}
+            // icon={["fas", `comment-${showComment ? "minus" : "plus"}`]}
+            className={`text-dark`}
+            // iconSize="md"
+            // tooltip={`${showComment ? "Remove" : "Add"} comment`}
+            style={{ position: "relative", top: "2em" }}
+          >
+            Batch
+          </TinyButton>
+        )}
+        {props.TinyButtons}
+      </span>
+    )
   );
 };
 
@@ -120,7 +181,16 @@ const Comment = ({ onKeyPress, onChange, defaultValue, ...props }) => {
   );
 };
 
-const InputType = props => {
+const InputType = ({
+  className,
+  noComment,
+  hasComment,
+  showComment,
+  setShowComment,
+  documentDataDispatch,
+  batchClick,
+  ...props
+}) => {
   // const isDateRelated = ["date", "datetime-local"].includes(props.type);
   // const hasBadCalendar = [isSafari, isChrome, isFirefox].includes(true);
   // const isDesktop = !isMobile;
@@ -128,7 +198,30 @@ const InputType = props => {
   const readOnly = props.readOnlyFields ? props.readOnlyFields : props.readOnly;
   const disabled = readOnly;
   if (["checkbox", "radio", "switch"].includes(props.type)) {
-    return <CheckInput {...props} />;
+    return (
+      <div className="d-sm-flex align-items-start">
+        <CheckInput {...props} />
+        <span
+          // className="d-inline d-sm-none mt-n3"
+          style={{
+            position: "relative",
+            // bottom: props.BigButtons ? "-.35em" : ".75em",
+            right: ".55em"
+          }}
+        >
+          <Toolbar
+            className="ml-sm-auto"
+            noComment={noComment}
+            hasComment={hasComment}
+            showComment={showComment}
+            setShowComment={setShowComment}
+            documentDataDispatch={documentDataDispatch}
+            batchClick={batchClick}
+            {...props}
+          />
+        </span>
+      </div>
+    );
   } else if (props.type === "select") {
     return <SelectInput {...props} disabled={disabled} />;
   } else if (props.type === "file") {
@@ -203,6 +296,12 @@ export default ({
         isValid={props.isValid || valid}
         isInvalid={props.isInvalid || ([true, false].includes(valid) && !valid)}
         onKeyPress={onKeyPress}
+        noComment={noComment}
+        hasComment={hasComment}
+        showComment={showComment}
+        setShowComment={setShowComment}
+        documentDataDispatch={documentDataDispatch}
+        batchClick={props.batchClick}
       />
       {!!feedback && (
         <div className={`text-${valid ? "success" : "danger"}`}>

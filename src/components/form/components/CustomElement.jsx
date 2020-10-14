@@ -63,12 +63,12 @@ const CustomLead = props => {
   const [layersThickness, setLayersThickness] = useState(0);
 
   const thickness = useCallback(() => {
-    let toleranceMinTemporary = math["mathToleranceMin"](
+    let toleranceMinTemporary = math["mathMin"](
       documentData.current,
       props.repeatStepList,
       0
     );
-    let toleranceMaxTemporary = math["mathToleranceMax"](
+    let toleranceMaxTemporary = math["mathMax"](
       documentData.current,
       props.repeatStepList,
       0

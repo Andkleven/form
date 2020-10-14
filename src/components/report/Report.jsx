@@ -16,8 +16,12 @@ import { Button } from "react-bootstrap";
 import query from "graphql/query";
 import { useQuery } from "react-apollo";
 import Loading from "components/Loading";
+import moment from "moment";
 
 const fontsize = 7;
+
+const time = string => moment(string).format("DD.MM.YYYY HH:mm");
+const date = string => moment(string).format("DD.MM.YYYY");
 
 export const Report = ({ project, description, item }) => {
   const p = project && project.data;
@@ -35,6 +39,17 @@ export const Report = ({ project, description, item }) => {
     op = i.operator;
     opData = JSON.parse(op.data);
   }
+  let qc = null;
+  let qcData = null;
+  if (i.finalInspectionQualityControl) {
+    qc = i.finalInspectionQualityControl;
+    qcData = JSON.parse(qc.data);
+  }
+
+  console.log("Item", i);
+  console.log("leData", leData);
+  console.log("opData", opData);
+  console.log("qcData", qcData);
 
   // const qc =
   if (p && d && i) {
@@ -63,18 +78,18 @@ export const Report = ({ project, description, item }) => {
               <Entry label="Project Number" values={p.projectNumber} />
               <Entry label="Client" values={p.client} />
               <Entry label="ITP Document Number" values={p.itpDocumentNumber} />
-              <Entry label="Project Manager" values={p.projectManager} />
-              <Entry label="Supervisor" values={p.supervisor} />
-              <Entry label="Lead Engineer" values={p.leadEngineer} />
-              <Entry
+              {/* <Entry label="Project Manager" values={p.projectManager} /> */}
+              {/* <Entry label="Supervisor" values={p.supervisor} /> */}
+              {/* <Entry label="Lead Engineer" values={p.leadEngineer} /> */}
+              {/* <Entry
                 label="Supervising Engineer"
                 values={p.supervisingEngineer}
-              />
-              <Entry label="Quality Control" values={p.qualityControl} />
-              <Entry label="Description" values={d.descriptionNameMaterialNo} />
+              /> */}
+              {/* <Entry label="Quality Control" values={p.qualityControl} /> */}
               <Entry label="Geometry" values={d.geometry} />
-              <Entry label="IFS Activity Codes" values={d.ifsActivityCodes} />
-              <Entry label="CPS" values={d.CPS} />
+              <Entry label="Description" values={d.descriptionNameMaterialNo} />
+              {/* <Entry label="IFS Activity Codes" values={d.ifsActivityCodes} /> */}
+              {/* <Entry label="CPS" values={d.CPS} /> */}
             </Col>
             <Col></Col>
           </Row>
@@ -149,32 +164,6 @@ export const Report = ({ project, description, item }) => {
                         opData.blastMediaConductivity &&
                           `${opData.blastMediaConductivity}µS/cm`,
                         opData.blastMediaConductivityUserField
-                      ]}
-                    />
-                  ) : null}
-                  {leData.surfaceProfileMin ? (
-                    <Entry
-                      label="Surface Profile Min (Roughness)"
-                      values={[
-                        "ISO 8503-4",
-                        leData.surfaceProfileMin &&
-                          `${leData.surfaceProfileMin}µm`,
-                        opData.surfaceProfileMin &&
-                          `${opData.surfaceProfileMin}µm`,
-                        opData.surfaceProfileMinUserField
-                      ]}
-                    />
-                  ) : null}
-                  {leData.surfaceProfileMax ? (
-                    <Entry
-                      label="Surface Profile Max (Roughness)"
-                      values={[
-                        "ISO 8503-4",
-                        leData.surfaceProfileMax &&
-                          `${leData.surfaceProfileMax}Rz`,
-                        opData.surfaceProfileMax &&
-                          `${opData.surfaceProfileMax}Rz`,
-                        opData.surfaceProfileMaxUserField
                       ]}
                     />
                   ) : null}
@@ -290,37 +279,145 @@ export const Report = ({ project, description, item }) => {
               <Row>
                 <Col>
                   {/* TODO: Conditional name */}
-                  <B>Rubber Cement</B>
-                </Col>
-                <Col>
-                  <B>Mix Date</B>
+                  <Entry
+                    label="Rubber Cement"
+                    values={["Mix Date"]}
+                    flippedMargin
+                  />
+                  <Line />
                 </Col>
               </Row>
-              <Line />
               {/* TODO: Add entries */}
+              {/* rubberCementOperators */}
+              {op &&
+                op.rubberCementOperators.map((obj, index) => {
+                  const r = JSON.parse(obj.data);
+                  return (
+                    <Row key={`rubber-cement-${index}`}>
+                      <Col>
+                        <Row>
+                          <Col>
+                            <P style={{ marginBottom: 4 }}>Test</P>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col>
+                        <Row>
+                          <Col>
+                            <P style={{ marginBottom: 4, marginLeft: 3.5 }}>
+                              Test
+                            </P>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <P style={{ marginBottom: 4, marginLeft: 3.5 }}>
+                              Test
+                            </P>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <P style={{ marginBottom: 4, marginLeft: 3.5 }}>
+                              Test
+                            </P>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  );
+                })}
 
               {/* TODO: Add conditional visibility */}
               {/* TODO: Create Vulc loop */}
-              <P>{`Vulcanization step ${1}`}</P>
-              <Line />
+              {op &&
+                op.vulcanizationOperators.map((obj, index) => {
+                  const steps = le.vulcanizationSteps;
+                  console.log(steps);
+                  const v = JSON.parse(obj.data);
+                  return (
+                    <Row key={`vulcanization-step-${index}`}>
+                      <Col>
+                        <Row>
+                          <Col>
+                            <P style={{ marginTop: 4 }}>{`Vulcanization step ${
+                              index + 1
+                            }`}</P>
+                            <Line />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Entry
+                              label="Vulcanization option"
+                              values={[
+                                JSON.parse(steps[index].data)
+                                  .vulcanizationOption
+                              ]}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Entry
+                              label="Autoclave number"
+                              values={[v.autoclaveNumber]}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Entry
+                              label="Start time"
+                              values={[time(v.startTime)]}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Entry
+                              label="Stop time"
+                              values={[time(v.stopTime)]}
+                            />
+                          </Col>
+                        </Row>
+                      </Col>
+                      {/* "{"startTime": "2020-08-31T11:47", "stopTime": "2020-09-01T07:24", "autoclaveNumberUserField": "admin", "startTimeUserField": "admin", "stopTimeUserField": "admin"}" */}
+                    </Row>
+                  );
+                })}
               {/* TODO: Add entries */}
 
               {/* TODO: Add conditional visibility */}
               <Row>
                 <Col>
-                  <B>Final Measurements</B>
-                </Col>
-                <Col>
-                  {/* TODO: Add actual min-max */}
-                  <P>{`(min-max: ${1}mm-${999}mm)`}</P>
+                  <Entry
+                    label="Steel measurements"
+                    // TODO: Add actual min-max
+                    values={[`(min-max: ${1}mm-${999}mm)`]}
+                    flippedMargin
+                  />
                 </Col>
               </Row>
               <Line />
-              {/* TODO: Add entries */}
+              {op &&
+                op.measurementPointActualTdvs.map((obj, index) => {
+                  const m = JSON.parse(obj.data);
+                  return (
+                    <Row key={`measurement-point-actual-tdv-${index}`}>
+                      <Col>
+                        <Entry
+                          label={`Reference point ${m.referencePoint}`}
+                          values={[`${m.measurementPointActual}mm`]}
+                        />
+                      </Col>
+                    </Row>
+                  );
+                })}
             </Col>
           </Row>
 
-          <Subtitle>Touch-Up</Subtitle>
+          {/* <Subtitle>Touch-Up</Subtitle>
           <Line />
           <Row>
             <Col>
@@ -333,7 +430,7 @@ export const Report = ({ project, description, item }) => {
                 ]}
               />
             </Col>
-          </Row>
+          </Row> */}
 
           <Subtitle>Final Inspection</Subtitle>
           <Line />
@@ -394,7 +491,7 @@ export default ({ project, description, item, ...props }) => {
     return "No item ID received.";
   }
 
-  let { loading, error, data } = useQuery(query["ITEM"], {
+  let { loading, error, data } = useQuery(query["REPORT"], {
     variables: {
       id
     }
@@ -426,13 +523,13 @@ export default ({ project, description, item, ...props }) => {
           ></Report>
         </PDFViewer>
         <div>
-          <pre>{JSON.stringify(JSON.parse(op.data), null, 2)}</pre>
-          {/* <pre>{JSON.stringify(project, null, 2)}</pre>
-          <pre>{JSON.stringify(description, null, 2)}</pre>
-          <pre>{JSON.stringify(item, null, 2)}</pre>
-          <pre>{JSON.stringify(le, null, 2)}</pre>
-          <pre>{JSON.stringify(op, null, 2)}</pre>
-          <pre>{JSON.stringify(data, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(JSON.parse(op.data), null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(project, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(description, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(le, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(op, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         </div>
       </>
     );
@@ -441,7 +538,13 @@ export default ({ project, description, item, ...props }) => {
   return null;
 };
 
-const Entry = ({ label, values, ...props }) => {
+const Entry = ({
+  label,
+  values,
+  tight = false,
+  flippedMargin = false,
+  ...props
+}) => {
   const isNonEmpty = [undefined, null, false, true, ""].includes(values);
   const hasValues = isNonEmpty || (Array.isArray(values) && values.length < 1);
 
@@ -457,7 +560,8 @@ const Entry = ({ label, values, ...props }) => {
     <Row
       {...props}
       style={{
-        marginBottom: 4,
+        marginBottom: flippedMargin || tight ? 0 : 4,
+        marginTop: flippedMargin ? 4 : 0,
         ...props.style
       }}
     >

@@ -24,7 +24,8 @@ export default ({ id, show, setShow, children }) => {
       variables: {
         id: id,
         stage: repairStage,
-        repair: true
+        repair: true,
+        deleteSeen: true
       }
     });
   };

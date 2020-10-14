@@ -9,7 +9,7 @@ export const ReportButton = ({ project, description, item, ...props }) => {
   // };
 
   // Switch these for development
-  // const [show, setShow] = useState(item.itemId === "ItemID1");
+  // const [show, setShow] = useState(item.itemId === "HD-2-A10-34");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

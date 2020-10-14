@@ -48,7 +48,7 @@
               "unit": "°C",
               "prepend": "Min",
               "type": "Number",
-              "subtext": "ISP 8502-4",
+              "subtext": "ISO 8502-4",
               "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
@@ -66,6 +66,16 @@
                 "b2P": "SO 8502-4",
                 "dual": "SO 8502-4"
               },
+              "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
+            },
+            {
+              "fieldName": "dewPoint",
+              "label": "Dew Point",
+              "default": 12,
+              "unit": "°C",
+              "prepend": "Min",
+              "type": "Number",
+              "subtext": "ISO 8502-4, Dew Point Temperature",
               "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
@@ -103,54 +113,6 @@
                 "coatedItem": true,
                 "mould": true
               }
-            },
-            {
-              "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile (Roughness)",
-              "prepend": "Min",
-              "unit": {
-                "coatedItem": "Rz",
-                "mould": "Rz",
-                "slipon2": "Ra",
-                "slipon3": "Ra",
-                "b2P": "Ra",
-                "dual": "Ra"
-              },
-              "default": {
-                "coatedItem": 50,
-                "mould": 50,
-                "slipon2": 3,
-                "slipon3": 3,
-                "b2P": 5,
-                "dual": 5
-              },
-              "type": "Number",
-              "subtext": "ISO 8503-4",
-              "writeOnlyFieldIf": "leadEngineer.data.additionalTests"
-            },
-            {
-              "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile (Roughness)",
-              "prepend": "Max",
-              "unit": {
-                "coatedItem": "Rz",
-                "mould": "Rz",
-                "slipon2": "Ra",
-                "slipon3": "Ra",
-                "b2P": "Ra",
-                "dual": "Ra"
-              },
-              "default": {
-                "coatedItem": 100,
-                "mould": 100,
-                "slipon2": 15,
-                "slipon3": 15,
-                "b2P": 15,
-                "dual": 15
-              },
-              "type": "Number",
-              "subtext": "ISO 8503-4",
-              "writeOnlyFieldIf": "leadEngineer.data.additionalTests"
             },
             {
               "fieldName": "solubleSaltLevel",
@@ -317,39 +279,6 @@
           "mutation": "LEAD_ENGINEER",
           "fields": [
             {
-              "fieldName": "orderedTotalRubberThickness",
-              "label": "Ordered Total Rubber Thickness",
-              "type": "number",
-              "required": true,
-              "unit": "mm"
-            },
-            {
-              "fieldName": "toleranceMinPercent",
-              "prepend": "Min",
-              "unit": "%",
-              "type": "Number"
-            },
-            {
-              "fieldName": "toleranceMin",
-              "prepend": "Tolerated Minimum",
-              "unit": "mm",
-              "math": "mathToleranceMin",
-              "type": "number"
-            },
-            {
-              "fieldName": "toleranceMaxPercent",
-              "prepend": "Max",
-              "unit": "%",
-              "type": "Number"
-            },
-            {
-              "fieldName": "toleranceMax",
-              "math": "mathToleranceMax",
-              "prepend": "Tolerated Maximum",
-              "unit": "mm",
-              "type": "number"
-            },
-            {
               "fieldName": "measurementPoint",
               "label": "Measurement Points",
               "type": "Number",
@@ -395,6 +324,45 @@
             }
           ]
         },
+        {
+          "queryPath": "leadEngineer",
+          "fields": [
+            {
+              "fieldName": "orderedTotalRubberThickness",
+              "label": "Ordered Total Rubber Thickness",
+              "type": "number",
+              "required": true,
+              "unit": "mm"
+            },
+            {
+              "fieldName": "toleranceMinPercent",
+              "prepend": "Min",
+              "unit": "%",
+              "type": "Number"
+            },
+            {
+              "fieldName": "toleranceMin",
+              "prepend": "Tolerated Minimum",
+              "unit": "mm",
+              "math": "mathToleranceMin",
+              "type": "number"
+            },
+            {
+              "fieldName": "toleranceMaxPercent",
+              "prepend": "Max",
+              "unit": "%",
+              "type": "Number"
+            },
+            {
+              "fieldName": "toleranceMax",
+              "math": "mathToleranceMax",
+              "prepend": "Tolerated Maximum",
+              "unit": "mm",
+              "type": "number"
+            }
+          ]
+        },
+
         {
           "queryPath": "leadEngineer.rubberCements",
           "delete": true,
@@ -574,24 +542,6 @@
                   "label": "Exclude layer from calculations",
                   "type": "checkbox",
                   "indent": "true"
-                },
-                {
-                  "page": { "coatedItem": true },
-                  "queryPath": "cumulativeThickness",
-
-                  "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
-                  "fields": [
-                    {
-                      "fieldName": "cumulativeThickness",
-                      "label": "Cumulative Thickness {}",
-                      "math": "mathCumulativeThickness",
-                      "indexVariableLabel": true,
-                      "decimal": 1,
-                      "type": "Number",
-                      "indent": "true",
-                      "size": "md"
-                    }
-                  ]
                 }
               ]
             }

@@ -336,7 +336,7 @@ export const calculateMaxMin = (
   editRepeatStepListMax,
   calculateMax,
   repeatStepList,
-  data,
+  specData,
   allData,
   documentData,
   type
@@ -345,7 +345,7 @@ export const calculateMaxMin = (
   let newMax;
   if (["datetime-local", "date"].includes(type) && (min !== undefined || routeToSpecMin || routeToMin)) {
     if (routeToSpecMin || routeToMin) {
-      newMin = moment(findValue(routeToMin ? documentData : data, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax))
+      newMin = moment(findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax))
     } else { 
       newMin = moment()
     }
@@ -360,11 +360,11 @@ export const calculateMaxMin = (
     }
   } else if (routeToSpecMin || routeToMin) {
     newMin = Number(
-      findValue(routeToMin ? documentData : data, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMin)
+      findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMin)
     );
   } else if (calculateMin) {
     newMin = Number(
-      Math[calculateMin](allData, data, repeatStepList, documentData)
+      Math[calculateMin](allData, specData, repeatStepList, documentData)
     );
   } else {
     newMin = min;
@@ -372,7 +372,7 @@ export const calculateMaxMin = (
   
   if (["datetime-local", "date"].includes(type) && (max !== undefined  || routeToSpecMax || routeToMax)) {
     if (routeToSpecMax || routeToMax) {
-      newMax = moment(findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax))
+      newMax = moment(findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax))
     } else { 
       newMax = moment()
     }
@@ -386,11 +386,11 @@ export const calculateMaxMin = (
     }
   } else if (routeToSpecMax || routeToMax) {
     newMax = Number(
-      findValue(routeToMax ? documentData : data, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax)
+      findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax)
     );
   } else if (calculateMax) {
     newMax = Number(
-      Math[calculateMax](allData, data, repeatStepList, documentData)
+      Math[calculateMax](allData, specData, repeatStepList, documentData)
     );
   } else {
     newMax = max;

@@ -16,9 +16,9 @@ export default ({ iconProps, ...props }) => {
       <Button
         variant="link"
         type={props.type ? props.type : "button"}
-        className={`py-0 m-0 ml-1 ${
-          props.noPadding ? `px-0` : `px-1`
-        } text-center ${props.className}`}
+        className={`py-0 m-0 ${props.noPadding ? `px-0` : `px-1`} text-center ${
+          props.className
+        }`}
         onClick={props.onClick}
         // style={{ minWidth: props.noPadding ? `` : `1.8em`, ...props.style }}
         // onMouseEnter={() => setShowChildren(true)}

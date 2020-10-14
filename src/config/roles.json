@@ -51,7 +51,7 @@
       "itemWrite": true,
       "itemEdit": false,
       "itemRepair": false,
-      "finalInspection": true,
+      "finalInspection": false,
       "finished": true
     }
   },

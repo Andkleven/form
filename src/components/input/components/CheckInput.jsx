@@ -1,5 +1,5 @@
 import React from "react";
-import TinyButton from "components/button/TinyButton";
+// import TinyButton from "components/button/TinyButton";
 import { Form } from "react-bootstrap";
 
 export default props => (
@@ -36,7 +36,7 @@ export default props => (
           </>
         ) : null}
       </div>
-      {props.batchClick && (
+      {/* {props.batchClick && (
         <TinyButton
           className="bg-light text-secondary"
           type="button"
@@ -45,8 +45,8 @@ export default props => (
         >
           Batch
         </TinyButton>
-      )}
-      {props.TinyButtons}
+      )} */}
+      {/* {props.TinyButtons} */}
     </div>
     {props.subtext && (
       <Form.Text className="text-muted">{props.subtext}</Form.Text>

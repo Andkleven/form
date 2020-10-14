@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import moment from "moment";
-import BatchButton from "components/button/BatchButton";
+// import BatchButton from "components/button/BatchButton";
 // import Duplicate from "../widgets/Duplicate";
 export default ({
   type,
@@ -80,7 +80,9 @@ export default ({
               rows={type === "comment" ? "5" : undefined}
               min={props.ignoreMin ? undefined : min}
               max={props.ignoreMax ? undefined : max}
-              step={step ? step : undefined}
+              step={
+                unit === "mm" ? 0.1 : !!unit ? 0.01 : step ? step : undefined
+              }
               placeholder={placeholder}
               onKeyPress={onKeyPress}
             ></Form.Control>
@@ -94,7 +96,7 @@ export default ({
                 {append}
               </InputGroup.Append>
             )}
-            <BatchButton batchClick={batchClick} />
+            {/* <BatchButton batchClick={batchClick} /> */}
           </InputGroup>
         </div>
         {subtext && <Form.Text className="text-muted">{subtext}</Form.Text>}

@@ -16,6 +16,8 @@ import { stringifyQuery, isStringInstance } from "functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
 import { RouteGuard } from "components/Dialog";
 import Loading from "components/Loading";
+import { USER } from "constants.js";
+// import { useHistory } from "react-router-dom";
 
 const cloneDeep = require("clone-deep");
 
@@ -103,8 +105,11 @@ export default ({
   addValuesToData,
   removeEmptyField,
   itemIdsRef,
-  itemId
+  itemId,
+  exitOnSave = false
 }) => {
+  const stagesChapter = useRef({});
+  const userInfo = JSON.parse(localStorage.getItem(USER));
   const [loading, setLoading] = useState(true);
   const timer = useRef();
   const [editChapter, setEditChapter] = useState(0);
@@ -242,10 +247,21 @@ export default ({
             objectPath.set(documentData.current, key, addValuesToData[key]);
           });
         }
-        let variables = stringifyQuery(
-          cloneDeep(documentData.current),
-          removeEmptyField
-        );
+        if (stage && submit) {
+          let thisStage = editChapter
+            ? Object.keys(stagesChapter.current)[editChapter - 1]
+            : stage;
+          let key = Object.keys(documentData.current)[0];
+          let path;
+          if (Array.isArray(documentData.current[key])) {
+            path = `${key}.0.data.${thisStage}`;
+          } else {
+            path = `${key}.data.${thisStage}`;
+          }
+          objectPath.set(documentData.current, path, { [new Date()]: userInfo.username });
+        }
+        let variables = stringifyQuery(cloneDeep(documentData.current), removeEmptyField);
+
         mutation({
           variables: {
             ...variables,
@@ -280,7 +296,8 @@ export default ({
       specData,
       stage,
       saveVariablesForm,
-      renderFunction
+      renderFunction,
+      userInfo
     ]
   );
 
@@ -304,6 +321,8 @@ export default ({
       setLoading(true);
     };
   }, [timer, setLoading]);
+
+  // let history = useHistory();
 
   if (data) {
     return (
@@ -333,6 +352,12 @@ export default ({
             ref={formRef}
             onSubmit={e => {
               formSubmit(e);
+              // TODO: Make exitOnSave bypass RouteGuard
+              // (or happen after when is set to true)
+              // if (exitOnSave) {
+              //   setWhen(false);
+              //   history.push("/");
+              // }
             }}
             onChange={() => {
               if (!!!screenshotData.current) {
@@ -386,7 +411,10 @@ export default ({
               readOnlySheet={readOnlySheet}
               itemIdsRef={itemIdsRef}
               itemId={itemId}
+              stagesChapter={stagesChapter}
               specRemovePath={specRemovePath}
+              exitOnSave={exitOnSave}
+              setWhen={setWhen}
             />
             {loadingMutation && <Loading />}
             {errorMutation && (

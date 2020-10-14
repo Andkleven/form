@@ -110,7 +110,7 @@
             },
             {
               "fieldName": "descriptionNameMaterialNo",
-              "label": "Description name/Material number",
+              "label": "Description name(Coating)/Material number(Packer)",
               "required": true
             }
           ]
@@ -118,15 +118,17 @@
         {
           "repeatStartWith": 1,
           "delete": true,
-          "addButton": "Specification",
+          "addButton": "Reference documents/codes",
           "queryPath": ["projects.0.descriptions", "specifications"],
           "fields": [
             {
               "fieldName": "specificationTitle",
-              "label": "Title {}",
-              "indexVariableLabel": true
+              "label": "Reference documents/codes",
+              "type": "select",
+              "option": ["Drawing no.", "CPS", "ITP", "IFS activity codes"]
             },
             {
+              "noComment": true,
               "fieldName": "specificationValue",
               "prepend": "value"
             }

@@ -24,7 +24,6 @@ const cloneDeep = require("clone-deep");
 
 export default () => {
   const { id } = useParams();
-  const [_id, set_id] = useState(Number(id));
   const [counter, setCounter] = useState(1);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [reRender, setReRender] = useState(false);
@@ -35,9 +34,17 @@ export default () => {
   const setState = counter => {
     setCounter(counter);
   };
-  const { loading, error, data } = useQuery(query[createProject.query], {
-    variables: { id: _id }
-  });
+  const { loading, error, data, refetch } = useQuery(
+    query[createProject.query],
+    {
+      variables: { id: id }
+    }
+  );
+  useEffect(() => {
+    if (data && !loading && !error) {
+      refetch();
+    }
+  }, [refetch, data, loading, error]);
 
   const pathExists = useCallback(
     path => {
@@ -56,7 +63,7 @@ export default () => {
   ) => {
     const oldData = cache.readQuery({
       query: query["GET_ORDER_GEOMETRY"],
-      variables: { id: _id }
+      variables: { id: id }
     });
     oldData.projects[0].descriptions[
       counter - 1
@@ -70,7 +77,7 @@ export default () => {
     );
     cache.writeQuery({
       query: query["GET_ORDER_GEOMETRY"],
-      variables: { id: _id },
+      variables: { id: id },
       data: {
         projects: oldData.projects
       }
@@ -80,7 +87,7 @@ export default () => {
   const update = (cache, { data }) => {
     const oldData = cache.readQuery({
       query: query[createProject.query],
-      variables: { id: _id }
+      variables: { id: id }
     });
     let array = objectPath.get(oldData, createProject.queryPath);
     let index = array.findIndex(
@@ -112,10 +119,11 @@ export default () => {
 
   useEffect(() => {
     setFixedData(objectifyQuery(data));
-    if (data && objectPath.get("projects.0.id", data)) {
-      set_id(data.projects[0].id);
+    if (data && objectPath.get(data, "projects.0.id") && Number(id) === 0) {
+      history.push(`/project/${data.projects[0].id}`);
     }
   }, [
+    id,
     reRender,
     loading,
     error,
@@ -182,13 +190,12 @@ export default () => {
 
   const onlyUnique = () => {
     let onlyUnique = true;
+
     data.projects.forEach(project => {
-      project.descriptions.forEach(description => {
-        description.items.forEach(item => {
-          if (!item.unique) {
-            onlyUnique = false;
-          }
-        });
+      project.descriptions[counter - 1].items.forEach(item => {
+        if (!item.unique) {
+          onlyUnique = false;
+        }
       });
     });
     return onlyUnique;
@@ -258,14 +265,14 @@ export default () => {
           reRender={() => setReRender(!reRender)}
           data={fixedData}
           repeatStepList={[counter - 1]}
-          getQueryBy={_id}
+          getQueryBy={id}
           optionsQuery={true}
         />
         {geometryData && geometryData.items && geometryData.items.length ? (
           <>
             <ItemUpdate
               foreignKey={geometryData.id}
-              getQueryBy={_id}
+              getQueryBy={id}
               counter={counter - 1}
               geometry={geometryData.data.geometry}
               setStage={fixedData.projects[0].leadEngineerDone}
@@ -294,12 +301,12 @@ export default () => {
             </DepthButton>
             <ItemList
               className="pt-1"
-              getQueryBy={_id}
+              getQueryBy={id}
               counter={counter - 1}
               items={geometryData.items}
               submitItem={item => {
                 history.push(
-                  `/lead-engineer/${_id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
+                  `/lead-engineer/${id}/${geometryData.id}/${item.id}/1/${geometryData.data.geometry}`
                 );
               }}
               submitDelete={id => {
@@ -311,10 +318,13 @@ export default () => {
           <>
             <ItemUpdate
               foreignKey={geometryData.id}
-              getQueryBy={_id}
+              getQueryBy={id}
               counter={counter - 1}
               geometry={geometryData.data.geometry}
-              setStage={fixedData["projects"][0]["leadEngineerDone"]}
+              setStage={
+                fixedData &&
+                objectPath.get(fixedData, "projects.0.leadEngineerDone")
+              }
             />
             {projectExists && <ItemCounter className="my-3" />}
           </>

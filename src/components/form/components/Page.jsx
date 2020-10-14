@@ -721,12 +721,22 @@ delete: deleteButton
     [customComponent, jsonVariables]
   );
 
+  // let history = useHistory();
+
   const SubmitButton = () => {
     return (
       <DepthButton
         iconProps={{ icon: ["fas", "check"], className: "text-success" }}
         short
         type="submit"
+        // onClick={
+        //   props.exitOnSave
+        //     ? () => {
+        //         props.setWhen(false);
+        //         history.push("/");
+        //       }
+        //     : () => {}
+        // }
       >
         Submit
       </DepthButton>
