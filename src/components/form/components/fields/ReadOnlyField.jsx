@@ -24,7 +24,8 @@ export default ({ backendData, ...props }) => {
       props.repeatStepList,
       props.decimal ? props.decimal : 0,
       mathStore.current,
-      props.jsonVariables
+      props.jsonVariables,
+      props.specData
     );
     mathDispatch({ path: props.path, newState: getValueFromMath });
     setValue(getValueFromMath);
@@ -32,6 +33,7 @@ export default ({ backendData, ...props }) => {
       func();
     });
   }, [
+    props.specData,
     documentData,
     props.decimal,
     props.math,

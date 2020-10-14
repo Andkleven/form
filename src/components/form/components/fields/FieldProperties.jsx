@@ -25,16 +25,17 @@ import {
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 import useHidden from "functions/useHidden";
+import ViewPdf from "components/input/components/ViewPdf";
 
 export default React.memo(({ ...props }) => {
   const {
     documentData,
     renderFunction,
     documentDataDispatch,
-    resetState
+    resetState,
+    mathStore
   } = useContext(DocumentDataContext);
   const { editChapter, finalChapter } = useContext(ChapterContext);
-
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
       return `${props.path}.${props.fieldName}`;
@@ -43,6 +44,8 @@ export default React.memo(({ ...props }) => {
   }, [props.path, props.fieldName, props.type]);
 
   const [state, setState] = useState("");
+  const [min, setMin] = useState(null);
+  const [max, setMax] = useState(null);
   const hidden = useHidden(props.writeOnlyFieldIf, [
     `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
   ]);
@@ -155,45 +158,97 @@ export default React.memo(({ ...props }) => {
     props.jsonVariables
   ]);
 
-  const { min, max } = useMemo(
-    () =>
-      calculateMaxMin(
-        getProperties(props.min, props.jsonVariables),
-        props.routeToSpecMin,
-        props.editRepeatStepListMin,
-        getProperties(props.calculateMin, props.jsonVariables),
-        getProperties(props.max, props.jsonVariables),
-        props.routeToSpecMax,
-        props.editRepeatStepListMax,
-        getProperties(props.calculateMax, props.jsonVariables),
-        props.repeatStepList,
-        props.specData,
-        props.allData
-      ),
-    [
-      props.jsonVariables,
+  const minMax = useCallback(() => {
+    let { min, max } = calculateMaxMin(
       props.min,
       props.routeToSpecMin,
+      props.routeToMin,
       props.editRepeatStepListMin,
-      props.calculateMin,
+      getProperties(props.calculateMin, props.jsonVariables),
       props.max,
       props.routeToSpecMax,
+      props.routeToMax,
       props.editRepeatStepListMax,
-      props.calculateMax,
+      getProperties(props.calculateMax, props.jsonVariables),
       props.repeatStepList,
       props.specData,
-      props.allData
-    ]
-  );
+      props.allData,
+      documentData.current,
+      props.type
+    );
+    setMin(min || undefined);
+    setMax(max || undefined);
+  }, [
+      props.routeToMin,
+    props.routeToMax,
+    props.type,
+    documentData,
+    props.jsonVariables,
+    props.min,
+    props.routeToSpecMin,
+    props.editRepeatStepListMin,
+    props.calculateMin,
+    props.max,
+    props.routeToSpecMax,
+    props.editRepeatStepListMax,
+    props.calculateMax,
+    props.repeatStepList,
+    props.specData,
+    props.allData
+  ]);
+
+  useEffect(() => {
+    if (min === null && max === null) {
+      minMax();
+    }
+  }, [minMax, min, max]);
+
+  useEffect(() => {
+    if (
+      writeChapter(
+        props.allWaysShow,
+        editChapter,
+        props.thisChapter,
+        finalChapter.current
+      )
+    ) {
+      renderFunction.current[
+        `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+      ] = minMax;
+    }
+    return () => {
+      if (
+        renderFunction.current[
+          `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+        ]
+      ) {
+        // eslint-disable-next-line
+        delete renderFunction.current[
+          `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+        ];
+      }
+    };
+  }, [
+    props.editRepeatStepListRepeat,
+    minMax,
+    getNewPath,
+    props.allWaysShow,
+    editChapter,
+    props.thisChapter,
+    finalChapter,
+    renderFunction,
+    props.routeToSpecMin,
+    props.routeToSpecMax
+  ]);
 
   const subtext = useMemo(
     () =>
       getSubtext(
         getProperties(props.subtext, props.jsonVariables),
-        props.specSubtextList
+        props.specVariableSubtext
           ? findValue(
               props.specData,
-              props.specSubtextList,
+              props.specVariableSubtext,
               props.repeatStepList,
               props.editRepeatStepSubtextList
             )
@@ -201,7 +256,9 @@ export default React.memo(({ ...props }) => {
           ? Math[props.mathSubtext](
               props.specData,
               props.repeatStepList,
-              props.decimal ? props.decimal : 0
+              props.decimal ? props.decimal : 0,
+              mathStore,
+              props.jsonVariables
             )
           : null,
         isNumber(props.maxInput) ? props.maxInput : max,
@@ -213,6 +270,7 @@ export default React.memo(({ ...props }) => {
         props.allData
       ),
     [
+      mathStore,
       props.jsonVariables,
       props.maxInput,
       props.minInput,
@@ -225,7 +283,7 @@ export default React.memo(({ ...props }) => {
       props.repeatStepList,
       props.allData,
       props.specData,
-      props.specSubtextList,
+      props.specVariableSubtext,
       props.editRepeatStepSubtextList,
       props.subtext,
       props.decimal
@@ -345,11 +403,15 @@ export default React.memo(({ ...props }) => {
         value={Math[props.mathSpec](
           props.specData,
           props.repeatStepList,
-          props.decimal ? props.decimal : 0
+          props.decimal ? props.decimal : 0,
+          mathStore,
+          props.jsonVariables
         )}
         label={label}
       />
     );
+  } else if (props.viewPdf) {
+    return <ViewPdf />;
   } else if (props.math) {
     const commonProps = {
       ...props,

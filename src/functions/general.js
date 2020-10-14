@@ -3,6 +3,7 @@ import objectPath from "object-path";
 import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
 import stages from "components/form/stage/stages.json";
+import moment from "moment";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -78,13 +79,14 @@ export const findValue = (
   data,
   oldPath,
   repeatStepList = [],
-  editRepeatStepList = {}
+  editRepeatStepList = {},
+  defaultValue=undefined
 ) => {
   let path = createPath(oldPath, repeatStepList, editRepeatStepList);
   if (emptyField(path)) {
     return null;
   }
-  return objectPath.get(data, path, null);
+  return objectPath.get(data, path, defaultValue);
 };
 
 export const sumFieldInObject = (array, key) => {
@@ -226,15 +228,14 @@ export const getSubtext = (
 ) => {
   let minLocal = subtextMathMin
     ? Math[subtextMathMin](allData, repeatStepList)
-    : isNumber(min)
+    : min
     ? min
     : "";
   let maxLocal = subtextMathMax
     ? Math[subtextMathMax](allData, repeatStepList)
-    : isNumber(max)
+    : max
     ? max
     : "";
-
   let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
   let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
 
@@ -326,41 +327,79 @@ export const getBatchingData = (query, batching) => {
 export const calculateMaxMin = (
   min,
   routeToSpecMin,
+  routeToMin,
   editRepeatStepListMin,
   calculateMin,
   max,
   routeToSpecMax,
+  routeToMax,
   editRepeatStepListMax,
   calculateMax,
   repeatStepList,
   specData,
-  allData
+  allData,
+  documentData,
+  type
 ) => {
   let newMin;
   let newMax;
-  if (routeToSpecMin) {
+  if (["datetime-local", "date"].includes(type) && (min !== undefined || routeToSpecMin || routeToMin)) {
+    if (routeToSpecMin || routeToMin) {
+      newMin = moment(findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax))
+    } else { 
+      newMin = moment()
+    }
+    console.log(newMin)
+    if (min) {
+      newMin.add(min)
+    }
+    if ("datetime-local" === type) {
+      newMin = newMin.format("DD MM YYYY HH:mm");
+    } else {
+      newMin = newMin.format("DD MM YYYY");
+    }
+  } else if (routeToSpecMin || routeToMin) {
     newMin = Number(
-      findValue(specData, routeToSpecMin, repeatStepList, editRepeatStepListMin)
+      findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMin)
     );
   } else if (calculateMin) {
-    newMin = Number(Math[calculateMin](allData, specData, repeatStepList));
+    newMin = Number(
+      Math[calculateMin](allData, specData, repeatStepList, documentData)
+    );
   } else {
     newMin = min;
   }
-  if (routeToSpecMax) {
+  
+  if (["datetime-local", "date"].includes(type) && (max !== undefined  || routeToSpecMax || routeToMax)) {
+    if (routeToSpecMax || routeToMax) {
+      newMax = moment(findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax))
+    } else { 
+      newMax = moment()
+    }
+    if (max) {
+      newMax.add(max)
+    }
+    if ("datetime-local" === type) {
+      newMax = newMax.format("DD MM YYYY HH:mm");
+    } else {
+      newMax = newMax.format("DD MM YYYY");
+    }
+  } else if (routeToSpecMax || routeToMax) {
     newMax = Number(
-      findValue(specData, routeToSpecMax, repeatStepList, editRepeatStepListMax)
+      findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax)
     );
   } else if (calculateMax) {
-    newMax = Number(Math[calculateMax](allData, specData, repeatStepList));
+    newMax = Number(
+      Math[calculateMax](allData, specData, repeatStepList, documentData)
+    );
   } else {
     newMax = max;
   }
   if (isNumber(newMin)) {
-    newMin = Number(newMin.toFixed(1));
+    newMin = Number(newMin);
   }
   if (isNumber(newMax)) {
-    newMax = Number(newMax.toFixed(1));
+    newMax = Number(newMax);
   }
   return { min: newMin, max: newMax };
 };
@@ -442,7 +481,6 @@ export const getDataToBatching = (
       newData,
       Array.isArray(path) ? createPath(path, repeatStepList) : path
     );
-    // console.log(key, newData);
     let mergeData = {};
     objectPath.set(mergeData, key, newData);
     return specData ? mergeData : getBatchingData(mergeData, batchingData);
@@ -461,15 +499,21 @@ export const formDataStructure = (data, path) => {
 export const getRepeatNumber = (
   data,
   repeatGroupWithQuery,
+  repeatGroupWithQueryMath,
   repeatStepList,
   editRepeatStepListRepeat
 ) => {
-  let newValue = findValue(
-    data,
-    repeatGroupWithQuery,
-    repeatStepList,
-    editRepeatStepListRepeat
-  );
+  let newValue;
+  if (repeatGroupWithQuery) {
+    newValue = findValue(
+      data,
+      repeatGroupWithQuery,
+      repeatStepList,
+      editRepeatStepListRepeat
+    );
+  } else if (repeatGroupWithQueryMath) {
+    newValue = Math[repeatGroupWithQueryMath](data, repeatStepList, 0);
+  }
   if (Array.isArray(newValue)) {
     newValue = newValue.length;
   }
@@ -600,6 +644,7 @@ export function getStartStage(geometry, item) {
       stage = Object.keys(stages["mould"])[0];
       break;
     default:
+      stage = "steelMeasurement";
       break;
   }
   return stage;
@@ -665,7 +710,61 @@ export function useTraceUpdate(props) {
       return ps;
     }, {});
     if (Object.keys(changedProps).length > 0) {
+      console.log("Changed props:", changedProps);
     }
     prev.current = props;
   });
+}
+
+export function notShowSpec(
+  specData,
+  showFieldSpecPath,
+  repeatStepList,
+  editRepeatStepValueList
+) {
+  if (!showFieldSpecPath) {
+    return false;
+  }
+  if (typeof showFieldSpecPath === "object" && showFieldSpecPath !== null) {
+    let path = Object.keys(showFieldSpecPath)[0];
+    let specValue = findValue(
+      specData,
+      path,
+      repeatStepList,
+      editRepeatStepValueList
+    );
+    return !showFieldSpecPath[path].includes(specValue);
+  } else {
+    return [null, undefined, "", false].includes(
+      findValue(
+        specData,
+        showFieldSpecPath,
+        repeatStepList,
+        editRepeatStepValueList
+      )
+    );
+  }
+}
+
+export function getProductionLine(stageType) {
+  stageType = removeSpace(lowerCaseFirstLetter(stageType));
+  if (["b2P", "dual", "slipon2", "slipon3"].includes(stageType)) {
+    return "packer";
+  } else if (["coatedItem", "mould"].includes(stageType)) {
+    return "coating";
+  } else {
+    return stageType;
+  }
+}
+
+export function areEqual(prevProps, nextProps) {
+  let ignoreList = ["repeatStepList", "jsonVariables", "specData", "backendData"]
+  Object.keys(prevProps).forEach(key => {
+    if (!ignoreList.includes(key)) {
+      if (prevProps[key] !== nextProps[key]) {
+        return true
+      }
+    }
+  })
+  return false
 }

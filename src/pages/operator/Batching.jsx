@@ -84,18 +84,6 @@ export default () => {
       data: { [saveData]: oldData[saveData] }
     });
   };
-  // console.log(batchingData);
-  // console.log(
-  //   getDataToBatching(
-  //     fixedData,
-  //     Object.keys(batchingListIds),
-  //     batchingJson.document.specQueryPath,
-  //     newDescriptionId,
-  //     getStepFromStage(stage) ? getStepFromStage(stage) : null,
-  //     batchingData,
-  //     true
-  //   )
-  // );
   return (
     <Canvas>
       <Paper>
@@ -176,7 +164,6 @@ export default () => {
             itemIdList: Object.keys(batchingListIds)
           }}
           updateBatchingCache={() => update}
-          saveButton={!!Object.keys(batchingListIds).length}
           readOnlyFields={!Object.keys(batchingListIds).length}
         />
       </Paper>

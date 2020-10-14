@@ -97,7 +97,6 @@ export default ({
   backButton,
   stageType,
   specData,
-  saveButton,
   stage,
   optionsQuery,
   updateBatchingCache,
@@ -150,13 +149,13 @@ export default ({
     repeatStepListLocal.current = repeatStepList;
   }, [repeatStepList]);
 
-  if (
-    data &&
-    (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
-      !lastData.current)
-  ) {
+  if (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
+    !lastData.current) {
     finalChapter.current = 0;
     lastData.current = cloneDeep(data);
+      }
+
+  if (data && !Object.keys(documentData.current).length) {
     documentDataDispatch({
       type: "setState",
       newState: data,
@@ -164,50 +163,56 @@ export default ({
     });
   }
 
-  const updateCache = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy }
-    });
-    let array = objectPath.get(oldData, document.getOldValue);
-    let index;
-    if (Array.isArray(array)) {
-      index = array.findIndex(
-        x => x.id === objectPath.get(data, document.getNewValue).id
+  const updateCache = useCallback(
+    (cache, { data }) => {
+      const oldData = cache.readQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy }
+      });
+      let array = objectPath.get(oldData, document.getOldValue);
+      let index;
+      if (Array.isArray(array)) {
+        index = array.findIndex(
+          x => x.id === objectPath.get(data, document.getNewValue).id
+        );
+      } else {
+        index = null;
+      }
+      objectPath.set(
+        oldData,
+        index === null
+          ? `${document.getOldValue}`
+          : `${document.getOldValue}.${index}`,
+        objectPath.get(data, document.getNewValue)
       );
-    } else {
-      index = null;
-    }
-    objectPath.set(
-      oldData,
-      index === null
-        ? `${document.getOldValue}`
-        : `${document.getOldValue}.${index}`,
-      objectPath.get(data, document.getNewValue)
-    );
-    cache.writeQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy },
-      data: { ...oldData }
-    });
-  };
+      cache.writeQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy },
+        data: { ...oldData }
+      });
+    },
+    [document.getNewValue, document.getOldValue, document.query, getQueryBy]
+  );
 
-  const create = (cache, { data }) => {
-    const oldData = cache.readQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy }
-    });
-    objectPath.push(
-      oldData,
-      document.getOldValue,
-      objectPath.get(data, document.getNewValue)
-    );
-    cache.writeQuery({
-      query: query[document.query],
-      variables: { id: getQueryBy },
-      data: { ...oldData }
-    });
-  };
+  const create = useCallback(
+    (cache, { data }) => {
+      const oldData = cache.readQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy }
+      });
+      objectPath.push(
+        oldData,
+        document.getOldValue,
+        objectPath.get(data, document.getNewValue)
+      );
+      cache.writeQuery({
+        query: query[document.query],
+        variables: { id: getQueryBy },
+        data: { ...oldData }
+      });
+    },
+    [document.getNewValue, document.getOldValue, document.query, getQueryBy]
+  );
 
   const [mutation, { loadingMutation, error: errorMutation }] = useMutation(
     mutations[document.mutation],
@@ -226,36 +231,36 @@ export default ({
     }
   );
   const submitData = useCallback(
-    (data, submit) => {
+    submit => {
       renderFunction.current = {};
       screenshotData.current = false;
       setWhen(false);
       setEditChapter(0);
       finalChapter.current = 0;
       setLoading(true);
-      if (data) {
+      if (documentData.current) {
         if (submit && !stage && stagePath && !editChapter) {
-          objectPath.set(data, stagePath.current, true);
+          objectPath.set(documentData.current, stagePath.current, true);
         }
         if (addValuesToData) {
           Object.keys(addValuesToData).forEach(key => {
-            objectPath.set(data, key, addValuesToData[key]);
+            objectPath.set(documentData.current, key, addValuesToData[key]);
           });
         }
         if (stage && submit) {
           let thisStage = editChapter
             ? Object.keys(stagesChapter.current)[editChapter - 1]
             : stage;
-          let key = Object.keys(data)[0];
+          let key = Object.keys(documentData.current)[0];
           let path;
-          if (Array.isArray(data[key])) {
+          if (Array.isArray(documentData.current[key])) {
             path = `${key}.0.data.${thisStage}`;
           } else {
             path = `${key}.data.${thisStage}`;
           }
-          objectPath.set(data, path, { [new Date()]: userInfo.username });
+          objectPath.set(documentData.current, path, { [new Date()]: userInfo.username });
         }
-        let variables = stringifyQuery(cloneDeep(data), removeEmptyField);
+        let variables = stringifyQuery(cloneDeep(documentData.current), removeEmptyField);
 
         mutation({
           variables: {
@@ -277,6 +282,7 @@ export default ({
       }
     },
     [
+      documentData,
       stages,
       setWhen,
       screenshotData,
@@ -354,11 +360,13 @@ export default ({
               // }
             }}
             onChange={() => {
-              setWhen(
-                screenshotData.current &&
+              if (!!!screenshotData.current) {
+                setWhen(
+                  screenshotData.current &&
                   JSON.stringify(screenshotData.current) !==
-                    JSON.stringify(documentData.current)
-              );
+                  JSON.stringify(documentData.current)
+                  );
+                }
             }}
           >
             <RouteGuard
@@ -387,22 +395,17 @@ export default ({
               jsonVariables={jsonVariables}
               chapterAlwaysInWrite={chapterAlwaysInWrite}
               stage={stage}
-              update={update}
               removePath={removePath}
-              updateCache={updateCache}
-              create={create}
               notEditButton={notEditButton}
               repeatStepList={repeatStepListLocal.current}
               backButton={backButton}
               document={document}
               stageType={stageType}
               specData={specData}
-              saveButton={saveButton}
               allData={allData}
               backendData={data}
               optionsData={optionsData}
               submitData={submitData}
-              nextStage={nextStage}
               stagePath={stagePath}
               edit={edit}
               readOnlySheet={readOnlySheet}

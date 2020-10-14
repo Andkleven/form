@@ -148,17 +148,17 @@ export default props => {
       }
     });
   };
-
   const checkInputs = (data, descriptionId) => {
     if (data) {
       return objectPath
         .get(data, "projects.0.descriptions")
         .map((description, index) => {
           if (
-            (descriptionId &&
+            props.json.geometry.includes(description.data.geometry) &&
+            ((descriptionId &&
               Number(description.id) === Number(descriptionId)) ||
-            !descriptionId ||
-            Number(descriptionId) === 0
+              !descriptionId ||
+              Number(descriptionId) === 0)
           ) {
             return (
               <div

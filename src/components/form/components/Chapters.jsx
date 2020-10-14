@@ -1,10 +1,10 @@
 import React, { Fragment, useRef, useContext } from "react";
 import {
   createPath,
-  removeSpace,
-  lowerCaseFirstLetter,
   getProperties,
-  removePathFunc
+  removePathFunc,
+  getProductionLine,
+  areEqual,
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -14,7 +14,6 @@ import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
 
-// import objectPath from "object-path";
 
 export default React.memo(
   ({
@@ -22,7 +21,6 @@ export default React.memo(
     backendData,
     optionsData,
     submitData,
-    nextStage,
     edit,
     removePath,
     readOnlySheet,
@@ -35,11 +33,7 @@ export default React.memo(
     document,
     stageType,
     specData,
-    saveButton,
     allData,
-    update,
-    updateCache,
-    create,
     itemIdsRef,
     itemId,
     specRemovePath,
@@ -52,7 +46,6 @@ export default React.memo(
     const stopLoop = useRef(false); // Flips to true for last chapter with input
     let finalChapter = 0;
     let count = 0;
-
     const getNewChapter = (
       repeatStepListLocal,
       pageInfo,
@@ -75,7 +68,7 @@ export default React.memo(
         if (stopLoop.current) {
           chapter = null;
         } else {
-          allRequiredFieldSatisfied = documentData.current
+          allRequiredFieldSatisfied = Object.keys(documentData.current).length
             ? byStage
               ? thisStage === stage
               : !objectPath.get(
@@ -95,7 +88,6 @@ export default React.memo(
               stopLoop.current = true;
             }
           }
-
           if (allRequiredFieldSatisfied && readOnlySheet) {
             chapter = null;
           } else {
@@ -109,27 +101,17 @@ export default React.memo(
                   key={`${index}-${count}-${repeatStepListLocal}-page`}
                   {...info}
                   allData={allData}
-                  stagePath={stagePath}
-                  stageType={stageType}
                   backendData={backendData}
                   optionsData={optionsData}
                   submitData={submitData}
                   document={document}
-                  nextStage={nextStage}
                   edit={edit}
-                  update={update}
-                  updateCache={updateCache}
-                  create={create}
                   specData={specData}
                   readOnlySheet={readOnlySheet}
                   jsonVariables={jsonVariables}
                   chapterAlwaysInWrite={chapterAlwaysInWrite}
                   stage={stage}
-                  saveButton={saveButton}
-                  notEditButton={notEditButton}
                   repeatStepList={repeatStepListLocal}
-                  backButton={backButton}
-                  removePath={removePath}
                   path={createPath(
                     removePathFunc(removePath, info.queryPath),
                     repeatStepListLocal
@@ -140,7 +122,7 @@ export default React.memo(
                   indexId={`${count + 1}- ${index} `}
                   index={index}
                   noSaveButton={document.noSaveButton}
-                  finalChapter={finalChapter}
+                  finalChapterRef={allRequiredFieldSatisfied ? count + 1 : 0}
                   showSubmitButton={showSubmitButton}
                   itemIdsRef={itemIdsRef}
                   itemId={itemId}
@@ -189,9 +171,8 @@ export default React.memo(
     const stageChapters = () => {
       let i = 0;
       let chapterBasedOnStage = [];
-      let stageList = Object.keys(
-        stagesJson[removeSpace(lowerCaseFirstLetter(stageType))]
-      );
+      let productionLine = getProductionLine(stageType);
+      let stageList = Object.keys(stagesJson[productionLine]);
       let thisStage = findNextStage(specData, undefined, stageType);
 
       while (stopLoop.current === false && i < 50) {
@@ -234,5 +215,5 @@ export default React.memo(
         ) : null}
       </>
     );
-  }
+  }, areEqual
 );

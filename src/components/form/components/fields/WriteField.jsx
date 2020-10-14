@@ -35,7 +35,6 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
-
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
     {
@@ -69,6 +68,7 @@ export default ({ setState, state, ...props }) => {
       path: props.path + userField
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
+  
   const onChange = value => {
     addUser();
     if (!screenshotData.current) {
@@ -183,7 +183,7 @@ export default ({ setState, state, ...props }) => {
                     variant: "success",
                     type: "submit",
                     onClick: () => {
-                      props.submitData(documentData.current, false);
+                      props.submitData(false);
                       setEditChapter(0);
                     }
                   },
@@ -394,7 +394,7 @@ export default ({ setState, state, ...props }) => {
         batchClick={props.itemIdsRef && !props.notBatch && batchClick}
         focus={isStringInstance(editChapter) ? true : null}
         onChangeDate={onChangeDate}
-        value={state === undefined ? "" : state}
+        value={state}
         readOnly={props.readOnly}
         onChangeInput={onChangeInput}
         onChangeSelect={onChangeSelect}

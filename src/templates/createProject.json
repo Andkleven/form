@@ -19,7 +19,6 @@
             },
             {
               "fieldName": "projectName",
-              "required": true,
               "label": "Project Name"
             },
             {
@@ -118,7 +117,6 @@
         },
         {
           "repeatStartWith": 1,
-          "repeat": true,
           "delete": true,
           "addButton": "Reference documents/codes",
           "queryPath": ["projects.0.descriptions", "specifications"],

@@ -4,7 +4,6 @@ import { DocumentDataContext } from "components/form/Form";
 export default (writeOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(DocumentDataContext);
   const [hidden, setHidden] = useState(false);
-
   const updateReadOnly = useCallback(() => {
     if (
       typeof writeOnlyFieldIf === "object" &&

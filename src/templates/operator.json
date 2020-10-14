@@ -5,6 +5,26 @@
   "getNewValue": "operator.new.item",
   "getOldValue": "items",
   "chapters": {
+    "steelMeasurement": {
+      "queryPath": "operator",
+      "pages": [
+        {
+          "pageTitle": "Steel measurement",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "measurementPoint",
+              "label": "Measurement Point",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        }
+      ]
+    },
     "actualSteelMeasurement": {
       "queryPath": "operator",
       "pages": [
@@ -13,8 +33,7 @@
           "queryPath": "operator.measurementPointActualTdvs",
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
-          "repeat": true,
-          "notAddButton": true,
+
           "fields": [
             {
               "fieldName": "measurementPointActual",
@@ -23,6 +42,7 @@
               "label": "Measurement Point Actual Steel {}",
               "required": true,
               "type": "number",
+              "notBatch": true,
               "unit": "mm",
               "decimal": 1,
               "notBatch": true
@@ -87,6 +107,7 @@
               "fieldName": "nextCalibrationDateMediaBlasting",
               "required": true,
               "label": "Next Calibration Date",
+              "min": "now",
               "type": "date"
             },
             {
@@ -122,6 +143,7 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "inspectionOfSteelSurface",
               "showFieldSpecPath": "leadEngineer.data.inspectionOfSteelSurface",
               "label": "Inspection of Steel Surface",
@@ -130,6 +152,7 @@
               "type": "checkbox"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
@@ -140,19 +163,23 @@
               "type": "number"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
               "fieldName": "equipmentIDSolubleSaltLevel",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
               "prepend": "Next Calibration Date",
+              "min": "now",
               "type": "date",
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "surfaceCleanliness",
               "label": "Surface Cleanliness",
               "showFieldSpecPath": "leadEngineer.data.surfaceCleanliness",
@@ -161,6 +188,7 @@
               "unit": "Sa"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "surfaceCleanlinessImage",
               "placeholder": "Upload Image",
               "showFieldSpecPath": "leadEngineer.data.surfaceCleanliness",
@@ -169,6 +197,7 @@
               "type": "file"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.compressedAirCheck",
               "fieldName": "compressedAirCheck",
               "label": "Compressed Air Check",
@@ -177,19 +206,23 @@
               "type": "checkbox"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.compressedAirCheck",
               "fieldName": "equipmentIdCompressedAirCheck",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.compressedAirCheck",
               "fieldName": "nextCalibrationDateCompressedAirCheck",
               "type": "date",
               "prepend": "Next Calibration Date",
+              "min": "now",
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "uvTest",
               "showFieldSpecPath": "leadEngineer.data.uvTest",
               "label": "UV Test",
@@ -198,19 +231,23 @@
               "type": "checkbox"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "equipmentIDUvTest",
               "showFieldSpecPath": "leadEngineer.data.uvTest",
               "required": true,
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.uvTest",
               "fieldName": "nextCalibrationDateUvTest",
               "type": "date",
               "prepend": "Next Calibration Date",
+              "min": "now",
               "required": true
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "blastMediaConductivity",
               "showFieldSpecPath": "leadEngineer.data.blastMediaConductivity",
               "label": "Blast Media Conductivity",
@@ -221,19 +258,54 @@
               "type": "number"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.blastMediaConductivity",
               "required": true,
               "fieldName": "equipmentIDBlastMediaConductivity",
               "prepend": "Equipment ID"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "showFieldSpecPath": "leadEngineer.data.blastMediaConductivity",
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
               "type": "date",
               "prepend": "Next Calibration Date",
+              "min": "now",
               "required": true
             },
             {
+              "fieldName": "surfaceProfileRoughness",
+              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMax",
+              "required": true,
+              "placeholder": "Result",
+              "label": "Surface Profile (Roughness)",
+              "routeToSpecMin": "leadEngineer.data.surfaceProfileMin",
+              "routeToSpecMax": "leadEngineer.data.surfaceProfileMax",
+              "unit": "Rz",
+              "type": "number"
+            },
+            {
+              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
+              "required": true,
+              "fieldName": "equipmentIDSurfaceProfileRoughness",
+              "prepend": "Equipment ID"
+            },
+            {
+              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
+              "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
+              "type": "date",
+              "prepend": "Next Calibration Date",
+              "min": "now",
+              "required": true
+            },
+            {
+              "showField": { "coatedItem": true, "mould": true },
+              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
+              "fieldName": "referencePlateId",
+              "prepend": "Reference Plate Id (Optional)"
+            },
+            {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "dustTest",
               "label": "Dust Test",
               "required": true,
@@ -254,8 +326,7 @@
           ]
         },
         {
-          "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.additionalCustomTests",
           "queryPath": "operator.additionalCustomTestOperators",
@@ -415,10 +486,199 @@
         }
       ]
     },
+    "coating": {
+      "queryPath": "operator",
+      "pages": [
+        {
+          "pageTitle": "Coating",
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQuery": "leadEngineer.ringMaterials",
+          "fields": [
+            {
+              "specValueList": [
+                "leadEngineer.ringMaterials",
+                "data.ringMaterial"
+              ],
+              "variableLabelSpec": true,
+              "queryVariableLabel": [
+                "leadEngineer.ringMaterials",
+                "data.ringType"
+              ],
+              "label": "{} material no"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "ringsAssembled",
+              "label": "Rings assembled",
+              "type": "checkbox",
+              "required": true
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showField": { "dual": true },
+              "specValueList": "leadEngineer.data.compoundNoPinSide",
+              "required": true,
+              "label": "Rubber pin side"
+            },
+            {
+              "showField": { "dual": true },
+              "required": true,
+              "fieldName": "compoundNoPinSideBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoPinSideMixDate",
+              "label": "Mix date",
+              "required": true,
+              "type": "date"
+            },
+            {
+              "showField": { "dual": true },
+              "specValueList": "leadEngineer.data.compoundNoBoxSide",
+              "required": true,
+              "label": "Rubber box side"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoBoxSideBatchNo",
+              "required": true,
+              "label": "Batch no"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "compoundNoBoxSideMixDate",
+              "label": "Mix date",
+              "required": true,
+              "type": "date"
+            },
+            {
+              "showField": { "b2P": true },
+              "specValueList": "leadEngineer.data.compoundNoRubberType",
+              "required": true,
+              "label": "Rubber"
+            },
+            {
+              "showField": { "b2P": true },
+              "fieldName": "compoundNoRubberTypeBatchNo",
+              "label": "Batch no"
+            },
+            {
+              "showField": { "b2P": true },
+              "fieldName": "compoundNoRubberTypeMixDate",
+              "label": "Mix date",
+              "required": true,
+              "type": "date"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "mathSpec": "mathCompoundNoId",
+              "required": true,
+              "label": "ID Rubber"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoIdBatchNo",
+              "required": true,
+              "label": "Batch no"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoIdMixDate",
+              "label": "Mix date",
+              "required": true,
+              "type": "date"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "IdRubberThickness",
+              "label": "ID Rubber thickness",
+              "notBatch": true,
+              "unit": "mm",
+              "required": true,
+              "type": "number"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "specValueList": "leadEngineer.data.compoundNoOd",
+              "required": true,
+              "label": "OD Rubber"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoOdBatchNo",
+              "required": true,
+              "label": "Batch no"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "compoundNoOdMixDate",
+              "label": "Mix date",
+              "required": true,
+              "type": "date"
+            },
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "OdRubberThickness",
+              "label": "OD Rubber thickness",
+              "notBatch": true,
+              "unit": "mm",
+              "required": true,
+              "type": "number"
+            },
+            {
+              "showField": { "b2P": true },
+              "fieldName": "builtThickness",
+              "label": "Built thickness",
+              "routeToSpecMin": "leadEngineer.data.packerElementOd1Min",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "builtThicknessPinSide",
+              "label": "Built thickness pin side",
+              "routeToSpecMin": "leadEngineer.data.packerElementOd1Min",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "builtThicknessBoxSide",
+              "label": "Built thickness box side",
+              "routeToSpecMin": "leadEngineer.data.packerElementOd1Min",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "fieldName": "appliedCuringTape",
+              "label": "Applied curing tape",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
     "coatingStepLayer": {
       "specChapter": ["leadEngineer.vulcanizationSteps", "coatingLayers"],
       "queryPath": ["operator.vulcanizationOperators", "coatingOperators", ""],
-      "lookUpBy": "layerApplied",
       "pages": [
         {
           "pageTitle": "Coating Layer",
@@ -432,8 +692,11 @@
           "noLine": true
         },
         {
-          "repeat": true,
-          "notAddButton": true,
+          "showPage": {
+            "coatedItem": true,
+            "mould": true
+          },
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.rubberCements",
           "queryPath": "operator.rubberCementOperators",
@@ -453,7 +716,6 @@
             {
               "page": true,
               "queryPath": "mixDates",
-              "repeat": true,
               "repeatStartWith": 1,
               "delete": true,
               "addButton": "Add Rubber",
@@ -470,6 +732,10 @@
           ]
         },
         {
+          "showPage": {
+            "coatedItem": true,
+            "mould": true
+          },
           "fields": [
             {
               "specValueList": [
@@ -494,12 +760,15 @@
           ]
         },
         {
+          "showPage": {
+            "coatedItem": true,
+            "mould": true
+          },
           "queryPath": [
             "operator.vulcanizationOperators",
             "coatingOperators",
             "layers"
           ],
-          "repeat": true,
           "repeatStartWith": 1,
           "delete": true,
           "addButton": "Extra Layer",
@@ -508,7 +777,6 @@
               "fieldName": "rubberThickness",
               "label": "Rubber Thickness",
               "type": "Number",
-              "notBatch": true,
               "required": true
             },
             {
@@ -523,7 +791,6 @@
               "label": "Mix Date",
               "indent": true,
               "type": "date",
-              "notBatch": true,
               "required": true
             }
           ]
@@ -532,8 +799,7 @@
           "showPage": {
             "coatedItem": true
           },
-          "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "queryPath": [
@@ -555,7 +821,6 @@
               "calculateMin": "mathLayerMin",
               "calculateMax": "mathLayerMax",
               "type": "number",
-              "notBatch": true,
               "required": true
             }
           ]
@@ -571,7 +836,6 @@
               "fieldName": "layerApplied",
               "label": "Layer Applied",
               "type": "datetime-local",
-              "notBatch": true,
               "required": true
             }
           ]
@@ -592,10 +856,21 @@
               "label": "Vulcanization Type"
             },
             {
+              "showField": { "coatedItem": true, "mould": true },
               "specValueList": [
                 "leadEngineer.vulcanizationSteps",
                 "data.programNumber"
               ],
+              "label": "Program Number"
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true,
+                "slipon2": true,
+                "slipon3": true
+              },
+              "mathSpec": "mathProgramNumber",
               "label": "Program Number"
             },
             {
@@ -612,6 +887,7 @@
               "type": "datetime-local"
             },
             {
+              "routeToMin": ["operator.vulcanizationOperators", "data.startTime"],
               "fieldName": "stopTime",
               "required": true,
               "label": "Stop Time",
@@ -625,8 +901,7 @@
       "pages": [
         {
           "pageTitle": "Measurement after Vulcanization",
-          "repeat": true,
-          "notAddButton": true,
+
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "queryPath": [
@@ -651,8 +926,1943 @@
               "calculateMin": "mathMeasurementPointMin",
               "calculateMax": "mathMeasurementPointMax",
               "type": "number",
-              "notBatch": true,
               "required": true,
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        }
+      ]
+    },
+    "grindingStep": {
+      "pages": [
+        {
+          "pageTitle": "Grinding between Vulcanization",
+          "queryPath": ["operator.grindings", ""],
+          "fields": [
+            {
+              "fieldName": "elementLengthAfterGrinding ",
+              "required": true,
+              "label": "Element length after grinding",
+              "unit": "mm",
+              "type": "number"
+            },
+            {
+              "fieldName": "elementCenterDiameter",
+              "required": true,
+              "label": "Element center diameter",
+              "type": "number"
+            },
+            {
+              "fieldName": "pinDiameter",
+              "required": true,
+              "label": "Pin diameter"
+            },
+            {
+              "fieldName": "boxDiameter",
+              "required": true,
+              "label": "Box diameter"
+            },
+            {
+              "fieldName": "equipmentIdGrinding",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true, "b2P": true },
+              "fieldName": "coreSample",
+              "label": "Core Sample",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "coreSamplePinSide",
+              "label": "Core sample pin side",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "coreSampleBoxSide",
+              "label": "Core sample box side",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
+    "ultrasound": {
+      "pages": [
+        {
+          "pageTitle": "Ultrasound",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "ultraSoundBeforeGrinding",
+              "label": "Ultra sound before grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "ultraSoundAfterGrinding",
+              "label": "Ultra sound after grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "probe",
+              "required": true,
+              "label": "Probe"
+            },
+            {
+              "fieldName": "equipmentName",
+              "required": true,
+              "label": "Equipment name"
+            },
+            {
+              "fieldName": "ultrasoundEquipmentId",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "dueCalibrationDate",
+              "required": true,
+              "label": "Due calibration  date",
+              "type": "date"
+            },
+            {
+              "fieldName": "testInformationResult",
+              "required": true,
+              "label": "Test information/result"
+            },
+            {
+              "fieldName": "deviation",
+              "label": "Deviation",
+              "type": "checkbox"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviation",
+              "viewPdf": true
+            }
+          ]
+        },
+        {
+          "delete": true,
+          "writeOnlyFieldIf": "operator.data.deviation",
+          "repeatStartWith": 1,
+          "addButton": "Deviation",
+          "queryPath": "operator.deviations",
+          "fields": [
+            {
+              "fieldName": "deviation",
+              "required": true,
+              "label": "Deviation"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "writeOnlyFieldIf": "operator.data.deviation",
+              "fieldName": "length",
+              "required": true,
+              "label": "Length",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviation",
+              "fieldName": "depth",
+              "required": true,
+              "label": "Depth"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviation",
+              "fieldName": "size",
+              "required": true,
+              "label": "Size"
+            },
+            {
+              "fieldName": "approved",
+              "required": true,
+              "label": "Approved",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "inspectorsCertificateNo",
+              "required": true,
+              "label": "Inspectors certificate no."
+            },
+            {
+              "fieldName": "inspectorsCertificateDueDate",
+              "required": true,
+              "label": "Inspectors certificate due date",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "ultrasoundPinSide": {
+      "pages": [
+        {
+          "pageTitle": "Ultrasound Pin Side",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "ultraSoundBeforeGrindingPinSide",
+              "required": true,
+              "label": "Ultra sound before grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "ultraSoundAfterGrindingPinSide",
+              "required": true,
+              "label": "Ultra sound after grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "probePinSide",
+              "required": true,
+              "label": "Probe"
+            },
+            {
+              "fieldName": "equipmentNamePinSide",
+              "required": true,
+              "label": "Equipment name"
+            },
+            {
+              "fieldName": "ultrasoundEquipmentIdPinSide",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "dueCalibrationDatePinSide",
+              "required": true,
+              "label": "Due calibration  date",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "testInformationResultPinSide",
+              "required": true,
+              "label": "Test information/result"
+            },
+            {
+              "fieldName": "deviationPinSide",
+              "label": "Deviation",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "delete": true,
+          "repeatStartWith": 1,
+          "writeOnlyFieldIf": "operator.data.deviationPinSide",
+          "addButton": "Deviation",
+          "queryPath": "operator.deviations",
+          "fields": [
+            {
+              "fieldName": "deviationPinSide",
+              "required": true,
+              "label": "Deviation"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "writeOnlyFieldIf": "operator.data.deviationPinSide",
+              "fieldName": "lengthPinSide",
+              "required": true,
+              "label": "Length",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviationPinSide",
+              "fieldName": "depthPinSide",
+              "required": true,
+              "label": "Depth"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviationPinSide",
+              "fieldName": "sizePinSide",
+              "required": true,
+              "label": "Size"
+            },
+            {
+              "fieldName": "approvedPinSide",
+              "required": true,
+              "label": "Approved",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "inspectorsCertificateNoPinSide",
+              "required": true,
+              "label": "Inspectors certificate no."
+            },
+            {
+              "fieldName": "inspectorsCertificateDueDatePinSide",
+              "required": true,
+              "label": "Inspectors certificate due date",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "ultrasoundBoxSide": {
+      "pages": [
+        {
+          "pageTitle": "Ultrasound Box Side",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "ultraSoundBeforeGrindingBoxSide",
+              "required": true,
+              "label": "Ultra sound before grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "ultraSoundAfterGrindingBoxSide",
+              "required": true,
+              "label": "Ultra sound after grinding",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "probeBoxSide",
+              "required": true,
+              "label": "Probe"
+            },
+            {
+              "fieldName": "equipmentNameBoxSide",
+              "required": true,
+              "label": "Equipment name"
+            },
+            {
+              "fieldName": "ultrasoundEquipmentIdBoxSide",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "dueCalibrationDateBoxSide",
+              "required": true,
+              "label": "Due calibration  date",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "testInformationResultBoxSide",
+              "required": true,
+              "label": "Test information/result"
+            },
+            {
+              "fieldName": "deviationBoxSide",
+              "label": "Deviation",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "delete": true,
+          "repeatStartWith": 1,
+          "writeOnlyFieldIf": "operator.data.deviationBoxSide",
+          "addButton": "Deviation",
+          "queryPath": "operator.deviations",
+          "fields": [
+            {
+              "fieldName": "deviationBoxSide",
+              "required": true,
+              "label": "Deviation"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "writeOnlyFieldIf": "operator.data.deviationBoxSide",
+              "fieldName": "lengthBoxSide",
+              "required": true,
+              "label": "Length",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviationBoxSide",
+              "fieldName": "depthBoxSide",
+              "required": true,
+              "label": "Depth"
+            },
+            {
+              "writeOnlyFieldIf": "operator.data.deviationBoxSide",
+              "fieldName": "sizeBoxSide",
+              "required": true,
+              "label": "Size"
+            },
+            {
+              "fieldName": "approvedBoxSide",
+              "required": true,
+              "label": "Approved",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "inspectorsCertificateNoBoxSide",
+              "required": true,
+              "label": "Inspectors certificate no."
+            },
+            {
+              "fieldName": "inspectorsCertificateDueDateBoxSide",
+              "required": true,
+              "label": "Inspectors certificate due date",
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "grinding": {
+      "pages": [
+        {
+          "pageTitle": "Grinding",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "elementLengthAfterGrinding ",
+              "required": true,
+              "label": "Element length after grinding",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "fieldName": "elementCenterDiameter",
+              "required": true,
+              "label": "Element center diameter",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "fieldName": "pinDiameter",
+              "required": true,
+              "label": "Pin diameter",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "fieldName": "boxDiameter",
+              "required": true,
+              "label": "Box diameter",
+              "type": "number",
+              "unit": "mm"
+            },
+            {
+              "fieldName": "equipmentIdGrinding",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true, "b2P": true },
+              "fieldName": "coreSample",
+              "label": "Core Sample",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "coreSamplePinSide",
+              "label": "Core sample pin side",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "coreSampleBoxSide",
+              "label": "Core sample box side",
+              "mathSubtext": "mathCoreSampleCode",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
+    "ringAssembly": {
+      "showChapter": { "b2P": true, "dual": true },
+      "pages": [
+        {
+          "pageTitle": "Ring Assembly",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "label": "Screw description",
+              "mathSpec": "mathScrewDescription"
+            },
+            {
+              "fieldName": "equipmentIdTorqueWrench",
+              "required": true,
+              "label": "Equipment ID(Torque wrench)"
+            },
+            {
+              "fieldName": "calibrationDateTorqueWrench",
+              "required": true,
+              "label": "Next Calibration date",
+              "type": "date"
+            },
+            {
+              "mathSpec": "mathTorque",
+              "label": "Torque",
+              "unit": "Nm"
+            },
+            {
+              "showFieldSpecPath": "leadEngineer.data.K2",
+              "fieldName": "controlOfK2RingFlaps",
+              "label": "Control of K2 ring flaps",
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "endRingInstallation",
+              "required": true,
+              "label": "End ring installation",
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
+    "barrier": {
+      "pages": [
+        {
+          "pageTitle": "Barrier",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "startTimeBarrier",
+              "label": "Start time",
+              "type": "datetime-local"
+            },
+            {
+              "specValueList": "leadEngineer.data.barrier",
+              "label": "Barrier type",
+              "showFieldSpecPath": "leadEngineer.data.barrier"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "mathSpec": "mathIncreasedOdForWholeElement0",
+              "label": "Tolerance element"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "mathSpec": "mathIncreasedOdForWholeElementTotal0",
+              "label": "Target thickness element"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathIncreasedOdForEnds0",
+              "label": "Tolerance ends"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathIncreasedOdForEndsTotal0",
+              "label": "Target thickness ends"
+            },
+            {
+              "specValueList": "leadEngineer.data.barrierBoxSide",
+              "label": "Barrier box side type",
+              "showFieldSpecPath": "leadEngineer.data.barrierBoxSide"
+            },
+            {
+              "fieldName": "equipmentIdBarrier",
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateBarrier",
+              "label": "Next calibration date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showPage": { "b2P": true },
+              "labelOnly": true,
+              "label": "Before applied"
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointBeforeBarriers",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxBeforeAppliedBarrier",
+              "label": "Measurement point {} box before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointPinBeforeAppliedBarrier",
+              "label": "Measurement point {} pin before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointBeforeBarriers",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "measurementPointBeforeAppliedBarrier",
+              "label": "Measurement point {} before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "indexVariableLabel": true,
+              "label": "Target measurement {}",
+              "unit": "mm",
+              "decimal": 2,
+              "math": "mathTargetMeasurement0"
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "noOfLayersApplied",
+              "label": "No. of layers applied",
+              "maxInput": 10,
+              "minInput": 0,
+              "required": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointAfterBarriers",
+          "repeatGroupWithQuery": "operator.data.noOfLayersApplied",
+          "showPageSpecPath": {
+            "leadEngineer.data.barrier": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
+          "fields": [
+            {
+              "indexVariableLabel": true,
+              "fieldName": "endMeasurement",
+              "label": "End measurement {}",
+              "required": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "showPage": { "slipon2": true, "slipon3": true },
+          "queryPath": "operator.measurementPointBeforeBarriers",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "measurementPointBeforeAppliedBarrier",
+              "label": "Measurement point {} before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showPage": { "b2P": true },
+              "labelOnly": true,
+              "label": "After applied"
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointAfterBarriers",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxAfterAppliedBarrier",
+              "label": "Measurement point {} box after applied barrier",
+              "calculateMin": "mathBarrierBoxSideMin",
+              "calculateMax": "mathBarrierBoxSideMax",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointPinAfterAppliedBarrier",
+              "label": "Measurement point {} pin after applied barrier",
+              "calculateMin": "mathBarrierPinSideMin",
+              "calculateMax": "mathBarrierPinSideMax",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "showPage": { "slipon2": true, "slipon3": true },
+          "queryPath": "operator.measurementPointAfterBarriers",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "measurementAfterAppliedBarrier",
+              "label": "Measurement point {} after applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "calculateMin": "mathBarrier1Min",
+              "calculateMax": "mathBarrier1Max",
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 2
+            }
+          ]
+        },
+        {
+          "showPage": { "slipon2": true, "slipon3": true },
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementOfEndsBeforeAppliedBarrier",
+              "label": "Measurement of ends before applied barrier",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementOfEndsAfterAppliedBarrier",
+              "label": "Measurement of ends after applied barrier",
+              "calculateMin": "mathBarrier0Min",
+              "calculateMax": "mathBarrier0Max",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "showPage": { "b2P": true },
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": [
+                  "0B",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B"
+                ]
+              },
+              "fieldName": "performedAfterVulcanizationOfBBarrier",
+              "label": "Performed after vulcanization of B-barrier",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "barrierFinished",
+              "label": "Barrier finished",
+              "required": true,
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "barrierPinSide": {
+      "pages": [
+        {
+          "pageTitle": "Barrier Pin side",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "startTimeBarrierPinSide",
+              "label": "Start time",
+              "type": "datetime-local"
+            },
+            {
+              "specValueList": "leadEngineer.data.barrierPinSide",
+              "label": "barrier pin side type",
+              "showFieldSpecPath": "leadEngineer.data.barrierPinSide"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "mathSpec": "mathIncreasedOdForWholeElement1",
+              "label": "Tolerance element pin side"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "mathSpec": "mathIncreasedOdForWholeElementTotal1",
+              "label": "Target thickness element pin side"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathIncreasedOdForEnds1",
+              "label": "Tolerance ends pin side"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathIncreasedOdForEndsTotal1",
+              "label": "Target thickness ends pin side"
+            },
+            {
+              "fieldName": "equipmentIdBarrierPinSide",
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateBarrierPinSide",
+              "label": "Next calibration date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "labelOnly": true,
+              "label": "Before applied"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator.measurementPointBeforeBarrierPinSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxBeforeAppliedBarrierPinSide",
+              "label": "Measurement point {} box before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointPinBeforeAppliedBarrierPinSide",
+              "label": "Measurement point {} pin before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "queryPath": "operator.measurementPointBeforeBarrierPinSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "measurementPointBeforeAppliedBarrierPinSide",
+              "label": "Measurement point {} before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "indexVariableLabel": true,
+              "label": "Target measurement {}",
+              "math": "mathTargetMeasurementPinSide",
+              "decimal": 2
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "labelOnly": true,
+              "label": "After applied"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator.measurementPointAfterBarrierPinSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxAfterBarrierPinSide",
+              "label": "Measurement point {} box after applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "calculateMin": "mathBarrierBoxSidePinSideMin",
+              "calculateMax": "mathBarrierBoxSidePinSideMax",
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointPinAfterBarrierPinSide",
+              "label": "Measurement point {} pin after applied barrier",
+              "calculateMin": "mathBarrierPinSidePinSideMin",
+              "calculateMax": "mathBarrierPinSidePinSideMax",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "noOfLayersAppliedPinSide",
+              "label": "No. of layers applied",
+              "required": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator.measurementPointAfterBarrierPinSides",
+          "repeatGroupWithQuery": "operator.data.noOfLayersAppliedPinSide",
+          "showPageSpecPath": {
+            "leadEngineer.data.barrierPinSide": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
+          "fields": [
+            {
+              "indexVariableLabel": true,
+              "fieldName": "endMeasurementPinSide",
+              "label": "End measurement {}",
+              "required": true,
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierPinSide": [
+                  "0B",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B"
+                ]
+              },
+              "fieldName": "performedAfterVulcanizationOfBBarrierPinSide",
+              "label": "Performed after vulcanization of B-barrier",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "barrierFinishedPinSide",
+              "label": "Barrier finished",
+              "required": true,
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "barrierBoxSide": {
+      "pages": [
+        {
+          "pageTitle": "Barrier Box side",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "fieldName": "startTimeBarrierBoxSide",
+              "label": "Start time",
+              "type": "datetime-local"
+            },
+            {
+              "specValueList": "leadEngineer.data.barrierBoxSide",
+              "label": "Barrier box side type",
+              "showFieldSpecPath": "leadEngineer.data.barrierBoxSide"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "mathSpec": "mathIncreasedOdForWholeElement2",
+              "label": "Tolerance element box side"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "mathSpec": "mathIncreasedOdForWholeElementTotal2",
+              "label": "Target thickness element box side"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathIncreasedOdForEnds2",
+              "label": "Tolerance ends box side"
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "mathSpec": "mathIncreasedOdForEndsTotal2",
+              "label": "Target thickness ends box side"
+            },
+            {
+              "fieldName": "equipmentIdBarrierBoxSide",
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "nextCalibrationDateBarrierBoxSide",
+              "label": "Next calibration date",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "labelOnly": true,
+              "label": "Before applied"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator.measurementPointBeforeBarrierBoxSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
+          "repeatGroupWithQuerySpecData": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxBeforeAppliedBarrierBoxSide",
+              "label": "Measurement point {} box before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointPinBeforeAppliedBarrierBoxSide",
+              "label": "Measurement point {} pin before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "queryPath": "operator.measurementPointBeforeBarrierBoxSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "measurementPointBeforeAppliedBarrierBoxSide",
+              "label": "Measurement point {} before applied barrier",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "indexVariableLabel": true,
+              "label": "Target measurement {}",
+              "math": "mathTargetMeasurementBoxSide",
+              "decimal": 2
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "labelOnly": true,
+              "label": "After applied"
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": [
+                  "1A",
+                  "2A",
+                  "3A",
+                  "4A",
+                  "5A",
+                  "6A",
+                  "7A",
+                  "8A",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B",
+                  "1C",
+                  "2C",
+                  "3C",
+                  "4C",
+                  "5C",
+                  "6C",
+                  "7C",
+                  "8C"
+                ]
+              },
+              "fieldName": "noOfLayersAppliedBoxSide",
+              "label": "No. of layers applied",
+              "required": true,
+              "type": "number",
+              "minInput": 0,
+              "maxInput": 10
+            }
+          ]
+        },
+
+        {
+          "showPageSpecPath": {
+            "leadEngineer.data.barrierBoxSide": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
+          "queryPath": "operator.measurementPointAfterBarrierBoxSides",
+          "repeatGroupWithQuery": "operator.data.noOfLayersAppliedBoxSide",
+          "fields": [
+            {
+              "indexVariableLabel": true,
+              "fieldName": "endMeasurementBoxSide",
+              "label": "End measurement {}",
+              "required": true,
+              "type": "number"
+            }
+          ]
+        },
+
+        {
+          "queryPath": "operator.measurementPointAfterBarrierBoxSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
+          "repeatGroupWithQuerySpecData": true,
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxAfterBarrierBoxSide",
+              "label": "Measurement point {} box after applied barrier test",
+              "indexVariableLabel": true,
+              "required": true,
+              "calculateMin": "mathBarrierBoxSideBoxSideMin",
+              "calculateMax": "mathBarrierBoxSideBoxSideMax",
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointPinAfterBarrierBoxSide",
+              "label": "Measurement point {} pin after applied barrier",
+              "indexVariableLabel": true,
+              "calculateMin": "mathBarrierPinSideBoxSideMin",
+              "calculateMax": "mathBarrierPinSideBoxSideMax",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrierBoxSide": [
+                  "0B",
+                  "1B",
+                  "2B",
+                  "3B",
+                  "4B",
+                  "5B",
+                  "6B",
+                  "7B",
+                  "8B"
+                ]
+              },
+              "fieldName": "performedAfterVulcanizationOfBBarrierBoxSide",
+              "label": "Performed after vulcanization of B-barrier",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "fieldName": "barrierFinishedBoxSide",
+              "label": "Barrier finished",
+              "required": true,
+              "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "completionPhase": {
+      "pages": [
+        {
+          "pageTitle": "Completion phase",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showField": { "slipon2": true, "slipon3": true },
+              "fieldName": "drillingHasBeenCompleted",
+              "label": "Drilling has been completed",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "showField": { "b2P": true, "dual": true },
+              "fieldName": "internalCleaning",
+              "label": "Internal cleaning",
+              "type": "checkbox",
+              "required": true
+            },
+            {
+              "showField": { "b2P": true, "dual": true },
+              "label": "Cleaning of thread",
+              "fieldName": "cleaningOfThread",
+              "type": "checkbox",
+              "required": true
+            },
+            {
+              "specValueList": "leadEngineer.data.idDriftSize",
+              "label": "Drift size"
+            },
+            {
+              "fieldName": "calibrationDate",
+              "required": true,
+              "label": "Next Calibration date",
+              "type": "date"
+            },
+            {
+              "fieldName": "equipmentIdCompletionPhase",
+              "required": true,
+              "label": "Equipment ID"
+            },
+            {
+              "fieldName": "marking",
+              "required": true,
+              "label": "Marking",
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointCompletionPhases",
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "fieldName": "odMeasurementPoint",
+              "label": "OD Measurement Point {}",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showField": { "dual": true },
+              "label": "Pin side",
+              "labelOnly": true
+            }
+          ]
+        },
+        {
+          "showPage": { "dual": true },
+          "queryPath": "operator.measurementPointCompletionPhasePinSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "fieldName": "odMeasurementPoint",
+              "label": "OD Measurement Point pin side {}",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "showField": { "dual": true },
+              "label": "Box side",
+              "labelOnly": true
+            }
+          ]
+        },
+        {
+          "showPage": { "dual": true },
+          "queryPath": "operator.measurementPointCompletionPhaseBoxSides",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
+          "repeatGroupWithQuerySpecData": true,
+
+          "fields": [
+            {
+              "fieldName": "odMeasurementPoint",
+              "label": "OD Measurement Point box side {}",
+              "indexVariableLabel": true,
+              "required": true,
+              "type": "number",
+              "notBatch": true,
               "unit": "mm",
               "decimal": 1
             }
@@ -678,6 +2888,56 @@
               "required": true,
               "label": "Touch Up Performed",
               "type": "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    "touchUpPacker": {
+      "pages": [
+        {
+          "pageTitle": "Touch-Up",
+          "queryPath": "operator",
+          "fields": [
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true
+              },
+              "fieldName": "appliedThreadDop",
+              "required": true,
+              "label": "Applied thread dop",
+              "type": "select",
+              "options": ["Mercasol", "Kendex orange"]
+            },
+            {
+              "showField": {
+                "b2P": true,
+                "dual": true
+              },
+              "fieldName": "bioDopStorageOil",
+              "label": "Bio Dop Storage oil",
+              "type": "checkbox"
+            },
+            {
+              "label": "Packed specification",
+              "mathSpec": "mathPackingSpecification"
+            },
+            {
+              "fieldName": "packedInAccordantToSpec",
+              "label": "Packed in accordant to spec",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "showField": {
+                "slipon2": true,
+                "slipon3": true
+              },
+              "fieldName": "affixedLabel",
+              "label": "Affixed label",
+              "required": true,
+              "type": "checkbox"
             }
           ]
         }

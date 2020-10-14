@@ -189,13 +189,82 @@ const OPERATOR_BATCHING = gql`
             operator {
               id
               data
-              additionalCustomTestOperators {
+              surfaceCleanlinessImage
+              rubberCementOperators {
+                id
+                data
+                mixDates {
+                  id
+                  data
+                }
+              }
+              measurementPointBeforeBarriers {
+                id
+                data
+              }
+              measurementPointAfterBarriers {
+                id
+                data
+              }
+              measurementPointBeforeBarrierPinSides {
+                id
+                data
+              }
+              measurementPointBeforeBarrierBoxSides {
+                id
+                data
+              }
+              measurementPointAfterBarrierPinSides {
+                id
+                data
+              }
+              measurementPointAfterBarrierBoxSides {
+                id
+                data
+              }
+              measurementPointCompletionPhases {
+                id
+                data
+              }
+              measurementPointCompletionPhasePinSides {
+                id
+                data
+              }
+              measurementPointCompletionPhaseBoxSides {
+                id
+                data
+              }
+              grindings {
+                id
+                data
+              }
+              deviations {
+                id
+                data
+              }
+              measurementPointActualTdvs {
                 id
                 data
               }
               vulcanizationOperators {
                 id
                 data
+                coatingOperators {
+                  id
+                  data
+                  layers {
+                    id
+                    data
+                  }
+                  measurementPointOperators {
+                    id
+                    data
+                  }
+                }
+                measurementPointOperators {
+                  id
+                  data
+                }
               }
             }
           }
@@ -277,6 +346,50 @@ const OPERATOR = gql`
                 id
                 data
               }
+            }
+            measurementPointBeforeBarriers {
+              id
+              data
+            }
+            measurementPointAfterBarriers {
+              id
+              data
+            }
+            measurementPointBeforeBarrierPinSides {
+              id
+              data
+            }
+            measurementPointBeforeBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierPinSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointCompletionPhases {
+              id
+              data
+            }
+            measurementPointCompletionPhasePinSides {
+              id
+              data
+            }
+            measurementPointCompletionPhaseBoxSides {
+              id
+              data
+            }
+            grindings {
+              id
+              data
+            }
+            deviations {
+              id
+              data
             }
             measurementPointActualTdvs {
               id
@@ -414,6 +527,50 @@ const QUALITY_CONTROL = gql`
                 id
                 data
               }
+            }
+            measurementPointBeforeBarriers {
+              id
+              data
+            }
+            measurementPointAfterBarriers {
+              id
+              data
+            }
+            measurementPointBeforeBarrierPinSides {
+              id
+              data
+            }
+            measurementPointBeforeBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierPinSides {
+              id
+              data
+            }
+            measurementPointAfterBarrierBoxSides {
+              id
+              data
+            }
+            measurementPointCompletionPhases {
+              id
+              data
+            }
+            measurementPointCompletionPhasePinSides {
+              id
+              data
+            }
+            measurementPointCompletionPhaseBoxSides {
+              id
+              data
+            }
+            grindings {
+              id
+              data
+            }
+            deviations {
+              id
+              data
             }
             measurementPointActualTdvs {
               id

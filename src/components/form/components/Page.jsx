@@ -4,7 +4,8 @@ import React, {
   useCallback,
   useState,
   Fragment,
-  useMemo
+  useMemo,
+  useLayoutEffect
 } from "react";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import Title from "components/design/fonts/Title";
@@ -15,7 +16,9 @@ import {
   getProperties,
   variableString,
   getRepeatStepList,
-  isLastCharacterNumber
+  isLastCharacterNumber,
+  notShowSpec,
+  areEqual
 } from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
@@ -29,85 +32,184 @@ import Input from "components/input/Input";
 import { dialog } from "components/Dialog";
 import useHidden from "functions/useHidden";
 
-const DeleteButton = ({ index, deleteHandler }) => (
-  <DepthButton
-    iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
-    onClick={() => deleteHandler(index)}
-    className="w-100 mt-1 mb-3"
-  >
-    Remove
-  </DepthButton>
-);
 
-const multiFieldGroup = (
-  props,
-  index,
-  deleteHandler,
-  editChapter,
-  finalChapter,
-  hidden
-) => {
-  return (
-    <Fragment
-      key={`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`}
-    >
-      {props.pageTitle && props.indexVariablePageTitle !== undefined ? (
-        <>
-          <Subtitle
-            className={
-              !writeChapter(
-                props.allWaysShow,
-                editChapter,
-                props.thisChapter,
-                finalChapter.current
-              ) && "mt-3"
-            }
-          >
-            {variableString(index + 1, props.pageTitle)}
-          </Subtitle>
-          <Line></Line>
-        </>
-      ) : null}
-      <FieldGroup
-        {...props}
-        repeatStepList={getRepeatStepList(props.repeatStepList, index)}
-        repeatStep={index}
-        path={props.path ? `${props.path}.${index}` : null}
-        file={
-          objectPath.get(
-            props.backendData,
-            props.path ? `${props.path}.${index}.data` : null
-          ) &&
-          objectPath.get(
-            props.backendData,
-            props.path ? `${props.path}.${index}.data` : null
-          ).file
-        }
-        indexId={`${props.indexId}-${index}`}
-      />
-      {!!props.delete &&
-        !hidden &&
-        !!writeChapter(
-          props.allWaysShow,
-          editChapter,
-          props.thisChapter,
-          finalChapter.current
-        ) &&
-        (props.repeatStartWith ? (
-          !!index && (
-            <DeleteButton index={index} deleteHandler={deleteHandler} />
-          )
-        ) : (
-          <DeleteButton index={index} deleteHandler={deleteHandler} />
-        ))}
-    </Fragment>
-  );
-};
-
-export default React.memo(props => {
+export default React.memo(({allData,
+backendData,
+optionsData,
+submitData,
+document,
+edit,
+specData,
+jsonVariables,
+stage,
+repeatStepList,
+path,
+thisChapter,
+stopLoop,
+showEditButton,
+indexId,
+index,
+noSaveButton,
+finalChapterRef,
+showSubmitButton,
+itemIdsRef,
+itemId,
+specRemovePath,
+writeOnlyFieldIf,
+repeatGroupWithQuerySpecData,
+customComponent,
+notSubmitButton,
+noLine,
+className,
+fields,
+addButton,
+label,
+prepend,
+queryPath,
+showPage,
+showPageSpecPath,
+editRepeatStepValueList,
+repeatGroupWithQuery,
+repeatGroupWithQueryMath,
+editRepeatStepListRepeat,
+allWaysShow,
+repeatStartWith,
+pageTitle,
+indexVariablePageTitle,
+type,
+delete: deleteButton
+}) => {
   const { finalChapter, editChapter, setEditChapter } = useContext(
     ChapterContext
   );
+  if (finalChapterRef && finalChapterRef > finalChapter.current) {
+    finalChapter.current = finalChapterRef;
+  }
+
+
+  const DeleteButton = ({ index, deleteHandler }) => (
+    <DepthButton
+      iconProps={{ icon: ["fas", "trash-alt"], className: "text-danger" }}
+      onClick={() => deleteHandler(index)}
+      className="w-100 mt-1 mb-3"
+    >
+      Remove
+    </DepthButton>
+  );
+
+  const multiFieldGroup = useCallback(
+    (index,
+    deleteHandler,
+    editChapter,
+    finalChapter,
+    hidden) => {
+    return (
+      <Fragment
+        key={`${repeatStepList}-${index}-${path}-${queryPath}-fragment`}
+      >
+        {pageTitle && indexVariablePageTitle !== undefined ? (
+          <>
+            <Subtitle
+              className={
+                !writeChapter(
+                  allWaysShow,
+                  editChapter,
+                  thisChapter,
+                  finalChapter.current
+                ) && "mt-3"
+              }
+            >
+              {variableString(index + 1, pageTitle)}
+            </Subtitle>
+            <Line></Line>
+          </>
+        ) : null}
+        <FieldGroup
+        fields={fields}
+          allData={allData}
+          backendData={backendData}
+          optionsData={optionsData}
+          submitData={submitData}
+          document={document}
+          edit={edit}
+          specData={specData}
+          jsonVariables={jsonVariables}
+          stage={stage}
+          thisChapter={thisChapter}
+          stopLoop={stopLoop}
+          index={index}
+          itemIdsRef={itemIdsRef}
+          itemId={itemId}
+          specRemovePath={specRemovePath}
+          writeOnlyFieldIf={writeOnlyFieldIf}
+          queryPath={queryPath}
+          editRepeatStepValueList={editRepeatStepValueList}
+          repeatGroupWithQuery={repeatGroupWithQuery}
+          repeatGroupWithQueryMath={repeatGroupWithQueryMath}
+          editRepeatStepListRepeat={editRepeatStepListRepeat}
+          repeatStepList={getRepeatStepList(repeatStepList, index)}
+          repeatStep={index}
+          path={path ? `${path}.${index}` : null}
+          file={
+            objectPath.get(
+              backendData,
+              path ? `${path}.${index}.data` : null
+            ) &&
+            objectPath.get(
+              backendData,
+              path ? `${path}.${index}.data` : null
+            ).file
+          }
+          indexId={`${indexId}-${index}`}
+        />
+        {!!deleteButton &&
+          !hidden &&  
+          !!writeChapter(
+            allWaysShow,
+            editChapter,
+            thisChapter,
+            finalChapter.current
+          ) &&
+          (repeatStartWith ? (
+            !!index && (
+              <DeleteButton index={index} deleteHandler={deleteHandler} />
+            )
+          ) : (
+            <DeleteButton index={index} deleteHandler={deleteHandler} />
+          ))}
+      </Fragment>
+    )
+    }, [
+    allData,
+    allWaysShow,
+    backendData,
+    deleteButton,
+    document,
+    edit,
+    editRepeatStepListRepeat,
+    editRepeatStepValueList,
+    fields,
+    indexId,
+    indexVariablePageTitle,
+    itemId,
+    itemIdsRef,
+    jsonVariables,
+    optionsData,
+    pageTitle,
+    path,
+    queryPath,
+    repeatGroupWithQuery,
+    repeatGroupWithQueryMath,
+    repeatStartWith,
+    repeatStepList,
+    specData,
+    specRemovePath,
+    stage,
+    stopLoop,
+    submitData,
+    thisChapter,
+    writeOnlyFieldIf
+  ])
   const {
     documentDataDispatch,
     documentData,
@@ -115,47 +217,45 @@ export default React.memo(props => {
     screenshotData
   } = useContext(DocumentDataContext);
   const [fieldGroups, setFieldGroups] = useState({});
-  const hidden = useHidden(props.writeOnlyFieldIf, [
-    `${props.label}-${props.prepend}-${props.queryPath}-page-hidden`
+  const hidden = useHidden(writeOnlyFieldIf, [
+    `${label}-${prepend}-${queryPath}-page-hidden`
   ]);
-  if (props.finalChapter && props.finalChapter > finalChapter.current) {
-    finalChapter.current = props.finalChapter;
-  }
+  
   const updateReadOnly = useCallback(() => {
     if (
-      typeof props.writeOnlyFieldIf === "object" &&
-      props.writeOnlyFieldIf !== null &&
-      !(props.writeOnlyFieldIf instanceof Array)
+      typeof writeOnlyFieldIf === "object" &&
+      writeOnlyFieldIf !== null &&
+      !(writeOnlyFieldIf instanceof Array)
     ) {
-      let key = Object.keys(props.writeOnlyFieldIf)[0];
+      let key = Object.keys(writeOnlyFieldIf)[0];
       let value = objectPath.get(documentData.current, key, undefined);
       return value === undefined
         ? true
-        : !props.writeOnlyFieldIf[key].includes(value);
+        : !writeOnlyFieldIf[key].includes(value);
     } else {
       return !objectPath.get(
         documentData.current,
-        props.writeOnlyFieldIf,
+        writeOnlyFieldIf,
         false
       );
     }
-  }, [props.writeOnlyFieldIf, documentData]);
+  }, [writeOnlyFieldIf, documentData]);
 
   const deleteData = useCallback(
     index => {
       documentDataDispatch({
         type: "delete",
-        path: `${props.path}.${index}`,
+        path: `${path}.${index}`,
         notReRender: true
       });
     },
-    [props.path, documentDataDispatch]
+    [path, documentDataDispatch]
   );
   const deleteHandler = useCallback(
     index => {
       setFieldGroups(prevState => {
         delete prevState[
-          `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
+          `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
         ];
         return { ...prevState };
       });
@@ -163,27 +263,32 @@ export default React.memo(props => {
     },
     [
       deleteData,
-      props.path,
+      path,
       setFieldGroups,
-      props.queryPath,
-      props.repeatStepList
+      queryPath,
+      repeatStepList
     ]
   );
-
   useEffect(() => {
     let temporaryMultiFieldGroup = {};
     if (
-      props.showPage === undefined ||
-      (props.showPage && getProperties(props.showPage, props.jsonVariables))
+      (showPage === undefined ||
+        (showPage &&
+          getProperties(showPage, jsonVariables))) &&
+      !notShowSpec(
+        specData,
+        showPageSpecPath,
+        repeatStepList,
+        editRepeatStepValueList
+      )
     ) {
-      if (props.repeat) {
-        let arrayData = objectPath.get(documentData.current, props.path);
+      if (repeatGroupWithQuery || repeatGroupWithQueryMath || addButton) {
+        let arrayData = objectPath.get(documentData.current, path);
         if (Array.isArray(arrayData)) {
           for (let index = 0; index < arrayData.length; index++) {
             temporaryMultiFieldGroup[
-              `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
+              `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
             ] = multiFieldGroup(
-              props,
               index,
               deleteHandler,
               editChapter,
@@ -191,49 +296,93 @@ export default React.memo(props => {
               hidden
             );
           }
-        } else if (!props.queryPath) {
+        } else if (!queryPath) {
           let repeatNumber = getRepeatNumber(
-            props.specData,
-            props.repeatGroupWithQuery,
-            props.repeatStepList,
-            props.editRepeatStepListRepeat
+            specData,
+            repeatGroupWithQuery,
+            repeatGroupWithQueryMath,
+            repeatStepList,
+            editRepeatStepListRepeat
           );
           for (let index = 0; index < repeatNumber; index++) {
             temporaryMultiFieldGroup[
-              `${props.repeatStepList}-${index}-${props.path}.${props.queryPath}-repeat-fragment`
+              `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
             ] = (
               <FieldGroup
-                key={`${props.path}.${props.repeatGroupWithQuery}.${index}`}
-                {...props}
-                repeatStepList={getRepeatStepList(props.repeatStepList, index)}
+              fields={fields}
+          allData={allData}
+          backendData={backendData}
+          optionsData={optionsData}
+          submitData={submitData}
+          document={document}
+          edit={edit}
+          specData={specData}
+          jsonVariables={jsonVariables}
+          stage={stage}
+          thisChapter={thisChapter}
+          stopLoop={stopLoop}
+          index={index}
+          itemIdsRef={itemIdsRef}
+          itemId={itemId}
+          specRemovePath={specRemovePath}
+          writeOnlyFieldIf={writeOnlyFieldIf}
+          queryPath={queryPath}
+          editRepeatStepValueList={editRepeatStepValueList}
+          repeatGroupWithQuery={repeatGroupWithQuery}
+          repeatGroupWithQueryMath={repeatGroupWithQueryMath}
+          editRepeatStepListRepeat={editRepeatStepListRepeat}
+
+                key={`${path}.${repeatGroupWithQuery}.${index}`}
+                repeatStepList={getRepeatStepList(repeatStepList, index)}
                 repeatStep={index}
-                path={props.path ? `${props.path}.${index}.data` : null}
-                indexId={`${props.indexId}-${index}`}
+                path={path ? `${path}.${index}.data` : null}
+                indexId={`${indexId}-${index}`}
               />
             );
           }
         }
       } else {
         temporaryMultiFieldGroup[
-          `${props.repeatStepList}-${props.path}.${props.queryPath}-repeat-fragment7`
+          `${repeatStepList}-0-${path}-${queryPath}-fragment`
         ] = (
           <FieldGroup
-            {...props}
-            key={`${props.path}.${props.queryPath}`}
-            repeatStepList={getRepeatStepList(props.repeatStepList, 0)}
+          fields={fields}
+          allData={allData}
+          backendData={backendData}
+          optionsData={optionsData}
+          submitData={submitData}
+          document={document}
+          edit={edit}
+          specData={specData}
+          jsonVariables={jsonVariables}
+          stage={stage}
+          thisChapter={thisChapter}
+          stopLoop={stopLoop}
+          index={index}
+          itemIdsRef={itemIdsRef}
+          itemId={itemId}
+          specRemovePath={specRemovePath}
+          writeOnlyFieldIf={writeOnlyFieldIf}
+          queryPath={queryPath}
+          editRepeatStepValueList={editRepeatStepValueList}
+          repeatGroupWithQuery={repeatGroupWithQuery}
+          repeatGroupWithQueryMath={repeatGroupWithQueryMath}
+          editRepeatStepListRepeat={editRepeatStepListRepeat}
+            key={`${path}.${queryPath}`}
+            repeatStepList={getRepeatStepList(repeatStepList, 0)}
             file={
-              objectPath.get(props.backendData, props.path + ".data") &&
-              objectPath.get(props.backendData, props.path + ".data").file
+              objectPath.get(backendData, path + ".data") &&
+              objectPath.get(backendData, path + ".data").file
             }
             path={
-              props.path
-                ? isLastCharacterNumber(props.path)
-                  ? props.path
-                  : `${props.path}`
+              path
+                ? isLastCharacterNumber(path)
+                  ? path
+                  : `${path}`
                 : null
             }
             repeatStep={0}
-            indexId={`${props.indexId}`}
+            indexId={`${indexId}`}
           />
         );
       }
@@ -244,8 +393,41 @@ export default React.memo(props => {
       }
     }
   }, [
+    allData,
+    allWaysShow,
+    backendData,
+    deleteButton,
+    document,
+    edit,
+    editRepeatStepListRepeat,
+    editRepeatStepValueList,
+    fields,
+    indexId,
+    indexVariablePageTitle,
+    itemId,
+    itemIdsRef,
+    jsonVariables,
+    optionsData,
+    pageTitle,
+    addButton,
+    path,
+    queryPath,
+    repeatGroupWithQuery,
+    repeatGroupWithQueryMath,
+    repeatStartWith,
+    repeatStepList,
+    specData,
+    specRemovePath,
+    stage,
+    stopLoop,
+    submitData,
+    thisChapter,
+    writeOnlyFieldIf,
+    index,
+    multiFieldGroup,
+    showPage,
+    showPageSpecPath,
     documentData,
-    props,
     deleteHandler,
     setFieldGroups,
     editChapter,
@@ -258,8 +440,7 @@ export default React.memo(props => {
       setFieldGroups(prevState => {
         return {
           ...prevState,
-          [`${props.repeatStepList}-${pushOnIndex}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(
-            props,
+          [`${repeatStepList}-${pushOnIndex}-${path}-${queryPath}-fragment`]: multiFieldGroup(
             pushOnIndex,
             deleteHandler,
             editChapter,
@@ -272,12 +453,15 @@ export default React.memo(props => {
         type: "add",
         newState: {},
         fieldName: "data",
-        path: `${props.path}.${pushOnIndex}`,
+        path: `${path}.${pushOnIndex}`,
         notReRender: true
       });
     },
     [
-      props,
+      multiFieldGroup,
+      path,
+      queryPath,
+      repeatStepList,
       documentDataDispatch,
       setFieldGroups,
       deleteHandler,
@@ -289,14 +473,14 @@ export default React.memo(props => {
 
   const addHandler = useCallback(() => {
     let index =
-      objectPath.get(documentData.current, props.path) === undefined
+      objectPath.get(documentData.current, path) === undefined
         ? 0
-        : objectPath.get(documentData.current, props.path).length;
+        : objectPath.get(documentData.current, path).length;
     setFieldGroups(prevState => {
       return {
         ...prevState,
-        [`${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`]: multiFieldGroup(
-          props,
+        [`${repeatStepList}-${index}-${path}-${queryPath}-fragment`]: multiFieldGroup(
+
           index,
           deleteHandler,
           editChapter,
@@ -309,186 +493,216 @@ export default React.memo(props => {
       type: "add",
       newState: {},
       fieldName: "data",
-      path: `${props.path}.${index}`,
+      path: `${path}.${index}`,
       notReRender: true
     });
   }, [
+    repeatStepList,
+    path,
+    queryPath,
     documentDataDispatch,
     documentData,
-    props,
+    multiFieldGroup,
     setFieldGroups,
     deleteHandler,
     editChapter,
     finalChapter,
     hidden
   ]);
-
   // If number of repeat group decided by a another field, it sets repeatGroup
-  const autoRepeat = useCallback(
-    (data = documentData.current) => {
-      let newValue = getRepeatNumber(
-        data,
-        props.repeatGroupWithQuery,
-        props.repeatStepList,
-        props.editRepeatStepListRepeat
-      );
-      newValue = newValue ? newValue : 0;
-      let oldValue = objectPath.get(documentData.current, props.path, false);
-      oldValue = oldValue ? oldValue.length : 0;
-      let temporaryMultiFieldGroup = {};
-      if (oldValue < newValue) {
-        for (let i = oldValue; i < newValue; i++) {
-          temporaryMultiFieldGroup[
-            `${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`
-          ] = multiFieldGroup(
-            props,
-            i,
-            deleteHandler,
-            editChapter,
-            finalChapter,
-            hidden
-          );
-          addData(i);
-        }
-      } else if (newValue < oldValue) {
-        for (let i = oldValue - 1; i > newValue - 1; i--) {
-          temporaryMultiFieldGroup[
-            `${props.repeatStepList}-${i}-${props.path}-${props.queryPath}-repeat-fragment`
-          ] = null;
-          deleteData(i);
-        }
+  const autoRepeat = useCallback(() => {
+    let newValue = getRepeatNumber(
+      repeatGroupWithQuerySpecData
+        ? specData
+        : documentData.current,
+      repeatGroupWithQuery,
+      repeatGroupWithQueryMath,
+      repeatStepList,
+      editRepeatStepListRepeat
+    );
+    let oldValue = objectPath.get(documentData.current, path, false);
+    let temporaryMultiFieldGroup = {};
+    oldValue = oldValue ? (oldValue.length ? oldValue.length : 0) : 0;
+    if (oldValue < newValue) {
+      for (let i = oldValue; i < newValue; i++) {
+        // temporaryMultiFieldGroup[
+        //   `${repeatStepList}-${i}-${path}-${queryPath}-fragment`
+        // ] = multiFieldGroup(
+        //   props,
+        //   i,
+        //   deleteHandler,
+        //   editChapter,
+        //   finalChapter,
+        //   hidden
+        // );
+        addData(i);
       }
-      setFieldGroups(prevState => {
-        return { ...prevState, ...temporaryMultiFieldGroup };
-      });
-    },
-    [
-      deleteHandler,
-      props,
-      documentData,
-      addData,
-      setFieldGroups,
-      deleteData,
-      editChapter,
-      finalChapter,
-      hidden
-    ]
-  );
-  useEffect(() => {
+    } else if (newValue < oldValue) {
+      for (let i = oldValue - 1; i > newValue - 1; i--) {
+        temporaryMultiFieldGroup[
+          `${repeatStepList}-${i}-${path}-${queryPath}-fragment`
+        ] = null;
+        deleteData(i);
+      }
+    }
+    setFieldGroups(prevState => {
+      return { ...prevState, ...temporaryMultiFieldGroup };
+    });
+  }, [
+    repeatGroupWithQuerySpecData,
+    specData,
+    queryPath,
+    documentData,
+    repeatGroupWithQuery,
+    repeatGroupWithQueryMath,
+    repeatStepList,
+    editRepeatStepListRepeat,
+    path,
+    addData,
+    setFieldGroups,
+    deleteData
+  ]);
+
+  useLayoutEffect(() => {
     if (
-      props.repeatGroupWithQuery &&
-      !props.repeatGroupWithQuerySpecData &&
+      (repeatGroupWithQuery || repeatGroupWithQueryMath) &&
+      !repeatGroupWithQuerySpecData &&
       writeChapter(
-        props.allWaysShow,
+        allWaysShow,
         editChapter,
-        props.thisChapter,
+        thisChapter,
         finalChapter.current
       ) &&
-      (props.showPage === undefined ||
-        (props.showPage && getProperties(props.showPage, props.jsonVariables)))
+      (showPage === undefined ||
+        (showPage &&
+          getProperties(showPage, jsonVariables))) &&
+      !notShowSpec(
+        specData,
+        showPageSpecPath,
+        repeatStepList,
+        editRepeatStepValueList
+      )
     ) {
-      renderFunction.current[`${props.path} -Page`] = autoRepeat;
+      renderFunction.current[`${path}-Page`] = autoRepeat;
     }
     return () => {
-      if (renderFunction.current[`${props.path} -Page`]) {
+      if (renderFunction.current[`${path}-Page`]) {
         // eslint-disable-next-line
-        delete renderFunction.current[`${props.path} -Page`];
+        delete renderFunction.current[`${path}-Page`];
       }
     };
   }, [
-    props.showPage,
-    props.jsonVariables,
-    props.repeatGroupWithQuery,
-    props.path,
-    props.editRepeatStepListRepeat,
-    props.repeatGroupWithQuerySpecData,
-    editChapter,
     finalChapter,
-    props.allWaysShow,
-    props.thisChapter,
+    showPage,
+    jsonVariables,
+    repeatGroupWithQuery,
+    repeatGroupWithQueryMath,
+    path,
+    editRepeatStepListRepeat,
+    repeatGroupWithQuerySpecData,
+    editChapter,
+    allWaysShow,
+    thisChapter,
     autoRepeat,
-    renderFunction
+    renderFunction,
+    specData,
+    showPageSpecPath,
+    repeatStepList,
+    editRepeatStepValueList
   ]);
 
   useEffect(() => {
     if (
-      props.repeatGroupWithQuery &&
+      (repeatGroupWithQuery || repeatGroupWithQueryMath) &&
       writeChapter(
-        props.allWaysShow,
+        allWaysShow,
         editChapter,
-        props.thisChapter,
+        thisChapter,
         finalChapter.current
       ) &&
-      (props.showPage === undefined ||
-        (props.showPage && getProperties(props.showPage, props.jsonVariables)))
+      (showPage === undefined ||
+        (showPage &&
+          getProperties(showPage, jsonVariables))) &&
+      !notShowSpec(
+        specData,
+        showPageSpecPath,
+        repeatStepList,
+        editRepeatStepValueList
+      )
     ) {
-      if (!props.repeatGroupWithQuerySpecData) {
-        autoRepeat(documentData.current);
-      } else if (props.repeatGroupWithQuerySpecData) {
-        autoRepeat(props.specData);
-      }
+      autoRepeat();
     }
   }, [
-    props.showPage,
-    props.jsonVariables,
-    editChapter,
     finalChapter,
-    props.allWaysShow,
-    props.thisChapter,
-    props.backendData,
+    showPage,
+    repeatGroupWithQueryMath,
+    jsonVariables,
+    editChapter,
+    showPageSpecPath,
+    allWaysShow,
+    thisChapter,
+    backendData,
     autoRepeat,
-    props.specData,
-    props.repeatGroupWithQuery,
-    props.repeatGroupWithQuerySpecData,
-    documentData
+    specData,
+    repeatGroupWithQuery,
+    repeatGroupWithQuerySpecData,
+    documentData,
+    repeatStepList,
+    editRepeatStepValueList
   ]);
 
   if (
-    objectPath.get(documentData.current, props.path, null) === null &&
-    objectPath.get(props.backendData, props.path, null) === null &&
+    objectPath.get(documentData.current, path, null) === null &&
+    objectPath.get(backendData, path, null) === null &&
     !isNumberAndNotNaN(
-      Number(props.path.split(".")[props.path.split(".").length - 1])
+      Number(path.split(".")[path.split(".").length - 1])
     )
   ) {
     documentDataDispatch({
       type: "add",
       notReRender: true,
-      newState: props.repeat ? [] : {},
-      path: props.path
+      newState: (repeatGroupWithQuery || repeatGroupWithQueryMath || addButton) ? [] : {},
+      path: path
     });
   }
 
   if (
-    props.repeatStartWith &&
-    getProperties(props.repeatStartWith, props.jsonVariables) &&
+    repeatStartWith &&
+    getProperties(repeatStartWith, jsonVariables) &&
     writeChapter(
-      props.allWaysShow,
+      allWaysShow,
       editChapter,
-      props.thisChapter,
+      thisChapter,
       finalChapter.current
     ) &&
-    (!objectPath.get(props.backendData, props.path) ||
-      objectPath.get(props.backendData, props.path).length === 0) &&
-    (objectPath.get(documentData.current, props.path) === undefined ||
-      (Array.isArray(objectPath.get(documentData.current, props.path)) &&
-        objectPath.get(documentData.current, props.path).length === 0))
+    !notShowSpec(
+      specData,
+      showPageSpecPath,
+      repeatStepList,
+      editRepeatStepValueList
+    ) &&
+    (!objectPath.get(backendData, path) ||
+      objectPath.get(backendData, path).length === 0) &&
+    (objectPath.get(documentData.current, path) === undefined ||
+      (Array.isArray(objectPath.get(documentData.current, path)) &&
+        objectPath.get(documentData.current, path).length === 0))
   ) {
     let temporaryMultiFieldGroup = {};
     for (
       let index = 0;
-      index < writeChapter(props.repeatStartWith, props.jsonVariables);
+      index < getProperties(repeatStartWith, jsonVariables);
       index++
     ) {
-      temporaryMultiFieldGroup[
-        `${props.repeatStepList}-${index}-${props.path}-${props.queryPath}-repeat-fragment`
-      ] = multiFieldGroup(
-        props,
-        index,
-        deleteHandler,
-        editChapter,
-        finalChapter,
-        hidden
-      );
+      // temporaryMultiFieldGroup[
+      //   `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
+      // ] = multiFieldGroup(
+      //   props,
+      //   index,
+      //   deleteHandler,
+      //   editChapter,
+      //   finalChapter,
+      //   hidden
+      // );
       addData(index);
     }
     setFieldGroups(prevState => {
@@ -502,9 +716,9 @@ export default React.memo(props => {
   const Components = useMemo(
     () =>
       CustomComponents[
-        getProperties(props.customComponent, props.jsonVariables)
+        getProperties(customComponent, jsonVariables)
       ],
-    [props.customComponent, props.jsonVariables]
+    [customComponent, jsonVariables]
   );
 
   // let history = useHistory();
@@ -532,7 +746,7 @@ export default React.memo(props => {
   const save = e => {
     e.persist();
     e.preventDefault();
-    props.submitData(documentData.current, false);
+    submitData(false);
   };
 
   const SaveButton = () => (
@@ -549,7 +763,7 @@ export default React.memo(props => {
   );
 
   const cancel = () => {
-    documentDataDispatch({ type: "setState", newState: props.backendData });
+    documentDataDispatch({ type: "setState", newState: backendData });
     setEditChapter(0);
   };
 
@@ -572,7 +786,7 @@ export default React.memo(props => {
                   variant: "success",
                   type: "submit",
                   onClick: () => {
-                    props.submitData(documentData.current, false);
+                    submitData(false);
                     setEditChapter(0);
                   }
                 },
@@ -597,46 +811,46 @@ export default React.memo(props => {
   const SubmitAndCancel = () => {
     return (
       <DepthButtonGroup className="w-100 d-flex">
-        {!props.notSubmitButton && <SubmitButton />}
-        {finalChapterActive && !props.noSaveButton && <SaveButton />}
+        {!notSubmitButton && <SubmitButton />}
+        {finalChapterActive && !noSaveButton && <SaveButton />}
         {showCancel && <CancelButton />}
       </DepthButtonGroup>
     );
   };
   // Checks for conditional rendering
   const showEditAll =
-    props.showEditButton &&
-    !props.stopLoop &&
+    showEditButton &&
+    !stopLoop &&
     !writeChapter(
-      props.allWaysShow,
+      allWaysShow,
       editChapter,
-      props.thisChapter,
+      thisChapter,
       finalChapter.current
     ) &&
-    props.edit;
-  // && props.thisChapter !== finalChapter.current;
+    edit;
+  // && thisChapter !== finalChapterRef;
   const showTitle =
-    !props.stopLoop &&
-    props.pageTitle &&
-    props.indexVariablePageTitle === undefined;
+    !stopLoop &&
+    pageTitle &&
+    indexVariablePageTitle === undefined;
   const showLine =
     (showTitle || showEditAll) &&
-    !props.noLine &&
-    !!props.pageTitle &&
-    !["", " "].includes(props.pageTitle);
+    !noLine &&
+    !!pageTitle &&
+    !["", " "].includes(pageTitle);
   const showCancel = !!editChapter;
   const showCancelTab =
     showLine &&
     !!editChapter &&
-    props.thisChapter !== finalChapter.current &&
-    props.pageTitle;
+    thisChapter !== finalChapter.current &&
+    pageTitle;
   const editAllActive =
-    props.showSubmitButton && editChapter && props.thisChapter === editChapter;
+    showSubmitButton && editChapter && thisChapter === editChapter;
   const finalChapterActive =
-    props.showSubmitButton &&
+    showSubmitButton &&
     !editChapter &&
-    props.thisChapter === props.finalChapter;
-  const finalPage = props.showSubmitButton;
+    thisChapter === finalChapter.current;
+  const finalPage = showSubmitButton;
 
   // MultipleFiles logic
   // TODO: Make functions for these variables
@@ -647,12 +861,12 @@ export default React.memo(props => {
 
   return (
     <div
-      className={`${finalPage && "mb-5"} ${props.className} `}
-      // className={`${ !props.finalChapter && "" } ${ props.className } `}
+      className={`${finalPage && "mb-5"} ${className} `}
+      // className={`${ !finalChapter && "" } ${ className } `}
     >
       <div className="d-flex justify-content-between align-items-end">
         {showTitle ? (
-          <Title>{props.pageTitle}</Title>
+          <Title>{pageTitle}</Title>
         ) : showEditAll ? (
           <div></div>
         ) : null}
@@ -672,13 +886,12 @@ export default React.memo(props => {
                       variant: "success",
                       type: "submit",
                       onClick: () => {
-                        props.submitData(documentData.current, false);
-
+                        submitData(false);
                         documentDataDispatch({
                           type: "setState",
-                          newState: props.backendData
+                          newState: backendData
                         });
-                        setEditChapter(props.thisChapter);
+                        setEditChapter(thisChapter);
                       }
                     },
                     {
@@ -688,9 +901,9 @@ export default React.memo(props => {
                       onClick: () => {
                         documentDataDispatch({
                           type: "setState",
-                          newState: props.backendData
+                          newState: backendData
                         });
-                        setEditChapter(props.thisChapter);
+                        setEditChapter(thisChapter);
                       }
                     }
                   ]
@@ -698,9 +911,9 @@ export default React.memo(props => {
               } else {
                 documentDataDispatch({
                   type: "setState",
-                  newState: props.backendData
+                  newState: backendData
                 });
-                setEditChapter(props.thisChapter);
+                setEditChapter(thisChapter);
               }
             }}
           >
@@ -723,7 +936,7 @@ export default React.memo(props => {
                         variant: "success",
                         type: "submit",
                         onClick: () => {
-                          props.submitData(documentData.current, false);
+                          submitData(false);
                           setEditChapter(0);
                         }
                       },
@@ -747,20 +960,61 @@ export default React.memo(props => {
         )}
       </div>
       {showLine && <Line />}
-      {!!Components && <Components {...props} />}
-      {props.fields ? (
+      {!!Components && <Components allData={allData}
+          backendData={backendData}
+          optionsData={optionsData}
+          submitData={submitData}
+          document={document}
+          edit={edit}
+          specData={specData}
+          jsonVariables={jsonVariables}
+          stage={stage}
+          thisChapter={thisChapter}
+          stopLoop={stopLoop}
+          index={index}
+          finalChapter={finalChapter}
+          itemIdsRef={itemIdsRef}
+          itemId={itemId}
+          specRemovePath={specRemovePath}
+          writeOnlyFieldIf={writeOnlyFieldIf}
+          queryPath={queryPath}
+          editRepeatStepValueList={editRepeatStepValueList}
+          repeatGroupWithQuery={repeatGroupWithQuery}
+          repeatGroupWithQueryMath={repeatGroupWithQueryMath}
+          editRepeatStepListRepeat={editRepeatStepListRepeat}
+          repeatStepList={getRepeatStepList(repeatStepList, index)}
+          repeatStep={index}
+          path={path ? `${path}.${index}` : null}
+          file={
+            objectPath.get(
+              backendData,
+              path ? `${path}.${index}.data` : null
+            ) &&
+            objectPath.get(
+              backendData,
+              path ? `${path}.${index}.data` : null
+            ).file
+          }
+          indexId={`${indexId}-${index}`}/>}
+      {fields ? (
         <>
           {Object.values(fieldGroups)}
-          {!!props.addButton &&
-          props.repeat &&
+          {!!addButton &&
+          (repeatGroupWithQuery || repeatGroupWithQueryMath || addButton) &&
           !updateReadOnly() &&
-          (props.showPage === undefined ||
-            (props.showPage &&
-              getProperties(props.showPage, props.jsonVariables))) &&
+          (showPage === undefined ||
+            (showPage &&
+              getProperties(showPage, jsonVariables))) &&
+          !notShowSpec(
+            specData,
+            showPageSpecPath,
+            repeatStepList,
+            editRepeatStepValueList
+          ) &&
           writeChapter(
-            props.allWaysShow,
+            allWaysShow,
             editChapter,
-            props.thisChapter,
+            thisChapter,
             finalChapter.current
           ) ? (
             <DepthButton
@@ -769,16 +1023,43 @@ export default React.memo(props => {
               onClick={() => addHandler()}
               className="mb-3 w-100"
             >
-              {props.addButton ? props.addButton : "Add"}
+              {addButton ? addButton : "Add"}
             </DepthButton>
           ) : null}
         </>
-      ) : props.type === "files" ? (
+      ) : type === "files" ? (
         <>
-          <Input {...props} noComment />
+          <Input
+              noComment
+              path={path}
+              fields={fields}
+              type={type}
+              allData={allData}
+              backendData={backendData}
+              optionsData={optionsData}
+              submitData={submitData}
+              document={document}
+              edit={edit}
+              specData={specData}
+              jsonVariables={jsonVariables}
+              stage={stage}
+              thisChapter={thisChapter}
+              stopLoop={stopLoop}
+              index={index}
+              itemIdsRef={itemIdsRef}
+              itemId={itemId}
+              specRemovePath={specRemovePath}
+              writeOnlyFieldIf={writeOnlyFieldIf}
+              queryPath={queryPath}
+              editRepeatStepValueList={editRepeatStepValueList}
+              repeatGroupWithQuery={repeatGroupWithQuery}
+              repeatGroupWithQueryMath={repeatGroupWithQueryMath}
+              editRepeatStepListRepeat={editRepeatStepListRepeat}
+              repeatStep={index}
+          />
         </>
       ) : null}
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );
-});
+}, areEqual);
