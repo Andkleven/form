@@ -29,7 +29,7 @@
       "queryPath": "operator",
       "pages": [
         {
-          "pageTitle": "Actual Steel",
+          "pageTitle": "Actual Steel OD",
           "queryPath": "operator.measurementPointActualTdvs",
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
@@ -44,8 +44,7 @@
               "type": "number",
               "notBatch": true,
               "unit": "mm",
-              "decimal": 1,
-              "notBatch": true
+              "decimal": 1
             }
           ]
         }
@@ -58,6 +57,10 @@
           "pageTitle": "Media Blasting",
           "queryPath": "operator",
           "fields": [
+            {
+              "specValueList": "leadEngineer.data.blastMedia",
+              "label": "Blast Media"
+            },
             {
               "fieldName": "relativeHumidity",
               "label": "Relative Humidity",
@@ -111,16 +114,7 @@
               "type": "date"
             },
             {
-              "fieldName": "steelPreparationPerformed",
-              "label": "Steel Preparation Performed",
-              "required": true,
-              "type": "datetime-local"
-            },
-            {
-              "specValueList": "leadEngineer.data.blastMedia",
-              "label": "Blast Media"
-            },
-            {
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "blastMediaBatchNumber",
               "required": true,
               "label": "Blast Media Batch Number"
@@ -129,6 +123,12 @@
               "fieldName": "mediaBlastingStarted",
               "required": true,
               "label": "Media Blasting Started",
+              "type": "datetime-local"
+            },
+            {
+              "fieldName": "steelPreparationPerformed",
+              "label": "Steel Preparation Performed",
+              "required": true,
               "type": "datetime-local"
             }
           ]
@@ -297,12 +297,6 @@
               "prepend": "Next Calibration Date",
               "min": "now",
               "required": true
-            },
-            {
-              "showField": { "coatedItem": true, "mould": true },
-              "showFieldSpecPath": "leadEngineer.data.surfaceProfileMin",
-              "fieldName": "referencePlateId",
-              "prepend": "Reference Plate Id (Optional)"
             },
             {
               "showField": { "coatedItem": true, "mould": true },
@@ -723,8 +717,8 @@
                 {
                   "fieldName": "mixDate",
                   "required": true,
-                  "label": "Mix Date",
-                  "indent": true,
+                  "indexVariableLabel": true,
+                  "label": "Mix Date {}",
                   "type": "date"
                 }
               ]
@@ -780,16 +774,8 @@
               "required": true
             },
             {
-              "showField": { "mould": true },
-              "subtext": "{}",
-              "math": "mathMouldThickness",
-              "label": "Cumulative this layer",
-              "mathSubtext": "mathLayerMinMax"
-            },
-            {
               "fieldName": "mixDate",
               "label": "Mix Date",
-              "indent": true,
               "type": "date",
               "required": true
             }
@@ -818,8 +804,8 @@
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
-              "calculateMin": "mathLayerMin",
-              "calculateMax": "mathLayerMax",
+              "mathSubtext": "mathCumulativeThicknessAll",
+              "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
               "required": true
             }
