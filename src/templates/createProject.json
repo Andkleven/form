@@ -118,14 +118,14 @@
         {
           "repeatStartWith": 1,
           "delete": true,
-          "addButton": "Reference documents/codes",
+          "addButton": "Additional information",
           "queryPath": ["projects.0.descriptions", "specifications"],
           "fields": [
             {
               "fieldName": "specificationTitle",
-              "label": "Reference documents/codes",
+              "label": "Additional information",
               "type": "select",
-              "option": ["Drawing no.", "CPS", "ITP", "IFS activity codes"]
+              "options": ["Report Code - Hours", "Report Code - Materials", "Shop Order no."]
             },
             {
               "noComment": true,

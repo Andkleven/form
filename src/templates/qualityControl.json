@@ -102,6 +102,20 @@
               "showFieldSpecPath": "leadEngineer.data.hammerTest"
             },
             {
+              "showField":{"slipon2":true, "slipon3":true, "dual": true, "b2P":true},
+              "mathSpec": "mathIdentificationMarking",
+              "label": "Identification Marking"
+            },
+            {
+              "showField":{"slipon2":true, "slipon3":true, "dual": true, "b2P":true},
+              "fieldName": "identificationMarking",
+              "label": "Identification Marking",
+              "subtext": "ID matches 123.",
+              "required": true,
+              "type": "checkbox"
+            },
+            {
+              "showField":{"coatedItem":true, "mould":true},
               "fieldName": "identificationMarking",
               "label": "Identification Marking",
               "subtext": "ID matches 123.",
