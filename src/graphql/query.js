@@ -89,14 +89,6 @@ const ITEM = gql`
           id
           data
         }
-        measurementPointCompletionPhasePinSides {
-          id
-          data
-        }
-        measurementPointCompletionPhaseBoxSides {
-          id
-          data
-        }
         grindings {
           id
           data
@@ -231,14 +223,6 @@ const BATCHING_OPERATOR = gql`
               data
             }
             measurementPointCompletionPhases {
-              id
-              data
-            }
-            measurementPointCompletionPhasePinSides {
-              id
-              data
-            }
-            measurementPointCompletionPhaseBoxSides {
               id
               data
             }
@@ -378,14 +362,6 @@ const BATCHING_VULCANIZATION = gql`
               data
             }
             measurementPointCompletionPhases {
-              id
-              data
-            }
-            measurementPointCompletionPhasePinSides {
-              id
-              data
-            }
-            measurementPointCompletionPhaseBoxSides {
               id
               data
             }
@@ -619,14 +595,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             id
             data
           }
-          measurementPointCompletionPhasePinSides {
-            id
-            data
-          }
-          measurementPointCompletionPhaseBoxSides {
-            id
-            data
-          }
           grindings {
             id
             data
@@ -751,14 +719,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           data
         }
         measurementPointCompletionPhases {
-          id
-          data
-        }
-        measurementPointCompletionPhasePinSides {
-          id
-          data
-        }
-        measurementPointCompletionPhaseBoxSides {
           id
           data
         }
@@ -948,14 +908,6 @@ const QUALITY_CONTROL = gql`
           data
         }
         measurementPointCompletionPhases {
-          id
-          data
-        }
-        measurementPointCompletionPhasePinSides {
-          id
-          data
-        }
-        measurementPointCompletionPhaseBoxSides {
           id
           data
         }

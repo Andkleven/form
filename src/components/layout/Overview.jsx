@@ -8,6 +8,8 @@ import gql from "graphql-tag";
 import { objectifyQuery } from "functions/general";
 import { useQuery } from "react-apollo";
 import objectPath from "object-path";
+import Math from "components/form/functions/math";
+
 
 const queries = {
   project: gql`
@@ -45,6 +47,10 @@ const queries = {
       items(id: $id) {
         id
         itemId
+        leadEngineer {
+          id
+          data
+        }
       }
     }
   `
@@ -113,11 +119,11 @@ export default ({ itemIdsRef }) => {
     }
   }, [descriptionQuery, itemIdsRef]);
 
-  // const itemQuery = useQuery(queries.item, {
-  //   variables: {
-  //     id: params.itemId
-  //   }
-  // });
+  const itemQuery = useQuery(queries.item, {
+    variables: {
+      id: params.itemId
+    }
+  });
 
   const Items = () => {
     if (
@@ -189,6 +195,22 @@ export default ({ itemIdsRef }) => {
                 .geometry) ||
               "N/A"}
           </div>
+          {descriptionQuery &&
+            descriptionQuery.data &&
+            ["Slip on 2", "Slip on 3", "B2P", "Dual"].includes(JSON.parse(descriptionQuery.data.descriptions[0].data).geometry) && 
+            <>
+              <div className="text-muted mb-n2">
+                <small>Item description:</small>
+              </div>
+              <div>
+                {(itemQuery &&
+                  itemQuery.data &&
+                  itemQuery.data.items[0].leadEngineer &&
+                  Math["mathDescription"]({leadEngineer: {data: JSON.parse(itemQuery.data.items[0].leadEngineer.data)}}, null, 0, null, [JSON.parse(descriptionQuery.data.descriptions[0].data).geometry])) ||
+                  "N/A"}
+              </div>
+            </>
+          }
           <div className="text-muted mb-n2">
             <small>{items ? "Items:" : "Item:"}</small>
           </div>

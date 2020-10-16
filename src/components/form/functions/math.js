@@ -143,7 +143,7 @@ const mathQualityControlMeasurementPointCoatingItemMin = (
   repeatStepList
 ) => {
   let min = mathToleranceMin(allData["items"][0], repeatStepList, 0)
-  return qualityControlMeasurementPointCoatingItem(allData, repeatStepList, min, 0)
+  return min
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
@@ -151,7 +151,7 @@ const mathQualityControlMeasurementPointCoatingItemMax = (
   repeatStepList
 ) => {
   let max = mathToleranceMax(allData["items"][0], repeatStepList, 0)
-  return qualityControlMeasurementPointCoatingItem(allData, repeatStepList, max, 0)
+  return max
 };
 
 const mathThicknessAll = (values, repeatStepList, decimal) => {
@@ -1363,6 +1363,45 @@ const mathBarrier1Max = (allData, data, repeatStepList, documentData) => {
     mathIncreasedOdForWholeElementMinMax(data, "barrier").max
   );
 };
+const mathBarrier1BoxSideMin = (allData, data, repeatStepList, documentData) => {
+  return mathBarrierMinMax(
+    documentData,
+    `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrier").min
+  );
+};
+
+const mathBarrier1BoxSideMax = (allData, data, repeatStepList, documentData) => {
+  return mathBarrierMinMax(
+    documentData,
+    `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrier").max
+  );
+};
+const mathBarrier1PinSideMin = (allData, data, repeatStepList, documentData) => {
+  return mathBarrierMinMax(
+    documentData,
+    `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrier").min
+  );
+};
+
+const mathBarrier1PinSideMax = (allData, data, repeatStepList, documentData) => {
+  return mathBarrierMinMax(
+    documentData,
+    `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrier").max
+  );
+};
+
+const mathOdMeasurementPointMin = (allData, data, repeatStepList, documentData) => {
+  let packerElementOd = objectPath.get(data, "leadEngineer.packerElementOd", 0) - 1
+  return packerElementOd
+};
+const mathOdMeasurementPointMax = (allData, data, repeatStepList, documentData) => {
+  let packerElementOd = objectPath.get(data, "leadEngineer.packerElementOd", 0)
+  return packerElementOd
+};
 
 const mathIdentificationMarking = (values,
   repeatStepList,
@@ -1374,10 +1413,16 @@ const mathIdentificationMarking = (values,
   let idDriftSize = objectPath.get(values, "leadEngineer.data.idDriftSize", "")
   let materialType = objectPath.get(values, "leadEngineer.data.materialType", "")
   let pipeLength = objectPath.get(values, "leadEngineer.data.pipeLength", "")
-  return pipeOd + idDriftSize + materialType + ["slipon2", "slipon3"].includes(jsonVariables[0]) ? "PXP" : "BXP" + pipeLength
+  return `${pipeOd} ${idDriftSize} ${materialType} ${["slipon2", "slipon3"].includes(removeSpace(lowerCaseFirstLetter(jsonVariables[0]))) ? "PXP" : "BXP"} ${pipeLength/1000}M`
               }
 
 const Math = {
+  mathOdMeasurementPointMin,
+  mathOdMeasurementPointMax,
+  mathBarrier1PinSideMin,
+  mathBarrier1PinSideMax,
+  mathBarrier1BoxSideMin,
+  mathBarrier1BoxSideMax,
   mathIdentificationMarking,
   mathMin,
   mathMax,

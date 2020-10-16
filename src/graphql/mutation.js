@@ -226,14 +226,6 @@ const OPERATOR_BATCHING = gql`
                 id
                 data
               }
-              measurementPointCompletionPhasePinSides {
-                id
-                data
-              }
-              measurementPointCompletionPhaseBoxSides {
-                id
-                data
-              }
               grindings {
                 id
                 data
@@ -372,14 +364,6 @@ const OPERATOR = gql`
               data
             }
             measurementPointCompletionPhases {
-              id
-              data
-            }
-            measurementPointCompletionPhasePinSides {
-              id
-              data
-            }
-            measurementPointCompletionPhaseBoxSides {
               id
               data
             }
@@ -553,14 +537,6 @@ const QUALITY_CONTROL = gql`
               data
             }
             measurementPointCompletionPhases {
-              id
-              data
-            }
-            measurementPointCompletionPhasePinSides {
-              id
-              data
-            }
-            measurementPointCompletionPhaseBoxSides {
               id
               data
             }

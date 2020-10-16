@@ -63,7 +63,7 @@ export default React.memo(({ ...props }) => {
     if (props.type === "date" || props.type === "datetime-local") {
       documentDataState = documentDataState
         ? new Date(documentDataState)
-        : undefined;
+        : "";
     }
     if (props.path && props.fieldName && documentDataState !== state) {
       setState(documentDataState);
@@ -133,7 +133,7 @@ export default React.memo(({ ...props }) => {
       );
       if (setFirstValue.current) {
         if (props.type === "date" || props.type === "datetime-local") {
-          backendDate = backendDate ? new Date(backendDate) : undefined;
+          backendDate = backendDate ? new Date(backendDate) : "";
         }
         setState(backendDate);
         documentDataDispatch({

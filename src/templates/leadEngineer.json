@@ -115,6 +115,54 @@
               }
             },
             {
+              "fieldName": "surfaceProfileMin",
+              "label": "Surface Profile (Roughness)",
+              "prepend": "Min",
+              "unit": {
+                "coatedItem": "Rz",
+                "mould": "Rz",
+                "slipon2": "Ra",
+                "slipon3": "Ra",
+                "b2P": "Ra",
+                "dual": "Ra"
+              },
+              "default": {
+                "coatedItem": 50,
+                "mould": 50,
+                "slipon2": 3,
+                "slipon3": 3,
+                "b2P": 5,
+                "dual": 5
+              },
+              "type": "Number",
+              "subtext": "ISO 8503-4",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests"
+            },
+            {
+              "fieldName": "surfaceProfileMax",
+              "label": "Surface Profile (Roughness)",
+              "prepend": "Max",
+              "unit": {
+                "coatedItem": "Rz",
+                "mould": "Rz",
+                "slipon2": "Ra",
+                "slipon3": "Ra",
+                "b2P": "Ra",
+                "dual": "Ra"
+              },
+              "default": {
+                "coatedItem": 100,
+                "mould": 100,
+                "slipon2": 15,
+                "slipon3": 15,
+                "b2P": 15,
+                "dual": 15
+              },
+              "type": "Number",
+              "subtext": "ISO 8503-4",
+              "writeOnlyFieldIf": "leadEngineer.data.additionalTests"
+            },
+            {
               "fieldName": "solubleSaltLevel",
               "label": "Soluble Salt Level",
               "default": 20,

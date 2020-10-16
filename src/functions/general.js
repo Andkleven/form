@@ -345,18 +345,19 @@ export const calculateMaxMin = (
   let newMax;
   if (["datetime-local", "date"].includes(type) && (min !== undefined || routeToSpecMin || routeToMin)) {
     if (routeToSpecMin || routeToMin) {
-      newMin = moment(findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax))
+      newMin = moment(findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax, new Date()))
     } else { 
       newMin = moment()
     }
-    console.log(newMin)
     if (min) {
       newMin.add(min)
     }
-    if ("datetime-local" === type) {
-      newMin = newMin.format("DD MM YYYY HH:mm");
-    } else {
-      newMin = newMin.format("DD MM YYYY");
+    if (newMin) {
+      if ("datetime-local" === type) {
+        newMin = newMin.format("DD MM YYYY HH:mm");
+      } else {
+        newMin = newMin.format("DD MM YYYY");
+      }
     }
   } else if (routeToSpecMin || routeToMin) {
     newMin = Number(
@@ -372,17 +373,19 @@ export const calculateMaxMin = (
   
   if (["datetime-local", "date"].includes(type) && (max !== undefined  || routeToSpecMax || routeToMax)) {
     if (routeToSpecMax || routeToMax) {
-      newMax = moment(findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax))
+      newMax = moment(findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax, new Date()))
     } else { 
       newMax = moment()
     }
     if (max) {
       newMax.add(max)
     }
-    if ("datetime-local" === type) {
-      newMax = newMax.format("DD MM YYYY HH:mm");
-    } else {
-      newMax = newMax.format("DD MM YYYY");
+    if (newMax) {
+      if ("datetime-local" === type) {
+        newMax = newMax.format("DD MM YYYY HH:mm");
+      } else {
+        newMax = newMax.format("DD MM YYYY");
+      }
     }
   } else if (routeToSpecMax || routeToMax) {
     newMax = Number(

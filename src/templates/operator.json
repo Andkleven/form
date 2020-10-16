@@ -1675,8 +1675,11 @@
               "indexVariableLabel": true,
               "fieldName": "endMeasurement",
               "label": "End measurement {}",
+              "calculateMin": "mathBarrier1Min",
+              "calculateMax": "mathBarrier1Max",
               "required": true,
-              "type": "number"
+              "type": "number",
+              "unit": "mm"
             }
           ]
         },
@@ -2171,6 +2174,8 @@
               "indexVariableLabel": true,
               "fieldName": "endMeasurementPinSide",
               "label": "End measurement {}",
+               "calculateMin": "mathBarrier1BoxSideMin",
+              "calculateMax": "mathBarrier1BoxSideMax",
               "required": true,
               "type": "number"
             }
@@ -2470,6 +2475,8 @@
               "indexVariableLabel": true,
               "fieldName": "endMeasurementBoxSide",
               "label": "End measurement {}",
+              "calculateMin": "mathBarrierBoxSideBoxSideMin",
+              "calculateMax": "mathBarrierBoxSideBoxSideMax",
               "required": true,
               "type": "number"
             }
@@ -2591,16 +2598,17 @@
           ]
         },
         {
-          "showPage": { "b2P": true },
+          "showPage": { "b2P": true, "dual": true },
           "queryPath": "operator.measurementPointCompletionPhases",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "repeatGroupWithQuerySpecData": true,
-
           "fields": [
             {
               "fieldName": "odMeasurementPoint",
               "label": "OD Measurement Point {}",
               "indexVariableLabel": true,
+              "routeToSpecMin": "mathOdMeasurementPointMin",
+              "routeToSpecMax": "mathOdMeasurementPointMax",
               "required": true,
               "type": "number",
               "notBatch": true,
@@ -2608,63 +2616,7 @@
               "decimal": 1
             }
           ]
-        },
-        {
-          "fields": [
-            {
-              "showField": { "dual": true },
-              "label": "Pin side",
-              "labelOnly": true
-            }
-          ]
-        },
-        {
-          "showPage": { "dual": true },
-          "queryPath": "operator.measurementPointCompletionPhasePinSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
-          "repeatGroupWithQuerySpecData": true,
-
-          "fields": [
-            {
-              "fieldName": "odMeasurementPoint",
-              "label": "OD Measurement Point pin side {}",
-              "indexVariableLabel": true,
-              "required": true,
-              "type": "number",
-              "notBatch": true,
-              "unit": "mm",
-              "decimal": 1
-            }
-          ]
-        },
-        {
-          "fields": [
-            {
-              "showField": { "dual": true },
-              "label": "Box side",
-              "labelOnly": true
-            }
-          ]
-        },
-        {
-          "showPage": { "dual": true },
-          "queryPath": "operator.measurementPointCompletionPhaseBoxSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
-          "repeatGroupWithQuerySpecData": true,
-
-          "fields": [
-            {
-              "fieldName": "odMeasurementPoint",
-              "label": "OD Measurement Point box side {}",
-              "indexVariableLabel": true,
-              "required": true,
-              "type": "number",
-              "notBatch": true,
-              "unit": "mm",
-              "decimal": 1
-            }
-          ]
-        }
+        }        
       ]
     },
     "touchUp": {
