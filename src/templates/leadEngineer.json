@@ -1483,14 +1483,12 @@
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLengthMin",
-              "label": "End-ring Length min",
-              "subtext": "Dwg Ref. XX"
+              "label": "End-ring Length min"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLengthMax",
-              "label": "End-ring Length max",
-              "subtext": "Dwg Ref. XX"
+              "label": "End-ring Length max"
             },
             {
               "writeOnlyFieldIf": {
@@ -1536,7 +1534,6 @@
               },
               "fieldName": "centerRingLengthMin",
               "label": "Center-ring Length min",
-              "subtext": "Dwg Ref. XX",
               "type": "number",
               "unit": "mm"
             },
@@ -1552,15 +1549,13 @@
               },
               "fieldName": "centerRingLengthMax",
               "label": "Center-ring Length max",
-              "subtext": "Dwg Ref. XX",
               "type": "number",
               "unit": "mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "couplingLength",
-              "label": "Coupling length",
-              "subtext": "Dwg Ref. XX"
+              "label": "Coupling length"
             },
             {
               "writeOnlyFieldIf": {
@@ -1614,8 +1609,7 @@
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "custom",
-              "label": "Custom (Others)",
-              "subtext": "Dwg Ref. XX"
+              "label": "Custom (Others)"
             },
 
             {

@@ -17,8 +17,7 @@ import {
   variableString,
   getRepeatStepList,
   isLastCharacterNumber,
-  notShowSpec,
-  areEqual
+  notShowSpec
 } from "functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
@@ -693,16 +692,6 @@ delete: deleteButton
       index < getProperties(repeatStartWith, jsonVariables);
       index++
     ) {
-      // temporaryMultiFieldGroup[
-      //   `${repeatStepList}-${index}-${path}-${queryPath}-fragment`
-      // ] = multiFieldGroup(
-      //   props,
-      //   index,
-      //   deleteHandler,
-      //   editChapter,
-      //   finalChapter,
-      //   hidden
-      // );
       addData(index);
     }
     setFieldGroups(prevState => {
@@ -1062,4 +1051,4 @@ delete: deleteButton
       {(editAllActive || finalChapterActive) && <SubmitAndCancel />}
     </div>
   );
-}, areEqual);
+});

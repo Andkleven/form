@@ -3,8 +3,7 @@ import {
   createPath,
   getProperties,
   removePathFunc,
-  getProductionLine,
-  areEqual,
+  getProductionLine
 } from "functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
@@ -215,5 +214,5 @@ export default React.memo(
         ) : null}
       </>
     );
-  }, areEqual
+  }
 );

@@ -142,16 +142,14 @@ const mathQualityControlMeasurementPointCoatingItemMin = (
   data,
   repeatStepList
 ) => {
-  let min = mathToleranceMin(allData["items"][0], repeatStepList, 0)
-  return min
+  return mathToleranceMin(allData["items"][0], repeatStepList, 0)
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
   data,
   repeatStepList
 ) => {
-  let max = mathToleranceMax(allData["items"][0], repeatStepList, 0)
-  return max
+  return mathToleranceMax(allData["items"][0], repeatStepList, 0)
 };
 
 const mathThicknessAll = (values, repeatStepList, decimal) => {

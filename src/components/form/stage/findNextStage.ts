@@ -66,8 +66,8 @@ export default (specData: object, stage: string, stageType: string): object => {
         stagesJson[stageType][crossroads]["editIndexList"]
       );
       if (!emptyField(query)) {
-        if (crossroads.split("Step")[1]) {
-          if (![null, undefined].includes(crossroads.split("Layer")[1])) {
+        if (crossroads.split("Step")[1] !== undefined) {
+          if (crossroads.split("Layer")[1] !== undefined) {
             return {
               stage: `${crossroads.split("Step")[0]}Step${
                 step + 1

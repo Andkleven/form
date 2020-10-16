@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect, useState } from "react";
+import React, { useContext, useCallback, useLayoutEffect, useState } from "react";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 // import Paper from "components/layout/Paper";
@@ -132,11 +132,10 @@ export default ({ setState, state, ...props }) => {
   const onChangeIgnoreRequired = e => {
     let { name } = e.target;
     addUser();
-    let oldValue = objectPath.get(documentData.current, props.path, false);
-    setIgnoreRequired(!oldValue);
+    setIgnoreRequired(!ignoreRequired);
     documentDataDispatch({
       type: "add",
-      newState: !oldValue,
+      newState: !ignoreRequired,
       path: props.path + name
     });
   };
@@ -236,7 +235,7 @@ export default ({ setState, state, ...props }) => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIgnoreRequired(
       objectPath.get(
         documentData.current,

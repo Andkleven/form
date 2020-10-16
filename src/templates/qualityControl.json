@@ -466,7 +466,6 @@
               "routeToSpecMax": "leadEngineer.data.endRingLengthMax",
               "label": "End-ring Length",
               "fieldName": "endRingLength",
-              "subtext": "Dwg Ref. XX",
               "type": "number",
               "unit": "mm"
             },
@@ -503,15 +502,14 @@
               "routeToSpecMax": "leadEngineer.data.centerRingLengthMax",
               "type": "number",
               "unit": "mm",
-              "label": "Center-ring Length",
-              "subtext": "Dwg Ref. XX"
+              "label": "Center-ring Length"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "couplingLength",
               "specVariableSubtext": "leadEngineer.data.couplingLength",
               "label": "Coupling length",
-              "subtext": "Dwg Ref. XX, coupling length"
+              "subtext": "Coupling length"
             },
             {
               "showFieldSpecPath": {
@@ -565,13 +563,12 @@
               "label": "control line #4",
               "subtext": "Dwg Ref. CL4, control line #4 {}"
             },
-
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "custom",
               "specVariableSubtext": "leadEngineer.data.custom",
               "label": "Custom (Others)",
-              "subtext": "Dwg Ref. XX, {}"
+              "subtext": "{}"
             },
 
             {

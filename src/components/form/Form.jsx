@@ -149,17 +149,16 @@ export default ({
     repeatStepListLocal.current = repeatStepList;
   }, [repeatStepList]);
 
-  if (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
-    !lastData.current) {
+  if (
+    data &&
+    (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
+      !lastData.current)
+  ) {
     finalChapter.current = 0;
     lastData.current = cloneDeep(data);
-      }
-
-  if (data && !Object.keys(documentData.current).length) {
     documentDataDispatch({
       type: "setState",
-      newState: data,
-      notReRender: !resetData
+      newState: data
     });
   }
 
@@ -360,7 +359,7 @@ export default ({
               // }
             }}
             onChange={() => {
-              if (!!!screenshotData.current) {
+              if (screenshotData.current) {
                 setWhen(
                   screenshotData.current &&
                   JSON.stringify(screenshotData.current) !==
