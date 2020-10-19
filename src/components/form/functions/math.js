@@ -1809,7 +1809,7 @@ const mathTargetThickness = (
     "leadEngineer.data.packerElementOd1",
     0
   );
-  return packerElementOd - target;
+  return packerElementOd - target ? Number(target.split("m")[0]) : 0;
 };
 
 const mathTargetThicknessPin = (
@@ -1825,7 +1825,7 @@ const mathTargetThicknessPin = (
     "leadEngineer.data.packerElementOd1",
     0
   );
-  return packerElementOd - target;
+  return packerElementOd - target ? Number(target.split("m")[0]) : 0;
 };
 
 const mathTargetThicknessBox = (
@@ -1841,7 +1841,7 @@ const mathTargetThicknessBox = (
     "leadEngineer.data.packerElementOd1",
     0
   );
-  return packerElementOd - target;
+  return packerElementOd - target ? Number(target.split("m")[0]) : 0;
 };
 
 const Math = {
