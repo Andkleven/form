@@ -1418,14 +1418,14 @@ const getAbsolutelyMinMax = (
   minPath = null,
   maxPath = null
 ) => {
-  let targetPath = objectPath.get(data, targetPath, 0);
+  let target = objectPath.get(data, targetPath, 0);
   if (minPath) {
-    let minPath = objectPath.get(data, minPath, 0);
-    return targetPath - minPath;
+    let min = objectPath.get(data, minPath, 0);
+    return target - min;
   }
   if (maxPath) {
-    let maxPath = objectPath.get(data, maxPath, 0);
-    return targetPath - maxPath;
+    let max = objectPath.get(data, maxPath, 0);
+    return target - max;
   }
 };
 
@@ -1493,7 +1493,7 @@ const mathHandlingSpacePinEndMin = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.handlingSpacePinEnd",
     "leadEngineer.data.handlingSpacePinEndMin"
@@ -1519,7 +1519,7 @@ const mathHandlingSpaceBoxEndMin = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.handlingSpaceBoxEnd",
     "leadEngineer.data.handlingSpaceBoxEndMin"
@@ -1545,7 +1545,7 @@ const mathPackerElementLengthMin = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.packerElementLength",
     "leadEngineer.data.packerElementLengthMin"
@@ -1571,7 +1571,7 @@ const mathPackerElementLengthTotalMin = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.packerElementLengthTotal",
     "leadEngineer.data.packerElementLengthTotalMin"
@@ -1597,7 +1597,7 @@ const mathPackerElementLength2Min = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.packerElementLength2",
     "leadEngineer.data.packerElementLength2Min"
@@ -1623,7 +1623,7 @@ const mathPackerElementLength3Min = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.packerElementLength3",
     "leadEngineer.data.packerElementLength3Min"
@@ -1649,7 +1649,7 @@ const mathPackerElementOd1Min = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.packerElementOd1",
     "leadEngineer.data.packerElementOd1Min"
@@ -1675,7 +1675,7 @@ const mathPackerElementOd2Min = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.packerElementOd2",
     "leadEngineer.data.packerElementOd2Min"
@@ -1701,33 +1701,7 @@ const mathPackerElementOd3Min = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
-    data,
-    "leadEngineer.data.packerElementOd3",
-    "leadEngineer.data.packerElementOd3Min"
-  );
-};
-
-const mathPackerElementOd3Max = (
-  allData,
-  data,
-  repeatStepList,
-  documentData
-) => {
   return getAbsolutelyMinMax(
-    data,
-    "leadEngineer.data.packerElementOd3",
-    null,
-    "leadEngineer.data.packerElementOd3Max"
-  );
-};
-const mathPackerElementOd3Min = (
-  allData,
-  data,
-  repeatStepList,
-  documentData
-) => {
-  return getAbsolutelyMinMin(
     data,
     "leadEngineer.data.packerElementOd3",
     "leadEngineer.data.packerElementOd3Min"
@@ -1748,7 +1722,7 @@ const mathPackerElementOd3Max = (
   );
 };
 const mathEndRingOdMin = (allData, data, repeatStepList, documentData) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.endRingOd",
     "leadEngineer.data.endRingOdMin"
@@ -1764,7 +1738,7 @@ const mathEndRingOdMax = (allData, data, repeatStepList, documentData) => {
   );
 };
 const mathEndRingLengthMin = (allData, data, repeatStepList, documentData) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.endRingLength",
     "leadEngineer.data.endRingLengthMin"
@@ -1780,7 +1754,7 @@ const mathEndRingLengthMax = (allData, data, repeatStepList, documentData) => {
   );
 };
 const mathCenterRingOdMin = (allData, data, repeatStepList, documentData) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.centerRingOd",
     "leadEngineer.data.centerRingOdMin"
@@ -1801,7 +1775,7 @@ const mathCenterRingLengthMin = (
   repeatStepList,
   documentData
 ) => {
-  return getAbsolutelyMinMin(
+  return getAbsolutelyMinMax(
     data,
     "leadEngineer.data.centerRingLength",
     "leadEngineer.data.centerRingLengthMin"
@@ -1832,8 +1806,10 @@ const mathTargetThickness = (
   let target = mathIncreasedOdForWholeElementTotal(specData, "barrier");
   let packerElementOd = objectPath.get(
     specData,
-    "leadEngineer.data.packerElementOd1"
+    "leadEngineer.data.packerElementOd1",
+    0
   );
+  return packerElementOd - target;
 };
 
 const mathTargetThicknessPin = (
@@ -1846,8 +1822,10 @@ const mathTargetThicknessPin = (
   let target = mathIncreasedOdForWholeElementTotal(specData, "barrierPinSide");
   let packerElementOd = objectPath.get(
     specData,
-    "leadEngineer.data.packerElementOd1"
+    "leadEngineer.data.packerElementOd1",
+    0
   );
+  return packerElementOd - target;
 };
 
 const mathTargetThicknessBox = (
@@ -1860,8 +1838,10 @@ const mathTargetThicknessBox = (
   let target = mathIncreasedOdForWholeElementTotal(specData, "barrierBoxSide");
   let packerElementOd = objectPath.get(
     specData,
-    "leadEngineer.data.packerElementOd1"
+    "leadEngineer.data.packerElementOd1",
+    0
   );
+  return packerElementOd - target;
 };
 
 const Math = {
@@ -1881,8 +1861,6 @@ const Math = {
   mathPackerElementOd1Max,
   mathPackerElementOd2Min,
   mathPackerElementOd2Max,
-  mathPackerElementOd3Min,
-  mathPackerElementOd3Max,
   mathPackerElementOd3Min,
   mathPackerElementOd3Max,
   mathEndRingOdMin,

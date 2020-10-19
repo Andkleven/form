@@ -276,8 +276,6 @@ export default React.memo(({ ...props }) => {
       min,
       props.mathSubtext,
       unit,
-      props.subtextMathMin,
-      props.subtextMathMax,
       props.repeatStepList,
       props.allData,
       props.specData,
