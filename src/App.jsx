@@ -17,7 +17,6 @@ import "styles/icons";
 
 export default () => {
   const [authToken, setAuthToken] = useState(localStorage.getItem(AUTH_TOKEN));
-
   useEffect(() => {
     setAuthToken(localStorage.getItem(AUTH_TOKEN));
   }, []);
