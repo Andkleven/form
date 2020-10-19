@@ -1,4 +1,9 @@
-import React, { useContext, useCallback, useLayoutEffect, useState } from "react";
+import React, {
+  useContext,
+  useCallback,
+  useLayoutEffect,
+  useState
+} from "react";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 // import Paper from "components/layout/Paper";
@@ -68,7 +73,7 @@ export default ({ setState, state, ...props }) => {
       path: props.path + userField
     });
   }, [documentDataDispatch, props.path, userInfo.username]);
-  
+
   const onChange = value => {
     addUser();
     if (!screenshotData.current) {
@@ -352,7 +357,8 @@ export default ({ setState, state, ...props }) => {
                       );
                     }
                     if (available === 0) {
-                      return <i>No similar items at the same stage.</i>;
+                      // return <i>No similar items at the same stage.</i>;
+                      return null;
                     }
                     return null;
                   } else {

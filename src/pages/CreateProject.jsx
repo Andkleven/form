@@ -192,11 +192,12 @@ export default () => {
     let onlyUnique = true;
 
     data.projects.forEach(project => {
-      project.descriptions[counter - 1].items.forEach(item => {
-        if (!item.unique) {
-          onlyUnique = false;
-        }
-      });
+      project.descriptions[counter - 1] &&
+        project.descriptions[counter - 1].items.forEach(item => {
+          if (!item.unique) {
+            onlyUnique = false;
+          }
+        });
     });
     return onlyUnique;
   };
