@@ -1744,7 +1744,6 @@ const mathEndRingLengthMin = (allData, data, repeatStepList, documentData) => {
     "leadEngineer.data.endRingLengthMin"
   );
 };
-
 const mathEndRingLengthMax = (allData, data, repeatStepList, documentData) => {
   return getAbsolutelyMinMax(
     data,
@@ -1760,7 +1759,6 @@ const mathCenterRingOdMin = (allData, data, repeatStepList, documentData) => {
     "leadEngineer.data.centerRingOdMin"
   );
 };
-
 const mathCenterRingOdMax = (allData, data, repeatStepList, documentData) => {
   return getAbsolutelyMinMax(
     data,
@@ -1781,7 +1779,6 @@ const mathCenterRingLengthMin = (
     "leadEngineer.data.centerRingLengthMin"
   );
 };
-
 const mathCenterRingLengthMax = (
   allData,
   data,
