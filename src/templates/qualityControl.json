@@ -257,8 +257,8 @@
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpacePinEnd",
               "label": "Handling space pin end",
-              "routeToSpecMin": "leadEngineer.data.handlingSpacePinEndMin",
-              "routeToSpecMax": "leadEngineer.data.handlingSpacePinEndMax",
+              "calculateMin": "mathHandlingSpacePinEndMax",
+              "calculateMax": "mathHandlingSpacePinEndMax",
               "type": "number",
               "unit": "mm",
               "subtext": "Dwg Ref. L2"
@@ -267,8 +267,8 @@
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpaceBoxEnd",
               "label": "Handling space box end",
-              "routeToSpecMin": "leadEngineer.data.handlingSpaceBoxEndMin",
-              "routeToSpecMax": "leadEngineer.data.handlingSpaceBoxEndMax",
+              "calculateMin": "mathHandlingSpaceBoxEndMin",
+              "calculateMax": "mathHandlingSpaceBoxEndMax",
               "type": "number",
               "unit": "mm",
               "subtext": "Dwg Ref. L3, Handling space box end {}"
@@ -285,8 +285,8 @@
               "fieldName": "packerElementLength",
               "label": "Packer element length",
               "subtext": "Dwg Ref. L4",
-              "routeToSpecMin": "leadEngineer.data.packerElementLengthMin",
-              "routeToSpecMax": "leadEngineer.data.packerElementLengthMax",
+              "calculateMin": "mathPackerElementLengthMin",
+              "calculateMax": "mathPackerElementLengthMax",
               "type": "number",
               "unit": "mm"
             },
@@ -302,8 +302,8 @@
               "fieldName": "packerElementLengthTotal",
               "label": "Packer element length total",
               "subtext": "Dwg Ref. L4",
-              "routeToSpecMin": "leadEngineer.data.packerElementLengthTotalMin",
-              "routeToSpecMax": "leadEngineer.data.packerElementLengthTotalMax",
+              "calculateMin": "mathPackerElementLengthTotalMin",
+              "calculateMax": "mathPackerElementLengthTotalMax",
               "type": "number",
               "unit": "mm"
             },
@@ -311,14 +311,17 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable with 1 center ring",
-                  "Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring"
                 ]
               },
               "fieldName": "packerElementLength1",
               "label": "Packer element length #1",
               "subtext": "Dwg Ref. L4.1",
-              "routeToSpecMin": "leadEngineer.data.packerElementLength1Min",
-              "routeToSpecMax": "leadEngineer.data.packerElementLength1Max",
+              "calculateMin": "mathPackerElementLength1Min",
+              "calculateMax": "mathPackerElementLength1Max",
               "type": "number",
               "unit": "mm"
             },
@@ -326,12 +329,15 @@
               "showFieldSpecPath": {
                 "leadEngineer.data.asBuilt": [
                   "Swell packer Cable with 1 center ring",
-                  "Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring"
                 ]
               },
               "fieldName": "packerElementLength2",
-              "routeToSpecMin": "leadEngineer.data.packerElementLength2Min",
-              "routeToSpecMax": "leadEngineer.data.packerElementLength2Max",
+              "calculateMin": "mathPackerElementLength2Min",
+              "calculateMax": "mathPackerElementLength2Max",
               "type": "number",
               "unit": "mm",
               "label": "Packer element length #2",
@@ -340,53 +346,17 @@
             {
               "showFieldSpecPath": {
                 "leadEngineer.data.asBuilt": [
-                  "Swell packer Cable with 2 center ring"
+                  "Swell packer Cable with 2 center ring",
+                  "Swell packer K2 with 2 center ringer"
                 ]
               },
               "fieldName": "packerElementLength3",
-              "routeToSpecMin": "leadEngineer.data.packerElementLength3Min",
-              "routeToSpecMax": "leadEngineer.data.packerElementLength3Max",
+              "calculateMin": "mathPackerElementLength3Min",
+              "calculateMax": "mathPackerElementLength3Max",
               "type": "number",
               "unit": "mm",
               "label": "Packer element length #3",
               "subtext": "Dwg Ref. L4.3"
-            },
-            {
-              "showFieldSpecPath": {
-                "leadEngineer.data.asBuilt": [
-                  "Swell packer standard with 1 center ring",
-                  "Swell packer K2 with 2 center ringer",
-                  "Swell packer K2 with 1 center ring"
-                ]
-              },
-              "fieldName": "packerElement1Length",
-              "specVariableSubtext": "leadEngineer.data.packerElement1Length",
-              "label": "Packer element  #1, length",
-              "subtext": "Dwg Ref. L4.1, packer element  #1, length {}"
-            },
-            {
-              "showFieldSpecPath": {
-                "leadEngineer.data.asBuilt": [
-                  "Swell packer standard with 1 center ring",
-                  "Swell packer K2 with 2 center ringer",
-                  "Swell packer K2 with 1 center ring"
-                ]
-              },
-              "fieldName": "packerElement2Length",
-              "specVariableSubtext": "leadEngineer.data.packerElement2Length",
-              "label": "Packer element  #2, length",
-              "subtext": "Dwg Ref. L4.2, packer element  #2, length {}"
-            },
-            {
-              "showFieldSpecPath": {
-                "leadEngineer.data.asBuilt": [
-                  "Swell packer K2 with 2 center ringer"
-                ]
-              },
-              "fieldName": "packerElement3Length",
-              "specVariableSubtext": "leadEngineer.data.packerElement3Length",
-              "label": "Packer element  #3, length",
-              "subtext": "Dwg Ref. L4.3, packer element  #3, length {}"
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
@@ -395,7 +365,6 @@
               "label": "Base pipe OD",
               "subtext": "Dwg Ref. D1, Base pipe OD {}"
             },
-
             {
               "showFieldSpecPath": {
                 "leadEngineer.data.asBuilt": [
@@ -409,8 +378,8 @@
                   "Swell packer Cable standard"
                 ]
               },
-              "routeToSpecMin": "leadEngineer.data.packerElementOd1Min",
-              "routeToSpecMax": "leadEngineer.data.packerElementOd1Max",
+              "calculateMin": "mathPackerElementOd1Min",
+              "calculateMax": "mathPackerElementOd1Max",
               "type": "number",
               "unit": "mm",
               "fieldName": "packerElementOd1",
@@ -428,8 +397,8 @@
                 ]
               },
               "fieldName": "packerElementOd2",
-              "routeToSpecMin": "leadEngineer.data.packerElementOd2Min",
-              "routeToSpecMax": "leadEngineer.data.packerElementOd2Max",
+              "calculateMin": "mathPackerElementOd2Min",
+              "calculateMax": "mathPackerElementOd2Max",
               "type": "number",
               "unit": "mm",
               "label": "Packer element OD #2",
@@ -443,8 +412,8 @@
                 ]
               },
               "fieldName": "packerElementOd3",
-              "routeToSpecMin": "leadEngineer.data.packerElementOd3Min",
-              "routeToSpecMax": "leadEngineer.data.packerElementOd3Max",
+              "calculateMin": "mathPackerElementOd3Min",
+              "calculateMax": "mathPackerElementOd3Max",
               "type": "number",
               "unit": "mm",
               "label": "Packer element OD #3",
@@ -452,8 +421,8 @@
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
-              "routeToSpecMin": "leadEngineer.data.endRingOdMin",
-              "routeToSpecMax": "leadEngineer.data.endRingOdMax",
+              "calculateMin": "mathEndRingOdMin",
+              "calculateMax": "mathEndRingOdMax",
               "fieldName": "endRingOd",
               "type": "number",
               "unit": "mm",
@@ -462,8 +431,8 @@
             },
             {
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
-              "routeToSpecMin": "leadEngineer.data.endRingLengthMin",
-              "routeToSpecMax": "leadEngineer.data.endRingLengthMax",
+              "calculateMin": "mathEndRingLengthMin",
+              "calculateMax": "mathEndRingLengthMax",
               "label": "End-ring Length",
               "fieldName": "endRingLength",
               "type": "number",
@@ -480,8 +449,8 @@
                 ]
               },
               "fieldName": "centerRingOd",
-              "routeToSpecMin": "leadEngineer.data.centerRingOdMin",
-              "routeToSpecMax": "leadEngineer.data.centerRingOdMax",
+              "calculateMin": "mathCenterRingOdMin",
+              "calculateMax": "mathCenterRingOdMax",
               "type": "number",
               "unit": "mm",
               "label": "Center-ring OD",
@@ -498,8 +467,8 @@
                 ]
               },
               "fieldName": "centerRingLength",
-              "routeToSpecMin": "leadEngineer.data.centerRingLengthMin",
-              "routeToSpecMax": "leadEngineer.data.centerRingLengthMax",
+              "calculateMin": "mathCenterRingLengthMin",
+              "calculateMax": "mathCenterRingLengthMax",
               "type": "number",
               "unit": "mm",
               "label": "Center-ring Length"

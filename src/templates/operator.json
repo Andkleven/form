@@ -931,11 +931,34 @@
           "queryPath": ["operator.grindings", ""],
           "fields": [
             {
-              "fieldName": "elementLengthAfterGrinding ",
+              "showField": { "slipon3": true, "slipon2": true, "b2P": true },
+              "fieldName": "elementLengthAfterGrinding",
               "required": true,
               "label": "Element length after grinding",
               "unit": "mm",
-              "type": "number"
+              "type": "number",
+              "subtext": "Target thickness: {}mm",
+              "mathSubtext": "mathTargetThickness"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "elementLengthAfterGrindingPinSide",
+              "required": true,
+              "label": "Element length after grinding pin side",
+              "unit": "mm",
+              "type": "number",
+              "subtext": "Target thickness: {}mm",
+              "mathSubtext": "mathTargetThicknessPin"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "elementLengthAfterGrindingBoxSide",
+              "required": true,
+              "label": "Element length after grinding box side",
+              "unit": "mm",
+              "type": "number",
+              "subtext": "Target thickness: {}mm",
+              "mathSubtext": "mathTargetThicknessBox"
             },
             {
               "fieldName": "elementCenterDiameter",
@@ -1316,11 +1339,34 @@
           "queryPath": "operator",
           "fields": [
             {
-              "fieldName": "elementLengthAfterGrinding ",
+              "showField": { "slipon3": true, "slipon2": true, "b2P": true },
+              "fieldName": "elementLengthAfterGrinding",
               "required": true,
               "label": "Element length after grinding",
+              "unit": "mm",
               "type": "number",
-              "unit": "mm"
+              "subtext": "Target thickness: {}mm",
+              "mathSubtext": "mathTargetThickness"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "elementLengthAfterGrindingPinSide",
+              "required": true,
+              "label": "Element length after grinding pin side",
+              "unit": "mm",
+              "type": "number",
+              "subtext": "Target thickness: {}mm",
+              "mathSubtext": "mathTargetThicknessPin"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "elementLengthAfterGrindingBoxSide",
+              "required": true,
+              "label": "Element length after grinding box side",
+              "unit": "mm",
+              "type": "number",
+              "subtext": "Target thickness: {}mm",
+              "mathSubtext": "mathTargetThicknessBox"
             },
             {
               "fieldName": "elementCenterDiameter",
@@ -2607,8 +2653,8 @@
               "fieldName": "odMeasurementPoint",
               "label": "OD Measurement Point {}",
               "indexVariableLabel": true,
-              "routeToSpecMin": "mathOdMeasurementPointMin",
-              "routeToSpecMax": "mathOdMeasurementPointMax",
+              "calculateMin": "mathOdMeasurementPointMin",
+              "calculateMax": "mathOdMeasurementPointMax",
               "required": true,
               "type": "number",
               "notBatch": true,

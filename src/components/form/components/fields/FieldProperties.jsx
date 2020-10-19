@@ -264,8 +264,6 @@ export default React.memo(({ ...props }) => {
         isNumber(props.maxInput) ? props.maxInput : max,
         isNumber(props.minInput) ? props.minInput : min,
         unit.current,
-        props.subtextMathMin,
-        props.subtextMathMax,
         props.repeatStepList,
         props.allData
       ),

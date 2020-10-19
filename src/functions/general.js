@@ -80,7 +80,7 @@ export const findValue = (
   oldPath,
   repeatStepList = [],
   editRepeatStepList = {},
-  defaultValue=undefined
+  defaultValue = undefined
 ) => {
   let path = createPath(oldPath, repeatStepList, editRepeatStepList);
   if (emptyField(path)) {
@@ -221,23 +221,11 @@ export const getSubtext = (
   max,
   min,
   unit,
-  subtextMathMin,
-  subtextMathMax,
   repeatStepList,
   allData
 ) => {
-  let minLocal = subtextMathMin
-    ? Math[subtextMathMin](allData, repeatStepList)
-    : min
-    ? min
-    : "";
-  let maxLocal = subtextMathMax
-    ? Math[subtextMathMax](allData, repeatStepList)
-    : max
-    ? max
-    : "";
-  let minString = minLocal === "" ? "" : `Min: ${minLocal}`;
-  let maxString = maxLocal === "" ? "" : `Max: ${maxLocal}`;
+  let minString = min === undefined ? "" : `Min: ${min}`;
+  let maxString = max === undefined ? "" : `Max: ${max}`;
 
   let unitString = unit ? `${unit} ` : " ";
 
@@ -343,14 +331,25 @@ export const calculateMaxMin = (
 ) => {
   let newMin;
   let newMax;
-  if (["datetime-local", "date"].includes(type) && (min !== undefined || routeToSpecMin || routeToMin)) {
+  if (
+    ["datetime-local", "date"].includes(type) &&
+    (min !== undefined || routeToSpecMin || routeToMin)
+  ) {
     if (routeToSpecMin || routeToMin) {
-      newMin = moment(findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMax, new Date()))
-    } else { 
-      newMin = moment()
+      newMin = moment(
+        findValue(
+          routeToMin ? documentData : specData,
+          routeToSpecMin || routeToMin,
+          repeatStepList,
+          editRepeatStepListMax,
+          new Date()
+        )
+      );
+    } else {
+      newMin = moment();
     }
     if (min) {
-      newMin.add(min)
+      newMin.add(min);
     }
     if (newMin) {
       if ("datetime-local" === type) {
@@ -361,7 +360,12 @@ export const calculateMaxMin = (
     }
   } else if (routeToSpecMin || routeToMin) {
     newMin = Number(
-      findValue(routeToMin ? documentData : specData, routeToSpecMin || routeToMin, repeatStepList, editRepeatStepListMin)
+      findValue(
+        routeToMin ? documentData : specData,
+        routeToSpecMin || routeToMin,
+        repeatStepList,
+        editRepeatStepListMin
+      )
     );
   } else if (calculateMin) {
     newMin = Number(
@@ -370,15 +374,26 @@ export const calculateMaxMin = (
   } else {
     newMin = min;
   }
-  
-  if (["datetime-local", "date"].includes(type) && (max !== undefined  || routeToSpecMax || routeToMax)) {
+
+  if (
+    ["datetime-local", "date"].includes(type) &&
+    (max !== undefined || routeToSpecMax || routeToMax)
+  ) {
     if (routeToSpecMax || routeToMax) {
-      newMax = moment(findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax, new Date()))
-    } else { 
-      newMax = moment()
+      newMax = moment(
+        findValue(
+          routeToMax ? documentData : specData,
+          routeToSpecMax || routeToMax,
+          repeatStepList,
+          editRepeatStepListMax,
+          new Date()
+        )
+      );
+    } else {
+      newMax = moment();
     }
     if (max) {
-      newMax.add(max)
+      newMax.add(max);
     }
     if (newMax) {
       if ("datetime-local" === type) {
@@ -389,7 +404,12 @@ export const calculateMaxMin = (
     }
   } else if (routeToSpecMax || routeToMax) {
     newMax = Number(
-      findValue(routeToMax ? documentData : specData, routeToSpecMax || routeToMax, repeatStepList, editRepeatStepListMax)
+      findValue(
+        routeToMax ? documentData : specData,
+        routeToSpecMax || routeToMax,
+        repeatStepList,
+        editRepeatStepListMax
+      )
     );
   } else if (calculateMax) {
     newMax = Number(
@@ -759,4 +779,3 @@ export function getProductionLine(stageType) {
     return stageType;
   }
 }
-

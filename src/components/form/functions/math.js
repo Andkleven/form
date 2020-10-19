@@ -8,7 +8,7 @@ import objectPath from "object-path";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (!(typeof value === "number")) {
-    return 0
+    return 0;
   }
   if (array.every(allZeroOrNaN)) {
     return 0;
@@ -142,14 +142,14 @@ const mathQualityControlMeasurementPointCoatingItemMin = (
   data,
   repeatStepList
 ) => {
-  return mathToleranceMin(allData["items"][0], repeatStepList, 0)
+  return mathToleranceMin(allData["items"][0], repeatStepList, 0);
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
   data,
   repeatStepList
 ) => {
-  return mathToleranceMax(allData["items"][0], repeatStepList, 0)
+  return mathToleranceMax(allData["items"][0], repeatStepList, 0);
 };
 
 const mathThicknessAll = (values, repeatStepList, decimal) => {
@@ -293,16 +293,16 @@ const mathMin = (
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
-  let min = orderedTotalRubberThickness -
-      (orderedTotalRubberThickness * toleranceMinPercent) / 100
+  let min =
+    orderedTotalRubberThickness -
+    (orderedTotalRubberThickness * toleranceMinPercent) / 100;
   if (targetDescriptionValue) {
-    min = min*2
+    min = min * 2;
   }
-  return whatTooReturn(
-    min,
-    decimal,
-    [toleranceMinPercent, orderedTotalRubberThickness]
-  );
+  return whatTooReturn(min, decimal, [
+    toleranceMinPercent,
+    orderedTotalRubberThickness
+  ]);
 };
 
 const mathMax = (
@@ -324,16 +324,16 @@ const mathMax = (
   let orderedTotalRubberThickness = Number(
     findValue(values, "leadEngineer.data.orderedTotalRubberThickness")
   );
-  let max = orderedTotalRubberThickness +
-      (orderedTotalRubberThickness * toleranceMaxPercent) / 100
+  let max =
+    orderedTotalRubberThickness +
+    (orderedTotalRubberThickness * toleranceMaxPercent) / 100;
   if (targetDescriptionValue) {
-    max = max*2
+    max = max * 2;
   }
-  return whatTooReturn(
-    max,
-    decimal,
-    [toleranceMaxPercent, orderedTotalRubberThickness]
-  );
+  return whatTooReturn(max, decimal, [
+    toleranceMaxPercent,
+    orderedTotalRubberThickness
+  ]);
 };
 
 const mathLayer = (
@@ -1361,7 +1361,12 @@ const mathBarrier1Max = (allData, data, repeatStepList, documentData) => {
     mathIncreasedOdForWholeElementMinMax(data, "barrier").max
   );
 };
-const mathBarrier1BoxSideMin = (allData, data, repeatStepList, documentData) => {
+const mathBarrier1BoxSideMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
   return mathBarrierMinMax(
     documentData,
     `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
@@ -1369,14 +1374,24 @@ const mathBarrier1BoxSideMin = (allData, data, repeatStepList, documentData) => 
   );
 };
 
-const mathBarrier1BoxSideMax = (allData, data, repeatStepList, documentData) => {
+const mathBarrier1BoxSideMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
   return mathBarrierMinMax(
     documentData,
     `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
     mathIncreasedOdForWholeElementMinMax(data, "barrier").max
   );
 };
-const mathBarrier1PinSideMin = (allData, data, repeatStepList, documentData) => {
+const mathBarrier1PinSideMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
   return mathBarrierMinMax(
     documentData,
     `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
@@ -1384,7 +1399,12 @@ const mathBarrier1PinSideMin = (allData, data, repeatStepList, documentData) => 
   );
 };
 
-const mathBarrier1PinSideMax = (allData, data, repeatStepList, documentData) => {
+const mathBarrier1PinSideMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
   return mathBarrierMinMax(
     documentData,
     `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
@@ -1392,29 +1412,490 @@ const mathBarrier1PinSideMax = (allData, data, repeatStepList, documentData) => 
   );
 };
 
-const mathOdMeasurementPointMin = (allData, data, repeatStepList, documentData) => {
-  let packerElementOd = objectPath.get(data, "leadEngineer.packerElementOd", 0) - 1
-  return packerElementOd
-};
-const mathOdMeasurementPointMax = (allData, data, repeatStepList, documentData) => {
-  let packerElementOd = objectPath.get(data, "leadEngineer.packerElementOd", 0)
-  return packerElementOd
+const getAbsolutelyMinMax = (
+  data,
+  targetPath,
+  minPath = null,
+  maxPath = null
+) => {
+  let targetPath = objectPath.get(data, targetPath, 0);
+  if (minPath) {
+    let minPath = objectPath.get(data, minPath, 0);
+    return targetPath - minPath;
+  }
+  if (maxPath) {
+    let maxPath = objectPath.get(data, maxPath, 0);
+    return targetPath - maxPath;
+  }
 };
 
-const mathIdentificationMarking = (values,
+const mathOdMeasurementPointMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementOd",
+    "leadEngineer.data.packerElementOdMin"
+  );
+};
+const mathOdMeasurementPointMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementOd",
+    "leadEngineer.data.packerElementOdMax"
+  );
+};
+
+const mathIdentificationMarking = (
+  values,
   repeatStepList,
   decimal,
   mathStore = null,
   jsonVariables = null,
-  specData = null) => {
-  let pipeOd = objectPath.get(values, "leadEngineer.data.pipeOd", "")
-  let idDriftSize = objectPath.get(values, "leadEngineer.data.idDriftSize", "")
-  let materialType = objectPath.get(values, "leadEngineer.data.materialType", "")
-  let pipeLength = objectPath.get(values, "leadEngineer.data.pipeLength", "")
-  return `${pipeOd} ${idDriftSize} ${materialType} ${["slipon2", "slipon3"].includes(removeSpace(lowerCaseFirstLetter(jsonVariables[0]))) ? "PXP" : "BXP"} ${pipeLength/1000}M`
-              }
+  specData = null
+) => {
+  let pipeOd = objectPath.get(values, "leadEngineer.data.data.pipeOd", "");
+  let idDriftSize = objectPath.get(
+    values,
+    "leadEngineer.data.data.idDriftSize",
+    ""
+  );
+  let materialType = objectPath.get(
+    values,
+    "leadEngineer.data.data.materialType",
+    ""
+  );
+  let pipeLength = objectPath.get(
+    values,
+    "leadEngineer.data.data.pipeLength",
+    ""
+  );
+  return `${pipeOd} ${idDriftSize} ${materialType} ${
+    ["slipon2", "slipon3"].includes(
+      removeSpace(lowerCaseFirstLetter(jsonVariables[0]))
+    )
+      ? "PXP"
+      : "BXP"
+  } ${pipeLength / 1000}M`;
+};
+
+const mathHandlingSpacePinEndMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.handlingSpacePinEnd",
+    "leadEngineer.data.handlingSpacePinEndMin"
+  );
+};
+
+const mathHandlingSpacePinEndMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.handlingSpacePinEnd",
+    null,
+    "leadEngineer.data.handlingSpacePinEndMax"
+  );
+};
+const mathHandlingSpaceBoxEndMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.handlingSpaceBoxEnd",
+    "leadEngineer.data.handlingSpaceBoxEndMin"
+  );
+};
+
+const mathHandlingSpaceBoxEndMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.handlingSpaceBoxEnd",
+    null,
+    "leadEngineer.data.handlingSpaceBoxEndMax"
+  );
+};
+const mathPackerElementLengthMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementLength",
+    "leadEngineer.data.packerElementLengthMin"
+  );
+};
+
+const mathPackerElementLengthMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementLength",
+    null,
+    "leadEngineer.data.packerElementLengthMax"
+  );
+};
+const mathPackerElementLengthTotalMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementLengthTotal",
+    "leadEngineer.data.packerElementLengthTotalMin"
+  );
+};
+
+const mathPackerElementLengthTotalMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementLengthTotal",
+    null,
+    "leadEngineer.data.packerElementLengthTotalMax"
+  );
+};
+const mathPackerElementLength2Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementLength2",
+    "leadEngineer.data.packerElementLength2Min"
+  );
+};
+
+const mathPackerElementLength2Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementLength2",
+    null,
+    "leadEngineer.data.packerElementLength2Max"
+  );
+};
+const mathPackerElementLength3Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementLength3",
+    "leadEngineer.data.packerElementLength3Min"
+  );
+};
+
+const mathPackerElementLength3Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementLength3",
+    null,
+    "leadEngineer.data.packerElementLength3Max"
+  );
+};
+const mathPackerElementOd1Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementOd1",
+    "leadEngineer.data.packerElementOd1Min"
+  );
+};
+
+const mathPackerElementOd1Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementOd1",
+    null,
+    "leadEngineer.data.packerElementOd1Max"
+  );
+};
+const mathPackerElementOd2Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementOd2",
+    "leadEngineer.data.packerElementOd2Min"
+  );
+};
+
+const mathPackerElementOd2Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementOd2",
+    null,
+    "leadEngineer.data.packerElementOd2Max"
+  );
+};
+const mathPackerElementOd3Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementOd3",
+    "leadEngineer.data.packerElementOd3Min"
+  );
+};
+
+const mathPackerElementOd3Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementOd3",
+    null,
+    "leadEngineer.data.packerElementOd3Max"
+  );
+};
+const mathPackerElementOd3Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.packerElementOd3",
+    "leadEngineer.data.packerElementOd3Min"
+  );
+};
+
+const mathPackerElementOd3Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementOd3",
+    null,
+    "leadEngineer.data.packerElementOd3Max"
+  );
+};
+const mathEndRingOdMin = (allData, data, repeatStepList, documentData) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.endRingOd",
+    "leadEngineer.data.endRingOdMin"
+  );
+};
+
+const mathEndRingOdMax = (allData, data, repeatStepList, documentData) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.endRingOd",
+    null,
+    "leadEngineer.data.endRingOdMax"
+  );
+};
+const mathEndRingLengthMin = (allData, data, repeatStepList, documentData) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.endRingLength",
+    "leadEngineer.data.endRingLengthMin"
+  );
+};
+
+const mathEndRingLengthMax = (allData, data, repeatStepList, documentData) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.endRingLength",
+    null,
+    "leadEngineer.data.endRingLengthMax"
+  );
+};
+const mathCenterRingOdMin = (allData, data, repeatStepList, documentData) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.centerRingOd",
+    "leadEngineer.data.centerRingOdMin"
+  );
+};
+
+const mathCenterRingOdMax = (allData, data, repeatStepList, documentData) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.centerRingOd",
+    null,
+    "leadEngineer.data.centerRingOdMax"
+  );
+};
+const mathCenterRingLengthMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMin(
+    data,
+    "leadEngineer.data.centerRingLength",
+    "leadEngineer.data.centerRingLengthMin"
+  );
+};
+
+const mathCenterRingLengthMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.centerRingLength",
+    null,
+    "leadEngineer.data.centerRingLengthMax"
+  );
+};
+
+const mathTargetThickness = (
+  specData,
+  repeatStepList,
+  decimal,
+  mathStore,
+  jsonVariables
+) => {
+  let target = mathIncreasedOdForWholeElementTotal(specData, "barrier");
+  let packerElementOd = objectPath.get(
+    specData,
+    "leadEngineer.data.packerElementOd1"
+  );
+};
+
+const mathTargetThicknessPin = (
+  specData,
+  repeatStepList,
+  decimal,
+  mathStore,
+  jsonVariables
+) => {
+  let target = mathIncreasedOdForWholeElementTotal(specData, "barrierPinSide");
+  let packerElementOd = objectPath.get(
+    specData,
+    "leadEngineer.data.packerElementOd1"
+  );
+};
+
+const mathTargetThicknessBox = (
+  specData,
+  repeatStepList,
+  decimal,
+  mathStore,
+  jsonVariables
+) => {
+  let target = mathIncreasedOdForWholeElementTotal(specData, "barrierBoxSide");
+  let packerElementOd = objectPath.get(
+    specData,
+    "leadEngineer.data.packerElementOd1"
+  );
+};
 
 const Math = {
+  mathHandlingSpacePinEndMin,
+  mathHandlingSpacePinEndMax,
+  mathHandlingSpaceBoxEndMin,
+  mathHandlingSpaceBoxEndMax,
+  mathPackerElementLengthMin,
+  mathPackerElementLengthMax,
+  mathPackerElementLengthTotalMin,
+  mathPackerElementLengthTotalMax,
+  mathPackerElementLength2Min,
+  mathPackerElementLength2Max,
+  mathPackerElementLength3Min,
+  mathPackerElementLength3Max,
+  mathPackerElementOd1Min,
+  mathPackerElementOd1Max,
+  mathPackerElementOd2Min,
+  mathPackerElementOd2Max,
+  mathPackerElementOd3Min,
+  mathPackerElementOd3Max,
+  mathPackerElementOd3Min,
+  mathPackerElementOd3Max,
+  mathEndRingOdMin,
+  mathEndRingOdMax,
+  mathEndRingLengthMin,
+  mathEndRingLengthMax,
+  mathCenterRingOdMin,
+  mathCenterRingOdMax,
+  mathCenterRingLengthMin,
+  mathCenterRingLengthMax,
+  mathTargetThickness,
+  mathTargetThicknessPin,
+  mathTargetThicknessBox,
   mathOdMeasurementPointMin,
   mathOdMeasurementPointMax,
   mathBarrier1PinSideMin,
