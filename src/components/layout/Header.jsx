@@ -27,16 +27,41 @@ export default props => {
 
   // const { item } = useContext(ItemContext);
 
-  const NavLink = ({ title, link, icon, disabled, hidden }) => (
-    <LinkContainer to={link} className="p-0">
-      <Dropdown.Item disabled={disabled} hidden={hidden}>
-        <div className={`nav-link ${disabled && `text-light`}`}>
-          <FontAwesomeIcon icon={icon} style={{ width: "1.7em" }} />
-          {title}
-        </div>
-      </Dropdown.Item>
-    </LinkContainer>
-  );
+  const NavLink = ({
+    title,
+    link,
+    icon,
+    disabled,
+    hidden,
+    external = false
+  }) => {
+    if (external) {
+      return (
+        <Dropdown.Item
+          disabled={disabled}
+          hidden={hidden}
+          href={external ? link : null}
+          className="p-0 w-100"
+        >
+          <div className={`nav-link ${disabled && `text-light`}`}>
+            <FontAwesomeIcon icon={icon} style={{ width: "1.7em" }} />
+            {title}
+          </div>
+        </Dropdown.Item>
+      );
+    } else {
+      return (
+        <LinkContainer to={link} className="p-0">
+          <Dropdown.Item disabled={disabled} hidden={hidden}>
+            <div className={`nav-link ${disabled && `text-light`}`}>
+              <FontAwesomeIcon icon={icon} style={{ width: "1.7em" }} />
+              {title}
+            </div>
+          </Dropdown.Item>
+        </LinkContainer>
+      );
+    }
+  };
   const NavButton = ({ title, onClick, icon, disabled, hidden }) => (
     <Dropdown.Item
       disabled={disabled}
@@ -143,6 +168,12 @@ export default props => {
 
             <Dropdown.Menu alignRight>
               <NavLink title="Logout" link="/login" icon="user" />
+              <NavLink
+                title="Admin"
+                external
+                link={`${process.env.REACT_APP_BACKEND}/admin/`}
+                icon="user"
+              />
             </Dropdown.Menu>
           </Dropdown>
         </div>
