@@ -1681,7 +1681,6 @@ const mathPackerElementOd2Min = (
     "leadEngineer.data.packerElementOd2Min"
   );
 };
-
 const mathPackerElementOd2Max = (
   allData,
   data,
@@ -1707,7 +1706,6 @@ const mathPackerElementOd3Min = (
     "leadEngineer.data.packerElementOd3Min"
   );
 };
-
 const mathPackerElementOd3Max = (
   allData,
   data,
@@ -1728,7 +1726,6 @@ const mathEndRingOdMin = (allData, data, repeatStepList, documentData) => {
     "leadEngineer.data.endRingOdMin"
   );
 };
-
 const mathEndRingOdMax = (allData, data, repeatStepList, documentData) => {
   return getAbsolutelyMinMax(
     data,
