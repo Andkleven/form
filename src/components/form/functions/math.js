@@ -1795,7 +1795,6 @@ const mathCenterRingLengthMax = (
     "leadEngineer.data.centerRingLengthMax"
   );
 };
-
 const mathTargetThickness = (
   specData,
   repeatStepList,
@@ -1811,7 +1810,6 @@ const mathTargetThickness = (
   );
   return packerElementOd - target ? Number(target.split("m")[0]) : 0;
 };
-
 const mathTargetThicknessPin = (
   specData,
   repeatStepList,
