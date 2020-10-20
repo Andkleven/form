@@ -2191,7 +2191,7 @@
         },
         {
           "queryPath": "operator.measurementPointBeforeBarrierPinSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "repeatGroupWithQuerySpecData": true,
           "fields": [
             {
@@ -2310,7 +2310,7 @@
         },
         {
           "queryPath": "operator.measurementPointAfterBarrierPinSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
           "showPageSpecPath": {
             "leadEngineer.data.barrierPinSide": [
               "1A",
@@ -2522,7 +2522,7 @@
         },
         {
           "queryPath": "operator.measurementPointBeforeBarrierBoxSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "repeatGroupWithQuerySpecData": true,
           "fields": [
             {
@@ -2640,7 +2640,7 @@
             ]
           },
           "queryPath": "operator.measurementPointAfterBarrierBoxSides",
-          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "fields": [
             {
               "indexVariableLabel": true,
