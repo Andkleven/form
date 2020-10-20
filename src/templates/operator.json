@@ -356,6 +356,11 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": {"slipon2":true, "slipon3":true},
+              "text": "Internal and external priming",
+              "label": ""
+            },
+            {
               "specValueList": "leadEngineer.data.primer1",
               "label": "Primer Number"
             },
@@ -390,6 +395,11 @@
           "queryPath": "operator",
           "fields": [
             {
+              "showField": {"slipon2":true, "slipon3":true},
+              "text": "Internal and external priming",
+              "label": ""
+            },
+            {
               "specValueList": "leadEngineer.data.primer2",
               "label": "Primer Number:"
             },
@@ -404,8 +414,8 @@
               "required": true,
               "label": "Start Time",
               "type": "datetime-local",
-              "routeToMax": "operator.data.startTimePriming1",
-              "max": {"m": 30}
+              "routeToMin": "operator.data.stopTimePriming1",
+              "min": {"m": 30}
             },
             {
               "fieldName": "stopTimePriming2",

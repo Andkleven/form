@@ -47,7 +47,7 @@ export default React.memo(({ ...props }) => {
   const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
   const hidden = useHidden(props.writeOnlyFieldIf, [
-    `${props.label}-${props.prepend}-${props.repeatStepList}-FieldProperties-hidden`
+    `${props.label}-${props.prepend}-${props.fieldName}-${props.repeatStepList}-FieldProperties-hidden`
   ]);
 
   const [label, setLabel] = useState("");
@@ -365,7 +365,7 @@ export default React.memo(({ ...props }) => {
     getLabel(props.backendData);
   }, [props.backendData, getLabel]);
 
-  if (props.specValueList) {
+  if (props.specValueList || props.text) {
     return (
       <ReadField
         {...props}
@@ -374,12 +374,12 @@ export default React.memo(({ ...props }) => {
         path={getNewPath()}
         subtext={subtext}
         unit={unit.current}
-        value={findValue(
+        value={props.specValueList ? findValue(
           props.specData,
           removePathFunc(props.specRemovePath, props.specValueList),
           props.repeatStepList,
           props.editRepeatStepValueList
-        )}
+        ) : props.text}
         label={label}
       />
     );
