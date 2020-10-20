@@ -368,8 +368,6 @@ export const calculateMaxMin = (
       )
     );
   } else if (calculateMin) {
-    console.log(calculateMin);
-    console.log(Math[calculateMin]);
     newMin = Number(
       Math[calculateMin](allData, specData, repeatStepList, documentData)
     );
