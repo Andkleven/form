@@ -1188,11 +1188,8 @@ const mathIncreasedOdForWholeElementMinMax = (values, field) => {
 };
 
 const mathBarrierMinMax = (data, path, barrier) => {
-  console.log(data, path, barrier);
   let measurementPoint = objectPath.get(data, path, 0);
-  console.log(measurementPoint);
   measurementPoint = measurementPoint ? measurementPoint : 0;
-  console.log(measurementPoint);
   return whatTooReturn(measurementPoint + barrier, 2, [
     measurementPoint,
     barrier
