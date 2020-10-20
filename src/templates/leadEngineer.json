@@ -1825,10 +1825,10 @@
               "subtext": "APS. Final measurments are within tolerances."
             },
             {
-              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "visualInspection",
               "label": "Visual Inspection",
               "type": "checkbox",
+              "default": {"slipon3":true, "slipon2":true, "b2P":true,"dual":true, "coatedItem":false, "mould":false},
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
             },
             {

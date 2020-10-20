@@ -542,10 +542,10 @@
 
             {
               "showField": { "slipon2": true, "slipon3": true },
-              "fieldName": "elementId",
-              "specVariableSubtext": "leadEngineer.data.elementId",
-              "label": "Element ID",
-              "subtext": "Element ID {}"
+              "fieldName": "elementLength",
+              "specVariableSubtext": "leadEngineer.data.elementLength",
+              "label": "Element length",
+              "subtext": "Element length {}"
             },
             {
               "showField": { "slipon2": true, "slipon3": true },

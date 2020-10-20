@@ -1188,8 +1188,11 @@ const mathIncreasedOdForWholeElementMinMax = (values, field) => {
 };
 
 const mathBarrierMinMax = (data, path, barrier) => {
+  console.log(data, path, barrier);
   let measurementPoint = objectPath.get(data, path, 0);
+  console.log(measurementPoint);
   measurementPoint = measurementPoint ? measurementPoint : 0;
+  console.log(measurementPoint);
   return whatTooReturn(measurementPoint + barrier, 2, [
     measurementPoint,
     barrier
@@ -1334,7 +1337,7 @@ const mathBarrierBoxSideMax = (allData, data, repeatStepList, documentData) => {
 const mathBarrier0Min = (allData, data, repeatStepList, documentData) => {
   return mathBarrierMinMax(
     documentData,
-    `operator.measurementOfEndsBeforeAppliedBarrier`,
+    `operator.data.measurementOfEndsBeforeAppliedBarrier`,
     increasedOdForEndsMinMax(data, "barrier").min
   );
 };
@@ -1342,7 +1345,7 @@ const mathBarrier0Min = (allData, data, repeatStepList, documentData) => {
 const mathBarrier0Max = (allData, data, repeatStepList, documentData) => {
   return mathBarrierMinMax(
     documentData,
-    `operator.measurementOfEndsBeforeAppliedBarrier`,
+    `operator.data.measurementOfEndsBeforeAppliedBarrier`,
     increasedOdForEndsMinMax(data, "barrier").max
   );
 };
@@ -1462,22 +1465,14 @@ const mathIdentificationMarking = (
   jsonVariables = null,
   specData = null
 ) => {
-  let pipeOd = objectPath.get(values, "leadEngineer.data.data.pipeOd", "");
-  let idDriftSize = objectPath.get(
-    values,
-    "leadEngineer.data.data.idDriftSize",
-    ""
-  );
+  let pipeOd = objectPath.get(values, "leadEngineer.data.pipeOd", "");
+  let idDriftSize = objectPath.get(values, "leadEngineer.data.idDriftSize", "");
   let materialType = objectPath.get(
     values,
-    "leadEngineer.data.data.materialType",
+    "leadEngineer.data.materialType",
     ""
   );
-  let pipeLength = objectPath.get(
-    values,
-    "leadEngineer.data.data.pipeLength",
-    ""
-  );
+  let pipeLength = objectPath.get(values, "leadEngineer.data.pipeLength", "");
   return `${pipeOd} ${idDriftSize} ${materialType} ${
     ["slipon2", "slipon3"].includes(
       removeSpace(lowerCaseFirstLetter(jsonVariables[0]))

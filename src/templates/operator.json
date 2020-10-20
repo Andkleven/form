@@ -941,7 +941,7 @@
           "queryPath": ["operator.grindings", ""],
           "fields": [
             {
-              "showField": { "slipon3": true, "slipon2": true, "b2P": true },
+              "showField": { "b2P": true },
               "fieldName": "elementLengthAfterGrinding",
               "required": true,
               "label": "Element length after grinding",
@@ -971,20 +971,41 @@
               "mathSubtext": "mathTargetThicknessBox"
             },
             {
+              "showField": { "dual": true, "b2P":true },
               "fieldName": "elementCenterDiameter",
               "required": true,
               "label": "Element center diameter",
               "type": "number"
             },
             {
+              "showField": { "dual": true, "b2P":true },
               "fieldName": "pinDiameter",
               "required": true,
               "label": "Pin diameter"
             },
             {
+              "showField": { "dual": true, "b2P":true },
               "fieldName": "boxDiameter",
               "required": true,
               "label": "Box diameter"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true },
+              "fieldName": "odLength1",
+              "required": true,
+              "label": "OD length 1"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true },
+              "fieldName": "odLength2",
+              "required": true,
+              "label": "OD length 2"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true },
+              "fieldName": "odLength3",
+              "required": true,
+              "label": "OD length 3"
             },
             {
               "fieldName": "equipmentIdGrinding",
@@ -1349,7 +1370,7 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": { "slipon3": true, "slipon2": true, "b2P": true },
+              "showField": { "b2P": true },
               "fieldName": "elementLengthAfterGrinding",
               "required": true,
               "label": "Element length after grinding",
@@ -1379,25 +1400,41 @@
               "mathSubtext": "mathTargetThicknessBox"
             },
             {
+              "showField": { "dual": true, "b2P":true },
               "fieldName": "elementCenterDiameter",
               "required": true,
               "label": "Element center diameter",
-              "type": "number",
-              "unit": "mm"
+              "type": "number"
             },
             {
+              "showField": { "dual": true, "b2P":true },
               "fieldName": "pinDiameter",
               "required": true,
-              "label": "Pin diameter",
-              "type": "number",
-              "unit": "mm"
+              "label": "Pin diameter"
             },
             {
+              "showField": { "dual": true, "b2P":true },
               "fieldName": "boxDiameter",
               "required": true,
-              "label": "Box diameter",
-              "type": "number",
-              "unit": "mm"
+              "label": "Box diameter"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true },
+              "fieldName": "odLength1",
+              "required": true,
+              "label": "OD length 1"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true },
+              "fieldName": "odLength2",
+              "required": true,
+              "label": "OD length 2"
+            },
+            {
+              "showField": { "slipon3": true, "slipon2": true },
+              "fieldName": "odLength3",
+              "required": true,
+              "label": "OD length 3"
             },
             {
               "fieldName": "equipmentIdGrinding",
@@ -2644,6 +2681,10 @@
               "fieldName": "equipmentIdCompletionPhase",
               "required": true,
               "label": "Equipment ID"
+            },
+            {
+              "label": "Identification Marking",
+              "mathSpec": "mathIdentificationMarking"
             },
             {
               "fieldName": "marking",
