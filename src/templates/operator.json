@@ -1051,6 +1051,10 @@
               "label": "Equipment ID"
             },
             {
+              "label": "Core Sample",
+              "mathSpec": "mathCoreSampleCode"
+            },
+            {
               "showField": { "slipon3": true, "slipon2": true, "b2P": true },
               "fieldName": "coreSample",
               "label": "Core Sample",
@@ -1506,6 +1510,10 @@
               "fieldName": "equipmentIdGrinding",
               "required": true,
               "label": "Equipment ID"
+            },
+            {
+              "label": "Core Sample",
+              "mathSpec": "mathCoreSampleCode"
             },
             {
               "showField": { "slipon3": true, "slipon2": true, "b2P": true },

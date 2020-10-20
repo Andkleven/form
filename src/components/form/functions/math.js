@@ -1586,6 +1586,32 @@ const mathPackerElementLengthTotalMax = (
     "leadEngineer.data.packerElementLengthTotalMax"
   );
 };
+const mathPackerElementLength1Min = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementLength1",
+    "leadEngineer.data.packerElementLength1Min"
+  );
+};
+
+const mathPackerElementLength1Max = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return getAbsolutelyMinMax(
+    data,
+    "leadEngineer.data.packerElementLength1",
+    null,
+    "leadEngineer.data.packerElementLength1Max"
+  );
+};
 const mathPackerElementLength2Min = (
   allData,
   data,
@@ -1840,6 +1866,8 @@ const Math = {
   mathPackerElementLengthMax,
   mathPackerElementLengthTotalMin,
   mathPackerElementLengthTotalMax,
+  mathPackerElementLength1Min,
+  mathPackerElementLength1Max,
   mathPackerElementLength2Min,
   mathPackerElementLength2Max,
   mathPackerElementLength3Min,
