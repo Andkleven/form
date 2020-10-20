@@ -224,8 +224,8 @@ export const getSubtext = (
   repeatStepList,
   allData
 ) => {
-  let minString = min === undefined ? "" : `Min: ${min}`;
-  let maxString = max === undefined ? "" : `Max: ${max}`;
+  let minString = isNumberAndNotNaN(min) ? `Min: ${min}` : "";
+  let maxString = isNumberAndNotNaN(max) ? `Max: ${max}` : "";
 
   let unitString = unit ? `${unit} ` : " ";
 

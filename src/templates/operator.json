@@ -2311,6 +2311,7 @@
         {
           "queryPath": "operator.measurementPointAfterBarrierPinSides",
           "repeatGroupWithQueryMath": "mathMeasurementPointsPinSide",
+          "repeatGroupWithQuerySpecData": true,
           "showPageSpecPath": {
             "leadEngineer.data.barrierPinSide": [
               "1A",
@@ -2344,8 +2345,8 @@
               "indexVariableLabel": true,
               "fieldName": "endMeasurementPinSide",
               "label": "End measurement {}",
-              "calculateMin": "mathBarrier1BoxSideMin",
-              "calculateMax": "mathBarrier1BoxSideMax",
+              "calculateMin": "mathBarrier1PinSideMin",
+              "calculateMax": "mathBarrier1PinSideMax",
               "required": true,
               "type": "number"
             }
@@ -2640,14 +2641,15 @@
             ]
           },
           "queryPath": "operator.measurementPointAfterBarrierBoxSides",
+          "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQueryMath": "mathMeasurementPointsBoxSide",
           "fields": [
             {
               "indexVariableLabel": true,
               "fieldName": "endMeasurementBoxSide",
               "label": "End measurement {}",
-              "calculateMin": "mathBarrierBoxSideBoxSideMin",
-              "calculateMax": "mathBarrierBoxSideBoxSideMax",
+              "calculateMin": "mathBarrier1BoxSideMin",
+              "calculateMax": "mathBarrier1BoxSideMax",
               "required": true,
               "type": "number"
             }

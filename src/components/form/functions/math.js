@@ -1306,7 +1306,7 @@ const mathBarrierPinSideMin = (allData, data, repeatStepList, documentData) => {
   return mathBarrierMinMax(
     documentData,
     `operator.data.measurementPointPinBeforeAppliedBarrier`,
-    increasedOdForEndsMinMax(data, "barrier").min
+    increasedOdForEndsMinMax(data, "barrierPinSide").min
   );
 };
 
@@ -1314,7 +1314,7 @@ const mathBarrierBoxSideMin = (allData, data, repeatStepList, documentData) => {
   return mathBarrierMinMax(
     documentData,
     `operator.data.measurementPointBoxBeforeAppliedBarrier`,
-    increasedOdForEndsMinMax(data, "barrier").min
+    increasedOdForEndsMinMax(data, "barrierBoxSide").min
   );
 };
 
@@ -1322,7 +1322,7 @@ const mathBarrierPinSideMax = (allData, data, repeatStepList, documentData) => {
   return mathBarrierMinMax(
     documentData,
     `operator.data.measurementPointPinBeforeAppliedBarrier`,
-    increasedOdForEndsMinMax(data, "barrier").max
+    increasedOdForEndsMinMax(data, "barrierPinSide").max
   );
 };
 
@@ -1330,7 +1330,7 @@ const mathBarrierBoxSideMax = (allData, data, repeatStepList, documentData) => {
   return mathBarrierMinMax(
     documentData,
     `operator.data.measurementPointBoxBeforeAppliedBarrier`,
-    increasedOdForEndsMinMax(data, "barrier").max
+    increasedOdForEndsMinMax(data, "barrierBoxSide").max
   );
 };
 
@@ -1364,31 +1364,6 @@ const mathBarrier1Max = (allData, data, repeatStepList, documentData) => {
     mathIncreasedOdForWholeElementMinMax(data, "barrier").max
   );
 };
-const mathBarrier1BoxSideMin = (
-  allData,
-  data,
-  repeatStepList,
-  documentData
-) => {
-  return mathBarrierMinMax(
-    documentData,
-    `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
-    mathIncreasedOdForWholeElementMinMax(data, "barrier").min
-  );
-};
-
-const mathBarrier1BoxSideMax = (
-  allData,
-  data,
-  repeatStepList,
-  documentData
-) => {
-  return mathBarrierMinMax(
-    documentData,
-    `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
-    mathIncreasedOdForWholeElementMinMax(data, "barrier").max
-  );
-};
 const mathBarrier1PinSideMin = (
   allData,
   data,
@@ -1397,8 +1372,8 @@ const mathBarrier1PinSideMin = (
 ) => {
   return mathBarrierMinMax(
     documentData,
-    `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
-    mathIncreasedOdForWholeElementMinMax(data, "barrier").min
+    `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrierPinSide").min
   );
 };
 
@@ -1410,8 +1385,33 @@ const mathBarrier1PinSideMax = (
 ) => {
   return mathBarrierMinMax(
     documentData,
+    `operator.measurementPointBeforeBarrierPinSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierPinSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrierPinSide").max
+  );
+};
+const mathBarrier1BoxSideMin = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return mathBarrierMinMax(
+    documentData,
     `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
-    mathIncreasedOdForWholeElementMinMax(data, "barrier").max
+    mathIncreasedOdForWholeElementMinMax(data, "barrierBoxSide").min
+  );
+};
+
+const mathBarrier1BoxSideMax = (
+  allData,
+  data,
+  repeatStepList,
+  documentData
+) => {
+  return mathBarrierMinMax(
+    documentData,
+    `operator.measurementPointBeforeBarrierBoxSides.${repeatStepList[0]}.data.measurementPointBeforeAppliedBarrierBoxSide`,
+    mathIncreasedOdForWholeElementMinMax(data, "barrierBoxSide").max
   );
 };
 
