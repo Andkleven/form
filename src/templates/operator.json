@@ -1428,23 +1428,61 @@
               "mathSubtext": "mathTargetThicknessBox"
             },
             {
-              "showField": { "dual": true, "b2P":true },
+              "showField": { "b2P":true },
               "fieldName": "elementCenterDiameter",
               "required": true,
               "label": "Element center diameter",
               "type": "number"
             },
             {
-              "showField": { "dual": true, "b2P":true },
+              "showField": { "dual": true },
+              "fieldName": "elementCenterDiameterPinSide",
+              "required": true,
+              "label": "Element center diameter pin side",
+              "type": "number"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "elementCenterDiameterBoxSide",
+              "required": true,
+              "label": "Element center diameter box side",
+              "type": "number"
+            },
+            {
+              "showField": { "b2P":true },
               "fieldName": "pinDiameter",
               "required": true,
               "label": "Pin diameter"
             },
             {
-              "showField": { "dual": true, "b2P":true },
+              "showField": { "dual": true },
+              "fieldName": "pinDiameterPinSide",
+              "required": true,
+              "label": "Pin diameter pin side"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "pinDiameterBoxSide",
+              "required": true,
+              "label": "Pin diameter box side"
+            },
+            {
+              "showField": { "b2P":true },
               "fieldName": "boxDiameter",
               "required": true,
               "label": "Box diameter"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "boxDiameterPinSide",
+              "required": true,
+              "label": "Box diameter pin side"
+            },
+            {
+              "showField": { "dual": true },
+              "fieldName": "boxDiameterBoxSide",
+              "required": true,
+              "label": "Box diameter box side"
             },
             {
               "showField": { "slipon3": true, "slipon2": true },
