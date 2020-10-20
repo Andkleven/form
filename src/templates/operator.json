@@ -1066,9 +1066,9 @@
               "label": "Equipment ID"
             },
             {
-              "fieldName": "dueCalibrationDate",
+              "fieldName": "calibrationDate",
               "required": true,
-              "label": "Due calibration  date",
+              "label": "Next Calibration date",
               "type": "date"
             },
             {
@@ -1139,7 +1139,7 @@
               "fieldName": "inspectorsCertificateDueDate",
               "required": true,
               "label": "Inspectors certificate due date",
-              "type": "datetime-local"
+              "type": "date"
             }
           ]
         }
@@ -1152,16 +1152,11 @@
           "queryPath": "operator",
           "fields": [
             {
-              "fieldName": "ultraSoundBeforeGrindingPinSide",
+              "fieldName": "ultraSoundGrinding",
+              "label": "Ultra sound grinding",
+              "type": "select",
               "required": true,
-              "label": "Ultra sound before grinding",
-              "type": "checkbox"
-            },
-            {
-              "fieldName": "ultraSoundAfterGrindingPinSide",
-              "required": true,
-              "label": "Ultra sound after grinding",
-              "type": "checkbox"
+              "options": ["Before", "After"]
             },
             {
               "fieldName": "probePinSide",
@@ -1179,10 +1174,10 @@
               "label": "Equipment ID"
             },
             {
-              "fieldName": "dueCalibrationDatePinSide",
+              "fieldName": "calibrationDatePinSide",
               "required": true,
-              "label": "Due calibration  date",
-              "type": "datetime-local"
+              "label": "Next Calibration date",
+              "type": "date"
             },
             {
               "fieldName": "testInformationResultPinSide",
@@ -1248,7 +1243,7 @@
               "fieldName": "inspectorsCertificateDueDatePinSide",
               "required": true,
               "label": "Inspectors certificate due date",
-              "type": "datetime-local"
+              "type": "date"
             }
           ]
         }
@@ -1261,16 +1256,11 @@
           "queryPath": "operator",
           "fields": [
             {
-              "fieldName": "ultraSoundBeforeGrindingBoxSide",
+              "fieldName": "ultraSoundGrinding",
+              "label": "Ultra sound grinding",
+              "type": "select",
               "required": true,
-              "label": "Ultra sound before grinding",
-              "type": "checkbox"
-            },
-            {
-              "fieldName": "ultraSoundAfterGrindingBoxSide",
-              "required": true,
-              "label": "Ultra sound after grinding",
-              "type": "checkbox"
+              "options": ["Before", "After"]
             },
             {
               "fieldName": "probeBoxSide",
@@ -1288,10 +1278,10 @@
               "label": "Equipment ID"
             },
             {
-              "fieldName": "dueCalibrationDateBoxSide",
+              "fieldName": "calibrationDateBoxSide",
               "required": true,
-              "label": "Due calibration  date",
-              "type": "datetime-local"
+              "label": "Next Calibration date",
+              "type": "date"
             },
             {
               "fieldName": "testInformationResultBoxSide",
@@ -1357,7 +1347,7 @@
               "fieldName": "inspectorsCertificateDueDateBoxSide",
               "required": true,
               "label": "Inspectors certificate due date",
-              "type": "datetime-local"
+              "type": "date"
             }
           ]
         }
@@ -1486,7 +1476,8 @@
               "fieldName": "calibrationDateTorqueWrench",
               "required": true,
               "label": "Next Calibration date",
-              "type": "date"
+              "type": "date",
+              "min": "now"
             },
             {
               "mathSpec": "mathTorque",
@@ -1615,7 +1606,8 @@
             {
               "fieldName": "nextCalibrationDateBarrier",
               "label": "Next calibration date",
-              "type": "date"
+              "type": "date",
+              "min": "now"
             },
             {
               "showField": { "b2P": true },
@@ -2077,7 +2069,8 @@
             {
               "fieldName": "nextCalibrationDateBarrierPinSide",
               "label": "Next calibration date",
-              "type": "date"
+              "type": "date",
+              "min": "now"
             },
             {
               "showFieldSpecPath": {
@@ -2407,7 +2400,8 @@
             {
               "fieldName": "nextCalibrationDateBarrierBoxSide",
               "label": "Next calibration date",
-              "type": "date"
+              "type": "date",
+              "min": "now"
             },
             {
               "showFieldSpecPath": {
@@ -2675,7 +2669,8 @@
               "fieldName": "calibrationDate",
               "required": true,
               "label": "Next Calibration date",
-              "type": "date"
+              "type": "date",
+              "min": "now"
             },
             {
               "fieldName": "equipmentIdCompletionPhase",
