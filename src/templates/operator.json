@@ -2344,7 +2344,7 @@
               "indexVariableLabel": true,
               "fieldName": "endMeasurementPinSide",
               "label": "End measurement {}",
-               "calculateMin": "mathBarrier1BoxSideMin",
+              "calculateMin": "mathBarrier1BoxSideMin",
               "calculateMax": "mathBarrier1BoxSideMax",
               "required": true,
               "type": "number"
