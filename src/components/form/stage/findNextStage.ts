@@ -3,19 +3,20 @@ import {
   findValue,
   emptyField,
   isNumber,
-  getProductionLine
+  getProductionLine,
+  getProperties
 } from "functions/general.js";
 
-export default (specData: object, stage: string, stageType: string): object => {
+export default (specData: object, stage: string, stageType: string, chapters: object): object => {
   stage = stage ? stage : stagesJson.all[0];
-  stageType = getProductionLine(stageType);
+  let productionLin = getProductionLine(stageType);
   function nextStageFormat(index: number, step: number, layer: number): object {
     nextStage = stagesJson.all[index + 1];
     if (
-      stagesJson[stageType][nextStage] &&
-      stagesJson[stageType][nextStage]["step"]
+      stagesJson[productionLin][nextStage] &&
+      stagesJson[productionLin][nextStage]["step"]
     ) {
-      if (stagesJson[stageType][nextStage]["layer"]) {
+      if (stagesJson[productionLin][nextStage]["layer"]) {
         return {
           stage: `${nextStage.split("Step")[0]}Step${step}Layer${layer}`,
           stageWithoutNumber: `${nextStage.split("Step")[0]}StepLayer`,
@@ -49,21 +50,21 @@ export default (specData: object, stage: string, stageType: string): object => {
   let stages = stagesJson.all;
   let index = stages.indexOf(thisStage);
   let nextStage;
-  while (nextStage === undefined) {
+  while (nextStage === undefined && index < 150) {
     if (thisStage === stages[stages.length - 1]) {
       nextStage = { stage: thisStage, stageWithoutNumber: thisStage };
       break;
     }
     let crossroads;
-    if (stagesJson[stageType][thisStage]) {
-      crossroads = stagesJson[stageType][thisStage]["crossroads"];
+    if (stagesJson[productionLin][thisStage]) {
+      crossroads = stagesJson[productionLin][thisStage]["crossroads"];
     }
     if (crossroads) {
       query = findValue(
         specData,
-        stagesJson[stageType][crossroads]["queryPath"],
+        stagesJson[productionLin][crossroads]["queryPath"],
         isNumber(step) ? [step] : [],
-        stagesJson[stageType][crossroads]["editIndexList"]
+        stagesJson[productionLin][crossroads]["editIndexList"]
       );
       if (!emptyField(query)) {
         if (crossroads.split("Step")[1] !== undefined) {
@@ -86,31 +87,35 @@ export default (specData: object, stage: string, stageType: string): object => {
       }
     }
     if (
-      stagesJson[stageType][thisStage] &&
-      stagesJson[stageType][thisStage]["layer"]
+      stagesJson[productionLin][thisStage] &&
+      stagesJson[productionLin][thisStage]["layer"]
     ) {
       layer += 1;
       query = findValue(
         specData,
-        stagesJson[stageType][thisStage]["queryPath"],
+        stagesJson[productionLin][thisStage]["queryPath"],
         [step - 1, layer - 1],
-        stagesJson[stageType][thisStage]["editIndexList"]
+        stagesJson[productionLin][thisStage]["editIndexList"]
       );
       if (!emptyField(query)) {
         return nextStageFormat(index - 1, step, layer);
       }
     }
     thisStage = stages[index + 1];
-    if (emptyField(stagesJson[stageType][thisStage])) {
+    if (chapters[thisStage] && chapters[thisStage].showChapter && !getProperties(chapters[thisStage].showChapter, [stageType])) {
       index++;
-    } else if (emptyField(stagesJson[stageType][thisStage]["queryPath"])) {
+      continue
+    }
+    if (emptyField(stagesJson[productionLin][thisStage])) {
+      index++;
+    } else if (emptyField(stagesJson[productionLin][thisStage]["queryPath"])) {
       nextStage = nextStageFormat(index, step, layer);
     } else {
       query = findValue(
         specData,
-        stagesJson[stageType][thisStage]["queryPath"],
+        stagesJson[productionLin][thisStage]["queryPath"],
         [step - 1, layer - 1],
-        stagesJson[stageType][thisStage]["editIndexList"]
+        stagesJson[productionLin][thisStage]["editIndexList"]
       );
       if (emptyField(query)) {
         index++;

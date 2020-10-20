@@ -65,7 +65,8 @@ export default props => {
         [item.id]: findNextStage(
           { leadEngineer: item.leadEngineer },
           item.stage,
-          description.data.geometry
+          description.data.geometry,
+          operatorCoatedItemJson.chapters
         ).stage
       };
     });

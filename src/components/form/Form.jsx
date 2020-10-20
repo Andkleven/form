@@ -274,13 +274,13 @@ export default ({
               submit &&
               nextStage.current &&
               !editChapter
-                ? FindNextStage(specData, stage, stageType)["stage"]
+                ? FindNextStage(specData, stage, stageType, document.chapters)["stage"]
                 : stage
           }
         });
       }
     },
-    [
+    [document,
       documentData,
       stages,
       setWhen,

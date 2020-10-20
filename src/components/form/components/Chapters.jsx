@@ -172,7 +172,7 @@ export default React.memo(
       let chapterBasedOnStage = [];
       let productionLine = getProductionLine(stageType);
       let stageList = Object.keys(stagesJson[productionLine]);
-      let thisStage = findNextStage(specData, undefined, stageType);
+      let thisStage = findNextStage(specData, undefined, stageType, document.chapters);
 
       while (stopLoop.current === false && i < 50) {
         if (document.chapters[thisStage["stageWithoutNumber"]]) {
@@ -184,7 +184,7 @@ export default React.memo(
             )
           );
         }
-        thisStage = findNextStage(specData, thisStage["stage"], stageType);
+        thisStage = findNextStage(specData, thisStage["stage"], stageType, document.chapters);
         if (
           thisStage["stageWithoutNumber"] === stageList[stageList.length - 1]
         ) {
