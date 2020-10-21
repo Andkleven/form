@@ -1398,8 +1398,8 @@
                   "Swell packer K2 with 2 center ringer"
                 ]
               },
-              "fieldName": "packerElementLength3Min",
-              "label": "Packer element length #3 min",
+              "fieldName": "packerElementLength3",
+              "label": "Packer element length #3",
               "subtext": "Dwg Ref. L4.3",
               "type": "number",
               "unit": "mm"
@@ -1453,8 +1453,7 @@
               "label": "Packer element OD #1",
               "subtext": "Dwg Ref. D2",
               "type": "number",
-              "unit": "mm",
-              "default": 1
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1608,19 +1607,25 @@
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLength",
-              "label": "End-ring Length"
+              "label": "End-ring Length",
+              "type":"number",
+              "unit":"mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLengthMin",
               "prepend": "Min",
-              "default": 0.25
+              "default": 0.25,
+              "type":"number",
+              "unit":"mm"
             },
             {
               "writeOnlyFieldIf": "leadEngineer.data.asBuilt",
               "fieldName": "endRingLengthMax",
               "prepend": "Max",
-              "default": 0.25
+              "default": 0.25,
+              "type":"number",
+              "unit":"mm"
             },
             {
               "writeOnlyFieldIf": {

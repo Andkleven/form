@@ -138,7 +138,6 @@ export default () => {
             setBatchingData(false);
             setReRender(!reRender);
           }}
-          resetData={true}
           data={getDataToBatching(
             fixedData,
             Object.keys(batchingListIds),
