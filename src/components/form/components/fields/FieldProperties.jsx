@@ -253,12 +253,14 @@ export default React.memo(({ ...props }) => {
               props.editRepeatStepSubtextList
             )
           : props.mathSubtext
-          ? Math[props.mathSubtext](
+            ? Math[props.mathSubtext](
               props.specData,
               props.repeatStepList,
               props.decimal ? props.decimal : 0,
-              mathStore,
-              props.jsonVariables
+              mathStore.current,
+              props.jsonVariables,
+              documentData.current,
+              props.allData
             )
           : null,
         isNumber(props.maxInput) ? props.maxInput : max,
@@ -268,6 +270,7 @@ export default React.memo(({ ...props }) => {
         props.allData
       ),
     [
+      documentData,
       mathStore,
       props.jsonVariables,
       props.maxInput,
@@ -400,8 +403,10 @@ export default React.memo(({ ...props }) => {
           props.specData,
           props.repeatStepList,
           props.decimal ? props.decimal : 0,
-          mathStore,
-          props.jsonVariables
+          mathStore.current,
+          props.jsonVariables,
+          documentData.current,
+          props.allData
         )}
         label={label}
       />

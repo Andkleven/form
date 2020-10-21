@@ -38,7 +38,9 @@ const mathToleranceMin = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null,
+  allData = null
 ) => {
   let value = 0;
   let toleranceMin = Number(mathMin(values, repeatStepList, decimal));
@@ -66,7 +68,9 @@ const mathToleranceMax = (
   repeatStepList,
   decimal,
   mathStore = null,
-  jsonVariables = null
+  jsonVariables = null,
+  specData = null,
+  allData = null
 ) => {
   let value;
   let toleranceMax = Number(mathMax(values, repeatStepList, decimal));
@@ -92,62 +96,36 @@ const mathToleranceMax = (
 
 const mathQualityControlMeasurementPointMouldMin = (
   allData,
-  data,
-  repeatStepList
+  specData,
+  repeatStepList,
+  data
 ) => {
   let toleranceMin = Number(mathMin(allData["items"][0], repeatStepList, 0));
   return qualityControlMeasurementPointMould(allData, toleranceMin, 1);
 };
 const mathQualityControlMeasurementPointMouldMax = (
   allData,
-  data,
-  repeatStepList
+  specData,
+  repeatStepList,
+  data
 ) => {
   let toleranceMax = Number(mathMax(allData["items"][0], repeatStepList, 0));
   return qualityControlMeasurementPointMould(allData, toleranceMax, 1);
 };
 
-const qualityControlMeasurementPointCoatingItem = (
-  allData,
-  repeatStepList,
-  tolerance,
-  decimal
-) => {
-  let measurementPointActual = Number(
-    findValue(
-      allData,
-      `items.0.leadEngineer.measurementPointActualTdvs.${repeatStepList[0]}.data.measurementPointActual`
-    )
-  );
-
-  let targetDescriptionValue = findValue(
-    allData,
-    `items.0.leadEngineer.data.targetDescriptionValue`
-  );
-  let value;
-  if (targetDescriptionValue.toLowerCase() === "od") {
-    value = measurementPointActual + tolerance;
-  } else if (targetDescriptionValue.toLowerCase() === "id") {
-    value = measurementPointActual - tolerance;
-  }
-  return whatTooReturn(value, decimal, [
-    measurementPointActual,
-    tolerance,
-    targetDescriptionValue
-  ]);
-};
-
 const mathQualityControlMeasurementPointCoatingItemMin = (
   allData,
-  data,
-  repeatStepList
+  specData,
+  repeatStepList,
+  data
 ) => {
   return mathToleranceMin(allData["items"][0], repeatStepList, 0);
 };
 const mathQualityControlMeasurementPointCoatingItemMax = (
   allData,
-  data,
-  repeatStepList
+  specData,
+  repeatStepList,
+  data
 ) => {
   return mathToleranceMax(allData["items"][0], repeatStepList, 0);
 };

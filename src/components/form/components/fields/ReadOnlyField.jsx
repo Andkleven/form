@@ -18,14 +18,13 @@ export default ({ backendData, ...props }) => {
   } = useContext(DocumentDataContext);
   const math = useCallback(() => {
     const getValueFromMath = Math[props.math](
-      Object.keys(documentData.current).length === 0
-        ? backendData
-        : documentData.current,
+      documentData.current,
       props.repeatStepList,
       props.decimal ? props.decimal : 0,
       mathStore.current,
       props.jsonVariables,
-      props.specData
+      props.specData,
+      props.allData
     );
     mathDispatch({ path: props.path, newState: getValueFromMath });
     setValue(getValueFromMath);
@@ -33,11 +32,11 @@ export default ({ backendData, ...props }) => {
       func();
     });
   }, [
+    props.allData,
     props.specData,
     documentData,
     props.decimal,
     props.math,
-    backendData,
     props.repeatStepList,
     mathDispatch,
     props.path,
