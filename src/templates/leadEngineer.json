@@ -116,7 +116,7 @@
             },
             {
               "fieldName": "surfaceProfileMin",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile (Roughness) Min",
               "prepend": "Min",
               "unit": {
                 "coatedItem": "Rz",
@@ -140,7 +140,7 @@
             },
             {
               "fieldName": "surfaceProfileMax",
-              "label": "Surface Profile (Roughness)",
+              "label": "Surface Profile (Roughness) Max",
               "prepend": "Max",
               "unit": {
                 "coatedItem": "Rz",
@@ -613,7 +613,7 @@
           "pageTitle": "Coating and Vulcanization",
           "queryPath": "leadEngineer",
           "fields": [
-             {
+            {
               "fieldName": "pipeOd",
               "label": "Pipe OD",
               "required": true,
@@ -1833,7 +1833,14 @@
               "fieldName": "visualInspection",
               "label": "Visual Inspection",
               "type": "checkbox",
-              "default": {"slipon3":true, "slipon2":true, "b2P":true,"dual":true, "coatedItem":false, "mould":false},
+              "default": {
+                "slipon3": true,
+                "slipon2": true,
+                "b2P": true,
+                "dual": true,
+                "coatedItem": false,
+                "mould": false
+              },
               "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
             },
             {
