@@ -4,7 +4,9 @@ import {
   lowerCaseFirstLetter,
   removeSpace
 } from "../../../functions/general";
+import moment from "moment";
 import objectPath from "object-path";
+import LeadEngineerPage from "pages/leadEngineer/LeadEngineerPage";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (!(typeof value === "number")) {
@@ -1396,17 +1398,13 @@ const getAbsolutelyMinMax = (
   minPath = null,
   maxPath = null
 ) => {
-  console.log(data, targetPath);
   let target = objectPath.get(data, targetPath, 0);
-  console.log(target);
   if (minPath) {
     let min = objectPath.get(data, minPath, 0);
-    console.log(min, minPath);
     return target - min;
   }
   if (maxPath) {
     let max = objectPath.get(data, maxPath, 0);
-    console.log(max, maxPath);
     return target + max;
   }
 };
@@ -1436,7 +1434,7 @@ const mathOdMeasurementPointMax = (
   );
 };
 
-const mathIdentificationMarking = (
+const mathPipeDescription = (
   values,
   repeatStepList,
   decimal,
@@ -1799,7 +1797,7 @@ const mathTargetThickness = (
     "leadEngineer.data.packerElementOd1",
     0
   );
-  return packerElementOd - target ? Number(target.split("m")[0]) : 0;
+  return packerElementOd - (target ? Number(target.split("m")[0]) : 0);
 };
 const mathTargetThicknessPin = (
   specData,
@@ -1814,9 +1812,8 @@ const mathTargetThicknessPin = (
     "leadEngineer.data.packerElementOd1",
     0
   );
-  return packerElementOd - target ? Number(target.split("m")[0]) : 0;
+  return packerElementOd - (target ? Number(target.split("m")[0]) : 0);
 };
-
 const mathTargetThicknessBox = (
   specData,
   repeatStepList,
@@ -1830,7 +1827,87 @@ const mathTargetThicknessBox = (
     "leadEngineer.data.packerElementOd1",
     0
   );
-  return packerElementOd - target ? Number(target.split("m")[0]) : 0;
+  return packerElementOd - (target ? Number(target.split("m")[0]) : 0);
+};
+const mathIdentificationMarking = (
+  LeadEngineerData,
+  OperatorData,
+  allData,
+  jsonVariables
+) => {
+  allData = allData.allData.current;
+  let projectNumber = objectPath.get(
+    allData,
+    "projects.0.data.projectNumber",
+    ""
+  );
+  let descriptionNameMaterialNo = objectPath.get(
+    allData,
+    "descriptions.0.data.descriptionNameMaterialNo",
+    ""
+  );
+  let item = objectPath.get(allData, "items.0.itemId", "");
+  let description = mathDescription(
+    LeadEngineerData,
+    null,
+    null,
+    null,
+    jsonVariables
+  );
+  let identificationMarkingDone = objectPath.get(
+    OperatorData,
+    "operator.data.identificationMarkingDone",
+    ""
+  );
+  identificationMarkingDone = moment(identificationMarkingDone).format(
+    "MM YYYY"
+  );
+  if (["Dual", "B2P"].includes(jsonVariables[0])) {
+    return `${projectNumber} - TON${item} - ${descriptionNameMaterialNo} - ${description} - Made in Norway - ${identificationMarkingDone}
+    `;
+  } else {
+    let pipeDescription = mathPipeDescription(LeadEngineerData);
+    return `${projectNumber} TON${item} - 
+    ${descriptionNameMaterialNo} - 
+    ${description} - 
+    ${pipeDescription} - 
+    Made in Norway - 
+    ${identificationMarkingDone}
+    `;
+  }
+};
+
+const mathIdentificationMarkingOperator = (
+  documentData,
+  repeatStepList,
+  decimal,
+  mathStore,
+  jsonVariables,
+  specData,
+  allData
+) => {
+  return mathIdentificationMarking(
+    specData,
+    documentData,
+    allData,
+    jsonVariables
+  );
+};
+const mathIdentificationMarkingQualityControl = (
+  documentData,
+  repeatStepList,
+  decimal,
+  mathStore,
+  jsonVariables,
+  specData,
+  allData
+) => {
+  return mathIdentificationMarking(
+    specData,
+    { operator: allData.items[0].operator },
+    allData,
+    jsonVariables
+  );
 };
 
 const Math = {
@@ -1871,7 +1948,7 @@ const Math = {
   mathBarrier1PinSideMax,
   mathBarrier1BoxSideMin,
   mathBarrier1BoxSideMax,
-  mathIdentificationMarking,
+  mathPipeDescription,
   mathMin,
   mathMax,
   mathMouldThickness,
@@ -1930,7 +2007,9 @@ const Math = {
   mathMeasurementPointMin,
   mathMeasurementPointMax,
   mathPeelTest,
-  mathThicknessAll
+  mathThicknessAll,
+  mathIdentificationMarkingOperator,
+  mathIdentificationMarkingQualityControl
 };
 
 export default Math;

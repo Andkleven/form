@@ -6,6 +6,7 @@ import leadEngineersJson from "templates/leadEngineer.json";
 import qualityControlJson from "templates/qualityControl.json";
 import Form from "components/form/Form";
 import history from "functions/history";
+import { useParams } from "react-router-dom";
 import Paper from "components/layout/Paper";
 import {
   objectifyQuery,
@@ -14,22 +15,53 @@ import {
 } from "functions/general";
 import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
+import gql from "graphql-tag";
 import { ItemContext } from "components/contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 import stageAllJson from "components/form/stage/stages.json";
 
 const stageJson = stageAllJson["all"];
-
+const cloneDeep = require("clone-deep");
+const queries = {
+  project: gql`
+    query($id: Int) {
+      projects(id: $id) {
+        id
+        data
+      }
+    }
+  `,
+  description: gql`
+    query($id: Int) {
+      descriptions(id: $id) {
+        id
+        data
+      }
+    }
+  `,
+  item: gql`
+    query($id: Int) {
+      items(id: $id) {
+        id
+        itemId
+      }
+    }
+  `
+};
 export default pageInfo => {
   const access = getAccess();
   leadEngineersJson.query = qualityControlJson.query;
   operatorJson.query = qualityControlJson.query;
   const { itemId, geometry } = pageInfo.match.params;
   const itemIdsRef = useRef();
+  const allData = useRef();
   const opId = useRef("SingleItem");
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
+
+  
+
 
   const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
@@ -56,6 +88,39 @@ export default pageInfo => {
       });
     }
   }, [setItem, fixedData, item.id]);
+
+  const params = useParams();
+
+  const projectQuery = useQuery(queries.project, {
+    variables: {
+      id: params.projectId
+    }
+  });
+  const descriptionQuery = useQuery(queries.description, {
+    variables: {
+      id: params.descriptionId
+    }
+  });
+
+  useEffect(() => {
+    if (descriptionQuery && itemIdsRef) {
+      itemIdsRef.current = objectifyQuery(descriptionQuery.data);
+    }
+  }, [descriptionQuery, itemIdsRef]);
+
+  const itemQuery = useQuery(queries.item, {
+    variables: {
+      id: params.itemId
+    }
+  });
+  useEffect(() => {
+    allData.current = {
+      ...objectifyQuery(cloneDeep(projectQuery.data)),
+      ...objectifyQuery(cloneDeep(descriptionQuery.data)),
+      ...objectifyQuery(cloneDeep(itemQuery.data))
+    }
+  }, [projectQuery, descriptionQuery, itemQuery, allData])
+
   const finalInspection =
     access.finalInspection &&
     [
@@ -77,6 +142,7 @@ export default pageInfo => {
     specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
     saveVariables: { itemId: itemId },
     edit: access.itemEdit,
+    allData: {...fixedData, allData: allData},
     readOnlySheet: !access.itemWrite,
     stage: stage,
     stageType: geometry,
@@ -96,7 +162,7 @@ export default pageInfo => {
     edit: access.itemEdit,
     specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
     afterSubmit: () => setReRender(!reRender),
-    allData: fixedData,
+    allData: {...fixedData, allData: allData},
     stage: fixedData && fixedData.items[0].stage,
     itemId: itemId,
     getQueryBy: itemId,
@@ -112,7 +178,7 @@ export default pageInfo => {
 
   return (
     <Canvas showForm={!!data}>
-      <Overview itemIdsRef={itemIdsRef} />
+    <Overview itemIdsRef={itemIdsRef}/>
       <Paper className="mb-3">
         <Title big align="center">
           Lead Engineer

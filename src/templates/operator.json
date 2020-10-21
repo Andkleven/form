@@ -2774,8 +2774,14 @@
               "label": "Equipment ID"
             },
             {
+              "fieldName": "identificationMarkingDone",
+              "required": true,
+              "label": "Identification Marking Done",
+              "type": "date"
+            },
+            {
               "label": "Identification Marking",
-              "mathSpec": "mathIdentificationMarking"
+              "math": "mathIdentificationMarkingOperator"
             },
             {
               "fieldName": "marking",

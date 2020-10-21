@@ -152,7 +152,6 @@ export default ({
 
   // Check for done items
   const doneItem = item => {
-    console.log("item.stage", item.stage);
 
     const done = item.stage === "done";
 

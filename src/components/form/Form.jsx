@@ -27,7 +27,6 @@ function useStore(init = {}) {
   const resetState = useRef({});
   const screenshotData = useRef(false);
   const reducer = action => {
-    console.log(action)
     switch (action.type) {
       case "setState":
         screenshotData.current = false;
@@ -52,7 +51,6 @@ function useStore(init = {}) {
         throw new Error();
     }
 
-    console.log(state.current)
     if (action.resetRenderFunction) {
       renderFunction.current = {};
     }

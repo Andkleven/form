@@ -227,7 +227,7 @@
           "queryPath": "finalInspectionQualityControl",
           "fields": [
             {
-              "mathSpec": "mathIdentificationMarking",
+              "math": "mathIdentificationMarkingQualityControl",
               "label": "Identification Marking"
             },
             {
