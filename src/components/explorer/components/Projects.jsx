@@ -150,6 +150,37 @@ export default ({
     return result;
   };
 
+  // Check for done items
+  const doneItem = item => {
+    console.log("item.stage", item.stage);
+
+    const done = item.stage === "done";
+
+    return done;
+  };
+  const doneDescription = description => {
+    let result = true;
+    description &&
+      description.items &&
+      description.items.forEach(item => {
+        if (!doneItem(item)) {
+          result = false;
+        }
+      });
+    return result;
+  };
+  const doneProject = project => {
+    let result = true;
+    project &&
+      project.descriptions &&
+      project.descriptions.forEach(description => {
+        if (!doneDescription(description)) {
+          result = false;
+        }
+      });
+    return result;
+  };
+
   // Tell backend that the item has been seen by the user (backend)
   const ADD_SEEN = gql`
     mutation item($id: Int!, $seen: [String]!) {
@@ -287,7 +318,8 @@ export default ({
                 </div>
                 // + `(${ countProjectItems(project) } items)`
               }
-              badge={project.leadEngineerDone && newInProject(project, user)}
+              isNew={project.leadEngineerDone && newInProject(project, user)}
+              isDone={doneProject(project)}
             >
               <div className="d-flex align-items-center flex-wrap">
                 {props.access && props.access.specs && (
@@ -460,7 +492,8 @@ export default ({
                           </div>
                         </div>
                       }
-                      badge={newInDescription(description, user)}
+                      isNew={newInDescription(description, user)}
+                      isDone={doneDescription(description)}
                     >
                       <ItemGrid className="mb-n3">
                         {props.access &&
