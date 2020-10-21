@@ -11,6 +11,7 @@ import Line from "components/design/Line";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import CheckInput from "components/input/components/CheckInput";
 import LightLine from "components/design/LightLine";
+import batchingList from "templates/batching.json";
 
 export default props => {
   const allFields = (chapter, itemData) => {
@@ -114,7 +115,10 @@ export default props => {
       let chapter =
         operatorCoatedItemJson["chapters"][reshapeStageSting(props.stage)];
       let batchingData = allFields(chapter, item);
-      if (item.stage === props.stage) {
+      const batchableGeometry =
+        batchingList[item.stage] &&
+        batchingList[item.stage].geometry.includes(description.data.geometry);
+      if (item.stage === props.stage && batchableGeometry) {
         const disabled =
           item.stage === props.stage &&
           !(
@@ -154,7 +158,13 @@ export default props => {
       return objectPath
         .get(data, "projects.0.descriptions")
         .map((description, index) => {
+          const batchableGeometry =
+            batchingList[props.stage] &&
+            batchingList[props.stage].geometry.includes(
+              description.data.geometry
+            );
           if (
+            batchableGeometry &&
             props.json.geometry.includes(description.data.geometry) &&
             ((descriptionId &&
               Number(description.id) === Number(descriptionId)) ||

@@ -322,7 +322,7 @@ export default ({ setState, state, ...props }) => {
           <Modal.Header>
             <span style={{ position: "relative", top: ".15em" }}>
               Copy current <b>{props.label}</b> from <b>{itemName}</b> to the
-              following:
+              following available items:
             </span>
           </Modal.Header>
           <Modal.Body>

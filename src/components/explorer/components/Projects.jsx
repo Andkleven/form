@@ -323,29 +323,56 @@ export default ({
                     Duplicate
                   </Link>
                 )} */}
-                {!!stage &&
-                  // Array of stages with batching here
-                  batchingStages.includes(
-                    stage.split("Step")[1]
-                      ? stage.split("Step")[0] + "Step"
-                      : stage
-                  ) && (
-                    <>
-                      <Link
-                        // to={`/project/${project["id"]}`}
-                        to={`/batching/${stage}/${project.id}`}
-                        key={`projectBatching${indexProject}`}
-                        iconProps={{
-                          icon: ["fad", "cubes"],
-                          size: iconSize,
-                          style: iconStyle
-                        }}
-                        style={{ marginRight: ".75em", ...rowStyle }}
-                      >
-                        Batching
-                      </Link>
-                    </>
-                  )}
+                {[""].map(() => {
+                  let geometries = [];
+
+                  project.descriptions &&
+                    project.leadEngineerDone &&
+                    project.descriptions.forEach(description => {
+                      const geometry = description.data.geometry;
+                      if (!geometries.includes(geometry)) {
+                        geometries.push(geometry);
+                      }
+                    });
+
+                  let batchable = false;
+
+                  geometries.forEach(geometry => {
+                    if (
+                      batching[stage] &&
+                      batching[stage]["geometry"].includes(geometry)
+                    ) {
+                      batchable = true;
+                    }
+                  });
+
+                  return (
+                    batchable &&
+                    !!stage &&
+                    // Array of stages with batching
+                    batchingStages.includes(
+                      stage.split("Step")[1]
+                        ? stage.split("Step")[0] + "Step"
+                        : stage
+                    ) && (
+                      <>
+                        <Link
+                          // to={`/project/${project["id"]}`}
+                          to={`/batching/${stage}/${project.id}`}
+                          key={`projectBatching${indexProject}`}
+                          iconProps={{
+                            icon: ["fad", "cubes"],
+                            size: iconSize,
+                            style: iconStyle
+                          }}
+                          style={{ marginRight: ".75em", ...rowStyle }}
+                        >
+                          Batching
+                        </Link>
+                      </>
+                    )
+                  );
+                })}
                 <Link
                   to={`#`}
                   key={`projectExport${indexProject}`}
