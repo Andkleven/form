@@ -638,14 +638,21 @@
               ]
             },
             {
-              "fieldName": "idDriftSize",
+              "fieldName": "threadType",
               "required": true,
-              "label": "ID Drift size"
+              "label": "Thread type"
             },
             {
               "fieldName": "materialType",
               "required": true,
               "label": "Material type"
+            },
+            {
+              "fieldName": "pipeEnds",
+              "required": true,
+              "label": " Pipe ends",
+              "type":"select",
+              "options": ["PXP", "BXP"]
             },
             {
               "fieldName": "pipeLength",
@@ -655,7 +662,7 @@
               "unit": "mm"
             },
             {
-              "label": "Identification Marking Description",
+              "label": "Identification Marking",
               "math": "mathIdentificationMarking"
             },
             {
@@ -697,6 +704,11 @@
               "fieldName": "measurementPointsBoxSide",
               "label": "Measurement points box side",
               "math": "mathMeasurementPointsBoxSide"
+            },
+            {
+              "fieldName": "idDriftSize",
+              "required": true,
+              "label": "ID Drift size"
             },
             {
               "fieldName": "rubberOd",

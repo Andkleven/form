@@ -1467,20 +1467,17 @@ const mathIdentificationMarking = (
   specData = null
 ) => {
   let pipeOd = objectPath.get(values, "leadEngineer.data.pipeOd", "");
-  let idDriftSize = objectPath.get(values, "leadEngineer.data.idDriftSize", "");
+  let threadType = objectPath.get(values, "leadEngineer.data.threadType", "");
+  let pipeEnds = objectPath.get(values, "leadEngineer.data.pipeEnds", "");
   let materialType = objectPath.get(
     values,
     "leadEngineer.data.materialType",
     ""
   );
   let pipeLength = objectPath.get(values, "leadEngineer.data.pipeLength", "");
-  return `${pipeOd} ${idDriftSize} ${materialType} ${
-    ["slipon2", "slipon3"].includes(
-      removeSpace(lowerCaseFirstLetter(jsonVariables[0]))
-    )
-      ? "PXP"
-      : "BXP"
-  } ${pipeLength / 1000}M`;
+  return `${pipeOd} ${threadType} ${materialType} ${pipeEnds} ${
+    pipeLength / 1000
+  }M`;
 };
 
 const mathHandlingSpacePinEndMin = (

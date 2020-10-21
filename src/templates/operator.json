@@ -1813,52 +1813,6 @@
           ]
         },
         {
-          "showPage": { "b2P": true },
-          "queryPath": "operator.measurementPointAfterBarriers",
-          "repeatGroupWithQuerySpecData": true,
-          "repeatGroupWithQueryMath": "mathMeasurementPoints",
-          "showPageSpecPath": {
-            "leadEngineer.data.barrier": [
-              "1A",
-              "2A",
-              "3A",
-              "4A",
-              "5A",
-              "6A",
-              "7A",
-              "8A",
-              "1B",
-              "2B",
-              "3B",
-              "4B",
-              "5B",
-              "6B",
-              "7B",
-              "8B",
-              "1C",
-              "2C",
-              "3C",
-              "4C",
-              "5C",
-              "6C",
-              "7C",
-              "8C"
-            ]
-          },
-          "fields": [
-            {
-              "indexVariableLabel": true,
-              "fieldName": "endMeasurement",
-              "label": "End measurement {}",
-              "calculateMin": "mathBarrier1Min",
-              "calculateMax": "mathBarrier1Max",
-              "required": true,
-              "type": "number",
-              "unit": "mm"
-            }
-          ]
-        },
-        {
           "showPage": { "slipon2": true, "slipon3": true },
           "queryPath": "operator.measurementPointBeforeBarriers",
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
@@ -1905,12 +1859,62 @@
           ]
         },
         {
-          "showPage": { "b2P": true },
           "fields": [
             {
               "labelOnly": true,
               "label": "After applied"
-            },
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "queryPath": "operator.measurementPointAfterBarriers",
+          "repeatGroupWithQuerySpecData": true,
+          "repeatGroupWithQueryMath": "mathMeasurementPoints",
+          "showPageSpecPath": {
+            "leadEngineer.data.barrier": [
+              "1A",
+              "2A",
+              "3A",
+              "4A",
+              "5A",
+              "6A",
+              "7A",
+              "8A",
+              "1B",
+              "2B",
+              "3B",
+              "4B",
+              "5B",
+              "6B",
+              "7B",
+              "8B",
+              "1C",
+              "2C",
+              "3C",
+              "4C",
+              "5C",
+              "6C",
+              "7C",
+              "8C"
+            ]
+          },
+          "fields": [
+            {
+              "indexVariableLabel": true,
+              "fieldName": "endMeasurement",
+              "label": "End measurement {}",
+              "calculateMin": "mathBarrier1Min",
+              "calculateMax": "mathBarrier1Max",
+              "required": true,
+              "type": "number",
+              "unit": "mm"
+            }
+          ]
+        },
+        {
+          "showPage": { "b2P": true },
+          "fields": [
             {
               "showFieldSpecPath": {
                 "leadEngineer.data.barrier": ["0A", "0B", "0C"]
