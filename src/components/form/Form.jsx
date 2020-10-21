@@ -27,6 +27,7 @@ function useStore(init = {}) {
   const resetState = useRef({});
   const screenshotData = useRef(false);
   const reducer = action => {
+    console.log(action)
     switch (action.type) {
       case "setState":
         screenshotData.current = false;
@@ -50,6 +51,8 @@ function useStore(init = {}) {
       default:
         throw new Error();
     }
+
+    console.log(state.current)
     if (action.resetRenderFunction) {
       renderFunction.current = {};
     }
@@ -82,7 +85,6 @@ export default ({
   saveVariables = false,
   edit = true,
   readOnlySheet = false,
-  resetData = false,
   stages,
   document,
   allData,
@@ -112,6 +114,7 @@ export default ({
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [loading, setLoading] = useState(true);
   const timer = useRef();
+  const resetData = useRef(true);
   const [editChapter, setEditChapter] = useState(0);
   const [
     documentData,
@@ -151,11 +154,12 @@ export default ({
 
   if (
     data &&
-    (JSON.stringify(data) !== JSON.stringify(lastData.current) ||
+    (resetData.current ||
       !lastData.current)
   ) {
     finalChapter.current = 0;
     lastData.current = cloneDeep(data);
+    resetData.current = false
     documentDataDispatch({
       type: "setState",
       newState: data
@@ -260,7 +264,7 @@ export default ({
           objectPath.set(documentData.current, path, { [new Date()]: userInfo.username });
         }
         let variables = stringifyQuery(cloneDeep(documentData.current), removeEmptyField);
-
+        resetData.current = true
         mutation({
           variables: {
             ...variables,

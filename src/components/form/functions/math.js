@@ -1418,14 +1418,18 @@ const getAbsolutelyMinMax = (
   minPath = null,
   maxPath = null
 ) => {
+  console.log(data, targetPath);
   let target = objectPath.get(data, targetPath, 0);
+  console.log(target);
   if (minPath) {
     let min = objectPath.get(data, minPath, 0);
+    console.log(min, minPath);
     return target - min;
   }
   if (maxPath) {
     let max = objectPath.get(data, maxPath, 0);
-    return target - max;
+    console.log(max, maxPath);
+    return target + max;
   }
 };
 
@@ -1950,7 +1954,8 @@ const Math = {
   mathLayer,
   mathMeasurementPointMin,
   mathMeasurementPointMax,
-  mathPeelTest
+  mathPeelTest,
+  mathThicknessAll
 };
 
 export default Math;

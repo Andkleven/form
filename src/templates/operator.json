@@ -413,9 +413,7 @@
               "fieldName": "startTimePriming2",
               "required": true,
               "label": "Start Time",
-              "type": "datetime-local",
-              "routeToMin": "operator.data.stopTimePriming1",
-              "min": {"m": 30}
+              "type": "datetime-local"
             },
             {
               "fieldName": "stopTimePriming2",
@@ -519,8 +517,8 @@
           "queryPath": "operator",
           "fields": [
             {
-              "fieldName": "ringsAssembled",
-              "label": "Rings assembled",
+              "fieldName": "ringAssembled",
+              "label": "Ring assembled",
               "type": "checkbox",
               "required": true
             }
@@ -817,7 +815,7 @@
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
-              "mathSubtext": "mathCumulativeThicknessAll",
+              "mathSubtext": "mathThicknessAll",
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
               "required": true
@@ -1552,6 +1550,13 @@
               "mathSpec": "mathScrewDescription"
             },
             {
+              "fieldName": "removalOfDummyCable",
+              "required": true,
+              "label": "Removal of dummy cable",
+              "type":"checkbox",
+              "showFieldSpecPath": "leadEngineer.data.cable"
+            },
+            {
               "fieldName": "equipmentIdTorqueWrench",
               "required": true,
               "label": "Equipment ID(Torque wrench)"
@@ -1810,6 +1815,7 @@
         {
           "showPage": { "b2P": true },
           "queryPath": "operator.measurementPointAfterBarriers",
+          "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQueryMath": "mathMeasurementPoints",
           "showPageSpecPath": {
             "leadEngineer.data.barrier": [

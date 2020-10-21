@@ -257,7 +257,7 @@
               "showFieldSpecPath": "leadEngineer.data.asBuilt",
               "fieldName": "handlingSpacePinEnd",
               "label": "Handling space pin end",
-              "calculateMin": "mathHandlingSpacePinEndMax",
+              "calculateMin": "mathHandlingSpacePinEndMin",
               "calculateMax": "mathHandlingSpacePinEndMax",
               "type": "number",
               "unit": "mm",
@@ -565,7 +565,12 @@
           "queryPath": "finalInspectionQualityControl",
           "fields": [
             {
+              "label": "Core sample",
+              "mathSpec": "mathCoreSampleCode"
+            },
+            {
               "fieldName": "coreSampleApproved",
+              "required": true,
               "label": "Core sample approved",
               "type": "checkbox"
             }
