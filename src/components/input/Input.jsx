@@ -199,18 +199,32 @@ const InputType = ({
   const disabled = readOnly;
   if (["checkbox", "radio", "switch"].includes(props.type)) {
     return (
-      <div className="d-sm-flex align-items-start">
+      <div className="d-sm-flex align-items-start justify-content-between">
         <CheckInput {...props} />
         <span
-          // className="d-inline d-sm-none mt-n3"
+          className="d-inline d-sm-none"
           style={{
             position: "relative",
-            // bottom: props.BigButtons ? "-.35em" : ".75em",
             right: ".55em"
           }}
         >
+          <div className="mt-1">
           <Toolbar
-            className="ml-sm-auto"
+            noComment={noComment}
+            hasComment={hasComment}
+            showComment={showComment}
+            setShowComment={setShowComment}
+            documentDataDispatch={documentDataDispatch}
+            batchClick={batchClick}
+            {...props}
+          />
+          </div>
+        </span>
+        <span
+          className="d-none d-sm-inline"
+        >
+          <Toolbar
+            // className="ml-sm-auto"
             noComment={noComment}
             hasComment={hasComment}
             showComment={showComment}

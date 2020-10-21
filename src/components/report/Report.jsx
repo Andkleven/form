@@ -27,18 +27,21 @@ export const Report = ({ project, description, item }) => {
   const p = project && project.data;
   const d = description && description.data;
   const i = item;
+
   let le = null;
   let leData = null;
   if (i.leadEngineer) {
     le = i.leadEngineer;
     leData = JSON.parse(le.data);
   }
+
   let op = null;
   let opData = null;
   if (i.operator) {
     op = i.operator;
     opData = JSON.parse(op.data);
   }
+  
   let qc = null;
   let qcData = null;
   if (i.finalInspectionQualityControl) {
