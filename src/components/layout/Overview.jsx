@@ -10,6 +10,7 @@ import { useQuery } from "react-apollo";
 import objectPath from "object-path";
 import Math from "components/form/functions/math";
 
+const cloneDeep = require("clone-deep");
 
 const queries = {
   project: gql`
@@ -115,7 +116,7 @@ export default ({ itemIdsRef }) => {
 
   useEffect(() => {
     if (descriptionQuery && itemIdsRef) {
-      itemIdsRef.current = objectifyQuery(descriptionQuery.data);
+      itemIdsRef.current = objectifyQuery(cloneDeep(descriptionQuery.data));
     }
   }, [descriptionQuery, itemIdsRef]);
 
