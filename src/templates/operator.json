@@ -114,10 +114,10 @@
               "type": "date"
             },
             {
-              "showField": { "coatedItem": true, "mould": true },
-              "fieldName": "blastMediaBatchNumber",
+              "fieldName": "steelPreparationPerformed",
+              "label": "Steel Preparation Performed",
               "required": true,
-              "label": "Blast Media Batch Number"
+              "type": "datetime-local"
             },
             {
               "fieldName": "mediaBlastingStarted",
@@ -126,10 +126,10 @@
               "type": "datetime-local"
             },
             {
-              "fieldName": "steelPreparationPerformed",
-              "label": "Steel Preparation Performed",
+              "showField": { "coatedItem": true, "mould": true },
+              "fieldName": "blastMediaBatchNumber",
               "required": true,
-              "type": "datetime-local"
+              "label": "Blast Media Batch Number"
             }
           ]
         }
@@ -320,7 +320,6 @@
           ]
         },
         {
-
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.additionalCustomTests",
           "queryPath": "operator.additionalCustomTestOperators",
@@ -356,7 +355,7 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": {"slipon2":true, "slipon3":true},
+              "showField": { "slipon2": true, "slipon3": true },
               "text": "Internal and external priming",
               "label": ""
             },
@@ -381,7 +380,6 @@
               "required": true,
               "label": "Stop Time",
               "type": "datetime-local"
-              
             }
           ]
         }
@@ -395,7 +393,7 @@
           "queryPath": "operator",
           "fields": [
             {
-              "showField": {"slipon2":true, "slipon3":true},
+              "showField": { "slipon2": true, "slipon3": true },
               "text": "Internal and external priming",
               "label": ""
             },
@@ -884,7 +882,10 @@
               "type": "datetime-local"
             },
             {
-              "routeToMin": ["operator.vulcanizationOperators", "data.startTime"],
+              "routeToMin": [
+                "operator.vulcanizationOperators",
+                "data.startTime"
+              ],
               "fieldName": "stopTime",
               "required": true,
               "label": "Stop Time",
@@ -969,7 +970,7 @@
               "mathSubtext": "mathTargetThicknessBox"
             },
             {
-              "showField": { "b2P":true },
+              "showField": { "b2P": true },
               "fieldName": "elementCenterDiameter",
               "required": true,
               "label": "Element center diameter",
@@ -990,7 +991,7 @@
               "type": "number"
             },
             {
-              "showField": { "b2P":true },
+              "showField": { "b2P": true },
               "fieldName": "pinDiameter",
               "required": true,
               "label": "Pin diameter"
@@ -1008,7 +1009,7 @@
               "label": "Pin diameter box side"
             },
             {
-              "showField": { "b2P":true },
+              "showField": { "b2P": true },
               "fieldName": "boxDiameter",
               "required": true,
               "label": "Box diameter"
@@ -1430,7 +1431,7 @@
               "mathSubtext": "mathTargetThicknessBox"
             },
             {
-              "showField": { "b2P":true },
+              "showField": { "b2P": true },
               "fieldName": "elementCenterDiameter",
               "required": true,
               "label": "Element center diameter",
@@ -1451,7 +1452,7 @@
               "type": "number"
             },
             {
-              "showField": { "b2P":true },
+              "showField": { "b2P": true },
               "fieldName": "pinDiameter",
               "required": true,
               "label": "Pin diameter"
@@ -1469,7 +1470,7 @@
               "label": "Pin diameter box side"
             },
             {
-              "showField": { "b2P":true },
+              "showField": { "b2P": true },
               "fieldName": "boxDiameter",
               "required": true,
               "label": "Box diameter"
@@ -1553,7 +1554,7 @@
               "fieldName": "removalOfDummyCable",
               "required": true,
               "label": "Removal of dummy cable",
-              "type":"checkbox",
+              "type": "checkbox",
               "showFieldSpecPath": "leadEngineer.data.cable"
             },
             {
@@ -1704,20 +1705,20 @@
               "label": "Before applied"
             },
             {
-               "showField": { "b2P": true },
-          "showFieldSpecPath": {
-            "leadEngineer.data.barrier": ["0A", "0B", "0C"]
-          },
-          "fieldName": "measurementPointBoxBeforeAppliedBarrier",
-          "label": "Measurement point box before applied barrier",
-          "required": true,
-          "type": "number",
-          "notBatch": true,
-          "unit": "mm",
-          "decimal": 1
-        },
-        {
-           "showField": { "b2P": true },
+              "showField": { "b2P": true },
+              "showFieldSpecPath": {
+                "leadEngineer.data.barrier": ["0A", "0B", "0C"]
+              },
+              "fieldName": "measurementPointBoxBeforeAppliedBarrier",
+              "label": "Measurement point box before applied barrier",
+              "required": true,
+              "type": "number",
+              "notBatch": true,
+              "unit": "mm",
+              "decimal": 1
+            },
+            {
+              "showField": { "b2P": true },
               "showFieldSpecPath": {
                 "leadEngineer.data.barrier": ["0A", "0B", "0C"]
               },
@@ -1730,7 +1731,7 @@
               "decimal": 1
             }
           ]
-        },        
+        },
         {
           "showPage": { "b2P": true },
           "queryPath": "operator.measurementPointBeforeBarriers",
@@ -2668,7 +2669,7 @@
         {
           "queryPath": "operator",
           "fields": [
-             {
+            {
               "showFieldSpecPath": {
                 "leadEngineer.data.barrierBoxSide": ["0A", "0B", "0C"]
               },
@@ -2810,7 +2811,7 @@
               "decimal": 1
             }
           ]
-        }        
+        }
       ]
     },
     "touchUp": {
