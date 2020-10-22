@@ -664,7 +664,7 @@ export function getStartStage(geometry, item) {
       stage = Object.keys(stages["coating"])[0];
       break;
     case "Mould":
-      stage = Object.keys(stages["coating"])[0];
+      stage = "steelPreparation1";
       break;
     default:
       stage = Object.keys(stages["packer"])[0];
