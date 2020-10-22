@@ -152,13 +152,17 @@ export default ({
 
   // Check for done items
   const doneItem = item => {
-
     const done = item.stage === "done";
 
     return done;
   };
   const doneDescription = description => {
     let result = true;
+
+    if (description && description.items && description.items.length === 0) {
+      result = false;
+    }
+
     description &&
       description.items &&
       description.items.forEach(item => {
@@ -170,6 +174,11 @@ export default ({
   };
   const doneProject = project => {
     let result = true;
+
+    if (project && project.descriptions && project.descriptions.length === 0) {
+      result = false;
+    }
+
     project &&
       project.descriptions &&
       project.descriptions.forEach(description => {

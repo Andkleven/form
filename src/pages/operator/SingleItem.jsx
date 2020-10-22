@@ -60,9 +60,6 @@ export default pageInfo => {
   const [reRender, setReRender] = useState(false);
   const [fixedData, setFixedData] = useState(null);
 
-  
-
-
   const { loading, error, data } = useQuery(query[qualityControlJson.query], {
     variables: { id: itemId }
   });
@@ -118,8 +115,8 @@ export default pageInfo => {
       ...objectifyQuery(cloneDeep(projectQuery.data)),
       ...objectifyQuery(cloneDeep(descriptionQuery.data)),
       ...objectifyQuery(cloneDeep(itemQuery.data))
-    }
-  }, [projectQuery, descriptionQuery, itemQuery, allData])
+    };
+  }, [projectQuery, descriptionQuery, itemQuery, allData]);
 
   const finalInspection =
     access.finalInspection &&
@@ -142,7 +139,7 @@ export default pageInfo => {
     specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
     saveVariables: { itemId: itemId },
     edit: access.itemEdit,
-    allData: {...fixedData, allData: allData},
+    allData: { ...fixedData, allData: allData },
     readOnlySheet: !access.itemWrite,
     stage: stage,
     stageType: geometry,
@@ -162,23 +159,23 @@ export default pageInfo => {
     edit: access.itemEdit,
     specData: fixedData && formDataStructure(fixedData, "items.0.leadEngineer"),
     afterSubmit: () => setReRender(!reRender),
-    allData: {...fixedData, allData: allData},
+    allData: { ...fixedData, allData: allData },
     stage: fixedData && fixedData.items[0].stage,
     itemId: itemId,
     getQueryBy: itemId,
-    saveVariables: { itemId: itemId },
+    saveVariables: { itemId: itemId }
   };
 
   const indexStage = fixedData
     ? stageJson.indexOf(fixedData.items[0].stage)
     : 0;
 
-  const packer = productionLine ==="packer";
-  const coatedItem = productionLine === "coatedItem";
+  const packer = productionLine === "packer";
+  const coating = productionLine === "coating";
 
   return (
     <Canvas showForm={!!data}>
-    <Overview itemIdsRef={itemIdsRef}/>
+      <Overview itemIdsRef={itemIdsRef} />
       <Paper className="mb-3">
         <Title big align="center">
           Lead Engineer
@@ -203,11 +200,9 @@ export default pageInfo => {
         <Title big align="center">
           Operator
         </Title>
-        <Form
-          {...operator}
-        />
+        <Form {...operator} />
       </Paper>
-      {finalInspection && coatedItem &&  (
+      {finalInspection && coating && (
         <Paper className="mb-3">
           <Title big align="center">
             Quality Control
@@ -220,7 +215,6 @@ export default pageInfo => {
           />
         </Paper>
       )}
-
       {finalInspection &&
         packer &&
         stageJson.indexOf("finalInspectionAsBuilt") <= indexStage && (
