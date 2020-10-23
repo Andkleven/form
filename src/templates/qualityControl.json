@@ -10,7 +10,6 @@
       "pages": [
         {
           "pageTitle": "Final Inspection",
-
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "queryPath": "finalInspectionQualityControl.measurementPointQualityControls",

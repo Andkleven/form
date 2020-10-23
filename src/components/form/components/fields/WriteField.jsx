@@ -309,7 +309,9 @@ export default ({ setState, state, ...props }) => {
     );
   const itemName =
     props.itemIdsRef &&
+    itemIndex && 
     props.itemIdsRef.current &&
+    props.itemIdsRef.current.descriptions[0].items &&
     props.itemIdsRef.current.descriptions[0].items[itemIndex].itemId;
 
   return (
