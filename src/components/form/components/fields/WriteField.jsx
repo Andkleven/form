@@ -303,6 +303,7 @@ export default ({ setState, state, ...props }) => {
   const itemIndex =
     props.itemIdsRef &&
     props.itemIdsRef.current &&
+    props.itemIdsRef.current.descriptions[0].items &&
     props.itemIdsRef.current.descriptions[0].items.findIndex(
       item => item.id === props.itemId
     );
