@@ -41,7 +41,7 @@ export const Report = ({ project, description, item }) => {
     op = i.operator;
     opData = JSON.parse(op.data);
   }
-  
+
   let qc = null;
   let qcData = null;
   if (i.finalInspectionQualityControl) {
@@ -279,17 +279,13 @@ export const Report = ({ project, description, item }) => {
             </Col>
             <Col style={{ width: "51%" }}>
               {/* TODO: Add conditional visibility */}
-              <Row>
-                <Col>
-                  {/* TODO: Conditional name */}
-                  <Entry
-                    label="Rubber Cement"
-                    values={["Mix Date"]}
-                    flippedMargin
-                  />
-                  <Line />
-                </Col>
-              </Row>
+              {/* TODO: Conditional name */}
+              <Entry
+                label="Rubber Cement"
+                values={["Mix Date"]}
+                flippedMargin
+              />
+              <Line />
               {/* TODO: Add entries */}
               {/* rubberCementOperators */}
               {op &&
@@ -298,34 +294,12 @@ export const Report = ({ project, description, item }) => {
                   return (
                     <Row key={`rubber-cement-${index}`}>
                       <Col>
-                        <Row>
-                          <Col>
-                            <P style={{ marginBottom: 4 }}>Test</P>
-                          </Col>
-                        </Row>
+                        <P style={{ marginBottom: 4 }}>Test</P>
                       </Col>
                       <Col>
-                        <Row>
-                          <Col>
-                            <P style={{ marginBottom: 4, marginLeft: 3.5 }}>
-                              Test
-                            </P>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <P style={{ marginBottom: 4, marginLeft: 3.5 }}>
-                              Test
-                            </P>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <P style={{ marginBottom: 4, marginLeft: 3.5 }}>
-                              Test
-                            </P>
-                          </Col>
-                        </Row>
+                        <P style={{ marginBottom: 4, marginLeft: 3.5 }}>Test</P>
+                        <P style={{ marginBottom: 4, marginLeft: 3.5 }}>Test</P>
+                        <P style={{ marginBottom: 4, marginLeft: 3.5 }}>Test</P>
                       </Col>
                     </Row>
                   );
@@ -341,49 +315,25 @@ export const Report = ({ project, description, item }) => {
                   return (
                     <Row key={`vulcanization-step-${index}`}>
                       <Col>
-                        <Row>
-                          <Col>
-                            <P style={{ marginTop: 4 }}>{`Vulcanization step ${
-                              index + 1
-                            }`}</P>
-                            <Line />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <Entry
-                              label="Vulcanization option"
-                              values={[
-                                JSON.parse(steps[index].data)
-                                  .vulcanizationOption
-                              ]}
-                            />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <Entry
-                              label="Autoclave number"
-                              values={[v.autoclaveNumber]}
-                            />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <Entry
-                              label="Start time"
-                              values={[time(v.startTime)]}
-                            />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <Entry
-                              label="Stop time"
-                              values={[time(v.stopTime)]}
-                            />
-                          </Col>
-                        </Row>
+                        <P style={{ marginTop: 4 }}>{`Vulcanization step ${
+                          index + 1
+                        }`}</P>
+                        <Line />
+                        <Entry
+                          label="Vulcanization option"
+                          values={[
+                            JSON.parse(steps[index].data).vulcanizationOption
+                          ]}
+                        />
+                        <Entry
+                          label="Autoclave number"
+                          values={[v.autoclaveNumber]}
+                        />
+                        <Entry
+                          label="Start time"
+                          values={[time(v.startTime)]}
+                        />
+                        <Entry label="Stop time" values={[time(v.stopTime)]} />
                       </Col>
                       {/* "{"startTime": "2020-08-31T11:47", "stopTime": "2020-09-01T07:24", "autoclaveNumberUserField": "admin", "startTimeUserField": "admin", "stopTimeUserField": "admin"}" */}
                     </Row>
@@ -392,29 +342,22 @@ export const Report = ({ project, description, item }) => {
               {/* TODO: Add entries */}
 
               {/* TODO: Add conditional visibility */}
-              <Row>
-                <Col>
-                  <Entry
-                    label="Steel measurements"
-                    // TODO: Add actual min-max
-                    values={[`(min-max: ${1}mm-${999}mm)`]}
-                    flippedMargin
-                  />
-                </Col>
-              </Row>
+
+              <Entry
+                label="Steel measurements"
+                // TODO: Add actual min-max
+                values={[`(min-max: ${1}mm-${999}mm)`]}
+                flippedMargin
+              />
               <Line />
               {op &&
                 op.measurementPointActualTdvs.map((obj, index) => {
                   const m = JSON.parse(obj.data);
                   return (
-                    <Row key={`measurement-point-actual-tdv-${index}`}>
-                      <Col>
-                        <Entry
-                          label={`Reference point ${m.referencePoint}`}
-                          values={[`${m.measurementPointActual}mm`]}
-                        />
-                      </Col>
-                    </Row>
+                    <Entry
+                      label={`Reference point ${m.referencePoint}`}
+                      values={[`${m.measurementPointActual}mm`]}
+                    />
                   );
                 })}
             </Col>
@@ -438,15 +381,12 @@ export const Report = ({ project, description, item }) => {
           <Subtitle>Final Inspection</Subtitle>
           <Line />
           <P style={{ marginBottom: 10 }}>Submitted on {"TODO: Datetime"}</P>
-          <Row>
-            <Col>
-              <Entry
-                style={{ alignItems: "flex-end" }}
-                label={"Test"}
-                values={["Standard", "Criteria", "Result", "Employee"]}
-              />
-            </Col>
-          </Row>
+
+          <Entry
+            style={{ alignItems: "flex-end" }}
+            label={"Test"}
+            values={["Standard", "Criteria", "Result", "Employee"]}
+          />
         </Page>
 
         <Page size="A4" style={{ padding: 30 }}>
@@ -627,59 +567,75 @@ const Col = props => {
   );
 };
 
+const Shell = props => {
+  return (
+    <Row>
+      <Col>{props.children}</Col>
+    </Row>
+  );
+};
+
 const Title = props => {
   return (
-    <Text
-      {...props}
-      style={{
-        fontSize: fontsize * 1.5,
-        ...props.style
-      }}
-    >
-      {props.children}
-    </Text>
+    <Shell>
+      <Text
+        {...props}
+        style={{
+          fontSize: fontsize * 1.5,
+          ...props.style
+        }}
+      >
+        {props.children}
+      </Text>
+    </Shell>
   );
 };
 
 const Subtitle = props => {
   return (
-    <Text
-      {...props}
-      style={{
-        fontSize: fontsize * 1.25,
-        ...props.style
-      }}
-    >
-      {props.children}
-    </Text>
+    <Shell>
+      <Text
+        {...props}
+        style={{
+          fontSize: fontsize * 1.25,
+          ...props.style
+        }}
+      >
+        {props.children}
+      </Text>
+    </Shell>
   );
 };
 
 const P = props => {
   return (
-    <Text
-      {...props}
-      style={{
-        fontSize: fontsize,
-        ...props.style
-      }}
-    >
-      {props.children}
-    </Text>
+    <Shell>
+      <Text
+        {...props}
+        style={{
+          fontSize: fontsize,
+          ...props.style
+        }}
+      >
+        {props.children}
+      </Text>
+    </Shell>
   );
 };
 
 const B = props => {
   return (
-    <Text
-      {...props}
-      style={{
-        // fontSize: fontsize,
-        fontWeight: 900,
-        ...props.style
-      }}
-    >
-      {props.children}
-    </Text>
+    <Shell>
+      <Text
+        {...props}
+        style={{
+          // fontSize: fontsize,
+          fontWeight: 900,
+          ...props.style
+        }}
+      >
+        {props.children}
+      </Text>
+    </Shell>
   );
 };
