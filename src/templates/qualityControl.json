@@ -571,6 +571,14 @@
               "required": true,
               "label": "Core sample approved",
               "type": "checkbox"
+            },
+            {
+              "fieldName": "visualInspection",
+              "label": "Visual Inspection",
+              "type": "checkbox",
+              "subtext": "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted.",
+              "required": true,
+              "showFieldSpecPath": "leadEngineer.data.visualInspection"
             }
           ]
         }
