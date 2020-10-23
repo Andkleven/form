@@ -6,7 +6,6 @@ import {
 } from "../../../functions/general";
 import moment from "moment";
 import objectPath from "object-path";
-import LeadEngineerPage from "pages/leadEngineer/LeadEngineerPage";
 
 const whatTooReturn = (value, decimal, array = [true]) => {
   if (!(typeof value === "number")) {
@@ -417,6 +416,74 @@ const mathMouldThickness = (
     if (stop) break;
   }
   return thickness.toFixed(1);
+};
+const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
+  let previousCumulativeThickness = 0;
+  let previousLayers = 0;
+  if (repeatStepList[0] && repeatStepList[1] === 0) {
+    const sumProposedThickness = stepList => {
+      previousLayers += Number(mathShrinkThickness(values, stepList, 0));
+    };
+    for (let i = 0; i < repeatStepList[0]; i++) {
+      let coatingLayers = findValue(
+        values,
+        `leadEngineer.vulcanizationSteps.${i}.coatingLayers`
+      );
+      coatingLayers.forEach((data, index) => sumProposedThickness([i, index]));
+    }
+  }
+  if (repeatStepList[1]) {
+    for (let i = 0; i < repeatStepList[1]; i++) {
+      previousCumulativeThickness = Number(
+        mathCumulativeThicknessAll(values, [
+          repeatStepList[0],
+          i,
+          repeatStepList[2]
+        ])
+      );
+    }
+  } else {
+    previousCumulativeThickness = Number(
+      findValue(
+        values,
+        `leadEngineer.measurementPointActualTdvs.${repeatStepList[2]}.data.measurementPointActual`
+      )
+    );
+  }
+
+  let appliedThickness = Number(
+    findValue(
+      values,
+      `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.appliedThickness`
+    )
+  );
+  let layersUnique = findValue(
+    values,
+    `leadEngineer.vulcanizationSteps.${repeatStepList[0]}.coatingLayers.${repeatStepList[1]}.data.layersUnique`
+  );
+
+  let tvd = findValue(values, `leadEngineer.data.targetDescriptionValue`);
+
+  let cumulativeThickness = 0;
+  if (layersUnique) {
+    appliedThickness = 0;
+  }
+
+  if (tvd === "OD") {
+    cumulativeThickness =
+      previousCumulativeThickness + (previousLayers + appliedThickness) * 2;
+  } else if (tvd === "ID") {
+    cumulativeThickness =
+      previousCumulativeThickness - (previousLayers + appliedThickness) * 2;
+  } else {
+    cumulativeThickness =
+      previousCumulativeThickness + previousLayers + appliedThickness;
+  }
+  return whatTooReturn(cumulativeThickness, decimal, [
+    previousCumulativeThickness,
+    appliedThickness,
+    layersUnique
+  ]);
 };
 
 const mathPeelTest = (
@@ -2009,7 +2076,8 @@ const Math = {
   mathPeelTest,
   mathThicknessAll,
   mathIdentificationMarkingOperator,
-  mathIdentificationMarkingQualityControl
+  mathIdentificationMarkingQualityControl,
+  mathCumulativeThicknessAll
 };
 
 export default Math;

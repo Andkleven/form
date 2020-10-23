@@ -99,14 +99,6 @@ const CustomLead = props => {
           });
       });
     }
-    let targetDescriptionValue = objectPath.get(
-      documentData.current,
-      "leadEngineer.data.targetDescriptionValue",
-      null
-    );
-    if (targetDescriptionValue) {
-      layersThicknessTemporary = layersThicknessTemporary * 2.0;
-    }
     setStatus(() =>
       toleranceMinTemporary <= layersThicknessTemporary &&
       layersThicknessTemporary <= toleranceMaxTemporary

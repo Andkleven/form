@@ -782,6 +782,10 @@
               "required": true
             },
             {
+              "label": "Build Thickness",
+              "math": "mathMouldThickness"
+            },
+            {
               "fieldName": "mixDate",
               "label": "Mix Date",
               "type": "date",
@@ -812,7 +816,7 @@
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
-              "mathSubtext": "mathThicknessAll",
+              "mathSubtext": "mathCumulativeThicknessAll",
               "subtext": "Target cumulative thickness: {}mm",
               "type": "number",
               "required": true

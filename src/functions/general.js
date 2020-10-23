@@ -224,8 +224,8 @@ export const getSubtext = (
   repeatStepList,
   allData
 ) => {
-  let minString = isNumberAndNotNaN(min) ? `Min: ${min}` : "";
-  let maxString = isNumberAndNotNaN(max) ? `Max: ${max}` : "";
+  let minString = isNumberAndNotNaN(Number(min)) ? `Min: ${min}` : "";
+  let maxString = isNumberAndNotNaN(Number(max)) ? `Max: ${max}` : "";
 
   let unitString = unit ? `${unit} ` : " ";
 
