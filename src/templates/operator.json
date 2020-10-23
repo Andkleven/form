@@ -699,7 +699,6 @@
             "coatedItem": true,
             "mould": true
           },
-
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.rubberCements",
           "queryPath": "operator.rubberCementOperators",
