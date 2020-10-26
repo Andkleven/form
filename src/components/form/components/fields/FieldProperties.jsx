@@ -24,7 +24,7 @@ import {
 } from "functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
-import useHidden from "functions/useHidden";
+import useHidden from "hooks/useHidden";
 import ViewPdf from "components/input/components/ViewPdf";
 
 export default React.memo(({ ...props }) => {
@@ -61,9 +61,7 @@ export default React.memo(({ ...props }) => {
       props.type === "checkbox" ? false : ""
     );
     if (props.type === "date" || props.type === "datetime-local") {
-      documentDataState = documentDataState
-        ? new Date(documentDataState)
-        : "";
+      documentDataState = documentDataState ? new Date(documentDataState) : "";
     }
     if (props.path && props.fieldName && documentDataState !== state) {
       setState(documentDataState);
@@ -179,7 +177,7 @@ export default React.memo(({ ...props }) => {
     setMin(min || undefined);
     setMax(max || undefined);
   }, [
-      props.routeToMin,
+    props.routeToMin,
     props.routeToMax,
     props.type,
     documentData,
@@ -252,7 +250,7 @@ export default React.memo(({ ...props }) => {
               props.editRepeatStepSubtextList
             )
           : props.mathSubtext
-            ? Math[props.mathSubtext](
+          ? Math[props.mathSubtext](
               props.specData,
               props.repeatStepList,
               props.decimal ? props.decimal : 0,
@@ -376,12 +374,16 @@ export default React.memo(({ ...props }) => {
         path={getNewPath()}
         subtext={subtext}
         unit={unit.current}
-        value={props.specValueList ? findValue(
-          props.specData,
-          removePathFunc(props.specRemovePath, props.specValueList),
-          props.repeatStepList,
-          props.editRepeatStepValueList
-        ) : props.text}
+        value={
+          props.specValueList
+            ? findValue(
+                props.specData,
+                removePathFunc(props.specRemovePath, props.specValueList),
+                props.repeatStepList,
+                props.editRepeatStepValueList
+              )
+            : props.text
+        }
         label={label}
       />
     );
