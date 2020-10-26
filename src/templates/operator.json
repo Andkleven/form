@@ -26,6 +26,7 @@
       ]
     },
     "actualSteelMeasurement": {
+      showChapter: { coatedItem },
       "queryPath": "operator",
       "pages": [
         {
