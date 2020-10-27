@@ -653,12 +653,15 @@ export function getBatchingJson(
 }
 
 export function getStartStage(geometry, item) {
-  let stage = findNextStage(
-    { leadEngineer: objectifyQuery(item.leadEngineer) },
-    "start",
-    geometry,
-    operatorJson.chapters
-  ).stage;
+  let stage;
+  if (item) {
+    stage = findNextStage(
+      { leadEngineer: objectifyQuery(item.leadEngineer) },
+      "start",
+      geometry,
+      operatorJson.chapters
+    ).stage;
+  }
   return stage;
 }
 

@@ -995,6 +995,8 @@ export default React.memo(
           <>
             <Input
               noComment
+              label={label}
+              prepend={prepend}
               path={path}
               fields={fields}
               type={type}

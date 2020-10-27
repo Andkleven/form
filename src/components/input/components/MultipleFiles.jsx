@@ -55,6 +55,7 @@ export default ({ ...props }) => {
     isDragReject,
     isFocused
   } = useDropzone({
+    id: props.label,
     accept: "image/*,application/pdf",
     onDrop: acceptedFiles => {
       setFiles(prevState => {
@@ -143,7 +144,7 @@ export default ({ ...props }) => {
       return [...prevState];
     });
   };
-
+  console.log(props.label);
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">
@@ -164,8 +165,8 @@ export default ({ ...props }) => {
               Drag and drop files, or click to upload
             </div>
             <input
-              {...getInputProps()}
-              id={props.label || props.prepend}
+              // {...getInputProps()}
+              id={`${props.label}`}
               name={props.label || props.prepend}
               type="file"
               style={{}}
