@@ -4,6 +4,7 @@ import React, {
   useLayoutEffect,
   useState
 } from "react";
+import { RouteGuard } from "components/Dialog";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 // import Paper from "components/layout/Paper";
@@ -37,9 +38,13 @@ export default ({ setState, state, ...props }) => {
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   const [itemIdList, setItemIdList] = useState([Number(props.itemId)]);
   const [batching, setBatching] = useState(false);
-  const { documentData, documentDataDispatch, screenshotData } = useContext(
-    DocumentDataContext
-  );
+  const [when, setWhen] = useState(false);
+  const {
+    documentData,
+    documentDataDispatch,
+    screenshotData,
+    save
+  } = useContext(DocumentDataContext);
 
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
@@ -82,6 +87,11 @@ export default ({ setState, state, ...props }) => {
     }
     documentDataDispatch({ type: "add", newState: value, path: props.path });
     setState(value);
+    setWhen(
+      screenshotData.current &&
+        JSON.stringify(screenshotData.current) !==
+          JSON.stringify(documentData.current)
+    );
   };
 
   const onChangeDate = data => {
@@ -314,9 +324,30 @@ export default ({ setState, state, ...props }) => {
     props.itemIdsRef.current &&
     props.itemIdsRef.current.descriptions[0].items &&
     props.itemIdsRef.current.descriptions[0].items[itemIndex].itemId;
-
   return (
     <div className={indent && "ml-3"}>
+      <RouteGuard
+        // TODO: Make `when` true when data is unsaved
+        when={when}
+        buttons={[
+          {
+            label: "Save and continue",
+            variant: "info",
+            type: "submit",
+            onClick: () => {
+              save();
+              return true;
+            }
+          },
+          {
+            label: "Discard and continue",
+            variant: "danger",
+            onClick: () => {
+              return true;
+            }
+          }
+        ]}
+      />
       {batching && props.itemIdsRef && (
         <Modal
           show

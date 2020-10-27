@@ -712,7 +712,7 @@ export function getProperties(value, jsonVariables = []) {
   }
 }
 
-export function useTraceUpdate(props) {
+export function useTraceUpdate(props, name = "") {
   const prev = useRef(props);
   useEffect(() => {
     const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
@@ -722,6 +722,7 @@ export function useTraceUpdate(props) {
       return ps;
     }, {});
     if (Object.keys(changedProps).length > 0) {
+      console.log("Component:", name);
       console.log("Changed props:", changedProps);
     }
     prev.current = props;

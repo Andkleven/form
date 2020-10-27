@@ -13,7 +13,6 @@ import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
 
-
 export default React.memo(
   ({
     stagePath,
@@ -37,8 +36,7 @@ export default React.memo(
     itemId,
     specRemovePath,
     stagesChapter,
-    exitOnSave,
-    setWhen
+    exitOnSave
   }) => {
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
@@ -127,7 +125,6 @@ export default React.memo(
                   itemId={itemId}
                   specRemovePath={specRemovePath}
                   exitOnSave={exitOnSave}
-                  setWhen={setWhen}
                 />
               );
             });
@@ -172,7 +169,12 @@ export default React.memo(
       let chapterBasedOnStage = [];
       let productionLine = getProductionLine(stageType);
       let stageList = Object.keys(stagesJson[productionLine]);
-      let thisStage = findNextStage(specData, undefined, stageType, document.chapters);
+      let thisStage = findNextStage(
+        specData,
+        undefined,
+        stageType,
+        document.chapters
+      );
 
       while (stopLoop.current === false && i < 50) {
         if (document.chapters[thisStage["stageWithoutNumber"]]) {
@@ -184,7 +186,12 @@ export default React.memo(
             )
           );
         }
-        thisStage = findNextStage(specData, thisStage["stage"], stageType, document.chapters);
+        thisStage = findNextStage(
+          specData,
+          thisStage["stage"],
+          stageType,
+          document.chapters
+        );
         if (
           thisStage["stageWithoutNumber"] === stageList[stageList.length - 1]
         ) {
