@@ -92,10 +92,16 @@ export default ({ ...props }) => {
       `${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`
     ] = setBackendFiles;
     return () => {
-      // eslint-disable-next-line
-      delete resetState.current[
-        `${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`
-      ];
+      if (
+        resetState.current[
+          `${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`
+        ]
+      ) {
+        // eslint-disable-next-line
+        delete resetState.current[
+          `${props.path}-${props.label}-${props.repeatStepList}-MultipleFiles`
+        ];
+      }
     };
   }, [
     setBackendFiles,

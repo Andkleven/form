@@ -40,6 +40,9 @@ export default ({ setState, state, ...props }) => {
   const { documentData, documentDataDispatch, screenshotData } = useContext(
     DocumentDataContext
   );
+
+  console.log(documentData.current);
+
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
     {
@@ -309,7 +312,7 @@ export default ({ setState, state, ...props }) => {
     );
   const itemName =
     props.itemIdsRef &&
-    itemIndex && 
+    itemIndex &&
     props.itemIdsRef.current &&
     props.itemIdsRef.current.descriptions[0].items &&
     props.itemIdsRef.current.descriptions[0].items[itemIndex].itemId;

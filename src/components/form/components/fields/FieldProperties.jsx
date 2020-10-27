@@ -58,21 +58,34 @@ export default React.memo(({ ...props }) => {
     let documentDataState = objectPath.get(
       documentData.current,
       getNewPath(),
-      props.type === "checkbox" ? false : ""
+      getProperties(props.default, props.jsonVariables)
     );
     if (props.type === "date" || props.type === "datetime-local") {
       documentDataState = documentDataState ? new Date(documentDataState) : "";
     }
-    if (props.path && props.fieldName && documentDataState !== state) {
-      setState(documentDataState);
-      documentDataDispatch({
-        type: "add",
-        newState: documentDataState,
-        path: getNewPath(),
-        notReRender: true
-      });
+    if (props.path && props.fieldName) {
+      if (documentDataState !== state) {
+        setState(documentDataState);
+        documentDataDispatch({
+          type: "add",
+          newState: documentDataState,
+          path: getNewPath(),
+          notReRender: true
+        });
+      } else if (
+        objectPath.get(documentData.current, getNewPath(), null) !== state
+      ) {
+        documentDataDispatch({
+          type: "add",
+          newState: documentDataState,
+          path: getNewPath(),
+          notReRender: true
+        });
+      }
     }
   }, [
+    props.default,
+    props.jsonVariables,
     props.path,
     props.fieldName,
     documentData,
@@ -155,6 +168,15 @@ export default React.memo(({ ...props }) => {
     props.default,
     props.jsonVariables
   ]);
+
+  if (state !== objectPath.get(documentData.current, getNewPath())) {
+    documentDataDispatch({
+      type: "add",
+      newState: state,
+      path: getNewPath(),
+      notReRender: true
+    });
+  }
 
   const minMax = useCallback(() => {
     let { min, max } = calculateMaxMin(
