@@ -116,7 +116,6 @@ export default () => {
   ] = useMutation(mutations["DELETE_ITEM"], {
     update: deleteFromCache
   });
-
   useEffect(() => {
     setFixedData(objectifyQuery(data));
     if (data && objectPath.get(data, "projects.0.id") && Number(id) === 0) {

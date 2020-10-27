@@ -42,10 +42,6 @@ const ITEM = gql`
           coatingLayers {
             id
             data
-            cumulativeThickness {
-              id
-              data
-            }
           }
         }
       }
@@ -179,10 +175,6 @@ const BATCHING_OPERATOR = gql`
               coatingLayers {
                 id
                 data
-                cumulativeThickness {
-                  id
-                  data
-                }
               }
             }
           }
@@ -318,10 +310,6 @@ const BATCHING_VULCANIZATION = gql`
               coatingLayers {
                 id
                 data
-                cumulativeThickness {
-                  id
-                  data
-                }
               }
             }
           }
@@ -441,6 +429,38 @@ const GET_ORDER_GEOMETRY = gql`
           leadEngineer {
             id
             data
+            measurementPointActualTdvs {
+              id
+              data
+            }
+            rubberCements {
+              id
+              data
+            }
+            ringMaterials {
+              id
+              data
+            }
+            additionalCustomTests {
+              id
+              data
+            }
+            finalInspectionCustomTests {
+              id
+              data
+            }
+            finalInspectionDimensionsChecks {
+              id
+              data
+            }
+            vulcanizationSteps {
+              id
+              data
+              coatingLayers {
+                id
+                data
+              }
+            }
           }
         }
         uploadFiles {
@@ -470,11 +490,6 @@ const GET_LEAD_ENGINEER = gql`
           coatingLayers {
             id
             data
-
-            cumulativeThickness {
-              id
-              data
-            }
           }
         }
         rubberCements {
@@ -548,10 +563,6 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             coatingLayers {
               id
               data
-              cumulativeThickness {
-                id
-                data
-              }
             }
           }
         }
@@ -655,10 +666,6 @@ const GET_OPERATOR_BY_ITEM = gql`
           coatingLayers {
             id
             data
-            cumulativeThickness {
-              id
-              data
-            }
           }
         }
         rubberCements {
@@ -864,10 +871,6 @@ const QUALITY_CONTROL = gql`
           coatingLayers {
             id
             data
-            cumulativeThickness {
-              id
-              data
-            }
           }
         }
       }
@@ -1041,10 +1044,6 @@ const REPORT = gql`
           coatingLayers {
             id
             data
-            cumulativeThickness {
-              id
-              data
-            }
           }
         }
       }

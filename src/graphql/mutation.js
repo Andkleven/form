@@ -21,6 +21,38 @@ const ORDER = gql`
             leadEngineer {
               id
               data
+              measurementPointActualTdvs {
+                id
+                data
+              }
+              rubberCements {
+                id
+                data
+              }
+              ringMaterials {
+                id
+                data
+              }
+              additionalCustomTests {
+                id
+                data
+              }
+              finalInspectionCustomTests {
+                id
+                data
+              }
+              finalInspectionDimensionsChecks {
+                id
+                data
+              }
+              vulcanizationSteps {
+                id
+                data
+                coatingLayers {
+                  id
+                  data
+                }
+              }
             }
           }
           uploadFiles {

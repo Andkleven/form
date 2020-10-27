@@ -4,6 +4,8 @@ import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
 import stages from "components/form/stage/stages.json";
 import moment from "moment";
+import findNextStage from "components/form/stage/findNextStage.ts";
+import operatorJson from "templates/operator.json";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -651,25 +653,12 @@ export function getBatchingJson(
 }
 
 export function getStartStage(geometry, item) {
-  let stage = undefined;
-  switch (geometry) {
-    case "Coated Item":
-      if (
-        item &&
-        objectPath.get(item, "leadEngineer.data.measurementPoint") === 0
-      ) {
-        stage = "steelPreparation1";
-        break;
-      }
-      stage = Object.keys(stages["coating"])[0];
-      break;
-    case "Mould":
-      stage = "steelPreparation1";
-      break;
-    default:
-      stage = Object.keys(stages["packer"])[0];
-      break;
-  }
+  let stage = findNextStage(
+    { leadEngineer: objectifyQuery(item.leadEngineer) },
+    "start",
+    geometry,
+    operatorJson.chapters
+  ).stage;
   return stage;
 }
 
