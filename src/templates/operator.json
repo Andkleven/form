@@ -750,7 +750,7 @@
             },
             {
               "mathSpec": "mathShrinkThickness",
-              "label": "Actual Rubber Thickness"
+              "label": "order layer thickness"
             },
             {
               "specValueList": [
@@ -758,7 +758,7 @@
                 "coatingLayers",
                 "data.appliedThickness"
               ],
-              "label": "Proposed Rubber Thickness"
+              "label": "rubber thickness to be applied"
             }
           ]
         },
