@@ -64,6 +64,7 @@
     "taiko": "taiko",
     "createUsers": "taiko ./src/auto/tasks/backend/users.js",
     "createProject": "taiko ./src/auto/tasks/testing/createProjects.js",
+    "operator": "taiko ./src/auto/tasks/testing/operators.js",
     "deleteProjects": "taiko ./src/auto/node_modules/delete.js"
   },
   "browserslist": [

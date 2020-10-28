@@ -209,20 +209,18 @@ const InputType = ({
           }}
         >
           <div className="mt-1">
-          <Toolbar
-            noComment={noComment}
-            hasComment={hasComment}
-            showComment={showComment}
-            setShowComment={setShowComment}
-            documentDataDispatch={documentDataDispatch}
-            batchClick={batchClick}
-            {...props}
-          />
+            <Toolbar
+              noComment={noComment}
+              hasComment={hasComment}
+              showComment={showComment}
+              setShowComment={setShowComment}
+              documentDataDispatch={documentDataDispatch}
+              batchClick={batchClick}
+              {...props}
+            />
           </div>
         </span>
-        <span
-          className="d-none d-sm-inline"
-        >
+        <span className="d-none d-sm-inline">
           <Toolbar
             // className="ml-sm-auto"
             noComment={noComment}
