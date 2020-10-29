@@ -28,7 +28,13 @@
               "fieldName": "blastMedia",
               "label": "Blast Media",
               "type": "select",
-              "options": ["Garnet", "Grit", "Aluminum Oxide", "Rubbing"],
+              "options": [
+                "Garnet",
+                "Grit",
+                "Aluminum Oxide",
+                "Rubbing",
+                "Chrome"
+              ],
               "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
             },
             {
@@ -647,7 +653,7 @@
             {
               "fieldName": "pipeEnds",
               "label": " Pipe ends",
-              "type":"select",
+              "type": "select",
               "options": ["PXP", "BXP"]
             },
             {
@@ -1156,46 +1162,52 @@
               ]
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "totalLength",
               "label": "Total length",
               "subtext": "Dwg Ref. L1"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "totalLengthPinMakeUpLoss",
               "label": "Total length - Pin make up loss",
               "subtext": "Dwg Ref. L1 - Thread"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "handlingSpacePinEnd",
               "label": "Handling space pin end",
               "subtext": "Dwg Ref. L2",
@@ -1203,16 +1215,18 @@
               "unit": "mm"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "handlingSpacePinEndMin",
               "prepend": "Min",
               "type": "number",
@@ -1220,16 +1234,18 @@
               "default": 0
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "handlingSpacePinEndMax",
               "prepend": "Max",
               "type": "number",
@@ -1237,16 +1253,18 @@
               "default": 25
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "handlingSpaceBoxEnd",
               "label": "Handling space box end",
               "subtext": "Dwg Ref. L3",
@@ -1254,16 +1272,18 @@
               "unit": "mm"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "handlingSpaceBoxEndMin",
               "prepend": "Min",
               "type": "number",
@@ -1271,16 +1291,18 @@
               "default": 0
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "handlingSpaceBoxEndMax",
               "prepend": "Max",
               "type": "number",
@@ -1511,16 +1533,18 @@
               "default": 50
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "basePipeOd",
               "label": "Base pipe OD",
               "subtext": "Dwg Ref. D1"
@@ -1670,16 +1694,18 @@
               "default": 0
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "endRingOd",
               "label": "End-ring OD",
               "subtext": "Dwg Ref. D2",
@@ -1687,16 +1713,18 @@
               "unit": "mm"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "endRingOdMin",
               "prepend": "Min",
               "type": "number",
@@ -1704,16 +1732,18 @@
               "default": 0.2
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "endRingOdMax",
               "prepend": "Max",
               "type": "number",
@@ -1721,54 +1751,60 @@
               "default": 0.2
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "endRingLength",
               "label": "End-ring Length",
-              "type":"number",
-              "unit":"mm"
+              "type": "number",
+              "unit": "mm"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "endRingLengthMin",
               "prepend": "Min",
               "default": 0.25,
-              "type":"number",
-              "unit":"mm"
+              "type": "number",
+              "unit": "mm"
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "endRingLengthMax",
               "prepend": "Max",
               "default": 0.25,
-              "type":"number",
-              "unit":"mm"
+              "type": "number",
+              "unit": "mm"
             },
             {
               "writeOnlyFieldIf": {
@@ -1866,16 +1902,18 @@
               "default": 0.25
             },
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "couplingLength",
               "label": "Coupling length"
             },
@@ -1929,16 +1967,18 @@
             },
 
             {
-              "writeOnlyFieldIf": {"leadEngineer.data.asBuilt": [
-                "Swell packer standard",
-                "Swell packer standard with 1 center ring",
-                "Swell packer K2 with 2 center ringer",
-                "Swell packer K2 with 1 center ring",
-                "Swell packer K2 standard",
-                "Swell packer Cable standard",
-                "Swell packer Cable with 1 center ring",
-                "Swell packer Cable with 2 center ring"
-              ]},
+              "writeOnlyFieldIf": {
+                "leadEngineer.data.asBuilt": [
+                  "Swell packer standard",
+                  "Swell packer standard with 1 center ring",
+                  "Swell packer K2 with 2 center ringer",
+                  "Swell packer K2 with 1 center ring",
+                  "Swell packer K2 standard",
+                  "Swell packer Cable standard",
+                  "Swell packer Cable with 1 center ring",
+                  "Swell packer Cable with 2 center ring"
+                ]
+              },
               "fieldName": "custom",
               "label": "Custom (Others)"
             },

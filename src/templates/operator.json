@@ -111,7 +111,6 @@
               "fieldName": "nextCalibrationDateMediaBlasting",
               "required": true,
               "label": "Next Calibration Date",
-              "min": "now",
               "type": "date"
             },
             {
@@ -175,7 +174,6 @@
               "showFieldSpecPath": "leadEngineer.data.solubleSaltLevel",
               "fieldName": "nextCalibrationDateSolubleSaltLevel",
               "prepend": "Next Calibration Date",
-              "min": "now",
               "type": "date",
               "required": true
             },
@@ -219,7 +217,6 @@
               "fieldName": "nextCalibrationDateCompressedAirCheck",
               "type": "date",
               "prepend": "Next Calibration Date",
-              "min": "now",
               "required": true
             },
             {
@@ -244,7 +241,6 @@
               "fieldName": "nextCalibrationDateUvTest",
               "type": "date",
               "prepend": "Next Calibration Date",
-              "min": "now",
               "required": true
             },
             {
@@ -271,7 +267,6 @@
               "fieldName": "nextCalibrationDateBlastMediaConductivity",
               "type": "date",
               "prepend": "Next Calibration Date",
-              "min": "now",
               "required": true
             },
             {
@@ -296,7 +291,6 @@
               "fieldName": "nextCalibrationDateSurfaceProfileRoughness",
               "type": "date",
               "prepend": "Next Calibration Date",
-              "min": "now",
               "required": true
             },
             {
