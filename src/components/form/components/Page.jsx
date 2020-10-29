@@ -604,11 +604,13 @@ export default React.memo(
           showPageSpecPath,
           repeatStepList,
           editRepeatStepValueList
-        )
+        ) &&
+        queryPath
       ) {
         autoRepeat();
       }
     }, [
+      queryPath,
       finalChapter,
       showPage,
       repeatGroupWithQueryMath,
