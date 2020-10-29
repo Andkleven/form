@@ -50,7 +50,6 @@ export default React.memo(
       byStage = false,
       thisStage = ""
     ) => {
-      console.log(pageInfo);
       if (
         pageInfo.showChapter === undefined ||
         (pageInfo.showChapter &&
@@ -95,7 +94,6 @@ export default React.memo(
               let showEditButton = !notEditButton && !index ? true : false;
               let showSubmitButton =
                 index === pageInfo.pages.length - 1 ? true : false;
-              console.log(info);
               return (
                 <Page
                   key={`${index}-${count}-${repeatStepListLocal}-page`}

@@ -319,7 +319,9 @@ export default React.memo(({ ...props }) => {
           getProperties(props.queryVariableLabel, props.jsonVariables),
           props.repeatStepList,
           props.editRepeatStepListVariableLabel,
-          props.indexVariableLabel ? props.repeatStep : undefined
+          getProperties(props.indexVariableLabel, props.jsonVariables)
+            ? props.repeatStep
+            : undefined
         )
       );
     },

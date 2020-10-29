@@ -144,7 +144,6 @@ export default ({ ...props }) => {
       return [...prevState];
     });
   };
-  console.log(props.label);
   return (
     <div className={`p-3 border rounded`}>
       <section className="container px-0 mx-0">

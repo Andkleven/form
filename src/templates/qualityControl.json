@@ -22,10 +22,11 @@
                   "data.referencePoint"
                 ]
               },
+              "indexVariableLabel": { "mould": true },
               "variableLabelSpec": true,
               "label": {
                 "coatedItem": "Measurement Point Reference: {}",
-                "mould": "Measurement Point"
+                "mould": "Measurement Point {}"
               },
               "calculateMin": {
                 "coatedItem": "mathQualityControlMeasurementPointCoatingItemMin",
@@ -101,7 +102,7 @@
               "showFieldSpecPath": "leadEngineer.data.hammerTest"
             },
             {
-              "showField":{"coatedItem":true, "mould":true},
+              "showField": { "coatedItem": true, "mould": true },
               "fieldName": "identificationMarking",
               "label": "Identification Marking",
               "subtext": "ID matches 123.",
@@ -160,7 +161,6 @@
           ]
         },
         {
-
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.finalInspectionDimensionsChecks",
           "queryPath": "finalInspectionQualityControl.finalInspectionDimensionsCheckQualityControls",
@@ -185,7 +185,6 @@
           ]
         },
         {
-
           "repeatGroupWithQuerySpecData": true,
           "repeatGroupWithQuery": "leadEngineer.finalInspectionCustomTests",
           "queryPath": "finalInspectionQualityControl.finalInspectionCustomTestQualityControls",
