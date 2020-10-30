@@ -6,7 +6,7 @@ import {
   camelCaseToNormal,
   allNull
 } from "functions/general";
-import operatorCoatedItemJson from "templates/operator.json";
+import operatorCoatedItemJson from "templates/operator";
 import Line from "components/design/Line";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import CheckInput from "components/input/components/CheckInput";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import allBatchingJson from "templates/batching.json";
-import operatorCoatedItemJson from "templates/operator.json";
+import operatorCoatedItemJson from "templates/operator";
 import Form from "components/form/Form";
 import Paper from "components/layout/Paper";
 import objectPath from "object-path";
