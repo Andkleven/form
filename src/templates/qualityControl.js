@@ -125,7 +125,6 @@ export default {
         },
         {
           queryPath: "finalInspectionQualityControl.hardnessQualityControls",
-
           repeatGroupWithQuerySpecData: true,
           repeatGroupWithQuery:
             "leadEngineer.data.numberOfHardnessOfOuterLayer",
@@ -142,7 +141,6 @@ export default {
         },
         {
           queryPath: "finalInspectionQualityControl.peelTestQualityControls",
-
           repeatGroupWithQuerySpecData: true,
           repeatGroupWithQuery: "leadEngineer.data.numberOfPeelTest",
           fields: [
