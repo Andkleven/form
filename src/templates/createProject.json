@@ -125,7 +125,11 @@
               "fieldName": "specificationTitle",
               "label": "Additional information",
               "type": "select",
-              "options": ["Report Code - Hours", "Report Code - Materials", "Shop Order no."]
+              "options": [
+                "Report Code - Hours",
+                "Report Code - Materials",
+                "Shop Order no."
+              ]
             },
             {
               "noComment": true,

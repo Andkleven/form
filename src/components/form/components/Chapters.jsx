@@ -12,7 +12,6 @@ import stagesJson from "components/form/stage/stages.json";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
 import AutoScroll from "components/AutoScroll";
-import { faGameConsoleHandheld } from "@fortawesome/pro-duotone-svg-icons";
 
 export default React.memo(
   ({

@@ -14,7 +14,7 @@ const repairStages = [
   { stage: "primer1", label: "Primer" },
   { stage: "coatingStep", label: "Coating" },
   { stage: "touchUp", label: "Touch Up" },
-  { stage: "qualityControl", label: "Quality Control" }
+  { stage: "qualityControlCoatedItem", label: "Quality Control" }
 ];
 
 export default ({ id, show, setShow, children }) => {

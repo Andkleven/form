@@ -1051,6 +1051,10 @@ const REPORT = gql`
         id
         data
         surfaceCleanlinessImage
+        additionalCustomTestOperators {
+          id
+          data
+        }
         rubberCementOperators {
           id
           data
