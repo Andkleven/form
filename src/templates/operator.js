@@ -11,6 +11,11 @@ const grindingField = [
   },
   {
     showField: { dual: true },
+    labelOnly: true,
+    label: "Pin Side"
+  },
+  {
+    showField: { dual: true },
     fieldName: "elementLengthAfterGrindingPinSide",
     required: true,
     label: "Element length after grinding pin side",
@@ -18,6 +23,30 @@ const grindingField = [
     type: "number",
     subtext: "Target thickness: {}mm",
     mathSubtext: "mathTargetThicknessPin"
+  },
+  {
+    showField: { dual: true },
+    fieldName: "elementCenterDiameterPinSide",
+    required: true,
+    label: "Element center diameter pin side",
+    type: "number"
+  },
+  {
+    showField: { dual: true },
+    fieldName: "pinDiameterPinSide",
+    required: true,
+    label: "Pin diameter pin side"
+  },
+  {
+    showField: { dual: true },
+    fieldName: "boxDiameterPinSide",
+    required: true,
+    label: "Box diameter pin side"
+  },
+  {
+    showField: { dual: true },
+    labelOnly: true,
+    label: "Box Side"
   },
   {
     showField: { dual: true },
@@ -30,24 +59,29 @@ const grindingField = [
     mathSubtext: "mathTargetThicknessBox"
   },
   {
-    showField: { b2P: true },
-    fieldName: "elementCenterDiameter",
-    required: true,
-    label: "Element center diameter",
-    type: "number"
-  },
-  {
-    showField: { dual: true },
-    fieldName: "elementCenterDiameterPinSide",
-    required: true,
-    label: "Element center diameter pin side",
-    type: "number"
-  },
-  {
     showField: { dual: true },
     fieldName: "elementCenterDiameterBoxSide",
     required: true,
     label: "Element center diameter box side",
+    type: "number"
+  },
+  {
+    showField: { dual: true },
+    fieldName: "pinDiameterBoxSide",
+    required: true,
+    label: "Pin diameter box side"
+  },
+  {
+    showField: { dual: true },
+    fieldName: "boxDiameterBoxSide",
+    required: true,
+    label: "Box diameter box side"
+  },
+  {
+    showField: { b2P: true },
+    fieldName: "elementCenterDiameter",
+    required: true,
+    label: "Element center diameter",
     type: "number"
   },
   {
@@ -57,34 +91,10 @@ const grindingField = [
     label: "Pin diameter"
   },
   {
-    showField: { dual: true },
-    fieldName: "pinDiameterPinSide",
-    required: true,
-    label: "Pin diameter pin side"
-  },
-  {
-    showField: { dual: true },
-    fieldName: "pinDiameterBoxSide",
-    required: true,
-    label: "Pin diameter box side"
-  },
-  {
     showField: { b2P: true },
     fieldName: "boxDiameter",
     required: true,
     label: "Box diameter"
-  },
-  {
-    showField: { dual: true },
-    fieldName: "boxDiameterPinSide",
-    required: true,
-    label: "Box diameter pin side"
-  },
-  {
-    showField: { dual: true },
-    fieldName: "boxDiameterBoxSide",
-    required: true,
-    label: "Box diameter box side"
   },
   {
     showField: { slipon3: true, slipon2: true },
