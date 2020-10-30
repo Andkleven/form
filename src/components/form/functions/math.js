@@ -52,9 +52,10 @@ const mathToleranceMin = (
   );
   let targetDescriptionValue = objectPath.get(
     values,
-    `leadEngineer.targetDescriptionValue`
+    `leadEngineer.data.targetDescriptionValue`,
+    ""
   );
-  if (targetDescriptionValue === "ID") {
+  if (targetDescriptionValue.toLowerCase() === "id") {
     value = measurementPointActual - toleranceMin;
   } else {
     value = measurementPointActual + toleranceMin;
@@ -82,9 +83,10 @@ const mathToleranceMax = (
   );
   let targetDescriptionValue = objectPath.get(
     values,
-    `leadEngineer.targetDescriptionValue`
+    `leadEngineer.data.targetDescriptionValue`,
+    ""
   );
-  if (targetDescriptionValue === "ID") {
+  if (targetDescriptionValue.toLowerCase() === "id") {
     value = measurementPointActual - toleranceMax;
   } else {
     value = measurementPointActual + toleranceMax;

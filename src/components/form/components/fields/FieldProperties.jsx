@@ -43,7 +43,6 @@ export default React.memo(({ ...props }) => {
     return `${props.path ? props.path + ".data." : ""}${props.fieldName}`;
   }, [props.path, props.fieldName, props.type]);
 
-  const [state, setState] = useState("");
   const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
   const hidden = useHidden(props.writeOnlyFieldIf, [
@@ -51,7 +50,6 @@ export default React.memo(({ ...props }) => {
   ]);
 
   const [label, setLabel] = useState("");
-  const setFirstValue = useRef(true);
   const unit = useRef(getProperties(props.unit, props.jsonVariables));
 
   const updateState = useCallback(() => {
@@ -64,24 +62,12 @@ export default React.memo(({ ...props }) => {
       documentDataState = documentDataState ? new Date(documentDataState) : "";
     }
     if (props.path && props.fieldName) {
-      if (documentDataState !== state) {
-        setState(documentDataState);
-        documentDataDispatch({
-          type: "add",
-          newState: documentDataState,
-          path: getNewPath(),
-          notReRender: true
-        });
-      } else if (
-        objectPath.get(documentData.current, getNewPath(), null) !== state
-      ) {
-        documentDataDispatch({
-          type: "add",
-          newState: documentDataState,
-          path: getNewPath(),
-          notReRender: true
-        });
-      }
+      documentDataDispatch({
+        type: "add",
+        newState: documentDataState,
+        path: getNewPath(),
+        notReRender: true
+      });
     }
   }, [
     props.default,
@@ -89,7 +75,6 @@ export default React.memo(({ ...props }) => {
     props.path,
     props.fieldName,
     documentData,
-    state,
     getNewPath,
     documentDataDispatch,
     props.type
@@ -136,47 +121,34 @@ export default React.memo(({ ...props }) => {
   ]);
 
   useEffect(() => {
-    if (props.path && props.fieldName) {
+    let data = objectPath.get(documentData.current, getNewPath());
+    if (props.path && props.fieldName && [null, undefined, ""].includes(data)) {
       let backendDate = objectPath.get(
         props.backendData,
         getNewPath(),
         getProperties(props.default, props.jsonVariables)
       );
-      if (setFirstValue.current) {
-        if (props.type === "date" || props.type === "datetime-local") {
-          backendDate = backendDate ? new Date(backendDate) : "";
-        }
-        setState(backendDate);
-        documentDataDispatch({
-          type: "add",
-          newState: backendDate,
-          path: getNewPath(),
-          notReRender: true
-        });
-        setFirstValue.current = false;
+      if (props.type === "date" || props.type === "datetime-local") {
+        backendDate = backendDate ? new Date(backendDate) : "";
       }
+      documentDataDispatch({
+        type: "add",
+        newState: backendDate,
+        path: getNewPath(),
+        notReRender: true
+      });
     }
   }, [
     props.fieldName,
     documentDataDispatch,
     props.path,
     props.backendData,
-    setState,
     getNewPath,
     documentData,
     props.type,
     props.default,
     props.jsonVariables
   ]);
-
-  if (state !== objectPath.get(documentData.current, getNewPath())) {
-    documentDataDispatch({
-      type: "add",
-      newState: state,
-      path: getNewPath(),
-      notReRender: true
-    });
-  }
 
   const minMax = useCallback(() => {
     let { min, max } = calculateMaxMin(
@@ -524,8 +496,6 @@ export default React.memo(({ ...props }) => {
             ? true
             : false
         }
-        setState={setState}
-        state={state}
         min={min}
         max={max}
         label={label}
@@ -544,7 +514,7 @@ export default React.memo(({ ...props }) => {
         path={getNewPath()}
         indexId={`${props.indexId}-${props.index}`}
         index={props.index}
-        value={state}
+        value={objectPath.get(documentData.current, getNewPath())}
         subtext={subtext}
         label={label}
       />

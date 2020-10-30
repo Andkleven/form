@@ -150,12 +150,12 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
             }`}
           >
             <div style={{ wordBreak: "break-word" }}>
-            <div>{datetimeString}</div>
-             <small>
-            {props.value && props.subtext ? (
-              <div className="text-muted">{props.subtext}</div>
-            ) : null}
-            </small>
+              <div>{datetimeString}</div>
+              <small>
+                {props.value && props.subtext ? (
+                  <div className="text-muted">{props.subtext}</div>
+                ) : null}
+              </small>
             </div>
             {readOnly ? null : (
               <TinyEditButton

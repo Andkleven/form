@@ -40,9 +40,8 @@ const InputShell = ({
             <label
               htmlFor={`custom-${props.type}-${props.label}-${props.repeatStepList}`}
               hidden={
-                !["date", "datetime"].includes(props.type) &&
-                !!props.prepend &&
-                !props.label
+                // !["date", "datetime"].includes(props.type) &&
+                !!props.prepend && !props.label
               }
             >
               {props.label || props.prepend}
