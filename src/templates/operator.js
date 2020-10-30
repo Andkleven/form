@@ -1153,11 +1153,6 @@ export default {
               type: "date"
             },
             {
-              fieldName: "testInformationResult",
-              required: true,
-              label: "Test information/result"
-            },
-            {
               fieldName: "deviation",
               label: "Deviation",
               type: "checkbox"
@@ -1261,11 +1256,6 @@ export default {
               type: "date"
             },
             {
-              fieldName: "testInformationResultPinSide",
-              required: true,
-              label: "Test information/result"
-            },
-            {
               fieldName: "deviationPinSide",
               label: "Deviation",
               type: "checkbox"
@@ -1363,11 +1353,6 @@ export default {
               required: true,
               label: "Next Calibration date",
               type: "date"
-            },
-            {
-              fieldName: "testInformationResultBoxSide",
-              required: true,
-              label: "Test information/result"
             },
             {
               fieldName: "deviationBoxSide",
