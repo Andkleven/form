@@ -14,7 +14,7 @@ import {
   isNumberAndNotNaN,
   writeChapter,
   getProperties,
-  variableString,
+  variableLabel,
   getRepeatStepList,
   isLastCharacterNumber,
   notShowSpec
@@ -77,6 +77,10 @@ export default React.memo(
     pageTitle,
     indexVariablePageTitle,
     type,
+    variableLabelSpec,
+    editRepeatStepListVariableLabel,
+    queryVariableLabel,
+    indexVariableLabel,
     delete: deleteButton
   }) => {
     const { finalChapter, editChapter, setEditChapter } = useContext(
@@ -114,7 +118,19 @@ export default React.memo(
                     ) && "mt-3"
                   }
                 >
-                  {variableString(index + 1, pageTitle)}
+                  {variableLabel(
+                    getProperties(pageTitle, jsonVariables),
+                    getProperties(variableLabelSpec, jsonVariables)
+                      ? specData
+                      : document.current,
+                    getProperties(queryVariableLabel, jsonVariables),
+                    repeatStepList,
+                    editRepeatStepListVariableLabel,
+                    getProperties(indexVariableLabel, jsonVariables)
+                      ? repeatStepList &&
+                          repeatStepList[repeatStepList.length - 1]
+                      : undefined
+                  )}
                 </Subtitle>
                 <Line></Line>
               </>
@@ -828,7 +844,20 @@ export default React.memo(
       >
         <div className="d-flex justify-content-between align-items-end">
           {showTitle ? (
-            <Title>{pageTitle}</Title>
+            <Title>
+              {variableLabel(
+                getProperties(pageTitle, jsonVariables),
+                getProperties(variableLabelSpec, jsonVariables)
+                  ? specData
+                  : document.current,
+                getProperties(queryVariableLabel, jsonVariables),
+                repeatStepList,
+                editRepeatStepListVariableLabel,
+                getProperties(indexVariableLabel, jsonVariables)
+                  ? repeatStepList && repeatStepList[repeatStepList.length - 1]
+                  : undefined
+              )}
+            </Title>
           ) : showEditAll ? (
             <div></div>
           ) : null}

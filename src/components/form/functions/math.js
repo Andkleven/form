@@ -419,12 +419,32 @@ const mathMouldThickness = (
   }
   return thickness.toFixed(1);
 };
-const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
+const mathCumulativeThickness = (values, repeatStepList, min = false) => {
   let previousCumulativeThickness = 0;
   let previousLayers = 0;
+  let percent;
+  if (min) {
+    percent = objectPath.get(
+      values,
+      "leadEngineer.data.toleranceMinPercent",
+      0
+    );
+  } else {
+    percent = objectPath.get(
+      values,
+      "leadEngineer.data.toleranceMaxPercent",
+      0
+    );
+  }
   if (repeatStepList[0] && repeatStepList[1] === 0) {
     const sumProposedThickness = stepList => {
-      previousLayers += Number(mathShrinkThickness(values, stepList, 0));
+      let number = Number(mathShrinkThickness(values, stepList, 0));
+      let partOfNumber = (number * percent) / 100;
+      if (min) {
+        previousLayers += number - partOfNumber;
+      } else {
+        previousLayers += number + partOfNumber;
+      }
     };
     for (let i = 0; i < repeatStepList[0]; i++) {
       let coatingLayers = findValue(
@@ -437,10 +457,11 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
   if (repeatStepList[1]) {
     for (let i = 0; i < repeatStepList[1]; i++) {
       previousCumulativeThickness = Number(
-        mathCumulativeThicknessAll(values, [
+        mathCumulativeThickness(values, [
           repeatStepList[0],
           i,
-          repeatStepList[2]
+          repeatStepList[2],
+          min
         ])
       );
     }
@@ -470,6 +491,12 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
   if (layersUnique) {
     appliedThickness = 0;
   }
+  let partOfNumber = (appliedThickness * percent) / 100;
+  if (min) {
+    appliedThickness = appliedThickness - partOfNumber;
+  } else {
+    appliedThickness = appliedThickness + partOfNumber;
+  }
 
   if (tvd === "OD") {
     cumulativeThickness =
@@ -481,11 +508,27 @@ const mathCumulativeThicknessAll = (values, repeatStepList, decimal) => {
     cumulativeThickness =
       previousCumulativeThickness + previousLayers + appliedThickness;
   }
-  return whatTooReturn(cumulativeThickness, decimal, [
-    previousCumulativeThickness,
-    appliedThickness,
-    layersUnique
-  ]);
+  return cumulativeThickness;
+};
+
+const mathCumulativeThicknessMin = (
+  allData,
+  specData,
+  repeatStepList,
+  documentData
+) => {
+  let value = mathCumulativeThickness(specData, repeatStepList, true);
+  return value ? value.toFixed(1) : 0;
+};
+
+const mathCumulativeThicknessMax = (
+  allData,
+  specData,
+  repeatStepList,
+  documentData
+) => {
+  let value = mathCumulativeThickness(specData, repeatStepList);
+  return value ? value.toFixed(1) : 0;
 };
 
 const mathPeelTest = (
@@ -2079,7 +2122,8 @@ const Math = {
   mathThicknessAll,
   mathIdentificationMarkingOperator,
   mathIdentificationMarkingQualityControl,
-  mathCumulativeThicknessAll
+  mathCumulativeThicknessMin,
+  mathCumulativeThicknessMax
 };
 
 export default Math;

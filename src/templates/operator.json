@@ -30,17 +30,21 @@
       "queryPath": "operator",
       "pages": [
         {
-          "pageTitle": "Actual Steel OD",
+          "queryVariableLabel": "leadEngineer.data.targetDescriptionValue",
+          "variableLabelSpec": true,
+          "pageTitle": "Actual Steel {}",
           "queryPath": "operator.measurementPointActualTdvs",
           "repeatGroupWithQuery": "leadEngineer.data.measurementPoint",
           "repeatGroupWithQuerySpecData": true,
-
           "fields": [
             {
-              "fieldName": "measurementPointActual",
+              "queryVariableLabel": [
+                "leadEngineer.measurementPointActualTdvs",
+                "data.referencePoint"
+              ],
               "variableLabelSpec": true,
-              "queryVariableLabel": "leadEngineer.data.targetDescriptionValue",
-              "label": "Measurement Point Actual Steel {}",
+              "fieldName": "measurementPointActual",
+              "label": "Measurement Point Reference: {}",
               "required": true,
               "type": "number",
               "notBatch": true,
@@ -811,8 +815,8 @@
                 "data.referencePoint"
               ],
               "label": "Measurement Point Reference: {}",
-              "mathSubtext": "mathCumulativeThicknessAll",
-              "subtext": "Target cumulative thickness: {}mm",
+              "calculateMin": "mathCumulativeThicknessMin",
+              "calculateMax": "mathCumulativeThicknessMax",
               "type": "number",
               "required": true
             }
