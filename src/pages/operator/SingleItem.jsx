@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import operatorJson from "templates/operator.json";
-import leadEngineersJson from "templates/leadEngineer.json";
-import qualityControlJson from "templates/qualityControl.json";
+import operatorJson from "templates/operator";
+import leadEngineersJson from "templates/leadEngineer";
+import qualityControlJson from "templates/qualityControl";
 import Form from "components/form/Form";
 import history from "functions/history";
 import { useParams } from "react-router-dom";

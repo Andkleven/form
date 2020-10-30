@@ -18,7 +18,7 @@ import Canvas from "components/layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
-import createProject from "templates/createProject.json";
+import createProject from "templates/createProject";
 import Loading from "components/Loading";
 const cloneDeep = require("clone-deep");
 

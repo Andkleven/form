@@ -252,9 +252,9 @@ export default React.memo(
             let key = Object.keys(documentData.current)[0];
             let path;
             if (Array.isArray(documentData.current[key])) {
-              path = `${key}.0.data.${thisStage}`;
+              path = `${key}.0.data.${thisStage}StageSubmit`;
             } else {
-              path = `${key}.data.${thisStage}`;
+              path = `${key}.data.${thisStage}StageSubmit`;
             }
             objectPath.set(documentData.current, path, {
               [new Date()]: userInfo.username

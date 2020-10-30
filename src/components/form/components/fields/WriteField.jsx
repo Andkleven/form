@@ -32,19 +32,23 @@ import { dialog } from "components/Dialog";
 
 const cloneDeep = require("clone-deep");
 
-export default ({ setState, state, ...props }) => {
+export default ({ ...props }) => {
   const userInfo = JSON.parse(localStorage.getItem(USER));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   const [itemIdList, setItemIdList] = useState([Number(props.itemId)]);
   const [batching, setBatching] = useState(false);
   const [when, setWhen] = useState(false);
+  const [state, setState] = useState("");
   const {
     documentData,
     documentDataDispatch,
     screenshotData,
     save
   } = useContext(DocumentDataContext);
+  if (objectPath.get(documentData.current, props.path, "") !== state) {
+    setState(objectPath.get(documentData.current, props.path, ""));
+  }
 
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
