@@ -7,6 +7,8 @@ import DepthButton from "components/button/DepthButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { camelCaseToNormal } from "functions/general";
 import Loading from "components/Loading";
+import stages from "components/form/stage/stages.json";
+import objectPath from "object-path";
 
 const repairStages = [
   { stage: "steelPreparation1", label: "Steel Preparation 1" },
@@ -16,6 +18,14 @@ const repairStages = [
   { stage: "touchUp", label: "Touch Up" },
   { stage: "qualityControl", label: "Quality Control" }
 ];
+
+function hasItemStage(leadData, stage, packerOrCoating) {
+  return !!objectPath.get(
+    leadData,
+    stages[packerOrCoating][stage]["queryPath"],
+    false
+  );
+}
 
 export default ({ id, show, setShow, children }) => {
   const handleClick = (e, repairStage) => {
