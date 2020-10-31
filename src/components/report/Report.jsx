@@ -190,7 +190,7 @@ export const Report = ({ project, description, item }) => {
                         values={[
                           "ISO 8502-4",
                           leData.relativeHumidity
-                            ? `${leData.relativeHumidity}%`
+                            ? `Max ${leData.relativeHumidity}%`
                             : " ",
                           opData.relativeHumidity
                             ? `${opData.relativeHumidity}%`
@@ -207,7 +207,7 @@ export const Report = ({ project, description, item }) => {
                         values={[
                           "ISO 8502-4",
                           leData.airTemperature
-                            ? `${leData.airTemperature}°C`
+                            ? `Min ${leData.airTemperature}°C`
                             : " ",
                           opData.airTemperature
                             ? `${opData.airTemperature}°C`
@@ -224,7 +224,7 @@ export const Report = ({ project, description, item }) => {
                         values={[
                           "ISO 8502-4",
                           leData.steelTemperature
-                            ? `${leData.steelTemperature}°C`
+                            ? `Min ${leData.steelTemperature}°C`
                             : " ",
                           opData.steelTemperature
                             ? `${opData.steelTemperature}°C`
@@ -235,13 +235,26 @@ export const Report = ({ project, description, item }) => {
                         ]}
                       />
                     ) : null}
+                    {leData.dewPoint ? (
+                      <Entry
+                        label="Dew Point"
+                        values={[
+                          "ISO 8502-4, Dew Point Temperature",
+                          leData.dewPoint ? `Min ${leData.dewPoint}°C` : " ",
+                          opData.dewPoint ? `${opData.dewPoint}°C` : " ",
+                          opData.dewPointUserField
+                            ? opData.dewPointUserField
+                            : " "
+                        ]}
+                      />
+                    ) : null}
                     {leData.temperatureOverDewPoint ? (
                       <Entry
                         label="Temperature over Dew Point"
                         values={[
                           "ISO 8502-4, Difference between Steel Temperature and Dew Point Temperature",
                           leData.temperatureOverDewPoint
-                            ? `${leData.temperatureOverDewPoint}°C`
+                            ? `Min ${leData.temperatureOverDewPoint}°C`
                             : " ",
                           opData.temperatureOverDewPoint
                             ? `${opData.temperatureOverDewPoint}°C`
@@ -258,7 +271,7 @@ export const Report = ({ project, description, item }) => {
                         values={[
                           "ISO 8502-9",
                           leData.blastMediaConductivity
-                            ? `${leData.blastMediaConductivity}µS/cm`
+                            ? `Max ${leData.blastMediaConductivity}µS/cm`
                             : " ",
                           opData.blastMediaConductivity
                             ? `${opData.blastMediaConductivity}µS/cm`
@@ -275,13 +288,47 @@ export const Report = ({ project, description, item }) => {
                         values={[
                           "ISO 8502-5/9",
                           leData.solubleSaltLevel
-                            ? `${leData.solubleSaltLevel}mg/m²`
+                            ? `Min ${leData.solubleSaltLevel}mg/m²`
                             : " ",
                           opData.solubleSaltLevel
                             ? `${opData.solubleSaltLevel}mg/m²`
                             : " ",
                           opData.solubleSaltLevelUserField
                             ? opData.solubleSaltLevelUserField
+                            : " "
+                        ]}
+                      />
+                    ) : null}
+                    {leData.surfaceProfileMin ? (
+                      <Entry
+                        label="Surface Profile (Roughness) Min"
+                        values={[
+                          "ISO 8502-5/9",
+                          leData.surfaceProfileMin
+                            ? `Min ${leData.surfaceProfileMin}Rz`
+                            : " ",
+                          opData.surfaceProfileMin
+                            ? `${opData.surfaceProfileMin}Rz`
+                            : " ",
+                          opData.surfaceProfileMinUserField
+                            ? opData.surfaceProfileMinUserField
+                            : " "
+                        ]}
+                      />
+                    ) : null}
+                    {leData.surfaceProfileMax ? (
+                      <Entry
+                        label="Surface Profile (Roughness) Max"
+                        values={[
+                          "ISO 8502-5/9",
+                          leData.surfaceProfileMax
+                            ? `Max ${leData.surfaceProfileMax}Rz`
+                            : " ",
+                          opData.surfaceProfileMax
+                            ? `${opData.surfaceProfileMax}Rz`
+                            : " ",
+                          opData.surfaceProfileMaxUserField
+                            ? opData.surfaceProfileMaxUserField
                             : " "
                         ]}
                       />
