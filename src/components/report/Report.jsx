@@ -1,23 +1,19 @@
 import React from "react";
+import query from "graphql/query";
+import { useQuery } from "react-apollo";
+import { objectifyQuery } from "functions/general";
 import {
   Page,
   Text,
   View,
   Document,
-  // StyleSheet,
   Font,
   PDFViewer,
   PDFDownloadLink
-  // BlobProvider,
-  // Canvas,
-  // pdf
 } from "@react-pdf/renderer";
 import { Button } from "react-bootstrap";
-import query from "graphql/query";
-import { useQuery } from "react-apollo";
 import Loading from "components/Loading";
 import moment from "moment";
-import { objectifyQuery } from "functions/general";
 
 /**
  * For development, set the line...
@@ -76,15 +72,6 @@ export const Report = ({ project, description, item }) => {
 
   // console.log("Data:", JSON.stringify(i));
 
-  // console.log("Item", i);
-  // console.log("leData", leData);
-  // console.log("opData", opData);
-  // console.log("qcData", qcData);
-  // console.log("le", le);
-  // console.log("op", op);
-  // console.log("qc", qc);
-
-  // const qc =
   if (readyForRender(project, description, item)) {
     try {
       return (
@@ -117,10 +104,10 @@ export const Report = ({ project, description, item }) => {
                   <Entry label="Project Name" values={p.projectName} />
                   <Entry label="Project Number" values={p.projectNumber} />
                   <Entry label="Client" values={p.client} />
-                  <Entry
+                  {/* <Entry
                     label="ITP Document Number"
                     values={p.itpDocumentNumber}
-                  />
+                  /> */}
                   {/* <Entry label="Project Manager" values={p.projectManager} /> */}
                   {/* <Entry label="Supervisor" values={p.supervisor} /> */}
                   {/* <Entry label="Lead Engineer" values={p.leadEngineer} /> */}
@@ -134,6 +121,24 @@ export const Report = ({ project, description, item }) => {
                     label="Description"
                     values={d.descriptionNameMaterialNo}
                   />
+                  {description &&
+                    description.specifications &&
+                    description.specifications.map((spec, specIndex) => {
+                      if (
+                        spec.data.specificationTitle &&
+                        spec.data.specificationValue
+                      ) {
+                        return (
+                          <Entry
+                            key={`additional-info-${specIndex}`}
+                            label={spec.data.specificationTitle}
+                            values={spec.data.specificationValue}
+                          />
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
                   {/* <Entry label="IFS Activity Codes" values={d.ifsActivityCodes} /> */}
                   {/* <Entry label="CPS" values={d.CPS} /> */}
                 </Col>
@@ -191,6 +196,8 @@ export const Report = ({ project, description, item }) => {
                             ? `${opData.relativeHumidity}%`
                             : " ",
                           opData.relativeHumidityUserField
+                            ? opData.relativeHumidityUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -206,6 +213,8 @@ export const Report = ({ project, description, item }) => {
                             ? `${opData.airTemperature}°C`
                             : " ",
                           opData.airTemperatureUserField
+                            ? opData.airTemperatureUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -221,6 +230,8 @@ export const Report = ({ project, description, item }) => {
                             ? `${opData.steelTemperature}°C`
                             : " ",
                           opData.steelTemperatureUserField
+                            ? opData.steelTemperatureUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -236,6 +247,8 @@ export const Report = ({ project, description, item }) => {
                             ? `${opData.temperatureOverDewPoint}°C`
                             : " ",
                           opData.temperatureOverDewPointUserField
+                            ? opData.temperatureOverDewPointUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -251,6 +264,8 @@ export const Report = ({ project, description, item }) => {
                             ? `${opData.blastMediaConductivity}µS/cm`
                             : " ",
                           opData.blastMediaConductivityUserField
+                            ? opData.blastMediaConductivityUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -266,6 +281,8 @@ export const Report = ({ project, description, item }) => {
                             ? `${opData.solubleSaltLevel}mg/m²`
                             : " ",
                           opData.solubleSaltLevelUserField
+                            ? opData.solubleSaltLevelUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -277,6 +294,8 @@ export const Report = ({ project, description, item }) => {
                           `Max ${leData.dustTest}`,
                           opData.dustTest,
                           opData.dustTestUserField
+                            ? opData.dustTestUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -292,6 +311,8 @@ export const Report = ({ project, description, item }) => {
                               : "Failed"
                             : " ",
                           opData.inspectionOfSteelSurfaceUserField
+                            ? opData.inspectionOfSteelSurfaceUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -307,6 +328,8 @@ export const Report = ({ project, description, item }) => {
                               : "Failed"
                             : " ",
                           opData.compressedAirCheckUserField
+                            ? opData.compressedAirCheckUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -318,6 +341,8 @@ export const Report = ({ project, description, item }) => {
                           "Min. Sa 2,5 (Rust grade A or B)",
                           opData.surfaceCleanliness,
                           opData.surfaceCleanlinessUserField
+                            ? opData.surfaceCleanlinessUserField
+                            : " "
                         ]}
                       />
                     ) : null}
@@ -332,7 +357,7 @@ export const Report = ({ project, description, item }) => {
                               ? "Passed"
                               : "Failed"
                             : " ",
-                          opData.uvTestUserField
+                          opData.uvTestUserField ? opData.uvTestUserField : " "
                         ]}
                       />
                     ) : null}
@@ -365,139 +390,164 @@ export const Report = ({ project, description, item }) => {
                 </Row>
               </View>
             )}
+
             <View wrap={false}>
               <Row style={{ marginBottom: 10 }}>
-                {leData && leData.primer1 && (
+                {!!leData && !!leData.primer1 && (
                   <Col style={{ marginRight: 7 }}>
                     <P>Primer 1</P>
                     <Line />
                     <Entry label="Compound No." values={leData.primer1} />
-                    {opData && (
-                      <>
-                        <Entry
-                          label="Batch Number"
-                          values={opData.batchNumberPriming1}
-                        />
-                        <Entry
-                          label="Start Time"
-                          values={time(opData.startTimePriming1)}
-                        />
-                        <Entry
-                          label="Stop Time"
-                          values={time(opData.stopTimePriming1)}
-                        />
-                        <EmployeeEntry
-                          employees={[
-                            opData.batchNumberPriming1UserField,
-                            opData.startTimePriming1UserField,
-                            opData.stopTimePriming1UserField
-                          ]}
-                          uniqueKeyBase="priming1"
-                        />
-                      </>
-                    )}
-                    {/* TODO: Add Primer 1 entries */}
+                    {!!opData &&
+                      !!opData.batchNumberPriming1 &&
+                      !!time(opData.startTimePriming1) &&
+                      !!time(opData.stopTimePriming1) &&
+                      !!opData.batchNumberPriming1UserField &&
+                      !!opData.startTimePriming1UserField &&
+                      !!opData.stopTimePriming1UserField && (
+                        <>
+                          <Entry
+                            label="Batch Number"
+                            values={opData.batchNumberPriming1}
+                          />
+                          <Entry
+                            label="Start Time"
+                            values={time(opData.startTimePriming1)}
+                          />
+                          <Entry
+                            label="Stop Time"
+                            values={time(opData.stopTimePriming1)}
+                          />
+                          <EmployeeEntry
+                            employees={[
+                              opData.batchNumberPriming1UserField,
+                              opData.startTimePriming1UserField,
+                              opData.stopTimePriming1UserField
+                            ]}
+                            uniqueKeyBase="priming1"
+                          />
+                        </>
+                      )}
                   </Col>
                 )}
-                {leData && leData.primer2 && (
+                {!!leData && !!leData.primer2 && (
                   <Col style={{ marginRight: 7 }}>
                     <P>Primer 2</P>
                     <Line />
                     <Entry label="Compound No." values={leData.primer2} />
-                    {opData && (
-                      <>
-                        <Entry
-                          label="Batch Number"
-                          values={opData.batchNumberPriming2}
-                        />
-                        <Entry
-                          label="Start Time"
-                          values={time(opData.startTimePriming2)}
-                        />
-                        <Entry
-                          label="Stop Time"
-                          values={time(opData.stopTimePriming2)}
-                        />
-                        <EmployeeEntry
-                          employees={[
-                            opData.batchNumberPriming2UserField,
-                            opData.startTimePriming2UserField,
-                            opData.stopTimePriming2UserField
-                          ]}
-                          uniqueKeyBase="priming2"
-                        />
-                      </>
-                    )}
-                    {/* TODO: Add Primer 2 entries */}
+                    {!!opData &&
+                      !!opData.batchNumberPriming2 &&
+                      !!time(opData.startTimePriming2) &&
+                      !!time(opData.stopTimePriming2) &&
+                      !!opData.batchNumberPriming2UserField &&
+                      !!opData.startTimePriming2UserField &&
+                      !!opData.stopTimePriming2UserField && (
+                        <Col>
+                          <Entry
+                            label="Batch Number"
+                            values={opData.batchNumberPriming2}
+                          />
+                          <Entry
+                            label="Start Time"
+                            values={time(opData.startTimePriming2)}
+                          />
+                          <Entry
+                            label="Stop Time"
+                            values={time(opData.stopTimePriming2)}
+                          />
+                          <EmployeeEntry
+                            employees={[
+                              opData.batchNumberPriming2UserField,
+                              opData.startTimePriming2UserField,
+                              opData.stopTimePriming2UserField
+                            ]}
+                            uniqueKeyBase="priming2"
+                          />
+                        </Col>
+                      )}
                   </Col>
                 )}
-                {leData && opData && (
-                  <>
-                    {leData.releaseCementsBeforeCoating && (
-                      <Col style={{ marginRight: 7 }}>
-                        <P>Release Cement Before Coating</P>
-                        <Line />
-                        <Entry
-                          label="Release Cement"
-                          values={leData.releaseCementsBeforeCoating}
-                        />
-                        <Entry
-                          label="Mix Date"
-                          values={date(
-                            opData.rubberCementsBeforeCoatingMixDate
-                          )}
-                        />
-                        <Entry
-                          label="Start Time"
-                          values={time(opData.startTimeRubberCement)}
-                        />
-                        <Entry
-                          label="Stop Time"
-                          values={time(opData.stopTimeRubberCement)}
-                        />
-                        <EmployeeEntry
-                          employees={[
-                            opData.rubberCementsBeforeCoatingMixDateUserField,
-                            opData.startTimeRubberCementUserField,
-                            opData.stopTimeRubberCementUserField
-                          ]}
-                        />
-                        {/* TODO: Add Rubber Cement Before Coating entries */}
-                      </Col>
-                    )}
-                    {leData.itemRubberCementsBeforeCoating && (
-                      <Col style={{ marginRight: 7 }}>
-                        <P>Rubber Cement Before Coating</P>
-                        <Line />
-                        <Entry
-                          label="Rubber Cement"
-                          values={leData.itemRubberCementsBeforeCoating}
-                        />
-                        <Entry
-                          label="Mix Date"
-                          values={date(
-                            opData.itemRubberCementsBeforeCoatingMixDate
-                          )}
-                        />
-                        <Entry
-                          label="Start Time"
-                          values={time(opData.startTimeItemRubberCement)}
-                        />
-                        <Entry
-                          label="Stop Time"
-                          values={time(opData.stopTimeItemRubberCement)}
-                        />
-                        <EmployeeEntry
-                          employees={[
-                            opData.itemRubberCementsBeforeCoatingMixDateUserField,
-                            opData.startTimeItemRubberCementUserField,
-                            opData.stopTimeItemRubberCementUserField
-                          ]}
-                        />
-                        {/* TODO: Add Rubber Cement Before Coating entries */}
-                      </Col>
-                    )}
-                  </>
+                {!!leData && !!leData.releaseCementsBeforeCoating && (
+                  <Col style={{ marginRight: 7 }}>
+                    <P>Release Cement Before Coating</P>
+                    <Line />
+                    <Entry
+                      label="Release Cement"
+                      values={leData.releaseCementsBeforeCoating}
+                    />
+                    {!!opData &&
+                      !!date(opData.rubberCementsBeforeCoatingMixDate) &&
+                      !!time(opData.startTimeRubberCement) &&
+                      !!time(opData.stopTimeRubberCement) &&
+                      !!opData.rubberCementsBeforeCoatingMixDateUserField &&
+                      !!opData.startTimeRubberCementUserField &&
+                      !!opData.stopTimeRubberCementUserField && (
+                        <>
+                          <Entry
+                            label="Mix Date"
+                            values={date(
+                              opData.rubberCementsBeforeCoatingMixDate
+                            )}
+                          />
+                          <Entry
+                            label="Start Time"
+                            values={time(opData.startTimeRubberCement)}
+                          />
+                          <Entry
+                            label="Stop Time"
+                            values={time(opData.stopTimeRubberCement)}
+                          />
+                          <EmployeeEntry
+                            employees={[
+                              opData.rubberCementsBeforeCoatingMixDateUserField,
+                              opData.startTimeRubberCementUserField,
+                              opData.stopTimeRubberCementUserField
+                            ]}
+                          />
+                        </>
+                      )}
+                  </Col>
+                )}
+                {!!leData && !!leData.itemRubberCementsBeforeCoating && (
+                  <Col style={{ marginRight: 7 }}>
+                    <P>Rubber Cement Before Coating</P>
+                    <Line />
+                    <Entry
+                      label="Rubber Cement"
+                      values={leData.itemRubberCementsBeforeCoating}
+                    />
+                    {!!opData &&
+                      !!date(opData.itemRubberCementsBeforeCoatingMixDate) &&
+                      !!time(opData.startTimeItemRubberCement) &&
+                      !!time(opData.stopTimeItemRubberCement) &&
+                      !!opData.itemRubberCementsBeforeCoatingMixDateUserField &&
+                      !!opData.startTimeItemRubberCementUserField &&
+                      !!opData.stopTimeItemRubberCementUserField && (
+                        <>
+                          <Entry
+                            label="Mix Date"
+                            values={date(
+                              opData.itemRubberCementsBeforeCoatingMixDate
+                            )}
+                          />
+                          <Entry
+                            label="Start Time"
+                            values={time(opData.startTimeItemRubberCement)}
+                          />
+                          <Entry
+                            label="Stop Time"
+                            values={time(opData.stopTimeItemRubberCement)}
+                          />
+                          <EmployeeEntry
+                            employees={[
+                              opData.itemRubberCementsBeforeCoatingMixDateUserField,
+                              opData.startTimeItemRubberCementUserField,
+                              opData.stopTimeItemRubberCementUserField
+                            ]}
+                          />
+                        </>
+                      )}
+                  </Col>
                 )}
               </Row>
             </View>
@@ -565,50 +615,56 @@ export const Report = ({ project, description, item }) => {
                 <Col style={{ width: "34.25%" }}>
                   {/* TODO: Add conditional visibility */}
                   {/* TODO: Conditional name */}
-                  <Entry
-                    label="Rubber Cement"
-                    values={["Mix Date"]}
-                    flippedMargin
-                  />
-                  <Line />
-                  {/* TODO: Add entries */}
-                  {/* rubberCementOperators */}
                   {op &&
-                    op.rubberCementOperators.map(
-                      (opRubberCement, rubberCementIndex) => {
-                        // const rData = opRubberCement.data;
-                        return (
-                          <Row key={`rubber-cement-${rubberCementIndex}`}>
-                            <Col>
-                              <P style={{ marginBottom: 4 }}>
-                                {
-                                  le.rubberCements[rubberCementIndex]
-                                    .rubberCement
-                                }
-                              </P>
-                            </Col>
-                            <Col>
-                              {opRubberCement &&
-                                opRubberCement.mixDates &&
-                                opRubberCement.mixDates.map(
-                                  (mixDate, mixDateIndex) => {
-                                    return (
-                                      <P
-                                        key={`rubber-cement-${rubberCementIndex}-${mixDateIndex}`}
-                                        style={{
-                                          marginBottom: 4,
-                                          marginLeft: 3.5
-                                        }}
-                                      >
-                                        {date(mixDate.data.mixDate)}
-                                      </P>
-                                    );
-                                  }
-                                )}
-                            </Col>
-                          </Row>
-                        );
-                      }
+                    op.rubberCementOperators &&
+                    op.rubberCementOperators.length > 0 && (
+                      <>
+                        <Entry
+                          label="Rubber Cement"
+                          values={["Mix Date"]}
+                          flippedMargin
+                        />
+                        <Line />
+                        {/* TODO: Add entries */}
+                        {/* rubberCementOperators */}
+                        {op &&
+                          op.rubberCementOperators.map(
+                            (opRubberCement, rubberCementIndex) => {
+                              // const rData = opRubberCement.data;
+                              return (
+                                <Row key={`rubber-cement-${rubberCementIndex}`}>
+                                  <Col>
+                                    <P style={{ marginBottom: 4 }}>
+                                      {
+                                        le.rubberCements[rubberCementIndex]
+                                          .rubberCement
+                                      }
+                                    </P>
+                                  </Col>
+                                  <Col>
+                                    {opRubberCement &&
+                                      opRubberCement.mixDates &&
+                                      opRubberCement.mixDates.map(
+                                        (mixDate, mixDateIndex) => {
+                                          return (
+                                            <P
+                                              key={`rubber-cement-${rubberCementIndex}-${mixDateIndex}`}
+                                              style={{
+                                                marginBottom: 4,
+                                                marginLeft: 3.5
+                                              }}
+                                            >
+                                              {date(mixDate.data.mixDate)}
+                                            </P>
+                                          );
+                                        }
+                                      )}
+                                  </Col>
+                                </Row>
+                              );
+                            }
+                          )}
+                      </>
                     )}
 
                   {/* TODO: Add conditional visibility */}
@@ -674,7 +730,7 @@ export const Report = ({ project, description, item }) => {
                   fontStyle="italic"
                   values={["Standard", "Criteria", "Result", "Employee"]}
                 />
-                {qcData.totalOd &&
+                {/* {qcData.totalOd &&
                   typeof qcData.totalOd === "boolean" &&
                   qcData.totalOdUserField && (
                     <Entry
@@ -686,14 +742,14 @@ export const Report = ({ project, description, item }) => {
                         qcData.totalOdUserField
                       ]}
                     />
-                  )}
+                  )} */}
                 {qcData.visualInspection &&
                   typeof qcData.visualInspection === "boolean" &&
                   qcData.visualInspectionUserField && (
                     <Entry
                       label="Visual Inspection"
                       values={[
-                        "APS Repair Procedure",
+                        "ITP",
                         "Free from defects. Cosmetic defects may be accepted",
                         qcData.visualInspection ? "Passed" : "Failed",
                         qcData.visualInspectionUserField
@@ -706,7 +762,7 @@ export const Report = ({ project, description, item }) => {
                     <Entry
                       label="Simplified Final Dimensions Check"
                       values={[
-                        "APS",
+                        "ITP",
                         " ",
                         qcData.simpleFinalDimensionsCheck ? "Passed" : "Failed",
                         qcData.simpleFinalDimensionsCheckUserField
@@ -719,7 +775,7 @@ export const Report = ({ project, description, item }) => {
                     <Entry
                       label="Spark Test"
                       values={[
-                        "TR 2028",
+                        "ITP",
                         "No Holidays",
                         qcData.sparkTest ? "Passed" : "Failed",
                         qcData.sparkTestUserField
@@ -732,7 +788,7 @@ export const Report = ({ project, description, item }) => {
                     <Entry
                       label="Hammer Test"
                       values={[
-                        "TR 2028",
+                        "ITP",
                         "No change in audible pitch",
                         qcData.hammerTest ? "Passed" : "Failed",
                         qcData.hammerTestUserField
@@ -835,7 +891,7 @@ export const Report = ({ project, description, item }) => {
                   le.finalInspectionDimensionsChecks &&
                   qc.measurementPointQualityControls && (
                     <>
-                      <P style={{ paddingTop: 5 }}>Final Dimensions Check</P>
+                      <P style={{ paddingTop: 5 }}>Final Measurements</P>
                       <Line />
                       <Entry
                         fontStyle="italic"

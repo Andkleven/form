@@ -470,6 +470,7 @@ export default ({
               {project.descriptions &&
                 project.leadEngineerDone &&
                 project.descriptions.map((description, indexDescription) => {
+                  console.log(description.data.geometry);
                   return (
                     <Tree
                       iconSize={iconSize}
@@ -621,6 +622,11 @@ export default ({
                                       project={project}
                                       description={description}
                                       item={item}
+                                      disabled={
+                                        !["Coated Item", "Mould"].includes(
+                                          description.data.geometry
+                                        )
+                                      }
                                     >
                                       <FontAwesomeIcon
                                         icon={["fas", "file-download"]}
@@ -628,7 +634,7 @@ export default ({
                                       ></FontAwesomeIcon>
                                       Report
                                     </ReportButton>
-                                    <Button
+                                    {/* <Button
                                       size="sm"
                                       variant="danger"
                                       className="m-1"
@@ -640,7 +646,7 @@ export default ({
                                       <FontAwesomeIcon
                                         icon={["fas", "trash-alt"]}
                                       ></FontAwesomeIcon>
-                                    </Button>
+                                    </Button> */}
                                     {/* </ButtonGroup> */}
                                   </div>
                                 </div>
