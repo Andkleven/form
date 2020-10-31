@@ -127,7 +127,6 @@ export default ({
         </div>
         {subtext && <Form.Text className="text-muted">{subtext}</Form.Text>}
       </Form.Group>
-      {type}
     </>
   );
 };

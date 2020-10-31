@@ -470,7 +470,6 @@ export default ({
               {project.descriptions &&
                 project.leadEngineerDone &&
                 project.descriptions.map((description, indexDescription) => {
-                  console.log(description.data.geometry);
                   return (
                     <Tree
                       iconSize={iconSize}
