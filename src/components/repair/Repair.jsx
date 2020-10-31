@@ -70,7 +70,10 @@ export default ({ id, show, setShow, children }) => {
       packerOrCoating &&
       itemHasStage(leadData, stage, packerOrCoating)
     ) {
-      repairStages.push({ stage, label: camelCaseToNormal(stage) });
+      repairStages.push({
+        stage,
+        label: stages[packerOrCoating][stage].label || camelCaseToNormal(stage)
+      });
     }
   });
 
