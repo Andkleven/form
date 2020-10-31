@@ -21,14 +21,15 @@ export const DialogModal = ({
   setShow = () => {},
   block = false,
   setBlock = () => {},
-  setConfirmed = () => {}
+  setConfirmed = () => {},
+  closeName = "Abort"
 }) => {
   // Prompt if user tries to close window
   blockExit(block);
 
   // Regular modal dialog
   return (
-    <Modal show={show} onHide={() => {}}>
+    <Modal show={show} onHide={() => {}} centered>
       {title && (
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
@@ -60,7 +61,7 @@ export const DialogModal = ({
           onClick={() => setShow(false)}
           className="w-100"
         >
-          Abort
+          {closeName}
         </Button>
       </Modal.Footer>
     </Modal>

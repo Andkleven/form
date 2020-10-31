@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import moment from "moment";
+import { dialog } from "components/Dialog";
+
 // import BatchButton from "components/button/BatchButton";
 // import Duplicate from "../widgets/Duplicate";
 export default ({
@@ -37,13 +39,21 @@ export default ({
   switch (type) {
     case "date":
       value = value && moment(value).format(moment.HTML5_FMT.DATE);
-      min = min && `${min[6]}${min[7]}${min[8]}${min[9]}-${min[3]}${min[4]}-${min[0]}${min[1]}`
-      max = max && `${max[6]}${max[7]}${max[8]}${max[9]}-${max[3]}${max[4]}-${max[0]}${max[1]}`
+      min =
+        min &&
+        `${min[6]}${min[7]}${min[8]}${min[9]}-${min[3]}${min[4]}-${min[0]}${min[1]}`;
+      max =
+        max &&
+        `${max[6]}${max[7]}${max[8]}${max[9]}-${max[3]}${max[4]}-${max[0]}${max[1]}`;
       break;
     case "datetime-local":
       value = value && moment(value).format(moment.HTML5_FMT.DATETIME_LOCAL);
-      min = min && `${min[6]}${min[7]}${min[8]}${min[9]}-${min[3]}${min[4]}-${min[0]}${min[1]}T${min[11]}${min[12]}:${min[14]}${min[15]}`
-      max = max && `${max[6]}${max[7]}${max[8]}${max[9]}-${max[3]}${max[4]}-${max[0]}${max[1]}T${max[11]}${max[12]}:${max[14]}${max[15]}`
+      min =
+        min &&
+        `${min[6]}${min[7]}${min[8]}${min[9]}-${min[3]}${min[4]}-${min[0]}${min[1]}T${min[11]}${min[12]}:${min[14]}${min[15]}`;
+      max =
+        max &&
+        `${max[6]}${max[7]}${max[8]}${max[9]}-${max[3]}${max[4]}-${max[0]}${max[1]}T${max[11]}${max[12]}:${max[14]}${max[15]}`;
       break;
     default:
       break;
@@ -82,7 +92,26 @@ export default ({
               max={props.ignoreMax ? undefined : max}
               step="any"
               placeholder={placeholder}
-              onKeyPress={onKeyPress}
+              onKeyPress={e => {
+                onKeyPress(e);
+                if ([","].includes(e.key) && type === "number") {
+                  dialog({
+                    message: (
+                      <div className="text-center">
+                        <div>
+                          Strict number inputs only accepts <b>periods</b> as
+                          decimal points.
+                        </div>
+                        <div>
+                          You can recognize them by their up- and down-ticks.
+                        </div>
+                      </div>
+                    ),
+
+                    closeName: "Understood"
+                  });
+                }
+              }}
             ></Form.Control>
             {(unit || append) && (
               <InputGroup.Append>
@@ -99,6 +128,7 @@ export default ({
         </div>
         {subtext && <Form.Text className="text-muted">{subtext}</Form.Text>}
       </Form.Group>
+      {type}
     </>
   );
 };
