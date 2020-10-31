@@ -5,9 +5,16 @@ import { Modal } from "react-bootstrap";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import DepthButton from "components/button/DepthButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { camelCaseToNormal, objectifyQuery } from "functions/general";
+import {
+  camelCaseToNormal,
+  objectifyQuery,
+  findValue
+} from "functions/general";
 import Loading from "components/Loading";
+import operatorJson from "templates/operator";
+import qualityControlJson from "templates/qualityControl";
 import stages from "components/form/stage/stages.json";
+import findNextStage from "components/form/stage/findNextStage.ts";
 import objectPath from "object-path";
 import { useParams } from "react-router-dom";
 import gql from "graphql-tag";
@@ -23,9 +30,26 @@ import gql from "graphql-tag";
 
 function itemHasStage(leadData, stage, packerOrCoating) {
   if (!!stages[packerOrCoating][stage]) {
-    return !!objectPath.get(
+    let stageInfo = stages[packerOrCoating][stage];
+    console.log(stage);
+    if (stageInfo.queryPath === "") {
+      return true;
+    }
+    let repeatStepList = [];
+    if (stage.includes("Step")) {
+      let stepLayer = stage.split("Step")[1];
+      if (stage.includes("Layer")) {
+        repeatStepList.push(Number(stepLayer.split("Layer")[0]));
+        repeatStepList.push(Number(stepLayer.split("Layer")[1]));
+      } else {
+        repeatStepList.push(Number(stepLayer));
+      }
+    }
+    return !!findValue(
       leadData,
-      stages[packerOrCoating][stage].queryPath,
+      stageInfo.queryPath,
+      repeatStepList,
+      stageInfo.editIndexList,
       false
     );
   }
@@ -37,8 +61,44 @@ const queries = {
     query($id: Int) {
       items(id: $id) {
         id
+        stage
         leadEngineer {
           id
+          data
+          measurementPointActualTdvs {
+            id
+            data
+          }
+          rubberCements {
+            id
+            data
+          }
+          ringMaterials {
+            id
+            data
+          }
+          additionalCustomTests {
+            id
+            data
+          }
+          finalInspectionCustomTests {
+            id
+            data
+          }
+          finalInspectionDimensionsChecks {
+            id
+            data
+          }
+          vulcanizationSteps {
+            id
+            data
+            coatingLayers {
+              id
+              data
+            }
+          }
+        }
+        description {
           data
         }
       }
@@ -58,21 +118,25 @@ export default ({ id, show, setShow, children }) => {
   console.log(objectifyQuery(itemQuery.data));
 
   const itemData = objectifyQuery(itemQuery.data);
-  const leadData = itemData && objectifyQuery(itemData).items[0].leadEngineer;
-  const packerOrCoating = "coating";
-
+  const leadData = itemData && itemData.items[0];
+  const geometry = itemData && itemData.items[0].description.data.geometry;
   const repairStages = [];
-
-  stages.all.forEach(stage => {
-    if (
-      leadData &&
-      stage &&
-      packerOrCoating &&
-      itemHasStage(leadData, stage, packerOrCoating)
-    ) {
-      repairStages.push({ stage, label: camelCaseToNormal(stage) });
+  let i = 0;
+  let stage = "start";
+  while (stage !== "done" && i < 50 && leadData) {
+    stage = findNextStage(leadData, stage, geometry, {
+      ...operatorJson.chapters,
+      ...qualityControlJson.chapters
+    }).stage;
+    if (leadData.stage === stage) {
+      break;
     }
-  });
+    if (stage === "done") {
+      break;
+    }
+    repairStages.push({ stage, label: camelCaseToNormal(stage) });
+    i++;
+  }
 
   const handleClick = (e, repairStage) => {
     e.preventDefault();
