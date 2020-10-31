@@ -107,7 +107,6 @@ export default ({
                         </div>
                       </div>
                     ),
-
                     closeName: "Understood"
                   });
                 }
