@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   camelCaseToNormal,
   objectifyQuery,
-  findValue
+  findValue,
+  getProductionLine
 } from "functions/general";
 import Loading from "components/Loading";
 import operatorJson from "templates/operator";
@@ -120,6 +121,7 @@ export default ({ id, show, setShow, children }) => {
   const itemData = objectifyQuery(itemQuery.data);
   const leadData = itemData && itemData.items[0];
   const geometry = itemData && itemData.items[0].description.data.geometry;
+  let packerOrCoating = itemData && getProductionLine(geometry);
   const repairStages = [];
   let i = 0;
   let stage = "start";
@@ -134,7 +136,10 @@ export default ({ id, show, setShow, children }) => {
     if (stage === "done") {
       break;
     }
-    repairStages.push({ stage, label: camelCaseToNormal(stage) });
+    repairStages.push({
+      stage,
+      label: stages[packerOrCoating][stage].label || camelCaseToNormal(stage)
+    });
     i++;
   }
 
