@@ -138,7 +138,10 @@ export default ({ id, show, setShow, children }) => {
     }
     repairStages.push({
       stage,
-      label: stages[packerOrCoating][stage].label || camelCaseToNormal(stage)
+      label:
+        (stages[packerOrCoating][stage] &&
+          stages[packerOrCoating][stage].label) ||
+        camelCaseToNormal(stage)
     });
     i++;
   }
