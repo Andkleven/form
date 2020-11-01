@@ -128,7 +128,6 @@ export default ({
                   typeof type === "string" &&
                   type.toLowerCase() === "number"
                 ) {
-                  console.log("Comma");
                   dialog({
                     message: (
                       <div className="text-center">

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import ReportViewer, {
   ReportDownload,
+  ReportsDownload,
   ReportsViewer
 } from "components/report/Report";
 import { isMobile } from "react-device-detect";
@@ -38,9 +39,22 @@ export const ReportButton = ({ project, description, item, ...props }) => {
         // style={{ maxHeight: "100vh" }}
         >
           {isMobile ? (
-            <div className="text-secondary">
-              Preview not yet available on mobile.
-            </div>
+            <>
+              {/* <div className="text-secondary text-center mb-3">
+                Preview not yet available on mobile.
+              </div> */}
+              <ReportDownload
+                variant="success"
+                className="w-100"
+                onClick={() => null}
+                disabled
+                project={project}
+                description={description}
+                item={item}
+              >
+                Download
+              </ReportDownload>
+            </>
           ) : (
             <ReportViewer
               project={project}
@@ -51,18 +65,6 @@ export const ReportButton = ({ project, description, item, ...props }) => {
         </Modal.Body>
         <Modal.Footer>
           <div className="d-flex w-100">
-            <ReportDownload
-              variant="success"
-              className="w-100"
-              onClick={() => null}
-              disabled
-              project={project}
-              description={description}
-              item={item}
-            >
-              Download
-            </ReportDownload>
-            <div className="ml-2"></div>
             <Button variant="secondary" className="w-100" onClick={handleClose}>
               Close
             </Button>
@@ -151,27 +153,27 @@ export const ReportsButton = ({ project, done, ...props }) => {
         // style={{ maxHeight: "100vh" }}
         >
           {isMobile ? (
-            <div className="text-secondary">
-              Preview not yet available on mobile.
-            </div>
+            <>
+              {/* <div className="text-secondary text-center mb-3">
+                Preview not yet available on mobile.
+              </div> */}
+              <ReportsDownload
+                variant="success"
+                className="w-100"
+                onClick={() => null}
+                disabled
+                project={project}
+                filter={filter}
+              >
+                Download
+              </ReportsDownload>
+            </>
           ) : (
             <ReportsViewer project={project} filter={filter} />
           )}
         </Modal.Body>
         <Modal.Footer>
           <div className="d-flex w-100">
-            {/* <ReportDownload
-              variant="success"
-              className="w-100"
-              onClick={() => null}
-              disabled
-              project={project}
-              description={description}
-              item={item}
-            >
-              Download
-            </ReportDownload> */}
-            {/* <div className="ml-2"></div> */}
             <Button variant="secondary" className="w-100" onClick={handleClose}>
               Close
             </Button>

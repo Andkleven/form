@@ -1147,13 +1147,27 @@ const Content = ({ project, description, item }) => {
   return null;
 };
 
-export const ReportDownload = ({ project, description, item, ...props }) => {
-  try {
-    return (
-      readyForRender(project, description, item) && (
+export const ReportsDownload = ({ project, filter = "", ...props }) => {
+  const id = project.id;
+
+  let { loading: dataLoading, error: dataError, data } = useQuery(
+    query["REPORTS"],
+    {
+      variables: {
+        id
+      }
+    }
+  );
+
+  if (!!data && !!project) {
+    try {
+      return (
         <PDFDownloadLink
           document={
-            <Report project={project} description={description} item={item} />
+            <Reports
+              project={objectifyQuery(data.projects[0])}
+              filter={filter}
+            />
           }
           {...props}
         >
@@ -1164,16 +1178,74 @@ export const ReportDownload = ({ project, description, item, ...props }) => {
                 className="w-100"
                 disabled={loading || error}
               >
-                {loading ? "Loading..." : error ? "Error!" : props.children}
+                {dataLoading || loading
+                  ? "Loading..."
+                  : dataError || error
+                  ? "Error!"
+                  : props.children}
               </Button>
             );
           }}
         </PDFDownloadLink>
-      )
-    );
-  } catch (e) {
-    console.log(e);
+      );
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
   }
+
+  return null;
+};
+
+export const ReportDownload = ({ project, description, item, ...props }) => {
+  const id = project.id;
+
+  let { loading: dataLoading, error: dataError, data } = useQuery(
+    query["REPORT"],
+    {
+      variables: {
+        id
+      }
+    }
+  );
+
+  if (!!data) {
+    item = data["items"][0];
+
+    try {
+      return (
+        readyForRender(project, description, item) && (
+          <PDFDownloadLink
+            document={
+              <Report project={project} description={description} item={item} />
+            }
+            {...props}
+          >
+            {({ blob, url, loading, error }) => {
+              return (
+                <Button
+                  variant={"success"}
+                  className="w-100"
+                  disabled={loading || error}
+                >
+                  {dataLoading || loading
+                    ? "Loading..."
+                    : dataError || error
+                    ? "Error!"
+                    : props.children}
+                </Button>
+              );
+            }}
+          </PDFDownloadLink>
+        )
+      );
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  return null;
 };
 
 export const ReportsViewer = ({ project, filter = "", ...props }) => {

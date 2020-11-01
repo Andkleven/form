@@ -16,8 +16,6 @@ export default () => {
 
   const params = useParams();
 
-  console.log(params);
-
   const id = params.projectId;
 
   const [fixedData, setFixedData] = useState("");
@@ -30,8 +28,6 @@ export default () => {
     setFixedData(objectifyQuery(data));
   }, [id, loading, error, data]);
 
-  console.log(fixedData);
-
   const descriptionIndex =
     fixedData &&
     fixedData.projects &&
@@ -39,8 +35,6 @@ export default () => {
     fixedData.projects[0].descriptions.findIndex(
       e => String(e.id) === String(params.descriptionId)
     );
-
-  console.log(params);
 
   const Items = () => {
     if (
