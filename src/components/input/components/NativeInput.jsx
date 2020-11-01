@@ -76,7 +76,11 @@ export default ({
             <Form.Control
               isValid={isValid}
               isInvalid={isInvalid}
-              id={`custom-${type.toLowerCase()}-${label}-${repeatStepList}`}
+              id={`custom-${
+                type
+                  ? typeof type === "string" && type.toLowerCase()
+                  : "no-type"
+              }-${label}-${repeatStepList}`}
               name={name}
               required={required}
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
@@ -84,21 +88,46 @@ export default ({
               value={value}
               onChange={onChangeInput}
               onBlur={onBlur}
-              type={type.toLowerCase() !== "comment" ? type : ""}
-              as={type.toLowerCase() === "comment" ? "textarea" : "input"}
+              type={
+                type &&
+                typeof type === "string" &&
+                type.toLowerCase() !== "comment"
+                  ? type
+                  : ""
+              }
+              as={
+                type &&
+                typeof type === "string" &&
+                type.toLowerCase() === "comment"
+                  ? "textarea"
+                  : "input"
+              }
               style={
+                type &&
+                typeof type === "string" &&
                 type.toLowerCase() === "comment"
                   ? { resize: "none" }
                   : undefined
               }
-              rows={type.toLowerCase() === "comment" ? "5" : undefined}
+              rows={
+                type &&
+                typeof type === "string" &&
+                type.toLowerCase() === "comment"
+                  ? "5"
+                  : undefined
+              }
               min={props.ignoreMin ? undefined : min}
               max={props.ignoreMax ? undefined : max}
               step="any"
               placeholder={placeholder}
               onKeyPress={e => {
                 onKeyPress(e);
-                if ([","].includes(e.key) && type.toLowerCase() === "number") {
+                if (
+                  [","].includes(e.key) &&
+                  type &&
+                  typeof type === "string" &&
+                  type.toLowerCase() === "number"
+                ) {
                   console.log("Comma");
                   dialog({
                     message: (
