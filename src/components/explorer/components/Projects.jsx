@@ -11,7 +11,7 @@ import { numberOfChildren } from "../functions/data.js";
 import batching from "templates/batching.json";
 import { getUser } from "functions/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ReportButton } from "./Projects/ReportButton";
+import { ReportButton, ReportsButton } from "./Projects/ReportButton";
 import Badge from "components/design/NotificationBadge";
 import gql from "graphql-tag";
 
@@ -413,7 +413,7 @@ export default ({
                     )
                   );
                 })}
-                <Link
+                {/* <Link
                   to={`#`}
                   key={`projectExport${indexProject}`}
                   iconProps={{
@@ -427,7 +427,27 @@ export default ({
                   onClick={() => alert("Export not implemented yet.")}
                 >
                   Export
-                </Link>
+                </Link> */}
+                <ReportsButton
+                  size="sm"
+                  variant={doneProject(project) ? "success" : "primary"}
+                  iconProps={{
+                    icon: ["fad", "download"],
+                    swapOpacity: true,
+                    size: iconSize,
+                    style: iconStyle
+                  }}
+                  color="primary"
+                  style={{ marginRight: ".75em", ...rowStyle }}
+                  project={project}
+                  // disabled={
+                  //   !["Coated Item", "Mould"].includes(
+                  //     description.data.geometry
+                  //   )
+                  // }
+                >
+                  Export
+                </ReportsButton>
                 {props.access && props.access.specs && (
                   <Link
                     to={`#`}
