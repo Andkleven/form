@@ -1,146 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
-import Paper from "components/layout/Paper";
-import { useSpring, animated } from "react-spring";
+import { Button, Container, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
-import gql from "graphql-tag";
+import Form from "components/form/Form";
+import createProject from "templates/createProject";
+import { useQuery } from "@apollo/react-hooks";
+import query from "graphql/query";
 import { objectifyQuery } from "functions/general";
-import { useQuery } from "react-apollo";
-import objectPath from "object-path";
-import Math from "components/form/functions/math";
+import DepthButton from "components/button/DepthButton";
+import DepthButtonGroup from "components/button/DepthButtonGroup";
+import Line from "components/design/Line";
 
-const cloneDeep = require("clone-deep");
-
-const queries = {
-  project: gql`
-    query($id: Int) {
-      projects(id: $id) {
-        id
-        data
-        descriptions {
-          id
-          data
-          items {
-            id
-            itemId
-            stage
-          }
-        }
-      }
-    }
-  `,
-  description: gql`
-    query($id: Int) {
-      descriptions(id: $id) {
-        id
-        data
-        items {
-          id
-          itemId
-          stage
-        }
-      }
-    }
-  `,
-  item: gql`
-    query($id: Int) {
-      items(id: $id) {
-        id
-        itemId
-        leadEngineer {
-          id
-          data
-        }
-      }
-    }
-  `
-};
-
-export default ({ itemIdsRef }) => {
-  // const [show, setShow] = useState(true);
+export default () => {
   const [show, setShow] = useState(false);
-  const [height, setHeight] = useState(0);
-
-  const measuredRef = node => {
-    if (node !== null) {
-      setHeight(node.getBoundingClientRect().height);
-    }
-  };
-
-  const marginHeight = 50;
-  const hiddenLength = height + marginHeight;
-  const paperSpring = useSpring({
-    to: {
-      position: "relative",
-      bottom: show ? 0 : hiddenLength
-    },
-    from: {
-      position: "relative",
-      bottom: hiddenLength
-    }
-    // config: {
-    //   friction: 100,
-    //   mass: 0.25
-    // }
-  });
-
-  const buttonHeight = 30;
-  const buttonSpring = useSpring({
-    to: {
-      position: "relative",
-      bottom: show ? buttonHeight : -marginHeight + 11
-    },
-    from: {
-      position: "relative",
-      bottom: -marginHeight + 11
-    }
-    // config: {
-    //   friction: 100,
-    //   mass: 0.25
-    // }
-  });
 
   const params = useParams();
 
-  const projectQuery = useQuery(queries.project, {
-    variables: {
-      id: params.projectId
-    }
-  });
-  const descriptionQuery = useQuery(queries.description, {
-    variables: {
-      id: params.descriptionId
-    }
+  console.log(params);
+
+  const id = params.projectId;
+
+  const [fixedData, setFixedData] = useState("");
+
+  const { loading, error, data } = useQuery(query[createProject.query], {
+    variables: { id: id }
   });
 
   useEffect(() => {
-    if (descriptionQuery && itemIdsRef) {
-      itemIdsRef.current = objectifyQuery(cloneDeep(descriptionQuery.data));
-    }
-  }, [descriptionQuery, itemIdsRef]);
+    setFixedData(objectifyQuery(data));
+  }, [id, loading, error, data]);
 
-  const itemQuery = useQuery(queries.item, {
-    variables: {
-      id: params.itemId
-    }
-  });
+  console.log(fixedData);
+
+  const descriptionIndex =
+    fixedData &&
+    fixedData.projects &&
+    fixedData.projects[0] &&
+    fixedData.projects[0].descriptions.findIndex(
+      e => String(e.id) === String(params.descriptionId)
+    );
+
+  console.log(params);
 
   const Items = () => {
     if (
-      !descriptionQuery.loading &&
-      !descriptionQuery.error &&
-      !!descriptionQuery.data &&
-      params.unique === "0"
+      !(
+        fixedData &&
+        fixedData.projects &&
+        fixedData.projects[0] &&
+        fixedData.projects[0].descriptions
+      )
     ) {
+      return null;
+    }
+
+    if (params.unique === "0") {
       let items = [];
 
-      descriptionQuery &&
-        objectPath
-          .get(descriptionQuery, "data.descriptions.0.items", [])
-          .forEach(item => {
-            item && items.push(item.itemId);
-          });
+      fixedData.projects[0].descriptions[descriptionIndex].items.forEach(
+        item => {
+          item && items.push(item.itemId);
+        }
+      );
 
       if (items.length < 1) {
         return null;
@@ -149,132 +70,96 @@ export default ({ itemIdsRef }) => {
       let string = items.join(", ");
 
       return string;
-    } else if (
-      !descriptionQuery.loading &&
-      !descriptionQuery.error &&
-      !!descriptionQuery.data
-    ) {
-      const index = descriptionQuery.data.descriptions[0].items.findIndex(
-        item => String(item.id) === String(params.itemId)
-      );
-      return descriptionQuery.data.descriptions[0].items[index].itemId;
+    } else {
+      const index = fixedData.projects[0].descriptions[
+        descriptionIndex
+      ].items.findIndex(item => String(item.id) === String(params.itemId));
+      return fixedData.projects[0].descriptions[descriptionIndex].items[index]
+        .itemId;
     }
-    return null;
   };
   const items = Items();
 
-  const Info = () => {
-    return (
-      <div>
-        <div>
-          <div className="text-muted mb-n2">
-            <small>Project:</small>
-          </div>
-          <div>
-            {(projectQuery &&
-              objectPath.get(projectQuery, "data.projects.0.data") &&
-              JSON.parse(projectQuery.data.projects[0].data).projectName) ||
-              "N/A"}
-          </div>
-          <div className="text-muted mb-n2">
-            <small>Description:</small>
-          </div>
-          <div>
-            {(descriptionQuery &&
-              descriptionQuery.data &&
-              JSON.parse(descriptionQuery.data.descriptions[0].data)
-                .descriptionNameMaterialNo) ||
-              "N/A"}
-          </div>
-          <div className="text-muted mb-n2">
-            <small>Geometry:</small>
-          </div>
-          <div>
-            {(descriptionQuery &&
-              descriptionQuery.data &&
-              JSON.parse(descriptionQuery.data.descriptions[0].data)
-                .geometry) ||
-              "N/A"}
-          </div>
-          {descriptionQuery &&
-            descriptionQuery.data &&
-            ["Slip on 2", "Slip on 3", "B2P", "Dual"].includes(JSON.parse(descriptionQuery.data.descriptions[0].data).geometry) && 
-            <>
-              <div className="text-muted mb-n2">
-                <small>Item description:</small>
-              </div>
-              <div>
-                {(itemQuery &&
-                  itemQuery.data &&
-                  itemQuery.data.items[0].leadEngineer &&
-                  Math["mathDescription"]({leadEngineer: {data: JSON.parse(itemQuery.data.items[0].leadEngineer.data)}}, null, 0, null, [JSON.parse(descriptionQuery.data.descriptions[0].data).geometry])) ||
-                  "N/A"}
-              </div>
-            </>
-          }
-          <div className="text-muted mb-n2">
-            <small>{items ? "Items:" : "Item:"}</small>
-          </div>
-          <div>{items ? items : "N/A"}</div>
-        </div>
-        {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
-        {/* <pre>
-          {JSON.stringify(
-            descriptionQuery.data && descriptionQuery.data.descriptions,
-            null,
-            2
-          )}
-        </pre> */}
-        {/* <div>Item:</div>
-        <pre>{JSON.stringify(params, null, 2)}</pre>
-        <div>
-          <pre>{JSON.stringify(projectQuery.data, null, 2)}</pre>
-          <pre>{JSON.stringify(descriptionQuery.data, null, 2)}</pre>
-        </div> */}
-      </div>
-    );
-  };
-
   return (
-    <Container
-      style={{ position: "fixed", zIndex: 1 }}
-      className="w-100 d-flex justify-content-center"
-    >
-      <div
-        style={{ height: 0, position: "relative", bottom: 0, zIndex: 1 }}
-        className="w-100 mt-3 mt-sm-0"
+    <>
+      <Container
+        style={{ position: "fixed", zIndex: 1 }}
+        className="w-100 d-flex justify-content-center"
       >
-        <animated.div style={paperSpring}>
-          <div ref={measuredRef}>
-            <Paper>
-              <Info></Info>
-            </Paper>
-          </div>
-          <animated.div style={buttonSpring}>
-            <div
-              className="d-flex justify-content-end"
-              style={{ position: "relative", bottom: 0 }}
+        <div
+          style={{ height: 0, position: "relative", bottom: 0, zIndex: 1 }}
+          className="w-100 mt-3 mt-sm-0"
+        >
+          <div
+            className="d-flex justify-content-end"
+            style={{ position: "relative", bottom: ".75em" }}
+          >
+            <Button
+              variant="primary"
+              onClick={() => {
+                setShow(!show);
+              }}
+              className={`d-flex align-items-center justify-content-center shadow py-2 px-3`}
             >
-              <Button
-                variant="primary"
-                onClick={() => {
-                  setShow(!show);
-                }}
-                style={{ height: buttonHeight, width: buttonHeight }}
-                className={`d-flex align-items-center justify-content-center shadow`}
-              >
-                <FontAwesomeIcon
-                  icon={["fas", show ? "times" : "info"]}
-                  // className="mr-2"
-                  size="sm"
-                  style={{}}
-                />
-                {/* <small>{`${show ? "Hide" : "Show"} overview`}</small> */}
-              </Button>
+              <FontAwesomeIcon icon={["fas", "info"]} size="sm" />
+            </Button>
+          </div>
+        </div>
+      </Container>
+      <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        size="xl"
+        centered
+        className="px-0 px-sm-3"
+      >
+        <Modal.Header>
+          <Modal.Title className="d-flex align-items-center justify-content-between w-100">
+            <div>
+              <h2 className="py-0 my-0">Overview</h2>
             </div>
-          </animated.div>
-        </animated.div>
-      </div>
-    </Container>
+            <div>
+              <DepthButtonGroup>
+                <DepthButton onClick={() => setShow(false)} className="h-100">
+                  <FontAwesomeIcon icon={["fal", "times"]} />
+                </DepthButton>
+              </DepthButtonGroup>
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {items && items.length > 0 && (
+            <div className="mb-5">
+              <h3 style={{ position: "relative", top: ".1em" }}>
+                Active Items
+              </h3>
+              <Line />
+              {items}
+            </div>
+          )}
+          {fixedData && fixedData.projects && fixedData.projects[0] && (
+            <Form
+              componentsId={`overview${descriptionIndex}`}
+              document={createProject}
+              data={fixedData}
+              repeatStepList={[descriptionIndex]}
+              getQueryBy={id}
+              optionsQuery={true}
+              edit={false}
+              readOnlySheet
+            />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            className="w-100"
+            variant="secondary"
+            onClick={() => setShow(false)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
