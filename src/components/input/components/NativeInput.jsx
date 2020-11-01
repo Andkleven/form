@@ -76,7 +76,7 @@ export default ({
             <Form.Control
               isValid={isValid}
               isInvalid={isInvalid}
-              id={`custom-${type}-${label}-${repeatStepList}`}
+              id={`custom-${type.toLowerCase()}-${label}-${repeatStepList}`}
               name={name}
               required={required}
               // readOnly={readOnlyFields ? readOnlyFields : readOnly}
@@ -84,17 +84,22 @@ export default ({
               value={value}
               onChange={onChangeInput}
               onBlur={onBlur}
-              type={type !== "comment" ? type : ""}
-              as={type === "comment" ? "textarea" : "input"}
-              style={type === "comment" ? { resize: "none" } : undefined}
-              rows={type === "comment" ? "5" : undefined}
+              type={type.toLowerCase() !== "comment" ? type : ""}
+              as={type.toLowerCase() === "comment" ? "textarea" : "input"}
+              style={
+                type.toLowerCase() === "comment"
+                  ? { resize: "none" }
+                  : undefined
+              }
+              rows={type.toLowerCase() === "comment" ? "5" : undefined}
               min={props.ignoreMin ? undefined : min}
               max={props.ignoreMax ? undefined : max}
               step="any"
               placeholder={placeholder}
               onKeyPress={e => {
                 onKeyPress(e);
-                if ([","].includes(e.key) && type === "number") {
+                if ([","].includes(e.key) && type.toLowerCase() === "number") {
+                  console.log("Comma");
                   dialog({
                     message: (
                       <div className="text-center">

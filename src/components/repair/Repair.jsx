@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   camelCaseToNormal,
   objectifyQuery,
-  findValue,
+  // findValue,
   getProductionLine
 } from "functions/general";
 import Loading from "components/Loading";
@@ -16,7 +16,7 @@ import operatorJson from "templates/operator";
 import qualityControlJson from "templates/qualityControl";
 import stages from "components/form/stage/stages.json";
 import findNextStage from "components/form/stage/findNextStage.ts";
-import objectPath from "object-path";
+// import objectPath from "object-path";
 import { useParams } from "react-router-dom";
 import gql from "graphql-tag";
 
@@ -29,33 +29,32 @@ import gql from "graphql-tag";
 //   { stage: "qualityControlCoatedItem", label: "Quality Control" }
 // ];
 
-function itemHasStage(leadData, stage, packerOrCoating) {
-  if (!!stages[packerOrCoating][stage]) {
-    let stageInfo = stages[packerOrCoating][stage];
-    console.log(stage);
-    if (stageInfo.queryPath === "") {
-      return true;
-    }
-    let repeatStepList = [];
-    if (stage.includes("Step")) {
-      let stepLayer = stage.split("Step")[1];
-      if (stage.includes("Layer")) {
-        repeatStepList.push(Number(stepLayer.split("Layer")[0]));
-        repeatStepList.push(Number(stepLayer.split("Layer")[1]));
-      } else {
-        repeatStepList.push(Number(stepLayer));
-      }
-    }
-    return !!findValue(
-      leadData,
-      stageInfo.queryPath,
-      repeatStepList,
-      stageInfo.editIndexList,
-      false
-    );
-  }
-  return false;
-}
+// function itemHasStage(leadData, stage, packerOrCoating) {
+//   if (!!stages[packerOrCoating][stage]) {
+//     let stageInfo = stages[packerOrCoating][stage];
+//     if (stageInfo.queryPath === "") {
+//       return true;
+//     }
+//     let repeatStepList = [];
+//     if (stage.includes("Step")) {
+//       let stepLayer = stage.split("Step")[1];
+//       if (stage.includes("Layer")) {
+//         repeatStepList.push(Number(stepLayer.split("Layer")[0]));
+//         repeatStepList.push(Number(stepLayer.split("Layer")[1]));
+//       } else {
+//         repeatStepList.push(Number(stepLayer));
+//       }
+//     }
+//     return !!findValue(
+//       leadData,
+//       stageInfo.queryPath,
+//       repeatStepList,
+//       stageInfo.editIndexList,
+//       false
+//     );
+//   }
+//   return false;
+// }
 
 const queries = {
   item: gql`
@@ -115,8 +114,6 @@ export default ({ id, show, setShow, children }) => {
       id: params.itemId
     }
   });
-
-  console.log(objectifyQuery(itemQuery.data));
 
   const itemData = objectifyQuery(itemQuery.data);
   const leadData = itemData && itemData.items[0];
