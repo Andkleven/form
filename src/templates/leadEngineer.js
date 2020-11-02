@@ -1962,21 +1962,12 @@ export default {
             },
             {
               showField: {
-                coatedItem: true
-              },
-              fieldName: "totalOd",
-              label: "Total OD (Pi-tape)",
-              type: "checkbox",
-              subtext: "APS. Final measurments are within tolerances."
-            },
-            {
-              showField: {
                 mould: true
               },
               fieldName: "totalCoatingThickness",
               label: "Total Coating Thickness",
               type: "checkbox",
-              subtext: "APS. Final measurments are within tolerances."
+              subtext: "See ITP."
             },
             {
               fieldName: "visualInspection",
@@ -1990,30 +1981,28 @@ export default {
                 coatedItem: false,
                 mould: false
               },
-              subtext:
-                "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted."
+              subtext: "See ITP."
             },
             {
               showField: { coatedItem: true, mould: true },
               fieldName: "sparkTest",
               label: "Spark Test",
               type: "checkbox",
-              subtext: "TR 2028. No Holidays."
+              subtext: "See ITP."
             },
             {
               showField: { coatedItem: true, mould: true },
               fieldName: "hammerTest",
               label: "Hammer Test",
               type: "checkbox",
-              subtext: "TR 2028. No change in audible pitch."
+              subtext: "See ITP."
             },
             {
               showField: { coatedItem: true, mould: true },
               fieldName: "simpleFinalDimensionsCheck",
               label: "Simple Final Dimensions Check",
               type: "checkbox",
-              subtext:
-                "APS. All parts in accordance to drawings (no references or min-max)."
+              subtext: "See ITP."
             }
           ]
         },

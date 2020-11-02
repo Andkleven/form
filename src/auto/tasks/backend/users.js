@@ -1,5 +1,3 @@
-console.log(process.env);
-
 require("dotenv").config({
   path: __dirname + "/./../../../../.env"
 });

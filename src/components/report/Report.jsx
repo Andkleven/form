@@ -31,9 +31,13 @@ import Math from "components/form/functions/math";
 const fontsize = 7.5;
 
 const time = string =>
-  typeof string === "string" && moment(string).format("DD.MM.YYYY HH:mm");
+  typeof string === "string" &&
+  !["", " "].includes(string) &&
+  moment(string).format("DD.MM.YYYY HH:mm");
 const date = string =>
-  typeof string === "string" && moment(string).format("DD.MM.YYYY");
+  typeof string === "string" &&
+  !["", " "].includes(string) &&
+  moment(string).format("DD.MM.YYYY");
 
 const readyForRender = (project, description, item) => {
   const p = project && project.data;
@@ -848,19 +852,6 @@ const Content = ({ project, description, item }) => {
                 fontStyle="italic"
                 values={["Standard", "Criteria", "Result", "Employee"]}
               />
-              {/* {qcData.totalOd &&
-                  typeof qcData.totalOd === "boolean" &&
-                  qcData.totalOdUserField && (
-                    <Entry
-                      label="Total OD (Pi-tape)"
-                      values={[
-                        "APS",
-                        "Final measurments are within tolerances",
-                        qcData.totalOd ? "Passed" : "Failed",
-                        qcData.totalOdUserField
-                      ]}
-                    />
-                  )} */}
               {qcData.visualInspection &&
                 typeof qcData.visualInspection === "boolean" &&
                 qcData.visualInspectionUserField && (
@@ -960,7 +951,7 @@ const Content = ({ project, description, item }) => {
                       key={`hardness-${testIndex}`}
                       label={testIndex === 0 ? "Hardness of Outer Layer" : " "}
                       values={[
-                        " ",
+                        "ITP",
                         testIndex === 0
                           ? `Minimum ${leData.hardnessOfOuterLayer} Shore A`
                           : " ",
@@ -984,7 +975,7 @@ const Content = ({ project, description, item }) => {
                       key={`peelTest-${testIndex}`}
                       label={testIndex === 0 ? "Peel Test" : " "}
                       values={[
-                        " ",
+                        "ITP",
                         testIndex === 0
                           ? `Minimum ${(leData.peelTest * 9.81).toFixed(
                               2
@@ -1014,7 +1005,6 @@ const Content = ({ project, description, item }) => {
                     />
                     {qc.measurementPointQualityControls.map(
                       (measurementPoint, measurementPointIndex) => {
-                        console.log(d.geometry);
                         const reference =
                           le.measurementPointActualTdvs[measurementPointIndex]
                             .data.referencePoint;
@@ -1378,15 +1368,16 @@ const Entry = ({
         {fontStyle === "italic" && <I>{label}</I>}
       </Col>
       {Array.isArray(values) ? (
-        values.map(
-          (value, index) =>
-            value && (
-              <Col key={`${label}-value-${index}`} style={colStyle}>
-                {fontStyle === "normal" && <P>{value}</P>}
-                {fontStyle === "bold" && <B>{value}</B>}
-                {fontStyle === "italic" && <I>{value}</I>}
-              </Col>
-            )
+        values.map((value, index) =>
+          value ? (
+            <Col key={`${label}-value-${index}`} style={colStyle}>
+              {fontStyle === "normal" && <P>{value}</P>}
+              {fontStyle === "bold" && <B>{value}</B>}
+              {fontStyle === "italic" && <I>{value}</I>}
+            </Col>
+          ) : (
+            <Col key={`${label}-value-${index}-empty`} style={colStyle} />
+          )
         )
       ) : (
         <Col style={colStyle}>

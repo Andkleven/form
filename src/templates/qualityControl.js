@@ -50,39 +50,27 @@ export default {
           fields: [
             {
               showField: {
-                coatedItem: true
-              },
-              fieldName: "totalOd",
-              label: "Total OD (Pi-tape)",
-              type: "checkbox",
-              required: true,
-              subtext: "APS. Final measurements are within tolerances.",
-              showFieldSpecPath: "leadEngineer.data.totalOd"
-            },
-            {
-              showField: {
                 mould: true
               },
               fieldName: "totalCoatingThickness",
               label: "Total Coating Thickness",
               type: "checkbox",
               required: true,
-              subtext: "APS. Final measurements are within tolerances.",
+              subtext: "See ITP.",
               showFieldSpecPath: "leadEngineer.data.totalCoatingThickness"
             },
             {
               fieldName: "visualInspection",
               label: "Visual Inspection",
               type: "checkbox",
-              subtext:
-                "APS Repair Procedure. Free from defects. Cosmetic defects may be accepted.",
+              subtext: "See ITP.",
               required: true,
               showFieldSpecPath: "leadEngineer.data.visualInspection"
             },
             {
               fieldName: "simpleFinalDimensionsCheck",
               label: "Simple Final Dimensions Check",
-              subtext: "APS. All parts in accordance to drawings.",
+              subtext: "See ITP.",
               type: "checkbox",
               required: true,
               showFieldSpecPath: "leadEngineer.data.simpleFinalDimensionsCheck"
@@ -90,7 +78,7 @@ export default {
             {
               fieldName: "sparkTest",
               label: "Spark Test",
-              subtext: "TR 2028. No Holidays.",
+              subtext: "See ITP.",
               type: "checkbox",
               required: true,
               showFieldSpecPath: "leadEngineer.data.sparkTest"
@@ -99,7 +87,7 @@ export default {
               fieldName: "hammerTest",
               label: "Hammer Test",
               type: "checkbox",
-              subtext: "TR 2028. No change in audible pitch.",
+              subtext: "See ITP.",
               required: true,
               showFieldSpecPath: "leadEngineer.data.hammerTest"
             },
@@ -107,7 +95,7 @@ export default {
               showField: { coatedItem: true, mould: true },
               fieldName: "identificationMarking",
               label: "Identification Marking",
-              subtext: "ID matches 123.",
+              subtext: "Item ID matches (see overview)",
               showFieldSpecPath: "leadEngineer.data.identificationMarking",
               required: true,
               type: "checkbox"
