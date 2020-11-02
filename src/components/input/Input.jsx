@@ -104,12 +104,12 @@ const Toolbar = ({
   batchClick,
   ...props
 }) => {
+  console.log(props);
   return (
     (props.TinyButtons || !noComment) && (
       <span
         className={`${!props.label && "ml-auto"}`}
         style={{ marginBottom: "9px" }}
-        {...props}
       >
         {!noComment && (
           <TinyButton

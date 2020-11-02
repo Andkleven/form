@@ -220,7 +220,11 @@ export default React.memo(
         stopLoop,
         submitData,
         thisChapter,
-        writeOnlyFieldIf
+        writeOnlyFieldIf,
+        editRepeatStepListVariableLabel,
+        indexVariableLabel,
+        queryVariableLabel,
+        variableLabelSpec
       ]
     );
     const {
