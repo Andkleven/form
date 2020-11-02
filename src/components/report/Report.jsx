@@ -14,6 +14,7 @@ import {
 import { Button } from "react-bootstrap";
 import Loading from "components/Loading";
 import moment from "moment";
+import Math from "components/form/functions/math";
 
 /**
  * For development, set the line...
@@ -125,6 +126,8 @@ const Content = ({ project, description, item }) => {
   const p = project && project.data;
   const d = description && description.data;
   const i = item && objectifyQuery(item);
+
+  console.log(JSON.stringify(i));
 
   let le = null;
   let leData = null;
@@ -999,8 +1002,8 @@ const Content = ({ project, description, item }) => {
                 })}
               {le &&
                 qc &&
-                le.finalInspectionDimensionsChecks &&
-                qc.measurementPointQualityControls && (
+                qc.measurementPointQualityControls &&
+                le.measurementPointActualTdvs && (
                   <>
                     <P style={{ paddingTop: 5 }}>Final Measurements</P>
                     <Line />
@@ -1009,36 +1012,45 @@ const Content = ({ project, description, item }) => {
                       label={`Reference`}
                       values={["Minimum", "Maximum", "Measured", "Employee"]}
                     />
-                    {le.finalInspectionDimensionsChecks.map(
-                      (dimCheck, dimCheckIndex) => {
+                    {qc.measurementPointQualityControls.map(
+                      (measurementPoint, measurementPointIndex) => {
+                        console.log(d.geometry);
+                        const reference =
+                          le.measurementPointActualTdvs[measurementPointIndex]
+                            .data.referencePoint;
+                        let minimum = " ";
+                        let maximum = " ";
+                        const measure = String(
+                          measurementPoint.data.measurementPoint
+                        );
+                        const user = String(
+                          measurementPoint.data.measurementPointUserField
+                        );
+
+                        switch (d.geometry) {
+                          case "Coated Item":
+                            minimum = String(
+                              Math.mathToleranceMin(i, measurementPointIndex)
+                            );
+                            maximum = String(
+                              Math.mathToleranceMax(i, measurementPointIndex)
+                            );
+                            break;
+
+                          case "Mould":
+                            minimum = String(Math.mathMin(i));
+                            maximum = String(Math.mathMax(i));
+                            break;
+
+                          default:
+                            break;
+                        }
+
                         return (
                           <Entry
-                            key={`final-inspection-dimension-check-${dimCheckIndex}`}
-                            label={`${
-                              dimCheck.data.finalDimensionsReference || " "
-                            }`}
-                            values={[
-                              dimCheck.data.finalDimensionsMin
-                                ? `${dimCheck.data.finalDimensionsMin}mm`
-                                : " ",
-                              dimCheck.data.finalDimensionsMax
-                                ? `${dimCheck.data.finalDimensionsMax}mm`
-                                : " ",
-                              qc.measurementPointQualityControls[dimCheckIndex]
-                                .data.measurementPoint
-                                ? String(
-                                    qc.measurementPointQualityControls[
-                                      dimCheckIndex
-                                    ].data.measurementPoint
-                                  ) + "mm"
-                                : " ",
-                              qc.measurementPointQualityControls[dimCheckIndex]
-                                .data.measurementPointUserField
-                                ? qc.measurementPointQualityControls[
-                                    dimCheckIndex
-                                  ].data.measurementPointUserField
-                                : " "
-                            ]}
+                            key={`final-inspection-dimension-check-${measurementPointIndex}`}
+                            label={`${reference || " "}`}
+                            values={[minimum, maximum, measure, user]}
                           />
                         );
                       }
