@@ -1074,16 +1074,17 @@ export default {
           fields: [
             {
               showField: { coatedItem: true, mould: true },
+              fieldName: "numberOfHardnessOfOuterLayer",
+              label: "Number of Hardness of Outer Layer",
+              type: "number"
+            },
+            {
+              writeOnlyFieldIf:
+                "leadEngineer.data.numberOfHardnessOfOuterLayer",
               fieldName: "hardnessOfOuterLayer",
               label: "Hardness of Outer Layer",
               unit: "Shore A",
               prepend: "Min"
-            },
-            {
-              showField: { coatedItem: true, mould: true },
-              fieldName: "numberOfHardnessOfOuterLayer",
-              label: "Number of Hardness of Outer Layer",
-              type: "number"
             },
             {
               showField: {
@@ -1947,17 +1948,17 @@ export default {
             },
             {
               showField: { coatedItem: true, mould: true },
+              fieldName: "numberOfPeelTest",
+              label: "Number of Peel Test",
+              type: "number"
+            },
+            {
+              writeOnlyFieldIf: "leadEngineer.data.numberOfPeelTest",
               fieldName: "peelTest",
               label: "Peel Test",
               unit: "N/25mm",
               prepend: "Min",
               subtext: "ISO 813 bS6374-5"
-            },
-            {
-              showField: { coatedItem: true, mould: true },
-              fieldName: "numberOfPeelTest",
-              label: "Number of Peel Test",
-              type: "number"
             },
             {
               showField: {
