@@ -43,7 +43,7 @@ const readyForRender = (project, description, item) => {
 };
 
 export const Report = ({ project, description, item }) => {
-  registerFonts();
+  // registerFonts();
 
   if (readyForRender(project, description, item)) {
     try {
@@ -68,7 +68,7 @@ export const Report = ({ project, description, item }) => {
 };
 
 export const Reports = ({ project, filter = "", ...props }) => {
-  registerFonts();
+  // registerFonts();
 
   if (!!project) {
     try {
@@ -1110,7 +1110,7 @@ const Content = ({ project, description, item }) => {
           <Text
             style={{
               position: "absolute",
-              fontFamily: "Roboto",
+              // fontFamily: "Roboto",
               fontSize: fontsize,
               bottom: 20,
               left: 0,
@@ -1470,7 +1470,7 @@ const Title = props => {
         {...props}
         style={{
           fontSize: fontsize * 1.5,
-          fontFamily: "Roboto",
+          // fontFamily: "Roboto",
           fontWeight: 500,
           ...props.style
         }}
@@ -1488,7 +1488,7 @@ const Subtitle = props => {
         {...props}
         style={{
           fontSize: fontsize * 1.25,
-          fontFamily: "Roboto",
+          // fontFamily: "Roboto",
           fontWeight: 500,
           ...props.style
         }}
@@ -1506,7 +1506,7 @@ const P = props => {
         {...props}
         style={{
           fontSize: fontsize,
-          fontFamily: "Roboto",
+          // fontFamily: "Roboto",
           ...props.style
         }}
       >
@@ -1523,7 +1523,7 @@ const B = props => {
         {...props}
         style={{
           fontSize: fontsize * 1.0625,
-          fontFamily: "Roboto",
+          // fontFamily: "Roboto",
           fontWeight: 500,
           ...props.style
         }}
@@ -1541,7 +1541,7 @@ const I = props => {
         {...props}
         style={{
           fontSize: fontsize,
-          fontFamily: "Roboto",
+          // fontFamily: "Roboto",
           fontStyle: "italic",
           ...props.style
         }}
@@ -1628,4 +1628,4 @@ const registerFonts = () => {
   });
 };
 
-registerFonts();
+// registerFonts();
