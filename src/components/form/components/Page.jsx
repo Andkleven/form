@@ -58,7 +58,6 @@ export default React.memo(
     writeOnlyFieldIf,
     repeatGroupWithQuerySpecData,
     customComponent,
-    notSubmitButton,
     noLine,
     className,
     fields,
@@ -279,8 +278,6 @@ export default React.memo(
     useEffect(() => {
       let temporaryMultiFieldGroup = {};
       if (
-        (showPage === undefined ||
-          (showPage && getProperties(showPage, jsonVariables))) &&
         !notShowSpec(
           specData,
           showPageSpecPath,
@@ -571,8 +568,6 @@ export default React.memo(
           thisChapter,
           finalChapter.current
         ) &&
-        (showPage === undefined ||
-          (showPage && getProperties(showPage, jsonVariables))) &&
         !notShowSpec(
           specData,
           showPageSpecPath,
@@ -617,8 +612,6 @@ export default React.memo(
           thisChapter,
           finalChapter.current
         ) &&
-        (showPage === undefined ||
-          (showPage && getProperties(showPage, jsonVariables))) &&
         !notShowSpec(
           specData,
           showPageSpecPath,
@@ -797,7 +790,7 @@ export default React.memo(
     const SubmitAndCancel = () => {
       return (
         <DepthButtonGroup className="w-100 d-flex">
-          {!notSubmitButton && <SubmitButton />}
+          <SubmitButton />
           {finalChapterActive && !noSaveButton && <SaveButton />}
           {showCancel && <CancelButton />}
         </DepthButtonGroup>
@@ -824,6 +817,7 @@ export default React.memo(
       !["", " "].includes(pageTitle);
     const showCancel = !!editChapter;
     const showCancelTab =
+      showEditButton &&
       showLine &&
       !!editChapter &&
       thisChapter !== finalChapter.current &&

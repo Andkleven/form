@@ -25,7 +25,8 @@ import {
   isStringInstance,
   isNumber,
   getSpecComment,
-  stringifyQuery
+  stringifyQuery,
+  getProperties
 } from "functions/general";
 import { dialog } from "components/Dialog";
 // import { useParams } from "react-router-dom";
@@ -456,7 +457,7 @@ export default ({ ...props }) => {
         documentDataDispatch={documentDataDispatch}
       />
 
-      {props.ignoreRequired && (
+      {getProperties(props.ignoreRequired, props.jsonVariables) && (
         <CheckInput
           onChangeInput={onChangeIgnoreRequired}
           value={ignoreRequired}

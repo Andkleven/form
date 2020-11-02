@@ -104,7 +104,6 @@ const Toolbar = ({
   batchClick,
   ...props
 }) => {
-  console.log(props);
   return (
     (props.TinyButtons || !noComment) && (
       <span

@@ -38,6 +38,19 @@ export default React.memo(
     stagesChapter,
     exitOnSave
   }) => {
+    function getShowPage(page) {
+      return (
+        (page.showPage === undefined ||
+          (page.showPage && getProperties(page.showPage, jsonVariables))) &&
+        (page.showIfSpec === undefined ||
+          (page.showIfSpec &&
+            objectPath.get(
+              specData,
+              getProperties(page.showIfSpec, jsonVariables),
+              false
+            )))
+      );
+    }
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
     const stopLoop = useRef(false); // Flips to true for last chapter with input
@@ -89,44 +102,54 @@ export default React.memo(
             chapter = null;
           } else {
             stagesChapter.current[thisStage] = true;
-            chapter = pageInfo.pages.map((info, index) => {
-              let showEditButton = !notEditButton && !index ? true : false;
-              let showSubmitButton =
-                index === pageInfo.pages.length - 1 ? true : false;
-              return (
-                <Page
-                  key={`${index}-${count}-${repeatStepListLocal}-page`}
-                  {...info}
-                  allData={allData}
-                  backendData={backendData}
-                  optionsData={optionsData}
-                  submitData={submitData}
-                  document={document}
-                  edit={edit}
-                  specData={specData}
-                  readOnlySheet={readOnlySheet}
-                  jsonVariables={jsonVariables}
-                  chapterAlwaysInWrite={chapterAlwaysInWrite}
-                  stage={stage}
-                  repeatStepList={repeatStepListLocal}
-                  path={createPath(
-                    removePathFunc(removePath, info.queryPath),
-                    repeatStepListLocal
-                  )}
-                  thisChapter={count + 1}
-                  stopLoop={stopLoop.current}
-                  showEditButton={showEditButton}
-                  indexId={`${count + 1}- ${index} `}
-                  index={index}
-                  noSaveButton={document.noSaveButton}
-                  finalChapterRef={allRequiredFieldSatisfied ? count + 1 : 0}
-                  showSubmitButton={showSubmitButton}
-                  itemIdsRef={itemIdsRef}
-                  itemId={itemId}
-                  specRemovePath={specRemovePath}
-                  exitOnSave={exitOnSave}
-                />
-              );
+            let showEditButton;
+            let showSubmitButton;
+            pageInfo.pages.forEach((page, index) => {
+              if (getShowPage(page)) {
+                if (!notEditButton && showEditButton === undefined) {
+                  showEditButton = index;
+                }
+                showSubmitButton = index;
+              }
+            });
+            chapter = pageInfo.pages.map((page, index) => {
+              if (getShowPage(page)) {
+                return (
+                  <Page
+                    key={`${index}-${count}-${repeatStepListLocal}-page`}
+                    {...page}
+                    allData={allData}
+                    backendData={backendData}
+                    optionsData={optionsData}
+                    submitData={submitData}
+                    document={document}
+                    edit={edit}
+                    specData={specData}
+                    readOnlySheet={readOnlySheet}
+                    jsonVariables={jsonVariables}
+                    chapterAlwaysInWrite={chapterAlwaysInWrite}
+                    stage={stage}
+                    repeatStepList={repeatStepListLocal}
+                    path={createPath(
+                      removePathFunc(removePath, page.queryPath),
+                      repeatStepListLocal
+                    )}
+                    thisChapter={count + 1}
+                    stopLoop={stopLoop.current}
+                    showEditButton={showEditButton === index}
+                    indexId={`${count + 1}- ${index} `}
+                    index={index}
+                    noSaveButton={document.noSaveButton}
+                    finalChapterRef={allRequiredFieldSatisfied ? count + 1 : 0}
+                    showSubmitButton={showSubmitButton === index}
+                    itemIdsRef={itemIdsRef}
+                    itemId={itemId}
+                    specRemovePath={specRemovePath}
+                    exitOnSave={exitOnSave}
+                  />
+                );
+              }
+              return null;
             });
           }
           // if now data in lookUpBy stop loop

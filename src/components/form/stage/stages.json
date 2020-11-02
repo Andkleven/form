@@ -14,10 +14,7 @@
     "vulcanizationStep",
     "measurementPointStep",
     "grindingStep",
-    "ultrasound",
-    "ultrasoundPinSide",
-    "ultrasoundBoxSide",
-    "grinding",
+    "ultrasoundAndGrinding",
     "ringAssembly",
     "barrier",
     "barrierPinSide",
@@ -61,29 +58,8 @@
       "crossroads": "vulcanizationStep",
       "step": true
     },
-    "ultrasound": {
-      "queryPath": "leadEngineer.data.ultrasound"
-    },
-    "ultrasoundPinSide": {
-      "queryPath": "leadEngineer.data.ultrasoundPinSide"
-    },
-    "ultrasoundBoxSide": {
-      "queryPath": "leadEngineer.data.ultrasoundBoxSide"
-    },
-    "grinding": {
+    "ultrasoundAndGrinding": {
       "queryPath": ""
-    },
-    "ringAssembly": {
-      "queryPath": ""
-    },
-    "barrier": {
-      "queryPath": "leadEngineer.data.barrier"
-    },
-    "barrierPinSide": {
-      "queryPath": "leadEngineer.data.barrierPinSide"
-    },
-    "barrierBoxSide": {
-      "queryPath": "leadEngineer.data.barrierBoxSide"
     },
     "completionPhase": {
       "queryPath": ""

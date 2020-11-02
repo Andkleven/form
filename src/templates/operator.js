@@ -1,3 +1,115 @@
+import objectPath from "object-path";
+const cloneDeep = require("clone-deep");
+
+const ultrasound = {
+  pages: [
+    {
+      fields: [
+        {
+          fieldName: "ultraSoundGrinding",
+          label: "Ultra sound grinding",
+          type: "select",
+          required: true,
+          options: ["Before", "After"]
+        },
+        {
+          fieldName: "probe",
+          required: true,
+          label: "Probe"
+        },
+        {
+          fieldName: "equipmentName",
+          required: true,
+          label: "Equipment name"
+        },
+        {
+          fieldName: "ultrasoundEquipmentId",
+          required: true,
+          label: "Equipment ID"
+        },
+        {
+          fieldName: "calibrationDate",
+          required: true,
+          label: "Next Calibration date",
+          type: "date"
+        },
+        {
+          fieldName: "deviation",
+          label: "Deviation",
+          type: "checkbox"
+        },
+        {
+          writeOnlyFieldIf: "operator.data.deviation",
+          viewPdf: true
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          fieldName: "deviation",
+          required: true,
+          label: "Deviation"
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          writeOnlyFieldIf: "operator.data.deviation",
+          fieldName: "length",
+          required: true,
+          label: "Length",
+          type: "number",
+          unit: "mm"
+        },
+        {
+          writeOnlyFieldIf: "operator.data.deviation",
+          fieldName: "depth",
+          required: true,
+          label: "Depth"
+        },
+        {
+          writeOnlyFieldIf: "operator.data.deviation",
+          fieldName: "size",
+          required: true,
+          label: "Size"
+        },
+        {
+          fieldName: "approved",
+          required: true,
+          label: "Approved",
+          type: "checkbox"
+        },
+        {
+          fieldName: "inspectorsCertificateNo",
+          required: true,
+          label: "Inspectors certificate no."
+        },
+        {
+          fieldName: "inspectorsCertificateDueDate",
+          required: true,
+          label: "Inspectors certificate due date",
+          type: "date"
+        }
+      ]
+    }
+  ]
+};
+function addNameToFieldName(stringToAdd, fields) {
+  let newFields = cloneDeep(fields);
+  fields.forEach((field, indexField) => {
+    if (field.fieldName) {
+      objectPath.set(
+        newFields,
+        `${indexField}.fieldName`,
+        `${field.fieldName}${stringToAdd}`
+      );
+    }
+  });
+  return newFields;
+}
+console.log({ fields: [...ultrasound.pages[2].fields] });
 const grindingField = [
   {
     showField: { b2P: true },
@@ -693,7 +805,8 @@ export default {
             {
               fieldName: "ringAssembled",
               label: "Ring assembled",
-              type: "checkbox",
+              type: "select",
+              options: ["Ring assembled done", "Stringer(PXP)"],
               required: true
             }
           ]
@@ -1051,7 +1164,7 @@ export default {
               fieldName: "autoclaveNumber",
               required: true,
               label: "Autoclave Number",
-              ignoreRequired: true,
+              ignoreRequired: { mould: true, coatedItem: true },
               type: "number"
             },
             {
@@ -1118,309 +1231,77 @@ export default {
         }
       ]
     },
-    ultrasound: {
+    ultrasoundAndGrinding: {
       pages: [
         {
+          showPage: { b2P: true, slipon2: true, slipon3: true },
           pageTitle: "Ultrasound",
+          showIfSpec: "leadEngineer.data.ultrasound",
           queryPath: "operator",
-          fields: [
-            {
-              fieldName: "ultraSoundGrinding",
-              label: "Ultra sound grinding",
-              type: "select",
-              required: true,
-              options: ["Before", "After"]
-            },
-            {
-              fieldName: "probe",
-              required: true,
-              label: "Probe"
-            },
-            {
-              fieldName: "equipmentName",
-              required: true,
-              label: "Equipment name"
-            },
-            {
-              fieldName: "ultrasoundEquipmentId",
-              required: true,
-              label: "Equipment ID"
-            },
-            {
-              fieldName: "calibrationDate",
-              required: true,
-              label: "Next Calibration date",
-              type: "date"
-            },
-            {
-              fieldName: "deviation",
-              label: "Deviation",
-              type: "checkbox"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviation",
-              viewPdf: true
-            }
-          ]
+          fields: [...ultrasound.pages[0].fields]
         },
         {
           delete: true,
           writeOnlyFieldIf: "operator.data.deviation",
+          showIfSpec: "leadEngineer.data.ultrasound",
           repeatStartWith: 1,
           addButton: "Deviation",
+          showPage: { b2P: true, slipon2: true, slipon3: true },
           queryPath: "operator.deviations",
-          fields: [
-            {
-              fieldName: "deviation",
-              required: true,
-              label: "Deviation"
-            }
-          ]
+          fields: [...ultrasound.pages[1].fields]
         },
         {
           queryPath: "operator",
-          fields: [
-            {
-              writeOnlyFieldIf: "operator.data.deviation",
-              fieldName: "length",
-              required: true,
-              label: "Length",
-              type: "number",
-              unit: "mm"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviation",
-              fieldName: "depth",
-              required: true,
-              label: "Depth"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviation",
-              fieldName: "size",
-              required: true,
-              label: "Size"
-            },
-            {
-              fieldName: "approved",
-              required: true,
-              label: "Approved",
-              type: "checkbox"
-            },
-            {
-              fieldName: "inspectorsCertificateNo",
-              required: true,
-              label: "Inspectors certificate no."
-            },
-            {
-              fieldName: "inspectorsCertificateDueDate",
-              required: true,
-              label: "Inspectors certificate due date",
-              type: "date"
-            }
-          ]
-        }
-      ]
-    },
-    ultrasoundPinSide: {
-      pages: [
+          showIfSpec: "leadEngineer.data.ultrasound",
+          showPage: { b2P: true, slipon2: true, slipon3: true },
+          fields: [...ultrasound.pages[2].fields]
+        },
         {
+          showPage: { dual: true },
           pageTitle: "Ultrasound Pin Side",
+          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
           queryPath: "operator",
-          fields: [
-            {
-              fieldName: "ultraSoundGrinding",
-              label: "Ultra sound grinding",
-              type: "select",
-              required: true,
-              options: ["Before", "After"]
-            },
-            {
-              fieldName: "probePinSide",
-              required: true,
-              label: "Probe"
-            },
-            {
-              fieldName: "equipmentNamePinSide",
-              required: true,
-              label: "Equipment name"
-            },
-            {
-              fieldName: "ultrasoundEquipmentIdPinSide",
-              required: true,
-              label: "Equipment ID"
-            },
-            {
-              fieldName: "calibrationDatePinSide",
-              required: true,
-              label: "Next Calibration date",
-              type: "date"
-            },
-            {
-              fieldName: "deviationPinSide",
-              label: "Deviation",
-              type: "checkbox"
-            }
-          ]
+          fields: [...addNameToFieldName("PinSide", ultrasound.pages[0].fields)]
         },
         {
           delete: true,
           repeatStartWith: 1,
+          showPage: { dual: true },
           writeOnlyFieldIf: "operator.data.deviationPinSide",
+          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
           addButton: "Deviation",
           queryPath: "operator.deviations",
-          fields: [
-            {
-              fieldName: "deviationPinSide",
-              required: true,
-              label: "Deviation"
-            }
-          ]
+          fields: [...addNameToFieldName("PinSide", ultrasound.pages[1].fields)]
         },
         {
           queryPath: "operator",
-          fields: [
-            {
-              writeOnlyFieldIf: "operator.data.deviationPinSide",
-              fieldName: "lengthPinSide",
-              required: true,
-              label: "Length",
-              type: "number",
-              unit: "mm"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviationPinSide",
-              fieldName: "depthPinSide",
-              required: true,
-              label: "Depth"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviationPinSide",
-              fieldName: "sizePinSide",
-              required: true,
-              label: "Size"
-            },
-            {
-              fieldName: "approvedPinSide",
-              required: true,
-              label: "Approved",
-              type: "checkbox"
-            },
-            {
-              fieldName: "inspectorsCertificateNoPinSide",
-              required: true,
-              label: "Inspectors certificate no."
-            },
-            {
-              fieldName: "inspectorsCertificateDueDatePinSide",
-              required: true,
-              label: "Inspectors certificate due date",
-              type: "date"
-            }
-          ]
-        }
-      ]
-    },
-    ultrasoundBoxSide: {
-      pages: [
+          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
+          showPage: { dual: true },
+          fields: [...addNameToFieldName("PinSide", ultrasound.pages[2].fields)]
+        },
         {
           pageTitle: "Ultrasound Box Side",
+          showPage: { dual: true },
           queryPath: "operator",
-          fields: [
-            {
-              fieldName: "ultraSoundGrinding",
-              label: "Ultra sound grinding",
-              type: "select",
-              required: true,
-              options: ["Before", "After"]
-            },
-            {
-              fieldName: "probeBoxSide",
-              required: true,
-              label: "Probe"
-            },
-            {
-              fieldName: "equipmentNameBoxSide",
-              required: true,
-              label: "Equipment name"
-            },
-            {
-              fieldName: "ultrasoundEquipmentIdBoxSide",
-              required: true,
-              label: "Equipment ID"
-            },
-            {
-              fieldName: "calibrationDateBoxSide",
-              required: true,
-              label: "Next Calibration date",
-              type: "date"
-            },
-            {
-              fieldName: "deviationBoxSide",
-              label: "Deviation",
-              type: "checkbox"
-            }
-          ]
+          showIfSpec: "leadEngineer.data.ultrasoundBoxSide",
+          fields: [...addNameToFieldName("BoxSide", ultrasound.pages[0].fields)]
         },
         {
           delete: true,
           repeatStartWith: 1,
+          showPage: { dual: true },
           writeOnlyFieldIf: "operator.data.deviationBoxSide",
           addButton: "Deviation",
+          showIfSpec: "leadEngineer.data.ultrasoundBoxSide",
           queryPath: "operator.deviations",
-          fields: [
-            {
-              fieldName: "deviationBoxSide",
-              required: true,
-              label: "Deviation"
-            }
-          ]
+          fields: [...addNameToFieldName("BoxSide", ultrasound.pages[1].fields)]
         },
         {
           queryPath: "operator",
-          fields: [
-            {
-              writeOnlyFieldIf: "operator.data.deviationBoxSide",
-              fieldName: "lengthBoxSide",
-              required: true,
-              label: "Length",
-              type: "number",
-              unit: "mm"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviationBoxSide",
-              fieldName: "depthBoxSide",
-              required: true,
-              label: "Depth"
-            },
-            {
-              writeOnlyFieldIf: "operator.data.deviationBoxSide",
-              fieldName: "sizeBoxSide",
-              required: true,
-              label: "Size"
-            },
-            {
-              fieldName: "approvedBoxSide",
-              required: true,
-              label: "Approved",
-              type: "checkbox"
-            },
-            {
-              fieldName: "inspectorsCertificateNoBoxSide",
-              required: true,
-              label: "Inspectors certificate no."
-            },
-            {
-              fieldName: "inspectorsCertificateDueDateBoxSide",
-              required: true,
-              label: "Inspectors certificate due date",
-              type: "date"
-            }
-          ]
-        }
-      ]
-    },
-    grinding: {
-      pages: [
+          showIfSpec: "leadEngineer.data.ultrasoundBoxSide",
+          showPage: { dual: true },
+          fields: [...addNameToFieldName("BoxSide", ultrasound.pages[2].fields)]
+        },
         {
           pageTitle: "Grinding",
           queryPath: "operator",
@@ -1428,11 +1309,11 @@ export default {
         }
       ]
     },
-    ringAssembly: {
-      showChapter: { b2P: true, dual: true },
+    completionPhase: {
       pages: [
         {
-          pageTitle: "Ring Assembly",
+          showPage: { b2P: true, dual: true },
+          pageTitle: "Completion Phase 1",
           queryPath: "operator",
           fields: [
             {
@@ -1476,13 +1357,11 @@ export default {
               type: "checkbox"
             }
           ]
-        }
-      ]
-    },
-    barrier: {
-      pages: [
+        },
         {
           pageTitle: "Barrier",
+          showPage: { b2P: true, slipon2: true, slipon3: true },
+          showIfSpec: "leadEngineer.data.barrier",
           queryPath: "operator",
           fields: [
             {
@@ -1573,6 +1452,7 @@ export default {
         },
         {
           showPage: { b2P: true },
+          showIfSpec: "leadEngineer.data.barrier",
           queryPath: "operator.measurementPointBeforeBarriers",
           repeatGroupWithQueryMath: "mathMeasurementPoints",
           repeatGroupWithQuerySpecData: true,
@@ -1604,6 +1484,7 @@ export default {
         },
         {
           showPage: { slipon2: true, slipon3: true },
+          showIfSpec: "leadEngineer.data.barrier",
           queryPath: "operator.measurementPointBeforeBarriers",
           repeatGroupWithQueryMath: "mathMeasurementPoints",
           repeatGroupWithQuerySpecData: true,
@@ -1624,6 +1505,8 @@ export default {
           ]
         },
         {
+          showPage: { b2P: true, slipon2: true, slipon3: true },
+          showIfSpec: "leadEngineer.data.barrier",
           fields: [
             {
               labelOnly: true,
@@ -1633,36 +1516,12 @@ export default {
         },
         {
           showPage: { b2P: true },
+          showIfSpec: "leadEngineer.data.barrier",
           queryPath: "operator.measurementPointAfterBarriers",
           repeatGroupWithQuerySpecData: true,
           repeatGroupWithQueryMath: "mathMeasurementPoints",
           showPageSpecPath: {
-            "leadEngineer.data.barrier": [
-              "1A",
-              "2A",
-              "3A",
-              "4A",
-              "5A",
-              "6A",
-              "7A",
-              "8A",
-              "1B",
-              "2B",
-              "3B",
-              "4B",
-              "5B",
-              "6B",
-              "7B",
-              "8B",
-              "1C",
-              "2C",
-              "3C",
-              "4C",
-              "5C",
-              "6C",
-              "7C",
-              "8C"
-            ]
+            "leadEngineer.data.barrier": [...barrier1To2]
           },
           fields: [
             {
@@ -1679,6 +1538,7 @@ export default {
         },
         {
           showPage: { b2P: true },
+          showIfSpec: "leadEngineer.data.barrier",
           fields: [
             {
               showFieldSpecPath: {
@@ -1711,6 +1571,7 @@ export default {
           ]
         },
         {
+          showIfSpec: "leadEngineer.data.barrier",
           showPage: { slipon2: true, slipon3: true },
           queryPath: "operator.measurementPointAfterBarriers",
           repeatGroupWithQueryMath: "mathMeasurementPoints",
@@ -1734,6 +1595,7 @@ export default {
           ]
         },
         {
+          showIfSpec: "leadEngineer.data.barrier",
           showPage: { slipon2: true, slipon3: true },
           queryPath: "operator",
           fields: [
@@ -1767,6 +1629,7 @@ export default {
         },
         {
           queryPath: "operator",
+          showIfSpec: "leadEngineer.data.barrier",
           showPage: { b2P: true },
           fields: [
             {
@@ -1791,6 +1654,8 @@ export default {
         },
         {
           queryPath: "operator",
+          showPage: { b2P: true, slipon2: true, slipon3: true },
+          showIfSpec: "leadEngineer.data.barrier",
           fields: [
             {
               fieldName: "barrierFinished",
@@ -1799,12 +1664,10 @@ export default {
               type: "datetime-local"
             }
           ]
-        }
-      ]
-    },
-    barrierPinSide: {
-      pages: [
+        },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierPinSide",
           pageTitle: "Barrier Pin side",
           queryPath: "operator",
           fields: [
@@ -1890,6 +1753,8 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierPinSide",
           queryPath: "operator.measurementPointBeforeBarrierPinSides",
           repeatGroupWithQueryMath: "mathMeasurementPointsPinSide",
           repeatGroupWithQuerySpecData: true,
@@ -1919,6 +1784,8 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierPinSide",
           queryPath: "operator",
           fields: [
             {
@@ -1959,36 +1826,13 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierPinSide",
           queryPath: "operator.measurementPointAfterBarrierPinSides",
           repeatGroupWithQueryMath: "mathMeasurementPointsPinSide",
           repeatGroupWithQuerySpecData: true,
           showPageSpecPath: {
-            "leadEngineer.data.barrierPinSide": [
-              "1A",
-              "2A",
-              "3A",
-              "4A",
-              "5A",
-              "6A",
-              "7A",
-              "8A",
-              "1B",
-              "2B",
-              "3B",
-              "4B",
-              "5B",
-              "6B",
-              "7B",
-              "8B",
-              "1C",
-              "2C",
-              "3C",
-              "4C",
-              "5C",
-              "6C",
-              "7C",
-              "8C"
-            ]
+            "leadEngineer.data.barrierPinSide": [...barrier1To2]
           },
           fields: [
             {
@@ -2004,6 +1848,8 @@ export default {
         },
         {
           queryPath: "operator",
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierPinSide",
           fields: [
             {
               showFieldSpecPath: {
@@ -2031,12 +1877,10 @@ export default {
               type: "datetime-local"
             }
           ]
-        }
-      ]
-    },
-    barrierBoxSide: {
-      pages: [
+        },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierBoxSide",
           pageTitle: "Barrier Box side",
           queryPath: "operator",
           fields: [
@@ -2122,6 +1966,8 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierBoxSide",
           queryPath: "operator.measurementPointBeforeBarrierBoxSides",
           repeatGroupWithQueryMath: "mathMeasurementPointsBoxSide",
           repeatGroupWithQuerySpecData: true,
@@ -2151,6 +1997,8 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierBoxSide",
           fields: [
             {
               showFieldSpecPath: {
@@ -2162,33 +2010,10 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierBoxSide",
           showPageSpecPath: {
-            "leadEngineer.data.barrierBoxSide": [
-              "1A",
-              "2A",
-              "3A",
-              "4A",
-              "5A",
-              "6A",
-              "7A",
-              "8A",
-              "1B",
-              "2B",
-              "3B",
-              "4B",
-              "5B",
-              "6B",
-              "7B",
-              "8B",
-              "1C",
-              "2C",
-              "3C",
-              "4C",
-              "5C",
-              "6C",
-              "7C",
-              "8C"
-            ]
+            "leadEngineer.data.barrierBoxSide": [...barrier1To2]
           },
           queryPath: "operator.measurementPointAfterBarrierBoxSides",
           repeatGroupWithQuerySpecData: true,
@@ -2206,6 +2031,8 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierBoxSide",
           queryPath: "operator",
           fields: [
             {
@@ -2239,6 +2066,8 @@ export default {
           ]
         },
         {
+          showPage: { dual: true },
+          showIfSpec: "leadEngineer.data.barrierBoxSide",
           queryPath: "operator",
           fields: [
             {
@@ -2267,13 +2096,9 @@ export default {
               type: "datetime-local"
             }
           ]
-        }
-      ]
-    },
-    completionPhase: {
-      pages: [
+        },
         {
-          pageTitle: "Completion phase",
+          pageTitle: "Completion Phase 2",
           queryPath: "operator",
           fields: [
             {
