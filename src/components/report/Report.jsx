@@ -308,7 +308,7 @@ const Content = ({ project, description, item }) => {
                       label="Dew Point"
                       values={[
                         "ISO 8502-4, Dew Point Temperature",
-                        leData.dewPoint ? `Min ${leData.dewPoint}°C` : " ",
+                        leData.dewPoint ? `${leData.dewPoint}°C` : " ",
                         opData.dewPoint ? `${opData.dewPoint}°C` : " ",
                         opData.dewPointUserField
                           ? opData.dewPointUserField
