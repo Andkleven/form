@@ -1020,9 +1020,8 @@ const Content = ({ project, description, item }) => {
                             .data.referencePoint;
                         let minimum = " ";
                         let maximum = " ";
-                        const measure = String(
-                          measurementPoint.data.measurementPoint
-                        );
+                        const measure =
+                          String(measurementPoint.data.measurementPoint) + "mm";
                         const user = String(
                           measurementPoint.data.measurementPointUserField
                         );
@@ -1030,16 +1029,18 @@ const Content = ({ project, description, item }) => {
                         switch (d.geometry) {
                           case "Coated Item":
                             minimum = String(
-                              Math.mathToleranceMin(i, measurementPointIndex)
+                              Math.mathToleranceMin(i, measurementPointIndex) +
+                                "mm"
                             );
                             maximum = String(
-                              Math.mathToleranceMax(i, measurementPointIndex)
+                              Math.mathToleranceMax(i, measurementPointIndex) +
+                                "mm"
                             );
                             break;
 
                           case "Mould":
-                            minimum = String(Math.mathMin(i));
-                            maximum = String(Math.mathMax(i));
+                            minimum = String(Math.mathMin(i)) + "mm";
+                            maximum = String(Math.mathMax(i)) + "mm";
                             break;
 
                           default:
