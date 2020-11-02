@@ -79,7 +79,6 @@
               "label": "Dew Point",
               "default": 12,
               "unit": "°C",
-              "prepend": "Min",
               "type": "Number",
               "subtext": "ISO 8502-4, Dew Point Temperature",
               "writeOnlyFieldIf": "leadEngineer.data.mediaBlasting"
