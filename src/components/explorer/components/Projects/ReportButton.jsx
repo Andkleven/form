@@ -7,8 +7,6 @@ import ReportViewer, {
 } from "components/report/Report";
 import { isMobile } from "react-device-detect";
 import Link from "components/design/fonts/Link";
-import Input from "components/input/Input";
-import DepthButton from "components/button/DepthButton";
 
 export const ReportButton = ({ project, description, item, ...props }) => {
   // const openPdf = () => {
@@ -16,8 +14,8 @@ export const ReportButton = ({ project, description, item, ...props }) => {
   // };
 
   // Switch these for development
-  const [show, setShow] = useState(item.itemId === "15400");
-  // const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(item.itemId === "15400");
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

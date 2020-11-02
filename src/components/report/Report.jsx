@@ -127,7 +127,7 @@ const Content = ({ project, description, item }) => {
   const d = description && description.data;
   const i = item && objectifyQuery(item);
 
-  console.log(JSON.stringify(i));
+  // console.log(JSON.stringify(i));
 
   let le = null;
   let leData = null;
