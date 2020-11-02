@@ -947,7 +947,7 @@ const Content = ({ project, description, item }) => {
                       key={`hardness-${testIndex}`}
                       label={testIndex === 0 ? "Hardness of Outer Layer" : " "}
                       values={[
-                        " ",
+                        "ITP",
                         testIndex === 0
                           ? `Minimum ${leData.hardnessOfOuterLayer} Shore A`
                           : " ",
@@ -971,7 +971,7 @@ const Content = ({ project, description, item }) => {
                       key={`peelTest-${testIndex}`}
                       label={testIndex === 0 ? "Peel Test" : " "}
                       values={[
-                        " ",
+                        "ITP",
                         testIndex === 0
                           ? `Minimum ${(leData.peelTest * 9.81).toFixed(
                               2
