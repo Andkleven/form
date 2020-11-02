@@ -848,19 +848,6 @@ const Content = ({ project, description, item }) => {
                 fontStyle="italic"
                 values={["Standard", "Criteria", "Result", "Employee"]}
               />
-              {/* {qcData.totalOd &&
-                  typeof qcData.totalOd === "boolean" &&
-                  qcData.totalOdUserField && (
-                    <Entry
-                      label="Total OD (Pi-tape)"
-                      values={[
-                        "APS",
-                        "Final measurments are within tolerances",
-                        qcData.totalOd ? "Passed" : "Failed",
-                        qcData.totalOdUserField
-                      ]}
-                    />
-                  )} */}
               {qcData.visualInspection &&
                 typeof qcData.visualInspection === "boolean" &&
                 qcData.visualInspectionUserField && (
