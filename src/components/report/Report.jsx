@@ -31,9 +31,13 @@ import Math from "components/form/functions/math";
 const fontsize = 7.5;
 
 const time = string =>
-  typeof string === "string" && moment(string).format("DD.MM.YYYY HH:mm");
+  typeof string === "string" &&
+  !["", " "].includes(string) &&
+  moment(string).format("DD.MM.YYYY HH:mm");
 const date = string =>
-  typeof string === "string" && moment(string).format("DD.MM.YYYY");
+  typeof string === "string" &&
+  !["", " "].includes(string) &&
+  moment(string).format("DD.MM.YYYY");
 
 const readyForRender = (project, description, item) => {
   const p = project && project.data;
@@ -1001,7 +1005,6 @@ const Content = ({ project, description, item }) => {
                     />
                     {qc.measurementPointQualityControls.map(
                       (measurementPoint, measurementPointIndex) => {
-                        console.log(d.geometry);
                         const reference =
                           le.measurementPointActualTdvs[measurementPointIndex]
                             .data.referencePoint;
@@ -1365,15 +1368,16 @@ const Entry = ({
         {fontStyle === "italic" && <I>{label}</I>}
       </Col>
       {Array.isArray(values) ? (
-        values.map(
-          (value, index) =>
-            value && (
-              <Col key={`${label}-value-${index}`} style={colStyle}>
-                {fontStyle === "normal" && <P>{value}</P>}
-                {fontStyle === "bold" && <B>{value}</B>}
-                {fontStyle === "italic" && <I>{value}</I>}
-              </Col>
-            )
+        values.map((value, index) =>
+          value ? (
+            <Col key={`${label}-value-${index}`} style={colStyle}>
+              {fontStyle === "normal" && <P>{value}</P>}
+              {fontStyle === "bold" && <B>{value}</B>}
+              {fontStyle === "italic" && <I>{value}</I>}
+            </Col>
+          ) : (
+            <Col key={`${label}-value-${index}-empty`} style={colStyle} />
+          )
         )
       ) : (
         <Col style={colStyle}>
