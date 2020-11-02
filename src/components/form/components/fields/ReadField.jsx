@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
@@ -10,6 +10,13 @@ import objectPath from "object-path";
 import { dialog } from "components/Dialog";
 
 export default ({ display = false, readOnly, className, style, ...props }) => {
+  const lastInputUser = objectPath.get(
+    props.backendData,
+    `${props.path}UserField`
+  );
+
+  const [showMore, setShowMore] = useState(false);
+
   if (display) {
     readOnly = true;
   }
@@ -86,6 +93,22 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
       </TinyButton>
     ) : null;
 
+  const TinyShowMoreButton = props =>
+    lastInputUser || props.subtext ? (
+      <TinyButton
+        {...props}
+        onClick={() => {
+          setShowMore(!showMore);
+        }}
+        icon={["fas", "pen"]}
+        iconSize="sm"
+        type="button"
+        className={showMore ? "text-danger" : "text-info"}
+      >
+        Info
+      </TinyButton>
+    ) : null;
+
   // const BigEditButton = props => (
   //   <Button {...props} onClick={() => flipToWrite()} icon="pencil">
   //     {/* {props.children} */}
@@ -151,19 +174,30 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
           >
             <div style={{ wordBreak: "break-word" }}>
               <div>{datetimeString}</div>
-              <small>
-                {props.value && props.subtext ? (
-                  <div className="text-muted">{props.subtext}</div>
-                ) : null}
-              </small>
+              {showMore && (
+                <small>
+                  {props.value && props.subtext ? (
+                    <div className="text-muted">{props.subtext}</div>
+                  ) : null}
+                  {props.value ? (
+                    <div className="text-muted">
+                      {lastInputUser
+                        ? `By ${lastInputUser}`
+                        : "Default or calculated value"}
+                    </div>
+                  ) : null}
+                </small>
+              )}
             </div>
-            {readOnly ? null : (
-              <TinyEditButton
-                {...props}
-                className={showAboveBreakpoint()}
-                edit={props.edit && !props.notSingleEdit}
-              />
-            )}
+            <span className={`text-right ${showAboveBreakpoint()}`}>
+              <TinyShowMoreButton />
+              {readOnly ? null : (
+                <TinyEditButton
+                  {...props}
+                  edit={props.edit && !props.notSingleEdit}
+                />
+              )}
+            </span>
           </div>
         </>
       );
@@ -187,19 +221,30 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <EmptyValue />
             )}
           {/* {objectPath.get(documentData.current, props.path)} */}
-          <small>
-            {props.value && props.subtext ? (
-              <div className="text-muted">{props.subtext}</div>
-            ) : null}
-          </small>
+          {showMore && (
+            <small>
+              {props.value && props.subtext ? (
+                <div className="text-muted">{props.subtext}</div>
+              ) : null}
+              {props.value ? (
+                <div className="text-muted">
+                  {lastInputUser
+                    ? `By ${lastInputUser}`
+                    : "Default or calculated value"}
+                </div>
+              ) : null}
+            </small>
+          )}
         </div>
-        {readOnly ? null : (
-          <TinyEditButton
-            {...props}
-            className={showAboveBreakpoint()}
-            edit={props.edit && !props.notSingleEdit}
-          />
-        )}
+        <span className={`text-right ${showAboveBreakpoint()}`}>
+          <TinyShowMoreButton />
+          {readOnly ? null : (
+            <TinyEditButton
+              {...props}
+              edit={props.edit && !props.notSingleEdit}
+            />
+          )}
+        </span>
       </div>
     );
 
@@ -258,12 +303,21 @@ export default ({ display = false, readOnly, className, style, ...props }) => {
               <Label {...props} />
               <Value {...props} />
             </div>
-            {readOnly ? null : (
-              <TinyEditButton
-                {...props}
-                edit={props.edit && !props.notSingleEdit}
-              />
-            )}
+            <span className="py-1">
+              {lastInputUser || props.subtext ? (
+                <div className="py-2">
+                  <TinyShowMoreButton />
+                </div>
+              ) : null}
+              {readOnly ? null : (
+                <div className="py-2">
+                  <TinyEditButton
+                    {...props}
+                    edit={props.edit && !props.notSingleEdit}
+                  />
+                </div>
+              )}
+            </span>
           </div>
         </Col>
         {!!savedComment && (

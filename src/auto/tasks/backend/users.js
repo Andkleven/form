@@ -1,5 +1,7 @@
+console.log(process.env);
+
 require("dotenv").config({
-  path: __dirname + "/./../../../../.env.development"
+  path: __dirname + "/./../../../../.env"
 });
 
 const {
