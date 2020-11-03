@@ -728,11 +728,41 @@ const packerType = {
       packingSpecification: "PP4"
     },
     "35-5265/526635-4046": {
-      geometry: ["OS L", " WS LT"],
+      geometry: ["OS L", "WS LT"],
       programNumber: "14",
       coreSampleCode: "N/B",
       packingSpecification: "PP3"
-    }
+    },
+    "35-5265/526635-4064": {
+      geometry: ["OS L", "WS LT"],
+      programNumber: "14",
+      coreSampleCode: "N/B",
+      packingSpecification: "PP3"
+    },
+    "35-526535-4063": {
+      geometry: ["OS", "WS NT"],
+      programNumber: "14",
+      coreSampleCode: "M/A",
+      packingSpecification: "PP4"
+    },
+    "35-406435-5265": {
+      geometry: ["WS LT", "OS"],
+      programNumber: "14",
+      coreSampleCode: "B/M",
+      packingSpecification: "PP3"
+    },
+    "35-5265/526635-4063": {
+      geometry: ["OS L", "WS NT"],
+      programNumber: "14",
+      coreSampleCode: "N/A",
+      packingSpecification: "PP4"
+    },
+    "35-406435-5265/5266": {
+      geometry: ["WS LT", "OS L"],
+      programNumber: "14",
+      coreSampleCode: "A/N",
+      packingSpecification: "PP3"
+    },
   }
 };
 
