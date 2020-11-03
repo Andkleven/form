@@ -10,7 +10,36 @@ import { objectifyQuery } from "functions/general";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Line from "components/design/Line";
+import Math from "components/form/functions/math";
+import gql from "graphql-tag";
 
+const queries = {
+  description: gql`
+    query($id: Int) {
+      descriptions(id: $id) {
+        id
+        data
+        items {
+          id
+          itemId
+          stage
+        }
+      }
+    }
+  `,
+  item: gql`
+    query($id: Int) {
+      items(id: $id) {
+        id
+        itemId
+        leadEngineer {
+          id
+          data
+        }
+      }
+    }
+  `
+};
 export default () => {
   const [show, setShow] = useState(false);
 
@@ -22,6 +51,18 @@ export default () => {
 
   const { loading, error, data } = useQuery(query[createProject.query], {
     variables: { id: id }
+  });
+
+  const descriptionQuery = useQuery(queries.description, {
+    variables: {
+      id: params.descriptionId
+    }
+  });
+
+  const itemQuery = useQuery(queries.item, {
+    variables: {
+      id: params.itemId
+    }
   });
 
   useEffect(() => {
@@ -53,7 +94,7 @@ export default () => {
 
       fixedData.projects[0].descriptions[descriptionIndex].items.forEach(
         item => {
-          item && items.push(item.itemId);
+          item && !item.unique && items.push(item.itemId);
         }
       );
 
@@ -73,7 +114,6 @@ export default () => {
     }
   };
   const items = Items();
-
   return (
     <>
       <Container
@@ -125,10 +165,48 @@ export default () => {
           {items && items.length > 0 && (
             <div className="mb-5">
               <h3 style={{ position: "relative", top: ".1em" }}>
-                Active Items
+                {items.split(",")[1] ? "Items" : "Item"} Info
               </h3>
               <Line />
+              <div className="text-muted mb-n2">
+                <small>Item {items.split(",")[1] ? "Names" : "Name"}:</small>
+              </div>
               {items}
+              {descriptionQuery &&
+                descriptionQuery.data &&
+                ["Slip on 2", "Slip on 3", "B2P", "Dual"].includes(
+                  JSON.parse(descriptionQuery.data.descriptions[0].data)
+                    .geometry
+                ) && (
+                  <>
+                    <div className="text-muted mb-n2">
+                      <small>Item description:</small>
+                    </div>
+                    <div>
+                      {(itemQuery &&
+                        itemQuery.data &&
+                        itemQuery.data.items[0].leadEngineer &&
+                        Math["mathDescription"](
+                          {
+                            leadEngineer: {
+                              data: JSON.parse(
+                                itemQuery.data.items[0].leadEngineer.data
+                              )
+                            }
+                          },
+                          null,
+                          0,
+                          null,
+                          [
+                            JSON.parse(
+                              descriptionQuery.data.descriptions[0].data
+                            ).geometry
+                          ]
+                        )) ||
+                        "N/A"}
+                    </div>
+                  </>
+                )}
             </div>
           )}
           {fixedData && fixedData.projects && fixedData.projects[0] && (

@@ -44,16 +44,21 @@ const mathToleranceMin = (
   allData = null
 ) => {
   let value = 0;
-  let toleranceMin = Number(mathMin(values, repeatStepList, decimal));
-  let measurementPointActual = objectPath.get(
-    values,
-    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
-    0
-  );
   let targetDescriptionValue = objectPath.get(
     values,
     `leadEngineer.data.targetDescriptionValue`,
     ""
+  );
+  let toleranceMin;
+  if (targetDescriptionValue.toLowerCase() === "id") {
+    toleranceMin = Number(mathMax(values, repeatStepList, decimal));
+  } else {
+    toleranceMin = Number(mathMin(values, repeatStepList, decimal));
+  }
+  let measurementPointActual = objectPath.get(
+    values,
+    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
+    0
   );
   if (targetDescriptionValue.toLowerCase() === "id") {
     value = measurementPointActual - toleranceMin;
@@ -75,17 +80,23 @@ const mathToleranceMax = (
   allData = null
 ) => {
   let value;
-  let toleranceMax = Number(mathMax(values, repeatStepList, decimal));
-  let measurementPointActual = objectPath.get(
-    values,
-    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
-    0
-  );
   let targetDescriptionValue = objectPath.get(
     values,
     `leadEngineer.data.targetDescriptionValue`,
     ""
   );
+  let toleranceMax;
+  if (targetDescriptionValue.toLowerCase() === "id") {
+    toleranceMax = Number(mathMin(values, repeatStepList, decimal));
+  } else {
+    toleranceMax = Number(mathMax(values, repeatStepList, decimal));
+  }
+  let measurementPointActual = objectPath.get(
+    values,
+    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
+    0
+  );
+
   if (targetDescriptionValue.toLowerCase() === "id") {
     value = measurementPointActual - toleranceMax;
   } else {
@@ -265,7 +276,7 @@ const mathMin = (
 ) => {
   let targetDescriptionValue = objectPath.get(
     values,
-    `leadEngineer.targetDescriptionValue`,
+    `leadEngineer.data.targetDescriptionValue`,
     null
   );
   let toleranceMinPercent = Number(
@@ -296,7 +307,7 @@ const mathMax = (
 ) => {
   let targetDescriptionValue = objectPath.get(
     values,
-    `leadEngineer.targetDescriptionValue`,
+    `leadEngineer.data.targetDescriptionValue`,
     null
   );
   let toleranceMaxPercent = Number(

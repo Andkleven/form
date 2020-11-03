@@ -109,7 +109,6 @@ const Toolbar = ({
       <span
         className={`${!props.label && "ml-auto"}`}
         style={{ marginBottom: "9px" }}
-        {...props}
       >
         {!noComment && (
           <TinyButton
