@@ -806,7 +806,7 @@ export default {
               fieldName: "ringAssembled",
               label: "Ring assembled",
               type: "select",
-              options: ["Ring assembled done", "Stringer(PXP)"],
+              options: ["Ring assembled", "Stringer(PXP)"],
               required: true
             }
           ]
