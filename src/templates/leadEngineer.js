@@ -771,7 +771,7 @@ export default {
               required: true,
               notCustom: true,
               type: "select",
-              options: ["35-4063", "35-5265", "35-4064", "35-5265/5266"]
+              options: ["35-4063", "35-4064", "35-5265", "35-5265/5266"]
             },
             {
               showField: { dual: true },
@@ -780,7 +780,7 @@ export default {
               notCustom: true,
               required: true,
               type: "select",
-              options: ["35-5265", "35-4064", "35-4063", "35-5265/5266"]
+              options: ["35-4063", "35-4064", "35-5265", "35-5265/5266"]
             },
             {
               showField: { slipon2: true, slipon3: true },

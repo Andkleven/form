@@ -109,7 +109,6 @@ function addNameToFieldName(stringToAdd, fields) {
   });
   return newFields;
 }
-console.log({ fields: [...ultrasound.pages[2].fields] });
 const grindingField = [
   {
     showField: { b2P: true },
@@ -117,7 +116,26 @@ const grindingField = [
     required: true,
     label: "Element length after grinding",
     unit: "mm",
-    type: "number",
+    type: "number"
+  },
+  {
+    showField: { b2P: true },
+    fieldName: "elementCenterDiameter",
+    required: true,
+    label: "Element center diameter",
+    type: "number"
+  },
+  {
+    showField: { b2P: true },
+    fieldName: "pinDiameter",
+    required: true,
+    label: "Pin diameter"
+  },
+  {
+    showField: { b2P: true },
+    fieldName: "boxDiameter",
+    required: true,
+    label: "Box diameter",
     subtext: "Target thickness: {}mm",
     mathSubtext: "mathTargetThickness"
   },
@@ -132,9 +150,7 @@ const grindingField = [
     required: true,
     label: "Element length after grinding pin side",
     unit: "mm",
-    type: "number",
-    subtext: "Target thickness: {}mm",
-    mathSubtext: "mathTargetThicknessPin"
+    type: "number"
   },
   {
     showField: { dual: true },
@@ -188,25 +204,6 @@ const grindingField = [
     fieldName: "boxDiameterBoxSide",
     required: true,
     label: "Box diameter box side"
-  },
-  {
-    showField: { b2P: true },
-    fieldName: "elementCenterDiameter",
-    required: true,
-    label: "Element center diameter",
-    type: "number"
-  },
-  {
-    showField: { b2P: true },
-    fieldName: "pinDiameter",
-    required: true,
-    label: "Pin diameter"
-  },
-  {
-    showField: { b2P: true },
-    fieldName: "boxDiameter",
-    required: true,
-    label: "Box diameter"
   },
   {
     showField: { slipon3: true, slipon2: true },
