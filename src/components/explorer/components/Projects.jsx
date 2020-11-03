@@ -294,6 +294,32 @@ export default ({
       )}
       {results && results.length > 0 ? (
         results.map((project, indexProject) => {
+          const exportableProject = () => {
+            let exportable = true;
+            const allowedGeometries = ["Coated Item", "Mould"];
+
+            let geometries = [];
+
+            project.descriptions &&
+              project.descriptions.forEach(description => {
+                const geometry = description.data.geometry;
+                if (!geometries.includes(geometry)) {
+                  geometries.push(geometry);
+                }
+              });
+
+            console.log(geometries);
+            geometries.forEach(geometry => {
+              if (!allowedGeometries.includes(geometry)) {
+                exportable = false;
+              }
+            });
+
+            console.log("exportable", exportable);
+
+            return exportable;
+          };
+
           return (
             <Tree
               iconSize={iconSize}
@@ -440,11 +466,7 @@ export default ({
                   color="primary"
                   style={{ marginRight: ".75em", ...rowStyle }}
                   project={project}
-                  // disabled={
-                  //   !["Coated Item", "Mould"].includes(
-                  //     description.data.geometry
-                  //   )
-                  // }
+                  disabled={!exportableProject()}
                 >
                   Export
                 </ReportsButton>
