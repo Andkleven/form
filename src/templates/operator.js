@@ -1210,8 +1210,9 @@ export default {
             {
               fieldName: "measurementPoint",
               variableLabelSpec: true,
+              indexVariableLabel: { mould: true },
               queryVariableLabel: {
-                coatedItem: [
+                  coatedItem: [
                   "",
                   "leadEngineer.measurementPointActualTdvs",
                   "data.referencePoint"
@@ -1219,7 +1220,7 @@ export default {
               },
               label: {
                 coatedItem: "Measurement Point Reference: {}",
-                mould: "Measurement Point"
+                mould: "Measurement Point {}"
               },
               calculateMin: "mathMeasurementPointMin",
               calculateMax: "mathMeasurementPointMax",
