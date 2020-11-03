@@ -18,7 +18,23 @@ export default ({
       delay={{ show: 1000, hide: 0 }}
       overlay={<Tooltip hidden={tooltip ? false : true}>{tooltip}</Tooltip>}
     >
-      {force ? (
+      {props.disabled ? (
+        <div className={`${props.className}`} style={props.style}>
+          <div style={{ opacity: 0.5 }}>
+            <div
+              className={`d-flex m-0 p-0 pr-2 not-selectable text-${
+                color || "light"
+              } text-decoration-none`}
+              {...props}
+            >
+              <div className="pb-1 pt-2 not-selectable">
+                <FontAwesomeIcon {...iconProps} />
+                {children}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : force ? (
         <div className={`${props.className}`} style={props.style}>
           <a
             variant="link"

@@ -15,6 +15,8 @@ const {
   link
 } = require("taiko");
 
+const { users } = require("users.json");
+
 const createUsers = async () => {
   try {
     // Login
@@ -25,44 +27,48 @@ const createUsers = async () => {
     await press("Enter");
 
     // Users
-    const users = [
-      {
-        username: "lead",
-        password: "lead",
-        role: "Lead Engineer",
-        name: "Inge Ingeniør"
-      },
-      {
-        username: "operator",
-        password: "operator",
-        role: "Operator",
-        name: "Ola Operator"
-      },
-      {
-        username: "quality",
-        password: "quality",
-        role: "Quality Control",
-        name: "Kari Kvalitet"
-      },
-      {
-        username: "supervisor",
-        password: "supervisor",
-        role: "Supervisor",
-        name: "Vilde Veileder"
-      },
-      {
-        username: "spectator",
-        password: "spectator",
-        role: "Spectator",
-        name: "Tiril Tilskuer"
-      }
-    ];
+    // const users = [
+    //   {
+    //     username: "lead",
+    //     password: "lead",
+    //     role: "Lead Engineer",
+    //     name: "Inge Ingeniør"
+    //   },
+    //   {
+    //     username: "operator",
+    //     password: "operator",
+    //     role: "Operator",
+    //     name: "Ola Operator"
+    //   },
+    //   {
+    //     username: "quality",
+    //     password: "quality",
+    //     role: "Quality Control",
+    //     name: "Kari Kvalitet"
+    //   },
+    //   {
+    //     username: "supervisor",
+    //     password: "supervisor",
+    //     role: "Supervisor",
+    //     name: "Vilde Veileder"
+    //   },
+    //   {
+    //     username: "spectator",
+    //     password: "spectator",
+    //     role: "Spectator",
+    //     name: "Tiril Tilskuer"
+    //   }
+    // ];
+
+    // TODO: Add check to see if Admin is already added
 
     await goto(process.env.REACT_APP_BACKEND + "/admin/auth/user/");
     await click(link("admin"));
     await dropDown({ id: "id_userprofile-0-role" }).select("Admin");
     await write("admin", into(textBox({ id: "id_userprofile-0-name" })));
     await click("SAVE");
+
+    // TODO: Add check to see if users are already added
 
     // Add users
     for (const user of users) {
