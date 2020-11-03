@@ -123,13 +123,17 @@ const grindingField = [
     fieldName: "elementCenterDiameter",
     required: true,
     label: "Element center diameter",
-    type: "number"
+    type: "number",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThickness"
   },
   {
     showField: { b2P: true },
     fieldName: "pinDiameter",
     required: true,
-    label: "Pin diameter"
+    label: "Pin diameter",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThickness"
   },
   {
     showField: { b2P: true },
@@ -157,19 +161,25 @@ const grindingField = [
     fieldName: "elementCenterDiameterPinSide",
     required: true,
     label: "Element center diameter pin side",
-    type: "number"
+    type: "number",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThicknessPin"
   },
   {
     showField: { dual: true },
     fieldName: "pinDiameterPinSide",
     required: true,
-    label: "Pin diameter pin side"
+    label: "Pin diameter pin side",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThicknessPin"
   },
   {
     showField: { dual: true },
     fieldName: "boxDiameterPinSide",
     required: true,
-    label: "Box diameter pin side"
+    label: "Box diameter pin side",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThicknessPin"
   },
   {
     showField: { dual: true },
@@ -182,28 +192,32 @@ const grindingField = [
     required: true,
     label: "Element length after grinding box side",
     unit: "mm",
-    type: "number",
-    subtext: "Target thickness: {}mm",
-    mathSubtext: "mathTargetThicknessBox"
+    type: "number"
   },
   {
     showField: { dual: true },
     fieldName: "elementCenterDiameterBoxSide",
     required: true,
     label: "Element center diameter box side",
-    type: "number"
+    type: "number",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThicknessBox"
   },
   {
     showField: { dual: true },
     fieldName: "pinDiameterBoxSide",
     required: true,
-    label: "Pin diameter box side"
+    label: "Pin diameter box side",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThicknessBox"
   },
   {
     showField: { dual: true },
     fieldName: "boxDiameterBoxSide",
     required: true,
-    label: "Box diameter box side"
+    label: "Box diameter box side",
+    subtext: "Target thickness: {}mm",
+    mathSubtext: "mathTargetThicknessBox"
   },
   {
     showField: { slipon3: true, slipon2: true },

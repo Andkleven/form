@@ -2016,14 +2016,13 @@ const mathIdentificationMarking = (
     "MM YYYY"
   );
   if (["Dual", "B2P"].includes(jsonVariables[0])) {
-    return `${projectNumber} - TON${item} - ${descriptionNameMaterialNo} - ${description} - Made in Norway - ${identificationMarkingDone}
+    let pipeDescription = mathPipeDescription(LeadEngineerData);
+    return `${projectNumber} - TON${item} - ${descriptionNameMaterialNo} - ${description} - ${pipeDescription} - Made in Norway - ${identificationMarkingDone}
     `;
   } else {
-    let pipeDescription = mathPipeDescription(LeadEngineerData);
     return `${projectNumber} TON${item} - 
     ${descriptionNameMaterialNo} - 
     ${description} - 
-    ${pipeDescription} - 
     Made in Norway - 
     ${identificationMarkingDone}
     `;
