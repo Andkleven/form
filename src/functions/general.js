@@ -2,14 +2,13 @@ import React, { useRef, useEffect } from "react";
 import objectPath from "object-path";
 import Math from "components/form/functions/math";
 import { ignoreRequiredField } from "config/const";
-import stages from "components/form/stage/stages.json";
 import moment from "moment";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import operatorJson from "templates/operator";
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
-    return JSON.parse(data.replace(/'/g, '"'));
+    return JSON.parse(data);
   }
 };
 
