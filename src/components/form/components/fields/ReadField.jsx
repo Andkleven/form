@@ -9,13 +9,20 @@ import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
 import { dialog } from "components/Dialog";
 
-export default ({ display = false, readOnly, className, style, ...props }) => {
+export default ({
+  display = false,
+  readOnly,
+  className,
+  style,
+  showMoreDefault = false,
+  ...props
+}) => {
   const lastInputUser = objectPath.get(
     props.backendData,
     `${props.path}UserField`
   );
 
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(showMoreDefault);
 
   if (display) {
     readOnly = true;
