@@ -164,7 +164,7 @@ export default ({ ...props }) => {
               Drag and drop files, or click to upload
             </div>
             <input
-              // {...getInputProps()}
+              {...getInputProps()}
               id={`${props.label}`}
               name={props.label || props.prepend}
               type="file"
