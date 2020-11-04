@@ -89,6 +89,14 @@ const ITEM = gql`
           id
           data
         }
+        deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
         deviations {
           id
           data
@@ -222,6 +230,14 @@ const BATCHING_OPERATOR = gql`
               id
               data
             }
+            deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
             deviations {
               id
               data
@@ -357,6 +373,14 @@ const BATCHING_VULCANIZATION = gql`
               id
               data
             }
+            deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
             deviations {
               id
               data
@@ -610,6 +634,14 @@ const GET_OPERATOR_BY_DESCRIPTION = gql`
             id
             data
           }
+          deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
           deviations {
             id
             data
@@ -733,6 +765,14 @@ const GET_OPERATOR_BY_ITEM = gql`
           id
           data
         }
+        deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
         deviations {
           id
           data
@@ -918,6 +958,14 @@ const QUALITY_CONTROL = gql`
           id
           data
         }
+        deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
         deviations {
           id
           data

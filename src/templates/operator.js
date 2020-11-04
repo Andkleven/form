@@ -106,6 +106,13 @@ function addNameToFieldName(stringToAdd, fields) {
         `${field.fieldName}${stringToAdd}`
       );
     }
+    if (field.writeOnlyFieldIf) {
+      objectPath.set(
+        newFields,
+        `${indexField}.writeOnlyFieldIf`,
+        `${field.writeOnlyFieldIf}${stringToAdd}`
+      );
+    }
   });
   return newFields;
 }
@@ -1212,7 +1219,7 @@ export default {
               variableLabelSpec: true,
               indexVariableLabel: { mould: true },
               queryVariableLabel: {
-                  coatedItem: [
+                coatedItem: [
                   "",
                   "leadEngineer.measurementPointActualTdvs",
                   "data.referencePoint"
@@ -1269,10 +1276,10 @@ export default {
           fields: [...ultrasound.pages[2].fields]
         },
         {
-          showPage: { dual: true },
           pageTitle: "Ultrasound Pin Side",
-          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
+          showPage: { dual: true },
           queryPath: "operator",
+          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
           fields: [...addNameToFieldName("PinSide", ultrasound.pages[0].fields)]
         },
         {
@@ -1280,9 +1287,9 @@ export default {
           repeatStartWith: 1,
           showPage: { dual: true },
           writeOnlyFieldIf: "operator.data.deviationPinSide",
-          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
           addButton: "Deviation",
-          queryPath: "operator.deviations",
+          showIfSpec: "leadEngineer.data.ultrasoundPinSide",
+          queryPath: "operator.deviationPinSides",
           fields: [...addNameToFieldName("PinSide", ultrasound.pages[1].fields)]
         },
         {
@@ -1305,7 +1312,7 @@ export default {
           writeOnlyFieldIf: "operator.data.deviationBoxSide",
           addButton: "Deviation",
           showIfSpec: "leadEngineer.data.ultrasoundBoxSide",
-          queryPath: "operator.deviations",
+          queryPath: "operator.deviationBoxSides",
           fields: [...addNameToFieldName("BoxSide", ultrasound.pages[1].fields)]
         },
         {

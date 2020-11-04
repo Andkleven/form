@@ -234,7 +234,7 @@ export default React.memo(
     } = useContext(DocumentDataContext);
     const [fieldGroups, setFieldGroups] = useState({});
     const hidden = useHidden(writeOnlyFieldIf, [
-      `${label}-${prepend}-${queryPath}-page-hidden`
+      `${label}-${prepend}-${queryPath}-${writeOnlyFieldIf}-page-hidden`
     ]);
 
     const updateReadOnly = useCallback(() => {

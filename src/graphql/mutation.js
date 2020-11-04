@@ -262,6 +262,14 @@ const OPERATOR_BATCHING = gql`
                 id
                 data
               }
+              deviationPinSides {
+                id
+                data
+              }
+              deviationBoxSides {
+                id
+                data
+              }
               deviations {
                 id
                 data
@@ -400,6 +408,14 @@ const OPERATOR = gql`
               data
             }
             grindings {
+              id
+              data
+            }
+            deviationPinSides {
+              id
+              data
+            }
+            deviationBoxSides {
               id
               data
             }
@@ -573,6 +589,14 @@ const QUALITY_CONTROL = gql`
               data
             }
             grindings {
+              id
+              data
+            }
+            deviationPinSides {
+              id
+              data
+            }
+            deviationBoxSides {
               id
               data
             }

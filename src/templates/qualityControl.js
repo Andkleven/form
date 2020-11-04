@@ -63,7 +63,14 @@ export default {
               fieldName: "visualInspection",
               label: "Visual Inspection",
               type: "checkbox",
-              subtext: "See ITP.",
+              subtext: {
+                slipon3: "See EW-I-1.",
+                slipon2: "See EW-I-1.",
+                b2P: "See EW-I-1.",
+                dual: "See EW-I-1.",
+                coatedItem: "See ITP.",
+                mould: "See ITP."
+              },
               required: true,
               showFieldSpecPath: "leadEngineer.data.visualInspection"
             },
