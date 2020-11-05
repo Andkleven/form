@@ -1041,7 +1041,7 @@ export default {
             },
             {
               mathSpec: "mathShrinkThickness",
-              label: "order layer thickness"
+              label: "Order Layer Thickness"
             },
             {
               specValueList: [
