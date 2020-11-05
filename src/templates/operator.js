@@ -517,21 +517,6 @@ export default {
             },
             {
               showField: { coatedItem: true, mould: true },
-              showFieldSpecPath: "leadEngineer.data.compressedAirCheck",
-              fieldName: "equipmentIdCompressedAirCheck",
-              required: true,
-              prepend: "Equipment ID"
-            },
-            {
-              showField: { coatedItem: true, mould: true },
-              showFieldSpecPath: "leadEngineer.data.compressedAirCheck",
-              fieldName: "nextCalibrationDateCompressedAirCheck",
-              type: "date",
-              prepend: "Next Calibration Date",
-              required: true
-            },
-            {
-              showField: { coatedItem: true, mould: true },
               fieldName: "uvTest",
               showFieldSpecPath: "leadEngineer.data.uvTest",
               label: "UV Test",
