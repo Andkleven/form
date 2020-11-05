@@ -165,13 +165,12 @@ export default () => {
           {items && items.length > 0 && (
             <div className="mb-5">
               <h3 style={{ position: "relative", top: ".1em" }}>
-                {items.split(",")[1] ? "Items" : "Item"} Info
+                {items.split(",")[1] ? "Items" : "Item"}
               </h3>
               <Line />
-              <div className="text-muted mb-n2">
-                <small>Item {items.split(",")[1] ? "Names" : "Name"}:</small>
-              </div>
+              {/* All */}
               {items}
+              {/* Packer */}
               {descriptionQuery &&
                 descriptionQuery.data &&
                 ["Slip on 2", "Slip on 3", "B2P", "Dual"].includes(
