@@ -2,7 +2,8 @@ import React, {
   useContext,
   useCallback,
   useLayoutEffect,
-  useState
+  useState,
+  useEffect
 } from "react";
 import { RouteGuard } from "components/Dialog";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
@@ -41,15 +42,19 @@ export default ({ ...props }) => {
   const [batching, setBatching] = useState(false);
   const [when, setWhen] = useState(false);
   const [state, setState] = useState("");
-  const {
-    documentData,
-    documentDataDispatch,
-    screenshotData,
-    save
-  } = useContext(DocumentDataContext);
+  const { documentData, documentDataDispatch, screenshotData } = useContext(
+    DocumentDataContext
+  );
   if (objectPath.get(documentData.current, props.path, "") !== state) {
     setState(objectPath.get(documentData.current, props.path, ""));
   }
+  useEffect(() => {
+    setWhen(
+      screenshotData.current &&
+        JSON.stringify(screenshotData.current) !==
+          JSON.stringify(documentData.current)
+    );
+  }, [screenshotData, documentData, props.submitData]);
 
   const [mutation, { loading, error }] = useMutation(
     mutations[props.document.mutation],
@@ -340,7 +345,7 @@ export default ({ ...props }) => {
             variant: "info",
             type: "submit",
             onClick: () => {
-              save();
+              props.submitData(false);
               return true;
             }
           },

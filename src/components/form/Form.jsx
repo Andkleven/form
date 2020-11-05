@@ -230,7 +230,7 @@ export default React.memo(
       }
     );
     const submitData = useCallback(
-      submit => {
+      (submit = false) => {
         renderFunction.current = {};
         screenshotData.current = false;
         setEditChapter(0);
@@ -311,13 +311,13 @@ export default React.memo(
     const formSubmit = e => {
       e.persist();
       e.preventDefault();
-      submitData(documentData.current, true);
+      submitData(true);
     };
 
-    const formRef = useRef();
-    const save = () => {
-      formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
-    };
+    // const formRef = useRef();
+    // const save = () => {
+    //   formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
+    // };
 
     timer.current = setTimeout(() => {
       setLoading(false);
@@ -339,7 +339,6 @@ export default React.memo(
             documentDataDispatch,
             renderFunction,
             resetState,
-            save,
             mathStore,
             mathDispatch,
             renderMath,
@@ -356,7 +355,7 @@ export default React.memo(
             {loading && <Loading />}
             <Title>{document.documentTitle}</Title>
             <Form
-              ref={formRef}
+              // ref={formRef}
               onSubmit={e => {
                 formSubmit(e);
                 // TODO: Make exitOnSave bypass RouteGuard

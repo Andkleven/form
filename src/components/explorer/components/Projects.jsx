@@ -297,9 +297,7 @@ export default ({
           const exportableProject = () => {
             let exportable = true;
             const allowedGeometries = ["Coated Item", "Mould"];
-
             let geometries = [];
-
             project.descriptions &&
               project.descriptions.forEach(description => {
                 const geometry = description.data.geometry;
@@ -307,16 +305,11 @@ export default ({
                   geometries.push(geometry);
                 }
               });
-
-            console.log(geometries);
             geometries.forEach(geometry => {
               if (!allowedGeometries.includes(geometry)) {
                 exportable = false;
               }
             });
-
-            console.log("exportable", exportable);
-
             return exportable;
           };
 

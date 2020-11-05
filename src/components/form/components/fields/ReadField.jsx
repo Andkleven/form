@@ -27,7 +27,7 @@ export default ({
   if (display) {
     readOnly = true;
   }
-  const { documentData, documentDataDispatch, save, screenshotData } =
+  const { documentData, documentDataDispatch, screenshotData } =
     !display && useContext(DocumentDataContext);
   const chapterContext = useContext(ChapterContext);
 
@@ -68,7 +68,7 @@ export default ({
                   variant: "success",
                   type: "submit",
                   onClick: () => {
-                    save();
+                    props.submitData(false);
                     flipToWrite();
                   }
                 },
