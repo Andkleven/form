@@ -75,8 +75,8 @@ export default ({ project, description, item }) => {
                   label="Description"
                   values={d.descriptionNameMaterialNo}
                 />
-                {description &&
-                  description.specifications &&
+                {!!description &&
+                  !!description.specifications &&
                   description.specifications.map((spec, specIndex) => {
                     if (
                       spec.data.specificationTitle &&
@@ -98,7 +98,7 @@ export default ({ project, description, item }) => {
             </Row>
           </View>
 
-          {op && le && (
+          {!!op && !!le && (
             <View style={{ paddingBottom: 7 }} wrap={false}>
               <Subtitle>Steel measurements</Subtitle>
               <Line />
@@ -107,7 +107,7 @@ export default ({ project, description, item }) => {
                 label={`Reference point`}
                 values={[`Expected`, `Measured`, `Employee`]}
               />
-              {op &&
+              {!!op &&
                 op.measurementPointActualTdvs.map((obj, index) => {
                   const m = obj.data;
                   return (
@@ -125,7 +125,7 @@ export default ({ project, description, item }) => {
             </View>
           )}
 
-          {leData && opData && (
+          {!!leData && !!opData && (
             <View wrap={false}>
               <Subtitle>Steel Preparation</Subtitle>
               <Line />
@@ -136,7 +136,7 @@ export default ({ project, description, item }) => {
                     fontStyle="italic"
                     values={["Standard", "Criteria", "Result", "Employee"]}
                   />
-                  {leData.relativeHumidity ? (
+                  {!!leData.relativeHumidity ? (
                     <Entry
                       label="Relative Humidity"
                       values={[
@@ -153,7 +153,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.airTemperature ? (
+                  {!!leData.airTemperature ? (
                     <Entry
                       label="Air Temperature"
                       values={[
@@ -170,7 +170,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.steelTemperature ? (
+                  {!!leData.steelTemperature ? (
                     <Entry
                       label="Steel Temperature"
                       values={[
@@ -187,7 +187,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.dewPoint ? (
+                  {!!leData.dewPoint ? (
                     <Entry
                       label="Dew Point"
                       values={[
@@ -200,7 +200,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.temperatureOverDewPoint ? (
+                  {!!leData.temperatureOverDewPoint ? (
                     <Entry
                       label="Temperature over Dew Point"
                       values={[
@@ -217,7 +217,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.blastMediaConductivity ? (
+                  {!!leData.blastMediaConductivity ? (
                     <Entry
                       label="Blast Media Conductivity"
                       values={[
@@ -234,7 +234,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.solubleSaltLevel ? (
+                  {!!leData.solubleSaltLevel ? (
                     <Entry
                       label="Soluble Salt Level"
                       values={[
@@ -251,7 +251,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.surfaceProfileMin ? (
+                  {!!leData.surfaceProfileMin ? (
                     <Entry
                       label="Surface Profile (Roughness) Min"
                       values={[
@@ -268,7 +268,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.surfaceProfileMax ? (
+                  {!!leData.surfaceProfileMax ? (
                     <Entry
                       label="Surface Profile (Roughness) Max"
                       values={[
@@ -285,7 +285,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.dustTest ? (
+                  {!!leData.dustTest ? (
                     <Entry
                       label="Dust Test"
                       values={[
@@ -298,7 +298,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.inspectionOfSteelSurface ? (
+                  {!!leData.inspectionOfSteelSurface ? (
                     <Entry
                       label="Inspection of Steel Surface"
                       values={[
@@ -315,7 +315,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.compressedAirCheck ? (
+                  {!!leData.compressedAirCheck ? (
                     <Entry
                       label="Compressed Air Check"
                       values={[
@@ -332,7 +332,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.surfaceCleanliness ? (
+                  {!!leData.surfaceCleanliness ? (
                     <Entry
                       label="Surface Cleanliness"
                       values={[
@@ -345,7 +345,7 @@ export default ({ project, description, item }) => {
                       ]}
                     />
                   ) : null}
-                  {leData.uvTest ? (
+                  {!!leData.uvTest ? (
                     <Entry
                       label="UV Test"
                       values={[
@@ -361,9 +361,9 @@ export default ({ project, description, item }) => {
                     />
                   ) : null}
 
-                  {le &&
-                    op &&
-                    le.additionalCustomTests &&
+                  {!!le &&
+                    !!op &&
+                    !!le.additionalCustomTests &&
                     le.additionalCustomTests.map((test, testIndex) => {
                       test = test.data;
                       return (
@@ -568,12 +568,12 @@ export default ({ project, description, item }) => {
                     "Employee"
                   ]}
                 />
-                {op &&
+                {!!op &&
                   op.vulcanizationOperators.map((obj, index) => {
                     const leSteps = le.vulcanizationSteps;
                     const opSteps = op.vulcanizationOperators;
                     // console.log(steps);
-                    const v = obj.data;
+                    // const v = obj.data;
                     return opSteps.map((opStep, stepIndex) => {
                       let leStep = leSteps[stepIndex];
                       let layerSum = 0;
@@ -612,8 +612,8 @@ export default ({ project, description, item }) => {
                   })}
               </Col>
               <Col style={{ width: "34.25%" }}>
-                {op &&
-                  op.rubberCementOperators &&
+                {!!op &&
+                  !!op.rubberCementOperators &&
                   op.rubberCementOperators.length > 0 && (
                     <>
                       <Entry
@@ -623,7 +623,7 @@ export default ({ project, description, item }) => {
                       />
                       <Line />
 
-                      {op &&
+                      {!!op &&
                         op.rubberCementOperators.map(
                           (opRubberCement, rubberCementIndex) => {
                             // const rData = opRubberCement.data;
@@ -663,7 +663,7 @@ export default ({ project, description, item }) => {
                     </>
                   )}
 
-                {op &&
+                {!!op &&
                   op.vulcanizationOperators.map((obj, index) => {
                     const steps = le.vulcanizationSteps;
                     // console.log(steps);
@@ -699,7 +699,7 @@ export default ({ project, description, item }) => {
             </Row>
           </View>
 
-          {qcData && (
+          {!!qcData && (
             <View wrap={false}>
               <Subtitle>Final Inspection</Subtitle>
               <Line />
@@ -709,7 +709,7 @@ export default ({ project, description, item }) => {
                 fontStyle="italic"
                 values={["Standard", "Criteria", "Result", "Employee"]}
               />
-              {qcData.visualInspection &&
+              {!!qcData.visualInspection &&
                 typeof qcData.visualInspection === "boolean" &&
                 qcData.visualInspectionUserField && (
                   <Entry
@@ -722,7 +722,7 @@ export default ({ project, description, item }) => {
                     ]}
                   />
                 )}
-              {qcData.simpleFinalDimensionsCheck &&
+              {!!qcData.simpleFinalDimensionsCheck &&
                 typeof qcData.simpleFinalDimensionsCheck === "boolean" &&
                 qcData.simpleFinalDimensionsCheckUserField && (
                   <Entry
@@ -735,7 +735,7 @@ export default ({ project, description, item }) => {
                     ]}
                   />
                 )}
-              {qcData.sparkTest &&
+              {!!qcData.sparkTest &&
                 typeof qcData.sparkTest === "boolean" &&
                 qcData.sparkTestUserField && (
                   <Entry
@@ -748,7 +748,7 @@ export default ({ project, description, item }) => {
                     ]}
                   />
                 )}
-              {qcData.hammerTest &&
+              {!!qcData.hammerTest &&
                 typeof qcData.hammerTest === "boolean" &&
                 qcData.hammerTestUserField && (
                   <Entry
@@ -761,7 +761,7 @@ export default ({ project, description, item }) => {
                     ]}
                   />
                 )}
-              {qcData.identificationMarking &&
+              {!!qcData.identificationMarking &&
                 typeof qcData.identificationMarking === "boolean" &&
                 qcData.identificationMarkingUserField && (
                   <Entry
@@ -958,7 +958,7 @@ export default ({ project, description, item }) => {
                     )}
                   </>
                 )}
-              {qcData.finalInspectionComment && (
+              {!!qcData.finalInspectionComment && (
                 <>
                   <P style={{ paddingTop: 5 }}>Final Inspection Comment</P>
                   <Line />

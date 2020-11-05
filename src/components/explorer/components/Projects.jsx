@@ -298,8 +298,13 @@ export default ({
             let exportable = true;
             const allowedGeometries = ["Coated Item", "Mould"];
             let geometries = [];
-            project.descriptions &&
+            let items = 0;
+
+            !!project.descriptions &&
               project.descriptions.forEach(description => {
+                if (!!description.items && Array.isArray(description.items)) {
+                  items += description.items.length;
+                }
                 const geometry = description.data.geometry;
                 if (!geometries.includes(geometry)) {
                   geometries.push(geometry);
@@ -310,6 +315,11 @@ export default ({
                 exportable = false;
               }
             });
+
+            if (items === 0) {
+              exportable = false;
+            }
+
             return exportable;
           };
 

@@ -14,8 +14,8 @@ export const ReportButton = ({ project, description, item, ...props }) => {
   // };
 
   // Switch these for development
-  // const [show, setShow] = useState(item.itemId === "15400");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(item.itemId === "CC");
+  // const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
