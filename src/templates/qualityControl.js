@@ -106,15 +106,6 @@ export default {
               showFieldSpecPath: "leadEngineer.data.identificationMarking",
               required: true,
               type: "checkbox"
-            },
-            {
-              showField: {
-                mould: true,
-                coatedItem: true
-              },
-              fieldName: "finalInspectionComment",
-              label: "Final Inspection Comment",
-              type: "comment"
             }
           ]
         },
@@ -212,6 +203,20 @@ export default {
           type: "files",
           queryPath: "finalInspectionQualityControl.uploadFiles",
           description: true
+        },
+        {
+          queryPath: "finalInspectionQualityControl",
+          fields: [
+            {
+              showField: {
+                mould: true,
+                coatedItem: true
+              },
+              fieldName: "finalInspectionComment",
+              label: "Final Inspection Comment",
+              type: "comment"
+            }
+          ]
         }
       ]
     },
