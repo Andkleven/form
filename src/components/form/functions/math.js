@@ -354,12 +354,12 @@ const mathMeasurementPointMin = (
   if (tvd === "ID") {
     result =
       measurementPointActual -
-      layerThickness +
+      layerThickness -
       (layerThickness * toleranceMinPercent) / 100;
   } else {
     result =
       measurementPointActual +
-      layerThickness +
+      layerThickness -
       (layerThickness * toleranceMinPercent) / 100;
   }
   return result;
@@ -503,9 +503,7 @@ const mathCumulativeThickness = (values, repeatStepList, min) => {
   if (layersUnique) {
     appliedThickness = 0;
   }
-  console.log(percent, appliedThickness);
   let partOfNumber = (appliedThickness * percent) / 100;
-  console.log(partOfNumber);
   if (min) {
     appliedThickness = appliedThickness - partOfNumber;
   } else {
@@ -522,8 +520,6 @@ const mathCumulativeThickness = (values, repeatStepList, min) => {
     cumulativeThickness =
       previousCumulativeThickness + previousLayers + appliedThickness;
   }
-  console.log(previousCumulativeThickness);
-  console.log(cumulativeThickness);
   return cumulativeThickness;
 };
 
