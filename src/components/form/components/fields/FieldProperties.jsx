@@ -232,6 +232,7 @@ export default React.memo(({ ...props }) => {
     props.routeToSpecMin,
     props.routeToSpecMax
   ]);
+
   const subtext = useMemo(
     () =>
       getSubtext(

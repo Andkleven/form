@@ -647,8 +647,7 @@ export default {
           fields: [
             {
               showField: { slipon2: true, slipon3: true },
-              text: "Internal and external priming",
-              label: ""
+              text: "Internal and external priming"
             },
             {
               specValueList: "leadEngineer.data.primer1",
@@ -668,6 +667,41 @@ export default {
             },
             {
               fieldName: "stopTimePriming1",
+              required: true,
+              label: "Stop Time",
+              type: "datetime-local"
+            }
+          ]
+        }
+      ]
+    },
+    epoxy: {
+      queryPath: "operator",
+      pages: [
+        {
+          pageTitle: "Epoxy",
+          queryPath: "operator",
+          fields: [
+            {
+              fieldName: "batchNumberEpoxy",
+              required: true,
+              label: "Batch Number Epoxy",
+              type: "number"
+            },
+            {
+              fieldName: "batchNumberHerder",
+              required: true,
+              label: "Batch Number Herder (Curative)",
+              type: "number"
+            },
+            {
+              fieldName: "startTimeEpoxy",
+              required: true,
+              label: "Start Time",
+              type: "datetime-local"
+            },
+            {
+              fieldName: "stopTimeEpoxy",
               required: true,
               label: "Stop Time",
               type: "datetime-local"
@@ -1049,7 +1083,7 @@ export default {
                 "coatingLayers",
                 "data.appliedThickness"
               ],
-              label: "rubber thickness to be applied"
+              label: "Rubber thickness to be applied"
             }
           ]
         },
@@ -1074,6 +1108,7 @@ export default {
               required: true
             },
             {
+              showField: { mould: true },
               label: "Build Thickness",
               math: "mathMouldThickness"
             },

@@ -5,6 +5,7 @@
     "actualSteelMeasurement",
     "steelPreparation1",
     "steelPreparation2",
+    "epoxy",
     "primer1",
     "primer2",
     "releaseCementsBeforeCoating",
@@ -97,6 +98,9 @@
     },
     "steelPreparation2": {
       "queryPath": "leadEngineer.data.additionalTests"
+    },
+    "epoxy": {
+      "queryPath": "leadEngineer.data.epoxy"
     },
     "primer1": {
       "queryPath": "leadEngineer.data.primer1"

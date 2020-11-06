@@ -296,6 +296,11 @@ export default {
           queryPath: "leadEngineer",
           fields: [
             {
+              fieldName: "epoxy",
+              label: "Epoxy",
+              type: "checkbox"
+            },
+            {
               fieldName: "primer1",
               label: "Primer 1",
               type: "select",
@@ -429,7 +434,7 @@ export default {
               fieldName: "toleranceMin",
               prepend: "Tolerated Minimum",
               unit: "mm",
-              math: "mathToleranceMin",
+              math: "mathMin",
               type: "number"
             },
             {
@@ -440,8 +445,28 @@ export default {
             },
             {
               fieldName: "toleranceMax",
-              math: "mathToleranceMax",
+              math: "mathMax",
               prepend: "Tolerated Maximum",
+              unit: "mm",
+              type: "number"
+            },
+            {
+              writeOnlyFieldIf: {
+                "leadEngineer.data.targetDescriptionValue": ["ID", "OD"]
+              },
+              fieldName: "toleranceMax",
+              math: "mathToleranceMin",
+              label: "Measurement Point Minimum",
+              unit: "mm",
+              type: "number"
+            },
+            {
+              writeOnlyFieldIf: {
+                "leadEngineer.data.targetDescriptionValue": ["ID", "OD"]
+              },
+              fieldName: "toleranceMax",
+              math: "mathToleranceMax",
+              label: "Measurement Point Maximum",
               unit: "mm",
               type: "number"
             }
