@@ -57,7 +57,7 @@ const mathToleranceMin = (
   }
   let measurementPointActual = objectPath.get(
     values,
-    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
+    `leadEngineer.measurementPointActualTdvs.${repeatStepList[0]}.data.measurementPointActual`,
     0
   );
   if (targetDescriptionValue.toLowerCase() === "id") {
@@ -93,7 +93,7 @@ const mathToleranceMax = (
   }
   let measurementPointActual = objectPath.get(
     values,
-    `leadEngineer.measurementPointActualTdvs.0.data.measurementPointActual`,
+    `leadEngineer.measurementPointActualTdvs.${repeatStepList[0]}.data.measurementPointActual`,
     0
   );
 

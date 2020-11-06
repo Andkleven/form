@@ -55,23 +55,24 @@ export default ({ backendData, ...props }) => {
       )
     ) {
       renderFunction.current[
-        `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
+        `${props.label}-${props.fieldName}-${props.repeatStepList}-${props.math}-ReadOnly`
       ] = math;
     }
 
     return () => {
       if (
         renderFunction.current[
-          `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
+          `${props.label}-${props.fieldName}-${props.repeatStepList}-${props.math}-ReadOnly`
         ]
       ) {
         // eslint-disable-next-line
         delete renderFunction.current[
-          `${props.label}-${props.fieldName}-${props.repeatStepList}-ReadOnly`
+          `${props.label}-${props.fieldName}-${props.repeatStepList}-${props.math}-ReadOnly`
         ];
       }
     };
   }, [
+    props.math,
     math,
     renderFunction,
     props.label,

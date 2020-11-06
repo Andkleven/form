@@ -261,6 +261,7 @@ export default React.memo(
               [new Date()]: userInfo.username
             });
           }
+          console.log(documentData.current);
           let variables = stringifyQuery(
             cloneDeep(documentData.current),
             removeEmptyField

@@ -369,55 +369,6 @@ export default {
           mutation: "LEAD_ENGINEER",
           fields: [
             {
-              fieldName: "measurementPoint",
-              label: "Measurement Points",
-              type: "Number",
-              subtext: "Pre-Coating",
-              required: true,
-              minInput: 0,
-              maxInput: 10,
-              notSingleEdit: true
-            },
-            {
-              showField: {
-                coatedItem: true
-              },
-              fieldName: "targetDescriptionValue",
-              label: "TDV (Target Description Value)",
-              type: "select",
-              required: true,
-              notSingleEdit: true,
-              options: ["OD", "ID"]
-            }
-          ]
-        },
-        {
-          showPage: {
-            coatedItem: true
-          },
-          queryPath: "leadEngineer.measurementPointActualTdvs",
-
-          repeatGroupWithQuery: "leadEngineer.data.measurementPoint",
-          fields: [
-            {
-              fieldName: "measurementPointActual",
-              queryVariableLabel: "leadEngineer.data.targetDescriptionValue",
-              label: "Measurement Point Actual Steel {}",
-              required: true,
-              type: "number",
-              unit: "mm",
-              decimal: 1
-            },
-            {
-              fieldName: "referencePoint",
-              label: "Reference Point"
-            }
-          ]
-        },
-        {
-          queryPath: "leadEngineer",
-          fields: [
-            {
               fieldName: "orderedTotalRubberThickness",
               label: "Ordered Total Rubber Thickness",
               type: "number",
@@ -451,28 +402,62 @@ export default {
               type: "number"
             },
             {
-              writeOnlyFieldIf: {
-                "leadEngineer.data.targetDescriptionValue": ["ID", "OD"]
+              fieldName: "measurementPoint",
+              label: "Measurement Points",
+              type: "Number",
+              subtext: "Pre-Coating",
+              required: true,
+              minInput: 0,
+              maxInput: 10,
+              notSingleEdit: true
+            },
+            {
+              showField: {
+                coatedItem: true
               },
-              fieldName: "toleranceMax",
+              fieldName: "targetDescriptionValue",
+              label: "TDV (Target Description Value)",
+              type: "select",
+              required: true,
+              notSingleEdit: true,
+              options: ["OD", "ID"]
+            }
+          ]
+        },
+        {
+          showPage: {
+            coatedItem: true
+          },
+          queryPath: "leadEngineer.measurementPointActualTdvs",
+          repeatGroupWithQuery: "leadEngineer.data.measurementPoint",
+          fields: [
+            {
+              fieldName: "measurementPointActual",
+              queryVariableLabel: "leadEngineer.data.targetDescriptionValue",
+              label: "Measurement Point Actual Steel {}",
+              required: true,
+              type: "number",
+              unit: "mm",
+              decimal: 1
+            },
+            {
               math: "mathToleranceMin",
-              label: "Measurement Point Minimum",
+              prepend: "Minimum",
               unit: "mm",
               type: "number"
             },
             {
-              writeOnlyFieldIf: {
-                "leadEngineer.data.targetDescriptionValue": ["ID", "OD"]
-              },
-              fieldName: "toleranceMax",
               math: "mathToleranceMax",
-              label: "Measurement Point Maximum",
+              prepend: "Maximum",
               unit: "mm",
               type: "number"
+            },
+            {
+              fieldName: "referencePoint",
+              label: "Reference Point"
             }
           ]
         },
-
         {
           queryPath: "leadEngineer.rubberCements",
           delete: true,
