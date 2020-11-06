@@ -432,6 +432,11 @@ export default {
           repeatGroupWithQuery: "leadEngineer.data.measurementPoint",
           fields: [
             {
+              indexVariableLabel: true,
+              labelOnly: true,
+              label: "Measurement Point {}"
+            },
+            {
               fieldName: "measurementPointActual",
               queryVariableLabel: "leadEngineer.data.targetDescriptionValue",
               label: "Measurement Point Actual Steel {}",
@@ -439,6 +444,10 @@ export default {
               type: "number",
               unit: "mm",
               decimal: 1
+            },
+            {
+              fieldName: "referencePoint",
+              label: "Reference Point"
             },
             {
               math: "mathToleranceMin",
@@ -451,10 +460,6 @@ export default {
               prepend: "Maximum",
               unit: "mm",
               type: "number"
-            },
-            {
-              fieldName: "referencePoint",
-              label: "Reference Point"
             }
           ]
         },
