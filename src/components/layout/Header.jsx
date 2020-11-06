@@ -168,12 +168,14 @@ export default props => {
 
             <Dropdown.Menu alignRight>
               <NavLink title="Logout" link="/login" icon="user" />
-              <NavLink
-                title="Admin"
-                external
-                link={`${process.env.REACT_APP_BACKEND}/admin/`}
-                icon="user"
-              />
+              {!!user && user.role.toLowerCase() === "admin" && (
+                <NavLink
+                  title="Admin"
+                  external
+                  link={`${process.env.REACT_APP_BACKEND}/admin/`}
+                  icon="user"
+                />
+              )}
             </Dropdown.Menu>
           </Dropdown>
         </div>
