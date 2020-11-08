@@ -6,7 +6,7 @@ import {
   getProductionLine,
   getProperties
 } from "../../functions/general.js";
-import { ConfigContext } from "../../config";
+import { ConfigContext } from "../../Config";
 
 export default (
   specData: object,

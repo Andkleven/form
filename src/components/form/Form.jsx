@@ -15,7 +15,7 @@ import { stringifyQuery, isStringInstance } from "../functions/general";
 import FindNextStage from "./stage/findNextStage.ts";
 import Loading from "../div/Loading";
 
-import { ConfigContext } from "../config.tsx";
+import { ConfigContext } from "../Config.tsx";
 
 const cloneDeep = require("clone-deep");
 
@@ -83,6 +83,7 @@ export default React.memo(
     edit = true,
     readOnlySheet = false,
     resetData = false,
+    exitOnSave = false,
     stages,
     document,
     allData,
@@ -105,12 +106,12 @@ export default React.memo(
     addValuesToData,
     removeEmptyField,
     itemIdsRef,
-    itemId,
-    exitOnSave = false
+    itemId
   }) => {
-    if (!ConfigContext) {
-      console.error("Add app.js as props in config.tsx");
-    }
+    // if (Object.keys(ConfigContext._currentValue).length === 0) {
+    //   console.error("Add app.js as props in config.tsx");
+    // }
+    console.log(ConfigContext);
     const { user, mutations, query } = useContext(ConfigContext);
     const stagesChapter = useRef({});
     const userInfo = JSON.parse(localStorage.getItem(user));

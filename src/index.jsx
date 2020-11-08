@@ -7,9 +7,14 @@ import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { setContext } from "apollo-link-context";
-import { AUTH_TOKEN } from "./constants";
+import { AUTH_TOKEN, USER } from "./constants";
 
 import { createUploadLink } from "apollo-upload-client";
+import Config from "components/Config.tsx";
+import mutations from "graphql/mutation";
+import query from "graphql/query";
+import Math from "functions/math.js";
+import stages from "config/stages.json";
 
 const httpLink = createUploadLink({
   // See README for how to setup backend
@@ -31,14 +36,22 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'network-only',
+      fetchPolicy: "network-only"
     }
   }
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Config
+      mutations={mutations}
+      query={query}
+      user={USER}
+      mathCollection={Math}
+      stages={stages}
+    >
+      <App />
+    </Config>
   </ApolloProvider>,
   document.getElementById("root")
 );

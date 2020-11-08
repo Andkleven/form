@@ -1,12 +1,12 @@
 import React, { createContext } from "react";
 
 interface Props {
-  children: React.ReactNode;
-  mutations: string;
-  query: string;
-  user: string;
-  mathCollection: string;
-  stages: string;
+  children?: React.ReactNode;
+  mutations?: object;
+  query?: object;
+  user?: object;
+  mathCollection?: object;
+  stages?: object;
 }
 
 export const ConfigContext = createContext<any>({});

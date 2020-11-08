@@ -25,7 +25,7 @@ import Subtitle from "../../../design/fonts/Subtitle";
 import Line from "../../../design/Line";
 import useHidden from "../../../hooks/useHidden";
 import ViewPdf from "../../../input/components/ViewPdf";
-import { ConfigContext } from "../../../config.tsx";
+import { ConfigContext } from "../../../Config.tsx";
 
 export default React.memo(({ ...props }) => {
   const {

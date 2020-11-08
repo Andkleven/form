@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useCallback, useState } from "react";
 import { DocumentDataContext, ChapterContext } from "../../Form";
 import { writeChapter } from "../../../functions/general";
 import ReadField from "./ReadField";
-import { ConfigContext } from "../../../config.tsx";
+import { ConfigContext } from "../../../Config.tsx";
 
 import "styles/styles.css";
 

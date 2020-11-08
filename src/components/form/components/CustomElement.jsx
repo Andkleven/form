@@ -5,7 +5,7 @@ import { sumFieldInObject, writeChapter } from "../../functions/general";
 import { DocumentDataContext, ChapterContext } from "../Form";
 import { Alert } from "react-bootstrap";
 import Line from "../../design/Line";
-import { ConfigContext } from "../../config.tsx";
+import { ConfigContext } from "../../Config.tsx";
 
 const CustomCoating = props => {
   let layers = 0;

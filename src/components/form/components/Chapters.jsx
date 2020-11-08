@@ -11,7 +11,7 @@ import objectPath from "object-path";
 import { ChapterContext, DocumentDataContext } from "../Form";
 import SubmitButton from "../../button/SubmitButton";
 import AutoScroll from "../../div/AutoScroll";
-import { ConfigContext } from "../../config.tsx";
+import { ConfigContext } from "../../Config.tsx";
 
 export default React.memo(
   ({
