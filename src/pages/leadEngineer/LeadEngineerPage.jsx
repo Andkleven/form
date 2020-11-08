@@ -3,11 +3,11 @@ import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import leadEngineersJson from "templates/leadEngineer";
 import Form from "components/form/Form";
-import Paper from "components/layout/Paper";
+import Paper from "layout/Paper";
 import history from "functions/history";
 import { objectifyQuery, formDataStructure } from "functions/general";
-import Canvas from "components/layout/Canvas";
-import Overview from "components/layout/Overview";
+import Canvas from "layout/Canvas";
+import Overview from "layout/Overview";
 import Loading from "components/div/Loading";
 
 export default pageInfo => {

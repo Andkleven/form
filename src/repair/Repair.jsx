@@ -2,20 +2,20 @@ import React from "react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import mutation from "graphql/mutation.js";
 import { Modal } from "react-bootstrap";
-import DepthButtonGroup from "../button/DepthButtonGroup";
-import DepthButton from "../button/DepthButton";
+import DepthButtonGroup from "../components/button/DepthButtonGroup";
+import DepthButton from "../components/button/DepthButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   camelCaseToNormal,
   objectifyQuery,
   // findValue,
   getProductionLine
-} from "../functions/general";
-import Loading from "../div/Loading";
+} from "functions/general";
+import Loading from "design/Loading";
 import operatorJson from "templates/operator";
 import qualityControlJson from "templates/qualityControl";
 import stages from "config/stages.json";
-import findNextStage from "../form/stage/findNextStage.ts";
+import findNextStage from "components/form/stage/findNextStage.ts";
 // import objectPath from "object-path";
 import { useParams } from "react-router-dom";
 import gql from "graphql-tag";

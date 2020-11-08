@@ -263,6 +263,7 @@ export default React.memo(({ ...props }) => {
         props.allData
       ),
     [
+      mathCollection,
       documentData,
       mathStore,
       props.jsonVariables,

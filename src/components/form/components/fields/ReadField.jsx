@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import "styles/styles.css";
+import "../../../styles/styles.css";
 import TinyButton from "../../../button/TinyButton";
 import LightLine from "../../../design/LightLine";
 import { convertDatetimeToString } from "../../../functions/datetime";

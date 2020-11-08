@@ -108,10 +108,6 @@ export default React.memo(
     itemIdsRef,
     itemId
   }) => {
-    // if (Object.keys(ConfigContext._currentValue).length === 0) {
-    //   console.error("Add app.js as props in config.tsx");
-    // }
-    console.log(ConfigContext);
     const { user, mutations, query } = useContext(ConfigContext);
     const stagesChapter = useRef({});
     const userInfo = JSON.parse(localStorage.getItem(user));
@@ -195,7 +191,13 @@ export default React.memo(
           data: { ...oldData }
         });
       },
-      [document.getNewValue, document.getOldValue, document.query, getQueryBy]
+      [
+        document.getNewValue,
+        document.getOldValue,
+        document.query,
+        getQueryBy,
+        query
+      ]
     );
 
     const create = useCallback(
@@ -215,7 +217,13 @@ export default React.memo(
           data: { ...oldData }
         });
       },
-      [document.getNewValue, document.getOldValue, document.query, getQueryBy]
+      [
+        document.getNewValue,
+        document.getOldValue,
+        document.query,
+        getQueryBy,
+        query
+      ]
     );
 
     const [mutation, { loadingMutation, error: errorMutation }] = useMutation(

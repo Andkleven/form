@@ -4,9 +4,9 @@ import query from "graphql/query";
 import allBatchingJson from "templates/batching.json";
 import operatorCoatedItemJson from "templates/operator";
 import Form from "components/form/Form";
-import Paper from "components/layout/Paper";
+import Paper from "layout/Paper";
 import objectPath from "object-path";
-import Canvas from "components/layout/Canvas";
+import Canvas from "layout/Canvas";
 import { useParams } from "react-router-dom";
 import Batching from "components/form/components/Batching";
 import {
@@ -17,7 +17,6 @@ import {
   reshapeStageSting
 } from "components/functions/general";
 import Loading from "components/div/Loading";
-import batchingList from "templates/batching.json";
 
 export default () => {
   const { stage, projectId, descriptionId, geometryDefault } = useParams();
@@ -89,7 +88,7 @@ export default () => {
     <Canvas>
       <Paper>
         <Batching
-          batchingList={batchingList}
+          allBatchingJson={allBatchingJson}
           data={fixedData}
           json={
             newDescriptionId[0] && fixedData

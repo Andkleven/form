@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { tinyShadow } from "styles/styles";
+import { tinyShadow } from "../styles/styles";
 
 export default ({ iconLast = false, iconProps, short = false, ...props }) => {
   const styles = !props.buttonGroup && tinyShadow;

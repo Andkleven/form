@@ -4,7 +4,7 @@ import { writeChapter } from "../../../functions/general";
 import ReadField from "./ReadField";
 import { ConfigContext } from "../../../Config.tsx";
 
-import "styles/styles.css";
+import "../../../styles/styles.css";
 
 export default ({ backendData, ...props }) => {
   const { mathCollection } = useContext(ConfigContext);
@@ -33,6 +33,7 @@ export default ({ backendData, ...props }) => {
       func();
     });
   }, [
+    mathCollection,
     props.allData,
     props.specData,
     documentData,

@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import objectPath from "object-path";
-import Math from "functions/math";
-import { ignoreRequiredField } from "config/const";
+import { ignoreRequiredField } from "../functions/const";
 import moment from "moment";
 import findNextStage from "../form/stage/findNextStage.ts";
-import operatorJson from "templates/operator";
+import { ConfigContext } from "../Config";
+
+const { mathCollection } = useContext(ConfigContext);
 
 export const stringToDictionary = data => {
   if (typeof data === "string") {
@@ -370,7 +371,12 @@ export const calculateMaxMin = (
     );
   } else if (calculateMin) {
     newMin = Number(
-      Math[calculateMin](allData, specData, repeatStepList, documentData)
+      mathCollection[calculateMin](
+        allData,
+        specData,
+        repeatStepList,
+        documentData
+      )
     );
   } else {
     newMin = min;
@@ -414,7 +420,12 @@ export const calculateMaxMin = (
     );
   } else if (calculateMax) {
     newMax = Number(
-      Math[calculateMax](allData, specData, repeatStepList, documentData)
+      mathCollection[calculateMax](
+        allData,
+        specData,
+        repeatStepList,
+        documentData
+      )
     );
   } else {
     newMax = max;
@@ -536,7 +547,11 @@ export const getRepeatNumber = (
       editRepeatStepListRepeat
     );
   } else if (repeatGroupWithQueryMath) {
-    newValue = Math[repeatGroupWithQueryMath](data, repeatStepList, 0);
+    newValue = mathCollection[repeatGroupWithQueryMath](
+      data,
+      repeatStepList,
+      0
+    );
   }
   if (Array.isArray(newValue)) {
     newValue = newValue.length;
@@ -638,27 +653,20 @@ export function isLastCharacterNumber(str) {
   return !isNaN(Number(str.slice(-1)));
 }
 
-export function getBatchingJson(
-  geometry,
-  operatorJson,
-  allBatchingJson,
-  stage
-) {
+export function getBatchingJson(geometry, json, allBatchingJson, stage) {
   let batchingJson = allBatchingJson[reshapeStageSting(stage)];
-  batchingJson.document.chapters = [
-    operatorJson.chapters[reshapeStageSting(stage)]
-  ];
+  batchingJson.document.chapters = [json.chapters[reshapeStageSting(stage)]];
   return batchingJson;
 }
 
-export function getStartStage(geometry, item) {
+export function getStartStage(geometry, item, json) {
   let stage;
   if (item) {
     stage = findNextStage(
       { leadEngineer: objectifyQuery(item.leadEngineer) },
       "start",
       geometry,
-      operatorJson.chapters
+      json.chapters
     ).stage;
   }
   return stage;

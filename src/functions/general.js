@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import objectPath from "object-path";
 import Math from "functions/math";
-import { ignoreRequiredField } from "config/const";
+import { ignoreRequiredField } from "components/functions/const";
 import moment from "moment";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import operatorJson from "templates/operator";

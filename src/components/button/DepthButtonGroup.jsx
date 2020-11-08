@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonGroup } from "react-bootstrap";
-import { tinyShadow } from "styles/styles";
+import { tinyShadow } from "../styles/styles";
 
 export default props => {
   return (

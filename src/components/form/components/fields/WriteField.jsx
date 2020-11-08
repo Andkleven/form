@@ -8,20 +8,16 @@ import React, {
 import { RouteGuard, dialog } from "../../../div/Dialog";
 import { DocumentDataContext, ChapterContext } from "../../Form";
 import objectPath from "object-path";
-// import Paper from "components/layout/Paper";
 import Input from "../../../input/Input";
 import TinyButton from "../../../button/TinyButton";
-// import Div100vh from "react-div-100vh";
 import LightLine from "../../../design/LightLine";
 import Loading from "../../../div/Loading";
 import CheckInput from "../../../input/components/CheckInput";
-import "styles/styles.css";
+import "../../../styles/styles.css";
 import { Button, Row, Col, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ignoreRequiredField, userField } from "config/const";
-import mutations from "graphql/mutation";
+import { ignoreRequiredField, userField } from "../../../functions/const";
 import { useMutation } from "@apollo/react-hooks";
-import { USER } from "constants.js";
 import {
   isStringInstance,
   isNumber,
@@ -29,12 +25,13 @@ import {
   stringifyQuery,
   getProperties
 } from "../../../functions/general";
-// import { useParams } from "react-router-dom";
+import { ConfigContext } from "../../../Config.tsx";
 
 const cloneDeep = require("clone-deep");
 
 export default ({ ...props }) => {
-  const userInfo = JSON.parse(localStorage.getItem(USER));
+  const { user, mutations } = useContext(ConfigContext);
+  const userInfo = JSON.parse(localStorage.getItem(user));
   const [ignoreRequired, setIgnoreRequired] = useState(false);
   const { editChapter, setEditChapter } = useContext(ChapterContext);
   const [itemIdList, setItemIdList] = useState([Number(props.itemId)]);

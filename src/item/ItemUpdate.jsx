@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButton from "components/button/DepthButton";
 import { Form } from "react-bootstrap";
 import { getStartStage } from "functions/general";
+import operatorJson from "templates/operator";
 
 export default ({ descriptionName = "description", ...props }) => {
   const [state, setState] = useState(props.value ? props.value : "");
@@ -109,7 +110,8 @@ export default ({ descriptionName = "description", ...props }) => {
               props.geometry,
               props.items
                 ? props.items.find(item => item.id === props.id)
-                : undefined
+                : undefined,
+              operatorJson
             )
           : undefined
       );

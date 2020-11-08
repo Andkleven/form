@@ -1,0 +1,144 @@
+/* body {
+  background: url("../images/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+
+/* html {
+  height: 100vh;
+  min-height: 100%;
+} */
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #343a40;
+  padding-top: 50px;
+  min-height: 100%;
+  display: grid;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+.content {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  /* align-items: center; */
+}
+
+footer {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.w85 {
+  width: 85%;
+}
+
+.button {
+  font-family: monospace;
+  font-size: 10pt;
+  color: black;
+  background-color: buttonface;
+  text-align: center;
+  padding: 2px 6px 3px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: buttonface;
+  cursor: pointer;
+  max-width: 250px;
+}
+
+.main-content {
+  margin: 4rem 2.5rem;
+}
+
+/* Caret off */
+.caret-off:nth-child(1)::before {
+  display: none;
+}
+
+.caret-off:nth-child(1)::after {
+  display: none;
+}
+
+/* Trelleborg button
+.btn-trelleborg {
+  color: #ffffff;
+  background-color: #f3a63a;
+  border-color: #f3a63a;
+}
+
+.btn-trelleborg:hover,
+.btn-trelleborg:focus,
+.btn-trelleborg:active,
+.btn-trelleborg.active,
+.open .dropdown-toggle.btn-trelleborg {
+  color: #ffffff;
+  background-color: #eda33b;
+  border-color: #f3a63a;
+}
+
+.btn-trelleborg:active,
+.btn-trelleborg.active,
+.open .dropdown-toggle.btn-trelleborg {
+  background-image: none;
+}
+
+.btn-trelleborg.disabled,
+.btn-trelleborg[disabled],
+fieldset[disabled] .btn-trelleborg,
+.btn-trelleborg.disabled:hover,
+.btn-trelleborg[disabled]:hover,
+fieldset[disabled] .btn-trelleborg:hover,
+.btn-trelleborg.disabled:focus,
+.btn-trelleborg[disabled]:focus,
+fieldset[disabled] .btn-trelleborg:focus,
+.btn-trelleborg.disabled:active,
+.btn-trelleborg[disabled]:active,
+fieldset[disabled] .btn-trelleborg:active,
+.btn-trelleborg.disabled.active,
+.btn-trelleborg[disabled].active,
+fieldset[disabled] .btn-trelleborg.active {
+  background-color: #f3a63a;
+  border-color: #f3a63a;
+}
+
+.btn-trelleborg .badge {
+  color: #f3a63a;
+  background-color: #ffffff;
+} */
+
+.nav-link {
+  color: #343a40;
+  background-color: #ffffff;
+}
+
+.nav-link:hover {
+  color: #343a40;
+  background-color: #eeeeee;
+}
+
+.nav-link:active {
+  color: #ffffff;
+  background-color: #f1b25b;
+}
+
+.not-selectable {
+  -webkit-user-drag: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}

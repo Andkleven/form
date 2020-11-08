@@ -6,7 +6,7 @@ import objectPath from "object-path";
 import mutations from "graphql/mutation";
 import ItemList from "item/ItemList";
 import Form from "components/form/Form";
-import Paper from "components/layout/Paper";
+import Paper from "layout/Paper";
 import {
   objectifyQuery,
   stringifyQuery,
@@ -14,12 +14,14 @@ import {
 } from "functions/general";
 import ItemUpdate from "item/ItemUpdate";
 import { useParams } from "react-router-dom";
-import Canvas from "components/layout/Canvas";
+import Canvas from "layout/Canvas";
 import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import createProject from "templates/createProject";
 import Loading from "components/div/Loading";
+import operatorJson from "templates/operator";
+
 const cloneDeep = require("clone-deep");
 
 export default () => {
@@ -178,7 +180,11 @@ export default () => {
     data.projects.forEach((project, projectIndex) => {
       project.descriptions.forEach((description, descriptionIndex) => {
         description.items.forEach((item, itemIndex) => {
-          let stage = getStartStage(description.data.geometry, item);
+          let stage = getStartStage(
+            description.data.geometry,
+            item,
+            operatorJson
+          );
           data["projects"][projectIndex]["descriptions"][descriptionIndex][
             "items"
           ][itemIndex]["stage"] = stage;

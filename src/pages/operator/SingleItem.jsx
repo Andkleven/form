@@ -7,18 +7,18 @@ import qualityControlJson from "templates/qualityControl";
 import Form from "components/form/Form";
 import history from "functions/history";
 import { useParams } from "react-router-dom";
-import Paper from "components/layout/Paper";
+import Paper from "layout/Paper";
 import {
   objectifyQuery,
   formDataStructure,
   getProductionLine
 } from "functions/general";
 import Title from "components/design/fonts/Title";
-import Canvas from "components/layout/Canvas";
+import Canvas from "layout/Canvas";
 import gql from "graphql-tag";
 import { ItemContext } from "contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
-import Overview from "components/layout/Overview";
+import Overview from "layout/Overview";
 import stageAllJson from "config/stages.json";
 
 const stageJson = stageAllJson["all"];
