@@ -1,7 +1,7 @@
 import React from "react";
 import PaperStack from "components/layout/PaperStack";
 import Paper from "components/layout/Paper";
-import FetchData from "functions/fetchData";
+import FetchData from "components/functions/fetchData";
 import { useParams } from "react-router-dom";
 
 // http://localhost:3000/file/dummy.png

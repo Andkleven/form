@@ -9,7 +9,7 @@ import styled from "styled-components";
 import emblem from "../images/emblem.png";
 import Copyright from "components/design/Copyright";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Loading from "components/Loading";
+import Loading from "components/div/Loading";
 // import { Redirect } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`

@@ -5,7 +5,7 @@ import {
   reshapeStageSting,
   camelCaseToNormal,
   allNull
-} from "functions/general";
+} from "components/functions/general";
 import operatorCoatedItemJson from "templates/operator";
 import Line from "components/design/Line";
 import findNextStage from "components/form/stage/findNextStage.ts";

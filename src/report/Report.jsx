@@ -11,7 +11,7 @@ import {
   PDFDownloadLink
 } from "@react-pdf/renderer";
 import { Button } from "react-bootstrap";
-import Loading from "components/Loading";
+import Loading from "components/div/Loading";
 import moment from "moment";
 import CoatingReport from "./CoatingReport";
 

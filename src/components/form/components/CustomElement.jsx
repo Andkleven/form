@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import ReadField from "components/form/components/fields/ReadField";
 import objectPath from "object-path";
-import { sumFieldInObject, writeChapter } from "functions/general";
+import { sumFieldInObject, writeChapter } from "components/functions/general";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import { Alert } from "react-bootstrap";
 import Line from "components/design/Line";
-import math from "components/form/functions/math";
+import math from "functions/math";
 
 const CustomCoating = props => {
   let layers = 0;

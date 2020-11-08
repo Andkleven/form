@@ -19,7 +19,7 @@ import DepthButton from "components/button/DepthButton";
 import ReadField from "components/form/components/fields/ReadField";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import createProject from "templates/createProject";
-import Loading from "components/Loading";
+import Loading from "components/div/Loading";
 const cloneDeep = require("clone-deep");
 
 export default () => {

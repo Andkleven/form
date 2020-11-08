@@ -10,11 +10,11 @@ import {
   objectifyQuery,
   // findValue,
   getProductionLine
-} from "functions/general";
-import Loading from "components/Loading";
+} from "components/functions/general";
+import Loading from "components/div/Loading";
 import operatorJson from "templates/operator";
 import qualityControlJson from "templates/qualityControl";
-import stages from "components/form/stage/stages.json";
+import stages from "config/stages.json";
 import findNextStage from "components/form/stage/findNextStage.ts";
 // import objectPath from "object-path";
 import { useParams } from "react-router-dom";

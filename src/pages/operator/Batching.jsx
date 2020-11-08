@@ -15,8 +15,8 @@ import {
   getDataToBatching,
   getStepFromStage,
   reshapeStageSting
-} from "functions/general";
-import Loading from "components/Loading";
+} from "components/functions/general";
+import Loading from "components/div/Loading";
 
 export default () => {
   const { stage, projectId, descriptionId, geometryDefault } = useParams();

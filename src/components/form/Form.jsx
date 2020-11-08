@@ -6,17 +6,17 @@ import React, {
   useEffect
 } from "react";
 import Chapters from "./components/Chapters";
-import query from "graphql/query";
-import mutations from "graphql/mutation";
 import objectPath from "object-path";
 import { Form } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Title from "components/design/fonts/Title";
-import { stringifyQuery, isStringInstance } from "functions/general";
+import { stringifyQuery, isStringInstance } from "components/functions/general";
 import FindNextStage from "components/form/stage/findNextStage.ts";
-import Loading from "components/Loading";
+import Loading from "components/div/Loading";
+
 import { USER } from "constants.js";
-// import { useHistory } from "react-router-dom";
+import mutations from "graphql/mutation";
+import query from "graphql/query";
 
 const cloneDeep = require("clone-deep");
 

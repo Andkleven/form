@@ -8,7 +8,7 @@ import history from "functions/history";
 import { objectifyQuery, formDataStructure } from "functions/general";
 import Canvas from "components/layout/Canvas";
 import Overview from "components/layout/Overview";
-import Loading from "components/Loading";
+import Loading from "components/div/Loading";
 
 export default pageInfo => {
   const {

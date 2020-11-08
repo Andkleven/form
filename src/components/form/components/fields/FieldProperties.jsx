@@ -11,7 +11,7 @@ import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
 import WriteField from "components/form/components/fields/WriteField";
 import objectPath from "object-path";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
-import Math from "components/form/functions/math";
+import Math from "functions/math";
 import {
   getSubtext,
   findValue,
@@ -21,7 +21,7 @@ import {
   writeChapter,
   getProperties,
   removePathFunc
-} from "functions/general";
+} from "components/functions/general";
 import Subtitle from "components/design/fonts/Subtitle";
 import Line from "components/design/Line";
 import useHidden from "hooks/useHidden";

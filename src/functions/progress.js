@@ -1,5 +1,8 @@
-import stages from "components/form/stage/stages.json";
-import { camelCaseToNormal, reshapeStageSting } from "functions/general";
+import stages from "config/stages.json";
+import {
+  camelCaseToNormal,
+  reshapeStageSting
+} from "components/functions/general";
 
 export function progress(item) {
   if (item.stage === "done") {

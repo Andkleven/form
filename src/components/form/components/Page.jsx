@@ -18,7 +18,7 @@ import {
   getRepeatStepList,
   isLastCharacterNumber,
   notShowSpec
-} from "functions/general";
+} from "components/functions/general";
 import objectPath from "object-path";
 import CustomComponents from "components/form/components/CustomElement";
 import Line from "components/design/Line";
@@ -28,7 +28,7 @@ import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Subtitle from "components/design/fonts/Subtitle";
 import Input from "components/input/Input";
-import { dialog } from "components/Dialog";
+import { dialog } from "components/div/Dialog";
 import useHidden from "hooks/useHidden";
 
 export default React.memo(

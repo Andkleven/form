@@ -4,14 +4,14 @@ import {
   getProperties,
   removePathFunc,
   getProductionLine
-} from "functions/general.js";
+} from "components/functions/general.js";
 import Page from "components/form/components/Page";
 import findNextStage from "components/form/stage/findNextStage.ts";
 import objectPath from "object-path";
-import stagesJson from "components/form/stage/stages.json";
+import stagesJson from "config/stages.json";
 import { ChapterContext, DocumentDataContext } from "components/form/Form";
 import SubmitButton from "components/button/SubmitButton";
-import AutoScroll from "components/AutoScroll";
+import AutoScroll from "components/div/AutoScroll";
 
 export default React.memo(
   ({

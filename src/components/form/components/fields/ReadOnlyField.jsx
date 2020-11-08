@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
-import Math from "components/form/functions/math";
-import { writeChapter } from "functions/general";
+import Math from "functions/math";
+import { writeChapter } from "components/functions/general";
 import ReadField from "components/form/components/fields/ReadField";
 
 import "styles/styles.css";

@@ -1,13 +1,18 @@
-import stagesJson from "./stages.json";
+import stagesJson from "config/stages.json";
 import {
   findValue,
   emptyField,
   isNumber,
   getProductionLine,
   getProperties
-} from "functions/general.js";
+} from "components/functions/general.js";
 
-export default (specData: object, stage: string, stageType: string, chapters: object): object => {
+export default (
+  specData: object,
+  stage: string,
+  stageType: string,
+  chapters: object
+): object => {
   stage = stage ? stage : stagesJson.all[0];
   let productionLin = getProductionLine(stageType);
   function nextStageFormat(index: number, step: number, layer: number): object {
@@ -102,9 +107,13 @@ export default (specData: object, stage: string, stageType: string, chapters: ob
       }
     }
     thisStage = stages[index + 1];
-    if (chapters[thisStage] && chapters[thisStage].showChapter && !getProperties(chapters[thisStage].showChapter, [stageType])) {
+    if (
+      chapters[thisStage] &&
+      chapters[thisStage].showChapter &&
+      !getProperties(chapters[thisStage].showChapter, [stageType])
+    ) {
       index++;
-      continue
+      continue;
     }
     if (emptyField(stagesJson[productionLin][thisStage])) {
       index++;

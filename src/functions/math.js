@@ -3,7 +3,7 @@ import {
   findValue,
   lowerCaseFirstLetter,
   removeSpace
-} from "../../../functions/general";
+} from "./general";
 import moment from "moment";
 import objectPath from "object-path";
 

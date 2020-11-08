@@ -1,7 +1,7 @@
 import React from "react";
 import { objectifyQuery } from "functions/general";
 import { Page, Text, View } from "@react-pdf/renderer";
-import Math from "components/form/functions/math";
+import Math from "functions/math";
 import {
   readyForRender,
   Row,

@@ -4,16 +4,22 @@ import ReadField from "components/form/components/fields/ReadField";
 import TinyButton from "components/button/TinyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChapterContext } from "components/form/Form";
-import { writeChapter } from "functions/general";
+import { writeChapter } from "components/functions/general";
 
 export default ({ ...props }) => {
-  const {
-    finalChapter,
-    editChapter
-  } = useContext(ChapterContext);
+  const { finalChapter, editChapter } = useContext(ChapterContext);
   const FileName = () => (
     <div
-      className={(writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && "mb-2") || ""}
+      className={
+        (writeChapter(
+          props.allWaysShow,
+          editChapter,
+          props.thisChapter,
+          finalChapter.current
+        ) &&
+          "mb-2") ||
+        ""
+      }
       style={{
         wordBreak: "break-word"
       }}
@@ -27,13 +33,37 @@ export default ({ ...props }) => {
     </div>
   );
 
-  if (props.description && writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current)) {
+  if (
+    props.description &&
+    writeChapter(
+      props.allWaysShow,
+      editChapter,
+      props.thisChapter,
+      finalChapter.current
+    )
+  ) {
     return (
       <div className="mt-2">
-        <div className={(writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && "pt-2") || ""}>
+        <div
+          className={
+            (writeChapter(
+              props.allWaysShow,
+              editChapter,
+              props.thisChapter,
+              finalChapter.current
+            ) &&
+              "pt-2") ||
+            ""
+          }
+        >
           <div className="d-flex justify-content-between">
             <FileName />
-            {writeChapter(props.allWaysShow, editChapter, props.thisChapter, finalChapter.current) && (
+            {writeChapter(
+              props.allWaysShow,
+              editChapter,
+              props.thisChapter,
+              finalChapter.current
+            ) && (
               <TinyButton
                 onClick={() => props.deleteHandler(props.index)}
                 icon="trash-alt"

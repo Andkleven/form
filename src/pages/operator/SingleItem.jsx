@@ -19,7 +19,7 @@ import gql from "graphql-tag";
 import { ItemContext } from "components/contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
-import stageAllJson from "components/form/stage/stages.json";
+import stageAllJson from "config/stages.json";
 
 const stageJson = stageAllJson["all"];
 const cloneDeep = require("clone-deep");

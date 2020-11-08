@@ -4,7 +4,7 @@ import ReportViewer, {
   ReportDownload,
   ReportsDownload,
   ReportsViewer
-} from "components/report/Report";
+} from "report/Report";
 import { isMobile } from "react-device-detect";
 import Link from "components/design/fonts/Link";
 

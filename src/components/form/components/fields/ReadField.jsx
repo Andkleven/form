@@ -3,11 +3,15 @@ import { Form, Row, Col } from "react-bootstrap";
 import "styles/styles.css";
 import TinyButton from "components/button/TinyButton";
 import LightLine from "components/design/LightLine";
-import { convertDatetimeToString } from "functions/datetime";
-import { writeChapter, getProperties, getSpecComment } from "functions/general";
+import { convertDatetimeToString } from "components/functions/datetime";
+import {
+  writeChapter,
+  getProperties,
+  getSpecComment
+} from "components/functions/general";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
 import objectPath from "object-path";
-import { dialog } from "components/Dialog";
+import { dialog } from "components/div/Dialog";
 
 export default ({
   display = false,

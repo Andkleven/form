@@ -4,12 +4,12 @@ import emblem from "images/emblem.png";
 import "styles/styles.css";
 import { LinkContainer } from "react-router-bootstrap";
 import { getUser, getAccess } from "functions/user";
-import { camelCaseToNormal } from "functions/general";
+import { camelCaseToNormal } from "components/functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useParams } from "react-router-dom";
 // import { ItemContext } from "components/contexts/ItemContext";
 import Repair from "components/repair/Repair";
-import Files from "components/Files";
+import Files from "components/div/Files";
 
 export default props => {
   const user = getUser();

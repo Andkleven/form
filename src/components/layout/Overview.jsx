@@ -6,11 +6,11 @@ import Form from "components/form/Form";
 import createProject from "templates/createProject";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
-import { objectifyQuery } from "functions/general";
+import { objectifyQuery } from "components/functions/general";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
 import Line from "components/design/Line";
-import Math from "components/form/functions/math";
+import Math from "functions/math";
 import gql from "graphql-tag";
 
 const queries = {

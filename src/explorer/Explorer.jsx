@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ExplorerView from "components/explorer/components/ExplorerView";
+import ExplorerView from "explorer/components/ExplorerView";
 import { useQuery } from "@apollo/react-hooks";
 import query from "graphql/query";
 import { objectifyQuery } from "functions/general";

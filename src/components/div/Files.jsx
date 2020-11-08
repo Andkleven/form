@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import FetchData from "functions/fetchData";
+import FetchData from "components/functions/fetchData";
 import { Modal, Row, Button, Col, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthButtonGroup from "components/button/DepthButtonGroup";
@@ -10,7 +10,7 @@ import gql from "graphql-tag";
 import Line from "components/design/Line";
 import { useSpring, animated, config } from "react-spring";
 import { use100vh } from "react-div-100vh";
-import Loading from "components/Loading";
+import Loading from "components/div/Loading";
 import useOutsideClick from "hooks/useOutsideClick";
 
 const queries = {

@@ -9,7 +9,7 @@ import { useDropzone } from "react-dropzone";
 import FileDescription from "../widgets/FileDescription";
 import objectPath from "object-path";
 import { DocumentDataContext, ChapterContext } from "components/form/Form";
-import { writeChapter } from "functions/general";
+import { writeChapter } from "components/functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const baseStyle = {
