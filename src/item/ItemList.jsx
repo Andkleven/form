@@ -1,6 +1,6 @@
 import React from "react";
 import Item from "./Item";
-import ItemGrid from "components/layout/ItemGrid";
+import ItemGrid from "layout/ItemGrid";
 import { Col } from "react-bootstrap";
 
 export default props => {

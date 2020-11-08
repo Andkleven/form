@@ -4,14 +4,14 @@ import {
   getProperties,
   removePathFunc,
   getProductionLine
-} from "components/functions/general.js";
-import Page from "components/form/components/Page";
-import findNextStage from "components/form/stage/findNextStage.ts";
+} from "../../functions/general.js";
+import Page from "./Page";
+import findNextStage from "../stage/findNextStage.ts";
 import objectPath from "object-path";
-import stagesJson from "config/stages.json";
-import { ChapterContext, DocumentDataContext } from "components/form/Form";
-import SubmitButton from "components/button/SubmitButton";
-import AutoScroll from "components/div/AutoScroll";
+import { ChapterContext, DocumentDataContext } from "../Form";
+import SubmitButton from "../../button/SubmitButton";
+import AutoScroll from "../../div/AutoScroll";
+import { ConfigContext } from "../../config.tsx";
 
 export default React.memo(
   ({
@@ -51,6 +51,7 @@ export default React.memo(
             )))
       );
     }
+    const { stages } = useContext(ConfigContext);
     const { editChapter } = useContext(ChapterContext);
     const { documentData } = useContext(DocumentDataContext);
     const stopLoop = useRef(false); // Flips to true for last chapter with input
@@ -191,7 +192,7 @@ export default React.memo(
       let i = 0;
       let chapterBasedOnStage = [];
       let productionLine = getProductionLine(stageType);
-      let stageList = Object.keys(stagesJson[productionLine]);
+      let stageList = Object.keys(stages[productionLine]);
       let thisStage = findNextStage(
         specData,
         undefined,

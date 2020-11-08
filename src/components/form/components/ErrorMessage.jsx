@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FieldsContext } from "components/form/Form";
+import { FieldsContext } from "../Form";
 
 export default props => {
   const fieldsContext = useContext(FieldsContext);

@@ -6,12 +6,10 @@ import {
   camelCaseToNormal,
   allNull
 } from "../../functions/general";
-import operatorCoatedItemJson from "templates/operator";
 import Line from "../../design/Line";
 import findNextStage from "../../form/stage/findNextStage.ts";
 import CheckInput from "../../input/components/CheckInput";
 import LightLine from "../../design/LightLine";
-import batchingList from "templates/batching.json";
 
 export default props => {
   const allFields = (chapter, itemData) => {
@@ -67,7 +65,7 @@ export default props => {
           { leadEngineer: item.leadEngineer },
           item.stage,
           description.data.geometry,
-          operatorCoatedItemJson.chapters
+          props.json.chapters
         ).stage
       };
     });
@@ -112,12 +110,13 @@ export default props => {
 
   const Items = ({ description }) => {
     return objectPath.get(description, "items").map((item, index) => {
-      let chapter =
-        operatorCoatedItemJson["chapters"][reshapeStageSting(props.stage)];
+      let chapter = props.json["chapters"][reshapeStageSting(props.stage)];
       let batchingData = allFields(chapter, item);
       const batchableGeometry =
-        batchingList[item.stage] &&
-        batchingList[item.stage].geometry.includes(description.data.geometry);
+        props.batchingList[item.stage] &&
+        props.batchingList[item.stage].geometry.includes(
+          description.data.geometry
+        );
       if (item.stage === props.stage && batchableGeometry) {
         const disabled =
           item.stage === props.stage &&
@@ -159,8 +158,8 @@ export default props => {
         .get(data, "projects.0.descriptions")
         .map((description, index) => {
           const batchableGeometry =
-            batchingList[props.stage] &&
-            batchingList[props.stage].geometry.includes(
+            props.batchingList[props.stage] &&
+            props.batchingList[props.stage].geometry.includes(
               description.data.geometry
             );
           if (

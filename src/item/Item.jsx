@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ItemUpdate from "components/item/ItemUpdate";
+import ItemUpdate from "item/ItemUpdate";
 import { Modal } from "react-bootstrap";
 import DepthButton from "components/button/DepthButton";
 import DepthButtonGroup from "components/button/DepthButtonGroup";

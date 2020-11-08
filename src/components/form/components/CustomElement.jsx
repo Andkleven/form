@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
-import ReadField from "components/form/components/fields/ReadField";
+import ReadField from "./fields/ReadField";
 import objectPath from "object-path";
-import { sumFieldInObject, writeChapter } from "components/functions/general";
-import { DocumentDataContext, ChapterContext } from "components/form/Form";
+import { sumFieldInObject, writeChapter } from "../../functions/general";
+import { DocumentDataContext, ChapterContext } from "../Form";
 import { Alert } from "react-bootstrap";
-import Line from "components/design/Line";
-import math from "functions/math";
+import Line from "../../design/Line";
+import { ConfigContext } from "../../config.tsx";
 
 const CustomCoating = props => {
   let layers = 0;
@@ -53,6 +53,7 @@ const CustomCoating = props => {
 };
 
 const CustomLead = props => {
+  const { mathCollection } = useContext(ConfigContext);
   const { documentData, renderMath, mathStore } = useContext(
     DocumentDataContext
   );
@@ -63,12 +64,12 @@ const CustomLead = props => {
   const [layersThickness, setLayersThickness] = useState(0);
 
   const thickness = useCallback(() => {
-    let toleranceMinTemporary = math["mathMin"](
+    let toleranceMinTemporary = mathCollection["mathMin"](
       documentData.current,
       props.repeatStepList,
       0
     );
-    let toleranceMaxTemporary = math["mathMax"](
+    let toleranceMaxTemporary = mathCollection["mathMax"](
       documentData.current,
       props.repeatStepList,
       0
@@ -109,6 +110,7 @@ const CustomLead = props => {
     setToleranceMax(toleranceMaxTemporary);
     setLayersThickness(layersThicknessTemporary);
   }, [
+    mathCollection,
     mathStore,
     documentData,
     setStatus,

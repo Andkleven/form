@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 import objectPath from "object-path";
-import { DocumentDataContext } from "components/form/Form";
+import { DocumentDataContext } from "../form/Form";
 export default (writeOnlyFieldIf, keyName) => {
   const { documentData, renderFunction } = useContext(DocumentDataContext);
   const [hidden, setHidden] = useState(false);

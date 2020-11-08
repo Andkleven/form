@@ -1,5 +1,5 @@
 import React from "react";
-import Copyright from "components/design/Copyright";
+import Copyright from "../design/Copyright";
 
 export default props => {
   return (

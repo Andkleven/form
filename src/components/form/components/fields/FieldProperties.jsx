@@ -7,11 +7,10 @@ import React, {
   useRef
 } from "react";
 import ReadField from "./ReadField";
-import ReadOnlyField from "components/form/components/fields/ReadOnlyField";
-import WriteField from "components/form/components/fields/WriteField";
+import ReadOnlyField from "./ReadOnlyField";
+import WriteField from "./WriteField";
 import objectPath from "object-path";
-import { DocumentDataContext, ChapterContext } from "components/form/Form";
-import Math from "functions/math";
+import { DocumentDataContext, ChapterContext } from "../../Form";
 import {
   getSubtext,
   findValue,
@@ -21,11 +20,12 @@ import {
   writeChapter,
   getProperties,
   removePathFunc
-} from "components/functions/general";
-import Subtitle from "components/design/fonts/Subtitle";
-import Line from "components/design/Line";
-import useHidden from "hooks/useHidden";
-import ViewPdf from "components/input/components/ViewPdf";
+} from "../../../functions/general";
+import Subtitle from "../../../design/fonts/Subtitle";
+import Line from "../../../design/Line";
+import useHidden from "../../../hooks/useHidden";
+import ViewPdf from "../../../input/components/ViewPdf";
+import { ConfigContext } from "../../../config.tsx";
 
 export default React.memo(({ ...props }) => {
   const {
@@ -35,6 +35,7 @@ export default React.memo(({ ...props }) => {
     resetState,
     mathStore
   } = useContext(DocumentDataContext);
+  const { mathCollection } = useContext(ConfigContext);
   const { editChapter, finalChapter } = useContext(ChapterContext);
   const getNewPath = useCallback(() => {
     if (props.type === "file") {
@@ -205,18 +206,18 @@ export default React.memo(({ ...props }) => {
       )
     ) {
       renderFunction.current[
-        `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+        `${getNewPath()}-${props.editRepeatStepListRepeat}-mathCollection`
       ] = minMax;
     }
     return () => {
       if (
         renderFunction.current[
-          `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+          `${getNewPath()}-${props.editRepeatStepListRepeat}-mathCollection`
         ]
       ) {
         // eslint-disable-next-line
         delete renderFunction.current[
-          `${getNewPath()}-${props.editRepeatStepListRepeat}-math`
+          `${getNewPath()}-${props.editRepeatStepListRepeat}-mathCollection`
         ];
       }
     };
@@ -245,7 +246,7 @@ export default React.memo(({ ...props }) => {
               props.editRepeatStepSubtextList
             )
           : props.mathSubtext
-          ? Math[props.mathSubtext](
+          ? mathCollection[props.mathSubtext](
               props.specData,
               props.repeatStepList,
               props.decimal ? props.decimal : 0,
@@ -391,12 +392,12 @@ export default React.memo(({ ...props }) => {
     return (
       <ReadField
         {...props}
-        key={`${props.indexId}-${props.index}-readField-math`}
+        key={`${props.indexId}-${props.index}-readField-mathCollection`}
         readOnly={true}
         path={getNewPath()}
         subtext={subtext}
         unit={unit.current}
-        value={Math[props.mathSpec](
+        value={mathCollection[props.mathSpec](
           props.specData,
           props.repeatStepList,
           props.decimal ? props.decimal : 0,
@@ -410,7 +411,7 @@ export default React.memo(({ ...props }) => {
     );
   } else if (props.viewPdf) {
     return <ViewPdf />;
-  } else if (props.math) {
+  } else if (props.mathCollection) {
     const commonProps = {
       ...props,
       key: `${props.indexId}-${props.index}`,
@@ -452,7 +453,7 @@ export default React.memo(({ ...props }) => {
       } else {
         return <ReadOnlyField {...commonProps} />;
       }
-    } else if ((!props.size && props.math) || props.size === "sm") {
+    } else if ((!props.size && props.mathCollection) || props.size === "sm") {
       if (
         writeChapter(
           props.allWaysShow,

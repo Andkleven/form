@@ -1,7 +1,7 @@
 import React from "react";
 import Tree from "explorer/components/Tree";
 import Link from "components/design/fonts/Link";
-import ItemGrid from "components/layout/ItemGrid";
+import ItemGrid from "layout/ItemGrid";
 import { Col, ProgressBar } from "react-bootstrap";
 import { progress, displayStage } from "functions/progress";
 import { useMutation } from "react-apollo";

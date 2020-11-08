@@ -7,8 +7,8 @@ import React, {
   useMemo,
   useLayoutEffect
 } from "react";
-import { ChapterContext, DocumentDataContext } from "components/form/Form";
-import Title from "components/design/fonts/Title";
+import { ChapterContext, DocumentDataContext } from "../Form";
+import Title from "../../design/fonts/Title";
 import {
   getRepeatNumber,
   isNumberAndNotNaN,
@@ -18,18 +18,18 @@ import {
   getRepeatStepList,
   isLastCharacterNumber,
   notShowSpec
-} from "components/functions/general";
+} from "../../functions/general";
 import objectPath from "object-path";
-import CustomComponents from "components/form/components/CustomElement";
-import Line from "components/design/Line";
-import TabButton from "components/button/TabButton";
-import FieldGroup from "components/form/components/fields/FieldGroup";
-import DepthButton from "components/button/DepthButton";
-import DepthButtonGroup from "components/button/DepthButtonGroup";
-import Subtitle from "components/design/fonts/Subtitle";
-import Input from "components/input/Input";
-import { dialog } from "components/div/Dialog";
-import useHidden from "hooks/useHidden";
+import CustomComponents from "./CustomElement";
+import Line from "../../design/Line";
+import TabButton from "../../button/TabButton";
+import FieldGroup from "./fields/FieldGroup";
+import DepthButton from "../../button/DepthButton";
+import DepthButtonGroup from "../../button/DepthButtonGroup";
+import Subtitle from "../../design/fonts/Subtitle";
+import Input from "../../input/Input";
+import { dialog } from "../../div/Dialog";
+import useHidden from "../..//hooks/useHidden";
 
 export default React.memo(
   ({

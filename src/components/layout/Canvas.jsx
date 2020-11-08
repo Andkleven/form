@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "components/layout/Header";
+import Header from "./Header";
 import Container from "react-bootstrap/Container";
-import Footer from "components/layout/Footer";
+import Footer from "./Footer";
 
 export default ({ showForm = true, ...props }) => {
   return (

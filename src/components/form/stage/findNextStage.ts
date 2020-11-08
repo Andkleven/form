@@ -1,4 +1,4 @@
-import stagesJson from "config/stages.json";
+import { useContext } from "react";
 import {
   findValue,
   emptyField,
@@ -6,6 +6,7 @@ import {
   getProductionLine,
   getProperties
 } from "../../functions/general.js";
+import { ConfigContext } from "../../config";
 
 export default (
   specData: object,
@@ -13,6 +14,7 @@ export default (
   stageType: string,
   chapters: object
 ): object => {
+  const { stages: stagesJson } = useContext(ConfigContext);
   stage = stage ? stage : stagesJson.all[0];
   let productionLin = getProductionLine(stageType);
   function nextStageFormat(index: number, step: number, layer: number): object {

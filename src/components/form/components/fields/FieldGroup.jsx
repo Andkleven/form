@@ -1,7 +1,7 @@
 import React from "react";
-import FieldProperties from "components/form/components/fields/FieldProperties";
-import Page from "components/form/components/Page";
-import { getProperties, notShowSpec } from "components/functions/general";
+import FieldProperties from "./FieldProperties";
+import Page from "../Page";
+import { getProperties, notShowSpec } from "../../../functions/general";
 
 export default props => {
   return props.fields.map((field, index) => {

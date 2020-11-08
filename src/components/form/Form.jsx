@@ -3,7 +3,8 @@ import React, {
   createContext,
   useCallback,
   useRef,
-  useEffect
+  useEffect,
+  useContext
 } from "react";
 import Chapters from "./components/Chapters";
 import objectPath from "object-path";
@@ -14,9 +15,7 @@ import { stringifyQuery, isStringInstance } from "../functions/general";
 import FindNextStage from "./stage/findNextStage.ts";
 import Loading from "../div/Loading";
 
-import { USER } from "constants.js";
-import mutations from "graphql/mutation";
-import query from "graphql/query";
+import { ConfigContext } from "../config.tsx";
 
 const cloneDeep = require("clone-deep");
 
@@ -109,8 +108,12 @@ export default React.memo(
     itemId,
     exitOnSave = false
   }) => {
+    if (!ConfigContext) {
+      console.error("Add app.js as props in config.tsx");
+    }
+    const { user, mutations, query } = useContext(ConfigContext);
     const stagesChapter = useRef({});
-    const userInfo = JSON.parse(localStorage.getItem(USER));
+    const userInfo = JSON.parse(localStorage.getItem(user));
     const [loading, setLoading] = useState(true);
     const timer = useRef();
     const [editChapter, setEditChapter] = useState(0);

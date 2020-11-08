@@ -5,16 +5,16 @@ import React, {
   useState,
   useEffect
 } from "react";
-import { RouteGuard } from "components/div/Dialog";
-import { DocumentDataContext, ChapterContext } from "components/form/Form";
+import { RouteGuard, dialog } from "../../../div/Dialog";
+import { DocumentDataContext, ChapterContext } from "../../Form";
 import objectPath from "object-path";
 // import Paper from "components/layout/Paper";
-import Input from "components/input/Input";
-import TinyButton from "components/button/TinyButton";
+import Input from "../../../input/Input";
+import TinyButton from "../../../button/TinyButton";
 // import Div100vh from "react-div-100vh";
-import LightLine from "components/design/LightLine";
-import Loading from "components/div/Loading";
-import CheckInput from "components/input/components/CheckInput";
+import LightLine from "../../../design/LightLine";
+import Loading from "../../../div/Loading";
+import CheckInput from "../../../input/components/CheckInput";
 import "styles/styles.css";
 import { Button, Row, Col, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,8 +28,7 @@ import {
   getSpecComment,
   stringifyQuery,
   getProperties
-} from "components/functions/general";
-import { dialog } from "components/div/Dialog";
+} from "../../../functions/general";
 // import { useParams } from "react-router-dom";
 
 const cloneDeep = require("clone-deep");

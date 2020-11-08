@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-import { DocumentDataContext, ChapterContext } from "components/form/Form";
-import Math from "functions/math";
-import { writeChapter } from "components/functions/general";
-import ReadField from "components/form/components/fields/ReadField";
+import { DocumentDataContext, ChapterContext } from "../../Form";
+import { writeChapter } from "../../../functions/general";
+import ReadField from "./ReadField";
+import { ConfigContext } from "../../../config.tsx";
 
 import "styles/styles.css";
 
 export default ({ backendData, ...props }) => {
+  const { mathCollection } = useContext(ConfigContext);
   const [value, setValue] = useState("");
   const { editChapter, finalChapter } = useContext(ChapterContext);
   const {
@@ -17,7 +18,7 @@ export default ({ backendData, ...props }) => {
     renderMath
   } = useContext(DocumentDataContext);
   const math = useCallback(() => {
-    const getValueFromMath = Math[props.math](
+    const getValueFromMath = mathCollection[props.math](
       documentData.current,
       props.repeatStepList,
       props.decimal ? props.decimal : 0,

@@ -17,6 +17,7 @@ import {
   reshapeStageSting
 } from "components/functions/general";
 import Loading from "components/div/Loading";
+import batchingList from "templates/batching.json";
 
 export default () => {
   const { stage, projectId, descriptionId, geometryDefault } = useParams();
@@ -88,6 +89,7 @@ export default () => {
     <Canvas>
       <Paper>
         <Batching
+          batchingList={batchingList}
           data={fixedData}
           json={
             newDescriptionId[0] && fixedData

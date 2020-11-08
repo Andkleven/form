@@ -11,7 +11,7 @@ import Line from "../design/Line";
 import { useSpring, animated, config } from "react-spring";
 import { use100vh } from "react-div-100vh";
 import Loading from "../div/Loading";
-import useOutsideClick from "hooks/useOutsideClick";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const queries = {
   description: gql`

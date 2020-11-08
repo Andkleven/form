@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import "styles/styles.css";
-import TinyButton from "components/button/TinyButton";
-import LightLine from "components/design/LightLine";
-import { convertDatetimeToString } from "components/functions/datetime";
+import TinyButton from "../../../button/TinyButton";
+import LightLine from "../../../design/LightLine";
+import { convertDatetimeToString } from "../../../functions/datetime";
 import {
   writeChapter,
   getProperties,
   getSpecComment
-} from "components/functions/general";
-import { DocumentDataContext, ChapterContext } from "components/form/Form";
+} from "../../../functions/general";
+import { DocumentDataContext, ChapterContext } from "../../Form";
 import objectPath from "object-path";
-import { dialog } from "components/div/Dialog";
+import { dialog } from "../../../div/Dialog";
 
 export default ({
   display = false,
