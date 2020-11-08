@@ -5,12 +5,12 @@ import {
   reshapeStageSting,
   camelCaseToNormal,
   allNull
-} from "components/functions/general";
+} from "../../functions/general";
 import operatorCoatedItemJson from "templates/operator";
-import Line from "components/design/Line";
-import findNextStage from "components/form/stage/findNextStage.ts";
-import CheckInput from "components/input/components/CheckInput";
-import LightLine from "components/design/LightLine";
+import Line from "../../design/Line";
+import findNextStage from "../../form/stage/findNextStage.ts";
+import CheckInput from "../../input/components/CheckInput";
+import LightLine from "../../design/LightLine";
 import batchingList from "templates/batching.json";
 
 export default props => {

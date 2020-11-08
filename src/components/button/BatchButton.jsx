@@ -1,5 +1,5 @@
 import React from "react";
-import DepthButton from "components/button/DepthButton";
+import DepthButton from "./DepthButton";
 import { InputGroup } from "react-bootstrap";
 
 export default ({ batchClick }) => {

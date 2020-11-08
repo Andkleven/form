@@ -1,5 +1,5 @@
 import React from "react";
-import roles from "../../config/roles.json";
+import roles from "config/roles.json";
 
 export default () => {
   return (

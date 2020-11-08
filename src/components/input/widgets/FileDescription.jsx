@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import Input from "components/input/Input";
-import ReadField from "components/form/components/fields/ReadField";
-import TinyButton from "components/button/TinyButton";
+import Input from "../../input/Input";
+import ReadField from "../../form/components/fields/ReadField";
+import TinyButton from "../../button/TinyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChapterContext } from "components/form/Form";
-import { writeChapter } from "components/functions/general";
+import { ChapterContext } from "../../form/Form";
+import { writeChapter } from "../../functions/general";
 
 export default ({ ...props }) => {
   const { finalChapter, editChapter } = useContext(ChapterContext);

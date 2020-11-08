@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
-import Loading from "components/div/Loading";
+import Loading from "../div/Loading";
 
 export default props => {
   const handleDelete = e => {

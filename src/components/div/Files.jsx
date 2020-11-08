@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
-import FetchData from "components/functions/fetchData";
+import FetchData from "../functions/fetchData";
 import { Modal, Row, Button, Col, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DepthButtonGroup from "components/button/DepthButtonGroup";
-import DepthButton from "components/button/DepthButton";
+import DepthButtonGroup from "../button/DepthButtonGroup";
+import DepthButton from "../button/DepthButton";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
-import Line from "components/design/Line";
+import Line from "../design/Line";
 import { useSpring, animated, config } from "react-spring";
 import { use100vh } from "react-div-100vh";
-import Loading from "components/div/Loading";
+import Loading from "../div/Loading";
 import useOutsideClick from "hooks/useOutsideClick";
 
 const queries = {

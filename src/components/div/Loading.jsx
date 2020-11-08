@@ -1,7 +1,7 @@
 import React from "react";
 import Div100vh from "react-div-100vh";
 import MoonLoader from "react-spinners/MoonLoader";
-import Dots from "components/design/Dots";
+import Dots from "../design/Dots";
 /**
  * Fullscreen loading that blocks user input
  * @param {bool} loading Optional conditional loading, if render is not conditional

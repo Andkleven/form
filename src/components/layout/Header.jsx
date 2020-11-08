@@ -7,7 +7,6 @@ import { getUser, getAccess } from "functions/user";
 import { camelCaseToNormal } from "components/functions/general";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useParams } from "react-router-dom";
-// import { ItemContext } from "components/contexts/ItemContext";
 import Repair from "components/repair/Repair";
 import Files from "components/div/Files";
 
@@ -24,8 +23,6 @@ export default props => {
 
   const [showRepair, setShowRepair] = useState(false);
   const [showFiles, setShowFiles] = useState(false);
-
-  // const { item } = useContext(ItemContext);
 
   const NavLink = ({
     title,

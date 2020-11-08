@@ -5,7 +5,7 @@ import {
   isNumber,
   getProductionLine,
   getProperties
-} from "components/functions/general.js";
+} from "../../functions/general.js";
 
 export default (
   specData: object,

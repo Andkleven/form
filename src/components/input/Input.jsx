@@ -1,25 +1,16 @@
 import React, { useState } from "react";
-// import {
-// isMobile,
-// isTablet,
-// isSafari,
-// isChrome,
-// isFirefox
-// } from "react-device-detect";
-// import Date from "components/input/components/Date";
-// import Datetime from "components/input/components/Datetime";
-import NativeInput from "components/input/components/NativeInput";
-import CheckInput from "components/input/components/CheckInput";
-import SelectInput from "components/input/components/SelectInput";
+
+import NativeInput from "./components/NativeInput";
+import CheckInput from "./components/CheckInput";
+import SelectInput from "./components/SelectInput";
 import objectPath from "object-path";
-// import Duplicate from "components/input/widgets/Duplicate";
 import { control } from "./functions/control.ts";
 import { Form } from "react-bootstrap";
 import { focusNextInput } from "./functions/general";
-import TinyButton from "components/button/TinyButton";
-import MultipleFiles from "components/input/components/MultipleFiles";
+import TinyButton from "../button/TinyButton";
+import MultipleFiles from "./components/MultipleFiles";
 import { useSpring, animated } from "react-spring";
-import FileInput from "components/input/components/FileInput";
+import FileInput from "./components/FileInput";
 
 const InputShell = ({
   noComment,

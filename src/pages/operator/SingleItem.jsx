@@ -16,7 +16,7 @@ import {
 import Title from "components/design/fonts/Title";
 import Canvas from "components/layout/Canvas";
 import gql from "graphql-tag";
-import { ItemContext } from "components/contexts/ItemContext";
+import { ItemContext } from "contexts/ItemContext";
 import { getAccess } from "functions/user.ts";
 import Overview from "components/layout/Overview";
 import stageAllJson from "config/stages.json";

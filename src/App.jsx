@@ -10,7 +10,7 @@ import Batching from "./pages/operator/Batching";
 import SingleItem from "./pages/operator/SingleItem";
 import Files from "components/div/Files";
 import { ProjectProvider } from "explorer/components/ProjectContext";
-import { ItemContext } from "components/contexts/ItemContext";
+import { ItemContext } from "contexts/ItemContext";
 import mutations from "graphql/mutation";
 import { useMutation } from "@apollo/react-hooks";
 import "styles/icons";
